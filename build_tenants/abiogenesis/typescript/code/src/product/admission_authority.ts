@@ -23,7 +23,7 @@ import { projectOwnedPrefixArtifactTruth } from "../abg/artifact_truth.js";
 import { assertDurableRuntimePrefixCurrent, assertHeldEventStoreAtDurablePrefix, captureDurablePrefixCoordinate, validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
 import { isVerifiedProductArtifact, selectOwnedProductVerification, verifyProduct } from "./verify_product.js";
 import { constructAdmissionCapabilityGrants, type CapabilityGrant } from "./invocation.js";
-import { productInstallCoordinate } from "./environment.js";
+import { productInstallCoordinate, resolvedLockMatchesExecutingToolchain } from "./environment.js";
 import type { VerifiedProductArtifact } from "./contracts.js";
 import { readExecutingToolchainIdentity } from "./declaration_exports.js";
 import { selectIntrinsicPublicFunctionDefinition } from "../public/binding/public_function_family.js";
@@ -474,8 +474,12 @@ async function admitAdmissionCapabilityBasis(
   if (scoped.kind !== "ok") return scoped;
   const owner = checkOwnerArtifact(data.ownerArtifact, await observeOwnerArtifact(data.ownerArtifact));
   if (owner.kind !== "ok") return owner;
-  const executing = checkExecutingOwner(owner.value, await observeExecutingToolchainIdentity());
+  const observedExecuting = await observeExecutingToolchainIdentity();
+  const executing = checkExecutingOwner(owner.value, observedExecuting);
   if (executing.kind !== "ok") return executing;
+  if (boundEnvironment.value !== null && basis.fixedPacket.metadata.eventAdmission !== "none" &&
+      !resolvedLockMatchesExecutingToolchain(boundEnvironment.value.resolvedProductLock,
+        owner.value.productContentDigest)) return ENVIRONMENT_UNADMITTED;
   const verified = executing.value;
   // Share only owner-built immutable bodies; caller wrappers are not retained.
   return ok({ data: deepFreeze({ ...data, ownerArtifact: { ...data.ownerArtifact, verified } }),

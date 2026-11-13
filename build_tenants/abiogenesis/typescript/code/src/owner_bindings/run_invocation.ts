@@ -40,6 +40,7 @@ import {
   hasAdmittedProductInstall,
   projectAdmittedProductInstall,
   projectAdmittedWorkspaceBinding,
+  boundWorkspaceMatchesExecutingToolchain,
   type PublicOperationAdmissionBasis,
 } from "../abg/environment_admission.js";
 import {
@@ -708,7 +709,10 @@ function projectSetupTruth(
       catalog.readinessBasis.workspaceBinding,
     );
     return admittedInstalls.some((install) => install === null) ||
-        workspaceBinding === null
+        workspaceBinding === null ||
+        !boundWorkspaceMatchesExecutingToolchain(prefix, {
+          ref: workspaceBinding.bindingId, digest: workspaceBinding.bindingDigest,
+        })
       ? null
       : deepFreeze({
           artifactTruth,

@@ -28,7 +28,7 @@ import {
 import { deepFreeze } from "../shared/immutable.js";
 import { isNonBlankRef } from "../shared/references.js";
 import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
-import { projectAdmittedWorkspaceProductInstall } from "./environment_admission.js";
+import { projectAdmittedWorkspaceProductInstall, boundWorkspaceMatchesExecutingToolchain } from "./environment_admission.js";
 import {
   hasAdmittedExecutionBasisAtPrefix,
   hasAdmittedImplementationSetAtPrefix,
@@ -609,6 +609,9 @@ function admitResultCandidate(
   );
   if (
     installed === null ||
+    !boundWorkspaceMatchesExecutingToolchain(supplied.artifactTruth.prefix, {
+      ref: supplied.executionBasis.workspaceBindingId, digest: supplied.executionBasis.workspaceBindingDigest,
+    }) ||
     installed.install.packageName !== admittedResolution.packageName ||
     installed.install.packageVersion !== admittedResolution.packageVersion ||
     capability.publicationDigest !==

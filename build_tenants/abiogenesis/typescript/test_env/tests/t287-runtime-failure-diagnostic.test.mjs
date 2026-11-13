@@ -938,6 +938,9 @@ test('the retry-resume HoG site records the nested route_mismatch subject inline
       cCall: { transitionContractRef: 'contract://transition' }, progress: {} };
     const target = { ...p.cursor };
     const lifecycle = await sourceOwner('hog/retry_lifecycle', {
+      // This diagnostic fixture controls its admitted runtime premises. TD-78's
+      // installed lane separately proves the real selected-binding entry gate.
+      '../abg/environment_admission.js': { boundWorkspaceMatchesExecutingToolchain: () => true },
       '../abg/retry.js': {
         planRetryRuntimeFailureTransition: () => ({ kind: 'retry_runtime_failure_transition_plan', transition: { disposition: 'retry' } }),
         admitRetryRuntimeFailureTransition: () => ({ kind: 'retry_runtime_failure_transition_admission', successorPrefix: durable,

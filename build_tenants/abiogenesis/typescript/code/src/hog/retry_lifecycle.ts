@@ -1,4 +1,5 @@
 import * as Abg from "../abg/index.js";
+import { boundWorkspaceMatchesExecutingToolchain } from "../abg/environment_admission.js";
 import type { RuntimeAdmissionBasis } from "../abg/execution_basis.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import { projectOwnedRuntimeEventPrefixAtDurablePrefix } from "../abg/event_prefix.js";
@@ -222,6 +223,12 @@ function projectedRetryRefusal(
 export function resumeProjectedRetry(
   request: ResumeProjectedRetryRequest,
 ): ProjectedRetryResumeResult {
+  if (!boundWorkspaceMatchesExecutingToolchain(request.predecessorPrefix, {
+    ref: request.runtime.executionBasis.workspaceBindingId,
+    digest: request.runtime.executionBasis.workspaceBindingDigest,
+  })) return projectedRetryRefusal(request, "runtime_basis_mismatch",
+    "retry resume requires the selected bound toolchain",
+    { workspaceBindingId: request.runtime.executionBasis.workspaceBindingId });
   let fresh: AbgRetry.ProjectExecutableRetryInputResult;
   try {
     fresh = AbgRetry.projectOwnedExecutableRetryInput({

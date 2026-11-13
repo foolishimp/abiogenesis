@@ -36,6 +36,7 @@ import {
 import {
   hasAdmittedProductInstall,
   hasAdmittedWorkspaceBinding,
+  boundWorkspaceMatchesExecutingToolchain,
 } from "./environment_admission.js";
 import {
   AbgEventStore,
@@ -131,6 +132,9 @@ export function admitFhInteractionOpen(
       productBasis.artifactTruth,
       productBasis.workspaceBinding,
     ) ||
+    !boundWorkspaceMatchesExecutingToolchain(productBasis.artifactTruth.prefix, {
+      ref: productBasis.workspaceBinding.bindingId, digest: productBasis.workspaceBinding.bindingDigest,
+    }) ||
     productBasis.catalogView.kind !== "graph_function_catalog_view" ||
     cCall.regime !== "F_H" ||
     cCall.actorCapabilityRef === null ||
@@ -314,6 +318,9 @@ export function admitOwnedFhInteractionHold(
   input: Readonly<OwnedAdmitFhInteractionHoldInput>,
 ): FhInteractionHoldAdmission {
   assertHeldEventStoreAtDurablePrefix(input.store,input.predecessorPrefix);
+  if (!boundWorkspaceMatchesExecutingToolchain(input.predecessorPrefix, {
+    ref: input.productBasis.workspaceBinding.bindingId, digest: input.productBasis.workspaceBinding.bindingDigest,
+  })) throw new TypeError("F_H continuation requires one exact admitted pending interaction basis");
   const predecessorPrefix = selectRuntimeEventPrefixFromStore(input.store);
   const cCall = input.pendingPlan.pending.cCall;
   const evidence = input.routeCandidate.transitionClass === "route"

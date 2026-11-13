@@ -16,7 +16,9 @@ import {
   isExactWorkspaceBinding,
   isProductInstallCandidateInResolvedLock,
   isWorkspaceBindingCandidateInResolvedLock,
+  resolvedLockMatchesExecutingToolchain,
 } from "../product/environment.js";
+import { installedToolchainProductContentDigest } from "../product/declaration_exports.js";
 import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
@@ -619,6 +621,17 @@ export function projectWorkspaceEnvironmentFromArtifactTruth(
   return wrapper;
 }
 const ENVIRONMENT_WRAPPERS = new WeakMap<ExactPrefixArtifactTruthProjection, Map<string, ExactPrefixWorkspaceEnvironment>>();
+
+/** @internal Admission/effect boundary only; reconstruction and pure reads
+ * keep their existing strict or recorded question without executing identity. */
+export function boundWorkspaceMatchesExecutingToolchain(
+  prefix: DurablePrefixCoordinate,
+  binding: ReferenceDigest<WorkspaceBinding>,
+): boolean {
+  const environment = projectExactPrefixWorkspaceEnvironment(prefix, binding);
+  return environment.kind === "exact_prefix_workspace_environment" &&
+    resolvedLockMatchesExecutingToolchain(environment.resolvedProductLock, installedToolchainProductContentDigest());
+}
 
 /** Under the strict question, an environment whose causal installs hold a lock
  * that answers only the recorded question is refused with the existing code

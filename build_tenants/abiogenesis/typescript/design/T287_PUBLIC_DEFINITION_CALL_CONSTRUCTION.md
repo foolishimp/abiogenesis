@@ -55,6 +55,64 @@ the current reader's catalog; neither catalog substitutes for the other.
 Current exact ingress, supported event/profile/language admission, source
 digest/currentness, typed absence/refusal and no-append closure remain binding.
 
+## Selected bound toolchain at work admission (T-292 TD-78)
+
+Under `REQ-P-CATALOG-013` and `REQ-R-ABG3-RUN-010`, new bound work uses the
+executing ABIogenesis Product only when its Product content digest equals the
+ABI toolchain row in the exact lock selected by that operation's admitted
+WorkspaceBinding. Name/version equality does not establish this relation. A
+store may retain several installs, locks and bindings; a different binding in
+that store supplies no authority for this operation.
+
+The identity relation remains at the Product owner:
+`product/declaration_exports.ts::toolchainProductContentMatches`, shared by
+native lock linking and its retained-result shortcut. The operation's
+authenticated lock supplies the selected ABI row through
+`product/environment.ts::resolvedLockMatchesExecutingToolchain`. The ABG
+environment owner supplies the operation's exact binding and causal lock;
+`boundWorkspaceMatchesExecutingToolchain` is used only at admission/effect
+boundaries, not in generic projections or TD-77's strict/recorded predicates.
+
+The Run owner's shared setup checks start, direct invoke and pending-execution
+continuation before any append or leaf effect. Bound admission-authority
+operations whose existing metadata declares event admission check after
+executing-owner verification and before the fixed owner is entered. The
+verified owner content digest is then already equal to the observed executing
+digest. This covers materialization, result assessment, witness and release
+effects without imposing the relation on pure catalog/conformance operations.
+Public setup operations forbid an input binding and keep their existing law.
+
+Independent ABG work entries (invocation, root/child execution basis, traversal
+opening, invocation refusal, F_H/pending continuation, actor dispatch and
+probabilistic-result admission) apply the same selected-binding relation at
+their existing admission boundary. Existing refusal codes are retained;
+refusal happens before new rows or effects. Rehydration of admitted facts and
+historical read-only paths remain independent of executing Product identity.
+The direct HoG `executeGraphTraversal`/Effect and `resumeProjectedRetry` entries
+also check before entering or resuming work. The former returns its existing
+`owner_refusal`; the latter its existing `runtime_basis_mismatch`.
+
+Executive's bounded owner ruling retains the ongoing runtime primitives under
+these admitted entries and their existing owned basis/scope invariants. They
+do not each gain another executing-identity guard. Product `SDK And CLI`
+forbids public hosts from constructing execution bases, events, retries or
+continuations; a kernel export alone is not another independent Public
+operation. A retained Public or admitted GraphFunction binding that independently
+enters an ungated primitive would be a concrete bypass requiring owner re-entry.
+
+```text
+operation -> ABG environment: authenticated prefix + exact selected binding
+ABG environment -> Product identity: causal lock's ABI row + executing digest
+operation -> existing append/effect owner: only on identity and admission
+historical read -> existing recorded projection: no executing identity test
+```
+
+This repairs a missing admission relation under stable requirements. It adds
+no Public member, request/result/refusal schema, runtime event, store policy,
+provider dispatch or migration of recorded Runs. TD-78's Return binds the
+finite boundary census, same-version changed-byte discriminator, installed
+positive execution, exact continuation and cross-build read proof.
+
 ## Owner-derived native call typing (HC1)
 
 Root accepted this HOW re-entry on 2026-11-03 under the owner's explicit implementation authorization and operative STDO3.0.2. Source6027d03 is preserved custody, not accepted014. HC1, HC2 and the later practical proof are sequential increments of the existing RC4 goal; HC1 alone does not close the authorized consolidation.

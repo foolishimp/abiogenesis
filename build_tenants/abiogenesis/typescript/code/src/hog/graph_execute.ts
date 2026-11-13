@@ -2,6 +2,7 @@ import { projectPendingCursorInputAtPrefix, projectPendingExecutionContinuations
   rematerializeAdmittedBasisGraph } from "../abg/construction_continuation.js";
 import { projectOpenedCCallCarrierAtPrefix } from "../abg/c_call.js";
 import { rehydrateExecutionBasisAtPrefix } from "../abg/execution_basis.js";
+import { boundWorkspaceMatchesExecutingToolchain } from "../abg/environment_admission.js";
 import { projectOpenedTraversalScopeForFrameAtPrefix } from "../abg/open_call.js";
 import { isRecord } from "../shared/admit/index.js";
 import * as Cause from "effect/Cause";
@@ -1046,6 +1047,14 @@ function traversalProgram(
     ExecuteOwnedGraphTraversalResult,
     GraphTraversalFailure
   > => {
+    const runtime = "pendingExecutionResume" in input ? input.root : input;
+    if (!boundWorkspaceMatchesExecutingToolchain(runtime.predecessorPrefix, {
+      ref: runtime.executionBasis.workspaceBindingId, digest: runtime.executionBasis.workspaceBindingDigest,
+    })) return Effect.succeed(refuseTraversalEntry({
+      code: "owner_refusal", message: "traversal requires the selected bound toolchain",
+      diagnosticRef: "diagnostic://abiogenesis/hog/bound-toolchain-mismatch@5",
+      candidate: { workspaceBindingId: runtime.executionBasis.workspaceBindingId },
+    }));
     if ("pendingExecutionResume" in input) {
       return Effect.flatMap(Effect.promise(() => pendingExecutionState(input)),
         (state): Effect.Effect<ExecuteOwnedGraphTraversalResult, GraphTraversalFailure> =>
