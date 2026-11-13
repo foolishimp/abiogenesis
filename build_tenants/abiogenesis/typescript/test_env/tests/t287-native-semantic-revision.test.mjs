@@ -296,11 +296,7 @@ test('native D2 root-backed binding cover authenticates source ancestry and pres
  const {grantRef:ignoredGrant,grantDigest:ignoredGrantDigest,...oldGrant}=env.capabilityGrant,grantBody={...oldGrant,scopeRef:currentBinding.bindingId,scopeDigest:currentBinding.bindingDigest};
  const grantDigest=hash(Object.fromEntries(Object.entries(grantBody).filter(([key])=>!['kind','schemaVersion'].includes(key))));
  const current={workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:currentBinding,capabilityGrant:{...grantBody,grantRef:'capability-grant://abiogenesis/'+grantDigest.slice(7),grantDigest}};
- for(const w of [env.workspaceBinding,currentBinding]){
-  const e=cover.event('public_operation_artifact_admitted',{}, {eventId:w.admissionEventRef,aggregateId:w.bindingId});
-  const {kind:ignored,admissionEventRef,...body}=w;
-  cover.artifacts.push({operationId:'abg.operation.workspace.bind',authorityScopeRef:w.bindingId,authorityScopeDigest:w.bindingDigest,admissionEventRef,admissionOrdinal:e.admissionOrdinal,artifact:{kind:'workspace_binding_candidate',...body},workspaceAuthorityBasis:env.workspaceAuthorityBasis});
- }
+ for(const worksite of [env,current])cover.addBinding(worksite);
  let coverCalls=0;
  const h=await harness(env,{current,cover:(_prefix,before,after,bases)=>{coverCalls++;return cover.owner.projectWorksiteRevisionBindingCover(cover.snapshot(),before,after,bases);}});
  const root=h.original,mid={...root,basisRef:'component:intermediate',basisDigest:hash('intermediate'),parentExecutionBasisRef:root.basisRef,admissionEventRef:'component:mid-admission'};
@@ -362,12 +358,7 @@ test('native D2 rejected assessor-only correction follows exact conserved reques
  const {bindingHarness}=await import('../support/d2-binding-harness.mjs'),cover=await bindingHarness();
  cover.events.length=0;cover.artifacts.length=0;cover.bases.clear();
  const workspaces=[env,authorW,assessmentW,currentW];
- for(const operating of workspaces){const w=operating.workspaceBinding;
-  const e=cover.event('public_operation_artifact_admitted',{}, {eventId:w.admissionEventRef,aggregateId:w.bindingId});
-  const {kind,admissionEventRef,...body}=w;
-  cover.artifacts.push({operationId:'abg.operation.workspace.bind',authorityScopeRef:w.bindingId,authorityScopeDigest:w.bindingDigest,
-   admissionEventRef,admissionOrdinal:e.admissionOrdinal,artifact:{kind:'workspace_binding_candidate',...body},workspaceAuthorityBasis:env.workspaceAuthorityBasis});
- }
+ for(const worksite of workspaces)cover.addBinding(worksite);
  let invalidated=false;const consulted=[],coverCalls=[];
  const h=await harness(env,{current:currentW,onLeafLookup:ref=>consulted.push(ref),invalidated:()=>invalidated,
   historicalEnvironment:(_prefix,c)=>{const prior=workspaces.find(w=>w.workspaceBinding.bindingId===c.ref&&w.workspaceBinding.bindingDigest===c.digest);

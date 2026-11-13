@@ -18,6 +18,7 @@ export async function bindingHarness(){
   const eventOwner=await load('build/code/src/abg/event_store.js');
   const {WITNESS_CONTENT_CONTRACTS:contracts}=await load('build/code/src/abg/witness_admission_operation.js');
   const hash=product.sha256Canonical,stage=capturedEnvelope(),events=[],bases=new Map(),sets=new Map(),invocations=new Map(),artifacts=[],transitions=new Map(),calls=new Map();
+  const installPremises=new Map();
   const graphFunction={name:'graph-function://mechanical/d2',declarations:{'abg.semantic_revision_history':R.historicalOwnerDependencyRef}};
   const time='2026-09-11T08:00:00.000Z';let serial=0,physicalReads=0;
   function event(kind,payload,fields={}){
@@ -26,12 +27,26 @@ export async function bindingHarness(){
   }
   function snapshot(){return {assumption:'lookup-only, not an ABG admitted prefix',events:structuredClone(events)};}
   function present(prefix,eventRef){return prefix.events.some(e=>e.eventId===eventRef);}
-  function addBinding(worksite){
+  // ArtifactTruth's causal-install and retained strict answer are one explicit
+  // lookup premise. These markers are not runtime events or an admitted log;
+  // the real fold must never be asked to establish facts from this fixture.
+  function addBinding(worksite,{lockAnswersStrict=true}={}){
     const binding=worksite.workspaceBinding,{kind:_kind,admissionEventRef,...body}=binding;
-    const e=event('public_operation_artifact_admitted',{}, {eventId:admissionEventRef,aggregateId:binding.bindingId});
+    const install=event('lookup_install_premise',{lockId:binding.lockId,lockDigest:binding.lockDigest},
+      {eventId:`lookup-install:${admissionEventRef}`,aggregateId:binding.lockId});
+    installPremises.set(install.eventId,{lookupDigest:hash(install),lockAnswersStrict});
+    const e=event('public_operation_artifact_admitted',{}, {eventId:admissionEventRef,aggregateId:binding.bindingId,causationEventRefs:[install.eventId]});
     const row={operationId:'abg.operation.workspace.bind',authorityScopeRef:binding.bindingId,authorityScopeDigest:binding.bindingDigest,
-      admissionEventRef,admissionOrdinal:e.admissionOrdinal,artifact:{kind:'workspace_binding_candidate',...body},workspaceAuthorityBasis:worksite.workspaceAuthorityBasis};
+      admissionEventRef,admissionOrdinal:e.admissionOrdinal,causationEventRefs:[...e.causationEventRefs],
+      artifact:{kind:'workspace_binding_candidate',...body},workspaceAuthorityBasis:worksite.workspaceAuthorityBasis};
     artifacts.push(row);return row;
+  }
+  function lookupInstallLocksAnswerStrictAtPrefix(prefix,refs){
+    if(!Array.isArray(prefix?.events)||!Array.isArray(refs)||refs.length===0)return false;
+    return refs.every(ref=>{
+      const premise=installPremises.get(ref),matches=prefix.events.filter(e=>e.eventId===ref);
+      return premise?.lockAnswersStrict===true&&matches.length===1&&hash(matches[0])===premise.lookupDigest;
+    });
   }
   function operating(worksite,name){
     const {kind,schemaVersion,bindingId,bindingDigest,admissionEventRef,...oldBody}=worksite.workspaceBinding;
@@ -168,7 +183,8 @@ export async function bindingHarness(){
     './invocation_execution_truth.js':{projectExactExecutionBasisAtPrefix:(p,ref)=>{const b=bases.get(ref);return b&&present(p,b.admissionEventRef)?b:null;},
       projectExactInvocationAdmissionAtPrefix:(_p,ref)=>invocations.get(ref)??null},
     './execution_basis.js':{rehydrateAdmittedImplementationSetAtPrefix:(_p,ref)=>sets.get(ref)??null},
-    './artifact_truth.js':{projectArtifactTruth:p=>({artifacts:artifacts.filter(row=>present(p,row.admissionEventRef))})},
+    './artifact_truth.js':{projectArtifactTruth:p=>({artifacts:artifacts.filter(row=>present(p,row.admissionEventRef))}),
+      admittedInstallLocksAnswerStrictAtPrefix:lookupInstallLocksAnswerStrictAtPrefix},
     './c_call.js':{projectAdmittedCCallStateAtPrefix:(_p,cCall,result,judgment)=>({cCall,result,judgment})},
     './event_calculus.js':{deriveRuntimeHeldFluentProjection:p=>p,constructWorksiteObservationCurrentFluent:ref=>ref,
       holdsAt:(p,ref)=>!p.events.some(e=>transitions.get(e.eventId)?.before===ref),projectWorksiteTransitionForResult:e=>transitions.get(e.eventId)??null},
@@ -243,5 +259,5 @@ export async function bindingHarness(){
     return semanticModule.namespace[method](semanticBasis,value);
   }
   return {product,R,D,C0,hash,stage,events,bases,sets,invocations,artifacts,transitions,calls,graphFunction,owner:module.namespace,parent,cause,author,
-    event,snapshot,operating,reobserve,addCall,cover,replace,revision,semantic,get physicalReads(){return physicalReads;}};
+    event,snapshot,addBinding,operating,reobserve,addCall,cover,replace,revision,semantic,get physicalReads(){return physicalReads;}};
 }

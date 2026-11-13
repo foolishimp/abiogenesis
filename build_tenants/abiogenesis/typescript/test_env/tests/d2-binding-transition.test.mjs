@@ -334,3 +334,29 @@ test('mechanical evidence-input gate resolves a real Product new-C2 carrier thro
   assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,selection,current.workspaceBinding),'covered');
   observed.fibre.payload.implementationRef='implementation://foreign';assert.equal(gate(),'basis_fork_detected');
 });
+
+test('mechanical binding lookup requires exact causal-install premises and their strict answer',{skip:capturedEnvelopeSkip},async()=>{
+  const h=await bindingHarness(),binding=h.stage.worksite.workspaceBinding;
+  const row=h.artifacts.find(value=>value.admissionEventRef===binding.admissionEventRef),refs=[...row.causationEventRefs];
+  const project=(prefix=h.snapshot(),question)=>h.owner.projectAdmittedWorkspaceBindingAtCoordinate(prefix,binding.bindingId,binding.bindingDigest,question);
+  assert.deepEqual(project(),binding,'positive premise reaches the real binding accessor under its default strict question');
+  delete row.causationEventRefs;
+  assert.equal(project(),null,'absent causal-install references cannot supply strict truth');
+  row.causationEventRefs=[];
+  assert.equal(project(),null,'empty causal-install references cannot supply strict truth');
+  row.causationEventRefs=[...refs,'lookup-install:foreign'];
+  assert.equal(project(),null,'every reference must resolve to a supplied install premise');
+  row.causationEventRefs=refs;
+  const absent=h.snapshot();absent.events=absent.events.filter(e=>!refs.includes(e.eventId));
+  assert.equal(project(absent),null,'a known install absent from this exact prefix cannot be borrowed');
+  const crossed=h.snapshot();crossed.events.find(e=>e.eventId===refs[0]).payload.lockDigest=h.hash('foreign lock');
+  assert.equal(project(crossed),null,'a matching reference with foreign lookup bytes is not the supplied premise');
+  const duplicate=h.snapshot();duplicate.events.push(structuredClone(duplicate.events.find(e=>e.eventId===refs[0])));
+  assert.equal(project(duplicate),null,'an ambiguous install lookup cannot supply the strict answer');
+  assert.deepEqual(project(JSON.parse(JSON.stringify(h.snapshot()))),binding,'an exact copied prefix retains its premise');
+  h.events.length=0;h.artifacts.length=0;
+  h.addBinding(h.stage.worksite,{lockAnswersStrict:false});
+  assert.equal(project(),null,'a recorded-only install premise cannot authorize new work');
+  assert.deepEqual(project(h.snapshot(),'recorded'),binding,'the existing recorded read still selects the same binding');
+  assert.equal(h.physicalReads,0);
+});
