@@ -2301,88 +2301,8 @@ test("ST-1 starts the developer mini Product's graph_function and published asse
     rootMode: "direct",
   });
 
-  // A graph_function START is a direct start (REQ-P-POLICY-013). Under the
-  // supervised One Surface Program the start-law owner refuses it exactly as it
-  // refuses a direct `next` START there, whatever root mode the caller states.
-  // The handle is an exact member, so the refusal is the policy's.
-  const oneSurfaceView = product.narrowGraphFunctionCatalog(catalog, [ids.oneSurfaceGraphFunctionRef]);
-  assert.equal(oneSurfaceView.kind, "graph_function_catalog_view", JSON.stringify(oneSurfaceView));
-  assert.ok(
-    product.lookupGraphFunction(oneSurfaceView, ids.oneSurfaceGraphFunctionRef)
-      ?.programMembershipRefs.includes(ids.oneSurfaceProgramRef),
-    "the handle is an exact catalog member of the supervised Program",
-  );
-  const verifyInstallAdmission = (install) =>
-    abg.hasAdmittedProductInstall(environment.artifactTruth, install);
-  const resolveOneSurface = (selection) => product.ProductExecutionResolutionPort.resolve({
-    catalog, catalogView: oneSurfaceView, admittedInstalls, verifyInstallAdmission,
-    programRef: ids.oneSurfaceProgramRef, selection,
-  });
-  // Small projections only: a loaded resolution or call is too large to print.
-  const resolutionOutcome = (value) => value.kind === "product_execution_resolution_refusal"
-    ? { kind: value.kind, code: value.code, stage: value.stage, message: value.message }
-    : { kind: value.kind };
-  const startOutcome = (value) => ({
-    kind: value.kind,
-    outcomeKind: value.ownerOutput?.outcomeKind ?? null,
-    code: value.ownerOutput?.value?.code ?? null,
-    issuePaths: value.ownerOutput?.value?.issuePaths ?? null,
-  });
-  const byHandle = await resolveOneSurface({ kind: "direct", catalogHandle: ids.oneSurfaceGraphFunctionRef });
-  assert.deepEqual(resolutionOutcome(byHandle), { kind: "loaded_product_execution_resolution" });
-  assert.equal(byHandle.program.policies["abg.root_mode"], "supervised");
-  const nextRefusal = resolutionOutcome(
-    await resolveOneSurface({ kind: "start", scope: "program", target: "next", until: "converged", rootMode: "direct" }),
-  );
-  assert.equal(nextRefusal.kind, "product_execution_resolution_refusal");
-  const supervisedLogBytes = await readFile(new URL(caller.state.closeHandoff.prefix.eventLogRef));
-  const supervisedStart = (target, rootMode) => publicApi.constructInstalledStartCall({
-    selection: Object.freeze({ memberKey: "start", target, rootMode, fhMode: "direct" }),
-    programRef: ids.oneSurfaceProgramRef,
-    catalog,
-    catalogView: oneSurfaceView,
-    applications: Object.freeze([]),
-    admittedInstalls,
-    workspaceBinding,
-    verifyInstallAdmission,
-    actorRef: workspaceBinding.authorizedActorRef,
-    input: Object.freeze({ value: ticketInput }),
-    inputValueRef: "value://abi5-tests/st-1-developer-mini/supervised-start-input",
-    source: Object.freeze({ kind: "none" }),
-    eventResource: reopenedReadResource(product, caller.state.closeHandoff),
-    envelope: Object.freeze({
-      definitionContractCoordinates: environment.verified.definitionContractCoordinates,
-      requestRef: "public-request://abi5-tests/st-1-developer-mini/supervised-start",
-      correlationRef: "correlation://abi5-tests/st-1-developer-mini/supervised-start",
-      eventTime: "2026-08-24T00:00:00.000Z",
-      provenanceRefs: ["provenance://abi5-tests/st-1-developer-mini-worker"],
-    }),
-  });
-  const nextStart = await supervisedStart(Object.freeze({ kind: "next" }), "direct");
-  assert.deepEqual(startOutcome(nextStart), {
-    kind: "product_run_invocation_preparation_refusal",
-    outcomeKind: "refusal",
-    code: "invalid_target",
-    issuePaths: ["/program"],
-  });
-  for (const rootMode of ["direct", "supervised"]) {
-    const graphFunction = await resolveOneSurface({ kind: "start", scope: "program", target: "graph_function",
-      graphFunctionHandle: ids.oneSurfaceGraphFunctionRef, until: "converged", rootMode });
-    assert.deepEqual(resolutionOutcome(graphFunction), nextRefusal,
-      `${rootMode}: the graph_function START gets the direct START refusal`);
-    const refused = await supervisedStart(
-      Object.freeze({ kind: "graph_function", handle: ids.oneSurfaceGraphFunctionRef }),
-      rootMode,
-    );
-    assert.deepEqual(startOutcome(refused), startOutcome(nextStart),
-      `${rootMode}: the Public refusal is the direct START refusal`);
-    assert.deepEqual(refused.ownerOutput, nextStart.ownerOutput);
-  }
-  assert.equal(
-    Buffer.compare(await readFile(new URL(caller.state.closeHandoff.prefix.eventLogRef)), supervisedLogBytes),
-    0,
-    "refused supervised STARTs append zero bytes",
-  );
+  // Supervised by-handle resolution and START refusals are kept in
+  // t292-td26-ps-default-root-mode on its ordinary supervised Program.
 
   // The published asset target is the Program's own predeclared handle.
   const assetTarget = Object.freeze({
@@ -2440,6 +2360,6 @@ test("ST-1 starts the developer mini Product's graph_function and published asse
     "Welcome ST1.",
   );
   context.diagnostic(
-    "ST-1 developer mini: 1 installed setup, 1 qualification graph_function START with 1 zero-byte input refusal, 2 zero-byte supervised graph_function START refusals, 1 shipped-factory published asset START",
+    "ST-1 developer mini: 1 installed setup, 1 qualification graph_function START with 1 zero-byte input refusal, 1 shipped-factory published asset START; supervised by-handle and START law proved in t292-td26-ps-default-root-mode",
   );
 });

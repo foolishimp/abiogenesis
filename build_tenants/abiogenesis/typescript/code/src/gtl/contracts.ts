@@ -104,17 +104,11 @@ export interface ProgramStart extends structure.ContractValue<typeof structure.P
 
 export interface ProgramPublicAssetTarget extends structure.ContractValue<typeof structure.PROGRAM_PUBLIC_ASSET_TARGET_SCHEMA> {}
 
-export type GtlActionCatalogRow = structure.ContractValue<typeof structure.ACTION_CATALOG_ROW_SCHEMA> & {};
 
-export interface GtlActionCatalog extends structure.ContractValue<typeof structure.ACTION_CATALOG_SCHEMA> {}
 
-export type GtlConstructionSemanticAuthority = GtlConstructionAuthorityBinding["semanticAuthority"];
 
-export interface GtlConstructionAuthorityBinding extends structure.ContractValue<typeof structure.CONSTRUCTION_AUTHORITY_BINDING_SCHEMA> {}
 
-export interface GtlConstructionPolicy extends structure.ContractValue<typeof structure.CONSTRUCTION_POLICY_SCHEMA> {}
 
-export interface GtlConstructionComposition extends structure.ContractValue<typeof structure.CONSTRUCTION_COMPOSITION_SCHEMA> {}
 
 export interface GtlProgram extends structure.ContractValue<typeof structure.GTL_PROGRAM_SCHEMA> {}
 

@@ -63,15 +63,15 @@ test("consumer callable membership resolves exact borrowed owners without contri
     refused.push({ variant, result });
   }
 
-  // The recorded readiness basis is from 5.0.0-dev.286, whose shipped conformance module
-  // carries a gate application; catalog.admit admits a new Catalog under the current
-  // language and refuses that application at raw admission.
+  // Historical reconstruction above preserves this exact recorded Catalog. New
+  // admission uses the current language: its inactive Consensus Program now
+  // refuses on the retired key, before the previously refused gate application.
   const admission = product.CatalogOperationPort.admit({ kind: "catalog_admit_packet", schemaVersion: "5.0.0",
     memberKey: "admit", readinessBasis: supplied.catalog.readinessBasis });
   assert.equal(admission.kind, "catalog_validation_refusal", JSON.stringify(admission));
   assert.equal(admission.validation.code, "invalid_kind", JSON.stringify(admission));
-  assert.match(admission.validation.message,
-    /^\$\/graphFunctions\/12\/template\/applications\/0\/relationKind: Invalid type: .* but received "gate"$/u);
+  assert.equal(admission.validation.message,
+    '$/programs/0/actionCatalog: Invalid key: Expected never but received "actionCatalog"');
   if (process.env.ABI5_STEEL03_CLOSURE_PROOF_PATH) {
     await writeFile(process.env.ABI5_STEEL03_CLOSURE_PROOF_PATH, JSON.stringify({
       disposition: "retained_closure_discriminator_passed", callSha256: await product.sha256File(callPath),

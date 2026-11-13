@@ -714,9 +714,6 @@ export async function prepareProductRunInvocation<
       workspaceBindingId: input.workspaceBinding.bindingId,
       workspaceBindingDigest: input.workspaceBinding.bindingDigest,
       workspaceId: input.workspaceBinding.workspaceId,
-      actionCatalog: resolution.program.actionCatalog === undefined
-        ? null
-        : resolution.program.actionCatalog,
       catalogView: resources.catalogView,
       catalogApplications: resources.applications,
       sourceResultBasis: admittedSource,

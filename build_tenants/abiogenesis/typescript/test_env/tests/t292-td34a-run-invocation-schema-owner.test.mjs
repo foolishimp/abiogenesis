@@ -4,7 +4,7 @@
 // Catalog owner did not establish takes the binder's resource gate. There the
 // door now refuses what the GTL owner refuses and the copy admitted: a compose
 // with one term, a batch with no task, and an over-long tuple at
-// `constructionComposition.authorities` and at both closure-contract
+// both closure-contract
 // `eventKindRefs` (the copy returned the tuple truncated). The three checks in
 // which the copy was stricter than the owner stay at this door: a blank
 // declaration value, a blank policy value and the semantic job stage
@@ -116,14 +116,6 @@ const entry = definition => ({ kind: 'graph_function_catalog_entry', handle: def
 
 // A shipped publication with c_compose and c_batch terms and run and graph_call closures.
 const vehicle = () => structuredClone(gtl.constructWorksiteConstructionModulePublication(basis));
-// A well-formed four-authority construction composition, as in t287-gtl-serialization-publication.
-const fourAuthorityComposition = () => ({ kind: 'construction_composition', schemaVersion,
-  compositionRef: 'composition://td34a/local', compositionDigest: digest('0'), graphFunctionRef: 'graph-function://td34a/local',
-  authorities: ['synthesizeModel', 'evalGap', 'evaluateNext', 'evaluateAction'].map((semanticAuthority, index) => ({
-    kind: 'construction_authority_binding', semanticAuthority, authorityRef: 'authority://td34a/local/' + index,
-    initialProgramLocusRef: 'locus://td34a/local/' + index, refreshProgramLocusRef: null })),
-  interactionProgramLocusRef: 'locus://td34a/local/interaction', closurePolicy: { kind: 'construction_policy',
-    policyRef: 'policy://td34a/local', requireCompleteEvidence: true, requirePostEvidenceRefresh: true } });
 function firstTerm(publication, kind) {
   const stack = publication.graphFunctions.flatMap(g => g.template.nodes.map(n => n.term));
   while (stack.length) {
@@ -179,11 +171,10 @@ test('on a caller-supplied Catalog the run door refuses a one-term compose, an e
   const cases = [];
   { const p = vehicle(), term = firstTerm(p, 'c_compose'); term.terms = term.terms.slice(0, 1); cases.push(['one-term compose in a publication', { publications: [p] }, p]); }
   { const p = vehicle(), term = firstTerm(p, 'c_batch'); term.tasks = []; cases.push(['empty batch in a publication', { publications: [p] }, p]); }
-  { const p = vehicle(), program = p.programs[0];
-    program.constructionComposition = fourAuthorityComposition();
-    assert.equal(v.safeParse(serialization.MODULE_PUBLICATION_SCHEMA, p).success, true, 'four construction authorities: the GTL owner admits it');
-    program.constructionComposition.authorities.push(structuredClone(program.constructionComposition.authorities[0]));
-    cases.push(['five construction authorities', { publications: [p] }, p]); }
+  for (const key of ['actionCatalog', 'constructionComposition']) {
+    const p = vehicle(); p.programs[0][key] = null;
+    cases.push([`retired Program key ${key}`, { publications: [p] }, p]);
+  }
   { const p = vehicle(), c = p.closureContracts.find(x => x.closureScope === 'run'); c.eventKindRefs.push('run_closed');
     cases.push(['run closure eventKindRefs of five', { publications: [p] }, p]); }
   { const p = vehicle(), c = p.closureContracts.find(x => x.closureScope === 'graph_call'); c.eventKindRefs.push('graph_call_closed');

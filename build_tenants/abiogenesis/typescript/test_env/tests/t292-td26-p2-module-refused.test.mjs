@@ -34,12 +34,12 @@ const load = (binding, module) => productSemanticsFromModules({ install, verifyI
   publicationDigest: `sha256:${'4'.repeat(64)}`, productSemanticsBinding: binding },
 { kind: 'installed_product_module_loading', install, load: async () => ({ kind: 'loaded', module }) });
 
-test('the semantics loader refuses a provider that carries a retired result-projection key, whatever its value', async () => {
+test('the semantics loader refuses a provider that carries a retired provider key, whatever its value', async () => {
   const provider = builtin.ABI5_DEFAULT_LIBRARY_PRODUCT_SEMANTICS;
   const binding = { kind: 'product_semantics_binding', bindingRef: provider.bindingRef, packageName: basis.packageName,
     packageVersion: basis.packageVersion, modulePath: 'build/index.mjs', namedSymbol: 'SEMANTICS' };
   const loaded = await load(binding, { SEMANTICS: { ...provider } });
-  assert.equal(loaded.bindingRef, provider.bindingRef, 'positive control: the provider without either key loads');
+  assert.equal(loaded.bindingRef, provider.bindingRef, 'positive control: the provider without retired keys loads');
   for (const [label, extra] of [
     ['an empty roster', { publicResultProjectionKinds: [] }],
     ['a roster', { publicResultProjectionKinds: ['result'] }],
@@ -47,10 +47,14 @@ test('the semantics loader refuses a provider that carries a retired result-proj
     ['a non-function hook', { projectPublicResult: null }],
     ['an undefined hook', { projectPublicResult: undefined }],
     ['an inherited hook', null],
+    ['an action catalog object', { actionCatalog: {} }],
+    ['a null action catalog', { actionCatalog: null }],
+    ['an undefined action catalog', { actionCatalog: undefined }],
+    ['an inherited action catalog', Object.create({ actionCatalog: undefined })],
   ]) {
     const candidate = extra === null
       ? Object.assign(Object.create({ projectPublicResult: () => null }), provider)
-      : { ...provider, ...extra };
+      : label === 'an inherited action catalog' ? Object.assign(extra, provider) : { ...provider, ...extra };
     await assert.rejects(load(binding, { SEMANTICS: candidate }), { name: 'TypeError', message: DIFFERS }, label);
   }
 });

@@ -18,8 +18,6 @@ import { isWorksitePreparationInput, preparationConstructionTasks } from "../pro
 import type {
   ClosureContract,
   GraphFunction,
-  GtlActionCatalogRow,
-  GtlConstructionComposition,
   GtlGraph,
   GtlProgram,
   ModulePublication,
@@ -396,14 +394,12 @@ export type ExecutionBasis = {
   readonly catalogBasisDigest: Sha256Digest;
   readonly catalogViewId: string;
   readonly catalogViewDigest: Sha256Digest;
-  readonly actionCatalogRef: string | null;
-  readonly actionCatalogDigest: Sha256Digest | null;
-  readonly actionCatalogRows: readonly GtlActionCatalogRow[];
-  readonly constructionCompositionRef: string | null;
-  readonly constructionCompositionDigest: Sha256Digest | null;
-  readonly constructionComposition:
-    | Readonly<GtlConstructionComposition>
-    | null;
+  readonly actionCatalogRef: null;
+  readonly actionCatalogDigest: null;
+  readonly actionCatalogRows: readonly [];
+  readonly constructionCompositionRef: null;
+  readonly constructionCompositionDigest: null;
+  readonly constructionComposition: null;
   readonly programRef: string;
   readonly programDigest: Sha256Digest;
   readonly graphFunctionRef: string;
@@ -1954,8 +1950,6 @@ export function admitExecutionBasis(
   if (
     input.program.programRef !== input.invocationAdmission.programRef ||
     sha256Canonical(input.program) !== input.invocationAdmission.programDigest ||
-    input.program.actionCatalog !== undefined ||
-    input.program.constructionComposition !== undefined ||
     input.program.closureContractRef !== input.closureContract.closureContractRef ||
     input.closureContract.resultContractRef !== input.invocationAdmission.outputContractRef
   ) {
@@ -2138,14 +2132,12 @@ export function admitExecutionBasis(
     catalogBasisDigest: input.invocationAdmission.catalogBasisDigest,
     catalogViewId: input.invocationAdmission.catalogViewId,
     catalogViewDigest: input.invocationAdmission.catalogViewDigest,
-    actionCatalogRef: input.program.actionCatalog?.catalogRef ?? null,
-    actionCatalogDigest: input.program.actionCatalog?.catalogDigest ?? null,
-    actionCatalogRows: input.program.actionCatalog?.rows ?? [],
-    constructionCompositionRef:
-      input.program.constructionComposition?.compositionRef ?? null,
-    constructionCompositionDigest:
-      input.program.constructionComposition?.compositionDigest ?? null,
-    constructionComposition: input.program.constructionComposition ?? null,
+    actionCatalogRef: null,
+    actionCatalogDigest: null,
+    actionCatalogRows: [] as const,
+    constructionCompositionRef: null,
+    constructionCompositionDigest: null,
+    constructionComposition: null,
     programRef: input.invocationAdmission.programRef,
     programDigest: input.invocationAdmission.programDigest,
     graphFunctionRef: input.invocationAdmission.graphFunctionRef,

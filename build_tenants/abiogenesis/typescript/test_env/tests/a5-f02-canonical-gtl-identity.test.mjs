@@ -19,44 +19,6 @@ function publication() {
   return gtl.constructStructuralModulePublication(ARTIFACT_BASIS);
 }
 
-const ACTION_PROGRAM_REF = gtl.FAN_OUT_IDS.programRef;
-
-// One Program action catalog row binding the structural fan-out Program's
-// root GraphFunction as an invoke_graph_function locus.
-function actionPublication() {
-  const modulePublication = structuredClone(publication());
-  const program = requireBy(
-    modulePublication.programs,
-    (candidate) => candidate.programRef === ACTION_PROGRAM_REF,
-    "action Program",
-  );
-  const catalogBody = {
-    kind: "action_catalog",
-    schemaVersion: "5.0.0",
-    rows: [{
-      kind: "action_catalog_row",
-      actionRef: "action://abiogenesis/a5-f02/primary@5",
-      actionKind: "invoke_graph_function",
-      programRef: ACTION_PROGRAM_REF,
-      graphFunctionRef: gtl.FAN_OUT_IDS.graphFunctionRef,
-      targetProgramLocusRef: gtl.FAN_OUT_IDS.graphFunctionRef,
-      targetObligationRefs: ["obligation://abiogenesis/a5-f02/primary@5"],
-      inputAssetRefs: ["asset://abiogenesis/a5-f02/input-primary@5"],
-      outputAssetRefs: ["asset://abiogenesis/a5-f02/output-primary@5"],
-      expectedDeltaRef: "delta://abiogenesis/a5-f02/primary@5",
-      progressConditionRef: "condition://abiogenesis/a5-f02/progress-primary@5",
-      stopConditionRef: "condition://abiogenesis/a5-f02/stop-primary@5",
-    }],
-  };
-  const catalogDigest = sha256Canonical(catalogBody);
-  program.actionCatalog = {
-    ...catalogBody,
-    catalogRef: `action-catalog://product/${catalogDigest.slice("sha256:".length)}`,
-    catalogDigest,
-  };
-  return modulePublication;
-}
-
 function requireRaw(value, subjectKind) {
   const admitted = validator.rawAdmitValue(
     value,
@@ -274,38 +236,6 @@ function validRichPublication() {
   return modulePublication;
 }
 
-function twoRowActionPublication() {
-  const modulePublication = actionPublication();
-  const program = requireBy(
-    modulePublication.programs,
-    (candidate) => candidate.programRef === ACTION_PROGRAM_REF,
-    "action Program",
-  );
-  assert.ok(program.actionCatalog, "Program action catalog");
-  const first = program.actionCatalog.rows[0];
-  assert.ok(first, "Program action row");
-  first.targetObligationRefs = [
-    ...first.targetObligationRefs,
-    "obligation://abiogenesis/a5-f02/ordered-secondary@5",
-  ];
-  first.inputAssetRefs = [
-    ...first.inputAssetRefs,
-    "asset://abiogenesis/a5-f02/ordered-input-secondary@5",
-  ];
-  first.outputAssetRefs = [
-    ...first.outputAssetRefs,
-    "asset://abiogenesis/a5-f02/ordered-output-secondary@5",
-  ];
-  program.actionCatalog.rows.push({
-    ...structuredClone(first),
-    actionRef: "action://abiogenesis/a5-f02/secondary@5",
-    expectedDeltaRef: "delta://abiogenesis/a5-f02/secondary@5",
-    progressConditionRef:
-      "condition://abiogenesis/a5-f02/progress-secondary@5",
-    stopConditionRef: "condition://abiogenesis/a5-f02/stop-secondary@5",
-  });
-  return modulePublication;
-}
 
 function contributionAdmissions(publicationAdmission, permuted) {
   const rows = publicationAdmission.value.contributions.map((value) => {
@@ -443,125 +373,6 @@ test("A5-F02 canonicalizes every selected authored set inventory", () => {
     ["Z", "a", "ä"],
     "selected set law uses Unicode code-unit order, not host locale order",
   );
-});
-
-test("A5-F02 canonicalizes Program action candidates and rederives their catalog identity", () => {
-  const authoredModule = twoRowActionPublication();
-  const permutedModule = structuredClone(authoredModule);
-  const programRef = ACTION_PROGRAM_REF;
-  const authoredProgram = requireBy(
-    authoredModule.programs,
-    (candidate) => candidate.programRef === programRef,
-    "authored action Program",
-  );
-  const permutedProgram = requireBy(
-    permutedModule.programs,
-    (candidate) => candidate.programRef === programRef,
-    "permuted action Program",
-  );
-  permutedProgram.actionCatalog.rows.reverse();
-
-  const canonicalAuthoredProgram = gtl.canonicalizeAuthoredGtlCarrier(
-    authoredProgram,
-    "gtl_program",
-  );
-  const canonicalPermutedProgram = gtl.canonicalizeAuthoredGtlCarrier(
-    permutedProgram,
-    "gtl_program",
-  );
-  assert.deepEqual(canonicalPermutedProgram, canonicalAuthoredProgram);
-  assert.deepEqual(
-    canonicalAuthoredProgram.actionCatalog.rows.map((row) => row.actionRef),
-    [...canonicalAuthoredProgram.actionCatalog.rows]
-      .map((row) => row.actionRef)
-      .sort(),
-  );
-  const {
-    catalogDigest,
-    catalogRef,
-    ...catalogBody
-  } = canonicalAuthoredProgram.actionCatalog;
-  assert.equal(catalogDigest, sha256Canonical(catalogBody));
-  assert.equal(
-    catalogRef,
-    `action-catalog://product/${catalogDigest.slice("sha256:".length)}`,
-  );
-
-  const authoredProgramAdmission = requireRaw(authoredProgram, "gtl_program");
-  const permutedProgramAdmission = requireRaw(permutedProgram, "gtl_program");
-  assert.equal(
-    permutedProgramAdmission.subjectDigest,
-    authoredProgramAdmission.subjectDigest,
-  );
-  assert.equal(
-    permutedProgramAdmission.admissionRef,
-    authoredProgramAdmission.admissionRef,
-  );
-  assert.deepEqual(
-    permutedProgramAdmission.value,
-    authoredProgramAdmission.value,
-  );
-
-  const authoredModuleAdmission = requireRaw(
-    authoredModule,
-    "module_publication",
-  );
-  const permutedModuleAdmission = requireRaw(
-    permutedModule,
-    "module_publication",
-  );
-  assert.equal(
-    permutedModuleAdmission.subjectDigest,
-    authoredModuleAdmission.subjectDigest,
-  );
-  assert.equal(
-    permutedModuleAdmission.admissionRef,
-    authoredModuleAdmission.admissionRef,
-  );
-  assert.deepEqual(permutedModuleAdmission.value, authoredModuleAdmission.value);
-
-  const authoredValidation = validator.validateProgram(
-    programValidationInput(
-      authoredModuleAdmission,
-      false,
-      programRef,
-      authoredProgram,
-    ),
-  );
-  const permutedValidation = validator.validateProgram(
-    programValidationInput(
-      permutedModuleAdmission,
-      true,
-      programRef,
-      permutedProgram,
-    ),
-  );
-  assert.equal(
-    authoredValidation.kind,
-    "program_validation",
-    JSON.stringify(authoredValidation),
-  );
-  assert.equal(
-    permutedValidation.kind,
-    "program_validation",
-    JSON.stringify(permutedValidation),
-  );
-  assert.deepEqual(permutedValidation, authoredValidation);
-
-  for (const field of [
-    "targetObligationRefs",
-    "inputAssetRefs",
-    "outputAssetRefs",
-  ]) {
-    const orderedProgram = structuredClone(authoredProgram);
-    const reversedProgram = structuredClone(authoredProgram);
-    reversedProgram.actionCatalog.rows[0][field].reverse();
-    assert.notEqual(
-      requireRaw(reversedProgram, "gtl_program").subjectDigest,
-      requireRaw(orderedProgram, "gtl_program").subjectDigest,
-      `${field} remains an ordered action-binding vector`,
-    );
-  }
 });
 
 test("A5-F02 Validator publication and Program identity ignore selected set permutations", () => {
@@ -884,28 +695,7 @@ test("A5-F02 retains decision-exact duplicate refusal for every selected set", (
     );
   }
 
-  const actionCandidate = twoRowActionPublication();
-  const actionProgram = requireBy(
-    actionCandidate.programs,
-    (candidate) => candidate.programRef === ACTION_PROGRAM_REF,
-    "duplicate action Program",
-  );
-  const duplicateActionRef = actionProgram.actionCatalog.rows[0].actionRef;
-  duplicateFirst(actionProgram.actionCatalog.rows);
-  const actionAdmission = requireRaw(actionCandidate, "module_publication");
-  const actionResult = validator.validateProgram(
-    programValidationInput(
-      actionAdmission,
-      false,
-      actionProgram.programRef,
-    ),
-  );
-  assertDuplicateDiagnostic(
-    actionResult,
-    "program",
-    "$.program.actionCatalog.rows",
-    `duplicate action membership ${duplicateActionRef}`,
-  );
+
 });
 
 test("A5-F02 retains typed raw refusal for invalid selected set entries", () => {

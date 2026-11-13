@@ -166,34 +166,10 @@ export const PROGRAM_START_SCHEMA = v.strictObject({ startRef: ref, graphFunctio
 export const PROGRAM_PUBLIC_ASSET_TARGET_SCHEMA = v.strictObject({
   kind: v.literal("program_public_asset_target"), handle: ref, assetRef: ref, startRef: ref,
 });
-export const ACTION_CATALOG_ROW_SCHEMA = v.strictObject({
-  kind: v.literal("action_catalog_row"), actionRef: ref, actionKind: ref, programRef: ref, graphFunctionRef: ref,
-  targetProgramLocusRef: ref, targetObligationRefs: refs, inputAssetRefs: refs, outputAssetRefs: refs,
-  expectedDeltaRef: ref, progressConditionRef: ref, stopConditionRef: ref,
-});
-export const ACTION_CATALOG_SCHEMA = v.strictObject({
-  kind: v.literal("action_catalog"), schemaVersion: version, catalogRef: ref, catalogDigest: digest, rows: v.array(ACTION_CATALOG_ROW_SCHEMA),
-});
-export const CONSTRUCTION_AUTHORITY_BINDING_SCHEMA = v.strictObject({
-  kind: v.literal("construction_authority_binding"),
-  semanticAuthority: v.picklist(["synthesizeModel", "evalGap", "evaluateNext", "evaluateAction"]),
-  authorityRef: ref, initialProgramLocusRef: ref, refreshProgramLocusRef: v.nullable(ref),
-});
-export const CONSTRUCTION_POLICY_SCHEMA = v.strictObject({
-  kind: v.literal("construction_policy"), policyRef: ref, requireCompleteEvidence: v.boolean(), requirePostEvidenceRefresh: v.boolean(),
-});
-export const CONSTRUCTION_COMPOSITION_SCHEMA = v.strictObject({
-  kind: v.literal("construction_composition"), schemaVersion: version, compositionRef: ref, compositionDigest: digest,
-  graphFunctionRef: ref, authorities: v.strictTuple(Array.from({ length: 4 }, () => CONSTRUCTION_AUTHORITY_BINDING_SCHEMA) as [
-    typeof CONSTRUCTION_AUTHORITY_BINDING_SCHEMA, typeof CONSTRUCTION_AUTHORITY_BINDING_SCHEMA,
-    typeof CONSTRUCTION_AUTHORITY_BINDING_SCHEMA, typeof CONSTRUCTION_AUTHORITY_BINDING_SCHEMA,
-  ]), interactionProgramLocusRef: ref, closurePolicy: CONSTRUCTION_POLICY_SCHEMA,
-});
 export const GTL_PROGRAM_SCHEMA = v.strictObject({
   kind: v.literal("gtl_program"), programRef: ref, version, moduleRef: ref,
   starts: v.array(PROGRAM_START_SCHEMA), callableMembership: refs, closureContractRef: ref, policies: recordSchema(v.string(), v.string()),
   publicAssetTargets: v.optional(v.array(PROGRAM_PUBLIC_ASSET_TARGET_SCHEMA)),
-  actionCatalog: v.optional(ACTION_CATALOG_SCHEMA), constructionComposition: v.optional(CONSTRUCTION_COMPOSITION_SCHEMA),
 });
 export const CATALOG_CONTRIBUTION_SCHEMA = v.strictObject({
   handle: ref, kind: v.picklist(["graph_function", "node_type", "overlay"]), declarationOrContractRef: ref,

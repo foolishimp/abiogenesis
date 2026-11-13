@@ -104,6 +104,43 @@ function supervisedCopy(declaration){
     contributions:declaration.contributions.map(c=>({...c,programMembershipRefs:[SUPERVISED],readinessPrerequisiteRefs:[SUPERVISED]}))};
 }
 
+// Kept from ST-1's retired One Surface vehicle: the direct by-handle operation
+// remains available on a supervised Program, while START follows its own law.
+// This lane resolves and prepares only; it never dispatches a provider.
+test('supervised by-handle resolution stays distinct from refused START selections',async t=>{
+  const {install}=await shared();
+  const env=await openCaseEnvironment(t,install,{workspaceProductIndex:1,additionalCorePublicationConstructors:constructors});
+  const publication=env.catalog.boundPublications.find(p=>p.programs.some(pr=>pr.programRef===SUPERVISED));
+  const program=publication.programs.find(p=>p.programRef===SUPERVISED),handle=program.starts[0].graphFunctionRef;
+  const catalogView=env.product.narrowGraphFunctionCatalog(env.catalog,program.callableMembership);
+  assert.equal(catalogView.kind,'graph_function_catalog_view');
+  assert.ok(env.product.lookupGraphFunction(catalogView,handle)?.programMembershipRefs.includes(SUPERVISED));
+  const verifyInstallAdmission=i=>env.abg.hasAdmittedProductInstall(env.artifactTruth,i);
+  const resolve=selection=>env.product.ProductExecutionResolutionPort.resolve({catalog:env.catalog,catalogView,
+    admittedInstalls:env.admittedInstalls,verifyInstallAdmission,programRef:SUPERVISED,selection});
+  const direct=await resolve({kind:'direct',catalogHandle:handle});
+  assert.equal(direct.kind,'loaded_product_execution_resolution',JSON.stringify(direct).slice(0,300));
+  assert.equal(direct.program.policies['abg.root_mode'],'supervised');
+  const handoff=env.store.projectReopenAuthorityAndClose(),before=await readFile(new URL(handoff.prefix.eventLogRef));
+  const publicApi=await import(pathToFileURL(join(env.installedRoot,'build/code/src/public/index.js')).href);
+  const eventResource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:env.product.sha256Canonical(handoff)};
+  const resolutionOutcome=r=>({kind:r.kind,code:r.code,stage:r.stage,message:r.message});
+  const next=await resolve({kind:'start',scope:'program',target:'next',until:'converged',rootMode:'direct'});
+  assert.equal(next.kind,'product_execution_resolution_refusal');
+  let first;
+  for(const [rootMode,target] of [['direct',{kind:'next'}],...['direct','supervised'].map(m=>[m,{kind:'graph_function',handle}])]){
+    if(target.kind==='graph_function')assert.deepEqual(resolutionOutcome(await resolve({kind:'start',scope:'program',target:'graph_function',graphFunctionHandle:handle,until:'converged',rootMode})),resolutionOutcome(next));
+    const refusal=await publicApi.constructInstalledStartCall({selection:{memberKey:'start',target,rootMode,fhMode:'direct'},programRef:SUPERVISED,
+      catalog:env.catalog,catalogView,applications:[],admittedInstalls:env.admittedInstalls,workspaceBinding:env.workspaceBinding,verifyInstallAdmission,
+      actorRef:env.workspaceBinding.authorizedActorRef,input:{value:{}},inputValueRef:'value://td26p6/supervised',source:{kind:'none'},eventResource,
+      envelope:{definitionContractCoordinates:env.verified.definitionContractCoordinates,requestRef:'request://td26p6/supervised',correlationRef:'correlation://td26p6/supervised',eventTime:'2026-11-13T00:00:00.000Z',provenanceRefs:[]}});
+    assert.equal(refusal.kind,'product_run_invocation_preparation_refusal');
+    assert.equal(refusal.ownerOutput.value.code,'invalid_target');assert.deepEqual(refusal.ownerOutput.value.issuePaths,['/program']);
+    if(first)assert.deepEqual(refusal.ownerOutput,first);else first=refusal.ownerOutput;
+  }
+  assert.deepEqual(await readFile(new URL(handoff.prefix.eventLogRef)),before,'refused supervised STARTs append zero bytes');
+});
+
 // The scripted selector: every selection is a gap, so a started Run reaches
 // the Executive's selector once and stops blocked. Any other role exits 1.
 const ACTOR=`
