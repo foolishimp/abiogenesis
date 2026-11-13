@@ -151,6 +151,17 @@ and the exact selected basis. It repairs executing Product equality against
 the operation's selected binding before append, preserving historical reads.
 TD-85N remains the other implementation Writer. Neither has main write grants.
 
+Integration Writer activation `T292-INTEGRATE-TD85N-01` binds Root to main
+`25e74e96f` and returned TD-85N `fd73e7a0d56c8371ec724b84d29d77dda9a5fe4b`,
+including preservation ancestor `f888e4c71` for its support change. The existing
+grant covers the merge, generated identity, affected confinement/native checks,
+one installed publication/replay discriminator and tracking. The Writer has
+stopped after 73 focused passes. The selected HOW records explicit uncertainty
+where physical path separation is unproved; it adds no B-09 binding policy.
+Separate technical QA is dispatched on the frozen source; same-family semantic
+independence is not presumed. Root occupies Writer for integration effects and
+returns to Executive after the checkpoint.
+
 At most two implementation Writers run concurrently. Integration is serial.
 TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
 on TD-77. One design reconciliation closes B-08, then one composed broad and
@@ -233,4 +244,4 @@ this resumption. Reviews are QA under the amendment above.
 | TD-82 | Stable event-log append ownership | Frozen `97371cec7`, source `88a13a047`, merged and identity regenerated at `a3c03d90c` | Integrated 2026-11-13; B-04 technical repair closed on the evidenced same-user/current-build domain | Writer: 62 focused passes and 3 installed-consumer passes. Detached merged build: 27 passes, 0 fail/skip in the two affected files. Separate QA found no technical counterexample; its 8 rerun cases overlap the 62. Return `TD-82_RETURN.md`; QA `REVIEW_TD82_CODEX_INTEGRITY.md`; receipts `/private/tmp/abg-codex-integration-20261113/td82` | Native Windows and group qualification unperformed; mixed-version ownership is not supplied. Same-family semantic independence for Codex-authored completion is not claimed. No release acceptance |
 
 | TD-77 | Recorded Product truth and strict eligibility for new work | Frozen `820206a4e`, merged and identity regenerated at `54024d63f` | Integrated 2026-11-13; B-01, B-02 and B-23 repaired; register-retirement dependency discharged | Frozen candidate 64 current-register and 22 changed-register passes, no failures/skips. Detached merged rerun: 64/64 across focused, R10 child, historical source and Public-read files. Build green. Return `TD-77_RETURN.md`; triage `REVIEW_TD77_CODEX_TRIAGE.md`; receipts `/private/tmp/abg-codex-integration-20261113/td77` | Existing strict release.snapshot exception and A8 redundant-guard sensitivity limit remain explicit in the Return. Changed-register broad population is reserved for group close; current repair's separate-activation QA is not same-family semantic-independent release acceptance |
-| TD-85a | Canonical existing paths use their stored spelling | Frozen `9fef7907e`, merged over TD-77 and identity regenerated at `686d67db3` | Integrated 2026-11-13; B-06 technical repair closed on the evidenced host | Writer's 12 new cases, predecessor 4/12, plus 5,370 equal recorded rows. Merged source: 17/17 across new stored-spelling lane and cross-cut Public reads, 0 fail/skip. Build green. Return `TD-85A_RETURN.md`; receipts `/private/tmp/abg-codex-integration-20261113/td85a` | Separate QA in progress without gating merge. Firmlink dual-spelling residual B-21 remains backlog; absent protected roots are separate TD-85N, and B-09 is not selected |
+| TD-85a | Canonical existing paths use their stored spelling | Frozen `9fef7907e`, merged over TD-77 and identity regenerated at `686d67db3` | Integrated 2026-11-13; B-06 technical repair closed on the evidenced host | Writer's 12 new cases, predecessor 4/12, plus 5,370 equal recorded rows. Merged source: 17/17 across new stored-spelling lane and cross-cut Public reads, 0 fail/skip. Build green. Return `TD-85A_RETURN.md`; receipts `/private/tmp/abg-codex-integration-20261113/td85a` | Separate Claude-source QA satisfied with no new findings (`REVIEW_TD85A_CODEX.md`); independent 12/12 probe overlaps author cases. Firmlink dual-spelling residual B-21 remains backlog; absent protected roots are separate TD-85N, and B-09 is not selected |
