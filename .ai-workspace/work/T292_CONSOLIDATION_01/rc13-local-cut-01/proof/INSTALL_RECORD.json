@@ -1,0 +1,133 @@
+{
+  "kind": "local_unqualified_development_candidate_install",
+  "schemaVersion": "1",
+  "mode": "dry-run",
+  "status": "DRY_RUN_INSTALL_COMPLETE_IN_SCRATCH",
+  "startedUtc": "2026-11-13T05:46:40.553Z",
+  "version": "5.0.0-rc.13",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.13",
+  "cutRecord": {
+    "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/CUT_RECORD.json",
+    "bytes": 12815,
+    "sha256": "da5ef7f964380a91ad8c6d84e32cba34f5f0edbf9fe97da8aa7e1e0112626b6e"
+  },
+  "installHost": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/install-host",
+  "output": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/records",
+  "archive": {
+    "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/pack/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "bytes": 10878689,
+    "sha256": "8a8d4e583a09e741881f57cde4baa5ae33fee692d7ec126fe93d29d186f032af"
+  },
+  "expected": {
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.13",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.13",
+    "artifactDigest": "sha256:8a8d4e583a09e741881f57cde4baa5ae33fee692d7ec126fe93d29d186f032af",
+    "productContentDigest": "sha256:d4b582fe0c6ce57ee2b49657e46b8a58a7b2f7aeaa104722444f6b33c3b966d9",
+    "manifestDigest": "sha256:28d433eca0ffc56fd92873fe83dc85e2fec7212182718d07ab706ff1de03b5b3",
+    "sourceCommit": "25e74e96f7ad553201278a6066603d5bdacf909f"
+  },
+  "endedUtc": "2026-11-13T05:47:21.242Z",
+  "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.13/d4b582fe0c6ce57ee2b49657e46b8a58a7b2f7aeaa104722444f6b33c3b966d9/dbe7ee66a66ae35fdcb9dcc236c3b543a01b7252827e336541b3a89911d14045",
+  "installedRoot": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/install-host/node_modules/@abiogenesis/typescript-tenant",
+  "installedCli": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/install-host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "members": 5303,
+  "installedFiles": 5303,
+  "installedEqualsArchive": true,
+  "hostFilesOutsideInstalledRoot": [
+    "node_modules/.package-lock.json",
+    "package-lock.json",
+    "package.json"
+  ],
+  "owners": {
+    "imported": "archive bootstrap extraction",
+    "verification": "verified",
+    "lock": "resolved_product_lock",
+    "installation": "materialized",
+    "installCandidateInLock": true,
+    "installedContentMatches": true
+  },
+  "records": {
+    "verification": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/records/verification.json",
+      "bytes": 15440861,
+      "sha256": "5db488d62896515f93ab1ae2aa45a1c0aa984bc321d6c5f3f90ed7bada3bc22b"
+    },
+    "resolvedLock": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/records/resolved-lock.json",
+      "bytes": 4455165,
+      "sha256": "81d0e6fedd0dc927018e5f1208f32a9cf5049ff92b9691a2b6bf6769d563b978"
+    },
+    "installation": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/records/installation.json",
+      "bytes": 4131778,
+      "sha256": "d4cf3aa0db78f04931475da731c24814dbb437b83500e097267959ec9fdf82c4"
+    },
+    "payloadCorrespondence": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/records/payload-correspondence.json",
+      "bytes": 1031069,
+      "sha256": "7bead44e0b53f2d88133e008fa17b6519b80f39cd24c888cf5ad3da1f48d09c7"
+    }
+  },
+  "toolchain": {
+    "node": {
+      "name": "node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0",
+      "execPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    },
+    "npm": {
+      "name": "npm",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    },
+    "tar": {
+      "name": "tar",
+      "path": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    },
+    "git": {
+      "name": "git",
+      "path": "/usr/bin/git",
+      "realPath": "/usr/bin/git",
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    }
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "TMPDIR": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_userconfig": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/npm/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/npm/npm-global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/npm/cache",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false"
+  },
+  "installWallMs": 14537,
+  "claims": {
+    "local": true,
+    "unqualified": true,
+    "published": false,
+    "providerCalls": 0,
+    "nativeRuns": 0,
+    "tagsCreated": false,
+    "selectorChanged": false,
+    "pinChanged": false,
+    "qualificationTransferredFromEarlierCandidates": false
+  },
+  "claim": "Local install of the unqualified development candidate 5.0.0-rc.13 (sha256:8a8d4e583a09e741881f57cde4baa5ae33fee692d7ec126fe93d29d186f032af) through the Product's own verify, lock, install and content owners. It claims nothing about qualification, native workflows or earlier candidates."
+}

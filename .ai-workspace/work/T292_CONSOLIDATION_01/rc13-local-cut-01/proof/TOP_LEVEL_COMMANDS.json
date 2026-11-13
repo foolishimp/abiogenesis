@@ -1,0 +1,110 @@
+{
+  "cwd": "/private/tmp/abg-rc13-delivery-prep",
+  "commands": [
+    {
+      "label": "stamp-preflight",
+      "argv": [
+        "node",
+        "/private/tmp/abg-rc13-delivery-prep/.ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/cut/stamp-rc13.mjs",
+        "--dry-run",
+        "--root",
+        "/private/tmp/abg-rc13-delivery-prep-work/inspection-source",
+        "--scratch",
+        "/private/tmp/abg-rc13-delivery-prep-work/stamp-preflight"
+      ],
+      "exitCode": 0
+    },
+    {
+      "label": "first-cut-argument-refusal",
+      "argv": [
+        "node",
+        "/private/tmp/abg-rc13-delivery-prep/.ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/cut/cut-local-rc13.mjs",
+        "--dry-run",
+        "--repo",
+        "/private/tmp/abg-rc13-delivery-prep",
+        "--commit",
+        "25e74e96f7ad553201278a6066603d5bdacf909f",
+        "--tree",
+        "e5578bcab6cec84140d3f62d550d840a44fbcd28",
+        "--deps",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+        "--dependency-inventory",
+        "/private/tmp/abg-rc13-delivery-prep-work/DEPENDENCY_INVENTORY.json",
+        "--output",
+        "/private/tmp/abg-rc13-delivery-prep-work/dry-delivery-not-created",
+        "--scratch",
+        "/private/tmp/abg-rc13-delivery-prep-work/cut-proof",
+        "--scratch-stamp",
+        "--scratch-claim",
+        "/private/tmp/abg-rc13-delivery-prep/.ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/RC13_RELEASE_CLAIM.md"
+      ],
+      "exitCode": 1,
+      "result": "AssertionError: --scratch-stamp is proof only: --output must lie inside --scratch",
+      "effects": "No run directory or Product effect; corrected output argument only."
+    },
+    {
+      "label": "scratch-cut",
+      "argv": [
+        "node",
+        "/private/tmp/abg-rc13-delivery-prep/.ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/cut/cut-local-rc13.mjs",
+        "--dry-run",
+        "--repo",
+        "/private/tmp/abg-rc13-delivery-prep",
+        "--commit",
+        "25e74e96f7ad553201278a6066603d5bdacf909f",
+        "--tree",
+        "e5578bcab6cec84140d3f62d550d840a44fbcd28",
+        "--deps",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+        "--dependency-inventory",
+        "/private/tmp/abg-rc13-delivery-prep-work/DEPENDENCY_INVENTORY.json",
+        "--output",
+        "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/dry-delivery-not-created",
+        "--scratch",
+        "/private/tmp/abg-rc13-delivery-prep-work/cut-proof",
+        "--scratch-stamp",
+        "--scratch-claim",
+        "/private/tmp/abg-rc13-delivery-prep/.ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/RC13_RELEASE_CLAIM.md"
+      ],
+      "exitCode": 0,
+      "result": "DRY_RUN_COMPLETE_NOTHING_WRITTEN_OUTSIDE_SCRATCH"
+    },
+    {
+      "label": "scratch-install",
+      "argv": [
+        "node",
+        "/private/tmp/abg-rc13-delivery-prep/.ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/cut/install-local-rc13.mjs",
+        "--dry-run",
+        "--cut-record",
+        "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/CUT_RECORD.json",
+        "--archive",
+        "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/pack/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+        "--output",
+        "/private/tmp/abg-rc13-delivery-prep-work/install-proof/dry-install-records-not-created",
+        "--install-host",
+        "/private/tmp/abg-rc13-delivery-prep-work/install-proof/dry-install-host-not-created",
+        "--scratch",
+        "/private/tmp/abg-rc13-delivery-prep-work/install-proof"
+      ],
+      "exitCode": 0,
+      "result": "DRY_RUN_INSTALL_COMPLETE_IN_SCRATCH"
+    },
+    {
+      "label": "scratch-smoke",
+      "argv": [
+        "node",
+        "/private/tmp/abg-rc13-delivery-prep/.ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/cut/installed-owner-smoke.mjs",
+        "--dry-run",
+        "--install-record",
+        "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/records/INSTALL_RECORD.json",
+        "--output",
+        "/private/tmp/abg-rc13-delivery-prep-work/smoke-proof/dry-smoke-not-created.json",
+        "--scratch",
+        "/private/tmp/abg-rc13-delivery-prep-work/smoke-proof"
+      ],
+      "exitCode": 0,
+      "result": "INSTALLED_OWNER_SMOKE_CLOSED"
+    }
+  ],
+  "note": "Original invocation used relative tool paths from this cwd; argv records their resolved equivalent. Scratch claim bytes at execution are preserved in SCRATCH_RELEASE_CLAIM.md; the final template later added B21."
+}

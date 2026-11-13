@@ -1,0 +1,101 @@
+{
+  "activation": "T292-RC13-DELIVERY-PREP-01",
+  "subject": {
+    "commit": "25e74e96f7ad553201278a6066603d5bdacf909f",
+    "tree": "e5578bcab6cec84140d3f62d550d840a44fbcd28",
+    "scope": "precursor extracted source plus four scratch identity stamps, owned scratch claim replacement, owner basis refresh and generated outputs"
+  },
+  "archive": {
+    "name": "abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "bytes": 10878689,
+    "sha256": "8a8d4e583a09e741881f57cde4baa5ae33fee692d7ec126fe93d29d186f032af",
+    "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/pack/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz"
+  },
+  "evidence": [
+    {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/CUT_RECORD.json",
+      "durableCopy": "proof/CUT_RECORD.json",
+      "sha256": "da5ef7f964380a91ad8c6d84e32cba34f5f0edbf9fe97da8aa7e1e0112626b6e"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/records/INSTALL_RECORD.json",
+      "durableCopy": "proof/INSTALL_RECORD.json",
+      "sha256": "4fce5021a3d491877e13b9471b95fc5ae61f80cae31d0a18f0c9863c9ccc0a4d"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/smoke-proof/smoke-dry-run-20261113T054911552Z-33090/INSTALLED_OWNER_SMOKE.json",
+      "durableCopy": "proof/INSTALLED_OWNER_SMOKE.json",
+      "sha256": "5681512d6cd797f48ded962d6be5eb91838424fe841c144a0febdb67c4573fb6"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/STAMP_REFUSAL.json",
+      "durableCopy": "proof/STAMP_REFUSAL.json",
+      "sha256": "7e7e8b473f5740167ed43ccb639719c266fcece185d0d72c335e3f16624b4912"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/FINAL_STAMP_RECHECK.json",
+      "durableCopy": "proof/FINAL_STAMP_RECHECK.json",
+      "sha256": "9e7f7a6f382ed29cde869c9cd9a3d9d951bd706ee3faa89b104b2dbaab1bd355"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/FINAL_STAMP_APPLY.json",
+      "durableCopy": "proof/FINAL_STAMP_APPLY.json",
+      "sha256": "34ccdc0e05d39d0a09e45006aaea0c568ea72b76be8c24899bf5e1921fe24248"
+    }
+  ],
+  "retainedExternalEvidence": [
+    {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/ARCHIVE_MEMBERS.json",
+      "sha256": "aeba3f763e21901380250eec97f20829387af5e4455f5a4c2ee92f26cf54e3cd"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/DEPENDENCY_INVENTORY.json",
+      "sha256": "9f417ddd8719598469de5212a85a5ed5e0b850cc21e99aca46c46af049c93a41"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source.tar",
+      "sha256": "7f426647455ef76ebc1af0765a3f96c1ca56bff5389ddfab8b3d617d083f9101"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/records/payload-correspondence.json",
+      "sha256": "7bead44e0b53f2d88133e008fa17b6519b80f39cd24c888cf5ad3da1f48d09c7"
+    }
+  ],
+  "proof": {
+    "cleanArchiveBuild": true,
+    "dependencyFilesAndLinks": 4576,
+    "archiveMembers": 5303,
+    "installedFiles": 5303,
+    "installedExactBothDirections": true,
+    "installedOwnerSmoke": "INSTALLED_OWNER_SMOKE_CLOSED",
+    "publicDefinitions": 56,
+    "exportPaths": 15,
+    "emptyResourceEvents": 0,
+    "finalStampRefusalBeforeAnyWrite": true,
+    "finalStampOnlyFourSitesAndIdempotent": true,
+    "installAndSmokeMechanicsEqualRC12AfterLabelSubstitution": true
+  },
+  "retainedInitialRefusal": {
+    "effect": "none; argument assertion before run directory",
+    "cause": "first invocation placed output outside the selected cut-proof scratch directory",
+    "correction": "output moved inside cut-proof; original assertion kept"
+  },
+  "finalDeltaAfterCut": {
+    "stampHelper": "planned-byte audit tightened to catch extra predecessor residue within identity sites before writes; focused refusal/apply/idempotence and exact planned-byte reuse checks passed",
+    "claim": "B21 S2/P2 known firmlink physical-alias defect added after scratch cut; exact scratch-used claim preserved as proof/SCRATCH_RELEASE_CLAIM.md; claim is outside runtime payload"
+  },
+  "limits": [
+    "Not the final integrated T292 source",
+    "No official cut/install, pin/tag/remote/publication action",
+    "No broad suite/provider/native Run or formal qualification",
+    "Final source still requires the named retirement/repair/design/B22 conjunction",
+    "No full qualification resource generator update selected",
+    "B21 prevents all-alias confinement, reliable-operation and 5.0 qualification claims"
+  ],
+  "finalOutputPathsStillAbsent": [
+    "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/dry-delivery-not-created",
+    "/private/tmp/abg-rc13-delivery-prep-work/install-proof/dry-install-host-not-created",
+    "/private/tmp/abg-rc13-delivery-prep-work/install-proof/dry-install-records-not-created",
+    "/private/tmp/abg-rc13-delivery-prep-work/smoke-proof/dry-smoke-not-created.json"
+  ]
+}

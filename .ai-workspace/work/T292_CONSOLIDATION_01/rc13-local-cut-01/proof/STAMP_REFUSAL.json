@@ -1,0 +1,6 @@
+{
+  "kind": "stamp_unexpected_residue_refusal",
+  "unexpectedResidue": "extra predecessor version in a current identity site",
+  "refused": true,
+  "allFourSitesUnchanged": true
+}

@@ -1,0 +1,272 @@
+[
+  {
+    "label": "archive",
+    "command": "git",
+    "args": [
+      "-C",
+      "/private/tmp/abg-rc13-delivery-prep",
+      "-c",
+      "core.hooksPath=/dev/null",
+      "archive",
+      "--format=tar",
+      "--output=/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source.tar",
+      "25e74e96f7ad553201278a6066603d5bdacf909f",
+      "build_tenants/abiogenesis/typescript"
+    ],
+    "cwd": "/private/tmp/abg-rc13-delivery-prep",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 208,
+    "error": null,
+    "stage": "cut",
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/archive.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/archive.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "commit",
+    "command": "git",
+    "args": [
+      "-C",
+      "/private/tmp/abg-rc13-delivery-prep",
+      "-c",
+      "core.hooksPath=/dev/null",
+      "rev-parse",
+      "--verify",
+      "25e74e96f7ad553201278a6066603d5bdacf909f^{commit}"
+    ],
+    "cwd": "/private/tmp/abg-rc13-delivery-prep",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 15,
+    "error": null,
+    "stage": "cut",
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/commit.stdout",
+      "sha256": "5cb086320a8713f3dc78a2d83b4658213a1e5727d928a09d5090240df36a1024"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/commit.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "compile",
+    "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "cwd": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 7590,
+    "error": null,
+    "stage": "cut",
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/compile.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/compile.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "extract-archive",
+    "command": "tar",
+    "args": [
+      "-xzf",
+      "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/pack/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+      "-C",
+      "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/archive-extract"
+    ],
+    "cwd": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 524,
+    "error": null,
+    "stage": "cut",
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/extract-archive.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/extract-archive.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "extract-source",
+    "command": "tar",
+    "args": [
+      "-xf",
+      "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source.tar",
+      "-C",
+      "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source"
+    ],
+    "cwd": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 138,
+    "error": null,
+    "stage": "cut",
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/extract-source.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/extract-source.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "generate",
+    "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "scripts/generate-product-manifest.mjs"
+    ],
+    "cwd": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 19832,
+    "error": null,
+    "stage": "cut",
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/generate.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/generate.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "pack",
+    "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "scripts/product-payload.mjs",
+      "pack",
+      "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/pack"
+    ],
+    "cwd": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 16547,
+    "error": null,
+    "stage": "cut",
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/pack.stdout",
+      "sha256": "d6bb9b96cb956f46fe2abd80d953099c3729637cd96899efa4e8e455dffab6b5"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/pack.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "refresh-candidate-basis",
+    "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "scripts/refresh-candidate-basis.mjs"
+    ],
+    "cwd": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 19047,
+    "error": null,
+    "stage": "cut",
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/refresh-candidate-basis.stdout",
+      "sha256": "afa330117e3ac401beb3d6e96a6d2b7cf9bc114eb364bad7fb84f97a648413c4"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/refresh-candidate-basis.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "subject",
+    "command": "git",
+    "args": [
+      "-C",
+      "/private/tmp/abg-rc13-delivery-prep",
+      "-c",
+      "core.hooksPath=/dev/null",
+      "log",
+      "-1",
+      "--format=%s",
+      "25e74e96f7ad553201278a6066603d5bdacf909f"
+    ],
+    "cwd": "/private/tmp/abg-rc13-delivery-prep",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 14,
+    "error": null,
+    "stage": "cut",
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/subject.stdout",
+      "sha256": "d8514c5f3e398c8eaa5abdb9450cd03387edaeabd3ea3f66bfd9cb9292c395b2"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/subject.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "tree",
+    "command": "git",
+    "args": [
+      "-C",
+      "/private/tmp/abg-rc13-delivery-prep",
+      "-c",
+      "core.hooksPath=/dev/null",
+      "rev-parse",
+      "25e74e96f7ad553201278a6066603d5bdacf909f^{tree}"
+    ],
+    "cwd": "/private/tmp/abg-rc13-delivery-prep",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 14,
+    "error": null,
+    "stage": "cut",
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/tree.stdout",
+      "sha256": "99001721a66abd8e3214eb8eacd13b4fd2a96cd86e818e857454ab337a91a4ac"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/commands/tree.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "bootstrap-extract",
+    "command": "tar",
+    "args": [
+      "-xzf",
+      "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/pack/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+      "-C",
+      "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/records/bootstrap"
+    ],
+    "cwd": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277",
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 552,
+    "error": null,
+    "stage": "install",
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/commands/bootstrap-extract.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/commands/bootstrap-extract.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+]

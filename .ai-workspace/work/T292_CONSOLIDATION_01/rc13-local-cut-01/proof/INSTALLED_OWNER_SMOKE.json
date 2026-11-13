@@ -1,0 +1,89 @@
+{
+  "kind": "local_rc13_installed_owner_smoke",
+  "mode": "dry-run",
+  "status": "INSTALLED_OWNER_SMOKE_CLOSED",
+  "startedUtc": "2026-11-13T05:49:11.562Z",
+  "installedRoot": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/install-host/node_modules/@abiogenesis/typescript-tenant",
+  "installRecord": {
+    "path": "/private/tmp/abg-rc13-delivery-prep-work/install-proof/install-dry-run-20261113T054640146Z-30277/records/INSTALL_RECORD.json",
+    "bytes": 6508,
+    "sha256": "4fce5021a3d491877e13b9471b95fc5ae61f80cae31d0a18f0c9863c9ccc0a4d"
+  },
+  "cutRecord": {
+    "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/CUT_RECORD.json",
+    "bytes": 12815,
+    "sha256": "da5ef7f964380a91ad8c6d84e32cba34f5f0edbf9fe97da8aa7e1e0112626b6e"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/pack/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "bytes": 10878689,
+    "sha256": "8a8d4e583a09e741881f57cde4baa5ae33fee692d7ec126fe93d29d186f032af"
+  },
+  "nativeTransportInvoked": false,
+  "providerCalls": 0,
+  "qualified": false,
+  "version": "5.0.0-rc.13",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.13",
+  "artifactDigest": "sha256:8a8d4e583a09e741881f57cde4baa5ae33fee692d7ec126fe93d29d186f032af",
+  "verification": "verified",
+  "installedContentMatches": true,
+  "importedModules": [
+    "product",
+    "abg",
+    "public",
+    "validator"
+  ],
+  "publicFunctionDefinitions": 56,
+  "publicFunctionFamilyDigest": "sha256:ed5e5c4ba7f7700c687828ff8c7c444d64d915d4585fa38f118e01ba60d705f5",
+  "packageExportPaths": 15,
+  "expectedFrom": "cut record candidate facts and the installed adapter projection",
+  "resource": {
+    "eventLogPath": "/private/tmp/abg-rc13-delivery-prep-work/smoke-proof/smoke-dry-run-20261113T054911552Z-33090/owner-resource/events.jsonl",
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-rc13-delivery-prep-work/smoke-proof/smoke-dry-run-20261113T054911552Z-33090/owner-resource/events.jsonl",
+      "prefixLength": 0,
+      "prefixDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 877340887,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:9ab4c80591acc4960253ff28e37d9de9ab2b522034af25ff5f2c2af46cd44e8b"
+    }
+  },
+  "ownerReadEvents": 0,
+  "actualClose": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-rc13-delivery-prep-work/smoke-proof/smoke-dry-run-20261113T054911552Z-33090/owner-resource/events.jsonl",
+      "prefixLength": 0,
+      "prefixDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 877340887,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:9ab4c80591acc4960253ff28e37d9de9ab2b522034af25ff5f2c2af46cd44e8b"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/private/tmp/abg-rc13-delivery-prep-work/smoke-proof/smoke-dry-run-20261113T054911552Z-33090/owner-resource/events.jsonl",
+      "device": 16777231,
+      "inode": 877340887,
+      "eventLogDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "durableByteLength": 0,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+      "authorityDigest": "sha256:bb434cd253a6c3c7dbb32d5e9a69e65400c92bda6815b00de88bb4490dd55ede"
+    }
+  },
+  "closedEmptyLog": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retained": "/private/tmp/abg-rc13-delivery-prep-work/smoke-proof/smoke-dry-run-20261113T054911552Z-33090/owner-resource"
+  },
+  "endedUtc": "2026-11-13T05:49:32.300Z"
+}

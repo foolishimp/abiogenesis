@@ -1,0 +1,36 @@
+{
+  "predecessorCommit": "25e74e96f7ad553201278a6066603d5bdacf909f",
+  "tools": [
+    {
+      "path": "cut/cut-common.mjs",
+      "sha256": "b014d6d5eb4fe14430372b258539bf4cd45ef6c7d2aa753f55ede534f2f65bc5",
+      "predecessorPath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/cut/cut-common.mjs",
+      "predecessorSha256": "f6d2d5fb4baf9074a950992d731ef6ad22798434366a0182133ddb44e2996be2"
+    },
+    {
+      "path": "cut/cut-local-rc13.mjs",
+      "sha256": "ea2e6004776393be895e52578274dd5faa538a750057ebe24fa108a0932d7922",
+      "predecessorPath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/cut/cut-local-rc12.mjs",
+      "predecessorSha256": "5593478cbf1de58ff94afeaf167d517c70aaff3f28e7443301c32b019c062b48"
+    },
+    {
+      "path": "cut/install-local-rc13.mjs",
+      "sha256": "f4acca438f66224101c2d8c930d886876104c30c30aef8c33ad320fe48a510b7",
+      "predecessorPath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/cut/install-local-rc12.mjs",
+      "predecessorSha256": "7299017f6dc55900012caf5188c05a5e8314f1a7aae5ccb1014366c6a919caf8"
+    },
+    {
+      "path": "cut/installed-owner-smoke.mjs",
+      "sha256": "02b0b21fd461aa4514212bbadd56f1d7059bc2fa7feff9a4b72987d7d40990b5",
+      "predecessorPath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/cut/installed-owner-smoke.mjs",
+      "predecessorSha256": "3e95e8ece9e1c62d189f5f03bf5c1c0343976ba6f4cbe18e710feca1b61f4e90"
+    },
+    {
+      "path": "cut/stamp-rc13.mjs",
+      "sha256": "e9aa1e5a14fc50600fda5eaa0087dcc44f365e1a42939c626f67eefe9731050c",
+      "predecessorPath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/cut/stamp-rc12.mjs",
+      "predecessorSha256": "21b2aba03a38c39056c0d67ed846b9a0861c09b236c9d5e5fe669b2eac4a9848"
+    }
+  ],
+  "syntaxChecked": 5
+}
