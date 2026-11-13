@@ -64,13 +64,14 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 | B-26 | TD77 N1's injected probabilistic execution basis omits its required workspace-binding digest, so the actual current strict-positive fixture refuses before the sentinel | P7 `history-focused-01.tap` case 69, 75/76 passes; Root Product/typed-owner/Proof triage and preserved inputs | S4 | P1 | Technical repair closed at `e9846da2b`; author and detached merged N1 each 1/1 over four stores. Separate technical QA concurs (`REVIEW_P7_N1_FIXTURE_CODEX.md`); production constructors/guard unchanged |
 | B-27 | Prepared composed runner drops the committed candidate-basis selection, leaving r1/r2/r3 on their packed-artifact self-consistency default | Root environment-to-candidate-basis trace; separate QA concurs before any campaign | S4 | P1 | Closed in successor `composed-proof-01/final-runner/`: fixed sanitized `committed` selection, override remains prohibited; actual environment check and new runner hash recorded |
 | B-28 | D2 mechanical binding truth rows omit causal install references and the partial VM override leaves TD77’s strict-install accessor native over a lookup-only prefix | Exact C_final broad file005: 1 pass/9 failures; `b28-d2-fixture-01/INPUTS.json`; Root and non-author QA trace | S4 | P1 | Technical repair integrated at `e1444310b` from frozen `cb1eb011e`: shared explicit premise plus both manual callers, original assertions preserved; author 11/11 + 7/7 once, negative premise controls. Production strictness unchanged; composed successor proof pending |
+| B-29 | Extracted revision evidence collector context omits the `spelledAsStored` helper introduced by TD85a, while retaining the former inline-path seam | Exact `98c258643` broad file007: 0 pass/5 failures in VM free-name preflight; `b29-vm-context-01/INPUTS.json` | S4 | P1 | Affected-cone triage active. Production import is present; virtual snapshot premise must remain explicit. No repair/retry selected by the failure record |
 
 ## Schedule
 
 | When | Items |
 |---|---|
-| In flight | Composed broad continuation on exact `98c258643`; B-28 technical QA satisfied, archive correspondence positive |
-| Dependency-ready sequence | Composed history/physical reads under the unchanged clock, then local delivery |
+| In flight | B-29 affected-cone triage after broad-02 stopped at file007; B-28 passed in composed execution |
+| Dependency-ready sequence | Root disposition of B-29, composed proof under the unchanged clock, then local delivery |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |
 | Metadata complete; final dry-cut correspondence positive | B-22; source inventory will refresh after B-28's test-only change |

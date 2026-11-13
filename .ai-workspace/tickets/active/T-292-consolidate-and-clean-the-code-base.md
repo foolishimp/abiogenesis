@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-13
 - current_activation: T292_CONSOLIDATION_01
-- current_package: selected repairs, TD-26 P5/P6/P7, TD25, B08/B22 and B28 integrated; composed broad continuation active on exact 98c258643 with byte-equal RC13 payload; history and local delivery follow
+- current_package: selected repairs, TD-26 P5/P6/P7, TD25, B08/B22 and B28 integrated; broad-02 stopped at file007 on B29 unbound VM helper; affected-cone triage active, history and local delivery unperformed
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -584,3 +584,19 @@ clock are bound in `composed-proof-01/execution-02/`. Config SHA is
 `2eab011ddbd5b1e9788761af33199bd474358715f07cc8ed280b645f4b08d83b`.
 No result is inferred from starting it. History, physical owner reads, official
 cut/install and live UAT are not performed by this preparation record.
+
+Broad-02 stopped normally at file007 on `98c258643`: three boundary lints and
+six files (39 tests) passed, including B28's eleven cases; all five
+`d2-evidence-owner-lookup` cases fail the fixture's free-name preflight because
+its extracted collector context omits `spelledAsStored`. Exit 1 in 2,164 ms;
+no timeout, output cap, signal or unresolved observed cleanup. No file008,
+history or physical-read command was launched. B29 is distinct from B28:
+TD85a replaced the inline stored-path check with its shared native owner,
+whereas this harness still binds the former `realpathSync` name for its
+explicit virtual snapshot premise. Production imports the helper correctly.
+Root's trace and separate read-only `T292-B29-VM-CONTEXT-01` determine the
+affected extraction cone before any repair or continuation. Exact failure and
+source/build pins are retained in `b29-vm-context-01/INPUTS.json`. The server
+restart did not change the host boot or campaign clock. Recording Writer
+`T292-B29-FAILURE-RECORD-01` grants only this preservation/status checkpoint;
+Root returns to Executive afterward, with no automatic retry.

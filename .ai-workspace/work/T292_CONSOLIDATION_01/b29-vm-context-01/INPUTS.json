@@ -1,0 +1,131 @@
+{
+  "activation": "T292-B29-FAILURE-RECORD-01",
+  "subjectCommit": "98c258643857e395ebca3a4646b369e086b042f9",
+  "subjectTree": "cd8d0c0986188205aeb88edb8ad2a680a16ddff3",
+  "failure": "Extracted revision evidence collector VM omits spelledAsStored",
+  "priorCompleted": {
+    "boundaryLints": 3,
+    "files": 6,
+    "tests": 39,
+    "pass": 39,
+    "fail": 0
+  },
+  "failedFile": {
+    "tests": 5,
+    "pass": 0,
+    "fail": 5,
+    "exitCode": 1,
+    "wallMs": 2164
+  },
+  "triageStatus": "Root source trace established; non-author affected-cone triage active",
+  "preserved": [
+    {
+      "source": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-02/HALT.json",
+        "bytes": 4747,
+        "sha256": "8ff38b8f2f4ff01988d8921fc003a89188ae1b17ea2cb0d95e5459c2737e8123"
+      },
+      "preserved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/b29-vm-context-01/00-HALT.json",
+        "bytes": 4747,
+        "sha256": "8ff38b8f2f4ff01988d8921fc003a89188ae1b17ea2cb0d95e5459c2737e8123"
+      }
+    },
+    {
+      "source": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-02/007-d2-evidence-owner-lookup.test/request.json",
+        "bytes": 5176,
+        "sha256": "7499233120d3707acdcb6a0a6d4580154895b2f4ed01fe39b2ad1aa469ebac1b"
+      },
+      "preserved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/b29-vm-context-01/01-request.json",
+        "bytes": 5176,
+        "sha256": "7499233120d3707acdcb6a0a6d4580154895b2f4ed01fe39b2ad1aa469ebac1b"
+      }
+    },
+    {
+      "source": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-02/007-d2-evidence-owner-lookup.test/process.json",
+        "bytes": 1095,
+        "sha256": "7006bf72a7a3cce9f6ba26ddfe647c73234a8384a47e0a49501d5b9aaaf3459f"
+      },
+      "preserved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/b29-vm-context-01/02-process.json",
+        "bytes": 1095,
+        "sha256": "7006bf72a7a3cce9f6ba26ddfe647c73234a8384a47e0a49501d5b9aaaf3459f"
+      }
+    },
+    {
+      "source": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-02/007-d2-evidence-owner-lookup.test/stdout.raw",
+        "bytes": 8201,
+        "sha256": "00e9af1bbee30d881ada6b4f9eaaa392f7d87ec0b990b145c1d0b83f160e9c2a"
+      },
+      "preserved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/b29-vm-context-01/03-stdout.raw",
+        "bytes": 8201,
+        "sha256": "00e9af1bbee30d881ada6b4f9eaaa392f7d87ec0b990b145c1d0b83f160e9c2a"
+      }
+    },
+    {
+      "source": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-02/007-d2-evidence-owner-lookup.test/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preserved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/b29-vm-context-01/04-stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "sourcePins": [
+    {
+      "path": "/private/tmp/abg-rc13-composed-final-02/build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+      "bytes": 10042,
+      "sha256": "a70af591ee5910b4cc40d628c17467dfb61d361924958ffd7c0072a02ea9cfa8",
+      "gitBlob": "a4d51d08c0b7041e784c5cda106d94e2f3ebe344"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-composed-final-02/build_tenants/abiogenesis/typescript/test_env/support/vm-context-names.mjs",
+      "bytes": 1881,
+      "sha256": "a15fda4eec9563821b57c1fa42486c41666690e9816c0f8bc8c3b6f841de52b1",
+      "gitBlob": "c79ce2af8159e0334cce0cf68ca8615e2035decc"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-composed-final-02/build_tenants/abiogenesis/typescript/test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "bytes": 3087,
+      "sha256": "ef36f7ed5dc09a6928403f4950a2dd8db0c10b1110b1a106472f2d91aaae67c1",
+      "gitBlob": "93b4f6e0a53b0db151098b6ac09088a83e0b86f0"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-composed-final-02/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "bytes": 96012,
+      "sha256": "8848fe61f064b43b2f5e36e2a5c1242ad631dbce8d6f115bb10ccaa03f4862d9",
+      "gitBlob": "8dc0047dff4e38db97c447bdddaaa7a5f6ed831d"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-composed-final-02/build_tenants/abiogenesis/typescript/code/src/shared/stored_spelling.ts",
+      "bytes": 1167,
+      "sha256": "836026bf858a7dc3a190143eb166a44848a745f1ee7d84e7f61754990ed1c2e4",
+      "gitBlob": "858bd34b5f1bfa199df4c849c31684e4329cf396"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-composed-final-02/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+      "bytes": 97838,
+      "sha256": "33b37ae953f866befde2108c79ffd72e71bb6efb04418a31d2665b23f098d4ec"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-composed-final-02/build_tenants/abiogenesis/typescript/build/code/src/shared/stored_spelling.js",
+      "bytes": 1135,
+      "sha256": "8c8fe6722f962b2c8a7b91ad3c8ca6ee8f4cb3d160fec762fd6e75e0489f4386"
+    }
+  ],
+  "campaignClock": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/CAMPAIGN_CLOCK.json",
+    "bytes": 743,
+    "sha256": "92ab95ac102291d48fde6471cd487031b4a82064eb60491e9f5ca5f25536ff28"
+  },
+  "newExecutionAuthorized": false
+}
