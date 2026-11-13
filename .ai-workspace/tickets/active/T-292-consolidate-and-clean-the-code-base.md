@@ -162,6 +162,16 @@ Separate technical QA is dispatched on the frozen source; same-family semantic
 independence is not presumed. Root occupies Writer for integration effects and
 returns to Executive after the checkpoint.
 
+Integration Writer activation `T292-INTEGRATE-DELIVERY-PREP-01` binds Root to
+main `ca5d594ba` and returned delivery tools `9cf3285baec1f1ae80758a332ec06358a04d6804`
+(source tools `ace0e7371`). The grant covers only integration of the new work
+carrier and its proof, plus tracking; all changed files lie outside Product
+payload. No rebuild, stamp or official cut/install is implied. Root is Writer
+for this Git effect and returns to Executive afterward. The scratch precursor
+cut/install/smoke passed with 5,303 members; this is tooling proof, not final
+RC13 verification. Final version, claim, mirrors and payload are fixed before
+the one composed broad run so its subject is the delivered artifact.
+
 At most two implementation Writers run concurrently. Integration is serial.
 TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
 on TD-77. One design reconciliation closes B-08, then one composed broad and
