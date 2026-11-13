@@ -1,12 +1,13 @@
 # TD-77 Return: a reader and a recorded Product lock
 
-Writer: Claude Opus 5.5. Branch `claude/td77-recorded-lock-truth` from local
+Initial Writer: Claude Opus 5.5; closing continuation: Codex `/root/td77_resume`.
+Branch `claude/td77-recorded-lock-truth` from local
 `main` at `c1f655735`, worktree `/private/tmp/abg-td77`. Local `main` is merged
 into it twice: `fc818876c` at `d6c3faf50`, before the fix round, and
 `6464a5d50` at `9bc718a31`, before the closing round. T is
 `build_tenants/abiogenesis/typescript`. No push, no tag, no merge into `main`.
 
-**Status: unfinished preservation checkpoint; closure withheld (2026-11-13).**
+**Status: bounded Writer candidate ready for Executive integration (2026-11-13).**
 
 The Codex Writer `/root/td77_resume` resumes from `2737de62ab5865c3d01324e69a607d6e7250db91`
 under the owner-approved takeover instruction, T-292's amendment of 2026-11-13
@@ -26,16 +27,17 @@ under the TypeScript tenant. The pre-checkpoint diff is retained at
 `/private/tmp/abg-td77-work/codex-resume/surviving-edits.patch`.
 No generated manifest or graph is included.
 
-The earlier completion statement is withdrawn: the named closing-round section
-has not been written; nine failures on the intended `final-register-edit`
-variant and surviving accessor mutant A8 remain to be classified. Existing
-42/42 focused and 167-pass/1-skip battery evidence is retained with its original
-scope. The next return diagnoses the cause and smallest repair to `/root` before
-new production edits; Product acceptance, merge, qualification and release are
-not claimed. No TD-78 work is selected.
+Commit `91aec88b8de04ff8360fb8ca90e9fb7bfe2a3a12` preserved all five edits as
+explicitly unfinished work. The Executive conjoined independent Product and
+Proof triage and selected the bounded repair below before production edits.
+The nine intended-register failures and A8 are classified in the now completed
+"Closing round after the re-check" section. Earlier broad evidence keeps its
+original subject and scope; it is not a new battery on this closing source.
+Product acceptance, merge, qualification and release are not claimed. No TD-78
+work is selected, and no merge from current main is included.
 
-The prior closing-round summary follows; its claims remain subject to that
-unfinished diagnosis and the Executive's conjunction.
+The prior closing-round summary follows. The current closing section supersedes
+its historical test counts and changed-register classification.
 
 - **The rule.** Every accessor that hands out an admitted install, an
   admitted workspace binding or a workspace environment from artifact truth
@@ -150,8 +152,8 @@ Lines changed by the fix round under `code/src`, `design` and `test_env`
 removed (section 20).
 
 How to read this Return:
-- "Closing round after the re-check" is the current state. Its R1 to R9 are
-  the closing round's rulings. It corrects the status, the fix round's
+- "Closing round after the re-check" is the current state. It records the
+  carried closing decisions and the selected replay repair. It corrects the status, the fix round's
   summary, the fix round's rulings table (R1, R3, R4 and R5 rows), its lane
   table (lane 22), its mutant table, residuals 22.3, 22.4 and 22.10 to 22.13,
   and section 23 in place. It adds residuals 22.14 to 22.16.
@@ -169,6 +171,162 @@ How to read this Return:
   `c1f655735`.
 - Line numbers in the fix-round section and in the corrected sections are
   at `1ae291ca6`, under `T/code/src`.
+
+## Closing round after the re-check
+
+This is the Writer's bounded completion record under T-292's 2026-11-13
+amendment and T-293 B-01/B-02. The governing relation remains exact recorded
+Product truth (`REQ-P-PUBLIC-CONTRACTS-004`, `REQ-M-GTL3-CAPABILITY-008` and
+`REQ-P-CATALOG-013`) together with strict admission of new work. The accepted
+HOW is T287 "Recorded and strict Product truth"; no Product reprice, Public
+signature change or new refusal kind is selected. Here `T` is the TypeScript
+tenant and `W` is `/private/tmp/abg-td77-work/codex-resume`.
+
+### The nine failures and the selected repair
+
+| Saved failure on `td77e/var/final-register-edit` | Cause and disposition |
+| --- | --- |
+| `r10-child-proof` 6 | A real retained-read regression. At later D2 prefixes the replay owner reconstructs the already admitted child C2 source; its provenance helper reached `worksite_revision.admittedBindingRow`, whose strict default rejected the recorded-only lock. The missing root was interpreted as source invalidation, and replay reported `invalid_history`. |
+| `t287-historical-source-resource` 1, 3, 4 | Their pure-read setup reached the same regression, but their asserted consumer, `nativeJudgmentProofOperations.historicalGraphCallSource` → `projectHistoricalGraphCallSourceAtDurablePrefix`, is strict new-work source admission. The three positive cases now use a fresh installed R9 source at the current register. A separate immutable D2 case requires the retained read to succeed and the work-source verdict to follow strict compatibility. |
+| `r10-child-proof` 9 | Conformance reconstruction is a strict work consumer. The retained S01 case now asserts the independently expected strict refusal after the register edit; a fresh admitted current-register fixture retains positive conformance, inventory and Program-owner tests. |
+| `t287-cross-cut-public-read` 1, 2, 3, 5 | Fixture environment/grant setup asked strict before exercising a read. It now takes the same explicit recorded environment/grant route as the real read owner. All Public-read, digest, copy, changed-byte and declaration assertions remain. |
+
+The production change is confined to four files in `T/code/src/abg`:
+`replay.ts` states `recorded` at `projectOwnerFacts`;
+`invocation_admission.ts` passes it through
+`deriveSameRunWorksiteCommandSourceBasisAtPrefix`; and
+`worksite_input_provenance.ts` forwards it through
+`projectSameRunWorksiteCommandSourceAtPrefix` to
+`worksiteExecutionSourcesCurrent` in `worksite_revision.ts`.
+Within that revision helper, the same question reaches `admittedBindingRow`,
+`nativeBinding`, `samePhysicalSubject`, `invalidatedAcrossBindings`, coordinate
+selection and binding covers. Retained dependencies carry it through
+`worksiteRevisionOriginSurvives`, `projectionFacts` and `deriveCurrentOrigins`.
+All source, ancestry, observation and invalidation relations still run.
+
+Each recursive `ProjectionSession` owns one immutable question and its own
+cache and active set. Sessions are created per derivation, never shared across
+strict and recorded calls. The shared artifact fold retains recorded facts;
+the binding accessor applies the requested strict verdict after selecting the
+fact. The D2 test asks the same binding in both orders, recorded→strict and
+strict→recorded, and checks one actual default-strict provenance derivation.
+The real read compares every terminal field except the separately asserted
+prefix coordinate at cuts 67, 831 and 846; the original log/proof bytes and
+physical file identities remain unchanged.
+
+The complete competing caller census is `W/propagation-and-cache-census.txt`
+and `W/external-caller-census.txt`. `execution_basis.ts`,
+`semantic_revision.ts`, `invocation_execution_truth.ts`,
+`native_work_reacquisition.ts` and `construction_continuation.ts` keep their
+strict/default calls. Work-only revision entry/origin derivations create strict
+sessions. `exactC2SourceEnvironment` is unchanged. The native historical-source
+and conformance consumers are unchanged and strict. The three emitted public
+declaration files for the threaded helpers are byte-identical to the preserved
+build; only internal overloads accept the question.
+
+### Carried closing decisions
+
+**R1, strict accessor defaults.** The install, binding and environment accessors
+in `abg/environment_admission.ts`, and the revision binding selection, ask strict
+unless the internal historical caller explicitly states recorded. Their existing
+null/false/refusal forms remain. The focused accessor case covers owner projections
+and equal validated copies. `ownedArtifactTruth` reconstructs an equal copy from
+its owner's prefix and refuses altered copies (R3); it does not trust copied
+strict eligibility.
+
+**R2, recorded exceptions.** This table supplements the owning HOW's accessor
+table with the transitive replay exception the direct-accessor census missed.
+
+| Recorded caller | Purpose |
+| --- | --- |
+| `RuntimeArtifactFacts.advance` and its materialization environment lookup | Fold already admitted facts while retaining each install's strict verdict. |
+| `populateRunReadAtDurablePrefix` and `runReadKernel` | Populate and bind the supplied run-read packet to its recorded environment. |
+| Product `workspace_status` and `install_evidence` definitions | Bind the requested binding/installs to their recorded admissions. |
+| `terminalDeclaration` under the read owner's explicit recorded preparation | Resolve exact recorded declaration evidence for Public and owner reads; the work-source entry still prepares strict. |
+| `replay.projectOwnerFacts` through the provenance/revision cone above | Reproduce the already admitted C2 source at its preparation cut, including during later-prefix reads. |
+
+**R4, requirement at the shared accessor.** The carried implementation removes
+the redundant entry checks where the same accessor now owns the requirement;
+the candidate's compact-reference and causal-install checks remain. Root and
+child execution-basis admission retain explicit environment requirements where
+they previously took no fold fact.
+
+**R5, six exported work entries.** Focused cases cover `admitInvocation`,
+`admitExecutionBasis` (with and without a worksite carrier),
+`admitChildExecutionBasis`, `invokeActorProcess`, `admitFhInteractionHold` and
+`admitProbabilisticResultCandidate`. They retain the documented component
+preconditions: invocation branding; admitted invocation for basis checks;
+parent basis/scope and hold route facts; or actor/basis/implementation facts.
+The actor-start gate replaces no precondition before the strict question.
+The actual accessors and strict verdict are never replaced. Sentinels prove
+the current-compatible fixture passes the question; recorded-only fixtures
+refuse with no append or process start. These are bounded gate proofs, not
+complete Runs. The installed R9 fixture below supplies the current execution.
+
+The other carried closing changes retain the materialization branch's specific
+refusal text and its isolated case/mutant, restrict the binding-lock text to
+causes that are all admitted installs, and state both historical release
+callers in the HOW/Return. The earlier cost measurements and mutation results
+remain evidence on their saved subjects; they are not newly rerun here.
+
+**A8 sensitivity limit.** The saved mutant that bypasses the explicit retained
+strict answer in `projectAdmittedWorkspaceBindingByInvocationRef` passes 42/42.
+The remaining `rehydrateWorkspaceBindingRow` → `isWorkspaceBindingCandidate`
+→ `isResolvedProductLock` chain, with exact lock equality, still refuses the
+recorded-only binding. This is redundant strict validation, not evidence that
+the guard admits work. Both guards remain. No artificial mock or extra mutation
+loop was introduced to force a kill.
+
+### Closing proof and limits
+
+| Final subject | Focused TD-77 | R10 child proof | Historical source | Public reads | Total |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Current register | 42/42 | 12/12 | 5/5 | 5/5 | **64/64** |
+| Independent register-edit copy | not rerun | 12/12 | 5/5 | 5/5 | **22/22** |
+
+All have zero failures, cancellations and skips. The changed copy's one source
+edit removes `abg.schema.consensus-subject` from the
+existing capability-register owner list using the saved `apply_edit.py`.
+`ABI5_TD77_EXPECT_RECORDED_ONLY=1` requires the old D2/S01 register expectation
+to differ. The expectation reconstructs the graph/contract identities from the
+reader's register independently of the accessor under test, and separately
+asserts the raw strict and recorded lock verdicts.
+
+Fresh positive fixtures install once per file, then open isolated current
+stores. The R9 fixture executes through the installed ABG/HoG owners to the
+exact closed Hello World result, then reopens its real log for retention,
+later-prefix reuse and rollback-generation reconstruction tests. Conformance
+uses a fresh strict-compatible admitted environment and catalog. No provider or
+model is invoked, and no retained D2 byte is migrated or rewritten.
+
+Evidence: `W/td77-final.tap`, `W/r10-final.tap`, `W/source-final.tap`, and the
+five Public-read cases in `W/read-final.tap`; `W/history-register-edit.tap`
+records the three changed-register files. `W/build.log` and
+`W/register-edit-build.log` record successful builds. Import, lifecycle and
+calculus boundary checks pass (`W/lint-{imports,lifecycle,calculus}.log`).
+The first fresh-fixture run (`W/source-fixture-r1.tap`) exposed a wrong test
+path field; it was corrected to the durable coordinate's `eventLogRef`, and
+all five cases then passed. The earlier full-source order repetition also
+passed but was reduced to the shared binding gate plus one default-strict
+source derivation to avoid redundant reconstruction.
+
+The test command is `node --experimental-vm-modules --test --test-concurrency=1
+--test-reporter=tap` with the named files under `T/test_env/tests`,
+`ABI5_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace`, and the
+additional expected-recorded-only flag on the changed copy. Both builds use
+`npm run build`. `W/final-subject.json` binds the authored source, test and
+design hashes, generated build identities, declaration comparison and proof
+logs. Generated graph/manifest outputs are restored to the checkpoint bytes
+before committing; they are not part of the authored candidate.
+
+The inherited 20-file 167-pass/1-skip and earlier 83-file battery are preserved
+at their original subjects and were not replayed. Residual 22.16 is narrowed:
+the revision binding gate now has the actual D2 recorded-read/strict-work
+discriminator; the other named in-run sites retain their earlier evidence
+limits. Residuals 22.14/22.15 retain their stated scope and harness assumptions.
+The `release.snapshot`/release-evidence strict exception (22.4) remains visible
+and unchanged; none of these nine failures crosses it. TD-78 remains outside
+this grant. Acceptance and integration belong to the Executive.
 
 ## Fix round after the independent review
 

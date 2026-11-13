@@ -310,7 +310,7 @@ read needs `recorded`, an `@internal` overload takes it.
 | `projectAdmittedWorkspaceProductInstall`, `projectAdmittedProductInstallByAdmissionEventRef` (through the row rehydration `rehydrateProductInstallRow`) | strict; `@internal` overload takes `recorded` | null |
 | `projectExactPrefixWorkspaceEnvironment`, `projectWorkspaceEnvironmentFromArtifactTruth` | strict; `@internal` overload takes `recorded` | the refusal `causal_install_missing` ("the admitted WorkspaceBinding has no causal ProductInstall admitted for work"); the environment body is derived and cached without a question, and the question is asked after it |
 | `projectAdmittedProductInstallByInvocationRef`, `projectAdmittedWorkspaceBindingByInvocationRef`, `projectAdmittedProductInstall`, `projectAdmittedWorkspaceBinding` | strict only | null |
-| `projectAdmittedWorkspaceBindingAtCoordinate` and every binding-row selection of `abg/worksite_revision.ts` (`admittedBindingRow`) | strict only | null |
+| `projectAdmittedWorkspaceBindingAtCoordinate` and every binding-row selection of `abg/worksite_revision.ts` (`admittedBindingRow`) | strict by default; the replay provenance reconstruction passes `recorded` through internal overloads | null |
 
 Each entry that admits or continues work takes its install, binding or
 environment through one of these accessors and keeps the refusal it gives for a
@@ -354,6 +354,20 @@ exceptions; every other call site asks strict by stating no question.
 | `project.read#workspace_status` (`product/project_read_definition_bindings.ts`) | `projectAdmittedWorkspaceProductInstall`, `hasAdmittedWorkspaceBinding` | the status read binds the packet's binding and installs to their recorded admissions |
 | `project.read#install_evidence` (`product/project_read_definition_bindings.ts`) | `hasAdmittedProductInstall` | the evidence read binds the packet's install to its recorded admission |
 | `terminalDeclaration` (`abg/project_read_ports.ts`), with `prepared.question`, which states `recorded` at `projectRunTruthAtDurablePrefix`, the Public run read and the owner read ports (`project`) | `projectWorkspaceEnvironmentFromArtifactTruth`, `projectExactPrefixWorkspaceEnvironment`, `projectAdmittedProductInstallByAdmissionEventRef` | the read binds a supplied declaration proof to the recorded environment; the closed terminal for native work reacquisition states `strict` |
+
+The replay owner (`projectOwnerFacts`, `abg/replay.ts`) also states `recorded`
+when it reconstructs the already admitted child C2 source at its preparation
+cut. `deriveSameRunWorksiteCommandSourceBasisAtPrefix` passes that question
+through `projectSameRunWorksiteCommandSourceAtPrefix` and
+`worksiteExecutionSourcesCurrent` to the revision binding lookups. Retained
+origins forward it through `worksiteRevisionOriginSurvives`, `projectionFacts`
+and `deriveCurrentOrigins`, including binding coordinates and witnessed covers.
+The existing recursive projection session carries one question with its cache;
+no session or cached answer crosses questions. The historical reconstruction
+still checks all source, observation, invalidation, ancestry and witnessed-cover
+relations. It grants no work. Every exported/default execution call asks
+strict, including child admission, the command leaf's pre-effect check and
+semantic revision. `exactC2SourceEnvironment` remains a strict work-only path.
 
 The requirement sits at what each entry relies on, not on the whole fold. A
 store whose first install's lock answers only the recorded question and whose
