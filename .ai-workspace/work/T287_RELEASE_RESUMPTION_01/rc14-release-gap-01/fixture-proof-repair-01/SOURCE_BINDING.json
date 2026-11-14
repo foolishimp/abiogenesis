@@ -1,0 +1,9 @@
+{
+  "preparedUtc": "2026-11-14T19:27:39.148633+00:00",
+  "actualParent": "e89ed8bd8aa709816894721ec1c30f19045b4e3c",
+  "productBase": "5680ae9ae9d2f310342f9e58ece86032d42e379c",
+  "tenantSpecificationDefinitionEqual": true,
+  "branch": "codex/rc14-proof-fixture-20261115",
+  "source": "/private/tmp/abg-rc14-proof-fixture-20261115-01",
+  "finalLaunchBinding": "Root supplies exact pushed sourceHead; clean branch advances then freeze-source.py records complete actual preimage. No self-referential HEAD is hardcoded."
+}

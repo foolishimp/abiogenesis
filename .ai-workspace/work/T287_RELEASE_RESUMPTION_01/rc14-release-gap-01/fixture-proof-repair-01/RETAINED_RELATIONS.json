@@ -1,0 +1,108 @@
+{
+  "kind": "explicit source-bound prior evidence relations; no new executed union",
+  "preparedParent": "e89ed8bd8aa709816894721ec1c30f19045b4e3c",
+  "priorOwnerSubject": "b529fdbe16315180b4fe83e03bb60e561efe5635",
+  "priorOwnerWholeFiles": 7,
+  "priorOwnerPasses": 126,
+  "allProductCodeUnchangedFromPriorOwnerSubject": true,
+  "priorIdentitySubject": "b4026fa6445a098431ce9c26afe2cac978474932",
+  "priorIdentityPasses": 6,
+  "pins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t293-b21-owner-boundaries.test.mjs",
+      "sha256": "5e4c3871b765957e407beadd17ea8b7ac6e739e976a08b08e166f86dee00cf49",
+      "unchangedFrom": "b529fdbe16315180b4fe83e03bb60e561efe5635"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t293-b21-physical-confinement.test.mjs",
+      "sha256": "408081d01559c53edafd09d6aa6c59da771dde47710ced54f3d9cea87cbf27bd",
+      "unchangedFrom": "b529fdbe16315180b4fe83e03bb60e561efe5635"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td85n-absent-protected-root.test.mjs",
+      "sha256": "95c6fcde7a7850196c93db20094c34d6c0a93fa5fa39aaf9161338c47e75ef3a",
+      "unchangedFrom": "b529fdbe16315180b4fe83e03bb60e561efe5635"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td85a-stored-spelling.test.mjs",
+      "sha256": "8a5aaa375ca7b01d262b9c06b45d56ef19dfdc0a0796332f50f494d18a676c19",
+      "unchangedFrom": "b529fdbe16315180b4fe83e03bb60e561efe5635"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "sha256": "783e6f745362a2a662a8975fb0db868120905517d4d7b05f74ef83b4267decee",
+      "unchangedFrom": "b529fdbe16315180b4fe83e03bb60e561efe5635"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure-owner-admission-close.test.mjs",
+      "sha256": "517c55484527dacc03304a7b32901d818409f71c5bfd043cec1243977055ec7b",
+      "unchangedFrom": "b529fdbe16315180b4fe83e03bb60e561efe5635"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "sha256": "0e556e999ab541dcfc2721a73262953476d87d54e13d52537073d33f77e9cda4",
+      "unchangedFrom": "b529fdbe16315180b4fe83e03bb60e561efe5635"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "sha256": "3274c5ef23c5fd5b362b42a899bc0d7c9d588f363848e1b033150b968f8a7008",
+      "unchangedFrom": "b529fdbe16315180b4fe83e03bb60e561efe5635"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "sha256": "966e4649e8794a916a540a2add3a3e0e5fdfaf89e100009f71c29fd3c55a3dba",
+      "unchangedFrom": "b529fdbe16315180b4fe83e03bb60e561efe5635"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t293-rc14-qualification-preparation.test.mjs",
+      "sha256": "c96b44c444d77297e840284b8b13c8ee9cab4911378a954a78109c31a48f1c7d",
+      "unchangedFrom": "b4026fa6445a098431ce9c26afe2cac978474932"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-identity.mjs",
+      "sha256": "b70876168d2bfbdc49b56cd8d23ef0bd595e5077f148d6bd056005aab45e7497",
+      "unchangedFrom": "b4026fa6445a098431ce9c26afe2cac978474932"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/qualification/build-resources.mjs",
+      "sha256": "bdc6650f2d34b447f8d6eb9ed5727e7e42d46aed71a8e32145f151cb257064ee",
+      "unchangedFrom": "b4026fa6445a098431ce9c26afe2cac978474932"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "sha256": "799d6b49683022fd0356ec13bc14f7e3c04df5ddb19b35192418eb88d8773e81",
+      "unchangedFrom": "b4026fa6445a098431ce9c26afe2cac978474932"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "sha256": "e96f3f83600db08d3145b468895de887d375d764e8ae4f0929e886207383e4cd",
+      "unchangedFrom": "b4026fa6445a098431ce9c26afe2cac978474932"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_resources.ts",
+      "sha256": "ad5fd9c47222d413d1b053bf59e68402237e88b53b1c23f2890f57b630a39081",
+      "unchangedFrom": "b4026fa6445a098431ce9c26afe2cac978474932"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_contracts.ts",
+      "sha256": "49c3798542bd301d398411229ff7afb8be0863cbcf60f65de22fee56e2744bf8",
+      "unchangedFrom": "b4026fa6445a098431ce9c26afe2cac978474932"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_operations.ts",
+      "sha256": "38e18eafcbed53a7ba4a15966a6b9b025bd3aeb2236be6d0ff09a7e22534e4a5",
+      "unchangedFrom": "b4026fa6445a098431ce9c26afe2cac978474932"
+    }
+  ],
+  "sourceConeLimits": [
+    "The native build/input/payload realization changed between prior B21 proof and composition; retain physical foundation only if ordinary native output equals its prior SHA.",
+    "Six identity cases exercise unchanged exact identity/qualification helpers and referenced validators; their old run remains subject-bound, not a new composed run.",
+    "New pack/install/owner check is separately selected because the composed packaged payload is different.",
+    "New two tests and earlier failed files are not represented by these retained passes."
+  ],
+  "ordinaryNativeOutputCondition": {
+    "relativePath": "build/native/abg_physical_path.node",
+    "sha256": "1b6a1d8944275c98d84ba9b2124fda72b7942285fc7e64930ee00578130edb77"
+  },
+  "newExecutedPopulationExcludesPrior132": true
+}

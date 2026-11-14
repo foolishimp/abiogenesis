@@ -1,0 +1,14 @@
+{
+  "kind": "prospective exact controlled layout; not observed during preparation",
+  "source": "/private/tmp/abg-rc14-proof-fixture-20261115-01",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01",
+  "writePaths": [
+    "/private/tmp/abg-rc14-proof-fixture-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "/private/tmp/abg-rc14-proof-fixture-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t293-native-build-inputs.test.mjs"
+  ],
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "plannedProtected": "HOST exact installed ABI container/package, consumer package, four resource roots, pinned install and release; full actual binding/install set after setup and immediately before dispatch",
+  "workerTemporaryStorage": "external rawRoot/host-scratch/worker-tmp and worker-npm-cache; no additional native source write root",
+  "observationStatus": "not executed; Root accepted observer and fresh runtime preflights are mandatory before provider",
+  "scope": "controlled ASCII layout only; no generic Unicode or atomic race claim"
+}

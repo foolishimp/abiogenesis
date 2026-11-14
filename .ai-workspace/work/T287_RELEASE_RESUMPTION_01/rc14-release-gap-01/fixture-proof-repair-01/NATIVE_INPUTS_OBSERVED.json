@@ -1,0 +1,28 @@
+{
+  "kind": "operator_read_only_native_input_identity",
+  "originalRecordSha256": "271dc16b108d1999a4215a45049f58e00b2d81191f9be9167242e17e0b75e555",
+  "originalRowsVerified": 193,
+  "mandatoryOmittedLibraries": [
+    {
+      "path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libtapi.dylib",
+      "bytes": 655920,
+      "sha256": "cdeba15b2a8bb4274a371d4c1d834c8d2dcac06235e6f9f1b1394ee3ed8805fc"
+    },
+    {
+      "path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libcodedirectory.dylib",
+      "bytes": 139296,
+      "sha256": "a720532c8ca0033ecd277463298cda19fb1fc5cd79e7c308c152975c2e1e7d6d"
+    },
+    {
+      "path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libswiftDemangle.dylib",
+      "bytes": 1241648,
+      "sha256": "6110525f5d2f5873ff088b7dc11366db276f1ce8ebef4326eb669940bf1cfb3b"
+    }
+  ],
+  "substrate": "OS/system loader libraries and executing Node are recorded supported substrate; no complete-machine closure",
+  "effect": "Read/hash only; no toolchain copy or execution, no compile/link",
+  "rawPreimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/NATIVE_INPUT_PREIMAGE.json",
+    "sha256": "7c9708d1956f7c55428299f6c8ad23695b90b9f08f970831d7228720743b3574"
+  }
+}
