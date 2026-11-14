@@ -1,5 +1,5 @@
 {
-  "status": "FIXTURE_REPAIR_INTEGRATED_INSTALLED_BINDING_PREPARATION",
+  "status": "INSTALLED_SMOKE_ACQUISITION_REFUSED_BEFORE_PROVIDER_CAUSAL_INTAKE",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -27,7 +27,7 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T20:32:27.715375+00:00",
+  "recordedUtc": "2026-11-14T20:39:07.014701+00:00",
   "nativeAuthorState": "Fixture native author returned with actual resource close; no author active. Composed proof complete, no retry. Author process deviations retained separately from passing proof.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
@@ -327,26 +327,55 @@
     "returnRecordSha256": "38519573c5172a7a153baa9c4ae66c1446fa87953bc9ac8f523f07b5b6a1f506"
   },
   "installedCompositionPreparation": {
-    "state": "CONCRETE_ONE_RUN_BINDING_SELECTED_PENDING_PUSH",
+    "state": "FIRST_FAILURE_RETAINED_NO_PROVIDER",
     "controlCommit": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862",
     "acceptance": "integration-01/installed-smoke-preparation-01/ROOT_CREDENTIAL_SCOPE_ACCEPTANCE.json",
-    "missing": "Exact grant push and actual bounded installed smoke/Public lifecycle evidence",
+    "missing": "Reviewed correction of deterministic smoke dependency setup, then actual installed lifecycle evidence under retained original clock",
     "bindingPreparation": "Read-only exact binding preparation selected on frozen controls c1683d3 with repaired proof payload; no dispatch granted yet",
     "executionGrant": "integration-01/installed-basic-01/ACTIVATION.json",
     "bindingSha256": "9e1300311fa481cddceb001a428e63d1a505779c1050a0ed34c279ad098224ea",
-    "deadlineUtc": "2026-11-14T21:32:27.715375+00:00"
+    "deadlineUtc": "2026-11-14T21:32:27.715375+00:00",
+    "pushedGrantCommit": "077202401939019a023632e8c5f34d89e974b894",
+    "observed": "Planned topology passed; installed-language file failed module acquisition before named case, exit1 in202ms,0pass/1file failure. Basic setup/native dispatch never reached; worksite absent. No timeout/signals; owned command group absent.",
+    "failure": "ERR_MODULE_NOT_FOUND: frozen control checkout lacks build/code/src/product/index.js imported by test_env/fixtures/registered-selection-product/index.mjs",
+    "inputConservation": {
+      "complete": true,
+      "conserved": true,
+      "mismatches": 0,
+      "acquisitionErrors": 0
+    },
+    "firstFailureRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01",
+    "firstFailureReceipts": {
+      "004-installed-language/stdout.raw": "8edee28b6e8edc2d355a64db0c015872fd9087d3562f4780a114c92251f18e99",
+      "004-installed-language/result.json": "25bf554068f17bef181dffdb0ee9ccadb2f139de5b2ae96351b641f36ca8829f",
+      "INPUT_CONSERVATION.json": "36179beb6b12b5c847642eae213744c3f9f0880b1d8b17aade15d6c00dc99eec",
+      "RETURN.json": "27344b979173834c779d49c6c4f44016757729bf61df6bda7497d6365e8fea0f"
+    },
+    "nativeProviderStarted": false,
+    "retry": false,
+    "next": "Read-only complete smoke/basic import-closure trace; evaluate separate exact binding to existing conserved compiled proof checkout. No Product/test edit, rebuild, copied alias, dropped proof or clock reset selected."
   },
   "peerReviewIntake": {
     "path": ".ai-workspace/comments/claude/20261114T194815Z_REVIEW_RC13_AND_RC14_RELEASE_GAP/README.md",
     "standing": "Commentary against older514aac439 and RC13a2626fa54; evaluate before adopting",
-    "work": "Independent two-regression trace, five-retirement-test review and platform applicability closed read-only; identity tranche active. No peer recommendation adopted without current owner trace.",
+    "work": "All15 peer-red file diagnoses closed as source/receipt analysis against unchanged relevant owners; no supported Public regression established. Test repairs and whole-file reproof remain unperformed.",
     "additionalFailuresClaimed": 20,
     "disposition": {
       "requiredOperation": "Assessment checks passed; later materialization fixture names retired Consensus schema. Test-only re-entry required.",
       "retirementFiles": "Five additional files retain superseded P5/P7 premises. All11 GTL corpus IDs and expected-diagnostic bindings conserved; removed nine identities are explicitly retired Consensus schemas.",
       "f09": "Injected rollback fixture reuses stale retained prefix. Reacquire through actual owner before next actor/continuation; no supported Public-path regression established, execution discriminator pending.",
       "platform": "Accepted B21 foundation is bounded Darwin arm64/same APFS; no universal OS matrix found. Data-spelling-only fallback is insufficient separation proof. Final support disposition and broader constructability remain explicit.",
-      "remaining": "Identity/currentness, readable-stop, native-runtime retained fixture and copied native-addon completeness remain under triage."
-    }
+      "remaining": "No source triage tranche active. Native-runtime donor mismatch is a necessary failure condition; the peer did not preserve its first internal refusal."
+    },
+    "closedAdditionalDiagnoses": {
+      "governance": "Strict new-use fixture uses RC1 lock with13retired Consensus contracts and obsolete Program fields. Needs current owner-produced admissible fixture, while preserving historical inputs; do not change new-work consumer to recorded.",
+      "steel": "Historical dev286 closure explicitly requires recorded owner reconstruction. Keep current-language new-admission refusal strict.",
+      "td36pair": "Both pack changed source but verify against committed old12d49bad archive. Use maintained packed-artifact identity/actual manifest for components, preserving separately selected committed mode.",
+      "currentness": "Harness installedRoot=env.scratch covers env.scratch/worksite; protected-root observation correctly refuses. Give its exact install premise a genuine disjoint root, retain productInstalls/observer and all six sequential consumers.",
+      "readableStop": "PRODUCT1028-1036 and REQ-P-POLICY065-068 require reason/origin/lastRootResult, not retired next-actions. P5 commit4a6889a3b removes nextActions/nextText. Remove only obsolete sentence at test152; retain required statement and all parity/origin/ended-frame checks.",
+      "nativeRuntime": "Gate donor23205907B SHA72f8c19677beb3f6f3d904b4bd1cd2d96a5803487ce22ba7d631bf19ae624598 has16dev286 capability rows including retired Consensus; current register15. Strict reconstruction necessarily refuses. Current admissible owner-produced positive needed; preserve old strict refusal, not a recorded-native bypass.",
+      "observedWorksite": "Isolated test copies only build/code/src JavaScript; package-relative observer requires omitted build/native/abg_physical_path.node. Carry exact native payload and preserve readonly/unauthorized-write component assertions; no Product fallback."
+    },
+    "proofLimits": "Peer20failures include cascading parents on older514aac439. No counts are added to current65passes; diagnoses do not prove repairs. Each affected whole file, actual prerequisite gates and complete first-failure candidates remain required."
   }
 }
