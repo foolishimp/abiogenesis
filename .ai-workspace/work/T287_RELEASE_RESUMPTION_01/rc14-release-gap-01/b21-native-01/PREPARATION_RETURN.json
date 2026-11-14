@@ -98,5 +98,12 @@
     "Invoke at most one actual RC13 native author with operate.py; then bounded proof only on frozen return",
     "Root separately activates source assurance, integrates/pushes; Operator does not merge main or publish raw evidence"
   ],
-  "qualified": false
+  "qualified": false,
+  "controlReviewCorrections": {
+    "classification": "Root control-only corrections before dispatch; no Product/provider/integration failure.",
+    "proofDeadline": "Retain original CONTROL_START.json deadlineUtc; clip proof to min(original remaining, one-hour proof budget), reserve 15000ms for finite cleanup, preserve original/requested/effective/execution-stop deadlines in receipts.",
+    "plannedProtectedRoots": "Add runtime/sandbox/installed/abg container alongside installed package. LAYOUT.json now names9 planned roots; no repeated observer run or amended prior8-root claim. Actual post-setup and immediately-pre-dispatch checks remain.",
+    "observerSha256Unchanged": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+    "validation": "Syntax-only check of changed HOST.mjs/prove.py plus JSON/diff consistency; no Product run, physical observation or provider dispatch."
+  }
 }

@@ -21,10 +21,14 @@ for the controlled ASCII-named B21/B12 layouts. Its actual layout and real
 falsifiers are retained externally; the compact observations are in the Return.
 It refuses the real protected Data bridge and the aliased missing suffix,
 permits the lawful sibling layout, and rejects injected relevant attachment or
-duplicate mount membership. The initial 8 planned roots do not replace the
+duplicate mount membership. The initial observed 8 planned roots do not replace the
 actual post-setup complete binding/install roots. HOST observes those after
 setup and again immediately before dispatch. Stable observations do not lock
 the mount table. Python casefold is not adopted as Product B05 Unicode law.
+Root's control review added the `sandbox/installed/abg` container to the
+pre-setup planned roots alongside its package path. `LAYOUT.json` now names
+those 9 roots. The prior 8-root receipt remains unchanged; HOST will observe
+the exact expanded list before setup. No new observation is claimed here.
 
 `HOST.mjs` reuses the maintained `public-setup.mjs` and `runner.mjs` route used
 for B31: exact pinned RC13 artifact, fresh imported-worksite authority, real
@@ -45,8 +49,12 @@ bind them in `scripts/native-build-inputs.json`. No binary compile/link/test is
 delegated. The eventual build verifies that closure before compilation. Native
 inputs are not members of npm-only recipe `dependencies.json`.
 
-`PROOF_PLAN.json` and `prove.py` declare one fresh one-hour campaign, first
-failure stop, no retry. Source/dependencies are copied to external mirrors;
+`PROOF_PLAN.json` and `prove.py` declare a proof budget of at most one hour,
+clipped to the original two-hour `CONTROL_START.json` host deadline, with
+15 seconds reserved inside both bounds for finite command cleanup. Start and
+return/failure receipts preserve the original, requested, effective and
+execution-stop deadlines. First failure stops; no retry is selected.
+Source/dependencies are copied to external mirrors;
 source itself is not built. The first candidate build is followed immediately
 by the new whole-file bug discriminator. Native binary reproduction, a clean
 offline installed byte comparison and actual installed physical-owner checks

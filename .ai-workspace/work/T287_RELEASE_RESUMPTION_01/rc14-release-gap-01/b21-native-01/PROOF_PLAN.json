@@ -37,5 +37,8 @@
   "B04Meaning": "C0 post-publication/partial-effect accounting, not T293 event-log-lock ticket B04.",
   "installedProofLimit": "Cold physical-owner fixture plus actual installed native binary, not a Public/native execution or stable release claim.",
   "generatedQualification": "Native command authored now; complete generated inventory and auxiliary/protected-input refresh stays in later composed phase.",
-  "platformLimit": "Darwin arm64 / Node24.7.0 actual host. NodeAPI8 intended Node>=20 compatibility, no Node20 execution evidence."
+  "platformLimit": "Darwin arm64 / Node24.7.0 actual host. NodeAPI8 intended Node>=20 compatibility, no Node20 execution evidence.",
+  "originalHostDeadline": "Retain CONTROL_START.json deadlineUtc; proof effective deadline is min(original host deadline, proof start + campaignMs).",
+  "cleanupReserveMs": 15000,
+  "executionDeadline": "Effective deadline minus cleanupReserveMs; no command starts after that stop boundary. Original, requested, effective and execution-stop deadlines are retained."
 }

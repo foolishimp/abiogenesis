@@ -26,6 +26,7 @@
     "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/qualification-scratch/rc14-b21-native-01"
   ],
   "protectedRoots": [
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/sandbox/installed/abg",
     "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
     "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
     "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/resources/events",

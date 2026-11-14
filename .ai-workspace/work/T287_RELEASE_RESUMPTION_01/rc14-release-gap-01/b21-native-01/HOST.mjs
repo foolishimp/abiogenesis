@@ -60,7 +60,7 @@ try {
   for(const flag of ['--model','--effort','xhigh','--tools','--json-schema','--output-format','--include-partial-messages','--permission-mode','--no-session-persistence','--disable-slash-commands'])assert(help.includes(flag),flag);
   await record('provider-help.raw',help,true);await record('provider-identity.json',{executable:p.executable,sha256:p.sha256,version,model:p.model,effort:p.effort,measurement:'CLI identity and advertised argument support; no remote model attestation'});
   for(const suffix of ['resources/events','resources/runtime','resources/projections','resources/archives','sandbox/installed'])await mkdir(join(runtimeRoot,suffix),{recursive:true});
-  const plannedProtected=[join(runtimeRoot,'sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant'),join(runtimeRoot,'sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat'),
+  const plannedProtected=[join(runtimeRoot,'sandbox/installed/abg'),join(runtimeRoot,'sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant'),join(runtimeRoot,'sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat'),
     ...['events','runtime','projections','archives'].map(n=>join(runtimeRoot,'resources',n)),installed,pin.releaseRoot];
   await record('topology-before-setup.json',await observeTopology({worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots:plannedProtected,archiveRoot:join(runtimeRoot,'resources/archives')}));
   await mark('identity-and-topology-bound');

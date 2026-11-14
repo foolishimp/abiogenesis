@@ -2,6 +2,7 @@
 """One finite external proof campaign after the one successful native return.
 No source repair, provider call, automatic retry or source-tree build.
 """
+import datetime
 import hashlib
 import importlib.util
 import json
@@ -89,14 +90,30 @@ def main():
     proof=RAW/'proof-01'
     proof.mkdir()
     started=time.monotonic()
-    deadline=started+ACT['limits']['proofCampaignMs']/1000
+    started_utc=datetime.datetime.now(datetime.timezone.utc)
+    control_start=json.loads((RAW/'CONTROL_START.json').read_text())
+    assert control_start['sourceHead']==head
+    original_host_deadline=datetime.datetime.fromisoformat(control_start['deadlineUtc'])
+    assert original_host_deadline.tzinfo is not None
+    requested_deadline=started_utc+datetime.timedelta(milliseconds=ACT['limits']['proofCampaignMs'])
+    effective_deadline=min(original_host_deadline,requested_deadline)
+    # The command owner has at most 5s TERM + 5s KILL + 5s final wait.
+    # Keep that finite cleanup inside both the original host and proof bounds.
+    cleanup_reserve_seconds=15
+    execution_stop=effective_deadline-datetime.timedelta(seconds=cleanup_reserve_seconds)
+    deadline=started+(execution_stop-started_utc).total_seconds()
+    clock={'startedUtc':started_utc.isoformat(),'originalHostDeadlineUtc':original_host_deadline.isoformat(),
+           'requestedProofDeadlineUtc':requested_deadline.isoformat(),'deadlineUtc':effective_deadline.isoformat(),
+           'executionStopDeadlineUtc':execution_stop.isoformat(),'cleanupReserveMs':cleanup_reserve_seconds*1000}
     commands=[]
     postimage=None
     try:
+        write(proof/'START.json',{'sourceHead':head,**clock,
+              'campaignMs':ACT['limits']['proofCampaignMs'],'retry':False,'qualified':False})
+        assert time.monotonic()<deadline,'insufficient original host/proof deadline for execution and finite cleanup'
         postimage=source_inventory(head)
         write(proof/'SOURCE_POSTIMAGE.json',postimage)
-        write(proof/'START.json',{'sourceHead':head,'sourcePostimageSha256':sha((proof/'SOURCE_POSTIMAGE.json').read_bytes()),
-              'campaignMs':ACT['limits']['proofCampaignMs'],'retry':False,'qualified':False})
+        write(proof/'SOURCE_BINDING.json',{'sourceHead':head,'sourcePostimageSha256':sha((proof/'SOURCE_POSTIMAGE.json').read_bytes())})
         dependency=json.loads((HERE/'DEPENDENCY_INPUTS.json').read_text())
         assert deps.inventory(dependency['path'])['sha256']==dependency['inventorySha256']
         assert sha((SOURCE/REL/'package-lock.json').read_bytes())==dependency['lockSha256']
@@ -191,12 +208,13 @@ def main():
             assert sha(Path(row['path']).read_bytes())==row['sha256'],row
         assert deps.inventory(dependency['path'])['sha256']==dependency['inventorySha256']
         assert source_inventory(head)==postimage,'source changed during proof'
+        assert time.monotonic()<=deadline+cleanup_reserve_seconds,'original host/proof deadline elapsed before return'
         write(proof/'RETURN.json',{'ok':True,'commands':commands,'elapsedMs':round((time.monotonic()-started)*1000),
-              'retries':0,'sourceHead':head,'sourceUnchanged':True,'qualified':False,
+              'retries':0,'sourceHead':head,'sourceUnchanged':True,'qualified':False,**clock,
               'limits':['Historical fixture gates remain exact skips, not closed proof.','Native binary/proof platform is Darwin arm64 on Node24.7.0; no Node20 execution claim.','Generated qualification inventories remain for composed-source refresh.']})
     except Exception as error:
         write(proof/'FIRST_FAILURE.json',{'errorType':type(error).__name__,'message':str(error),'commandsCompleted':commands,
-              'elapsedMs':round((time.monotonic()-started)*1000),'retry':False,'qualified':False})
+              'elapsedMs':round((time.monotonic()-started)*1000),'retry':False,'qualified':False,**clock})
         print(json.dumps({'phase':'proof-first-failure','message':str(error)}),flush=True)
         raise
 
