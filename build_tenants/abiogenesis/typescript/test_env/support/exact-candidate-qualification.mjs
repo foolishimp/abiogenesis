@@ -1,5 +1,7 @@
-// T-287 Phase D, D5 (D5-b, D5-c): the exact qualification driver of the pre-RC candidate of
-// @abiogenesis/typescript-tenant 5.0.0-rc.1. It mirrors the D2 driver
+// T-287 Phase D, D5 (D5-b, D5-c): the exact qualification driver of one exact candidate of
+// @abiogenesis/typescript-tenant. Its canonical RC identity derives from the installed package, manifest, verified
+// artifact, admitted install and frozen release claim (exact-candidate-identity.mjs); its subject kind
+// (pre_rc_candidate | installed_rc) is selected explicitly by prepare and retained by every reopening mode. It mirrors the D2 driver
 // (record directory 20261028T135232Z_D2_CONTROLLED_CORRECTION/run-specimen.mjs)
 // and the installed conservation chain (installed-qualification-conservation.mjs) where they apply: the sandbox
 // harness's exports for the installed Public path, and the installed package's exports for the qualification
@@ -8,11 +10,13 @@
 // Operator launch: sh test_env/support/run-exact-candidate-qualification.sh <mode> ...
 // The launcher fixes this driver process to --max-old-space-size=16384 (16 GiB).
 // Modes:
-//   prepare             the admission check, with no provider dispatch: the pack verified, resolved, installed and
+//   prepare             (--subject-kind pre_rc_candidate|installed_rc, required) the admission check, with no
+//                       provider dispatch: the pack verified, resolved, installed and
 //                       bound through fresh installed CLI processes; the qualification programs (with the owner
 //                       ruling Program) viewed and their conformance evaluated; the admitted catalog retained for the
 //                       later modes; the basis, bound scope and tenant manifest constructed; the recipe's protected
-//                       inputs placed in the bound worksite, observed by the installed owner, and the C2
+//                       inputs placed in the bound worksite (npm archives from --dependencies, declared native build
+//                       inputs at their protected placement; native-inputs.mjs), observed by the installed owner, and the C2
 //                       configuration constructed over them; the setup environment recorded. The provider version
 //                       probe runs only in live mode. With --execute-recipe, the bound commands are executed once in a
 //                       snapshot copy, timed, outside C2 (a measurement, not an observation).
@@ -45,8 +49,11 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { commandRecorder, configuration, eventResourceIdentity, exclusiveRecord, newArchive, preflight, workerEnvironment } from '../uat/runner.mjs';
 import { BoundaryFailure, installedModules, populateSandbox, publicCaller, verifyArtifact } from '../uat/public-setup.mjs';
-import { OUTPUTS, PROSPECTIVE_RELEASE_FIELDS, Q, RECIPE_PATH, TENANT_ROOT, classification, commandInput, constructInventory,
+import { OUTPUTS, Q, RECIPE_PATH, TENANT_ROOT, classification, commandInput, constructInventory,
   constructScope, installedExports, lawAndCoverage, sha256, tenantManifest } from '../qualification/build-resources.mjs';
+import { placementCollisions, recipeAuxiliarySources } from '../qualification/native-inputs.mjs';
+import { CandidateIdentityRefusal, RELEASE_CLAIM_PATH, prepareCandidateIdentity, qualificationBasisBody, retainedSubjectKind,
+  selectSubjectKind } from './exact-candidate-identity.mjs';
 import { PHASE_C_CLOSE, TENANT_PATH, REPOSITORY_ROOT, chainCommits, constructChains, constructProvenance, establishedAttributions, memberCurrency,
   phaseCCloseRows } from '../qualification/provenance.mjs';
 import { EXECUTION_CLASS_BOUND_BYTES, PRICE, PROMPT_BOUND_BYTES, acquireAssessmentResources, constructAssessmentMaterial, constructPlan,
@@ -89,35 +96,51 @@ async function packageRoot(installedRoot) {
   return existsSync(join(installedRoot, 'package.json')) ? installedRoot : join(installedRoot, 'node_modules/@abiogenesis/typescript-tenant');
 }
 
-/** The qualification resources over one run's install and binding. */
-async function constructResources(q, { install, verified, binding }) {
+/** The candidate identity of one run: derived from the exact joins, refused (before any resource is constructed)
+ * when it is malformed, crossed or when a committed generated resource is stale for it. */
+async function candidateIdentity(q, { install, verified, declaration }) {
+  const manifest = await readJson(join(q.root, 'product-toolchain-manifest.json'));
+  try {
+    return prepareCandidateIdentity({ packageJson: q.packageJson, sourcePackageJson: await readJson(join(TENANT_ROOT, 'package.json')),
+      manifest, manifestDigest: q.product.sha256Canonical(manifest), verified, install,
+      releaseClaim: { ref: declaration.memberRefPrefix + RELEASE_CLAIM_PATH, bytes: await readFile(join(TENANT_ROOT, RELEASE_CLAIM_PATH)) },
+      committed: { resources: await readJson(join(TENANT_ROOT, OUTPUTS.resources)), tenantManifest: await readJson(join(TENANT_ROOT, OUTPUTS.tenantManifest)),
+        expectedOutputs: await readJson(join(TENANT_ROOT, Q, 'recipe/expected-output-inventory.json')) } });
+  } catch (error) {
+    if (error instanceof CandidateIdentityRefusal) throw new BoundaryFailure('qualification-identity', { reason: error.reason, message: error.message });
+    throw error;
+  }
+}
+
+/** The qualification resources over one run's install, binding and explicitly selected subject kind. */
+async function constructResources(q, { install, verified, binding, subjectKind }) {
+  const kind = selectSubjectKind(subjectKind);
   const declaration = await classification();
+  const identity = await candidateIdentity(q, { install, verified, declaration });
   const inventory = await constructInventory(q, declaration);
   const committedInventory = await readJson(join(TENANT_ROOT, OUTPUTS.inventory));
   const law = await lawAndCoverage(q);
-  const tenant = tenantManifest(q, install), committedTenant = await readJson(join(TENANT_ROOT, OUTPUTS.tenantManifest));
-  const claim = inventory.members.find(m => m.ref === declaration.memberRefPrefix + 'release-claim.md');
-  const basis = q.preparation.constructQualificationIdentity({ kind: 'exact_candidate_qualification', projection: 'basis', schemaVersion: '5.0.0',
-    subjectKind: 'pre_rc_candidate', productId: install.productId, productVersion: install.packageVersion,
-    sourceInventory: { ref: inventory.inventoryRef, digest: inventory.inventoryDigest },
-    artifact: { ref: verified.artifactRef, digest: verified.artifactDigest },
-    productManifest: { ref: 'product-manifest://abiogenesis/' + install.manifestDigest.slice(7), digest: install.manifestDigest },
-    productContentDigest: install.productContentDigest,
-    toolchain: { ref: 'toolchain://abiogenesis/' + install.manifestDigest.slice(7), digest: install.manifestDigest },
-    installedProduct: { ref: install.installId, digest: q.product.sha256Canonical(install) }, workspaceBinding: binding,
-    prospectiveRelease: { ...PROSPECTIVE_RELEASE_FIELDS, releaseClaim: { ref: claim.ref, digest: claim.digest } },
-    tenantManifest: { ref: tenant.manifestRef, digest: tenant.manifestDigest }, coverageCatalog: law.coverageCatalog, lawBasis: law.lawBasis },
-    'basisRef', 'basisDigest', 'qualification-basis://abiogenesis/');
+  const tenant = tenantManifest(q, install, identity), committedTenant = await readJson(join(TENANT_ROOT, OUTPUTS.tenantManifest));
+  const claim = inventory.members.find(m => m.ref === identity.releaseClaim.ref);
+  let body;
+  try { body = qualificationBasisBody({ subjectKind: kind, identity, install, verified, inventory, binding, tenant, law, installedProductDigest: q.product.sha256Canonical(install) }); }
+  catch (error) {
+    if (error instanceof CandidateIdentityRefusal) throw new BoundaryFailure('qualification-identity', { reason: error.reason, message: error.message });
+    throw error;
+  }
+  const basis = q.preparation.constructQualificationIdentity(body, 'basisRef', 'basisDigest', 'qualification-basis://abiogenesis/');
   const { scope, errors } = constructScope(q, declaration, { inventory, catalog: law.catalog, catalogDigest: law.catalogDigest,
     subjectBasis: { ref: basis.basisRef, digest: basis.basisDigest }, lawBasis: law.lawBasis });
-  return { declaration, inventory, law, tenant, basis, scope, checks: {
+  return { declaration, identity, inventory, law, tenant, basis, scope, subjectKind: kind, checks: {
     inventoryEqualsCommitted: inventory.inventoryDigest === committedInventory.inventoryDigest && inventory.inventoryRef === committedInventory.inventoryRef,
     tenantManifestEqualsCommitted: tenant.manifestDigest === committedTenant.manifestDigest,
     artifactJoinsInstall: verified.artifactDigest === install.artifactDigest && verified.manifestDigest === install.manifestDigest &&
       verified.productContentDigest === install.productContentDigest && verified.productId === install.productId,
     releaseClaim: { ref: claim.ref, digest: claim.digest, byteCount: claim.byteCount, surfaceRoles: claim.surfaceRoles },
     basisReady: q.deep.qualification.isQualificationBasisReady(basis),
-    prospectiveReleaseJoinsInstall: basis.prospectiveRelease.productId === install.productId && basis.productVersion === PROSPECTIVE_RELEASE_FIELDS.version,
+    prospectiveReleaseJoinsInstall: basis.prospectiveRelease.productId === install.productId && basis.productVersion === install.packageVersion &&
+      basis.prospectiveRelease.version === identity.version && basis.prospectiveRelease.ordinal === identity.ordinal,
+    subjectKindSelected: basis.subjectKind === kind,
     scopeCorrespondenceErrors: errors } };
 }
 
@@ -133,9 +156,13 @@ async function protectedInputs(recipeBytes, recipe, inventory) {
   return rows;
 }
 
-async function placeInputs(rows, targetRoot, dependencyRoot, sourceRoot = TENANT_ROOT) {
+/** Places every protected input at its exact relative path, create-only, after a collision check over the whole set;
+ * auxiliary rows come only from their single declared source (native-inputs.mjs recipeAuxiliarySources). */
+async function placeInputs(rows, targetRoot, auxiliary, sourceRoot = TENANT_ROOT) {
+  const collisions = placementCollisions(rows.map(row => row.relativePath));
+  if (collisions.length > 0) throw new TypeError('protected input placement collides: ' + collisions.join('; '));
   for (const row of rows) {
-    const from = row.origin === 'auxiliary' ? join(dependencyRoot, row.relativePath.split('/').at(-1)) : join(sourceRoot, row.relativePath);
+    const from = row.origin === 'auxiliary' ? auxiliary.sourceOf(row) : join(sourceRoot, row.relativePath);
     const to = join(targetRoot, row.relativePath), bytes = await readFile(from);
     if (sha256(bytes) !== row.digest || bytes.length !== row.byteCount) throw new TypeError('protected input differs from its recipe digest: ' + row.relativePath);
     await mkdir(dirname(to), { recursive: true }); await writeFile(to, bytes, { flag: 'wx' });
@@ -191,9 +218,9 @@ function projectMaterial(q, { scope, inventory, law }) {
 }
 
 /** The bound commands executed once in a snapshot copy, as the helper would run them (worksite_command_helper.ts:1465-1530), outside C2. */
-async function executeRecipe(root, rows, bound, declared, dependencyRoot, record) {
+async function executeRecipe(root, rows, bound, declared, auxiliary, record) {
   const sandbox = join(root, 'recipe-execution/sandbox'), out = join(root, 'recipe-execution/out');
-  await placeInputs(rows, sandbox, dependencyRoot); await mkdir(out, { recursive: true });
+  await placeInputs(rows, sandbox, auxiliary); await mkdir(out, { recursive: true });
   const before = uptime(), results = [], started = Date.now();
   for (const command of bound.commands) {
     const id = command.commandId.split('/').at(-1), begun = Date.now();
@@ -226,7 +253,8 @@ async function executeRecipe(root, rows, bound, declared, dependencyRoot, record
  * provider is enabled): the prepare and reopen modes spawn no provider process. */
 const withoutProviderProbe = config => ({ ...config, provider: { ...config.provider, enabled: false } });
 
-export async function prepare(config, { executeRecipe: execute = false, dependencies }) {
+export async function prepare(config, { executeRecipe: execute = false, dependencies, subjectKind }) {
+  const kind = selectSubjectKind(subjectKind);
   const archive = await newArchive(join(TENANT_ROOT, 'test_env/test_runs'), 'qualification'), root = archive.path;
   const record = (path, value, raw = false) => exclusiveRecord(root, path, value, raw);
   const effective = { ...config, runId: archive.runId, bootstrapRoot: join(root, 'bootstrap/node_modules/@abiogenesis/typescript-tenant'),
@@ -234,7 +262,7 @@ export async function prepare(config, { executeRecipe: execute = false, dependen
   const command = commandRecorder(root, { environment: effective.setupEnvironment, timeoutMs: config.processTimeoutMs, maxOutputBytes: config.maxProcessOutputBytes ?? 16 * 1024 * 1024 });
   const mode = 'prepare';
   let caller, summary = { kind: 'qualification_' + mode, runId: archive.runId, archive: root, mode, status: 'incomplete', uptimeBefore: uptime() };
-  await record('run.json', { timestamp: new Date().toISOString(), runId: archive.runId, sourceCommit: config.sourceCommit, mode,
+  await record('run.json', { timestamp: new Date().toISOString(), runId: archive.runId, sourceCommit: config.sourceCommit, mode, subjectKind: kind,
     interpreter: { executable: config.nodePath, version: process.version }, configuration: redactedConfig(config), invokedCommand: process.argv,
     heapLimitBytes: (await import('node:v8')).getHeapStatistics().heap_size_limit,
     classification: 'Admission check of the exact qualification; no provider dispatch and no provider version probe' });
@@ -285,7 +313,7 @@ export async function prepare(config, { executeRecipe: execute = false, dependen
 
     // The qualification resources over this run's install and binding.
     const q = await installedExports(await packageRoot(caller.installedRoot));
-    const resources = await constructResources(q, { install: installations[0], verified: native.verified, binding: caller.state.binding });
+    const resources = await constructResources(q, { install: installations[0], verified: native.verified, binding: caller.state.binding, subjectKind: kind });
     await record('resources/basis.json', resources.basis); await record('resources/scope.json', resources.scope);
     await record('resources/inventory.json', resources.inventory); await record('resources/tenant-manifest.json', resources.tenant);
     const recipeBytes = await readFile(join(TENANT_ROOT, RECIPE_PATH)), recipe = JSON.parse(recipeBytes.toString('utf8'));
@@ -294,18 +322,22 @@ export async function prepare(config, { executeRecipe: execute = false, dependen
     const rows = await protectedInputs(recipeBytes, recipe, resources.inventory);
     // Protected inputs are baseline input of the bound worksite, before any dispatch (as D2 placed its originals).
     const environment = caller.refresh();
-    await placeInputs(rows, environment.workspaceAuthorityBasis.canonicalRoot, dependencies);
+    const auxiliary = await recipeAuxiliarySources({ dependencyRoot: dependencies });
+    await placeInputs(rows, environment.workspaceAuthorityBasis.canonicalRoot, auxiliary);
     const ambient = q.deep.actorProcess.selectedWorksiteCommandAmbientEnvironment();
     const c2 = await c2Configuration(q, environment, rows, declared, ambient);
     const budget = q.deep.c2.projectWorksiteCommandExecutionBudget({ commands: commandInput(declared), outcomePredicates: declared.outcomePredicates });
     const limits = { inactivityTimeoutMs: config.provider.inactivityTimeoutMs, absoluteTimeoutMs: config.provider.absoluteTimeoutMs };
     const material = projectMaterial(q, resources);
-    const prepared = { kind: 'qualification_prepare_record', runId: archive.runId,
+    const prepared = { kind: 'qualification_prepare_record', runId: archive.runId, subjectKind: kind,
+      identity: { productId: resources.identity.productId, version: resources.identity.version, ordinal: resources.identity.ordinal,
+        releaseClaim: resources.identity.releaseClaim },
       basis: { ref: resources.basis.basisRef, digest: resources.basis.basisDigest }, scope: { ref: resources.scope.scopeRef, digest: resources.scope.scopeDigest },
       inventory: { ref: resources.inventory.inventoryRef, digest: resources.inventory.inventoryDigest, members: resources.inventory.members.length },
       tenantManifest: { ref: resources.tenant.manifestRef, digest: resources.tenant.manifestDigest }, lawBasis: resources.law.lawBasis,
       coverageCatalog: resources.law.coverageCatalog, checks: resources.checks,
       recipe: { path: RECIPE_PATH, digest: sha256(recipeBytes), byteCount: recipeBytes.length, protectedInputs: rows.length,
+        auxiliarySources: { npm: auxiliary.npm, native: auxiliary.native, nativeRoot: auxiliary.nativeRoot },
         observed: c2.observed, mismatched: c2.mismatched, worksite: c2.canonicalRoot, digests: c2.digests,
         digestsEqualRecipe: c2.digests.commandConfigurationDigest === recipe.commandConfigurationDigest &&
           c2.digests.predicateConfigurationDigest === recipe.predicateConfigurationDigest && c2.digests.writeTerritoriesDigest === recipe.writeTerritoriesDigest,
@@ -314,10 +346,10 @@ export async function prepare(config, { executeRecipe: execute = false, dependen
         providerBashDefaultTimeoutMs: PROVIDER_BASH_DEFAULT_TIMEOUT_MS },
       material: { ...material, groups: undefined } };
     await record('prepare.json', prepared); await record('material-projection.json', material);
-    if (execute) await executeRecipe(root, rows, c2.bound, declared, dependencies, record);
+    if (execute) await executeRecipe(root, rows, c2.bound, declared, auxiliary, record);
     const green = Object.values(resources.checks).every(v => v === true || (Array.isArray(v) && v.length === 0) || (typeof v === 'object' && !Array.isArray(v))) &&
       c2.mismatched.length === 0 && prepared.recipe.digestsEqualRecipe;
-    return summary = { ...summary, status: green ? 'prepared' : 'refused', reason: green
+    return summary = { ...summary, subjectKind: kind, status: green ? 'prepared' : 'refused', reason: green
       ? 'Clean Public install and binding; qualification programs viewed and conformant; resources constructed; no provider dispatch'
       : 'A prepared resource check failed (prepare.json)' };
   } catch (error) {
@@ -343,12 +375,14 @@ async function reopenArchive(config, archivePath, mode, classification) {
   if (source.mode !== 'prepare' || prepared.status !== 'prepared') throw new TypeError('not a prepared archive: ' + archivePath);
   const setup = await archived('setup-identity.json'), closeHandoff = await archived('final-close-handoff.json');
   const programs = await archived('qualification-programs.json'), catalog = await archived('resources/catalog.json'), preparedRecord = await archived('prepare.json');
+  // The prepared archive's explicit subject kind, never a default or a new label.
+  const subjectKind = retainedSubjectKind(preparedRecord, source.subjectKind);
   const archive = await newArchive(join(TENANT_ROOT, 'test_env/test_runs'), 'qualification'), root = archive.path;
   const record = (path, value, raw = false) => exclusiveRecord(root, path, value, raw);
   const effective = { ...config, runId: archive.runId, bootstrapRoot: join(archivePath, 'bootstrap/node_modules/@abiogenesis/typescript-tenant'),
     worksiteRoot: join(archivePath, 'sandbox/worksite'), setupEnvironment: setupEnvironment(config) };
   const command = commandRecorder(root, { environment: effective.setupEnvironment, timeoutMs: config.processTimeoutMs, maxOutputBytes: config.maxProcessOutputBytes ?? 16 * 1024 * 1024 });
-  await record('run.json', { timestamp: new Date().toISOString(), runId: archive.runId, sourceCommit: config.sourceCommit, mode, sourceArchive: archivePath,
+  await record('run.json', { timestamp: new Date().toISOString(), runId: archive.runId, sourceCommit: config.sourceCommit, mode, subjectKind, sourceArchive: archivePath,
     sourceRunId: source.runId, interpreter: { executable: process.execPath, version: process.version }, configuration: redactedConfig(config), invokedCommand: process.argv,
     heapLimitBytes: (await import('node:v8')).getHeapStatistics().heap_size_limit, classification });
   const runtime = await installedModules(effective.bootstrapRoot), manifest = await readJson(join(effective.bootstrapRoot, 'product-toolchain-manifest.json'));
@@ -366,8 +400,8 @@ async function reopenArchive(config, archivePath, mode, classification) {
   caller.state.catalog = catalog; caller.state.catalogView = runtime.product.narrowGraphFunctionCatalog(catalog, programs.allowlist);
   if (hash(caller.state.catalogView) !== programs.viewDigest) throw new TypeError('the qualification view differs from the prepared view');
   const q = await installedExports(await packageRoot(caller.installedRoot));
-  const resources = await constructResources(q, { install: setup.installations[0], verified: native.verified, binding: setup.workspaceBinding });
-  const checks = { basis: preparedRecord.basis.digest === resources.basis.basisDigest, scope: preparedRecord.scope.digest === resources.scope.scopeDigest,
+  const resources = await constructResources(q, { install: setup.installations[0], verified: native.verified, binding: setup.workspaceBinding, subjectKind });
+  const checks = { subjectKind: resources.basis.subjectKind === subjectKind, basis: preparedRecord.basis.digest === resources.basis.basisDigest, scope: preparedRecord.scope.digest === resources.scope.scopeDigest,
     inventory: preparedRecord.inventory.digest === resources.inventory.inventoryDigest, tenantManifest: preparedRecord.tenantManifest.digest === resources.tenant.manifestDigest };
   if (!Object.values(checks).every(Boolean)) throw new TypeError('the tree differs from the prepared resources: ' + JSON.stringify(checks));
   const recipeBytes = await readFile(join(TENANT_ROOT, RECIPE_PATH)), recipe = JSON.parse(recipeBytes.toString('utf8'));
@@ -376,7 +410,7 @@ async function reopenArchive(config, archivePath, mode, classification) {
   const ambient = q.deep.actorProcess.selectedWorksiteCommandAmbientEnvironment();
   const c2 = await c2Configuration(q, environment, rows, declared, ambient);
   if (c2.mismatched.length > 0 || hash(c2.digests) !== hash(preparedRecord.recipe.digests)) throw new TypeError('the bound worksite differs from the prepared C2 configuration');
-  await record('reopen.json', { kind: 'qualification_archive_reopen', sourceArchive: archivePath, sourceRunId: source.runId, eventLog, identityBefore,
+  await record('reopen.json', { kind: 'qualification_archive_reopen', sourceArchive: archivePath, sourceRunId: source.runId, subjectKind, eventLog, identityBefore,
     catalogDigest: programs.catalogDigest, viewDigest: programs.viewDigest, allowlist: programs.allowlist.length, checks, protectedInputs: rows.length,
     c2Digests: c2.digests, ambient: ambient.map(row => row.name) });
   return { archive, root, record, caller, q, setup, effective, eventLog, identityBefore, resources, recipe, declared, rows, ambient, c2, archivePath, native };
@@ -815,7 +849,7 @@ async function coldReadsOfRun(config, runArchive) {
 export async function coldReads(config, archivePath, outRoot) {
   const archived = path => readJson(join(archivePath, path));
   const run = await archived('run.json'), setup = await archived('setup-identity.json'), closeHandoff = await archived('final-close-handoff.json');
-  const prepared = await archived('prepare.json');
+  const prepared = await archived('prepare.json'), subjectKind = retainedSubjectKind(prepared, run.subjectKind);
   await mkdir(dirname(outRoot), { recursive: true }); await mkdir(outRoot);
   const root = outRoot, record = (path, value, raw = false) => exclusiveRecord(root, path, value, raw);
   const effective = { ...config, runId: run.runId, bootstrapRoot: join(archivePath, 'bootstrap/node_modules/@abiogenesis/typescript-tenant'),
@@ -828,7 +862,7 @@ export async function coldReads(config, archivePath, outRoot) {
   const eventLog = fileURLToPath(closeHandoff.prefix.eventLogRef), identityBefore = await eventResourceIdentity(eventLog);
   const environment = caller.refresh();
   const q = await installedExports(await packageRoot(caller.installedRoot));
-  const resources = await constructResources(q, { install: setup.installations[0], verified: native.verified, binding: setup.workspaceBinding });
+  const resources = await constructResources(q, { install: setup.installations[0], verified: native.verified, binding: setup.workspaceBinding, subjectKind });
   const recipeBytes = await readFile(join(TENANT_ROOT, RECIPE_PATH)), recipe = JSON.parse(recipeBytes.toString('utf8'));
   const declared = await readJson(join(TENANT_ROOT, Q, 'recipe/declared-commands.json'));
   const rows = await protectedInputs(recipeBytes, recipe, resources.inventory);
@@ -842,7 +876,7 @@ export async function coldReads(config, archivePath, outRoot) {
     ['writeTerritories', prepared.recipe.digests.writeTerritoriesDigest, c2.digests.writeTerritoriesDigest],
   ];
   const comparedRows = rowsCompared.map(([name, archivedDigest, rederived]) => ({ name, archivedDigest, rederived, equal: archivedDigest === rederived }));
-  const result = { kind: 'qualification_cold_reads', archive: archivePath, runId: run.runId, coldRoot: root,
+  const result = { kind: 'qualification_cold_reads', archive: archivePath, runId: run.runId, coldRoot: root, subjectKind,
     process: { pid: process.pid, argv: process.argv, node: process.version }, eventLog, identityBefore, identityAfter,
     identityUnchanged: JSON.stringify(identityBefore) === JSON.stringify(identityAfter), environmentKind: environment.kind,
     observedMismatches: c2.mismatched, scopeCorrespondenceErrors: resources.checks.scopeCorrespondenceErrors, basisReady: resources.checks.basisReady,
@@ -855,18 +889,22 @@ async function main(args = process.argv.slice(2)) {
   const [mode, ...rest] = args, options = {};
   for (let i = 0; i < rest.length; i++) {
     if (rest[i] === '--execute-recipe' || rest[i] === '--dry') options[rest[i].slice(2)] = true;
-    else if (['--config', '--archive', '--out', '--json', '--dependencies', '--helper', '--helper-elapsed-ms', '--execution', '--cap-usd'].includes(rest[i])) options[rest[i].slice(2)] = rest[++i];
+    else if (['--config', '--archive', '--out', '--json', '--dependencies', '--subject-kind', '--helper', '--helper-elapsed-ms', '--execution', '--cap-usd'].includes(rest[i])) options[rest[i].slice(2)] = rest[++i];
     else throw new TypeError('Unknown argument: ' + rest[i]);
   }
-  const usage = 'Usage: exact-candidate-qualification.mjs prepare --config FILE --dependencies DIR [--execute-recipe]\n' +
+  const usage = 'Usage: exact-candidate-qualification.mjs prepare --config FILE --dependencies DIR --subject-kind pre_rc_candidate|installed_rc [--execute-recipe]\n' +
     '  | helper-realize --config FILE --archive PREPARED\n  | execution-material --config FILE --archive PREPARED --helper HELPER_ARCHIVE [--helper-elapsed-ms N]\n' +
     '  | live --dry --config FILE --archive PREPARED --execution EXECUTION_ARCHIVE\n  | live --config FILE --archive PREPARED --execution EXECUTION_ARCHIVE --cap-usd N\n' +
     '  | cold-reads --config FILE --archive ARCHIVE [--out NEW_ROOT --json OUTPUT (a prepared archive)]';
   if (!['prepare', 'helper-realize', 'execution-material', 'live', 'cold-reads'].includes(mode) || !options.config) throw new TypeError(usage);
+  // A new preparation selects its subject kind explicitly; every other mode reopens an archive and retains its kind.
+  if (mode === 'prepare') selectSubjectKind(options['subject-kind']);
+  else if (options['subject-kind'] !== undefined) throw new TypeError('the subject kind is retained from the prepared archive; ' + usage);
   const config = await configuration(options.config), print = value => console.log(JSON.stringify(value));
   if (mode === 'prepare') {
     if (!options.dependencies) throw new TypeError('prepare requires --dependencies DIR (the locked dependency archives by file name)');
-    const result = await prepare(config, { executeRecipe: options['execute-recipe'] === true, dependencies: resolve(options.dependencies) });
+    const result = await prepare(config, { executeRecipe: options['execute-recipe'] === true, dependencies: resolve(options.dependencies),
+      subjectKind: options['subject-kind'] });
     print(result); return result.status === 'prepared' ? 0 : 1;
   }
   if (!options.archive) throw new TypeError(usage);

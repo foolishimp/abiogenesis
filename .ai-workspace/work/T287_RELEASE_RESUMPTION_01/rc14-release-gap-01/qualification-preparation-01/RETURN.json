@@ -1,0 +1,225 @@
+{
+  "id": "RC14-QUALIFICATION-PREPARATION-NATIVE-001-RETURN",
+  "state": "PROOF_STOPPED_FIRST_FAILURE",
+  "recordedUtc": "2026-11-14T19:04:41.086711+00:00",
+  "source": {
+    "commit": "b4026fa6445a098431ce9c26afe2cac978474932",
+    "tree": "7a1517ad4f0db3d7a0acd16ce1e0b370d1ae6c89",
+    "parent": "244895231432a931409298195845b250ad32e0cb",
+    "worktree": "/private/tmp/abg-rc14-qualification-prep-20261115-01",
+    "branch": "codex/rc14-qualification-prep-20261115",
+    "selectedPaths": 10,
+    "selectedRowsSha256": "83ccfaa3f0596699032f09c0ba708335db93fabe4e607a84ac052c17f6e5d513",
+    "postimageSha256": "c590eb25372defd769acdb08a279a792e5670b986ca9d0a03ee779b179b63314",
+    "sourceRowsConservedAfterProof": 1426
+  },
+  "native": {
+    "builder": "pinned installed 5.0.0-rc.13",
+    "provider": "claude",
+    "cliVersion": "2.1.322",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh from configured transport arguments",
+    "sessions": 1,
+    "run": {
+      "ref": "run://abiogenesis/6df0f399a2a65e9963c5f24a2e69bda309d75593529ba831210fce95c412db8a",
+      "digest": "sha256:7b1b455f27a08c4e00a189face0e5f5b5f508529f72039c5fe03f4c653132b95"
+    },
+    "actorPid": 25618,
+    "actorStartedUtc": "2026-11-14T18:13:23.044Z",
+    "returnedUtc": "2026-11-14T18:54:38.239Z",
+    "hostElapsedMs": 2524522,
+    "protocolReportedTurns": 144,
+    "protocolReportedDurationMs": 2472369,
+    "hostExitCode": 0,
+    "actualResourceClose": true,
+    "freshResultReplaySameTerminal": true,
+    "authorReportGaps": 11,
+    "audit": "Source edits, source reads, JSON/metadata inspection and syntax checks only; no observed author build/test/native compile/pack/install/Product execution, Git mutation, provider fallback or subagent."
+  },
+  "proof": {
+    "state": "failed",
+    "retries": 0,
+    "elapsedMs": 51620,
+    "clock": {
+      "startedUtc": "2026-11-14T18:57:12.407305+00:00",
+      "originalHostDeadlineUtc": "2026-11-14T20:12:39.556926+00:00",
+      "requestedProofDeadlineUtc": "2026-11-14T19:57:12.407305+00:00",
+      "deadlineUtc": "2026-11-14T19:57:12.407305+00:00",
+      "executionStopDeadlineUtc": "2026-11-14T19:56:57.407305+00:00",
+      "cleanupReserveMs": 15000
+    },
+    "ordinaryBuild": {
+      "exitCode": 0,
+      "elapsedMs": 26543
+    },
+    "qualificationPreparation": {
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "elapsedMs": 629
+    },
+    "nativeInputs": {
+      "passed": 4,
+      "failed": 3,
+      "skipped": 0,
+      "todo": 0,
+      "elapsedMs": 21928,
+      "exitCode": 1,
+      "stopReason": null,
+      "processGroupAbsent": true
+    },
+    "remainingNotRun": [
+      "pack",
+      "offline ignore-scripts install",
+      "archive/install byte conservation",
+      "installed native owner observation",
+      "qualification law whole file",
+      "qualification contraction whole file",
+      "installed conservation whole file"
+    ],
+    "failureObservations": [
+      {
+        "case": "mandatory native closure and hierarchy are exact",
+        "location": "test_env/tests/t293-native-build-inputs.test.mjs:194",
+        "observation": "The test supplies a dependencies.json row with path; sourceOf consumes an auxiliary row with relativePath, so it reports undefined. The actual driver supplies the auxiliary row at exact-candidate-qualification.mjs:165."
+      },
+      {
+        "case": "protected placement rewrites every compiler input without ambient fallback",
+        "location": "test_env/tests/t293-native-build-inputs.test.mjs:348",
+        "observation": "The loaded-path assertion rejects /usr/lib/system/libsystem_pthread.dylib. The same file declares a systemLibrary predicate; this assertion does not apply it."
+      },
+      {
+        "case": "relocated build preserves original protected and execution bytes",
+        "location": "test_env/tests/t293-native-build-inputs.test.mjs:448",
+        "observation": "Dependent conjunction fails because the earlier trace did not establish outsideProtected=0."
+      }
+    ],
+    "boundedPasses": [
+      "missing/changed/colliding input refusal case",
+      "two actual relocated native builds after snapshot mode loss",
+      "cold missing native addon case",
+      "cold incompatible native addon case"
+    ],
+    "retainedRelocatedOutput": {
+      "count": 2,
+      "bytesEach": 52264,
+      "sha256": "1b6a1d8944275c98d84ba9b2124fda72b7942285fc7e64930ee00578130edb77",
+      "equalsOrdinaryAtReadback": true
+    },
+    "evidenceLimit": "Child build stdout/stderr and dependency/linker trace were only in test-process memory. The aggregate record is written after the failed conjunction and does not exist. Whole-file reporter bytes and both relocated outputs remain; unavailable observations are not reconstructed."
+  },
+  "conservation": {
+    "sourceRowsUnchanged": 1426,
+    "originalNativeInputByteHashesUnchanged": 196,
+    "originalDependencyInventoryUnchanged": "dc55a042e47b4119487c1ef1b1288b0de607a9687b6a60e4efbb0443f9584aff",
+    "setupManifestCustodyReauthenticated": true
+  },
+  "receipts": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/LAUNCH.json",
+      "bytes": 4654,
+      "sha256": "3e620d9632a30295d840fb0a056f2a973410619c4a2a4ec4cdf12efbe8b8b8fb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/SOURCE_PREIMAGE.json",
+      "bytes": 436545,
+      "sha256": "caea8bd8ea49649799fd14f75aad01fb5732e2d75d85125536ae7beb14632211"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/SETUP_MANIFEST_CUSTODY.json",
+      "bytes": 1213,
+      "sha256": "06d6168c8605968db5ff5f85ee1127f3795b5fc5c40fb8a3732f1f33171a8afe"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/HOST_RETURN.json",
+      "bytes": 535,
+      "sha256": "a8c0375a655434883c8f479f7b9346c27bbbb99cfe0cd139d1b1fa0da5e64194"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/runtime/FINAL.json",
+      "bytes": 858,
+      "sha256": "626f34aa655ff5b176ea632725d1903cd86bde45bec316e8ee8b9eef658e9933"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/runtime/FRESH_READBACKS.json",
+      "bytes": 5717,
+      "sha256": "c3fb0426535a7c3013fe4e80b9a0f189cd14035233b135ae8221077c6fed8e96"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/NATIVE_RETURN_AUDIT.json",
+      "bytes": 6069,
+      "sha256": "48372ec15caa29ead58b9534c06b5169bfeaa13b6b9296fe5b3fbe0d9dc1eae4"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/AUTHOR_REPORT.json",
+      "bytes": 8976,
+      "sha256": "ea1d9a6e70c2f675b83b2f84ec24856223f9310485c12f89ca42eee5f74f874d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/SOURCE_COMMIT.json",
+      "bytes": 3621,
+      "sha256": "38089685d94ccc34cbce5c370f243d4eb967e9af48d2e7334e7cbf2bd8cddfff"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/SOURCE_REVIEW_BINDING.json",
+      "bytes": 2836,
+      "sha256": "0527e830a61c2b1b4474f131948ef8bb733276b6b045008e8d6ee554352c6660"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/SOURCE_POSTIMAGE_PRE_PROOF.json",
+      "bytes": 317816,
+      "sha256": "c590eb25372defd769acdb08a279a792e5670b986ca9d0a03ee779b179b63314"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/SOURCE_REVIEW.diff",
+      "bytes": 179642,
+      "sha256": "3f1771f5540e7f2039909253447e400575ce3468dd0a18609195c159519f0213"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/POST_FAILURE_CONSERVATION.json",
+      "bytes": 1577,
+      "sha256": "09de86620552c8b13256f83ce48368e1e9d5d10c7c95a4a832989537ba5cecbb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/proof-01/FIRST_FAILURE.json",
+      "bytes": 1247,
+      "sha256": "de8615683939335c77bb8614d8a3477ebb5d4a31af88e26ea5b1460442e4bc18"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/proof-01/001-candidate-build/RETURN.json",
+      "bytes": 459,
+      "sha256": "48f5735fa44d2d98264df9d2d7b61c381339440ab269bcf53a626d20d7208e33"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/proof-01/002-qualification-preparation/COUNTS.json",
+      "bytes": 2534,
+      "sha256": "1245ffefc250df0688d28461ed9f5d59db51fad7f1ec170cec582610da4220af"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/proof-01/003-native-inputs/RETURN.json",
+      "bytes": 460,
+      "sha256": "0efb3fee9fc85e12b52303f232f932f27a0fb38db362461d5e1c2040e46e14ff"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/proof-01/003-native-inputs/COUNTS_AFTER_STOP.json",
+      "bytes": 6226,
+      "sha256": "9a3f2cb5a514ea21e11c4d1bfb0942ad632bc65afeb2f4c2249b64214e3e66f2"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/proof-01/003-native-inputs/stdout.raw",
+      "bytes": 5236,
+      "sha256": "723d89fdb12d9f82e9338213fc21101df490b7d83cef8d0a50a476054288a301"
+    }
+  ],
+  "limits": [
+    "No source repair or proof retry by Operator.",
+    "Root independent source/causal assurance and disposition remain outstanding.",
+    "Generated final resources remain stale by the selected deferred final-composition rule.",
+    "No formal qualification, installed RC14, stable release or Node20 execution claim.",
+    "Raw SDK/header/compiler/dependency copies, inventories, captures and archives remain external."
+  ],
+  "qualified": false,
+  "accepted": false,
+  "returnTo": "Root Executive; preserve the exact stopped subject and select any successor repair explicitly."
+}

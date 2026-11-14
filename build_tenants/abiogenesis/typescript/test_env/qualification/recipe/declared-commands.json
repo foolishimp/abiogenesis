@@ -40,7 +40,8 @@
       "role": "build",
       "executable": "/opt/homebrew/bin/node",
       "args": [
-        "scripts/build-native.mjs"
+        "scripts/build-native.mjs",
+        "--protected-inputs"
       ],
       "relativeCwd": ".",
       "environment": {
@@ -481,6 +482,26 @@
       {
         "path": "test_env/support/exact-candidate-qualification.mjs",
         "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/exact-candidate-identity.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/qualification/native-inputs.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/build-native.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/native-build/protected-inputs.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/native-build-inputs.json",
+        "kind": "json"
       },
       {
         "path": "test_env/qualification/classification.json",

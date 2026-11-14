@@ -1,7 +1,10 @@
-// Generates the run-independent qualification resources of the pre-RC candidate
-// of @abiogenesis/typescript-tenant 5.0.0-rc.1 from the installed package's
-// exports: the verification recipe, the tenant conformance manifest, the
-// resource index and, last, the subject inventory. Run from the tenant root:
+// Generates the run-independent qualification resources of one exact candidate
+// of @abiogenesis/typescript-tenant from the installed package's exports: the
+// verification recipe, the tenant conformance manifest, the resource index and,
+// last, the subject inventory. The candidate's canonical RC identity is derived
+// (test_env/support/exact-candidate-identity.mjs) from the installed package,
+// its manifest, the install record and the frozen release claim; no RC ordinal
+// is fixed here. Run from the tenant root:
 //   node test_env/qualification/build-resources.mjs --package <installed package root>
 //     --install-record <installed/0/identity.json of a Public install of the same pack> --scratch <empty scratch directory>
 // To refresh only the recipe before O2, pass --recipe-only true and omit --install-record.
@@ -14,26 +17,26 @@ import { mkdir, readFile, realpath, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { RELEASE_CLAIM_PATH, claimRefPrefix, deriveCandidateIdentity, installedPackageIdentity, resourceIndexIdentity, archiveNameOf } from '../support/exact-candidate-identity.mjs';
+import { nativeAuxiliaryInputs, placementCollisions } from './native-inputs.mjs';
 
 export const TENANT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 export const Q = 'test_env/qualification';
 export const RECIPE_PATH = Q + '/recipe/verification-recipe.json';
 export const OUTPUTS = Object.freeze({ recipe: RECIPE_PATH, tenantManifest: Q + '/tenant-manifest.json',
   resources: Q + '/resources.json', inventory: Q + '/inventory.json' });
-export const PROSPECTIVE_RELEASE_FIELDS = Object.freeze({ productId: 'product://abiogenesis/typescript-tenant@5.0.0-rc.1',
-  namespace: 'abiogenesis', profile: 'one_project_unqualified', projectSubtree: '.', versionLine: '5.0.0', ordinal: 1, version: '5.0.0-rc.1' });
 export const sha256 = bytes => 'sha256:' + createHash('sha256').update(bytes).digest('hex');
 const readJson = async path => JSON.parse(await readFile(path, 'utf8'));
 
-/** The installed package's exports, by its own export map; deep imports are named. */
+/** The installed package's exports, by its own export map; deep imports are named. The export guard admits the
+ * declared package at any canonical positive RC version and refuses before importing anything else. */
 export async function installedExports(packageRoot) {
   const root = await realpath(resolve(packageRoot)), manifest = await readJson(join(root, 'package.json'));
-  if (manifest.name !== '@abiogenesis/typescript-tenant' || manifest.version !== PROSPECTIVE_RELEASE_FIELDS.version)
-    throw new TypeError('installed package is not @abiogenesis/typescript-tenant ' + PROSPECTIVE_RELEASE_FIELDS.version);
+  installedPackageIdentity(manifest);
   const exported = sub => import(pathToFileURL(join(root, manifest.exports['./' + sub].import)).href);
   const deep = path => import(pathToFileURL(join(root, 'build/code/src', path)).href);
   const valibot = await import(pathToFileURL(createRequire(join(root, 'package.json')).resolve('valibot')).href);
-  return { root, product: await exported('product'), abg: await exported('abg'), gtl: await exported('gtl'),
+  return { root, packageJson: manifest, product: await exported('product'), abg: await exported('abg'), gtl: await exported('gtl'),
     validator: await exported('validator'), preparation: await exported('qualification/m05'), valibot,
     // Not package exports (named substitutions): the ambient reader (abg/actor_process.ts:708), the C2
     // configuration constructor and budget projection (product/worksite_command_execution.ts:166, :1474),
@@ -198,12 +201,15 @@ export async function lawAndCoverage(runtime, root = TENANT_ROOT) {
     coverageCatalog: { ref: coverage.catalogRef, digest: coverage.catalogDigest } };
 }
 
-export function tenantManifest(runtime, install) {
+/** The tenant conformance manifest of one install; its claim refs belong to the derived candidate identity. */
+export function tenantManifest(runtime, install, identity) {
+  if (identity?.productId !== install.productId || identity.version !== install.packageVersion)
+    throw new TypeError('tenant manifest requires the candidate identity of this install');
   const claims = install.capabilityDefinitionGraph.rows.flatMap(row => {
     const publicContractRefs = install.publicContracts.filter(c => c.owningProduct === install.productId &&
       c.capabilityIdentities.includes(row.capabilityId)).map(c => c.contractId);
     if (publicContractRefs.length > 0 && row.boundedProofRefs.length === 0) throw new TypeError('capability without proof refs: ' + row.capabilityId);
-    return publicContractRefs.length === 0 ? [] : [{ claimRef: 'claim://abiogenesis/typescript-tenant@5.0.0-rc.1/' + row.capabilityId,
+    return publicContractRefs.length === 0 ? [] : [{ claimRef: claimRefPrefix(identity) + row.capabilityId,
       capabilityRef: row.capabilityId, publicContractRefs, evidenceRefs: [...row.boundedProofRefs] }];
   });
   return runtime.preparation.constructQualificationIdentity({ kind: 'tenant_conformance_manifest', schemaVersion: '5.0.0',
@@ -231,13 +237,36 @@ async function main(argv) {
   const expected = await readJson(join(TENANT_ROOT, Q, 'recipe/expected-output-inventory.json'));
   const territories = declared.allowedWriteTerritories, generated = expected.generatedRoots;
   const inside = (path, roots) => roots.some(row => row.pathKind === 'file' ? row.relativePath === path : path.startsWith(row.relativePath + '/'));
+  const hash = product.sha256Canonical;
+
+  // 0. The candidate identity, before any output is written: the installed package and its manifest, the install
+  // record of the candidate pack named by the expected output inventory, and the frozen release-claim bytes.
+  let identity = null, install = null;
+  if (options['recipe-only'] !== 'true') {
+    install = (await readJson(resolve(options['install-record']))).install;
+    const pack = await readJson(join(runtime.root, 'product-toolchain-manifest.json'));
+    identity = deriveCandidateIdentity({ packageJson: runtime.packageJson, sourcePackageJson: await readJson(join(TENANT_ROOT, 'package.json')),
+      manifest: pack, manifestDigest: hash(pack), verified: null, install,
+      releaseClaim: { ref: declaration.memberRefPrefix + RELEASE_CLAIM_PATH, bytes: await readFile(join(TENANT_ROOT, RELEASE_CLAIM_PATH)) } });
+    if (install.artifactDigest !== expected.source.archiveDigest || expected.source.archive !== archiveNameOf(identity))
+      throw new TypeError('install record is not an install of the candidate pack named by the expected output inventory');
+  }
 
   // 1. The verification recipe. Its three configuration digests are binding- and root-independent;
   // they bind the ambient HOME, TMPDIR, LANG and LC_ALL rows of this process (the harness worker inherits them).
   const paths = memberPaths(declaration, TENANT_ROOT, [OUTPUTS.recipe, OUTPUTS.tenantManifest, OUTPUTS.resources]);
   const sourcePaths = paths.filter(path => path !== OUTPUTS.recipe && !inside(path, generated));
+  // Auxiliary inputs: the npm-only dependency archives, then the declared native build inputs at their exact
+  // protected placement (native-inputs.mjs). Every protected input has one collision-free path outside every
+  // write territory and generated root.
+  const auxiliaryInputs = [...dependencies.dependencies.map(row => ({ relativePath: row.path, digest: row.digest, byteCount: row.byteCount })),
+    ...(await nativeAuxiliaryInputs(TENANT_ROOT))];
+  const collisions = placementCollisions([...sourcePaths, ...auxiliaryInputs.map(row => row.relativePath), OUTPUTS.recipe]);
+  if (collisions.length > 0) throw new TypeError('protected input placement collides: ' + collisions.join('; '));
   const unprotectable = sourcePaths.filter(path => inside(path, territories));
   if (unprotectable.length > 0) throw new TypeError('protected inputs inside a write territory: ' + unprotectable.join(', '));
+  const misplaced = auxiliaryInputs.filter(row => inside(row.relativePath, territories) || inside(row.relativePath, generated));
+  if (misplaced.length > 0) throw new TypeError('auxiliary inputs inside a write territory or generated root: ' + misplaced.map(row => row.relativePath).join(', '));
   const scratch = resolve(options.scratch); await mkdir(scratch, { recursive: true });
   process.env.TMPDIR = scratch; // the fixture's temporary worksite, after the ambient rows were read
   const { worksiteFixture } = await import(pathToFileURL(join(TENANT_ROOT, 'test_env/support/t287-generic-job-worksite.mjs')).href);
@@ -248,10 +277,9 @@ async function main(argv) {
   const task = product.constructObservedWorksiteCommandExecutionTask({ workspaceAuthorityBasis: f.workspaceAuthorityBasis,
     workspaceBinding: f.workspaceBinding, capabilityGrant: f.capabilityGrant, observedFiles: [{ subject, observation }],
     commands: commandInput(declared), outcomePredicates: declared.outcomePredicates, allowedWriteTerritories: territories }, ambient);
-  const hash = product.sha256Canonical;
   const recipe = { kind: 'qualification_verification_recipe', schemaVersion: '1',
     sourceInputs: sourcePaths.map(path => ({ memberRef: declaration.memberRefPrefix + path, relativePath: path })),
-    auxiliaryInputs: dependencies.dependencies.map(row => ({ relativePath: row.path, digest: row.digest, byteCount: row.byteCount })),
+    auxiliaryInputs,
     commandConfigurationDigest: hash(task.commands), predicateConfigurationDigest: hash(task.outcomePredicates),
     writeTerritoriesDigest: hash(task.allowedWriteTerritories),
     commands: declared.commands.map(row => ({ commandId: row.commandId, role: row.role })),
@@ -270,28 +298,21 @@ async function main(argv) {
   if (options['recipe-only'] === 'true') {
     process.stdout.write(JSON.stringify({ kind: 'qualification_recipe_generated', qualification: false,
       digest: sha256(recipeBytes), byteCount: recipeBytes.length, sourceInputs: recipe.sourceInputs.length,
-      commandConfigurationDigest: recipe.commandConfigurationDigest, budget }) + '\n');
+      auxiliaryInputs: recipe.auxiliaryInputs.length, commandConfigurationDigest: recipe.commandConfigurationDigest, budget }) + '\n');
     return 0;
   }
 
   // 2. Law basis, rule catalog and coverage catalog by coordinate; the tenant manifest from the pack's install record.
   const law = await lawAndCoverage(runtime);
-  const install = (await readJson(resolve(options['install-record']))).install;
-  const pack = await readJson(join(runtime.root, 'product-toolchain-manifest.json'));
-  if (install.artifactDigest !== expected.source.archiveDigest || install.manifestDigest !== hash(pack) ||
-      install.productId !== PROSPECTIVE_RELEASE_FIELDS.productId || install.packageVersion !== PROSPECTIVE_RELEASE_FIELDS.version)
-    throw new TypeError('install record is not an install of the candidate pack');
-  const tenant = tenantManifest(runtime, install);
+  const tenant = tenantManifest(runtime, install, identity);
   const tenantBytes = Buffer.from(JSON.stringify(tenant, null, 2) + '\n');
   await writeFile(join(TENANT_ROOT, OUTPUTS.tenantManifest), tenantBytes);
 
   // 3. The resource index. It binds no inventory digest, so it is an inventory member.
-  const releaseClaim = await readFile(join(TENANT_ROOT, 'release-claim.md'));
+  const indexed = resourceIndexIdentity(identity, { candidateCommit: expected.source.sourceCommit,
+    archive: { name: expected.source.archive, digest: expected.source.archiveDigest }, claimPath: declaration.memberPathPrefix + RELEASE_CLAIM_PATH });
   const resources = { kind: 'qualification_resource_index', schemaVersion: '1',
-    subject: { productId: PROSPECTIVE_RELEASE_FIELDS.productId, packageVersion: PROSPECTIVE_RELEASE_FIELDS.version,
-      candidateCommit: expected.source.sourceCommit, archive: { name: expected.source.archive, digest: expected.source.archiveDigest } },
-    prospectiveRelease: { ...PROSPECTIVE_RELEASE_FIELDS, releaseClaim: { ref: declaration.memberRefPrefix + 'release-claim.md',
-      path: declaration.memberPathPrefix + 'release-claim.md', digest: sha256(releaseClaim), byteCount: releaseClaim.length } },
+    subject: indexed.subject, prospectiveRelease: indexed.prospectiveRelease,
     runIndependent: {
       classification: { path: Q + '/classification.json', role: 'inventory member set, surface roles, surface and rule partitions' },
       materialSelection: { path: Q + '/material-selection.json', role: 'per-role J material selection and its bound' },
@@ -305,7 +326,7 @@ async function main(argv) {
       inventory: { path: OUTPUTS.inventory, coordinate: 'carried by the file itself; no other member binds it' } },
     runSpecific: ['basis (installedProduct and workspaceBinding of the run)', 'bound scope (subjectBasis)', 'resource manifest',
       'verification material (observed C2)', 'assessment plan and tasks'],
-    generator: { path: Q + '/build-resources.mjs', package: { name: '@abiogenesis/typescript-tenant', version: PROSPECTIVE_RELEASE_FIELDS.version } } };
+    generator: { path: Q + '/build-resources.mjs', package: indexed.generatorPackage } };
   await writeFile(join(TENANT_ROOT, OUTPUTS.resources), JSON.stringify(resources, null, 2) + '\n');
 
   // 4. The inventory, last; then the declared scope partitions against a provisional basis coordinate.
@@ -320,7 +341,8 @@ async function main(argv) {
     subjectBasis: provisional, lawBasis: law.lawBasis });
   const roles = {};
   for (const m of inventory.members) for (const role of m.surfaceRoles) roles[role] = (roles[role] ?? 0) + 1;
-  process.stdout.write(JSON.stringify({ kind: 'qualification_resources_generated', inventory: { ref: inventory.inventoryRef,
+  process.stdout.write(JSON.stringify({ kind: 'qualification_resources_generated',
+    identity: { productId: identity.productId, version: identity.version, ordinal: identity.ordinal, releaseClaim: identity.releaseClaim }, inventory: { ref: inventory.inventoryRef,
     digest: inventory.inventoryDigest, members: inventory.members.length, bytes: inventory.members.reduce((s, m) => s + m.byteCount, 0), roles },
     recipe: { digest: sha256(recipeBytes), byteCount: recipeBytes.length, sourceInputs: recipe.sourceInputs.length,
       auxiliaryInputs: recipe.auxiliaryInputs.length, commandConfigurationDigest: recipe.commandConfigurationDigest,

@@ -1,103 +1,54 @@
 // Builds the prebuilt Darwin arm64 Node-API 8 physical-path observer into
 // build/native from the exact inputs declared by scripts/native-build-inputs.json.
 //
-//   node scripts/build-native.mjs                  verify inputs, compile, link, verify
-//   node scripts/build-native.mjs --verify-inputs  verify the declared closure only
+//   node scripts/build-native.mjs                                     verify host inputs, compile, link, verify
+//   node scripts/build-native.mjs --verify-inputs                     verify the declared host closure only
+//   node scripts/build-native.mjs --protected-inputs                  qualified recipe mode (below)
+//   node scripts/build-native.mjs --verify-inputs --protected-inputs  verify the protected placement only
 //
-// Every declared input row is verified before compilation and again after
-// linking; a missing or changed input refuses. Compilation uses the declared
-// absolute compiler, SDK, Node-API headers, target and flags in a closed
-// environment. Its scratch lives under build/, which clean already owns. There is
-// no consumer compilation, download or host-selected variant: a host that
-// cannot reproduce the declared target fails the producer build.
+// Ordinary producer mode verifies every declared host input row before compilation and again after linking; a
+// missing or changed input refuses. Compilation uses the declared absolute compiler, SDK, Node-API headers,
+// target and flags in a closed environment.
+//
+// Qualified recipe mode reads no host toolchain path. Every declared row must be a regular file with its declared
+// bytes at its exact protected placement (scripts/native-build/protected-inputs.mjs) inside this package. Because
+// a C2 snapshot carries bytes without executable modes, the build derives a fresh execution view of the declared
+// execution members under build/.native-build, sets their modes there only, and verifies the view and every
+// protected copy before and after compilation. The compiler, -B linker directory, -isysroot SDK, -resource-dir
+// and -I headers all name protected copies or that view; PATH holds only the view's bin directory. The report
+// line records the relocated roots, arguments and digests.
+//
+// Scratch lives under build/, which clean already owns, and is removed after either mode. There is no consumer
+// compilation, download or host-selected variant: a host that cannot reproduce the declared target fails the
+// producer build.
 import { execFile } from "node:child_process";
-import { createHash } from "node:crypto";
-import { lstat, mkdir, open, readFile, rename, rm, stat } from "node:fs/promises";
-import { dirname, isAbsolute, join, normalize, resolve } from "node:path";
+import { mkdir, open, rename, rm, stat } from "node:fs/promises";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
+import { EXECUTION_VIEW_RELATIVE_PATH, deriveExecutionView, fail, hostInputFailures, protectedCommand, protectedPlacementRows,
+  protectedRootOf, readNativeBuildInputs, sha256File, sourceFailures, verifyPlacedRows } from "./native-build/protected-inputs.mjs";
 
 const execFileAsync = promisify(execFile);
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const inputsPath = join(packageRoot, "scripts", "native-build-inputs.json");
-const SHA256 = /^[0-9a-f]{64}$/u;
 const MH_MAGIC_64 = 0xfeedfacf;
 const CPU_TYPE_ARM64 = 0x0100000c;
 const MH_BUNDLE = 0x8;
 
-function fail(message) {
-  throw new Error(`native build refused: ${message}`);
-}
-
-async function sha256File(path) {
-  return createHash("sha256").update(await readFile(path)).digest("hex");
-}
-
-function packagePath(relativePath, owner) {
-  if (typeof relativePath !== "string" || relativePath === "" || isAbsolute(relativePath) ||
-    normalize(relativePath) !== relativePath || relativePath.startsWith(".."))
-    fail(`${owner} must be one normalized package-relative path`);
-  return join(packageRoot, relativePath);
-}
-
-function stringArray(value, owner) {
-  if (!Array.isArray(value) || value.length === 0 || value.some((item) => typeof item !== "string" || item === ""))
-    fail(`${owner} must be a non-empty string array`);
-  return value;
-}
-
-async function readInputs() {
-  const document = JSON.parse(await readFile(inputsPath, "utf8"));
-  if (document?.kind !== "abg_native_build_inputs" || document.schemaVersion !== 1) fail("unknown inputs document");
-  const { target, source, output, toolchain, environment, compileArgs, linkArgs, inputFiles } = document;
-  if (target?.platform !== "darwin" || target.arch !== "arm64" || target.nodeApiVersion !== 8 ||
-    target.triple !== "arm64-apple-macos11.0") fail("declared target must be Darwin arm64 Node-API 8");
-  if (typeof source?.sha256 !== "string" || !SHA256.test(source.sha256)) fail("source row needs one sha256");
-  if (output !== "build/native/abg_physical_path.node") fail("output must be the declared build/native member");
-  if (typeof toolchain?.clang !== "string" || !isAbsolute(toolchain.clang)) fail("compiler must be one absolute path");
-  if (environment === null || typeof environment !== "object" || Array.isArray(environment) ||
-    Object.values(environment).some((value) => typeof value !== "string")) fail("environment must map names to strings");
-  stringArray(compileArgs, "compileArgs");
-  stringArray(linkArgs, "linkArgs");
-  if (!Array.isArray(inputFiles) || inputFiles.length === 0) fail("inputFiles must be non-empty");
-  const seen = new Set();
-  for (const row of inputFiles) {
-    if (row === null || typeof row !== "object" || Object.keys(row).sort().join(",") !== "path,sha256" ||
-      typeof row.path !== "string" || !isAbsolute(row.path) || normalize(row.path) !== row.path ||
-      typeof row.sha256 !== "string" || !SHA256.test(row.sha256)) fail("every inputFiles row must be exactly {path,sha256} with an absolute path");
-    if (seen.has(row.path)) fail(`duplicate input row ${row.path}`);
-    seen.add(row.path);
-  }
-  for (const required of [toolchain.clang, toolchain.linker]) {
-    if (!seen.has(required)) fail(`toolchain member is not a bound input: ${required}`);
-  }
-  return { ...document, sourcePath: packagePath(source.path, "source.path"), outputPath: packagePath(output, "output") };
-}
-
-/** Checks every declared row and the package source; collects all failures. */
-async function verifyInputs(inputs) {
-  const failures = [];
-  for (const row of inputs.inputFiles) {
-    try {
-      const status = await stat(row.path);
-      if (!status.isFile()) { failures.push(`${row.path}: not a regular file`); continue; }
-      const actual = await sha256File(row.path);
-      if (actual !== row.sha256) failures.push(`${row.path}: sha256 ${actual} != ${row.sha256}`);
-    } catch (error) {
-      failures.push(`${row.path}: ${error.code ?? String(error)}`);
-    }
-  }
-  try {
-    const status = await lstat(inputs.sourcePath);
-    if (!status.isFile()) failures.push(`${inputs.source.path}: not a regular file`);
-    else {
-      const actual = await sha256File(inputs.sourcePath);
-      if (actual !== inputs.source.sha256) failures.push(`${inputs.source.path}: sha256 ${actual} != ${inputs.source.sha256}`);
-    }
-  } catch (error) {
-    failures.push(`${inputs.source.path}: ${error.code ?? String(error)}`);
-  }
+function refuseChanged(failures) {
   if (failures.length > 0) fail(`declared native inputs changed or missing:\n  ${failures.join("\n  ")}`);
+}
+
+/** Checks every declared host row and the package source; collects all failures. */
+async function verifyHostInputs(inputs) {
+  refuseChanged([...(await hostInputFailures(inputs)), ...(await sourceFailures(inputs))]);
+}
+
+/** Checks every protected copy and the package source; returns the protected inventory digest. */
+async function verifyProtectedInputs(inputs, protectedRoot, rows) {
+  const placed = await verifyPlacedRows(protectedRoot, rows);
+  refuseChanged([...placed.failures, ...(await sourceFailures(inputs))]);
+  return placed.digest;
 }
 
 async function machOBundleArm64(path) {
@@ -113,50 +64,104 @@ async function machOBundleArm64(path) {
   }
 }
 
-async function run(inputs, args, cwd) {
+async function run(executable, environment, args, cwd) {
   try {
-    await execFileAsync(inputs.toolchain.clang, args, {
-      cwd, env: { ...inputs.environment, TMPDIR: cwd }, encoding: "utf8", maxBuffer: 1 << 24, timeout: 120000,
+    await execFileAsync(executable, args, {
+      cwd, env: { ...environment, TMPDIR: cwd }, encoding: "utf8", maxBuffer: 1 << 24, timeout: 120000,
     });
   } catch (error) {
     fail(`compiler exited ${error.code ?? "abnormally"}: ${String(error.stderr ?? error.message).trim()}`);
   }
 }
 
-async function build(inputs) {
+function requireDeclaredTarget() {
   if (process.platform !== "darwin" || process.arch !== "arm64")
     fail(`declared Darwin arm64 target cannot be produced on ${process.platform}-${process.arch}`);
-  await verifyInputs(inputs);
+}
+
+/** Compiles and links in the fresh work directory with one selected compiler, environment and argument set. */
+async function compileAndLink(inputs, compiler, environment, compileArgs, linkArgs, work) {
+  const object = join(work, "abg_physical_path.o");
+  const linked = join(work, "abg_physical_path.node");
+  await run(compiler, environment, [...compileArgs, "-o", object, inputs.sourcePath], work);
+  await run(compiler, environment, [...linkArgs, "-o", linked, object], work);
+  if (!(await machOBundleArm64(linked))) fail("linked output is not one arm64 Mach-O bundle");
+  return { linked, compileArgv: [compiler, ...compileArgs, "-o", object, inputs.sourcePath], linkArgv: [compiler, ...linkArgs, "-o", linked, object] };
+}
+
+async function publish(inputs, linked) {
+  await mkdir(dirname(inputs.outputPath), { recursive: true });
+  await rename(linked, inputs.outputPath);
+  return { path: inputs.outputPath, bytes: (await stat(inputs.outputPath)).size, sha256: await sha256File(inputs.outputPath) };
+}
+
+async function freshWork() {
   const work = join(packageRoot, "build", ".native-build");
   await rm(work, { recursive: true, force: true });
   await mkdir(work, { recursive: true });
+  return work;
+}
+
+async function buildFromHost(inputs) {
+  requireDeclaredTarget();
+  await verifyHostInputs(inputs);
+  const work = await freshWork();
   try {
-    const object = join(work, "abg_physical_path.o");
-    const linked = join(work, "abg_physical_path.node");
-    await run(inputs, [...inputs.compileArgs, "-o", object, inputs.sourcePath], work);
-    await run(inputs, [...inputs.linkArgs, "-o", linked, object], work);
-    if (!(await machOBundleArm64(linked))) fail("linked output is not one arm64 Mach-O bundle");
-    await verifyInputs(inputs);
-    await mkdir(dirname(inputs.outputPath), { recursive: true });
-    await rename(linked, inputs.outputPath);
-    return sha256File(inputs.outputPath);
+    const { linked } = await compileAndLink(inputs, inputs.toolchain.clang, inputs.environment, inputs.compileArgs, inputs.linkArgs, work);
+    await verifyHostInputs(inputs);
+    return (await publish(inputs, linked)).sha256;
+  } finally {
+    await rm(work, { recursive: true, force: true });
+  }
+}
+
+async function buildFromProtected(inputs) {
+  requireDeclaredTarget();
+  const rows = protectedPlacementRows(inputs);
+  const protectedRoot = await protectedRootOf(packageRoot, inputs);
+  const protectedBeforeDigest = await verifyProtectedInputs(inputs, protectedRoot, rows);
+  const work = await freshWork();
+  try {
+    const executionRoot = join(packageRoot, EXECUTION_VIEW_RELATIVE_PATH);
+    const executionBefore = await deriveExecutionView(protectedRoot, executionRoot, rows);
+    const command = protectedCommand(inputs, { protectedRoot, executionRoot });
+    const compiled = await compileAndLink(inputs, command.compiler, command.environment, command.compileArgs, command.linkArgs, work);
+    const executionAfter = await verifyPlacedRows(executionRoot, rows.filter(row => row.execution));
+    if (executionAfter.failures.length > 0 || executionAfter.digest !== executionBefore.digest)
+      fail(`execution view changed during compilation:\n  ${executionAfter.failures.join("\n  ")}`);
+    const protectedAfterDigest = await verifyProtectedInputs(inputs, protectedRoot, rows);
+    if (protectedAfterDigest !== protectedBeforeDigest) fail("protected inputs changed during compilation");
+    const output = await publish(inputs, compiled.linked);
+    console.log(JSON.stringify({ kind: "abg_native_protected_build", protectedRoot, executionRoot, compiler: command.compiler,
+      linker: command.linker, linkerDirectory: command.linkerDirectory, resourceDir: command.resourceDir, sdk: command.sdk,
+      include: command.include, environment: command.environment, compileArgv: compiled.compileArgv, linkArgv: compiled.linkArgv,
+      protectedMembers: rows.length, executionMembers: executionBefore.members.length,
+      protectedBeforeDigest, protectedAfterDigest, executionBeforeDigest: executionBefore.digest, executionAfterDigest: executionAfter.digest,
+      output }));
+    return output.sha256;
   } finally {
     await rm(work, { recursive: true, force: true });
   }
 }
 
 const args = process.argv.slice(2);
-if (args.length > 1 || (args.length === 1 && args[0] !== "--verify-inputs")) {
-  console.error("usage: node scripts/build-native.mjs [--verify-inputs]");
+const known = new Set(["--verify-inputs", "--protected-inputs"]);
+if (args.length > 2 || args.some(arg => !known.has(arg)) || new Set(args).size !== args.length) {
+  console.error("usage: node scripts/build-native.mjs [--verify-inputs] [--protected-inputs]");
   process.exit(2);
 }
 try {
-  const inputs = await readInputs();
-  if (args[0] === "--verify-inputs") {
-    await verifyInputs(inputs);
+  const inputs = await readNativeBuildInputs(packageRoot);
+  const verifyOnly = args.includes("--verify-inputs"), protectedMode = args.includes("--protected-inputs");
+  if (verifyOnly && protectedMode) {
+    const rows = protectedPlacementRows(inputs);
+    const digest = await verifyProtectedInputs(inputs, await protectedRootOf(packageRoot, inputs), rows);
+    console.log(`protected native inputs verified: ${rows.length} files under ${inputs.protectedPlacement.root} and ${inputs.source.path}; inventory ${digest}`);
+  } else if (verifyOnly) {
+    await verifyHostInputs(inputs);
     console.log(`native inputs verified: ${inputs.inputFiles.length} files and ${inputs.source.path}`);
   } else {
-    const digest = await build(inputs);
+    const digest = protectedMode ? await buildFromProtected(inputs) : await buildFromHost(inputs);
     console.log(`native observer built: ${inputs.output} sha256 ${digest}`);
   }
 } catch (error) {
