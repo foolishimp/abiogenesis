@@ -1,0 +1,74 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+    "state": "file",
+    "bytes": 62436,
+    "sha256": "28269a086dbb178edd510801fef57190f2c025df7f6d0b32584908bda849ad70",
+    "mode": 420,
+    "gitMode": "100644"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+    "state": "file",
+    "bytes": 56951,
+    "sha256": "b46a484f5f6949f4319bcd504beb38bc048aea36af1775868600eb70219b2fd3",
+    "mode": 420,
+    "gitMode": "100644"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+    "state": "file",
+    "bytes": 35598,
+    "sha256": "5e0bbac11ebb2252e56a8b6248c2feb3b44bbb45a0f9f4b5202bf081f1da0050",
+    "mode": 420,
+    "gitMode": "100644"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "state": "file",
+    "bytes": 66860,
+    "sha256": "f2160dcc7b329ee31d0545d538860afcf53ebcf55afabc5df0cb082dade74aa5",
+    "mode": 420,
+    "gitMode": "100644"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+    "state": "file",
+    "bytes": 55704,
+    "sha256": "eb753eb83208c0a1f6f58f62e1ce3e14d5b6ad74a774d54adfc6b10aa38272bf",
+    "mode": 420,
+    "gitMode": "100644"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/shared/worksite_command_physical_boundary.ts",
+    "state": "file",
+    "bytes": 3024,
+    "sha256": "da9202e73384005df6b3afe9285a10249305070d8db7cb15178bfa89599b378e",
+    "mode": 420,
+    "gitMode": "100644"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "state": "file",
+    "bytes": 363147,
+    "sha256": "959d5f0941cb8ea925c79f3ca5a1d5f7172874b9297d20cea955ea589998831e",
+    "mode": 420,
+    "gitMode": "100644"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "state": "file",
+    "bytes": 51347,
+    "sha256": "f23543234518daa5842bc345b5d90fee77e8b5222ea10b865652963f264914e5",
+    "mode": 420,
+    "gitMode": "100644"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t293-b21-owner-boundaries.test.mjs",
+    "state": "file",
+    "bytes": 30297,
+    "sha256": "5e4c3871b765957e407beadd17ea8b7ac6e739e976a08b08e166f86dee00cf49",
+    "mode": 420,
+    "gitMode": "100644"
+  }
+]
