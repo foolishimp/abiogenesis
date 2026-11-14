@@ -1,5 +1,5 @@
 {
-  "status": "FIXTURE_REPAIR_PROOF_PASSED_INTEGRATION_AND_INSTALLED_BINDING_PREPARATION",
+  "status": "FIXTURE_REPAIR_INTEGRATED_INSTALLED_BINDING_PREPARATION",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -135,7 +135,7 @@
   },
   "b21Repair": {
     "activation": "b21-native-01/repair-01/ACTIVATION.json",
-    "state": "SOURCE_AND_AFFECTED_PROOF_TECHNICALLY_CLOSED_PENDING_MERGE",
+    "state": "TECHNICALLY_CLOSED_SELECTED_AFFECTED_PROOF",
     "scope": "Pre-read physical guard; helper directional policy; Default Testing and two semantic-job authenticated install inputs",
     "providerStarted": true,
     "controlCommit": "7704ad059a5b507ee6aa2879ae08a02b45beebab",
@@ -217,7 +217,7 @@
     "rawEvidencePublished": false
   },
   "fixtureRepair": {
-    "state": "PROOF_PASSED_PENDING_MAIN_INTEGRATION",
+    "state": "TECHNICALLY_ACCEPTED_AND_INTEGRATED",
     "activation": "fixture-proof-repair-01/ACTIVATION.json",
     "sourceBase": "5680ae9ae9d2f310342f9e58ece86032d42e379c",
     "sourceFiles": 2,
@@ -320,7 +320,11 @@
       "twoRelocatedOutputsEqual": true,
       "packageVersion": "5.0.0-rc.13",
       "meaning": "Development proof payload, not RC13 builder repin or RC14 cut/qualification"
-    }
+    },
+    "returnCommit": "e83d50f3fab3875bd215a704fb73fd6fc9ecc0b9",
+    "mainMerge": "8c77c29680e05feaa920023447a9fca313569a23",
+    "returnRecord": "fixture-proof-repair-01/EXECUTION_02_RETURN.json",
+    "returnRecordSha256": "38519573c5172a7a153baa9c4ae66c1446fa87953bc9ac8f523f07b5b6a1f506"
   },
   "installedCompositionPreparation": {
     "state": "STATIC_CONTROLS_ACCEPTED_EXECUTION_DISABLED",
