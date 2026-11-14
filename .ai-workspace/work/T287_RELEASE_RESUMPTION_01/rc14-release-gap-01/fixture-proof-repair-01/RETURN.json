@@ -1,0 +1,131 @@
+{
+  "id": "RC14-PROOF-FIXTURE-REPAIR-NATIVE-001-FIRST-FAILURE",
+  "recordedUtc": "2026-11-14T19:43:11.437216+00:00",
+  "state": "STOPPED_BEFORE_NATIVE_DISPATCH",
+  "sourceHead": "484f4b721d8efafdcf6aa5ddabc69b06bed58756",
+  "nativeSourceChanges": 0,
+  "providerCalls": 0,
+  "proofCommands": 0,
+  "runRef": null,
+  "actorPid": null,
+  "configuredModel": "claude-opus-5-5",
+  "configuredEffort": "xhigh",
+  "actualActorModel": "not observed; no actor started",
+  "failure": {
+    "class": "Operator-authored task-carrier type mismatch",
+    "message": "native workspace task requires one bound worksite, context and declared scope",
+    "stackOwner": "installed RC13 build/code/src/product/native_workspace_work.js:18-25,37-40",
+    "hostJoin": "HOST.mjs:107 passes task.instructions unchanged",
+    "actualInstructionsType": "string",
+    "actualInstructionsCharacters": 2810,
+    "requiredInstructionsType": "readonly string[] / v.array(ref)",
+    "sufficientCause": "Erased task schema refuses scalar instructions before owner relation checks. Other full admitted-task relations were not exercised.",
+    "predecessor": "Maintained B21 task instructions is an array of17 strings.",
+    "whyPreparationMissed": "Static JSON and source syntax checks proved parseability, without checking this supplied field against its exact owner-defined carrier.",
+    "minimalProposedReentry": "Root-selected control correction to the existing instructions array carrier, preserving exact text; check declared owner field shapes before future setup. No repair was made."
+  },
+  "receipts": {
+    "host": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01/HOST_RETURN.json",
+      "bytes": 533,
+      "sha256": "66e2d77868a4f1776f9ea918097d4dfedd122bf96459f499e848cf1d7599515b"
+    },
+    "failure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01/runtime/FIRST_FAILURE.json",
+      "bytes": 1625,
+      "sha256": "10b1ec51c5f58147ca8ae0a34eaef25cebc4059289d134a1418197f56c5b4322"
+    },
+    "final": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01/runtime/FINAL.json",
+      "bytes": 1748,
+      "sha256": "52c1e5c024f2f3af878b12e227e94518a4c65a637a60974f24200d700528ffe6"
+    },
+    "stdout": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01/host.stdout.raw",
+      "bytes": 502,
+      "sha256": "79aa40d7b2c525aae7de17cb69d7f27f217a5a00578fe8e6e7b82ba0f2e27414"
+    },
+    "stderr": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01/host.stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "launch": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01/LAUNCH.json",
+      "bytes": 5447,
+      "sha256": "e61675fc983d1bbddb866acc531b34a87101be2c525986525b5a30af7045b05a"
+    },
+    "conservation": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01/FAILED_RETURN_CONSERVATION.json",
+      "bytes": 663,
+      "sha256": "92da86ff029c62d97a98f567d13a1dca97bda3f7bf636d00a355eb755e6d8139"
+    }
+  },
+  "setup": {
+    "completed": true,
+    "fileWriteScopePreflight": null,
+    "topology": [
+      {
+        "record": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01/runtime/topology-before-setup.json",
+          "bytes": 55556,
+          "sha256": "a7d5282ae7a5083c75236efe8cb0d9672735ac78588c0870dda99a122a0ee1d2"
+        },
+        "disposition": "separated",
+        "relations": 36
+      },
+      {
+        "record": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01/runtime/topology-before-dispatch.json",
+          "bytes": 55726,
+          "sha256": "2cb47f3b2d2ff25599e65aaf2fadbc1cac6c96f1a573d2df70355164c98a3fda"
+        },
+        "disposition": "separated",
+        "relations": 36
+      }
+    ],
+    "custody": {
+      "path": ".abiogenesis/workspace-manifest.json",
+      "bytes": 1918,
+      "sha256": "fca3aeee055c37a9c0a258ac6a15207c9d0a7982b364986547337de14cfcea54",
+      "canonicalValueDigest": "sha256:bd60f4101f3662c641b3aba9d451f1bb390deac15ad5e772cac1bf98b6f1bc32",
+      "attribution": "existing imported-create setup owner; no native write grant",
+      "createInvocationRef": "invocation://abiogenesis/527855b3a13b63f283b185bdbd4f98e27a00f30cbc8d2e08db1bf7c73d65ca42",
+      "preDispatchSetupPhaseUtc": "2026-11-14T19:40:24.333Z",
+      "capturedUtc": "2026-11-14T19:40:24.362032+00:00",
+      "verified": true,
+      "custodyRecordSha256": "43ba3ccc11b29bc16674eac7190d091fb529af5c8a05dadeb1899caa1f6f1240"
+    },
+    "actualResourceClose": true,
+    "postConstructionDispatchTopology": "not reached; no dispatch occurred"
+  },
+  "clocks": {
+    "originalStartedUtc": "2026-11-14T19:39:42.776494+00:00",
+    "originalDeadlineUtc": "2026-11-14T21:09:42.776494+00:00",
+    "hostElapsedMs": 43290,
+    "nativeClock": "not started",
+    "proofClock": "not started",
+    "oldStoppedClocksUntouched": true,
+    "reset": false
+  },
+  "preserved": [
+    "Two selected test files and all source bytes unchanged",
+    "Original first-red raw evidence and the failed packet remain immutable",
+    "Earlier126 owner passes and6 identity cases remain separate historical evidence"
+  ],
+  "notPerformed": [
+    "native author",
+    "source repair",
+    "proof/build/test/pack/install campaign",
+    "retry",
+    "main or remote mutation"
+  ],
+  "limits": [
+    "Setup necessarily executed the accepted Public installation/setup route; this is not a no-Product-execution claim.",
+    "No native/source assurance or planned test result follows from this failed setup.",
+    "The known scalar cause does not prove all remaining construction joins would pass after a repair.",
+    "RC14 qualification and release remain incomplete."
+  ],
+  "nextDecisionOwner": "Root for conjunction and explicit new control/re-entry selection",
+  "qualified": false
+}
