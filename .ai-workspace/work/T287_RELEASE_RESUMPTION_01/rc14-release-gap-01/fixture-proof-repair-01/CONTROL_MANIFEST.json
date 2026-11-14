@@ -1,9 +1,10 @@
 {
   "kind": "prepared_control_inventory",
-  "sourceParent": "e89ed8bd8aa709816894721ec1c30f19045b4e3c",
+  "sourceParent": "b3ffef9f0bf6306dbee4e2419d5326e5261860be",
   "excludedSelfAndReturn": [
     "CONTROL_MANIFEST.json",
-    "PREPARATION_RETURN.json"
+    "PREPARATION_RETURN.json",
+    "CREDENTIAL_SCOPE_RETURN.json"
   ],
   "controls": [
     {
@@ -18,8 +19,8 @@
     },
     {
       "path": "HOST.mjs",
-      "bytes": 16349,
-      "sha256": "2aec5538c580c9f6873b4277f97c0e68698ff256bb91335148d9c310a37225d4"
+      "bytes": 16763,
+      "sha256": "20d2f8159c0aee781edd598e3d0a148b254927049ad06100bb1ff0b53b2f3beb"
     },
     {
       "path": "LAYOUT.json",
@@ -106,5 +107,6 @@
       "bytes": 10410,
       "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
     }
-  ]
+  ],
+  "succession": "Root-selected C01 credential-scope control repair; original b3ffef9 and its preparation Return remain historical"
 }

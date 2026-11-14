@@ -5,6 +5,11 @@ import {readFile,mkdir,statfs} from 'node:fs/promises';
 import {dirname,join,resolve} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 
+// Optional provider authentication stays private until the maintained native
+// invocation scope. Setup, imports and probes inherit credential-free ambient.
+const providerCredentials=Object.fromEntries(['CLAUDE_CODE_OAUTH_TOKEN']
+  .filter(key=>process.env[key]!==undefined).map(key=>[key,process.env[key]]));
+for(const key of Object.keys(providerCredentials))delete process.env[key];
 
 const dir=dirname(fileURLToPath(import.meta.url));
 const source='/private/tmp/abg-rc14-proof-fixture-20261115-01';
@@ -112,7 +117,7 @@ try {
   await record('setup-owned-custody-at-dispatch.json',custody('preflight'));
   abg.assertAcquiredAbgEventResourceSelectionCurrent(entry);
   await mark('one-author-dispatch');launched=true;
-  outcome=await runner.invokeLifecycle(caller,setup.installations,constructed.call,worker);
+  outcome=await runner.invokeLifecycle(caller,setup.installations,constructed.call,{...providerCredentials,...worker});
   await record('NATIVE_RETURN.json',{run:outcome.receipt?.resources?.run??null,ownerOutput:outcome.receipt?.ownerOutput??null,launched});await mark('native-returned');
   assert.equal(outcome.receipt?.exitCode,0,'native Public exit');assert.equal(outcome.receipt?.ownerOutput?.outcomeKind,'result','native Public result');
 }catch(error){failure={name:error.name,message:error.message,observation:error.observation??null,stack:error.stack};await record('FIRST_FAILURE.json',{failure,launched,phases});process.exitCode=1;console.log(JSON.stringify({phase:'first-failure',message:error.message,launched}));}
