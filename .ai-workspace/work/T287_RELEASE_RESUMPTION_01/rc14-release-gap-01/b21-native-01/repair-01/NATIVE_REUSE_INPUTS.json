@@ -1,0 +1,38 @@
+{
+  "kind": "bounded_prior_native_reproduction_reuse",
+  "priorSourceCommit": "ad6c195f56ebeea0f8cd1a620a0346a26a5c0667",
+  "priorReproduction": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/proof-01/NATIVE_REPRODUCTION.json",
+    "bytes": 442,
+    "sha256": "a787cbb1486762432afef870f73f19bf3c363fe85b330d84955f2477dfa74403"
+  },
+  "sourceInputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/native/abg_physical_path.c",
+      "bytes": 10972,
+      "sha256": "d5698d57e9b5602091ffc3621f704720f7477f9921b5d9432db4d3c0c5d3f519"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/build-native.mjs",
+      "bytes": 7860,
+      "sha256": "66e04c66a9dbfcdbef48796155c6f53bc28c9a1aeaca5f610c014202c4288c38"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+      "bytes": 47890,
+      "sha256": "271dc16b108d1999a4215a45049f58e00b2d81191f9be9167242e17e0b75e555"
+    }
+  ],
+  "externalInputRows": 193,
+  "externalInputRecordSha256": "271dc16b108d1999a4215a45049f58e00b2d81191f9be9167242e17e0b75e555",
+  "payload": [
+    {
+      "path": "abg_physical_path.node",
+      "bytes": 52264,
+      "sha256": "1b6a1d8944275c98d84ba9b2124fda72b7942285fc7e64930ee00578130edb77"
+    }
+  ],
+  "reuseCondition": "All exact native source/build record/external inputs conserve before and after build; new candidate native payload must equal this previously reproduced pair. Otherwise first failure returns to Root; no native repair/reproduction retry.",
+  "limit": "Native component byte identity on declared Darwin arm64 host only. Prior material-closure/Node20/missing-addon/platform gaps remain; not full release reproducibility.",
+  "b32Limit": "The prior193 declared rows omit mandatory libtapi/libcodedirectory/libswiftDemangle. This packet observes those3 actual host libraries separately. Prior byte agreement is valid; complete toolchain closure is not established."
+}

@@ -1,0 +1,350 @@
+{
+  "id": "RC14-B21-OWNER-REPAIR-NATIVE-001-PREPARATION",
+  "state": "prepared_not_dispatched",
+  "recordedUtc": "2026-11-14T17:51:24.040298+00:00",
+  "activationSha256": "847c0d8da8663eb70f6564276d225286e4f6a18039381759be5609a7009fffea",
+  "sourceBase": "917085a01b701a979de59e426b3553782bbf78f6",
+  "sourceWorktree": "/private/tmp/abg-rc14-b21-repair-20261115-01",
+  "sourceBranch": "codex/rc14-b21-owner-repair-20261115",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01",
+  "role": "separate Operator controls/preflight only; native implementation remains actual RC13 Writer",
+  "basisVerification": {
+    "definition": "/private/tmp/abg-rc14-b21-repair-20261115-01/stdo_abiogenesis.json",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": []
+  },
+  "controls": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 10220,
+      "sha256": "847c0d8da8663eb70f6564276d225286e4f6a18039381759be5609a7009fffea"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 639,
+      "sha256": "c4f5f3ae466ce7cdee3956612013234860f3c39080c700293acc9a3d61c5811d"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 16440,
+      "sha256": "e6293b36d1d67b9b80f8434a600e42c593801f2484ca99ebc8a615f883bb198a"
+    },
+    {
+      "path": "LAYOUT.json",
+      "bytes": 3091,
+      "sha256": "c2eec8500f18bc79b1ff7b956f5bcd493d39f99d3f56226b2ee28af8f487b51b"
+    },
+    {
+      "path": "NATIVE_HOST_OBSERVATIONS.json",
+      "bytes": 1755,
+      "sha256": "c4df57d1f98d10dc32e1b460d4bd125ca4a60dc9f18be96fd792980d8c755962"
+    },
+    {
+      "path": "NATIVE_REUSE_INPUTS.json",
+      "bytes": 2006,
+      "sha256": "dc275389a4c7963755f27ecde092293355fe43d93c05361d15b2b3d563e0c373"
+    },
+    {
+      "path": "PREPARATION.md",
+      "bytes": 7280,
+      "sha256": "d6bd4fc40bdbb005135d3a06f8e9ba00ceec747529a40a4577f0b75bcecbb2ba"
+    },
+    {
+      "path": "PROOF_FIXTURE_INPUTS.json",
+      "bytes": 3613,
+      "sha256": "6e07ce2d9b2bcc52976d4ee572f80a59a4198e12d5af024f04ab0e769a3a5c3b"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 3896,
+      "sha256": "ae3670e1cce2980dc2c4419e3d7f928de4966cfba30f7835fd2f770b898f1e32"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2132,
+      "sha256": "e5f2e8c686a5d6f5bacd267f4d959254d31a443974259486b267587257452244"
+    },
+    {
+      "path": "TASK.json",
+      "bytes": 13598,
+      "sha256": "51f7c2ffb5ca882126d48257b742e0f74dd8ff54cc66394da68527c502b0ff56"
+    },
+    {
+      "path": "check-installed.mjs",
+      "bytes": 2472,
+      "sha256": "b67edd4080e1dfae95d5d4d9f15debcf002e4a7141dc1648995a8ec3189b7420"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 2403,
+      "sha256": "7b26df18d1507f674385cbe80080116645501dec975468d41e1e9e6fe438a81e"
+    },
+    {
+      "path": "observe-preparation.py",
+      "bytes": 4192,
+      "sha256": "4d6506a3b7298b170b140afcaab63bf7b6544f8cb57f3fc0be58b770f88201b2"
+    },
+    {
+      "path": "operate.py",
+      "bytes": 4026,
+      "sha256": "411a5120fd1c14b4b5f646b7e0accdaa2c9e5df4cd118f74ad4de1c5cbf613cf"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 17034,
+      "sha256": "57a90bfcd1afcbb6fd8ce7b767d59435b168ea383155dc365f435ef14beacecb"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ],
+  "task": {
+    "sha256": "51f7c2ffb5ca882126d48257b742e0f74dd8ff54cc66394da68527c502b0ff56",
+    "readFiles": 56,
+    "contextBytes": 2039889,
+    "maxContextFiles": 96,
+    "maxContextBytes": 4194304,
+    "writeRoots": [
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "build_tenants/abiogenesis/typescript/code/src/shared/worksite_command_physical_boundary.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t293-b21-physical-confinement.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t293-b21-owner-boundaries.test.mjs",
+      "build_tenants/abiogenesis/typescript/qualification-scratch/rc14-b21-repair-01"
+    ]
+  },
+  "sourcePreimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/SOURCE_PREIMAGE_PREPARATION.json",
+    "bytes": 35520692,
+    "sha256": "d20a825bc9969950c8edcabd52e6ebad2ced857ae09a68d0511976d90709a543",
+    "files": 1408,
+    "preparationOnly": true,
+    "finalFreezeRequiredAfterAuthorizedCheckpoint": true
+  },
+  "topology": {
+    "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+    "plannedProtectedRoots": 9,
+    "stableMounts": 27,
+    "anchors": 29,
+    "separatedRelations": 126,
+    "rawPlanned": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/topology-preparation/planned-layout.stdout.json",
+      "bytes": 91655,
+      "sha256": "7a8dd6982dd5bdff00db84e960288247d088cc550a552c398312f6429aa9fdbf"
+    },
+    "falsifiers": [
+      {
+        "actual": "separated",
+        "bytes": 91655,
+        "elapsedMs": 24.235,
+        "exitCode": 0,
+        "expected": "separated",
+        "name": "planned-layout",
+        "sha256": "7a8dd6982dd5bdff00db84e960288247d088cc550a552c398312f6429aa9fdbf"
+      },
+      {
+        "actual": "overlap",
+        "bytes": 24213,
+        "elapsedMs": 9.039,
+        "exitCode": 1,
+        "expected": "overlap",
+        "name": "real-data-bridge",
+        "sha256": "bdb6ee6b0ba39bab01226780d19aed50e601223ac6e2a90858c39d4fd428d558"
+      },
+      {
+        "actual": "overlap",
+        "bytes": 10054,
+        "elapsedMs": 8.517,
+        "exitCode": 1,
+        "expected": "overlap",
+        "name": "real-absent-alias",
+        "sha256": "2b7c4467a986e49976268f96a378f96e5872d38fe3d24727fb121fe44827820d"
+      },
+      {
+        "actual": "separated",
+        "bytes": 37699,
+        "elapsedMs": 10.328,
+        "exitCode": 0,
+        "expected": "separated",
+        "name": "real-lawful-siblings",
+        "sha256": "8615cc0fb9eddc00313b73bec3e6f1eebcb3116631bfc6fbdf20067397d84ae9"
+      },
+      {
+        "actual": "indeterminate",
+        "kind": "pure injected observation, no actual mount",
+        "name": "controlled-relevant-attachment",
+        "reason": "unhandled mount attachment beneath compared recursive scope: /private/tmp/abg-rc14-b21-repair-20261115-01/controlled-unhandled-mount"
+      },
+      {
+        "actual": "indeterminate",
+        "kind": "pure injected observation, no actual mount",
+        "name": "controlled-duplicate-membership",
+        "reason": "descriptor mount lacks unique complete-population membership"
+      }
+    ],
+    "actualRootsAfterSetupAndBeforeDispatchRequired": true,
+    "qualified": false
+  },
+  "dependencies": {
+    "kind": "operator_read_only_dependency_input",
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+    "inventorySha256": "dc55a042e47b4119487c1ef1b1288b0de607a9687b6a60e4efbb0443f9584aff",
+    "filesAndLinks": 4576,
+    "bytes": 58290948,
+    "lockSha256": "5d208d9a94f66b818bfebd09fca74842d178006a405880551519443697805cf1",
+    "rawInventory": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/DEPENDENCY_PREIMAGE.json",
+    "use": "Verify before/after copying to an external proof mirror. No writes to this source dependency tree. No install/network."
+  },
+  "nativeReuse": {
+    "kind": "bounded_prior_native_reproduction_reuse",
+    "priorSourceCommit": "ad6c195f56ebeea0f8cd1a620a0346a26a5c0667",
+    "priorReproduction": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/proof-01/NATIVE_REPRODUCTION.json",
+      "bytes": 442,
+      "sha256": "a787cbb1486762432afef870f73f19bf3c363fe85b330d84955f2477dfa74403"
+    },
+    "sourceInputs": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/native/abg_physical_path.c",
+        "bytes": 10972,
+        "sha256": "d5698d57e9b5602091ffc3621f704720f7477f9921b5d9432db4d3c0c5d3f519"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/scripts/build-native.mjs",
+        "bytes": 7860,
+        "sha256": "66e04c66a9dbfcdbef48796155c6f53bc28c9a1aeaca5f610c014202c4288c38"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+        "bytes": 47890,
+        "sha256": "271dc16b108d1999a4215a45049f58e00b2d81191f9be9167242e17e0b75e555"
+      }
+    ],
+    "externalInputRows": 193,
+    "externalInputRecordSha256": "271dc16b108d1999a4215a45049f58e00b2d81191f9be9167242e17e0b75e555",
+    "payload": [
+      {
+        "path": "abg_physical_path.node",
+        "bytes": 52264,
+        "sha256": "1b6a1d8944275c98d84ba9b2124fda72b7942285fc7e64930ee00578130edb77"
+      }
+    ],
+    "reuseCondition": "All exact native source/build record/external inputs conserve before and after build; new candidate native payload must equal this previously reproduced pair. Otherwise first failure returns to Root; no native repair/reproduction retry.",
+    "limit": "Native component byte identity on declared Darwin arm64 host only. Prior material-closure/Node20/missing-addon/platform gaps remain; not full release reproducibility.",
+    "b32Limit": "The prior193 declared rows omit mandatory libtapi/libcodedirectory/libswiftDemangle. This packet observes those3 actual host libraries separately. Prior byte agreement is valid; complete toolchain closure is not established."
+  },
+  "extraHostLibraries": {
+    "kind": "extra_local_native_host_library_observations",
+    "sourceHead": "917085a01b701a979de59e426b3553782bbf78f6",
+    "observedUtc": "2026-11-14T17:49:18.685386+00:00",
+    "rootSelection": {
+      "commit": "0ddffb770",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/qualification-preparation-01/TRIAGE.md"
+    },
+    "rows": [
+      {
+        "path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libtapi.dylib",
+        "resolvedPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libtapi.dylib",
+        "bytes": 655920,
+        "sha256": "cdeba15b2a8bb4274a371d4c1d834c8d2dcac06235e6f9f1b1394ee3ed8805fc"
+      },
+      {
+        "path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libcodedirectory.dylib",
+        "resolvedPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libcodedirectory.dylib",
+        "bytes": 139296,
+        "sha256": "a720532c8ca0033ecd277463298cda19fb1fc5cd79e7c308c152975c2e1e7d6d"
+      },
+      {
+        "path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libswiftDemangle.dylib",
+        "resolvedPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libswiftDemangle.dylib",
+        "bytes": 1241648,
+        "sha256": "6110525f5d2f5873ff088b7dc11366db276f1ce8ebef4326eb669940bf1cfb3b"
+      }
+    ],
+    "scope": "Observe/conserve these3 actual host libraries around ordinary build, separately from the193 declared native rows. No Product input-record mutation or complete native toolchain closure claim. B32 formal closure/relocation belongs to its separate Writer."
+  },
+  "fixtureInputs": {
+    "recordSha256": "6e07ce2d9b2bcc52976d4ee572f80a59a4198e12d5af024f04ab0e769a3a5c3b",
+    "files": 13,
+    "bytes": 18944
+  },
+  "setupCustody": {
+    "mechanism": "pre-dispatch canonical setup-owner capture, same receipt/readback/source verification before dispatch and proof entry/end",
+    "checkerSha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1",
+    "fullPostimageRetainsSetupRow": true,
+    "noBlanketIgnore": true,
+    "executed": false
+  },
+  "proofPlan": {
+    "sha256": "ae3670e1cce2980dc2c4419e3d7f928de4966cfba30f7835fd2f770b898f1e32",
+    "wholeFiles": [
+      "t293-b21-owner-boundaries.test.mjs",
+      "t293-b21-physical-confinement.test.mjs",
+      "t292-td85n-absent-protected-root.test.mjs",
+      "t292-td85a-stored-spelling.test.mjs",
+      "t287-c0-post-publication-failure.test.mjs",
+      "t287-c0-post-publication-failure-owner-admission-close.test.mjs",
+      "t287-worksite-command-execution.test.mjs",
+      "t287-default-library.test.mjs",
+      "t287-native-semantic-job.test.mjs"
+    ],
+    "campaignMs": 3600000,
+    "perFileMs": 600000,
+    "originalHostMs": 7200000,
+    "cleanupReserveMs": 15000,
+    "clipToOriginalHostDeadline": true,
+    "retries": 0,
+    "executed": false
+  },
+  "checks": {
+    "controlSyntax": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/CONTROL_SYNTAX_FINAL.json",
+      "bytes": 3018,
+      "sha256": "b3afac0001df7cb91bc66ec03e818080a308cf1c51d4a4f2027bb21abc92efdb"
+    },
+    "tenantDiffFromBase": "empty",
+    "ProductImports": 0,
+    "ProductTests": 0,
+    "binaryBuilds": 0,
+    "providerCalls": 0,
+    "mainWrites": 0,
+    "pushes": 0
+  },
+  "rawPublication": false,
+  "nextBoundary": "Root accepts/checkpoints/pushes these exact controls and supplies final source/launch authorization; no provider before then.",
+  "limits": [
+    "Preparation controls and read-only physical observations only.",
+    "First actual proof/integration failure stops; no automatic retry.",
+    "Direct Testing component and actual installed Public route remain distinct.",
+    "Live-provider proof case stays explicitly gated; no additional provider authority.",
+    "193 declared native rows plus3 extra actual host library observations do not establish complete toolchain closure.",
+    "Generated qualification metadata, native B32 repair and whole release qualification are separate."
+  ]
+}

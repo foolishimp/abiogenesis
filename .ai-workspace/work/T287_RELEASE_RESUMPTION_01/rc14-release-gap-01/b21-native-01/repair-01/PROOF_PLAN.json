@@ -1,0 +1,50 @@
+{
+  "kind": "prospective_bounded_b21_actual_owner_repair_proof",
+  "state": "not_executed",
+  "sourceHead": "Exact Root-pushed LAUNCH.json HEAD; final source preimage is frozen immediately before setup.",
+  "wholeFiles": [
+    "t293-b21-owner-boundaries.test.mjs",
+    "t293-b21-physical-confinement.test.mjs",
+    "t292-td85n-absent-protected-root.test.mjs",
+    "t292-td85a-stored-spelling.test.mjs",
+    "t287-c0-post-publication-failure.test.mjs",
+    "t287-c0-post-publication-failure-owner-admission-close.test.mjs",
+    "t287-worksite-command-execution.test.mjs",
+    "t287-default-library.test.mjs",
+    "t287-native-semantic-job.test.mjs"
+  ],
+  "steps": [
+    "Successful actual RC13 native return, real close, fresh result/replay and raw command audit; no retry.",
+    "Authenticate exact pre-dispatch setup-owned manifest against imported-create receipt/readback; retain row in full postimage; apply native W only to other deltas.",
+    "Freeze source, npm/native inputs and13-file tracked default-library witness; copy to a new external mirror.",
+    "Verify pinned native inputs; ordinary composed-source build.",
+    "First entire new actual-owner discriminator once.",
+    "Conserve native C/build input/source pins and compare built native payload to prior byte-equal pair; otherwise stop for Root selection. No repeated native reproduction campaign.",
+    "Maintained pack, clean offline ignore-scripts install, full archive/install byte equality and actual installed native physical-owner load.",
+    "Each remaining declared whole file once, with no name filtering or duplicate passing population.",
+    "Re-observe source, setup custody and native/npm inputs; record all counts, exact skips, closes and bounded return."
+  ],
+  "firstFailure": "Freeze and preserve evidence; return to Root. No repair/retry or automatic continuation.",
+  "campaignMs": 3600000,
+  "perBuildMs": 300000,
+  "perTestFileMs": 600000,
+  "outputBytesPerCommand": 16777216,
+  "reserveBytes": 4294967296,
+  "originalHostDeadline": "Effective proof deadline=min(this activation CONTROL_START.deadlineUtc, proof start+1h); old activation clocks are not reused or reset.",
+  "cleanupReserveMs": 15000,
+  "gatePrerequisites": {
+    "trackedFixture": "PROOF_FIXTURE_INPUTS.json; all13files copied byte-for-byte to exact relative location in proof mirror",
+    "providerEnvironment": "Closed environment excludes ABI5_DEFAULT_LIBRARY_LIVE and all provider credentials; the one live-provider test remains its declared skip. The existing scripted-actor actual installed Public route remains selected.",
+    "newOwnerFile": "All required real-owner cases must execute; report any actual skip and withhold that claim. No assumed skip:false field and no negative test-name selection.",
+    "actualHost": "Darwin arm64 / Node24.7.0; real Data-alias premise checked as physical evidence before author dispatch; actual test premises retained."
+  },
+  "retainedEvidence": "Previous178pass/6skip subject is not rerun or relabeled. Only these9 affected files form this new population; historical owner-reuse/reacquisition fixture gates remain prior open evidence.",
+  "B04Meaning": "C0 post-publication/partial-effect accounting, not T293 event-log locking.",
+  "proofLimits": [
+    "Direct Testing component premise substitution and actual installed Public admission remain distinct.",
+    "No live provider inside proof; one provider call only belongs to native author.",
+    "Native source/build qualification metadata and broader Node/platform/material-closure assurance remain separate.",
+    "No whole-release qualification, semantic acceptance or release."
+  ],
+  "nativeB32Observation": "Conserve193 declared rows and3 source/build records; separately observe exact libtapi/libcodedirectory/libswiftDemangle before/after ordinary build and at return. No complete closure or Product input declaration repair."
+}
