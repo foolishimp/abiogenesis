@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T19:37:09.741607+00:00",
-  "nativeAuthorState": "Both native authors returned and closed; both proof sequences stopped at retained first reds; no provider currently running",
+  "recordedUtc": "2026-11-14T19:46:22.978116+00:00",
+  "nativeAuthorState": "No native author running; first fixture launch refused before provider due to external task-carrier type; bounded control correction selected",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -217,7 +217,7 @@
     "rawEvidencePublished": false
   },
   "fixtureRepair": {
-    "state": "CONTROLS_REVIEWED_PENDING_PUSH_AND_EXACT_LAUNCH",
+    "state": "FIRST_SETUP_REFUSED_NO_PROVIDER_TASK_CARRIER_REENTRY_SELECTED",
     "activation": "fixture-proof-repair-01/ACTIVATION.json",
     "sourceBase": "5680ae9ae9d2f310342f9e58ece86032d42e379c",
     "sourceFiles": 2,
@@ -226,7 +226,12 @@
     "nativeAuthorsRunning": 0,
     "proofFilesSelected": 6,
     "nativeAbsoluteMs": 1200000,
-    "enclosingMs": 5400000
+    "enclosingMs": 5400000,
+    "firstLaunchSource": "484f4b721d8efafdcf6aa5ddabc69b06bed58756",
+    "firstLaunchProviderCalls": 0,
+    "originalHostDeadlineUtc": "2026-11-14T21:09:42.776494Z",
+    "failureReturnCommit": "5622b37aebc452708f767281ac65254a6b038fdc",
+    "triage": "fixture-proof-repair-01/TASK_CARRIER_TRIAGE_AND_REENTRY.md"
   },
   "installedCompositionPreparation": {
     "state": "STATIC_CONTROLS_ACCEPTED_EXECUTION_DISABLED",

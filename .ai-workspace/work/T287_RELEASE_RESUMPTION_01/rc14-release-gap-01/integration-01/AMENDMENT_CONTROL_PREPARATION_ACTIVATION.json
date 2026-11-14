@@ -1,0 +1,37 @@
+{
+  "id": "RC14-AMENDMENT-CONTROL-PREPARATION-001",
+  "role": "Separate external Operator/Writer preparation for /root/rc14_release_proof",
+  "productFrame": "Fixed5.0 existing Executive and declared review/currentness behavior, S03 and the amendment witness. Host supplies declarations, inputs and resources; GTL/HoG/Executive choose work and ABG admits verdicts. This does not replace the separately required S06 witness or authorize release.",
+  "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "sourceSubject": "484f4b721d8efafdcf6aa5ddabc69b06bed58756",
+  "owningRecords": [
+    "integration-01/INSTALLED_COMPOSITION_CONTROL_FINDINGS.md",
+    "integration-01/INSTALLED_STEEL_THREAD_PREPARATION.md",
+    "integration-01/installed-smoke-preparation-01/ROOT_CREDENTIAL_SCOPE_ACCEPTANCE.json",
+    "PLAN.md order5 and fixed Product S03"
+  ],
+  "outcome": "Prepare disabled external controls for the complete amendment input and prerequisite-aware consumer, coherent assessment/schema identity, actual counterevidence/correction and affected/unaffected review evidence; return concrete missing joins before any execution",
+  "effectTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-preparation-01 in a named isolated worktree",
+  "allowed": [
+    "Create codex/rc14-amendment-prep-20261115 worktree /private/tmp/abg-rc14-amendment-prep-20261115-01 from exact sourceSubject",
+    "Reuse accepted installed control source c1683d3 and maintained Public/helper contracts; preserve credential, topology, finite command, conservation and source/candidate boundaries",
+    "Author external binding/host/oracle controls, compact design/typed handoffs and manifest/Return only; keep candidate and execution fields disabled until separately bound",
+    "Static syntax, JSON, source hashes and exact input/dependency checks",
+    "Commit exact controls on own branch and return to Root"
+  ],
+  "requiredLimits": [
+    "One coherent consumer publication, assessment contract and schema pair; complete amendmentWitnessInput and amendmentPrerequisites",
+    "Real seed threshold5000 versus amended10000; protected prospective oracle7500/no approval,10000/no approval,10000.01/approval,10x1040 discounted9880/no approval",
+    "No planted defect, scripted adverse verdict or host-selected graph ordering. Expected initial amendment counterevidence differs from unexpected integration failure",
+    "Record fresh affected review/acceptance evidence and preserve unaffected identities only when declared dependencies remain unchanged",
+    "Fresh readback, new-Run admitted-result reuse and same-Run pending execution are distinct; do not claim one from another",
+    "Preparation allocation20min; return missing owner/contract relations instead of silently changing Product or widening the work"
+  ],
+  "prohibited": [
+    "No Product, test suite or maintained helper edits",
+    "No Product imports, setup, tests, build, provider, install or witness execution",
+    "No main mutation/push, raw artifacts in Git, new runtime/selector or qualification claim"
+  ],
+  "returnTo": "Root Executive for exact control review and subsequent dependency-ready admission; first basic CLI composition remains earlier in execution order"
+}
