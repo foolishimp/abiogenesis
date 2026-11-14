@@ -1,0 +1,730 @@
+{
+  "id": "RC14-B31-NATIVE-AUTHOR-001-RETURN",
+  "utc": "2026-11-14T14:01:07.771862+00:00",
+  "status": "FROZEN_NATIVE_AUTHOR_RETURN_WITH_ACCEPTED_PROOF_CONTROL_DEVIATION",
+  "source": {
+    "base": "27e6412853f1d8afb1a2e960def6eb055f8ede50",
+    "branch": "codex/rc14-b31-native-20261115",
+    "worktree": "/private/tmp/abg-rc14-b31-20261115-01",
+    "fixturePostimages": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+        "beforeSha256": "306d7410c5791df1e55ba09787681203d54118ca99b90caf92d0c863ab2adc80",
+        "afterSha256": "0c11427a18511352d8ffe3dbb6cef0e956d2824967a229f1f9250c0b0767da25",
+        "bytes": 61875
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+        "beforeSha256": "f0f361f272cce7dffbcd2397337f6ae2c6d1f340a63cc7df4242854e96b7a6d6",
+        "afterSha256": "78502afacbeb55dfe319e9f09f74efc7c66a2082c6650da7f2fb3c52df65252e",
+        "bytes": 62316
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+        "beforeSha256": "e166aab8e6582737f12034906fde1baacf30f811d2b9c4f522256aa45f7bf357",
+        "afterSha256": "5cd4ae224ae43dbe1126bb43005a80a0364df64f94e80f7bb8dd49823ac88e3c",
+        "bytes": 116949
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+        "beforeSha256": "d3056ab7421f540d4babb0aa26a5418958287be3da4a470842877523373506b6",
+        "afterSha256": "64aaf010ba6d0306022a4ef2e77f8f4b8ddd5401546d2f9d534eb54ae53fa193",
+        "bytes": 102656
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+        "beforeSha256": "dfa9537d76cc66b41151591ff42f90e913c4b3e61cd073690510ed5d3e2c8b41",
+        "afterSha256": "fe230e087e6f86f52d226823b05afb7797a8112d86be9929e3530ab46b162015",
+        "bytes": 28330
+      }
+    ],
+    "freeze": "Fixture postimages unchanged since native return; included with exact historical Operator controls in this worker commit. Root owns source acceptance and integration."
+  },
+  "productFrame": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "frame": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "changeClass": "realization_refactor, test fixtures only"
+  },
+  "builder": {
+    "version": "5.0.0-rc.13",
+    "pinCommit": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
+    "pinSha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant",
+    "archiveSha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0",
+    "sourceRuntimeUsedAsBuilder": false
+  },
+  "native": {
+    "providerCalls": 1,
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "executableSha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "identityLimit": "Actual CLI version/help/hash, configured transport and CLI init model observed; no remote model attestation.",
+    "run": {
+      "ref": "run://abiogenesis/0f8034aafa7398b726c24a71e4b72501be1d6ad16d87b531b715f014c53c74d3",
+      "digest": "sha256:e235a4aaceafd650892da83ca1097fbc4734a1eb4d7e5d3ea67d07bb7bf99169"
+    },
+    "observationRef": "native-work-observation://abiogenesis/4ee090ff91549763faba27483f76607d9421f485a0a119d75b203cc8872dc9e4",
+    "observationDigest": "sha256:4ee090ff91549763faba27483f76607d9421f485a0a119d75b203cc8872dc9e4",
+    "actualResourceClose": true,
+    "readbackFailure": null,
+    "actorProcessId": 28635,
+    "actorProcessExitStatus": 0,
+    "actorInvocationClosed": "success",
+    "apiRetryCount": 0,
+    "ownerToolCallCount": 86,
+    "rawToolUseCounts": {
+      "Bash": 17,
+      "Grep": 10,
+      "Read": 17,
+      "Edit": 42,
+      "StructuredOutput": 1
+    },
+    "structuredEventCount": 6540,
+    "progressEventCount": 6480,
+    "phases": [
+      {
+        "phase": "identity-and-topology-bound",
+        "utc": "2026-11-14T13:35:02.904Z",
+        "wallMs": 326.589458
+      },
+      {
+        "phase": "fresh-public-setup-held",
+        "utc": "2026-11-14T13:36:16.109Z",
+        "wallMs": 73530.70595799999
+      },
+      {
+        "phase": "one-author-dispatch",
+        "utc": "2026-11-14T13:36:17.250Z",
+        "wallMs": 74671.414958
+      },
+      {
+        "phase": "native-returned",
+        "utc": "2026-11-14T13:51:20.258Z",
+        "wallMs": 977661.9798750001
+      }
+    ],
+    "rawStdout": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/resources/archives/fp-5947343ca056114e-stdout.log",
+      "bytes": 6701877,
+      "sha256": "201f1e1c68ca7ea2509d2decab3edb403eb3aea4a6cd73d3b3bfdeed994e5203"
+    }
+  },
+  "physicalTopology": {
+    "observationClass": "Operator read-only filesystem observation, not Product event authority",
+    "writeRootsCount": 6,
+    "protectedRoots": [
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/resources/archives",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/resources/events",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/resources/projections",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/resources/runtime",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/sandbox/installed/abg",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant",
+      "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13"
+    ],
+    "claim": "Existing-anchor physical ancestry separates this finite W and archive from protected roots; trusted stable local namespace only, no general RC13 confinement or adversarial-race claim.",
+    "nativeFileWritePreflight": "Actual installed owner accepted exact five files plus scratch; no W widening."
+  },
+  "proof": {
+    "status": "COMPLETED_POPULATION_ACCEPTED_BY_ROOT_WITH_REPEATED_DISCRIMINATOR",
+    "actualTotal": {
+      "passingExecutions": 83,
+      "uniqueCases": 82,
+      "failures": 0,
+      "skips": 0,
+      "cancelled": 0
+    },
+    "f04": {
+      "firstSelected": [
+        "F04 same native contract proof is reused while raw and changed bases still check"
+      ],
+      "secondSelected": [
+        "F04-A exact request-bound raw result admission is pure and decision-exact",
+        "F04 same native contract proof is reused while raw and changed bases still check"
+      ],
+      "overlap": [
+        "F04 same native contract proof is reused while raw and changed bases still check"
+      ],
+      "uniquePopulation": [
+        "F04 same native contract proof is reused while raw and changed bases still check",
+        "F04-A exact request-bound raw result admission is pure and decision-exact"
+      ],
+      "invocationCount": 2,
+      "caseExecutions": 3,
+      "uniqueCases": 2,
+      "declaredSkips": [],
+      "reportedNameFilterSkips": [],
+      "meaning": "First invocation selected the discriminator; the second actually executed the complete two-case file. The discriminator passed twice."
+    },
+    "requestedF04": {
+      "discriminator": "F04 same native contract proof is reused while raw and changed bases still check",
+      "firstExpectedSelected": [
+        "F04 same native contract proof is reused while raw and changed bases still check"
+      ],
+      "firstExpectedExcluded": [
+        "F04-A exact request-bound raw result admission is pure and decision-exact"
+      ],
+      "secondExpectedSelected": [
+        "F04-A exact request-bound raw result admission is pure and decision-exact"
+      ],
+      "secondExpectedExcluded": [
+        "F04 same native contract proof is reused while raw and changed bases still check"
+      ]
+    },
+    "steps": [
+      {
+        "label": "01-f04-proof-reuse",
+        "exitCode": 0,
+        "stopReason": null,
+        "wallMs": 520,
+        "counts": {
+          "tests": 1,
+          "suites": 0,
+          "pass": 1,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "cleanup": {
+          "signals": [],
+          "testProcessGroupAbsent": true
+        },
+        "testNamePattern": "^F04 same native contract proof is reused while raw and changed bases still check$",
+        "selectedCaseNames": [
+          "F04 same native contract proof is reused while raw and changed bases still check"
+        ],
+        "declaredSkips": [],
+        "reportedNameFilterExclusions": [],
+        "request": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/01-f04-proof-reuse/request.json",
+          "bytes": 990,
+          "sha256": "34cb2ab73468fd2431982d33595d63be51c09ce7b05ca2f4547bdfa2f5ad8856"
+        },
+        "result": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/01-f04-proof-reuse/result.json",
+          "bytes": 876,
+          "sha256": "c8f9dbcb4a05f12aa08192b2658b1a604987b4674eb3835d4d2237ebc7e634a3"
+        },
+        "stdout": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/01-f04-proof-reuse/stdout.raw",
+          "bytes": 739,
+          "sha256": "c79bff8a6d4b73ea35059a418257df58b04b6cb773ea71bc698e8fea49005c51"
+        },
+        "stderr": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/01-f04-proof-reuse/stderr.raw",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "02-f04-remaining",
+        "exitCode": 0,
+        "stopReason": null,
+        "wallMs": 69007,
+        "counts": {
+          "tests": 2,
+          "suites": 0,
+          "pass": 2,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "cleanup": {
+          "signals": [],
+          "testProcessGroupAbsent": true
+        },
+        "testNamePattern": "^(?!F04 same native contract proof is reused while raw and changed bases still check$)",
+        "selectedCaseNames": [
+          "F04-A exact request-bound raw result admission is pure and decision-exact",
+          "F04 same native contract proof is reused while raw and changed bases still check"
+        ],
+        "declaredSkips": [],
+        "reportedNameFilterExclusions": [],
+        "request": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/02-f04-remaining/request.json",
+          "bytes": 995,
+          "sha256": "4dc9cf3ddc40b213b74984ba000471f0d4eac20da831427a43345321d64525a5"
+        },
+        "result": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/02-f04-remaining/result.json",
+          "bytes": 1031,
+          "sha256": "98d017d57f2b8972efbf8e7c02ad7524c196ee2b39ad458b45fa4c1a81590c21"
+        },
+        "stdout": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/02-f04-remaining/stdout.raw",
+          "bytes": 5186,
+          "sha256": "eb5ff08ca5a9d458f22a62cd8224f078872a86dfaf39066bf7f6267df8cba1df"
+        },
+        "stderr": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/02-f04-remaining/stderr.raw",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "03-t287-lifecycle-failure-carrier.test",
+        "exitCode": 0,
+        "stopReason": null,
+        "wallMs": 833,
+        "counts": {
+          "tests": 9,
+          "suites": 0,
+          "pass": 9,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "cleanup": {
+          "signals": [],
+          "testProcessGroupAbsent": true
+        },
+        "testNamePattern": null,
+        "selectedCaseNames": [
+          "worker no-child launch failure: spawn_failed admitted; the bound transport artifact carries processFacts",
+          "an actor invocation runs only on the current profile: on L, RC6 and S2 it is refused before its binding or any start",
+          "TD78 premise: a wrong prefix, a foreign binding ref or digest, or a false or unavailable executing identity refuses before any binding or start",
+          "worker error after launch with unresolved cleanup: termination_unconfirmed admitted; the refusal carries processFacts; failCCall retains it",
+          "helper route: the classifier reports spawn failure as confirmed and unresolved cleanup with processFacts",
+          "helper route: an error after launch with unresolved cleanup throws the command failure with processFacts",
+          "D5: a terminationConfirmed copy that disagrees with the fold initiates the diagnostic fluent; no prefix is refused",
+          "D5 cold evidence projection: current evidence and artifacts without copies read them from the owner lifecycle; partial, reinserted, crossed and L-without-copies refuse",
+          "RC7 HS03 actor successor: a not_reached decision that commits the pending window returns its durable successor, and the actor admits its next window there"
+        ],
+        "declaredSkips": [],
+        "reportedNameFilterExclusions": [],
+        "request": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/03-t287-lifecycle-failure-carrier.test/request.json",
+          "bytes": 864,
+          "sha256": "dc4ce120bb1e0d0f511a50615f4457d62deacbd9983336eb782254e073e8fadb"
+        },
+        "result": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/03-t287-lifecycle-failure-carrier.test/result.json",
+          "bytes": 2498,
+          "sha256": "673edcbc3ba5f457db2465e691ab298eda9af04469ca16e0e451189e097130e1"
+        },
+        "stdout": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/03-t287-lifecycle-failure-carrier.test/stdout.raw",
+          "bytes": 4005,
+          "sha256": "77a0ce12377c2547b4fe84702a43d547339c6562731164c1bac41c233ea19719"
+        },
+        "stderr": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/03-t287-lifecycle-failure-carrier.test/stderr.raw",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "04-t287-native-workspace-work.test",
+        "exitCode": 0,
+        "stopReason": null,
+        "wallMs": 2171,
+        "counts": {
+          "tests": 43,
+          "suites": 0,
+          "pass": 43,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "cleanup": {
+          "signals": [],
+          "testProcessGroupAbsent": true
+        },
+        "testNamePattern": null,
+        "selectedCaseNames": [
+          "post-effect channel conflict retains admitted native failure scope without a fabricated exchange",
+          "native work publishes one ordinary callable effect with run and child closure",
+          "native task conserves read-only scope, admits explicit write roots outside R and refuses malformed input",
+          "owner refuses stale context before assembly/dispatch",
+          "protected write roots refuse exact, enclosing and inside overlap before assembly/dispatch; R and W outside R stay admitted",
+          "actual observation remains independent of report and consumer judgment",
+          "admitted-member task context keeps unchanged bodies by reference and births changed bytes inline once",
+          "RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy",
+          "native timeout retains actual partial edit and refuses success",
+          "native malformed-report retains actual partial edit and refuses success",
+          "native read-only-change retains actual partial edit and refuses success",
+          "read-only native assessment returns observed assets and an empty change set",
+          "unavailable after observation retains unknown and original native failure",
+          "unknown exact and subtree",
+          "unknown whole root",
+          "unknown read-only",
+          "known exact change within wider scope",
+          "unknown native after-state retires only potentially writable C0 facts",
+          "observed partial failure retires touched C0 facts but preserves unchanged and absent paths",
+          "known native result retires unobserved W\\\\R facts, present and absent, and preserves observed-unchanged R and unrelated facts",
+          "native publication agrees with actual generated artifact manifest identity",
+          "native implementation without physical authority refuses before loading",
+          "native and assessment renders preserve scope and explain observation limits",
+          "assessment declaration selects an independent assessor role; ordinary constructor stays unchanged",
+          "assessment schema must match its unique declared installed owner and immutable schema asset",
+          "assessment schema defaults to fixed 2020 without changing declared validation or accepting conflicting markers",
+          "exact assessment resolution, native completion and result checks share one compilation without accepting changed schema or installed bytes",
+          "typed read-only assessment retains F_P source and exact observed basis, not a work report",
+          "native assessment ordinary-report cannot produce semantic success",
+          "native assessment malformed cannot produce semantic success",
+          "native assessment empty cannot produce semantic success",
+          "native assessment duplicate-keys cannot produce semantic success",
+          "native assessment undeclared-field cannot produce semantic success",
+          "native assessment same-author cannot produce semantic success",
+          "native assessment failed-transport cannot produce semantic success",
+          "native assessment mutating cannot produce semantic success",
+          "assessment accepts a different declared verdict shape without core identity fields",
+          "assessment treats a consumer-declared basisDigest as schema-owned data without rewriting it",
+          "assessment task refuses mutable scope and mismatched source/rubric coordinates before work",
+          "complete assessment preparation joins assessor context, declared schema and exact native owner without dispatch",
+          "complete assessment preparation joins assessor context, declared schema and exact native owner without dispatch with generated fulfillment",
+          "O1 (I): an implementation_admitted event with a non-record payload rehydrates no implementation set (the existing null)",
+          "O1 (I): an implementation_admitted event with a non-record payload rehydrates no interaction set (the existing null)"
+        ],
+        "declaredSkips": [],
+        "reportedNameFilterExclusions": [],
+        "request": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/04-t287-native-workspace-work.test/request.json",
+          "bytes": 860,
+          "sha256": "c48963422dd12a53b543f3ab0da6b6eab2fee110ef964ef1e32d2cf1989fe242"
+        },
+        "result": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/04-t287-native-workspace-work.test/result.json",
+          "bytes": 7452,
+          "sha256": "29ecc84e3b9afaaef36d6b84593dd37398ea3d49d2b564fd47f47e3e04b2615f"
+        },
+        "stdout": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/04-t287-native-workspace-work.test/stdout.raw",
+          "bytes": 14546,
+          "sha256": "a6c32d35fee143febf31b5b74ae3db8ebfb9409c2b1140527c3436a75539a8a9"
+        },
+        "stderr": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/04-t287-native-workspace-work.test/stderr.raw",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "05-t287-qualification-scopes.test",
+        "exitCode": 0,
+        "stopReason": null,
+        "wallMs": 3640,
+        "counts": {
+          "tests": 24,
+          "suites": 0,
+          "pass": 24,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "cleanup": {
+          "signals": [],
+          "testProcessGroupAbsent": true
+        },
+        "testNamePattern": null,
+        "selectedCaseNames": [
+          "small whole subject grouped and singleton semantics agree under explicit independent/native premises",
+          "required group/member/root/domain omissions, duplicate and crossed basis never receive a complete assessment",
+          "unknown and falsified grouping/applicability are conserved; incomplete context and foreign J cannot discharge scope",
+          "G1 multi-root assessment conserves failure and citations beside missing judgment",
+          "grouped representation grows by explicit members/rules, not Cartesian semantic rows or findings",
+          "reference-form attribution consumes canonical resolved provenance and preserves original judgment bytes",
+          "reference attribution retains missing crossed record scope and independence refusals",
+          "actual renderer states supplied scope/material and original attribution spans without quoting unprovided source or base64 records",
+          "scoped constructor refuses missing material, changed byte/span, foreign basis and waived independence",
+          "fresh process conserves grouped result identities and refuses changed grouped bytes",
+          "explicit justified inapplicability conserves singleton meaning and cannot erase a falsified obligation",
+          "factored prompt reconstructs exact member listings and attribution while preserving full declarations",
+          "catalog renderer supplies complete selected-source rows across groups without repeating unrelated catalog declarations",
+          "catalog and rule prompts expose changed governed claims, evidence duties and source-span mappings; stale catalog refuses",
+          "inventory renderer exposes per-member role and classification-evidence swaps despite identical bytes and group-role union",
+          "per-rule complete member domains preserve flat semantics and do not split unrelated rule work",
+          "domain omission overlap foreign members and incomplete rule domains refuse; scoped J uncertainty survives",
+          "six-member discriminator keeps four rule domains when unrelated classification refinement would grow six global pairs to eight",
+          "plan check by hashed sets keeps every refusal and its memo answers only for the verified plan bytes",
+          "Q23 one native history: only the declared cross-family assessor is eligible before dispatch, and its J reads back through its single binding",
+          "Q23 J readback refuses legacy, mismatched, same-family, substituted, crossed and digest-changed bindings, warm and cold",
+          "Q23 authors, provenance, peers and owner connection refuse before dispatch; a waived assessment stays refused",
+          "Q23 actor_process gates the actual prepared selection before binding or provider start; ordinary calls are unchanged",
+          "M2 one current durable observation: full live carrier, admitted copy-free artifact, completion source and cold J agree; unilateral, stale, crossed, reinserted and profile-crossed relations refuse"
+        ],
+        "declaredSkips": [],
+        "reportedNameFilterExclusions": [],
+        "request": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/05-t287-qualification-scopes.test/request.json",
+          "bytes": 859,
+          "sha256": "f87da446892533c4bc2e30cec14a22ea3098a310cb1bc9d0c02e740e0165fdc4"
+        },
+        "result": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/05-t287-qualification-scopes.test/result.json",
+          "bytes": 5168,
+          "sha256": "17ed996fe2fd1144a5b49a42046f8afbd3fbe6e2a08a90971b18f71d49eb7b01"
+        },
+        "stdout": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/05-t287-qualification-scopes.test/stdout.raw",
+          "bytes": 8811,
+          "sha256": "ad7c631c9f27a58081b779a0ebdb4b88739a3390bdb18d4aad5e5cde9b6e9172"
+        },
+        "stderr": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/05-t287-qualification-scopes.test/stderr.raw",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "06-t288-instruction-assembly-owner.test",
+        "exitCode": 0,
+        "stopReason": null,
+        "wallMs": 519,
+        "counts": {
+          "tests": 4,
+          "suites": 0,
+          "pass": 4,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "cleanup": {
+          "signals": [],
+          "testProcessGroupAbsent": true
+        },
+        "testNamePattern": null,
+        "selectedCaseNames": [
+          "native revision decision view preserves byte identity, non-UTF8 absence and changed candidate observations",
+          "native revision decision view leaves all opaque C2 and application JSON verbatim",
+          "actor owner retains its own assembly, authenticates raw dispatch, and rejects forged return/basis/drift",
+          "semantic stage, revision and selection implementations preserve the complete owner request"
+        ],
+        "declaredSkips": [],
+        "reportedNameFilterExclusions": [],
+        "request": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/06-t288-instruction-assembly-owner.test/request.json",
+          "bytes": 865,
+          "sha256": "6705ecfd7eb5d5d749505b5e0cfcb94979d531ddb469bf62a76b03aa7e0cf0d1"
+        },
+        "result": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/06-t288-instruction-assembly-owner.test/result.json",
+          "bytes": 1348,
+          "sha256": "834ee17230e93ba539e96e569eb033736c30c578e06e988e8c1b0ff6a5b1548e"
+        },
+        "stdout": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/06-t288-instruction-assembly-owner.test/stdout.raw",
+          "bytes": 1333,
+          "sha256": "c1e30099fc3f7ced41e25c903d428e15c01bfebbd84c19b8bd0a33beec8f8d01"
+        },
+        "stderr": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/proof/06-t288-instruction-assembly-owner.test/stderr.raw",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    ],
+    "proofSubject": "Copied pinned RC13 build/package/manifest with authored fixture postimages; genuine installed cases use the pinned archive. No RC14 archive was built.",
+    "rootDisposition": {
+      "decision": "Accept 83 passing executions / 82 unique cases as bounded completed evidence; preserve deviation; no further run, retry or source repair.",
+      "cause": "Root independently inspected installed Node 24.7.0 embedded internal/test_runner/test source lines 166-175: testMatchesPattern accepts a match on test.name, any parent, or the full ancestor name. Negative lookahead matches the parent/root, selecting the supposed excluded child. Runner also omitted cross-invocation name-set validation.",
+      "acquisition": "Root read-only source inspection and independent receipt acquisition; no additional test execution.",
+      "controlReuse": "Executed prove.py is preserved exactly as historical control. Its negative-lookahead exclusion strategy is not reusable. Future populations require positive selection or explicit skip plus exact selected-name-set validation."
+    }
+  },
+  "deviations": [
+    {
+      "owner": "Native author",
+      "fact": "Three Bash invocations contained five read-only Git diff/stat/status commands despite TASK prohibition; native self-report incorrectly said no Git operations.",
+      "effect": "No Git mutation or source escape observed. Root explicitly retained this deviation and continued existing proof; no extra provider pass."
+    },
+    {
+      "owner": "Operator",
+      "fact": "Negative test-name pattern in the second F04 command selected both file cases, including the already-passed discriminator. Runner did not check name disjointness before continuing other four files.",
+      "effect": "83 passing executions cover 82 unique cases, with one repeated passing discriminator. Earlier disjoint/three-case report corrected. Root accepted the bounded completed population; no additional run, retry or source repair selected."
+    }
+  ],
+  "conservation": {
+    "unchangedMaterializedTracked": 1160,
+    "materializedTrackedCount": 1165,
+    "compiledCopyMembersUnchanged": 773,
+    "installedMembersEqualPinnedArchive": 5293,
+    "installedPayloadBytes": 69177953,
+    "pinnedDispatchControlsUnchanged": true,
+    "nativeObservationPostimageMatchesSource": true,
+    "postProofRecheck": {
+      "kind": "operator_post_proof_conservation_observation",
+      "utc": "2026-11-14T14:01:07.766654+00:00",
+      "sourceHead": "27e6412853f1d8afb1a2e960def6eb055f8ede50",
+      "trackedPreimagesChecked": 1165,
+      "authoredPostimagesUnchanged": 5,
+      "compiledCopyMembersUnchanged": 773,
+      "installedMembersEqualPinnedArchive": 5293,
+      "archiveSha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0",
+      "nativeLeaderPid": 28635,
+      "nativeLeaderAbsentAtObservation": true,
+      "limits": "Read-only byte/identity observation. PID absence is for this recorded leader only; no global descendant claim."
+    }
+  },
+  "cleanup": {
+    "host": {
+      "signals": [],
+      "hostProcessGroupAbsent": true
+    },
+    "testGroupsAbsent": true,
+    "limits": "Observed host/test process groups only; native owner records process exit and successful invocation close. No global process-absence or external dependency inventory claim. Raw stores, setup installs and proof copies retained locally.",
+    "nativeLeaderAbsentAtPostProofObservation": true
+  },
+  "bounds": {
+    "command": [
+      "/opt/homebrew/bin/node",
+      "/private/tmp/abg-rc14-b31-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b31-native-01/HOST.mjs"
+    ],
+    "source": "/private/tmp/abg-rc14-b31-20261115-01",
+    "startedUtc": "2026-11-14T13:35:02.530657+00:00",
+    "deadlineUtc": "2026-11-14T15:05:02.530657+00:00",
+    "hostControlDeadlineMs": 5400000,
+    "providerCallsAtMost": 1,
+    "proofRetry": false,
+    "oldCampaignClockReused": false
+  },
+  "limits": [
+    "Same-host technical evidence only; no qualification, independence, merge, push or RC14 package/release claim.",
+    "Controlled TD78 component premises do not prove native installed TD78 semantics. Existing genuine installed assertions remained and passed against unchanged pinned RC13.",
+    "B21 physical observation covers this finite stable local topology; no generic confinement or hostile-race proof.",
+    "The five helper copies follow the file-only grant; no shared support refactor was authorized."
+  ],
+  "receipts": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/SOURCE_SETUP.json",
+      "bytes": 826,
+      "sha256": "0c58a1deb750a29d57f28f0bcdd93f2745333ca84f902e6de8a37de511bab842"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/SOURCE_PREIMAGE.json",
+      "bytes": 256847,
+      "sha256": "a7135c24d7b3efd3fd73880d9682aaf0f49f2dc35cca93eb1dee2b49c30fe0de"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/BUILD_INPUT_INVENTORY.json",
+      "bytes": 134953,
+      "sha256": "164d8b1c6e27154fa7c615c1beede232048da1d76fd604266c94b048d365d80d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/OPERATOR_CONTROLS.json",
+      "bytes": 879,
+      "sha256": "04615b991afb8be9aa40a87dd163f4dcf1c2e3a5742721de9204c649756ac444"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/SOURCE_CONSERVATION.json",
+      "bytes": 8241,
+      "sha256": "76292ff2610b8aba4e9487c44999f476d48919281b63dbc12432d81cda02aed9"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/CONTROL_START.json",
+      "bytes": 466,
+      "sha256": "3eaa378a65b81bfcc39330e95beb89e16df8ac1b07604ecfba5e34e46de0eab7"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/HOST_RETURN.json",
+      "bytes": 534,
+      "sha256": "93a4157a1da79cb556062e297d20264e30c97cb2180da98b10960b51151e61c5"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/setup-identity.json",
+      "bytes": 8890055,
+      "sha256": "9e1d8252e3d3f544349bbe63fb396f71f4fd04ef5dafbcc1e1fc8179d22765d3"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/topology-before-setup.json",
+      "bytes": 28548,
+      "sha256": "92090669a2737a0dd5b62bacb8084ce81b62877558d3d7c41deaab0ba4a6114f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/topology-before-dispatch.json",
+      "bytes": 32601,
+      "sha256": "be487ecdf674ef68a83af065cf921de2d62129272b6a9b19df0967d56fdb6c6f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/file-write-scope-preflight.json",
+      "bytes": 625,
+      "sha256": "d98566895d94fd4b494d1224fe629b477c601f62cf7eeca8c638fdb0f59a4951"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/PREPARED.json",
+      "bytes": 1663,
+      "sha256": "8668b94df25e87a892939144a476d17ed343484dbccbb5415818f10c6bc99b50"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/provider-identity.json",
+      "bytes": 333,
+      "sha256": "1bd54b030eb5bc7b1de97c18816b538aed518b5f856caed67fe377c6f29c5d57"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/provider-transport-selection.json",
+      "bytes": 1965,
+      "sha256": "7632dcae72289cfee34aab12185c196db1cec54e248767c02ac1c02825e38d53"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/DISPATCH_EVENT_OBSERVATION.json",
+      "bytes": 75815,
+      "sha256": "0dd0a28f1a5a3ccb1800e9531d819321b25f10f8ba51769f16f5bc8f6c8ea56a"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/NATIVE_RETURN.json",
+      "bytes": 639833,
+      "sha256": "744422a226fa2fd7cce4cf4e722e63a517a260c20dcd01e97eab96a86c1d7bdb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/FINAL.json",
+      "bytes": 869,
+      "sha256": "5cd971e7895d50a35daadc36b959642f6cf851d40f83246efde0da281e996432"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/resource-close.json",
+      "bytes": 2228,
+      "sha256": "f7f1ef2766a3bebe102abd4589b579a41756cacddef010bcac8e5c3a3f5fc4bc"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/FRESH_READBACKS.json",
+      "bytes": 5717,
+      "sha256": "772983ab3e00ecabafb933c3f3127a72bcc6a66a17d86b77b5386c3c172dc7f7"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/installed-content-before-run.json",
+      "bytes": 2004,
+      "sha256": "7cbf21074e3d84ad3076afb4fe212785936f90ead1f1a3394fb139df1ced1d5d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/installed-content-after-run.json",
+      "bytes": 2003,
+      "sha256": "95e62a0b7210ad8880d2c42613ec477964832409bbfa8bd849ee837eca778230"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/resources/events/runtime.events.jsonl",
+      "bytes": 6158529,
+      "sha256": "00b950cad9083239a28e936457dfbcd4960e45127e0bab7564d011b9d7efd6e7"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/PROOF_SUBJECT.json",
+      "bytes": 2201,
+      "sha256": "d6d5b587ad8f7fe0d5be0091a4824ee933ab5fafbecaf9586a7d268179d6256b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/PROOF_RETURN.json",
+      "bytes": 20888,
+      "sha256": "9962c3fec68940351bbb386d1ee4a8dbbb4d48f64b6c6a344a3c4803e83d3352"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/PROOF_POPULATION_AUDIT.json",
+      "bytes": 2422,
+      "sha256": "930b2c3fae5500c324637977935869f9c70299759fc2afee1b313caa67597549"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/FINAL_CONSERVATION.json",
+      "bytes": 606,
+      "sha256": "7ff611c7dd513da14f6437b638d9a01138dc8baefc201eb178dec57523dda841"
+    }
+  ]
+}

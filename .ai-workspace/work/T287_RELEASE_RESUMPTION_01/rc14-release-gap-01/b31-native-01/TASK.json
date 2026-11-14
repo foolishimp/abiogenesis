@@ -1,0 +1,55 @@
+{
+  "id": "RC14-B31-NATIVE-AUTHOR-001",
+  "sourceHead": "27e6412853f1d8afb1a2e960def6eb055f8ede50",
+  "outcome": "Component fixtures explicitly establish TD78 executing-Product identity as a lower-owner premise; false or foreign coordinates refuse before transport/result acceptance. Existing production guard and authentic installed checks remain.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b31-native-01/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b31-native-01/TASK.json",
+    "specification/requirements/product/REQ-P-CATALOG.md",
+    "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+    "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/probabilistic_result.ts",
+    "build_tenants/abiogenesis/typescript/test_env/support/stdout-component-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs"
+  ],
+  "readFirst": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b31-native-01/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b31-native-01/TASK.json",
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts"
+  ],
+  "maxContextFiles": 64,
+  "maxContextBytes": 2097152,
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/qualification-scratch/rc14-b31-native-01"
+  ],
+  "checks": [
+    "Read and self-review the exact owner/fixture boundaries and the granted five-file causal cone. Do not execute any tests, build, pack, install or provider command; the Operator performs bounded proof after your one return.",
+    "Preserve all existing genuine installed assertions and raw/authenticated verifier counts. Add meaningful foreign/false coordinate rejection controls. Freeze source by stopping edits; do not commit or operate Git."
+  ],
+  "instructions": [
+    "You are the one native Writer under RC14-B31-NATIVE-AUTHOR-001. Read the exact activation and this task first. Use the native STDO work skill selected by stdo_abiogenesis.json; the committed grant is already admitted. The Operator owns setup, proof, source freeze and integration handoff. Do not spawn agents, activate reviewers, launch another provider, request a second pass, or broaden scope.",
+    "Root triage establishes a test-fixture lower-owner premise omission: TD78 boundWorkspaceMatchesExecutingToolchain is left native by partial VM composition over synthetic or missing prefix/binding coordinates. Repair fixture composition in the five authorized test files only. Keep production guard, Product/runtime APIs, real owner helper logic and all genuine installed assertions unchanged. Inspect all five fixture consumers and choose a coherent minimal repair within that file-only grant. A needed change outside those five files is a gap to return, not permission to edit it.",
+    "Controlled lower-owner predicates must be tied to each fixture expected prefix and workspace binding ref/digest. Their negative controls must reject wrong prefix, foreign ref/digest and false/unavailable expected identity as applicable. An unconditional true predicate, bypass of the production check or removal/weakening of existing expectations is prohibited. Assertions must expose returned refusal evidence before downstream artifact assertions so the original owner failure is not masked by artifact counts.",
+    "The F04 proof-reuse component is the first cheap Operator discriminator. Preserve its raw/authenticated verification counts and the real leaf/raw/result owners. The complete F04 authentic installed population remains independent evidence. Other affected component cases are exercised after this first discriminator; do not claim component premises establish installed TD78 correctness.",
+    "Your exact file-level W is the list in this task, plus the named scratch subtree. R contains the source and owner inputs. Installed RC13 and all runtime resources are outside W. Any generated source scratch is allowed only beneath the explicit scratch root; no dependency installation/network/publish or Git changes. Do not write logs or raw evidence elsewhere. Use the provided native local tools only.",
+    "Return exactly the Product JSON report {summary,gaps}. Describe actual changed files and any unresolved requirement or proof uncertainty. Do not claim tests passed: no tests are delegated to you. Stop editing immediately after the report. Useful partial work is retained honestly if you cannot finish."
+  ]
+}

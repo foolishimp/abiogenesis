@@ -5,6 +5,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
+import {isDeepStrictEqual} from 'node:util';
 import {privateOwner} from '../support/r10-private-owner-harness.mjs';
 import {qualificationHash as hash, constructQualificationIdentity as identity, QUALIFICATION_ROLE_POLICY as policy} from '../../build/code/src/validator/qualification_contracts.js';
 import {isSelfConformanceResult} from '../../build/code/src/validator/self_conformance_contracts.js';
@@ -629,19 +630,39 @@ test('Q23 authors, provenance, peers and owner connection refuse before dispatch
   ['unknown','owner_connection_missing'],'no admitted assessment input');
 });
 
+// TD78 executing-Product identity is an explicit lower-owner premise of the Q23
+// gate below, never a native answer over synthetic coordinates. The production
+// guard still calls the relation; it holds only at the gate's expected prefix
+// and exact WorkspaceBinding ref/digest while the bound lock's Product identity
+// equals the executing identity. A wrong prefix, a foreign ref or digest, or a
+// false or unavailable executing identity refuses. Installed TD78 correctness
+// stays with the genuine installed relation checks.
+function executingProductPremise(expected){
+ const premise={...expected,calls:[],boundWorkspaceMatchesExecutingToolchain:(prefix,binding)=>{
+  const answer=typeof premise.prefix==='object'&&premise.prefix!==null&&isDeepStrictEqual(prefix,premise.prefix)&&
+   typeof premise.ref==='string'&&premise.ref.length>0&&binding?.ref===premise.ref&&
+   typeof premise.digest==='string'&&premise.digest.length>0&&binding?.digest===premise.digest&&
+   typeof premise.boundIdentity==='string'&&premise.executingIdentity===premise.boundIdentity;
+  premise.calls.push({prefix,binding,answer});return answer;}};
+ return premise;
+}
+
 // Q23 actual pre-invocation join. The real emitted actor_process composes the
 // real transport plan and applies the call-bound owner operation before its
 // binding or any start. Labelled premises over lower owners, as in the
-// fixture: the workspace binding and invocation admission are admitted; the
+// fixture: the workspace binding, its TD78 executing-Product identity and the
+// invocation admission are admitted; the
 // event-store transaction and liveness/probe admission record in memory
 // instead of a physical store; `current` declares the fixture store to be the
 // current event profile; the minted operation is recognised by its own owner
 // instance. The provider is a real process whose every start appends one line.
 async function actorGate(h,{current=true}={}){
  const {n,a,assessor}=h,role=a.input.task.role,call=assessor.call,admitted=[],transactions=[];
+ const td78=executingProductPremise({prefix:assessor.basis.predecessorPrefix,ref:'workspace://q23',digest:hash('W'),
+  boundIdentity:hash('toolchain://q23'),executingIdentity:hash('toolchain://q23')});
  // Both entry points are already exported; no private name is added.
  const owner=await privateOwner('abg/actor_process.js',[],{
-  './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true},
+  './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true,boundWorkspaceMatchesExecutingToolchain:td78.boundWorkspaceMatchesExecutingToolchain},
   './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>({})},
   './event_prefix.js':{readOwnedRuntimeEventPrefixAtDurablePrefix:()=>n.events,selectRuntimeEventPrefixFromStore:()=>n.events},
   './event_store.js':{...(current?{ROOT_EVENT_CONTRACT_DIGEST:n.coordinate(0).storeIdentity.eventContractDigest}:{}),assertHeldEventStoreAtDurablePrefix:()=>{},
@@ -659,24 +680,25 @@ async function actorGate(h,{current=true}={}){
   materializationPlanRef:role.materializationPlanRef,prompt:'synthetic qualification prompt premise',rendererRef:role.rendererRef,responseJsonSchema:{type:'object'},
   resultContractRef:'contract://abiogenesis/qualification/assessment-raw@5',transportLane:'worker_executes',workerBindingRef:role.workerBindingRef};
  const occurrence={cCallRef:call.cCallRef,runId:call.runId,graphCallId:call.graphCallId,frameId:call.frameId,programLocusRef:call.programLocusRef,taskOrdinal:null,attempt:1};
- const input=({implementationRef=call.implementationRef,actorRef=role.actorRef}={})=>({store:{},predecessorPrefix:assessor.basis.predecessorPrefix,
-  executionBasis:{basisRef:assessor.execution.basisRef,workspaceBindingId:'workspace://q23',workspaceBindingDigest:hash('W'),invocationAdmissionRef:assessor.execution.invocationAdmissionRef,
+ const input=({implementationRef=call.implementationRef,actorRef=role.actorRef,predecessorPrefix=td78.prefix,bindingId=td78.ref,bindingDigest=td78.digest}={})=>({store:{},predecessorPrefix,
+  executionBasis:{basisRef:assessor.execution.basisRef,workspaceBindingId:bindingId,workspaceBindingDigest:bindingDigest,invocationAdmissionRef:assessor.execution.invocationAdmissionRef,
    graphFunctionRef:call.graphFunctionRef,graphRef:assessor.execution.graphRef},
   scope:{runId:call.runId,graphCallId:call.graphCallId,frameId:call.frameId},cCall:{...call,implementationRef,taskOrdinal:null,attempt:1,fibreSelectedEventRef:'event://fibre'},
   expectedInputDigest:hash(a.input),occurrence,workerContracts:{instructionContractRef:request.instructionContractRef,resultContractRef:request.resultContractRef},
-  runtime:{artifactTruth:{},workspaceBinding:{bindingId:'workspace://q23',bindingDigest:hash('W'),roots:{archiveRoot}}},
+  runtime:{artifactTruth:{},workspaceBinding:{bindingId,bindingDigest,roots:{archiveRoot}}},
   request:{...request,implementationRef,actorRef},dispatchOrdinal:1,basis:{correlationId:'correlation://q23'}});
  const starts=()=>fs.existsSync(h.marker)?fs.readFileSync(h.marker,'utf8').split('\n').filter(Boolean):[];
- return async(eligibility,{model='claude-opus-5-5',environment={},standalone=false,...over}={})=>{
+ return async(eligibility,{model='claude-opus-5-5',environment={},standalone=false,executingIdentity=td78.boundIdentity,...over}={})=>{
   const keys=['ABG_TS_CLAUDE_COMMAND','ABG_TS_CLAUDE_APPEND_ARGS','ANTHROPIC_MODEL'],saved=keys.map(k=>process.env[k]);
   process.env.ABG_TS_CLAUDE_COMMAND=h.provider;delete process.env.ANTHROPIC_MODEL;
   if(model===null)delete process.env.ABG_TS_CLAUDE_APPEND_ARGS;else process.env.ABG_TS_CLAUDE_APPEND_ARGS=JSON.stringify(['--model',model]);
   Object.assign(process.env,environment);
   const before=starts().length;
+  td78.calls.length=0;td78.executingIdentity=executingIdentity;
   try{
    const effect=standalone?await owner.invokeActorProcess(input(over)):await owner.prepareActorProcessInvocation(a.input,occurrence,undefined,eligibility).invokeActorProcess(input(over));
-   return {effect,starts:starts().slice(before),transactions:transactions.splice(0)};
-  }finally{keys.forEach((k,i)=>saved[i]===undefined?delete process.env[k]:process.env[k]=saved[i]);}
+   return {effect,starts:starts().slice(before),transactions:transactions.splice(0),td78:td78.calls.map(entry=>entry.answer)};
+  }finally{keys.forEach((k,i)=>saved[i]===undefined?delete process.env[k]:process.env[k]=saved[i]);td78.executingIdentity=td78.boundIdentity;}
  };
 }
 const projectTransportBindingSelectionOf=(binding,started,cCallRef)=>projectTransportBindingSelection(binding,started,{cCallRef,
@@ -698,6 +720,8 @@ test('Q23 actor_process gates the actual prepared selection before binding or pr
  const h=Object.assign(await nativeHistory(),io),run=await actorGate(h);
  // Eligible: one identity-bearing binding, its start, and exactly one provider process with the bound selection.
  const ok=await run(h.op);
+ // Returned refusal evidence precedes the start and binding assertions.
+ assert.deepEqual(ok.td78,[true],JSON.stringify({kind:ok.effect.kind,message:ok.effect.message??null}));
  assert.equal(ok.starts.length,1,'the instrument observes the real provider start');
  assert.match(ok.starts[0],/(^| )--model claude-opus-5-5( |$)/u);
  if(ok.effect.kind==='actor_process_effect_refusal')assert.doesNotMatch(ok.effect.message,/qualification dispatch refused/u);
@@ -723,6 +747,21 @@ test('Q23 actor_process gates the actual prepared selection before binding or pr
   ['a conflicting captured environment',h.op,{environment:{ANTHROPIC_MODEL:'claude-sonnet-5-5'}},['unknown','assessor_identity_unknown']],
   ['a renamed role actor',h.op,{actorRef:policy.actorRefs[1]},['unknown','call_coordinates_crossed']],
  ])refusedBeforeStart(name,await run(eligibility,options),...expected);
+ // TD78 negative controls over the same gate: the production guard consults
+ // the controlled premise and refuses before the qualification gate, any
+ // binding or start transaction and any provider start.
+ for(const [name,options] of [
+  ['a wrong predecessor prefix',{predecessorPrefix:{...h.assessor.basis.predecessorPrefix,coordinateDigest:hash('q23 foreign prefix')}}],
+  ['a foreign WorkspaceBinding ref',{bindingId:'workspace://q23/foreign'}],
+  ['a foreign WorkspaceBinding digest',{bindingDigest:hash('foreign W')}],
+  ['a false executing identity',{executingIdentity:hash('toolchain://q23/foreign')}],
+  ['an unavailable executing identity',{executingIdentity:null}],
+ ]){const out=await run(h.op,options);
+  assert.equal(out.effect.kind,'actor_process_effect_refusal',name);assert.equal(out.effect.code,'actor_process_invocation_refused',name);
+  assert.equal(out.effect.message,'actor process request or workspace differs from the admitted execution basis',name);
+  assert.deepEqual(out.td78,[false],name);
+  assert.deepEqual(out.effect.successorPrefix,out.effect.predecessorPrefix,name+': nothing admitted');
+  assert.deepEqual(out.transactions,[],name+': no binding or start transaction');assert.deepEqual(out.starts,[],name+': zero provider starts');}
  // A store on another profile takes no actor dispatch (T-292 TD-32): refused
  // before the qualification gate, with no binding and no provider start.
  {const name='a store on another profile',out=await (await actorGate(h,{current:false}))(h.op);
