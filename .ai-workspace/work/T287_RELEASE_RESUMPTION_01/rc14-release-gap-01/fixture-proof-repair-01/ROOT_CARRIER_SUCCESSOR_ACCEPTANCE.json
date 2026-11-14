@@ -1,0 +1,25 @@
+{
+  "id": "RC14-PROOF-FIXTURE-CARRIER-02-ACCEPTED",
+  "recordedUtc": "2026-11-14T19:53:47.806900+00:00",
+  "role": "Root separate read-only control Reviewer and records Writer",
+  "productFrame": "Same fixed5.0 derived two-test Proof increment; actual RC13 task owner controls admission. No Product/runtime or instruction meaning change.",
+  "controlCommit": "0f2bd6643d630700c14e844e81f85f66821c4a7a",
+  "manifestSha256": "ae61c1e916af759dd00db22192c39777f275d1f5e582fc9652c40c318de19537",
+  "taskSha256": "e3fabe3579f98f45227f20e6ad8c0779e9ceb744d3e6f996c846bf79fb681799",
+  "hostSha256": "37446ee36479ae4032b276a09e3a7cbf12ce8d5336b3b448a60df94736187f92",
+  "returnSha256": "03f01cd2471ffbbd93f82b9486e550f7f4694ffd2ace41259ee0c29687778526",
+  "review": [
+    "Exact old instruction string is the sole element of instructions array; all other TASK values equal",
+    "All21 control rows and canonical no-emit type receipt independently verified; checker assigns actual JSON to Pick<NativeWorkspaceWorkTask> for five HOST fields without casts; runtime nominal/currentness joins remain owner admission",
+    "Five readFirst files acquired; Product/spec/Definition unchanged",
+    "Fresh02 worksite/raw paths preserve failed01; no historical resource relabel",
+    "operate authenticates actual01 clock and stops before its deadline with15s cleanup; HOST requires room for native20min ceiling; proof clips to same original deadline and proof-start+1h"
+  ],
+  "originalHostDeadlineUtc": "2026-11-14T21:09:42.776494Z",
+  "originalClockSha256": "856143da35f6abfdee327987670f746ab0b75ecc0cdfd7cb53f4b4fc14a3ee82",
+  "status": "STATIC_CONTROLS_ACCEPTED_PENDING_PUSH_AND_EXACT_LAUNCH",
+  "providerCallsSoFarForThisIncrement": 0,
+  "firstRefusalRetained": true,
+  "qualification": false,
+  "rawEvidencePublication": false
+}
