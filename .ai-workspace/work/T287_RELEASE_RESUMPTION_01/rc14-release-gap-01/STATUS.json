@@ -27,6 +27,13 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T14:13:04.815702+00:00",
-  "nativeAuthorState": "closed"
+  "recordedUtc": "2026-11-14T14:29:51Z",
+  "nativeAuthorState": "closed",
+  "b21Preparation": {
+    "state": "NATIVE_BACKING_PATH_AND_MOUNT_FOUNDATION_SELECTED_HOW_AND_IMPLEMENTATION_PENDING",
+    "record": "b21-foundation-01/README.md",
+    "finding": "Unmatched lexical ancestor lists do not prove separation across the observed protected-Data bridge",
+    "productionRepairStarted": false,
+    "nextAuthorPreflight": "Historical B31 ancestry-only topology helper is not reusable as a separation proof"
+  }
 }

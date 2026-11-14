@@ -1,0 +1,37 @@
+{
+  "id": "RC14-B21-FOUNDATION-RECORD-001",
+  "role": "Root, separately activated records Writer; not Executive for mutation effects",
+  "decisionOwner": "Root Executive under the owner's existing RC13-built RC14 release-gap and main-publication instruction",
+  "subject": "e981f89264ed2ad509c70cc5a397ce2e0448fa9c",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "purpose": "Preserve the B21 bridge counterexample, closed Design/Effect and Foundation findings, read-only native metadata observation, complete authenticated-input cone, and the correction to B31's Operator topology claim",
+  "writeTerritory": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-foundation-01",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b31-integration-01/README.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/PLAN.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/STATUS.json",
+    ".ai-workspace/tickets/active/T-293-qa-findings-of-the-consolidation-wave.md"
+  ],
+  "effects": [
+    "Write compact findings and reconcile the existing work/status carriers",
+    "Check exact diff and JSON, preserve production/test/design bytes, commit named records on main",
+    "Normally push main only and verify direct remote parity"
+  ],
+  "exclusions": [
+    "No production, test, accepted HOW, package or immutable builder changes",
+    "No native author, compiler, provider, installed Product invocation, new proof campaign or retry",
+    "No raw run bodies, captures, bundles, LFS payloads, archive branches or force push",
+    "No complete-confinement, platform-parity or release qualification claim"
+  ],
+  "stops": [
+    "Unexpected source change, new incompatible finding, or diff outside the named territory",
+    "Publication requires force or includes excluded evidence"
+  ],
+  "return": "Exact compact-record commit and remote parity, with unresolved HOW and proof obligations retained; return to Executive coordination",
+  "recordedUtc": "2026-11-14T14:29:51Z"
+}

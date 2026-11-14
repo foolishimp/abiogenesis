@@ -82,3 +82,16 @@ qualification/acceptance. RC13 remains the immutable unqualified builder.
 
 Raw bodies remain under the external `development-runs/rc14-b31-20261115-01`
 root. Only source, authored controls and compact records enter main/GitHub.
+
+## Subsequent limit on the Operator topology claim
+
+B21's protected-Data bridge observation on 2026-11-15 falsifies the implication
+used by this run's `physical-topology.mjs`: unmatched lexical ancestor identity
+lists do not establish separation, even for a finite root selection. Withdraw
+that positive inference; preserve the actual historical helper/return. It is
+not reusable for another author preflight. The source acceptance and 82-case
+result remain supported by the frozen diff, actual edit/tool audit, postimages
+and unchanged installed/build bytes. Those observations do not establish
+general confinement or cure the historical preflight's insufficiency. The next
+author needs sufficient physical evidence for its exact layout. See
+`../b21-foundation-01/README.md` for the counterexample and HOW re-entry.

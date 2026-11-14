@@ -13,7 +13,7 @@ not a new Product authority or an assertion of qualification.
 | Order | Deliverable | Closure |
 |---|---|---|
 | 1 | B31: technically closed at aa1856315, integrated through 2c12d65d3 | Five fixture repairs, preserved production guards/installed positives, 82 unique passing cases over 83 executions; both control deviations retained in b31-integration-01 |
-| 2 | B21: physical ancestry confinement | Re-enter the bounded C0/native/C2 HOW, implement one supported physical relation over identities/ancestry and unresolved suffixes, preserve separate/overlap/indeterminate and existing effect laws; prove alias refusals before effects plus lawful siblings and owner/replay composition |
+| 2 | B21: physical containment | Re-enter the bounded C0/native/C2 HOW with a sufficient physical observation; unmatched lexical ancestor lists do not prove separation. Bind the foundation and complete authenticated-install input cone before implementation. Preserve separate/overlap/indeterminate and effect laws; prove alias refusals before effects plus lawful siblings and owner/replay composition |
 | 3 | B12: bounded raw-call and semantic-output admission repair; B13 wording clarification | Existing I-JSON/refusal/fault contracts, established native identity carriage preserved; historical inputs and lawful positives through SDK/CLI. Separate exact implementation/proof activation follows B31 route closure |
 | 4 | Compose regression and retained-history evidence | New prospectively bounded campaign on exact RC14 subject; do not reset the expired RC13 clock or inherit passes across changed subjects without valid retained relations |
 | 5 | Installed specification/amendment lifecycle | Real installed-Public work, declared reviews, affected-evidence invalidation, targeted correction, truthful failure/stop and persisted continuation; complete the selected mandatory witness outcomes |
@@ -38,12 +38,18 @@ C0 observation/create/replace/complete-parent preflight, native W preflight,
 and C2 host/helper archive/synchronization boundaries. C2 reachability is source
 analysis, not a measured alias effect. Preserve directional overlap policies,
 symlink/hard-link/spelling/freshness checks and existing partial-effect law.
+The stronger protected-Data bridge counterexample and demonstrated native
+metadata API are recorded in `b21-foundation-01/README.md`. Supported topology
+and packaging remain HOW prerequisites, not completed production fixes.
 
 Before any RC13 author run, establish a stable canonical isolated worksite; its
 finite W roots must be physically disjoint from all protected binding/install
-roots, and the C2 archive from source/protected roots. Canonical strings alone
-are insufficient. The exact finite B31 topology passed its Operator observation;
-that does not establish another worksite's topology or close B21.
+roots, and the C2 archive from source/protected roots. Canonical strings and
+unmatched lexical ancestor lists are insufficient. B31 passed its historical
+Operator check, but the check's separation inference is now known insufficient.
+Its helper cannot supply a new author preflight. Preserve its historical result
+and the independent source/effect conservation evidence without a confinement
+claim; acquire sufficient physical evidence before another author.
 
 Use the maintained installed-Public setup and native-work route with a fresh
 workspace manifest, event resource, installs, lock, binding and Catalog. Current
