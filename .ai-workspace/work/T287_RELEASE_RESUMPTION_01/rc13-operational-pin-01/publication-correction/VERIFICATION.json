@@ -1,0 +1,68 @@
+{
+  "status": "VERIFIED_PUBLICATION_HISTORY_RAW_EVIDENCE_LOCAL_ONLY",
+  "originalHead": "75dfecda54e2da26ab08f1bc64d9ef46307fa690",
+  "publicationHead": "b8a72077dd21f43287d803a44ac5cf2c4d557144",
+  "publishedMain": "93a4b08df7fc140c509fe500d9d3ea48207d6d98",
+  "commitsVerified": 1049,
+  "allMessagesAuthorsCommittersTimesAndParentRelationsPreserved": true,
+  "everyCommitDiffConfinedToExcludedPathsAndLfsAttributes": true,
+  "productionTenantTreeUnchanged": "8d9698a96aa4773353bbbf76b928dada5037d415",
+  "exclusionsPresentInPublicationHead": 0,
+  "newLfsOidsAtHead": 0,
+  "newGitBlobs": 15999,
+  "newUncompressedGitBlobBytes": 1080182159,
+  "largestNewBlobs": [
+    {
+      "oid": "7a0955cd66e3e640ef35505d24c8b2a07287150d",
+      "bytes": 3276204,
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    },
+    {
+      "oid": "c43032dfcb67f8bff465f1176cf1c272695de771",
+      "bytes": 3276114,
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    },
+    {
+      "oid": "1013361b787551c1721bcb1d7287f1538b1d7b44",
+      "bytes": 3276114,
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    },
+    {
+      "oid": "ab7878e29626c0f41145cd2c489d51efd22bfd81",
+      "bytes": 3276114,
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    },
+    {
+      "oid": "52b2770d98ad73c3b59dab81ed27430941627028",
+      "bytes": 3276114,
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    },
+    {
+      "oid": "2fbf1c49c7f48c55110b76aba62d39fa2d6bceea",
+      "bytes": 3276114,
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    },
+    {
+      "oid": "704cacada344ef93b3d67bd90edd1a90b8e0f0c2",
+      "bytes": 3276114,
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    },
+    {
+      "oid": "a2d771f2e203bd4ea85bc3a8333ba0da47ae106b",
+      "bytes": 3276114,
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+    }
+  ],
+  "c4SourceMap": {
+    "original": "a2626fa540d39cc9894b8a90895a3739b49b75fb",
+    "publication": "f6729433bdfd9b404b61754742db8ed8e225e880",
+    "publicationTree": "0c80b7ce8194edd20470f2bfd0fb3c491fe3f5e3"
+  },
+  "exclusionManifestSha256": "84615d36d3c3334f812f8c269a5b4da60315da79fc0363459be76c3cd9f7f660",
+  "recordedUtc": "2026-11-14T12:55:13.344904+00:00",
+  "sourceAndOriginalLocalHistoryChanged": false,
+  "remoteChanged": false,
+  "newLfsPointersAcrossEntireUnpublishedHistory": 0,
+  "smallNewBlobsScannedForLfsPointers": 3834,
+  "historyBlobCensusConfirmed": 15999
+}

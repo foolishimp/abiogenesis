@@ -1,0 +1,11 @@
+{
+  "id": "RC13-PUBLICATION-EVIDENCE-CORRECTION-001",
+  "role": "Writer/Operator",
+  "authority": "Owner correction: that should not be going into github; original instruction to checkpoint/push source then pin RC13 and build RC14 remains",
+  "selection": "Exclude raw execution evidence, logs, copied trees, generated runtime payloads and recovery archives from GitHub; retain exact data and original history locally. Retain source/specification/tests and authored scripts/reviews/lightweight records in main.",
+  "subject": "75dfecda54e2da26ab08f1bc64d9ef46307fa690",
+  "publishedMain": "93a4b08df7fc140c509fe500d9d3ea48207d6d98",
+  "allowed": "Inspect, construct and verify publication-only history in isolated clone, preserve original local graph and evidence, update local main only after byte/graph verification, add ignore policy and lightweight provenance, normal fast-forward push; no raw evidence/LFS recovery bundle upload",
+  "prohibited": "Published-history rewrite or force push; deletion of local raw evidence; source/requirement/design implementation change; resumption of superseded LFS conversion/upload plan; RC14 implementation before push/pin",
+  "createdUtc": "2026-11-14T12:44:43.959141+00:00"
+}

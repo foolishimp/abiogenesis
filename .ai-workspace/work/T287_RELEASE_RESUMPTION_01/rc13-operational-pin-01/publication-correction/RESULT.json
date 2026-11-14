@@ -1,0 +1,19 @@
+{
+  "status": "MAIN_SWITCHED_TO_VERIFIED_SOURCE_PUBLICATION_HISTORY",
+  "originalHead": "75dfecda54e2da26ab08f1bc64d9ef46307fa690",
+  "publicationHead": "b8a72077dd21f43287d803a44ac5cf2c4d557144",
+  "originalHistoryLocalRef": "refs/heads/archive/local-evidence-before-publication-20261114",
+  "durableLocalEvidence": "/Users/jim/Library/Application Support/ABIogenesis/local-evidence/20261114-publication-correction",
+  "excludedFilesPreservedLocally": 28085,
+  "excludedLocalBytes": 39992937068,
+  "allExcludedFilesPresentWithOriginalSizes": true,
+  "repositoryIgnoreMatches": 27134,
+  "additionalLocalExactExclusions": 951,
+  "publishedHistoryRewritten": false,
+  "forcePushRequired": false,
+  "newLfsPayloadsSelected": 0,
+  "knownRemoteUnreferencedLfsObjects": 6,
+  "knownRemoteUnreferencedLfsBytes": 971780096,
+  "remoteCleanup": "Support draft prepared locally, not sent; no repository deletion authorized",
+  "recordedUtc": "2026-11-14T12:59:51.318223+00:00"
+}
