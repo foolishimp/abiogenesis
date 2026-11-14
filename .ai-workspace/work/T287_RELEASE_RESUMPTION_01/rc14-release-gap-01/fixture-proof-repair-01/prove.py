@@ -98,6 +98,11 @@ def main():
     started_utc=datetime.datetime.now(datetime.timezone.utc)
     control_start=json.loads((RAW/'CONTROL_START.json').read_text())
     assert control_start['sourceHead']==head
+    original_clock=ACT['inheritedClock']
+    original_clock_bytes=Path(original_clock['path']).read_bytes()
+    assert sha(original_clock_bytes)==original_clock['sha256']
+    assert control_start['originalClock']==original_clock
+    assert control_start['deadlineUtc']==original_clock['deadlineUtc']==json.loads(original_clock_bytes)['deadlineUtc']
     original_host_deadline=datetime.datetime.fromisoformat(control_start['deadlineUtc'])
     assert original_host_deadline.tzinfo is not None
     requested_deadline=started_utc+datetime.timedelta(milliseconds=ACT['limits']['proofCampaignMs'])

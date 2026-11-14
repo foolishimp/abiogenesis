@@ -24,10 +24,10 @@
   "role": "Prepared Operator/native control configuration; execution requires separate exact Root launch authorization",
   "operator": "/root/b30_catalog_triage",
   "decisionOwner": "Root under the owner-selected RC14 delivery and current fix RC14 instruction",
-  "sourceBinding": "Product source5680ae9ae9d2f310342f9e58ece86032d42e379c; preparation parent e89ed8bd8aa709816894721ec1c30f19045b4e3c is tenant-equal. Actual launch requires explicit pushed sourceHead and fresh preimage.",
-  "sourceWorktree": "/private/tmp/abg-rc14-proof-fixture-20261115-01",
-  "sourceBranch": "codex/rc14-proof-fixture-20261115",
-  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01",
+  "sourceBinding": "Fresh worktree prepared from abdedc82610cdae436a3ac0423ac49532e98d275, tenant/spec/Definition equal484f4b721; actual launch sourceHead is supplied by Root after checkpoint/push.",
+  "sourceWorktree": "/private/tmp/abg-rc14-proof-fixture-20261115-02",
+  "sourceBranch": "codex/rc14-proof-fixture-20261115-02",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02",
   "changeClass": "derived Proof fixture repair; no Product/build/helper/schema changes",
   "nativeWriteScope": [
     "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
@@ -35,8 +35,8 @@
   ],
   "operatorWriteTerritory": [
     ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01",
-    "/private/tmp/abg-rc14-proof-fixture-20261115-01",
-    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01",
+    "/private/tmp/abg-rc14-proof-fixture-20261115-02",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02",
     "local registration for this named branch/worktree"
   ],
   "operatorEffects": [
@@ -94,6 +94,17 @@
   "preparationGrant": {
     "path": "ROOT_ACTIVATION.json",
     "sha256": "36963e49880fa22eaaae9eb4956c395cc8f1afc79b13ba7a7e077464dc20dfe3",
-    "id": "RC14-PROOF-FIXTURE-REPAIR-001-PREPARATION"
+    "id": "RC14-PROOF-FIXTURE-REPAIR-001-PREPARATION",
+    "successor": "TASK_CARRIER_TRIAGE_AND_REENTRY.md at abdedc82610cdae436a3ac0423ac49532e98d275; preparation only",
+    "successorSha256": "283354b37b21d9387a106a73a00ccfe946365c785204b962ebb1db245c3a9b98"
+  },
+  "inheritedClock": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01/CONTROL_START.json",
+    "sha256": "856143da35f6abfdee327987670f746ab0b75ecc0cdfd7cb53f4b4fc14a3ee82",
+    "sourceHead": "484f4b721d8efafdcf6aa5ddabc69b06bed58756",
+    "startedUtc": "2026-11-14T19:39:42.776494+00:00",
+    "deadlineUtc": "2026-11-14T21:09:42.776494+00:00",
+    "cleanupReserveMs": 15000,
+    "rule": "Reuse this exact original deadline, never a fresh90min clock; proof min(original deadline, proof start+1h)."
   }
 }

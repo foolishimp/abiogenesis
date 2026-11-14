@@ -1,9 +1,18 @@
 {
-  "preparedUtc": "2026-11-14T19:27:39.148633+00:00",
-  "actualParent": "e89ed8bd8aa709816894721ec1c30f19045b4e3c",
+  "preparedUtc": "2026-11-14T19:51:45.880110+00:00",
+  "actualParent": "abdedc82610cdae436a3ac0423ac49532e98d275",
   "productBase": "5680ae9ae9d2f310342f9e58ece86032d42e379c",
   "tenantSpecificationDefinitionEqual": true,
-  "branch": "codex/rc14-proof-fixture-20261115",
-  "source": "/private/tmp/abg-rc14-proof-fixture-20261115-01",
-  "finalLaunchBinding": "Root supplies exact pushed sourceHead; clean branch advances then freeze-source.py records complete actual preimage. No self-referential HEAD is hardcoded."
+  "branch": "codex/rc14-proof-fixture-20261115-02",
+  "source": "/private/tmp/abg-rc14-proof-fixture-20261115-02",
+  "finalLaunchBinding": "Root supplies exact pushed sourceHead; clean branch advances then freeze-source.py records complete actual preimage. No self-referential HEAD is hardcoded.",
+  "originalClock": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01/CONTROL_START.json",
+    "sha256": "856143da35f6abfdee327987670f746ab0b75ecc0cdfd7cb53f4b4fc14a3ee82",
+    "sourceHead": "484f4b721d8efafdcf6aa5ddabc69b06bed58756",
+    "startedUtc": "2026-11-14T19:39:42.776494+00:00",
+    "deadlineUtc": "2026-11-14T21:09:42.776494+00:00",
+    "cleanupReserveMs": 15000,
+    "rule": "Reuse this exact original deadline, never a fresh90min clock; proof min(original deadline, proof start+1h)."
+  }
 }
