@@ -125,7 +125,7 @@ async function declarationFixture(t, inline=false, library=false, compact=false)
       projectExactInvocationAdmissionAtPrefix:()=>invocation,
       hasAdmittedGovernanceSourceUse:()=>state.eligible,hasAdmittedGovernanceCoveredSourceUse:()=>state.cover,
       governanceHistoricalDeclarationReferenceAtPrefix:()=>constructAbgHistoricalDeclarationReference(declaration)},
-    './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>({kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding})},
+    './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>({kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]})},
     './worksite_revision.js':{projectWorksiteRevisionBindingCover:()=>state.cover?[]:null},
     './c_call.js':{projectOpenedCCallCarrierAtPrefix:()=>({...call,implementationRef:state.impl,implementationBindingRef:state.binding})},
     './execution_basis.js':{rehydrateAdmittedImplementationSetAtPrefix:()=>({implementationSetDigest:basis.rootImplementationSetDigest,rows:[call]}),
@@ -333,7 +333,12 @@ test('fresh inline context joins a member-carried source after by physical ident
   assert.deepEqual(prepared,f.task,'the ABG preparation owner passes the fresh observation unchanged');
   assert.deepEqual(prepared.sourceReacquisition.request.currentContext,f.context);
   assert.equal(prepared.sourceReacquisition.request.currentContext.entries.some(e=>e.encoding==='admitted_member'),false,'no source carriage is adopted');
-  assert.equal(await f.owner.nativeWorkReacquisitionContextCurrent(prepared.sourceReacquisition.request),true);
+  // The environment premise is the one the fixture's exact-prefix projection supplies.
+  const environment={kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:f.request.workspaceAuthorityBasis,workspaceBinding:f.request.workspaceBinding,productInstalls:[]};
+  assert.equal(await f.owner.nativeWorkReacquisitionContextCurrent(prepared.sourceReacquisition.request,environment),true);
+  assert.equal(await f.owner.nativeWorkReacquisitionContextCurrent(prepared.sourceReacquisition.request,undefined),false,'no omitted environment becomes an empty install set');
+  assert.equal(await f.owner.nativeWorkReacquisitionContextCurrent(prepared.sourceReacquisition.request,{...environment,workspaceBinding:{...environment.workspaceBinding,bindingDigest:hash('other')}}),false,'a foreign environment refuses');
+  assert.equal(await f.owner.nativeWorkReacquisitionContextCurrent(prepared.sourceReacquisition.request,{...environment,productInstalls:[{installedRoot:f.request.workspaceAuthorityBasis.canonicalRoot}]}),false,'an admitted install root enclosing the read scope is excluded from the current context');
   // Physical facts decide, not carriage: same bytes under a new file identity, then changed bytes, refuse.
   const root=f.request.workspaceAuthorityBasis.canonicalRoot,observe=()=>p.observeWorksiteContext({workspaceAuthorityBasis:f.request.workspaceAuthorityBasis,
     workspaceBinding:f.request.workspaceBinding,readRoots:f.context.readRoots,maxFiles:f.context.maxFiles,maxBytes:f.context.maxBytes});
@@ -341,7 +346,7 @@ test('fresh inline context joins a member-carried source after by physical ident
     const changed=await observe();assert.equal(changed.kind,'worksite_context_observation',label);
     assert.throws(()=>p.constructNativeWorksiteCommandReacquisitionRequest({...f.request,currentContext:changed}),/exact retained context/,label);
     assert.equal(proof.governanceTestingReacquisition(f.raw,occurrence,changed),null,label);
-    assert.equal(await f.owner.nativeWorkReacquisitionContextCurrent(prepared.sourceReacquisition.request),false,label);
+    assert.equal(await f.owner.nativeWorkReacquisitionContextCurrent(prepared.sourceReacquisition.request,environment),false,label);
   };
   fs.writeFileSync(path.join(root,'source.next'),'retained source');fs.renameSync(path.join(root,'source.next'),path.join(root,'source.txt'));
   await refuses('replaced file identity');

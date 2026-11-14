@@ -80,8 +80,11 @@ async function harness(env, options={}){
  const oldEnvironment={kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]};
  const environment={...oldEnvironment,...options.current};
  const lifecyclePublication=options.publication??declaredPublication;
+ // The admitted lifecycle install is its own directory beside the worksite;
+ // an install root enclosing the worksite would make every context node protected.
+ const lifecycleInstallRoot=options.installRoot??join(env.scratch,'installed-lifecycle');await mkdir(join(env.scratch,'installed-lifecycle'),{recursive:true});
  const pub=await load('product/publication');environment.productInstalls.push({productId:lifecyclePublication.owningProductId,artifactDigest:lifecyclePublication.artifactDigest,productContentDigest:lifecyclePublication.productContentDigest,
-  manifestDigest:lifecyclePublication.productManifestDigest,installedRoot:env.scratch,contributionManifest:{publicationBindings:[{moduleRef:lifecyclePublication.moduleRef,publicationDigest:pub.modulePublicationSemanticDigest(lifecyclePublication)}]}});
+  manifestDigest:lifecyclePublication.productManifestDigest,installedRoot:lifecycleInstallRoot,contributionManifest:{publicationBindings:[{moduleRef:lifecyclePublication.moduleRef,publicationDigest:pub.modulePublicationSemanticDigest(lifecyclePublication)}]}});
  const prefixBody={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///component/no-journal',prefixLength:0,prefixDigest:hash('prefix'),storeIdentity:{device:1,inode:1,eventContractDigest:(await load('abg/event_store')).ROOT_EVENT_CONTRACT_DIGEST}};
  const intake={kind:'native_semantic_revision_intake',schemaVersion:'5.0.0',sourceRun:publicRun,sourcePrefix:{...prefixBody,coordinateDigest:hash(prefixBody)}};
  let current,ordinal=0,rootBasis,runId,ancestry=true;const basis={publication:lifecyclePublication,lifecyclePublication,sourcePublication:lifecyclePublication,predecessorPrefix:intake.sourcePrefix,declarationGraphFunctions:[],graphFunction:{declarations:{}}};
@@ -124,7 +127,8 @@ async function harness(env, options={}){
  const jobOwner=await component('abg/semantic_job',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./event_prefix.js':prefixOverrides,
   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup}});
  const owner=await component('abg/semantic_revision',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./semantic_job.js':{...jobOwner,...options.contextPremises},
-  '../product/worksite_operations.js':options.observation===undefined?{}:{observeWorksiteContext:async()=>options.observation},'./semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>ancestry,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h},
+  '../product/worksite_operations.js':options.observation!==undefined?{observeWorksiteContext:async()=>options.observation}:
+   options.contextInputs===undefined?{}:{observeWorksiteContext:async input=>{options.contextInputs.push(input);return ops.observeWorksiteContext(input);}},'./semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>ancestry,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h},
   './event_prefix.js':prefixOverrides,'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>runs.get(ref)??null},
   './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:options.historicalEnvironment??(()=>oldEnvironment)},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:options.cover??(()=>[])},
   './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>nativeSources.get(value.observationRef)??null,worksiteCommandSourcesInvalidatedAfter:options.invalidated??(()=>false)}});
@@ -565,3 +569,36 @@ test('Product assessor recovery values preserve pending Design and select assess
 // sha256:4196aaeb…, which the current reader refuses, over a 104482827-byte
 // prefix of an odd_glc native store outside the evidence root; regeneration
 // needs a new native run, which is the owner's.
+
+// T-293 B21 R-cone: the current native revision context carries every install
+// root of the authenticated environment, and that root is excluded physically.
+test('native revision current context excludes the authenticated environment install roots, including a firmlink alias',async t=>{
+ const env=await fixture(t);let parent=env.envelope;for(let i=0;i<2;i++){const a=await author(env,parent,i);parent=assess(env,a.authored,i).assessed;}
+ const rejectedAuthor=await author(env,parent,2),rejected=assess(env,rejectedAuthor.authored,2,'falsified').assessed;
+ const limits={inactivityTimeoutMs:300000,absoluteTimeoutMs:900000};
+ const prepare=async options=>{
+  const contextInputs=[],h=await harness(env,{...options,contextInputs});
+  h.admit(parent,D.nativeAssessorFoldImplementationRef,h.original,'advance',parent.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,h.publicRun.ref);
+  h.invocation('intake',h.intake);h.call(R.nativeIntakeImplementationRef,h.intake);
+  h.admit(rejected,D.nativeAssessorFoldImplementationRef,h.original,'stop',rejected.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,h.publicRun.ref);
+  let reason=null;const prepared=await h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits,r=>reason=r);
+  return {h,prepared,reason,contextInputs};
+ };
+ const lawful=await prepare({});
+ assert(lawful.prepared,lawful.reason);
+ assert.equal(lawful.contextInputs.length,1);
+ assert.deepEqual(lawful.contextInputs[0].protectedInstallRoots,[join(env.scratch,'installed-lifecycle')],'install roots come from facts.owner.environment, not a new lookup');
+ assert.equal(lawful.h.owner.nativeSemanticRevisionIntakeMatches(lawful.h.basis,lawful.h.intake,lawful.prepared),true,'pure historical matching performs no current observation');
+ assert.equal(lawful.contextInputs.length,1,'the pure matcher did not observe the worksite');
+ const lexical=await prepare({installRoot:env.canonicalRoot});
+ assert.equal(lexical.prepared,null);assert.equal(lexical.reason,'native_revision_current_context_unavailable');
+ const alias='/System/Volumes/Data'+env.canonicalRoot;
+ let aliased=false;
+ if(process.platform==='darwin'){const fs=await import('node:fs');try{const a=fs.lstatSync(env.canonicalRoot,{bigint:true}),b=fs.lstatSync(alias,{bigint:true});
+  aliased=a.dev===b.dev&&a.ino===b.ino&&fs.realpathSync.native(alias)===alias;}catch{aliased=false;}}
+ if(!aliased){t.diagnostic('host has no /System/Volumes/Data firmlink alias of the worksite; the physical alias case is not asserted here');return;}
+ const physical=await prepare({installRoot:alias});
+ assert.equal(physical.prepared,null,'a protected Data alias of the worksite excludes its contents');
+ assert.equal(physical.reason,'native_revision_current_context_unavailable');
+ assert.deepEqual(physical.contextInputs[0].protectedInstallRoots,[alias]);
+});

@@ -323,6 +323,7 @@ export async function prepareNativeSemanticRevisionIntake(basis: SemanticStageNa
   if (facts === null) return null;
   const context = await observeWorksiteContext({ workspaceAuthorityBasis: facts.owner.environment.workspaceAuthorityBasis,
     workspaceBinding: facts.owner.environment.workspaceBinding,
+    protectedInstallRoots: facts.owner.environment.productInstalls.map(install => install.installedRoot),
     readRoots: facts.envelope.job.worksiteScope.readRoots, maxFiles: facts.envelope.declaration.bounds.maxContextFiles, maxBytes: facts.envelope.declaration.bounds.maxContextBytes });
   if (!isWorksiteContextObservation(context)) { onRefusal?.("native_revision_current_context_unavailable"); return null; }
   const value = intakeValue(facts, context, commandExecutionLimits);

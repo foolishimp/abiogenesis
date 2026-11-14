@@ -39,7 +39,7 @@ test('actual historical reacquisition contracts owner work without changing task
   assert.equal(owner.authenticateOwnedNativeWorkReacquisition(basis,{...request,requestDigest:digest.sha256Canonical('malformed')},false),null);
   assert.equal(owner.authenticateOwnedNativeWorkReacquisition({...basis,cCallRef:'c-call://foreign'},request,false),null);
   assert.equal(owner.authenticateOwnedNativeWorkReacquisition(basis,request,true),null,'historical occurrence cannot claim latest prefix');
-  assert.equal(await owner.nativeWorkReacquisitionContextCurrent(request),true,'all selected physical context remains exact');
+  assert.equal(await owner.nativeWorkReacquisitionContextCurrent(request,result.environment),true,'all selected physical context remains exact');
   // Measure the execution-basis owner's duplicate input hashing independently.
   const digests=await load(root,'shared/digests');let rawHashes=0;
   const execution=await instrument(root,'abg/invocation_execution_truth',{'../shared/digests.js':{sha256Canonical:v=>{if(v===result.execution.rawInputValue)rawHashes++;return digests.sha256Canonical(v);}}});

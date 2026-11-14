@@ -37,13 +37,15 @@ export async function realizeNativeWorkspaceWork(input: Readonly<NativeWorkspace
   if (environment.kind !== "exact_prefix_workspace_environment" || !canonicalEquals(environment.workspaceBinding, input.workspaceBinding) ||
     !canonicalEquals(environment.workspaceAuthorityBasis, input.workspaceAuthorityBasis))
     throw new TypeError("native workspace work requires its exact admitted workspace environment");
+  const protectedInstallRoots = environment.productInstalls.map(install => install.installedRoot);
   const protectedWrite = await checkWorksiteWriteRoots({ workspaceAuthorityBasis: input.workspaceAuthorityBasis,
-    workspaceBinding: input.workspaceBinding, protectedInstallRoots: environment.productInstalls.map(install => install.installedRoot),
-    writeRoots: input.writeRoots });
+    workspaceBinding: input.workspaceBinding, protectedInstallRoots, writeRoots: input.writeRoots });
   if (protectedWrite !== null)
     throw new TypeError(`native workspace write roots refuse before dispatch: ${protectedWrite.code}: ${protectedWrite.message}`);
+  // Before and after observations exclude every binding and admitted-install
+  // root, including when W is empty.
   const observationInput = { workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding,
-    readRoots: input.context.readRoots, maxFiles: input.context.maxFiles, maxBytes: input.context.maxBytes };
+    protectedInstallRoots, readRoots: input.context.readRoots, maxFiles: input.context.maxFiles, maxBytes: input.context.maxBytes };
   // Fresh physical currentness; the admitted task keeps its own body carriage.
   const current = await observeWorksiteContext(observationInput);
   if (!isWorksiteContextObservation(current) || !sameWorksiteContextIdentity(current, input.context))
