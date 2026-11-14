@@ -1,0 +1,92 @@
+{
+  "status": "FROZEN_PREPARATION_CONTROLS",
+  "preparationSourceHead": "526b698beb69e07f52b3d7ade8b8c4a49d7d2de7",
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/ACTIVATION.json",
+      "bytes": 7613,
+      "sha256": "04d12f76c34a908d3753df918ffff05ed1c18c5637daf98a4e848213aca599a7"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/HOST.mjs",
+      "bytes": 15512,
+      "sha256": "a8a32af67f04e5f3b3ce51848e91107a4db8b3117717ff8e7349ebdf7ba36f78"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/LAUNCH_BINDING.template.json",
+      "bytes": 529,
+      "sha256": "7a02422b0c34bb7fd88d44f75cbb2079688f9c05f5d8f743ac38467fac5da65f"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/OBSERVER_BINDING.json",
+      "bytes": 337,
+      "sha256": "77c9e223905717aaf1877ce09acc0bcfeb75825bd55422107479dad51e9366f9"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/PHYSICAL_PREFLIGHT.json",
+      "bytes": 1658,
+      "sha256": "583c4c4cf546737f040d23a145d89d6a4016c4a0f7eb3744027411191081e397"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/PLANNED_LAYOUT.json",
+      "bytes": 3215,
+      "sha256": "251930411587db4b4e1707baf02035a2d965a7168f58e99ae614c07a4797d25c"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/PREPARATION_BRANCH_CORRECTION.json",
+      "bytes": 895,
+      "sha256": "9b40eee62ce162f66c26fc236a40059d952785738a3c52b09e07d78f74c349a4"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/PREPARATION_PACKET.json",
+      "bytes": 1767,
+      "sha256": "6d2b271bf7066b8f3ede487b04778a5f6e1cdd6347ae891e68523da8f71be3b2"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/PREPARATION_RETURN.md",
+      "bytes": 6090,
+      "sha256": "fbbb705f529259370328d177f310a8b3f38deedf41ea9fd7fd853fc37af17326"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/PROOF_SCHEDULE.json",
+      "bytes": 2377,
+      "sha256": "599e4f911d89fd44dd4cd07b2a0db026af28082d798b582e6d06c19a96c7df84"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/TASK.json",
+      "bytes": 9430,
+      "sha256": "dbbb171b07eecee34cf91ca61e1b3f2c06f02515e9796e2b0a01a13ce732d6e3"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/bounded.py",
+      "bytes": 4206,
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/candidate.mjs",
+      "bytes": 5994,
+      "sha256": "0a56d7df614d386d302c4db35e3ee907f5e68bc4d943085ad76215a913b5a379"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/events-reporter.mjs",
+      "bytes": 312,
+      "sha256": "a1f110aa80b03a0a20620b27dd4076ffe67151325094c57cdb1c4d0a28778b04"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/operate.py",
+      "bytes": 3197,
+      "sha256": "d9c4b3affe5f25fc3488fe4d81661e95f088301ad9df2857c11d1d441fbbbb7f"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/prove.py",
+      "bytes": 8498,
+      "sha256": "964465f679e91cba3d9ea60150a9f35730f67d2c77cec613dd9118610b2349fc"
+    }
+  ],
+  "selfBinding": "This manifest is bound by the returned Git commit and its separately returned SHA; no self hash.",
+  "sharedObserver": {
+    "path": "/private/tmp/abg-rc14-b21-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-native-01/physical-topology.py",
+    "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+    "rootAcceptanceRef": "Root message accepting exact observer for controlled B12 layout, 2026-11-15"
+  }
+}

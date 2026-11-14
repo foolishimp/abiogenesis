@@ -1,0 +1,21 @@
+{
+  "status": "SAME_COMMIT_BRANCH_CORRECTION_COMPLETE",
+  "utc": "2026-11-14T16:01:27.599663+00:00",
+  "sourceHead": "526b698beb69e07f52b3d7ade8b8c4a49d7d2de7",
+  "branch": "codex/rc14-b12-native-20261115",
+  "selectedRef": "refs/heads/codex/rc14-b12-native-20261115",
+  "command": [
+    "git",
+    "switch",
+    "codex/rc14-b12-native-20261115"
+  ],
+  "switchStdout": "",
+  "sourcePreimageFilesConserved": 1409,
+  "predecessorReceipt": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/PREPARATION_BRANCH_MISMATCH.json",
+  "cause": "Operator explicit checkout of commit detached HEAD after branch creation; predecessor branch field was inaccurate.",
+  "authority": "Root closed Identity/Proof triage and selected one same-commit branch switch under original setup grant.",
+  "setupRerun": false,
+  "providerCalls": 0,
+  "buildsRun": 0,
+  "testsRun": 0
+}

@@ -1,0 +1,58 @@
+{
+  "status": "PREPARED_FOR_ROOT_CHECKPOINT_AND_DISPATCH_RULING",
+  "preparationHead": "526b698beb69e07f52b3d7ade8b8c4a49d7d2de7",
+  "sourceBranch": "codex/rc14-b12-native-20261115",
+  "sourceWorktree": "/private/tmp/abg-rc14-b12-20261115-01",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01",
+  "providerCalls": 0,
+  "productSetupRun": false,
+  "buildsRun": 0,
+  "testsRun": 0,
+  "wholeTestFiles": 4,
+  "dependencyMembers": 4576,
+  "lockedPackages": 16,
+  "sourceFilesConserved": 1409,
+  "syntaxChecks": [
+    {
+      "file": "bounded.py",
+      "check": "Python AST syntax",
+      "ok": true
+    },
+    {
+      "file": "operate.py",
+      "check": "Python AST syntax",
+      "ok": true
+    },
+    {
+      "file": "prove.py",
+      "check": "Python AST syntax",
+      "ok": true
+    },
+    {
+      "file": "HOST.mjs",
+      "check": "Node syntax",
+      "exitCode": 0
+    },
+    {
+      "file": "candidate.mjs",
+      "check": "Node syntax",
+      "exitCode": 0
+    },
+    {
+      "file": "events-reporter.mjs",
+      "check": "Node syntax",
+      "exitCode": 0
+    }
+  ],
+  "physicalReceipt": "PHYSICAL_PREFLIGHT.json",
+  "retainedCorrection": "PREPARATION_BRANCH_CORRECTION.json",
+  "dispatchHeldFor": [
+    "Root checkpoint/push of exact controls and shared observer",
+    "Root final source HEAD and packet/dispatch acceptance"
+  ],
+  "futureProofInput": "Operator-audited exact postimage PROOF_CASES.json before any test; no actual-result-derived expectations.",
+  "rawFinalChecks": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/FINAL_PREPARATION_CHECKS.json",
+    "sha256": "cb63ae74542f34fd82f9efb9bc177dd09b08546656896da7b626676ffb243839"
+  }
+}

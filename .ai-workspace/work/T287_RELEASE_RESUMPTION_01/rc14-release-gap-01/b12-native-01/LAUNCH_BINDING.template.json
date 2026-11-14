@@ -1,0 +1,12 @@
+{
+  "activation": "RC14-B12-NATIVE-AUTHOR-001",
+  "sourceHead": null,
+  "rootAcceptanceRef": null,
+  "topologyObserver": {
+    "path": "/private/tmp/abg-rc14-b21-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-native-01/physical-topology.py",
+    "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+    "rootAcceptanceRef": "Root message accepting exact observer for controlled B12 layout, 2026-11-15"
+  },
+  "controlFiles": [],
+  "status": "TEMPLATE_NOT_EXECUTABLE"
+}

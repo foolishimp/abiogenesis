@@ -1,0 +1,31 @@
+{
+  "worksite": "/private/tmp/abg-rc14-b12-20261115-01",
+  "writePaths": [
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/code/src/product/workspace_definition_bindings.ts",
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/code/src/public/cli.ts",
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/code/src/shared/diagnostic_text.ts",
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t292-td79-cli-exit-classification.test.mjs",
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+    "/private/tmp/abg-rc14-b12-20261115-01/build_tenants/abiogenesis/typescript/qualification-scratch/rc14-b12-native-01"
+  ],
+  "protectedRoots": [
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/sandbox/installed/abg",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/resources/events",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/resources/runtime",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/resources/projections",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/resources/archives",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant",
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13"
+  ],
+  "archiveRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/resources/archives"
+}
