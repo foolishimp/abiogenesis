@@ -1,0 +1,155 @@
+{
+  "id": "RC14-SETUP-CUSTODY-PROOF-CONTROL-ACCEPTANCE-001",
+  "recordedUtc": "2026-11-14T16:38:19.573829+00:00",
+  "status": "ACCEPTED_FOR_FIRST_PROOF_AFTER_PUSH_AND_SUCCESSFUL_NATIVE_RETURN",
+  "triage": "integration-01/SETUP_MANIFEST_ATTRIBUTION_TRIAGE.md",
+  "rootReview": [
+    "Read both exact attribution diffs and full pure read-only custody checkers",
+    "One exact successful imported-create setup output authenticated; native W unchanged",
+    "Original SOURCE_PREIMAGE and active native source/control bytes conserved",
+    "Setup-owned file remains in complete postimage, all other deltas retain scope checks",
+    "B21 compares stable custody facts at proof end; dynamic observation time does not cause false source drift",
+    "Original host/proof deadlines, first-failure stop, test populations and proof order unchanged"
+  ],
+  "subjects": [
+    {
+      "case": "B12",
+      "externalControlRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-control-setup-custody-01",
+      "authoredRecordRoot": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/proof-control-setup-custody-01",
+      "files": [
+        {
+          "name": "prove.py",
+          "bytes": 8928,
+          "sha256": "17f413831ece43b63e02a722f841e6e36b9a513b3da42597618125f332c4efbe"
+        },
+        {
+          "name": "bounded.py",
+          "bytes": 4206,
+          "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+        },
+        {
+          "name": "candidate.mjs",
+          "bytes": 5994,
+          "sha256": "0a56d7df614d386d302c4db35e3ee907f5e68bc4d943085ad76215a913b5a379"
+        },
+        {
+          "name": "events-reporter.mjs",
+          "bytes": 312,
+          "sha256": "a1f110aa80b03a0a20620b27dd4076ffe67151325094c57cdb1c4d0a28778b04"
+        },
+        {
+          "name": "ACTIVATION.json",
+          "bytes": 7613,
+          "sha256": "04d12f76c34a908d3753df918ffff05ed1c18c5637daf98a4e848213aca599a7"
+        },
+        {
+          "name": "PROOF_SCHEDULE.json",
+          "bytes": 2377,
+          "sha256": "599e4f911d89fd44dd4cd07b2a0db026af28082d798b582e6d06c19a96c7df84"
+        },
+        {
+          "name": "setup_custody.py",
+          "bytes": 7134,
+          "sha256": "64457407ecfa7a32d900ecc985e4ae26198bfe2ec2a8408ba53a56e720f94f23"
+        },
+        {
+          "name": "ATTRIBUTION_DIFF.patch",
+          "bytes": 2248,
+          "sha256": "0db4838782a767d230e23e8e48b104e2f4ffb4655773d5525b59b38116fe813d"
+        },
+        {
+          "name": "ORIGINAL_CONTROL_BINDINGS.json",
+          "bytes": 1820,
+          "sha256": "291edd8979c03fbc3b41be430fb61eab41a61883ea4da85ad9f9a05e30a49bde"
+        },
+        {
+          "name": "SUCCESSOR_RETURN.json",
+          "bytes": 2428,
+          "sha256": "0a3b5ad2a94b0753f5727f149830c14e95d229933e2d8c553c464b1277b17134"
+        }
+      ],
+      "productionSourceHead": "df4d2cbca9e075c8c8017f07d37e7a02687f926a"
+    },
+    {
+      "case": "B21",
+      "externalControlRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/proof-control-setup-custody-01",
+      "authoredRecordRoot": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-native-01/proof-control-setup-custody-01",
+      "files": [
+        {
+          "name": "ACTIVATION.json",
+          "bytes": 8765,
+          "sha256": "643cc71b3b35d6310b4a6b3c58d0c7d78b7b2d6e303d2eac1a22643d1bd6ddba"
+        },
+        {
+          "name": "DEPENDENCY_INPUTS.json",
+          "bytes": 632,
+          "sha256": "52e89945c2bbacd96fc6d4a16c12ea6c21f8425a991acc1dffd40b5576768ecd"
+        },
+        {
+          "name": "PROOF_PLAN.json",
+          "bytes": 3041,
+          "sha256": "67ee7245a9cc9ec848117bb4fc5cf311316036516d1fd0bccbf78b8270412d0d"
+        },
+        {
+          "name": "prove.py",
+          "bytes": 14469,
+          "sha256": "af63a81e0d8050b3cd1f43bf00e3d1e6cc589533caf42af11fc712387f3c03a7"
+        },
+        {
+          "name": "process-owner.py",
+          "bytes": 3099,
+          "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+        },
+        {
+          "name": "dependency-inputs.py",
+          "bytes": 2786,
+          "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+        },
+        {
+          "name": "check-installed.mjs",
+          "bytes": 2472,
+          "sha256": "b67edd4080e1dfae95d5d4d9f15debcf002e4a7141dc1648995a8ec3189b7420"
+        },
+        {
+          "name": "setup-custody.py",
+          "bytes": 8682,
+          "sha256": "8516304f991a50a680e8553edbb349ac99d4450d250d6560931fc9a1695247b0"
+        },
+        {
+          "name": "SETUP_CUSTODY.json",
+          "bytes": 3589,
+          "sha256": "14ef511ab4041b5b87a6ab6f9169d38ddb81c9d29efaec07676b75035e594ca1"
+        },
+        {
+          "name": "ORIGINAL_CONTROLS.json",
+          "bytes": 1281,
+          "sha256": "045a71e19629c1acf11edc29d970699787df1af55965b421d5b60519bb5f4ccc"
+        },
+        {
+          "name": "prove-attribution.diff",
+          "bytes": 2524,
+          "sha256": "971dcae190309c5df60186928483fec3fb25f5ece1e07d9ee4f46005c128b4b8"
+        },
+        {
+          "name": "PREPARATION_RETURN.json",
+          "bytes": 3394,
+          "sha256": "a2f4f2f9f26ae7ce972c710445030fb465090ee54e7bf140412ab1ea3b70f754"
+        }
+      ],
+      "productionSourceHead": "aa730058e30f3f4fd6be9f4e306ecc1275d9eb93"
+    }
+  ],
+  "executionConditions": [
+    "Normal main push and direct remote parity confirmed",
+    "Operator verifies these exact external successor/control hashes before first proof",
+    "Original one native call succeeds with actual resource close and fresh readbacks",
+    "B12 exact postimage case manifest audited before tests; B21 original whole-file schedule preserved",
+    "Run external successor controls only; do not edit active worktree or original frozen controls"
+  ],
+  "limits": [
+    "No Product repair or failed proof retry is claimed by this correction",
+    "No raw execution files or Product archives copied into Git",
+    "No source acceptance, qualification or release acceptance"
+  ],
+  "sourceBinding": "Native source heads remain original; successor proof-control commit is a separate identity supplied after push"
+}

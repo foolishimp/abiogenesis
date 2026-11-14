@@ -1,0 +1,111 @@
+{
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26",
+    "bytes": 5769
+  },
+  "provider": {
+    "agent": "claude",
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "version": "2.1.322 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "providerCallsAtMost": 1,
+    "protocol": "Use existing actual Claude owner path. No Codex-as-Claude wrapper or new provider feature."
+  },
+  "id": "RC14-B12-NATIVE-AUTHOR-001",
+  "role": "Separate Operator for setup/proof; actual pinned RC13 native Writer owns implementation",
+  "operator": "/root/b29_vm_triage",
+  "decisionOwner": "Root under the owner-selected RC14 delivery and current fix RC14 instruction",
+  "sourceBinding": "Exact committed/pushed activation HEAD supplied by Root; freeze before setup",
+  "sourceWorktree": "/private/tmp/abg-rc14-b12-20261115-01",
+  "sourceBranch": "codex/rc14-b12-native-20261115",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01",
+  "changeClass": "realization_refactor implementing the accepted bounded RC14 HOW",
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/workspace_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/cli.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/diagnostic_text.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t292-td79-cli-exit-classification.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+    "build_tenants/abiogenesis/typescript/qualification-scratch/rc14-b12-native-01"
+  ],
+  "operatorWriteTerritory": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01",
+    "/private/tmp/abg-rc14-b12-20261115-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01",
+    "local registrations for this named worktree and branch"
+  ],
+  "operatorEffects": [
+    "Create one sparse isolated worktree, source preimage and declared read-only dependency/build inputs",
+    "Prepare thin host/task using maintained Public setup and actual RC13 native-work owner; fresh authority, bindings and resources",
+    "Prepare bounded native-metadata topology observer; return exact code, layout facts and prospective proof schedule to Root BEFORE provider dispatch",
+    "After Root accepts that preflight, invoke at most one native author; no Operator implementation",
+    "Freeze authored postimages; build and prove in external raw-root mirrors; deterministic generated outputs stay external for this slice",
+    "Commit only authored source and compact control/return records on worker branch; Root integrates/pushes"
+  ],
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 3600000,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 7200000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 16777216,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "oldRc13CampaignClockReused": false,
+    "proofCampaignMs": 3600000,
+    "perBuildMs": 300000,
+    "perTestFileMs": 600000
+  },
+  "preflight": {
+    "state": "PREPARE_ONLY_RETURN_TO_ROOT_BEFORE_PROVIDER",
+    "required": "Descriptor backing paths, complete stable mount population, relevant-attachment exclusion; exact finite W/archive separated from all protected roots",
+    "observer": "B21 Operator prepares one observer. B12 consumes that exact frozen digest only after Root acceptance. Historical ancestry-only helper is prohibited."
+  },
+  "nativeInstructions": [
+    "No provider calls, subagents, reviewer activation, Git mutation, build/test/pack/install by native Writer. Read-only Git and compiler/header inspection are allowed.",
+    "Use the exact write scope; preserve all unaffected Product, authority, event and refusal meanings. Return a gap for missing scope, not an unauthorized edit.",
+    "Return the Product summary/gaps report once, stop editing. Operator owns independent mechanical proof."
+  ],
+  "proof": [
+    "First cheap whole-file bug discriminator on newly built candidate, with exact case names; no negative-regex exclusion or duplicate population",
+    "First build/integration/proof failure stops and returns retained evidence to Root; no automatic retry or repair loop",
+    "Finite prospective clocks, process/capture limits, unchanged predecessor inputs and real resource close plus fresh result/replay readbacks",
+    "Exact candidate/archive/source identities, changed-path conservation, local raw hashes, no whole-release claim",
+    "Whole t292-td79-cli-exit-classification first: historical inputs, actual SDK/emitted CLI and valid control",
+    "Whole static-binding-algebra, owned-call-reference and ordinary admission-refusal-surface; meaningful depth/malformed-output checks",
+    "Candidate pack/install smoke; native resources retain identity and no production fault switch"
+  ],
+  "exclusions": [
+    "No direct Operator-authored production/test repair",
+    "No immutable RC13/dependency mutation or model/provider fallback",
+    "No Product/requirement change, version bump, global binding policy, shared JSON checker rewrite or broad filesystem framework",
+    "No main write/merge/push by worker; no raw evidence, archives, LFS, other refs or force publication",
+    "No broad/release qualification, Product publication or human acceptance"
+  ],
+  "admission": "Existing owner RC13-built RC14 mandate and current fix RC14 instruction; Root conjoins closed B21 Product/Design/Effect/Foundation and B12 Public-owner triage. Accepted HOW is in the pushed activation checkpoint.",
+  "targetTruth": "Deep cold inputs refuse before recursion/effects; outputs and diagnostics encode lawfully; held identities, defaults and CLI classifications remain.",
+  "selection": "applicability-01/B12_PREPARATION.md",
+  "owningDesign": [
+    "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+  ],
+  "returnTo": "Root Executive, exact frozen source and bounded results/gaps; stop at first failure or completed return"
+}

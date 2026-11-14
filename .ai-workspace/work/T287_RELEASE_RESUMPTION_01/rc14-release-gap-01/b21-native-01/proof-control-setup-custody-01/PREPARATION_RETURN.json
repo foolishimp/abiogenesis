@@ -1,0 +1,89 @@
+{
+  "id": "RC14-B21-PROOF-CONTROL-SUCCESSOR-PREPARATION-001",
+  "state": "PREPARED_PROOF_HELD_FOR_ROOT_ACCEPTANCE_CHECKPOINT_PUSH",
+  "sourceHead": "aa730058e30f3f4fd6be9f4e306ecc1275d9eb93",
+  "externalDirectory": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/proof-control-setup-custody-01",
+  "changedOriginalControls": [
+    "prove.py"
+  ],
+  "controlFiles": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 8765,
+      "sha256": "643cc71b3b35d6310b4a6b3c58d0c7d78b7b2d6e303d2eac1a22643d1bd6ddba"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 632,
+      "sha256": "52e89945c2bbacd96fc6d4a16c12ea6c21f8425a991acc1dffd40b5576768ecd"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 3041,
+      "sha256": "67ee7245a9cc9ec848117bb4fc5cf311316036516d1fd0bccbf78b8270412d0d"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 14469,
+      "sha256": "af63a81e0d8050b3cd1f43bf00e3d1e6cc589533caf42af11fc712387f3c03a7"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "check-installed.mjs",
+      "bytes": 2472,
+      "sha256": "b67edd4080e1dfae95d5d4d9f15debcf002e4a7141dc1648995a8ec3189b7420"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 8682,
+      "sha256": "8516304f991a50a680e8553edbb349ac99d4450d250d6560931fc9a1695247b0"
+    },
+    {
+      "path": "SETUP_CUSTODY.json",
+      "bytes": 3589,
+      "sha256": "14ef511ab4041b5b87a6ab6f9169d38ddb81c9d29efaec07676b75035e594ca1"
+    },
+    {
+      "path": "ORIGINAL_CONTROLS.json",
+      "bytes": 1281,
+      "sha256": "045a71e19629c1acf11edc29d970699787df1af55965b421d5b60519bb5f4ccc"
+    },
+    {
+      "path": "prove-attribution.diff",
+      "bytes": 2524,
+      "sha256": "971dcae190309c5df60186928483fec3fb25f5ece1e07d9ee4f46005c128b4b8"
+    }
+  ],
+  "attribution": "Exactly one setup-owned manifest authenticated against successful imported-create receipt, contemporaneous readback, fixed canonical bytes and activation/root/path coordinates. Kept in full source postimage and setupOwnedChanges; only other deltas face nativeW. Additional substrate entries refuse.",
+  "conserved": [
+    "Original SOURCE_PREIMAGE and all live worktree controls",
+    "One original native actor session",
+    "Original2h deadline/proof minimum and15s cleanup reserve",
+    "Exact whole-file population, order and first-failure stop",
+    "Before/after authored-source conservation; no retry"
+  ],
+  "readOnlyCheck": {
+    "exitCode": 0,
+    "stdoutSha256": "96b422bd3b03b748b3f0d69f289d1be5e8096ebbae4b23100bcc3c55d6a7bf41",
+    "sourceManifestBytes": 1868,
+    "sourceManifestSha256": "bfa94afc6388acf75b5e0607e4c22a7cdb5a1f34437a40e830f3dd0d616b3866",
+    "canonicalValueDigest": "sha256:ec57c391d2798a50cf80aca7f0ec32906d8ccecafcb3c05490b694aa3f9f26a7",
+    "syntaxOnly": [
+      "prove.py",
+      "setup-custody.py"
+    ]
+  },
+  "publication": "Only authored controls and compact records; raw check stdout/stderr and original runtime receipts stay external.",
+  "recordedUtc": "2026-11-14T16:36:52.462229+00:00",
+  "productExecutions": 0,
+  "providerRetries": 0
+}

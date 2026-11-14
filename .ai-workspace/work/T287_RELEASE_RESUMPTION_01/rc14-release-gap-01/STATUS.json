@@ -27,7 +27,7 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T16:26:51.770893+00:00",
+  "recordedUtc": "2026-11-14T16:38:19.573829+00:00",
   "nativeAuthorState": "B12 and B21 actual native processes observed; source repair and proof results pending",
   "b21Preparation": {
     "state": "NATIVE_AUTHOR_RUNNING",
@@ -68,5 +68,11 @@
     "originalHostDeadlineUtc": "2026-11-14T18:24:22.653503+00:00",
     "evidence": "Operator observed actual actor_process_started event and actor stdout activity",
     "rawEvidencePublished": false
+  },
+  "proofControls": {
+    "state": "SETUP_OWNED_ATTRIBUTION_SUCCESSORS_ACCEPTED_AWAITING_PUSH",
+    "record": "integration-01/PROOF_CONTROL_SUCCESSOR_ACCEPTANCE.json",
+    "nativeWorkUnchanged": true,
+    "proofExecuted": false
   }
 }

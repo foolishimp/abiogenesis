@@ -1,0 +1,74 @@
+{
+  "status": "SUCCESSOR_PREPARED_NOT_EXECUTED",
+  "scope": "One exact imported-workspace setup effect attribution only",
+  "files": [
+    {
+      "name": "prove.py",
+      "sha256": "17f413831ece43b63e02a722f841e6e36b9a513b3da42597618125f332c4efbe",
+      "bytes": 8928,
+      "unchangedFromAcceptedControl": false
+    },
+    {
+      "name": "bounded.py",
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2",
+      "bytes": 4206,
+      "unchangedFromAcceptedControl": true
+    },
+    {
+      "name": "candidate.mjs",
+      "sha256": "0a56d7df614d386d302c4db35e3ee907f5e68bc4d943085ad76215a913b5a379",
+      "bytes": 5994,
+      "unchangedFromAcceptedControl": true
+    },
+    {
+      "name": "events-reporter.mjs",
+      "sha256": "a1f110aa80b03a0a20620b27dd4076ffe67151325094c57cdb1c4d0a28778b04",
+      "bytes": 312,
+      "unchangedFromAcceptedControl": true
+    },
+    {
+      "name": "ACTIVATION.json",
+      "sha256": "04d12f76c34a908d3753df918ffff05ed1c18c5637daf98a4e848213aca599a7",
+      "bytes": 7613,
+      "unchangedFromAcceptedControl": true
+    },
+    {
+      "name": "PROOF_SCHEDULE.json",
+      "sha256": "599e4f911d89fd44dd4cd07b2a0db026af28082d798b582e6d06c19a96c7df84",
+      "bytes": 2377,
+      "unchangedFromAcceptedControl": true
+    },
+    {
+      "name": "setup_custody.py",
+      "sha256": "64457407ecfa7a32d900ecc985e4ae26198bfe2ec2a8408ba53a56e720f94f23",
+      "bytes": 7134
+    },
+    {
+      "name": "ATTRIBUTION_DIFF.patch",
+      "sha256": "0db4838782a767d230e23e8e48b104e2f4ffb4655773d5525b59b38116fe813d",
+      "bytes": 2248
+    },
+    {
+      "name": "ORIGINAL_CONTROL_BINDINGS.json",
+      "sha256": "291edd8979c03fbc3b41be430fb61eab41a61883ea4da85ad9f9a05e30a49bde",
+      "bytes": 1820
+    }
+  ],
+  "originalSourcePreimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/SOURCE_PREIMAGE.json",
+    "sha256": "5724e378397f388ab7981f6ecdf541908811ca6491b917f5263c70dc078be728"
+  },
+  "custodyCheck": {
+    "exitCode": 0,
+    "stdoutSha256": "7c04fc1cca186e3d693d6d6084fa99f4ecb7c9a4a7eb86549650ee06ea1abb18",
+    "stdoutBytes": 2581,
+    "stderrBytes": 0,
+    "checkedAtUtc": "2026-11-14T16:35:52.413389+00:00"
+  },
+  "nativeContinues": true,
+  "proofRun": false,
+  "providerCallsAdded": 0,
+  "activeWorktreeEdited": false,
+  "deadlinesChanged": false,
+  "rootAcceptanceRequiredBeforeProof": true
+}

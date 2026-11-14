@@ -1,0 +1,41 @@
+{
+  "sourceHead": "aa730058e30f3f4fd6be9f4e306ecc1275d9eb93",
+  "sourceControl": "/private/tmp/abg-rc14-b21-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-native-01",
+  "copied": [
+    {
+      "path": "ACTIVATION.json",
+      "sha256": "643cc71b3b35d6310b4a6b3c58d0c7d78b7b2d6e303d2eac1a22643d1bd6ddba",
+      "bytes": 8765
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "sha256": "52e89945c2bbacd96fc6d4a16c12ea6c21f8425a991acc1dffd40b5576768ecd",
+      "bytes": 632
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "sha256": "67ee7245a9cc9ec848117bb4fc5cf311316036516d1fd0bccbf78b8270412d0d",
+      "bytes": 3041
+    },
+    {
+      "path": "prove.py",
+      "sha256": "34bdd8dba80a464e6d5bece15ae93e8cc45dfef111512f73bcd041f455cf4c58",
+      "bytes": 13952
+    },
+    {
+      "path": "process-owner.py",
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39",
+      "bytes": 3099
+    },
+    {
+      "path": "dependency-inputs.py",
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed",
+      "bytes": 2786
+    },
+    {
+      "path": "check-installed.mjs",
+      "sha256": "b67edd4080e1dfae95d5d4d9f15debcf002e4a7141dc1648995a8ec3189b7420",
+      "bytes": 2472
+    }
+  ]
+}

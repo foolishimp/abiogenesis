@@ -1,0 +1,37 @@
+{
+  "source": "Newly built external mirror of the exact authored source; no RC13 build copied into proof.",
+  "wholeFiles": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t292-td79-cli-exit-classification.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t291-m6-admission-refusal-surface.test.mjs"
+  ],
+  "caseManifest": "Operator audits returned test source before any test, records exact name/nesting/skip/todo population and source SHA in external PROOF_CASES.json. Runner rejects any missing, extra, repeated or changed case population; no filters.",
+  "order": [
+    "One source build: clean -> TypeScript 5.9.2 -> existing manifest generator",
+    "Whole build_tenants/abiogenesis/typescript/test_env/tests/t292-td79-cli-exit-classification.test.mjs",
+    "Whole build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+    "One candidate pack/install through maintained product-payload and actual candidate Product owners; input to installed reference case",
+    "Whole build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+    "Whole build_tenants/abiogenesis/typescript/test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+    "Fresh candidate installed-export verification, content match, empty resource read and actual close"
+  ],
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 3600000,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 7200000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 16777216,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "oldRc13CampaignClockReused": false,
+    "proofCampaignMs": 3600000,
+    "perBuildMs": 300000,
+    "perTestFileMs": 600000
+  },
+  "proofSubject": "B12 exact source/candidate only. Generated inventories remain external and do not qualify the composed final source.",
+  "failStop": "First setup/build/integration/proof failure preserves evidence and returns to Root; no retry, fallback or second native pass.",
+  "providerDispatch": "Unactivated until final control checkpoint/push and Root packet acceptance."
+}

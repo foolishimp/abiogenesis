@@ -1,0 +1,78 @@
+{
+  "id": "RC14-B21-SETUP-CUSTODY-001",
+  "kind": "exact_setup_owned_source_custody",
+  "sourceHead": "aa730058e30f3f4fd6be9f4e306ecc1275d9eb93",
+  "sourceRoot": "/private/tmp/abg-rc14-b21-20261115-01",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01",
+  "setupOwnedPath": ".abiogenesis/workspace-manifest.json",
+  "bytes": 1868,
+  "sha256": "bfa94afc6388acf75b5e0607e4c22a7cdb5a1f34437a40e830f3dd0d616b3866",
+  "canonicalValueDigest": "sha256:ec57c391d2798a50cf80aca7f0ec32906d8ccecafcb3c05490b694aa3f9f26a7",
+  "sourceMtimeNsObserved": 1794673481816141300,
+  "importActivation": {
+    "path": "/private/tmp/abg-rc14-b21-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-native-01/ACTIVATION.json",
+    "ref": "file:///private/tmp/abg-rc14-b21-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-native-01/ACTIVATION.json",
+    "sha256": "643cc71b3b35d6310b4a6b3c58d0c7d78b7b2d6e303d2eac1a22643d1bd6ddba"
+  },
+  "fixedEvidence": [
+    {
+      "path": "SOURCE_PREIMAGE.json",
+      "sha256": "51f6441c65d2a480066de23375efefaead89da932de4d36711620565803adc19",
+      "bytes": 431353,
+      "mtimeNs": 1794673449659409560
+    },
+    {
+      "path": "LAUNCH.json",
+      "sha256": "ff282adc918cbbcf2aad215d9713db96577988d5550d09f1da190e89c15cc385",
+      "bytes": 3393,
+      "mtimeNs": 1794673462614630737
+    },
+    {
+      "path": "runtime/calls/workspace-create.request.json",
+      "sha256": "3b2651b9923e24ba564fe3441956af915f3016549fed7e4e481ebaa8783008ae",
+      "bytes": 718,
+      "mtimeNs": 1794673481748811675
+    },
+    {
+      "path": "runtime/calls/workspace-create.outcome.json",
+      "sha256": "8cd2b14b529bfd5bf9771aff1d02907f4629d2e5bab974b0ef5c1506740562e6",
+      "bytes": 2207,
+      "mtimeNs": 1794673481816976892
+    },
+    {
+      "path": "runtime/workspace-manifest.json",
+      "sha256": "6b76e343c2ad4a04097e6ebecb7e40c9e936bad02c98704dee9c2e304a124cc0",
+      "bytes": 2041,
+      "mtimeNs": 1794673481817312353
+    },
+    {
+      "path": "runtime/phases/2-fresh-public-setup-held.json",
+      "sha256": "22562b3f4effb1db9ead1f6f083911755ce69b2cf43f83d94b26280cef8cac0a",
+      "bytes": 104,
+      "mtimeNs": 1794673529703286538
+    },
+    {
+      "path": "runtime/phases/3-one-author-dispatch.json",
+      "sha256": "3fc30dcf0f66458ab2fe38ab2e3e3042c6bd627c643bc038ffd513e2787e65d3",
+      "bytes": 100,
+      "mtimeNs": 1794673531045844355
+    },
+    {
+      "path": "SETUP_OWNED_SOURCE_OBSERVATION.json",
+      "sha256": "fcfe039ed683d9d3909a69ee961be21ba3aa6669267fbd8c8f202954fde0b4d4",
+      "bytes": 636,
+      "mtimeNs": 1794673718707727123
+    }
+  ],
+  "actorStarted": {
+    "eventId": "event://abiogenesis/80dcfea9c5f32c151e6e7edf9dbabc592582b38ccb55389dc3238286f1206cb6",
+    "eventTime": "2026-11-14T16:25:34.700Z",
+    "runId": "run://abiogenesis/cdee36d03711139e6cdbc8df62594b94626b927a95321d9d69a90a0ce61c92d3",
+    "processId": 43883,
+    "admissionOrdinal": 18,
+    "rawLineSha256": "ea6d300eb85aad794dfb71c4ed6c6d7c18a64572c8100bbc085b5b3a3982f225"
+  },
+  "authority": "Root narrow external proof-control successor grant; native Writer remains unchanged and has no write grant for this file.",
+  "chronologyLimit": "Setup receipt/readback/phase records precede dispatch; original source mtime is supporting observation. The raw setup-owned copy and later custody record are after dispatch, not pre-dispatch snapshots. No continuous filesystem-watch or atomic-race claim.",
+  "recordedUtc": "2026-11-14T16:34:01.957373+00:00"
+}

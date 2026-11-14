@@ -1,0 +1,38 @@
+[
+  {
+    "name": "prove.py",
+    "originalPath": "/private/tmp/abg-rc14-b12-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/prove.py",
+    "originalSha256": "964465f679e91cba3d9ea60150a9f35730f67d2c77cec613dd9118610b2349fc",
+    "bytes": 8498
+  },
+  {
+    "name": "bounded.py",
+    "originalPath": "/private/tmp/abg-rc14-b12-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/bounded.py",
+    "originalSha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2",
+    "bytes": 4206
+  },
+  {
+    "name": "candidate.mjs",
+    "originalPath": "/private/tmp/abg-rc14-b12-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/candidate.mjs",
+    "originalSha256": "0a56d7df614d386d302c4db35e3ee907f5e68bc4d943085ad76215a913b5a379",
+    "bytes": 5994
+  },
+  {
+    "name": "events-reporter.mjs",
+    "originalPath": "/private/tmp/abg-rc14-b12-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/events-reporter.mjs",
+    "originalSha256": "a1f110aa80b03a0a20620b27dd4076ffe67151325094c57cdb1c4d0a28778b04",
+    "bytes": 312
+  },
+  {
+    "name": "ACTIVATION.json",
+    "originalPath": "/private/tmp/abg-rc14-b12-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/ACTIVATION.json",
+    "originalSha256": "04d12f76c34a908d3753df918ffff05ed1c18c5637daf98a4e848213aca599a7",
+    "bytes": 7613
+  },
+  {
+    "name": "PROOF_SCHEDULE.json",
+    "originalPath": "/private/tmp/abg-rc14-b12-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/PROOF_SCHEDULE.json",
+    "originalSha256": "599e4f911d89fd44dd4cd07b2a0db026af28082d798b582e6d06c19a96c7df84",
+    "bytes": 2377
+  }
+]
