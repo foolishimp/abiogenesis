@@ -1,5 +1,5 @@
 {
-  "status": "B31_ACCEPTED_B12_NATIVE_RUNNING_B21_CONTROLS_ACCEPTED",
+  "status": "B31_ACCEPTED_B12_B21_NATIVE_AUTHORS_RUNNING",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -7,8 +7,8 @@
   },
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
-  "providerCalls": 2,
-  "triage": "B31 technically closed and B13 wording corrected. B12 native repair running; B21 HOW and controls accepted. Neither repair has implementation proof yet. Broad and release qualification remain open.",
+  "providerCalls": 3,
+  "triage": "B31 technically closed and B13 wording corrected. B12 and B21 each running one RC13 native repair. No implementation proof results yet. Exact composed regression, installed lifecycle and qualification remain open.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
   "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
@@ -27,13 +27,13 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T16:22:42.511183+00:00",
-  "nativeAuthorState": "B12 real native process started; B21 control checkpoint/push and final source binding pending",
+  "recordedUtc": "2026-11-14T16:26:51.770893+00:00",
+  "nativeAuthorState": "B12 and B21 actual native processes observed; source repair and proof results pending",
   "b21Preparation": {
-    "state": "CONTROLS_ACCEPTED_AWAITING_PUSH_AND_FINAL_SOURCE_BINDING",
+    "state": "NATIVE_AUTHOR_RUNNING",
     "record": "b21-foundation-01/README.md",
     "finding": "Unmatched lexical ancestor lists do not prove separation across the observed protected-Data bridge",
-    "productionRepairStarted": false,
+    "productionRepairStarted": true,
     "nextAuthorPreflight": "Historical B31 ancestry-only topology helper is not reusable as a separation proof",
     "rootAcceptance": "integration-01/B21_PREPARATION_ACCEPTANCE.json"
   },
@@ -47,7 +47,7 @@
     "commit": "c11db33ddedae51c3edde1961b15f3f7280f003e",
     "rootAcceptance": "integration-01/B12_PREPARATION_ACCEPTANCE.json"
   },
-  "providerCallsMeaning": "Historical field counts observed native author sessions (B31 and B12), not underlying provider API requests",
+  "providerCallsMeaning": "Historical field counts observed native author sessions (B31, B12, B21), not underlying provider API requests",
   "b12Native": {
     "sourceHead": "df4d2cbca9e075c8c8017f07d37e7a02687f926a",
     "startedUtc": "2026-11-14T16:19:44.332Z",
@@ -55,6 +55,18 @@
     "model": "claude-opus-5-5",
     "effort": "xhigh",
     "evidence": "Operator observed actual actor_process_started event and native stdout system/init",
+    "rawEvidencePublished": false
+  },
+  "b21Native": {
+    "sourceHead": "aa730058e30f3f4fd6be9f4e306ecc1275d9eb93",
+    "startedUtc": "2026-11-14T16:25:34.700Z",
+    "pid": 43883,
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "runRef": "run://abiogenesis/cdee36d03711139e6cdbc8df62594b94626b927a95321d9d69a90a0ce61c92d3",
+    "topology": "Planned9 roots and actual10 roots; each225 separated relations/27 stable mounts; immediately-before-dispatch check passed",
+    "originalHostDeadlineUtc": "2026-11-14T18:24:22.653503+00:00",
+    "evidence": "Operator observed actual actor_process_started event and actor stdout activity",
     "rawEvidencePublished": false
   }
 }
