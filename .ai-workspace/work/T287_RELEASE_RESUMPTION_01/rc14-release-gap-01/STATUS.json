@@ -1,5 +1,5 @@
 {
-  "status": "B31_ACCEPTED_B12_CONTROLS_ACCEPTED_B21_PREPARING",
+  "status": "B31_ACCEPTED_B12_NATIVE_RUNNING_B21_CONTROLS_ACCEPTED",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -7,8 +7,8 @@
   },
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
-  "providerCalls": 1,
-  "triage": "B31 closed; B13 proposed wording corrected; B21 physical confinement and B12 raw/return admission HOW accepted. B12 controls accepted; no new native author yet. Broad and release qualification open.",
+  "providerCalls": 2,
+  "triage": "B31 technically closed and B13 wording corrected. B12 native repair running; B21 HOW and controls accepted. Neither repair has implementation proof yet. Broad and release qualification remain open.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
   "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
@@ -27,14 +27,15 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T16:16:35.711253+00:00",
-  "nativeAuthorState": "B12 controls accepted; dispatch requires checkpoint/push and explicit final source binding. B21 preparing.",
+  "recordedUtc": "2026-11-14T16:22:42.511183+00:00",
+  "nativeAuthorState": "B12 real native process started; B21 control checkpoint/push and final source binding pending",
   "b21Preparation": {
-    "state": "HOW_ADMITTED_OPERATOR_PREPARATION",
+    "state": "CONTROLS_ACCEPTED_AWAITING_PUSH_AND_FINAL_SOURCE_BINDING",
     "record": "b21-foundation-01/README.md",
     "finding": "Unmatched lexical ancestor lists do not prove separation across the observed protected-Data bridge",
     "productionRepairStarted": false,
-    "nextAuthorPreflight": "Historical B31 ancestry-only topology helper is not reusable as a separation proof"
+    "nextAuthorPreflight": "Historical B31 ancestry-only topology helper is not reusable as a separation proof",
+    "rootAcceptance": "integration-01/B21_PREPARATION_ACCEPTANCE.json"
   },
   "b13": "Three proposed-design wording rows corrected; no production change",
   "implementationActivations": {
@@ -42,8 +43,18 @@
     "B12": "b12-native-01/ACTIVATION.json"
   },
   "b12Preparation": {
-    "state": "ACCEPTED_AWAITING_CONTROL_PUSH_AND_FINAL_SOURCE_BINDING",
+    "state": "NATIVE_AUTHOR_RUNNING",
     "commit": "c11db33ddedae51c3edde1961b15f3f7280f003e",
     "rootAcceptance": "integration-01/B12_PREPARATION_ACCEPTANCE.json"
+  },
+  "providerCallsMeaning": "Historical field counts observed native author sessions (B31 and B12), not underlying provider API requests",
+  "b12Native": {
+    "sourceHead": "df4d2cbca9e075c8c8017f07d37e7a02687f926a",
+    "startedUtc": "2026-11-14T16:19:44.332Z",
+    "pid": 38468,
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "evidence": "Operator observed actual actor_process_started event and native stdout system/init",
+    "rawEvidencePublished": false
   }
 }

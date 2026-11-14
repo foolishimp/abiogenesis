@@ -1,0 +1,121 @@
+{
+  "id": "RC14-B21-PREPARATION-ACCEPTANCE-001",
+  "status": "ACCEPTED_FOR_ONE_BOUNDED_NATIVE_AUTHOR_AFTER_PUSH_AND_FINAL_SOURCE_BINDING",
+  "recordedUtc": "2026-11-14T16:22:42.511183+00:00",
+  "preparationCommit": "d16064a27a472d667a65c0f633f9fdded953954f",
+  "controls": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 8765,
+      "sha256": "643cc71b3b35d6310b4a6b3c58d0c7d78b7b2d6e303d2eac1a22643d1bd6ddba"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 632,
+      "sha256": "52e89945c2bbacd96fc6d4a16c12ea6c21f8425a991acc1dffd40b5576768ecd"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 15888,
+      "sha256": "18e471baa246c06eeb1593761861f5df7432b6333175e309954aa1baeed4d4b3"
+    },
+    {
+      "path": "LAYOUT.json",
+      "bytes": 4322,
+      "sha256": "356732631f05440e527f95a4ecca0a4403097ca01615fe132a4016fbfae710d9"
+    },
+    {
+      "path": "NATIVE_INPUTS_OBSERVED.json",
+      "bytes": 7990,
+      "sha256": "1a2b691c2dc9ea6d396994d3e045dc55f2c1262f9fbb5e9c5e5721396948076a"
+    },
+    {
+      "path": "PREPARATION.md",
+      "bytes": 5827,
+      "sha256": "5c8acc2d85e9bd4c52582318e133da841f7e304a284af94e58825678f4005129"
+    },
+    {
+      "path": "PREPARATION_RETURN.json",
+      "bytes": 4921,
+      "sha256": "b82e49dc8f5af97f05dfced8cd7fd6ce37a1461cb3f43dd00f51dd9f243769bd"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 3041,
+      "sha256": "67ee7245a9cc9ec848117bb4fc5cf311316036516d1fd0bccbf78b8270412d0d"
+    },
+    {
+      "path": "TASK.json",
+      "bytes": 12789,
+      "sha256": "db69a1308ea12825def2df780af27d753383a11336ec16be8235d7d6e08bf943"
+    },
+    {
+      "path": "check-installed.mjs",
+      "bytes": 2472,
+      "sha256": "b67edd4080e1dfae95d5d4d9f15debcf002e4a7141dc1648995a8ec3189b7420"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 2403,
+      "sha256": "7b26df18d1507f674385cbe80080116645501dec975468d41e1e9e6fe438a81e"
+    },
+    {
+      "path": "observe-preparation.py",
+      "bytes": 4139,
+      "sha256": "f1f3a0fd7ffec80c6d63ff7bb574b450adf436eb7a43acd1f9475754b2b188ae"
+    },
+    {
+      "path": "operate.py",
+      "bytes": 4012,
+      "sha256": "e6580f686356833f5ad8a1ff2526a88c5c99ab0eb47d431d8d7444deecc43401"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 13952,
+      "sha256": "34bdd8dba80a464e6d5bece15ae93e8cc45dfef111512f73bcd041f455cf4c58"
+    }
+  ],
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "rootReview": [
+    "Exact16 changed controls checked against frozen worker commit; tenant unchanged",
+    "Read HOST/task/proof/process owner/freeze/installed owner check and prospective exact whole-file schedule",
+    "Corrected original host/proof deadline join with15s cleanup reserve",
+    "Added planned installed-ABG container; original8-root observation retained, actual9-root observation occurs before setup",
+    "Actual complete binding/install roots reacquired after setup and immediately before dispatch",
+    "Actual native input closure delegated to Writer using permitted read-only dependency preprocessing, not a universal SDK census"
+  ],
+  "dispatchConditions": [
+    "Commit/push exact controls to main and verify direct remote parity",
+    "Operator fast-forwards clean named branch to explicit final HEAD, checks symbolic branch and tenant conservation, refreezes SOURCE_PREIMAGE.json",
+    "External LAUNCH.json binds final source HEAD, this acceptance, all17 control digests and exact observer",
+    "All fresh actual topology and installed-owner preflights pass before native dispatch"
+  ],
+  "effects": [
+    "One actual pinned RC13 native author session, claude-opus-5-5 at xhigh",
+    "Granted external build, firstB21wholefile, two-location native reproduction, offline installed-owner proof and ten other whole files",
+    "First failure stops and returns retained evidence; no automatic repair or retry"
+  ],
+  "limits": [
+    "Controlled ASCII-layout Operator observation, no atomic mount lock or general Unicode Product claim",
+    "Installed binary/physical-owner proof is component scope, not complete Public execution or release qualification",
+    "Darwin arm64 Node24.7.0 execution only; NodeAPI8 compatibility remains a separate claim",
+    "Historical gated skips stay unexercised; full generated qualification resources refreshed on composed source",
+    "No raw captures, binaries, archives or dependency inventories published to GitHub"
+  ],
+  "sourceHeadBinding": "Resulting pushed control commit supplied separately; no self-reference"
+}

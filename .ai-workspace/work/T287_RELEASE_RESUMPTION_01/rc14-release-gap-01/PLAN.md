@@ -63,7 +63,7 @@ requires its own exact source, scope, topology and bounds.
 
 B09–B13 dispositions are in `applicability-01/README.md`: no new global binding
 policy or duplicated realizer guards; B12 receives a bounded existing-owner
-repair before complete Public conformance; B13 needs wording clarification.
+repair before complete Public conformance; B13 wording was corrected in the accepted implementation-preparation checkpoint.
 Unexecuted adversarial discriminators remain explicit. Standalone Consensus, observer/tuner, mandatory
 host parity, native human-response and the full original Data Mapper evaluation
 remain the existing deferred/independently owned scope. No broad Effect rewrite
@@ -78,3 +78,7 @@ is corrected. Separate RC13 author grants are in `b21-native-01` and
 `b12-native-01`. Operators first return sufficient physical-preflight controls
 and exact layout facts. B12 may proceed independently after that prerequisite.
 At most two authors, one pass each, finite clocks and first-failure return.
+
+Control checkpoint: B12 actual RC13 native author started at 2026-11-14T16:19:44.332Z on pushed source df4d2cbca. B21 controls are accepted after the original-deadline and install-container corrections. Its exact resulting pushed control HEAD will be bound before launch. Both implementation proof results remain pending.
+
+The closed Install/Proof frame found qualification preparation still bound to RC1. The smallest selected follow-on is existing `test_env/qualification/build-resources.mjs` and `test_env/support/exact-candidate-qualification.mjs`, with one focused test: derive one exact candidate identity from the installed package/artifact/manifest joins; admit the existing pre-RC versus installed-RC subject kinds explicitly; bind concrete native auxiliary/protected inputs by digest and placement. Npm-only `dependencies.json` remains npm-only. Refresh generated classification, commands, predicates, expected output inventory and qualification resources once on composed source. This is preparation scope, not current execution or qualification evidence. The detailed conjoined findings are retained in `integration-01/QUALIFICATION_PREPARATION_FINDINGS.md`.

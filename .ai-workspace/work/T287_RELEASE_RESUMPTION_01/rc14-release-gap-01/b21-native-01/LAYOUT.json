@@ -1,0 +1,40 @@
+{
+  "worksite": "/private/tmp/abg-rc14-b21-20261115-01",
+  "writePaths": [
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/code/src/shared/physical_path_observation.ts",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/code/src/shared/physical_path_relation.ts",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/code/native",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/scripts/build-native.mjs",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/package.json",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/test_env/qualification/recipe/declared-commands.json",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t293-b21-physical-confinement.test.mjs",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t292-td85n-absent-protected-root.test.mjs",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+    "/private/tmp/abg-rc14-b21-20261115-01/build_tenants/abiogenesis/typescript/qualification-scratch/rc14-b21-native-01"
+  ],
+  "protectedRoots": [
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/sandbox/installed/abg",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/resources/events",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/resources/runtime",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/resources/projections",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/resources/archives",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant",
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13"
+  ],
+  "archiveRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/resources/archives"
+}
