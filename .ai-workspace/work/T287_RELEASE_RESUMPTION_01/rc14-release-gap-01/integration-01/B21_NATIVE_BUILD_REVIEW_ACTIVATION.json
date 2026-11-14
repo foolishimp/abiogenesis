@@ -1,7 +1,7 @@
 {
   "id": "RC14-B21-NATIVE-BUILD-REVIEW-001",
   "role": "Independent read-only native build/input/package Reviewer",
-  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#exact-basis",
   "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
   "frames": [
     "Product",
@@ -136,5 +136,6 @@
     "No edit/Git write/build/test/compile/provider",
     "No claim of Node20 execution from Node24 proof",
     "Do not adopt author gaps without source trace"
-  ]
+  ],
+  "referenceCorrection": "Initial delegated message used nonexistent f-install-proof fragment; original durable record copied physical-review fragment. Corrected to the actual Exact Basis import of Install/Proof families; purpose, subject and effects unchanged, Reviewer informed."
 }

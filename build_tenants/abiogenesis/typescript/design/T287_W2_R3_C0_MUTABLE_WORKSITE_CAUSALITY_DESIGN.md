@@ -827,7 +827,10 @@ and compensation remain unchanged.
 The exact Product archive contains its selected prebuilt member under
 `build/native/`, covered by existing payload, manifest and installed-byte
 checks. Offline installation with scripts disabled remains unchanged. Pin
-headers, compiler/linker, SDK, architecture, deployment target and flags.
+headers, compiler/linker and their mandatory non-system loaded libraries, SDK,
+architecture, deployment target and flags. Qualification executes these exact
+protected native inputs under the existing D4/D5 auxiliary-input HOW; copying
+unused inputs beside ambient compiler reads is insufficient.
 Compile before manifest generation in both ordinary build and the existing
 qualification recipe. Prove clean-location native byte equality and actual
 installed load/observation. No consumer compilation/download, host-selected

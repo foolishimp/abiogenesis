@@ -27,7 +27,7 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T17:36:23.329527+00:00",
+  "recordedUtc": "2026-11-14T17:45:23.297776+00:00",
   "nativeAuthorState": "B12 and B21 native authors returned successfully; actual resource close and fresh result/replay. No native author running.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
@@ -138,5 +138,11 @@
     "state": "CONTROLS_PREPARATION_ONLY",
     "scope": "Pre-read physical guard; helper directional policy; Default Testing and two semantic-job authenticated install inputs",
     "providerStarted": false
+  },
+  "qualificationPreparation": {
+    "activation": "qualification-preparation-01/ACTIVATION.json",
+    "state": "PREPARATION_SELECTED_NO_PROVIDER",
+    "scope": "Canonical exact RC/two-subject preparation; B32 native library closure and actual protected input consumption",
+    "rawEvidencePublished": false
   }
 }

@@ -1,0 +1,122 @@
+{
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26",
+    "bytes": 5769
+  },
+  "provider": {
+    "agent": "claude",
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "version": "2.1.322 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "providerCallsAtMost": 1,
+    "protocol": "Use existing actual Claude owner path. No Codex-as-Claude wrapper or new provider feature."
+  },
+  "id": "RC14-QUALIFICATION-PREPARATION-NATIVE-001",
+  "role": "Separate Operator for control/setup/proof; actual pinned RC13 native Writer owns implementation",
+  "operator": "/root/rc14_release_proof",
+  "decisionOwner": "Root under the owner-selected RC14 delivery and current fix RC14 instruction",
+  "sourceBinding": "Exact main HEAD containing this design/grant, committed and pushed, supplied by Root; controls must be accepted/pushed before native dispatch",
+  "sourceWorktree": "/private/tmp/abg-rc14-qualification-prep-20261115-01",
+  "sourceBranch": "codex/rc14-qualification-prep-20261115",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01",
+  "changeClass": "realization_refactor of existing candidate preparation and declared native build input closure",
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/scripts/build-native.mjs",
+    "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+    "build_tenants/abiogenesis/typescript/scripts/native-build",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/build-resources.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-qualification.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-identity.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/native-inputs.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/declared-commands.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t293-rc14-qualification-preparation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t293-native-build-inputs.test.mjs",
+    "build_tenants/abiogenesis/typescript/qualification-scratch/rc14-qualification-prep-01"
+  ],
+  "operatorWriteTerritory": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/qualification-preparation-01",
+    "/private/tmp/abg-rc14-qualification-prep-20261115-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01",
+    "local registration for this named branch/worktree"
+  ],
+  "operatorEffects": [
+    "Prepare one fresh sparse worktree at exact supplied pushed source and exact dependency/native input sets",
+    "Prepare thin maintained installed-Public setup and real RC13 native-work owner; reuse accepted topology and authenticated setup-manifest custody with fresh actual coordinates",
+    "Return exact controls/task/layout/clocks/case-selection plan to Root BEFORE provider dispatch",
+    "After accepted pushed controls, run one bounded native author; no Operator-authored source/tests",
+    "Freeze source and execute finite build/discriminator/proof in external raw-root mirrors; actual copy/relocation experiments are confined there",
+    "Commit authored source and compact proof/control Return on worker branch; no main/push; copied toolchain/header/dependency bytes remain local"
+  ],
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 3600000,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 7200000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 16777216,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "oldRc13CampaignClockReused": false,
+    "proofCampaignMs": 3600000,
+    "perBuildMs": 300000,
+    "perTestFileMs": 600000
+  },
+  "preflight": {
+    "state": "PREPARE_ONLY_RETURN_TO_ROOT_BEFORE_PROVIDER",
+    "observer": "Exact b21-native-01/physical-topology.py SHAeb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31; bounded controlled ASCII layouts only",
+    "required": "Fresh planned/actual W and archive disjoint from all binding/install roots, including installed ABI container. Original setup receipt, canonical manifest bytes and timestamps authenticate setup-owned delta. All other changes ordinary W."
+  },
+  "nativeInstructions": [
+    "One supported actual Claude native author only, Opus5.5 xhigh; no model/provider fallback, subagents or reviewer activation.",
+    "No native build/test/pack/install or Product execution; Operator owns proof. Read-only source/Git/compiler/header/library identity inspection is allowed; no Git mutations.",
+    "Read exact Product and owning accepted HOW. Existing qualification schemas, AF22/AF25 owners, npm-only dependency contract and fixed release namespace/profile/version-line remain unchanged.",
+    "Derive one canonical positive RC identity from exact installed package/manifest/verified artifact/content/install joins and release-claim bytes; remove RC1 couplings from export guards, claim refs, preparation and regeneration checks. Admit only existing pre_rc_candidate and installed_rc with explicit new preparation selection retained at reopening; no relabeling verdicts or hidden kind default.",
+    "Bind mandatory non-system linker libraries libtapi.dylib, libcodedirectory.dylib and libswiftDemangle.dylib and retain original193 rows. Actual host paths/hashes are inspectable inputs, not authority for future ambient fallback.",
+    "Keep existing qualification auxiliary shape; stage native bytes at exact collision-free relative paths preserving compiler bin/lib/resource, SDK and Node-header hierarchy. Npm-only dependencies.json is unchanged.",
+    "C2 snapshot writeFile drops executable permissions. Derive any executable view under the existing writable build territory, verify against protected bytes before/after actual compiler use, and set executable modes there. Do not chmod protected copies or original host toolchain.",
+    "Qualification native build must explicitly use the protected input set for compiler, -B linker, -isysroot SDK, compiler resource and includes; no accidental host header/library fallback. Ordinary declared producer mode may remain explicit; no consumer compilation or new installer/payload variant.",
+    "Preserve genuine missing/change/collision/refusal and closed output contracts. Retain original source lineage and frozen release claims; generated recipe/resources/expected output inventory refresh happens once later on final composed source.",
+    "Add focused meaningful tests for identity and actual input handling, including snapshot-style permission loss and cold missing/incompatible addon loading using disposable copies. New helpers within named scope are permitted; missing scope returns a gap before editing.",
+    "No production C/TS owner change, package version/engine change, native download, dependency installation, Product schema change, whole-tree reformat, or broad test campaign by native Writer. Return one source/gaps report and stop editing."
+  ],
+  "proof": [
+    "First cheap whole-file new qualification-preparation and native-input discriminators after one normal candidate build, exact case-name populations",
+    "Canonical RC14 and another ordinal; malformed/zero/noncanonical identity and package/manifest/artifact/content/claim/stale-resource mismatches; changed claim changes exact basis; explicit distinct pre_rc_candidate and installed_rc bases",
+    "Native input missing/changed/collision negatives before execution, exact protected placement and no host fallback; preserve source and protected byte inventories",
+    "Two real clean-location builds from protected inputs after snapshot-style mode loss; byte-equal native output. Record OS/Node substrate separately, do not claim whole-machine closure",
+    "Candidate archive/offline ignore-scripts install byte equality, actual installed native load/owner observation, and cold-process missing/incompatible addon existing refusal on disposable candidate copies",
+    "Relevant existing qualification law/contraction/installed-conservation populations chosen prospectively without repeating passing populations; exact existing skip prerequisites explicit",
+    "One provider author session only. Any proof provider case remains gated unless separately selected; actual author resource close and fresh result/replay required",
+    "Finite original host2h, native1h/5min inactivity, proof1h clipped to original host deadline with cleanup reserve; first failure returns, no retry or reset",
+    "Generated final-source inventories and native qualification/S07 are not executed or claimed in this preparation slice; return exact next commands and residuals"
+  ],
+  "exclusions": [
+    "No Operator production/test implementation",
+    "No immutable pinned RC13, original host toolchain, dependency or original reviewed B21 mutation",
+    "No Product/runtime/Public or qualification schema change, package version/engine change, new provider capability or native source observer changes",
+    "No raw toolchain/SDK/header copies, captures, archives, inventories of copied trees or LFS uploaded; authored compact pins/provenance are allowed",
+    "No main merge/push by worker, no other refs/force",
+    "No broad native qualification, release publication or human acceptance",
+    "No native/provider/test/build retries after failure without fresh Root triage"
+  ],
+  "admission": "Owner RC13-built RC14 mandate; closed exact-candidate preparation frame and independent B21 native build review; Root conjoined Product/Design/Identity/Install/Effect/Proof in TRIAGE.md and accepted owning HOW supplement.",
+  "targetTruth": "Existing preparation tools construct exact canonical candidate identities and explicit existing subject kinds; the native recipe executes the declared protected toolchain bytes without ambient fallback",
+  "selection": "TRIAGE.md",
+  "owningDesign": [
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md"
+  ],
+  "returnTo": "Root Executive, exact frozen source and bounded results/gaps; stop at first failure or completed return",
+  "recordedUtc": "2026-11-14T17:45:23.297192+00:00"
+}

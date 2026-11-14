@@ -230,6 +230,48 @@ sole AF22 conserve the body; absent or incomplete material cannot authorize a
 green verdict. AF25 copies the exact body without reevaluation. Historical
 missing fields remain representable without backfilling old Results.
 
+### RC14 exact candidate preparation and native auxiliary inputs
+
+This bounded preparation correction uses the current Definition-selected STDO
+basis and the existing two-subject qualification contract. It changes no Product,
+Public family, runtime owner or qualification schema. The RC14 triage is
+[qualification-preparation-01](../../../../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/qualification-preparation-01/TRIAGE.md).
+
+The maintained preparation tools derive one prospective identity from the exact
+installed package, Product manifest, verified artifact/content and admitted
+install joins. Accept only canonical positive `5.0.0-rc.<n>` identities; preserve
+assigned namespace, profile, subtree and version-line. Claim refs and release
+claim bytes belong to that identity. Reject mismatched or stale material before
+resource generation/admission. Explicitly bind the existing subject kind in new
+preparation and preserve it through reopening. A fresh installed-RC basis and
+verdict are distinct from pre-RC evidence; no relabeling or hidden kind default.
+
+The native build declaration binds compiler/linker, their mandatory non-system
+loaded libraries, headers, SDK, architecture, deployment target and flags.
+OS/system-loader libraries and the declared executing Node remain the recorded
+supported host substrate; no complete-machine snapshot is asserted. Existing
+recipe auxiliary inputs bind the exact native bytes, lengths and collision-free
+relative placement while npm-only dependency data remains npm-only. Preserve
+required bin/lib, compiler-resource, SDK and Node-header hierarchy. The recipe's
+actual compiler and every selected native path/flag consume those protected
+inputs; ambient original host paths are not a fallback or duplicate proof.
+
+C2 snapshots carry file bytes without executable-mode authority. Where needed,
+the build command derives a fresh execution view under its existing writable
+build territory, verifies it against the protected input bytes and establishes
+required executable permissions there. It never modifies protected input
+copies or the host toolchain. Preserve input/currentness and output/cleanup
+checks around compilation; uncertain, missing, changed or colliding inputs
+refuse through the preparation/build failure boundary.
+
+Prove actual relocated execution after snapshot-style mode loss and two-location
+native byte equality, plus missing/changed inputs and exact installed load.
+Existing generated comparison still covers every generated member. Refresh
+classification, commands/predicates, expected outputs and qualification carriers
+once on composed final source, inventory last, preserving acyclic lineage.
+These preparation checks do not replace the required native qualification,
+independent judgments, release effect or actual human acceptance.
+
 ## 6. Concrete source cone and integration dependencies
 
 Paths below are relative to the TypeScript tenant. These owners realize the accepted relation under a separately scoped implementation grant; shared ownership is retained rather than copied into fixture logic.

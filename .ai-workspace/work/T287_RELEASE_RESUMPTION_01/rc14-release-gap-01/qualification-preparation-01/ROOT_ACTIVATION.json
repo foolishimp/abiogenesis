@@ -1,0 +1,35 @@
+{
+  "id": "RC14-QUALIFICATION-ROOT-DESIGN-CONTROLS-001",
+  "role": "Separate Root design/control Writer, then return to Executive",
+  "recordedUtc": "2026-11-14T17:41:24.500934+00:00",
+  "authority": "Owner selected RC13-built RC14 to close existing5.0 release gap; current fix RC14 instruction; earlier closed Install/Proof preparation findings",
+  "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#exact-basis",
+  "sourceCheckpoint": "917085a01b701a979de59e426b3553782bbf78f6",
+  "purpose": "Conjoin exact candidate preparation and native-input closure; supply bounded HOW and a separate RC13-native implementation grant",
+  "writeTerritory": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/qualification-preparation-01",
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/STATUS.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/PLAN.md",
+    ".ai-workspace/tickets/active/T-293-qa-findings-of-the-consolidation-wave.md"
+  ],
+  "effects": [
+    "Write bounded preparation HOW and triage without changing Product/requirements/Public schema",
+    "Create separate native Operator/Writer activation and prospective proof",
+    "Commit authored design/controls and push main normally before native implementation"
+  ],
+  "stops": [
+    "Unresolved Product change or new qualification schema/authority required",
+    "Unbound source/build proof subject",
+    "Non-fast-forward publication"
+  ],
+  "exclusions": [
+    "No Product/test/build implementation by Root Writer",
+    "No raw inputs, archives, copied SDK/compiler files or captures published",
+    "No native author dispatch until exact controls accepted",
+    "No formal qualification execution or release acceptance/publication"
+  ]
+}

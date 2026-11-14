@@ -70,6 +70,8 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | B-31 | F04-A valid probabilistic-result candidate tests return refusal: two failures after 68 completed files | Exact a2626fa54 broad-04 file069, checkpoint-20261114-01/broad-04 | S4 | Technical repair closed | RC13-built five-fixture repair aa1856315 accepted and integrated through 2c12d65d3. 82 unique passing cases/83 executions, independent source QA no actionable findings; production guards retained. Duplicate discriminator and native read-only Git deviation preserved. No RC14 archive/broad/release claim. `rc14-release-gap-01/b31-integration-01/README.md` |
 
+| B-32 | Native build closure omits three mandatory linker libraries; qualification auxiliaries do not yet drive the actual native compiler paths | B21 independent Install/Proof review of ad6c195f5; RC14 qualification-preparation triage | S2 | P1 before cut | Selected bounded native-input and existing qualification-preparation repair. Original193 inputs, binary equality and5298 archive/install rows verified; relocation, missing/changed inputs and composed resource refresh remain open. `rc14-release-gap-01/qualification-preparation-01/TRIAGE.md` |
+
 ## Schedule
 
 | When | Items |
