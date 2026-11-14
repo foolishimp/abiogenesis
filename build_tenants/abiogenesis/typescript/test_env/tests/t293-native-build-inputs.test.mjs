@@ -51,6 +51,45 @@ const evidence = { runs: [], negatives: [] };
 const firstLine = text => String(text).split('\n').map(line => line.trim()).find(line => line !== '') ?? '';
 const absent = async path => { try { await lstat(path); return false; } catch (error) { if (error.code === 'ENOENT') return true; throw error; } };
 
+// Child custody. When the Operator selects ABI5_NATIVE_BUILD_PROOF_RECORD, one fresh directory below the record's
+// parent (the external proof scratch) receives every actual child request, its exact stdout/stderr bytes and its
+// status/error/signal/duration, plus the material classification observations, each written create-only before any
+// assertion over it, so a first failure keeps them. These are partial observations; the successful
+// native_relocation_proof conjunction stays the separate record written last. Unrecorded runs keep nothing.
+const RECORD_PATH = RECORD === undefined || RECORD === '' ? null : resolve(RECORD);
+if (RECORD_PATH !== null) await mkdir(dirname(RECORD_PATH), { recursive: true });
+const CUSTODY = RECORD_PATH === null ? null : await realpath(await mkdtemp(join(dirname(RECORD_PATH), 'native-input-children-')));
+let custodySequence = 0;
+const slug = text => String(text).toLowerCase().replace(/[^a-z0-9]+/gu, '-').replace(/^-|-$/gu, '').slice(0, 64);
+/** Retains one observation (and any raw byte streams beside it) create-only; returns its actual path, or null. */
+async function retain(testCase, label, value, streams = {}) {
+  if (CUSTODY === null) return null;
+  const sequence = ++custodySequence, base = join(CUSTODY, `${String(sequence).padStart(3, '0')}-${slug(testCase)}-${slug(label)}`), files = {};
+  for (const [name, bytes] of Object.entries(streams)) {
+    if (bytes === null) { files[name] = null; continue; }
+    await writeFile(`${base}.${name}`, bytes, { flag: 'wx' });
+    files[name] = { path: `${base}.${name}`, bytes: bytes.length, sha256: sha256Bytes(bytes) };
+  }
+  await writeFile(base + '.json', JSON.stringify({ sequence, case: testCase, label, custody: CUSTODY, ...value, streams: files }, null, 2) + '\n', { flag: 'wx' });
+  return base + '.json';
+}
+const errorValue = error => error == null ? null
+  : { code: error.code ?? null, errno: error.errno ?? null, syscall: error.syscall ?? null, path: error.path ?? null, message: String(error.message ?? error) };
+/** One actual child process; its request, exact output bytes and result are retained before the caller sees them. */
+async function spawnRetained(testCase, label, executable, args, options) {
+  const started = performance.now();
+  const result = spawnSync(executable, args, { ...options, encoding: 'buffer' });
+  const durationMs = Math.round(performance.now() - started);
+  const custody = await retain(testCase, label, {
+    request: { executable, argv: [executable, ...args], cwd: options.cwd ?? process.cwd(), env: options.env ?? null, timeoutMs: options.timeout ?? null, maxBuffer: options.maxBuffer ?? null },
+    result: { pid: result.pid ?? null, status: result.status, signal: result.signal, error: errorValue(result.error), durationMs } },
+  { stdout: result.stdout ?? null, stderr: result.stderr ?? null });
+  return { pid: result.pid, status: result.status, signal: result.signal, error: result.error, argv: [executable, ...args], durationMs, custody,
+    stdout: result.stdout == null ? null : result.stdout.toString('utf8'), stderr: result.stderr == null ? null : result.stderr.toString('utf8') };
+}
+/** A defensive read for retained observations only; assertions still read and judge the actual values. */
+const observe = async read => { try { return await read(); } catch (error) { return { unavailable: error.code ?? String(error) }; } };
+
 /** One inventory digest of the declared host rows as they are now (paths, bytes, lengths, modes). */
 async function hostDigest() {
   const members = [];
@@ -85,12 +124,10 @@ async function stagePackage(root, placement) {
   return root;
 }
 
-/** The declared recipe command, exactly: executable, arguments, cwd and closed environment. */
-function runDeclared(root, args = BUILD.args) {
-  const started = performance.now();
-  const result = spawnSync(BUILD.executable, args, { cwd: join(root, BUILD.relativeCwd), env: { ...BUILD.environment }, encoding: 'utf8',
+/** The declared recipe command, exactly: executable, arguments, cwd and closed environment; retained as one child. */
+function runDeclared(testCase, label, root, args = BUILD.args) {
+  return spawnRetained(testCase, label, BUILD.executable, args, { cwd: join(root, BUILD.relativeCwd), env: { ...BUILD.environment },
     timeout: BUILD.timeoutMs, maxBuffer: 1 << 24 });
-  return { ...result, argv: [BUILD.executable, ...args], durationMs: Math.round(performance.now() - started) };
 }
 
 // --- Mach-O load commands (read only) ---------------------------------------------------------------------------
@@ -125,6 +162,31 @@ function loadCommands(slice) {
   return { dylibs, rpaths };
 }
 const systemLibrary = name => name.startsWith('/usr/lib/') || name.startsWith('/System/Library/');
+
+// --- Linker trace classification (read only) ----------------------------------------------------------------------
+/** The install names and re-exported libraries one text-based stub (.tbd) declares, read from its exact bytes. */
+function stubDeclaredNames(text) {
+  const names = new Set();
+  let reexports = false;
+  for (const line of text.split('\n')) {
+    if (/^[^\s-]/u.test(line)) reexports = line.startsWith('reexported-libraries:');
+    const install = /^install-name:\s*'?([^'\s]+)'?\s*$/u.exec(line);
+    if (install !== null) names.add(install[1]);
+    if (reexports) for (const [, name] of line.matchAll(/'(\/[^']+)'/gu)) names.add(name);
+  }
+  return names;
+}
+/**
+ * One `-Wl,-t` display name as exactly one of: the work object; an exact protected acquisition (a bound row at its
+ * protected placement); an OS install name or re-export declared by a protected SDK stub the same trace acquired;
+ * the accepted OS/system-loader substrate (the exact OS libraries named by the executed toolchain members' own load
+ * commands); otherwise unknown, which refuses. A display name alone, existing on the host or not, is not a read.
+ */
+const classifyTraceEntry = (path, { object, protectedRoot, placedRelative, declaredBySdk, substrate }) =>
+  path === object ? 'work'
+    : within(path, protectedRoot) ? (placedRelative.has(path.slice(protectedRoot.length + 1)) ? 'protected' : 'unknown')
+      : systemLibrary(path) && declaredBySdk.has(path) ? 'sdk-declared'
+        : systemLibrary(path) && substrate.has(path) ? 'system-substrate' : 'unknown';
 
 test('mandatory native closure and hierarchy are exact', async () => {
   // The linker's actual @rpath closure is exactly the four bound libraries; they and the compiler load only OS libraries.
@@ -191,12 +253,17 @@ test('mandatory native closure and hierarchy are exact', async () => {
   assert.equal(SOURCES.npm, dependencies.dependencies.length);
   assert.ok(dependencies.dependencies.every(row => row.path.startsWith('qualification-inputs/dependencies/') && row.path.endsWith('.tgz')),
     'dependencies.json stays npm-only');
-  assert.equal(SOURCES.sourceOf(dependencies.dependencies[0]), join(scratch, 'dependencies', basename(dependencies.dependencies[0].path)));
+  // sourceOf consumes the auxiliary carrier {relativePath,digest,byteCount}, which the preparation builds from each
+  // dependency row; the dependency declaration row ({path,...}) is not that carrier and keeps refusing.
+  const dependency = dependencies.dependencies[0];
+  const dependencyCarrier = { relativePath: dependency.path, digest: dependency.digest, byteCount: dependency.byteCount };
+  assert.equal(SOURCES.sourceOf(dependencyCarrier), join(scratch, 'dependencies', basename(dependency.path)));
+  assert.throws(() => SOURCES.sourceOf(dependency), /no single declared source/);
   assert.throws(() => SOURCES.sourceOf({ relativePath: ROOT + '/sdk/MacOSX.sdk/usr/include/abi5-undeclared.h' }), /no single declared source/);
   await assert.rejects(recipeAuxiliarySources({ dependencyRoot: 'relative/dependencies' }), /one absolute path/);
 });
 
-test('missing changed and colliding native inputs refuse before execution', async () => {
+test('missing changed and colliding native inputs refuse before execution', async t => {
   // Declaration law, before anything is read or placed.
   const host = name => join(dirname(toolchain.toolchainBin), 'lib', name);
   const sdkRow = rows.find(row => row.relativePath.startsWith('sdk/MacOSX.sdk/usr/include/') && /^[a-z_]+\.h$/.test(basename(row.hostPath)));
@@ -247,10 +314,12 @@ test('missing changed and colliding native inputs refuse before execution', asyn
   // before any build territory exists, although every host input is present and unchanged.
   const root = await stagePackage(join(scratch, 'refusals'), 'clone'), placed = join(root, ROOT), aside = join(scratch, 'refusals-aside');
   await mkdir(aside);
-  const verified = runDeclared(root, ['scripts/build-native.mjs', '--verify-inputs', '--protected-inputs']);
+  const verified = await runDeclared(t.name, 'verify placed inputs', root, ['scripts/build-native.mjs', '--verify-inputs', '--protected-inputs']);
+  const verifiedBuildAbsent = await absent(join(root, 'build'));
+  await retain(t.name, 'verify placed inputs observed', { child: verified.custody, buildTerritoryAbsent: verifiedBuildAbsent });
   assert.equal(verified.status, 0, verified.stderr);
   assert.match(verified.stdout, /protected native inputs verified: 196 files under qualification-inputs\/native/);
-  assert.ok(await absent(join(root, 'build')), 'verification creates no build territory');
+  assert.ok(verifiedBuildAbsent, 'verification creates no build territory');
   const header = sdkRow.relativePath, library = relativeOf(host('libswiftDemangle.dylib')), tapi = relativeOf(host('libtapi.dylib'));
   const moveAside = async relative => { await rename(join(placed, relative), join(aside, 'member')); return () => rename(join(aside, 'member'), join(placed, relative)); };
   const cases = [
@@ -271,19 +340,22 @@ test('missing changed and colliding native inputs refuse before execution', asyn
   for (const [name, mutate, member] of cases) {
     const restore = await mutate();
     let refused;
-    try { refused = runDeclared(root); } finally { await restore(); }
+    try { refused = await runDeclared(t.name, name, root); } finally { await restore(); }
+    const buildAbsent = await absent(join(root, 'build'));
+    await retain(t.name, name + ' observed', { child: refused.custody, member, exitCode: refused.status, refusal: firstLine(refused.stderr ?? ''),
+      namesMember: (refused.stderr ?? '').includes(member), buildTerritoryAbsent: buildAbsent });
     assert.equal(refused.error, undefined, String(refused.error));
     assert.equal(refused.status, 1, `${name}: ${refused.stdout}${refused.stderr}`);
     assert.match(refused.stderr, /^native build refused: declared native inputs changed or missing:/, name);
     assert.ok(refused.stderr.includes(member), `${name} names ${member}: ${refused.stderr}`);
-    assert.ok(await absent(join(root, 'build')), name + ': refused before the build territory or any compiler use');
+    assert.ok(buildAbsent, name + ': refused before the build territory or any compiler use');
     evidence.negatives.push({ case: name, exitCode: refused.status, refusal: firstLine(refused.stderr), buildTerritoryCreated: false });
   }
-  const restored = runDeclared(root, ['scripts/build-native.mjs', '--verify-inputs', '--protected-inputs']);
+  const restored = await runDeclared(t.name, 'verify restored inputs', root, ['scripts/build-native.mjs', '--verify-inputs', '--protected-inputs']);
   assert.equal(restored.status, 0, 'every refusal case was restored: ' + restored.stderr);
 });
 
-test('protected placement rewrites every compiler input without ambient fallback', async () => {
+test('protected placement rewrites every compiler input without ambient fallback', async t => {
   // The rewrite relation over arbitrary roots: every host root replaced, nothing appended from the host.
   const P = '/abi5-protected/qualification-inputs/native', E = '/abi5-package/build/.native-build/inputs';
   const command = protectedCommand(inputs, { protectedRoot: P, executionRoot: E });
@@ -324,12 +396,14 @@ test('protected placement rewrites every compiler input without ambient fallback
   await assert.rejects(deriveExecutionView(protectedRoot, executionRoot, fixtureRows), /execution view already exists/);
   const actual = protectedCommand(fixtureInputs, { protectedRoot, executionRoot });
   const work = join(root, 'build/.native-build'), object = join(work, 'abg_physical_path.o'), linked = join(work, 'abg_physical_path.node');
-  const compile = args => spawnSync(actual.compiler, args, { cwd: work, env: { ...actual.environment, TMPDIR: work }, encoding: 'utf8', timeout: 120000, maxBuffer: 1 << 24 });
+  const compile = (label, args) => spawnRetained(t.name, label, actual.compiler, args, { cwd: work, env: { ...actual.environment, TMPDIR: work }, timeout: 120000, maxBuffer: 1 << 24 });
   const placedRelative = new Set(fixtureRows.map(row => row.relativePath));
 
-  const listed = compile([...actual.compileArgs, '-M', fixtureInputs.sourcePath]);
+  const listed = await compile('compiler dependency list', [...actual.compileArgs, '-M', fixtureInputs.sourcePath]);
+  const dependencies = (listed.stdout ?? '').replace(/\\\n/g, ' ').replace(/\\ /g, '\u0000').split(/\s+/).slice(1).filter(Boolean).map(path => path.replace(/\u0000/g, ' '));
+  await retain(t.name, 'compiler dependency classification', { child: listed.custody, protectedRoot, sourcePath: fixtureInputs.sourcePath,
+    dependencies: dependencies.map(path => ({ path, protected: within(path, protectedRoot), boundRow: within(path, protectedRoot) && placedRelative.has(path.slice(protectedRoot.length + 1)) })) });
   assert.equal(listed.status, 0, listed.stderr);
-  const dependencies = listed.stdout.replace(/\\\n/g, ' ').replace(/\\ /g, '\u0000').split(/\s+/).slice(1).filter(Boolean).map(path => path.replace(/\u0000/g, ' '));
   assert.equal(dependencies[0], fixtureInputs.sourcePath);
   for (const path of dependencies.slice(1)) {
     assert.ok(within(path, protectedRoot), 'compiler input outside the protected placement: ' + path);
@@ -337,18 +411,52 @@ test('protected placement rewrites every compiler input without ambient fallback
   }
   for (const prefix of [actual.sdk, actual.include, actual.resourceDir]) assert.ok(dependencies.some(path => within(path, prefix)), 'headers from ' + prefix);
 
-  const compiled = compile([...actual.compileArgs, '-o', object, fixtureInputs.sourcePath]);
+  const compiled = await compile('compile object', [...actual.compileArgs, '-o', object, fixtureInputs.sourcePath]);
   assert.equal(compiled.status, 0, compiled.stderr);
-  const trace = compile([...actual.linkArgs, '-Wl,-t', '-o', linked, object]);
+  const trace = await compile('link trace', [...actual.linkArgs, '-Wl,-t', '-o', linked, object]);
+
+  // Classify every display name before judging any: exact protected acquisitions; OS names declared by the exact
+  // protected SDK stubs this trace acquired (their bytes are the pinned rows); the accepted OS/system-loader substrate
+  // the executed toolchain members load; anything else is unknown and refuses.
+  const displayed = `${trace.stdout ?? ''}\n${trace.stderr ?? ''}`.split('\n').map(line => line.trim()).filter(line => line.startsWith('/'));
+  const loaded = displayed.map(line => line.replace(/\(.*\)$/u, ''));
+  const bound = new Map(fixtureRows.map(row => [row.relativePath, row]));
+  const stubs = [], declaredBySdk = new Set(), substrate = new Set();
+  for (const path of new Set(loaded)) {
+    const row = within(path, protectedRoot) ? bound.get(path.slice(protectedRoot.length + 1)) : undefined;
+    if (row === undefined || !path.endsWith('.tbd') || !within(path, actual.sdk)) continue;
+    const bytes = await readFile(path), names = sha256Bytes(bytes) === row.sha256 ? stubDeclaredNames(bytes.toString('utf8')) : new Set();
+    for (const name of names) declaredBySdk.add(name);
+    stubs.push({ path, sha256: sha256Bytes(bytes), pinned: row.sha256, declaredNames: names.size });
+  }
+  for (const row of fixtureRows.filter(row => row.execution)) {
+    const slice = arm64Slice(await readFile(join(executionRoot, row.relativePath)));
+    if (slice !== null) for (const name of loadCommands(slice).dylibs) if (systemLibrary(name)) substrate.add(name);
+  }
+  const context = { object, protectedRoot, placedRelative, declaredBySdk, substrate };
+  const entries = [];
+  for (const [index, path] of loaded.entries()) {
+    const kind = classifyTraceEntry(path, context);
+    entries.push({ display: displayed[index], path, class: kind, ...(kind === 'work' || kind === 'protected' ? {} : { entryPresent: await observe(async () => !(await absent(path))) }) });
+  }
+  const count = kind => entries.filter(entry => entry.class === kind).length;
+  const unknown = entries.filter(entry => entry.class === 'unknown');
+  const classification = await retain(t.name, 'linker trace classification', { child: trace.custody, object, protectedRoot, executionRoot, sdk: actual.sdk,
+    stubs, declaredBySdk: [...declaredBySdk].sort(), substrate: [...substrate].sort(), entries,
+    counts: { work: count('work'), protected: count('protected'), sdkDeclared: count('sdk-declared'), systemSubstrate: count('system-substrate'), unknown: unknown.length } });
   assert.equal(trace.status, 0, trace.stderr);
-  const loaded = `${trace.stdout}\n${trace.stderr}`.split('\n').map(line => line.trim()).filter(line => line.startsWith('/')).map(line => line.replace(/\(.*\)$/u, ''));
-  const read = [];
-  for (const path of loaded) if (!(await absent(path))) read.push(path);
-  assert.ok(read.some(path => within(path, actual.sdk)), 'the linker reads the protected SDK: ' + loaded.join(', '));
-  for (const path of read) assert.ok(path === object || within(path, protectedRoot), 'linker read outside the protected placement: ' + path);
+  assert.ok(entries.some(entry => entry.class === 'protected' && within(entry.path, actual.sdk)), 'the linker reads the protected SDK: ' + loaded.join(', '));
+  assert.ok(stubs.every(stub => stub.sha256 === stub.pinned), 'acquired SDK stubs are their pinned bytes: ' + JSON.stringify(stubs));
+  assert.deepEqual(unknown.map(entry => entry.path), [], 'linker entry outside the protected placement, the declared SDK names and the system substrate');
+  // Discriminators of the classification: a host-root acquisition, a non-system external entry, an undeclared OS
+  // name and an unbound path inside the protected placement all remain unknown, whether or not they exist.
+  for (const path of [join(toolchain.sdk, 'usr/lib/libSystem.tbd'), join(toolchain.nodeApiInclude, 'node_api.h'), '/opt/homebrew/lib/libabi5-external.dylib',
+    '/usr/lib/system/libabi5_undeclared.dylib', join(protectedRoot, 'sdk/MacOSX.sdk/usr/lib/libabi5-unbound.tbd')])
+    assert.equal(classifyTraceEntry(path, context), 'unknown', path);
   const final = await verifyPlacedRows(executionRoot, fixtureRows.filter(row => row.execution));
   assert.equal(final.digest, derived.digest, 'compiler use leaves the view unchanged');
-  evidence.dependencyTrace = { compilerInputs: dependencies.length - 1, linkerReads: read.length, outsideProtected: 0 };
+  evidence.dependencyTrace = { compilerInputs: dependencies.length - 1, linkerReads: count('work') + count('protected'), outsideProtected: unknown.length,
+    sdkDeclaredNames: count('sdk-declared'), systemSubstrate: count('system-substrate'), classification };
 });
 
 const MODE_BITS = 0o7777;
@@ -370,23 +478,30 @@ async function treeOf(root) {
   return out;
 }
 
-test('snapshot mode loss permits two byte equal relocated native builds', async () => {
+test('snapshot mode loss permits two byte equal relocated native builds', async t => {
   assert.ok(BUILD !== undefined && BUILD.args.join(' ') === 'scripts/build-native.mjs --protected-inputs', 'the recipe declares the protected build');
   const ordinaryBytes = await readFile(ORDINARY), ordinary = { path: ORDINARY, bytes: ordinaryBytes.length, sha256: sha256Bytes(ordinaryBytes) };
   evidence.ordinary = ordinary;
   for (const name of ['relocation-a', 'relocation-b']) {
     const root = await stagePackage(join(scratch, name), 'snapshot');
     const modes = await placedModes(root);
-    assert.equal(modes.length, 1, 'one snapshot mode: ' + modes.map(mode => mode.toString(8)).join(','));
-    assert.equal(modes[0] & 0o111, 0, 'the snapshot carries no executable mode');
     const placedCompiler = join(root, ROOT, relativeOf(toolchain.clang));
-    const direct = spawnSync(placedCompiler, ['--version'], { encoding: 'utf8', env: {} });
-    assert.equal(direct.error?.code, 'EACCES', 'the protected compiler copy itself is not executable');
+    const direct = await spawnRetained(t.name, name + ' protected compiler direct', placedCompiler, ['--version'], { env: {} });
     const sourceBefore = await digestsOf(root, PACKAGE_FILES), hostBefore = await hostDigest();
     const protectedBefore = await verifyPlacedRows(join(root, ROOT), rows);
+    await retain(t.name, name + ' before', { root, snapshotModes: modes, directChild: direct.custody, sourceBefore, hostBefore,
+      protectedBeforeDigest: protectedBefore.digest, protectedBeforeFailures: protectedBefore.failures });
+    assert.equal(modes.length, 1, 'one snapshot mode: ' + modes.map(mode => mode.toString(8)).join(','));
+    assert.equal(modes[0] & 0o111, 0, 'the snapshot carries no executable mode');
+    assert.equal(direct.error?.code, 'EACCES', 'the protected compiler copy itself is not executable');
     assert.deepEqual(protectedBefore.failures, []);
 
-    const run = runDeclared(root);
+    const run = await runDeclared(t.name, name + ' protected build', root);
+    const outputPath = join(root, inputs.output), protectedAfter = await verifyPlacedRows(join(root, ROOT), rows);
+    await retain(t.name, name + ' observed', { root, child: run.custody, exitCode: run.status, signal: run.signal, error: errorValue(run.error),
+      output: await observe(async () => { const bytes = await readFile(outputPath); return { path: outputPath, bytes: bytes.length, sha256: sha256Bytes(bytes), equalsOrdinary: bytes.equals(ordinaryBytes) }; }),
+      buildTree: await observe(() => treeOf(join(root, 'build'))), placedModesAfter: await observe(() => placedModes(root)),
+      protectedAfterDigest: protectedAfter.digest, protectedAfterFailures: protectedAfter.failures });
     assert.equal(run.error, undefined, String(run.error));
     assert.equal(run.signal, null);
     assert.equal(run.status, 0, run.stderr);
@@ -409,24 +524,30 @@ test('snapshot mode loss permits two byte equal relocated native builds', async 
     assert.equal(report.protectedMembers, rows.length);
     assert.equal(report.executionMembers, executionRows.length);
 
-    const outputPath = join(root, inputs.output), output = await readFile(outputPath);
+    const output = await readFile(outputPath);
     assert.deepEqual(report.output, { path: outputPath, bytes: output.length, sha256: sha256Bytes(output) });
     assert.ok(output.equals(ordinaryBytes), name + ' output equals the ordinary build output');
     assert.deepEqual(await treeOf(join(root, 'build')), ['native/', 'native/abg_physical_path.node'], 'closed build output; the execution view is gone');
     assert.deepEqual(await placedModes(root), modes, 'protected copies keep their snapshot mode');
-    const protectedAfter = await verifyPlacedRows(join(root, ROOT), rows);
-    evidence.runs.push({ name, root, report, run: { argv: run.argv, cwd: join(root, BUILD.relativeCwd), exitCode: run.status, signal: run.signal, durationMs: run.durationMs },
+    const entry = { name, root, report, run: { argv: run.argv, cwd: join(root, BUILD.relativeCwd), exitCode: run.status, signal: run.signal, durationMs: run.durationMs },
       snapshotInputMode: modes[0], sourceBefore, sourceAfter: await digestsOf(root, PACKAGE_FILES), hostBefore, hostAfter: await hostDigest(),
-      protectedBefore: protectedBefore.digest, protectedAfter: protectedAfter.digest, protectedAfterFailures: protectedAfter.failures });
+      protectedBefore: protectedBefore.digest, protectedAfter: protectedAfter.digest, protectedAfterFailures: protectedAfter.failures };
+    await retain(t.name, name + ' run evidence', entry);
+    evidence.runs.push(entry);
   }
   assert.notEqual(evidence.runs[0].root, evidence.runs[1].root);
   assert.equal(evidence.runs[0].report.output.sha256, evidence.runs[1].report.output.sha256, 'two relocated builds are byte equal');
 });
 
-test('relocated build preserves original protected and execution bytes', async () => {
-  assert.equal(evidence.runs.length, 2, 'both relocated builds ran');
+test('relocated build preserves original protected and execution bytes', async t => {
+  // The build's reported execution-view digests are its receipts from before and after compiler use; the view is
+  // removed by the build's own cleanup and is not rehashed here.
   const expectedExecution = inventoryDigest(executionRows.map(row => ({ relativePath: row.relativePath, sha256: row.sha256,
     byteCount: byteCountOf.get(row.relativePath), mode: EXECUTION_VIEW_MODE })));
+  const candidateSourceAfter = await digestsOf(TENANT, PACKAGE_FILES);
+  await retain(t.name, 'conjunction premises', { runs: evidence.runs.length, expectedExecutionDigest: expectedExecution, candidateSourceBefore: tenantSourceBefore,
+    candidateSourceAfter, negatives: evidence.negatives.length, dependencyTrace: evidence.dependencyTrace ?? null });
+  assert.equal(evidence.runs.length, 2, 'both relocated builds ran');
   const bare = /^[0-9a-f]{64}$/u;
   for (const entry of evidence.runs) {
     const { report } = entry;
@@ -443,7 +564,7 @@ test('relocated build preserves original protected and execution bytes', async (
       assert.match(digest, bare);
   }
   assert.equal(evidence.runs[0].protectedBefore, evidence.runs[1].protectedBefore, 'both roots placed one protected inventory');
-  assert.deepEqual(await digestsOf(TENANT, PACKAGE_FILES), tenantSourceBefore, 'the candidate source is unchanged');
+  assert.deepEqual(candidateSourceAfter, tenantSourceBefore, 'the candidate source is unchanged');
   assert.equal(evidence.runs[0].hostBefore, evidence.runs[1].hostAfter);
   assert.ok(evidence.negatives.length >= 11 && evidence.dependencyTrace?.outsideProtected === 0, 'the ambient-fallback negatives ran first');
 
@@ -465,6 +586,7 @@ test('relocated build preserves original protected and execution bytes', async (
     candidateSourceConserved: true,
     dependencyTrace: evidence.dependencyTrace,
     ambientFallbackNegatives: evidence.negatives,
+    childCustody: CUSTODY,
   };
   const path = resolve(RECORD);
   await mkdir(dirname(path), { recursive: true });
@@ -474,7 +596,7 @@ test('relocated build preserves original protected and execution bytes', async (
 // --- Cold candidate copies -------------------------------------------------------------------------------------
 const SUPPORT = pathToFileURL(join(TENANT, 'test_env/support/t287-generic-job-worksite.mjs')).href;
 /** One fresh Node process over the copy: public import, then the existing owner's write-root check (read only). */
-async function coldOwner(copy, label) {
+async function coldOwner(copy, label, testCase) {
   const caseRoot = await realpath(await mkdtemp(join(scratch, 'cold-' + label + '-')));
   const script = `
 import { existsSync, lstatSync, mkdirSync, readdirSync } from 'node:fs';
@@ -496,7 +618,7 @@ const native = observation.physicalPathNative();
 console.log(JSON.stringify({ buildRoot: support.buildRoot, publicExports: Object.keys(publicProduct).length, publicDigest: publicProduct.sha256Canonical({ cold: true }),
   refusal, native: typeof native === 'string' ? native : { target: { ...native.target } }, before, after, installPresent: existsSync(join(env.scratch, 'install')) }));
 `;
-  const result = spawnSync(process.execPath, ['--input-type=module', '-e', script], { cwd: caseRoot, encoding: 'utf8', timeout: 120000,
+  const result = await spawnRetained(testCase, 'cold owner ' + label, process.execPath, ['--input-type=module', '-e', script], { cwd: caseRoot, timeout: 120000,
     env: { PATH: process.env.PATH ?? '/usr/bin:/bin', HOME: process.env.HOME ?? caseRoot, TMPDIR: caseRoot, ABG_WORKSITE_BUILD_ROOT: copy.path('') } });
   assert.equal(result.error, undefined, String(result.error));
   assert.equal(result.status, 0, result.stderr);
@@ -512,15 +634,19 @@ console.log(JSON.stringify({ buildRoot: support.buildRoot, publicExports: Object
 async function coldAddonCase(t, label, mutate) {
   const ordinaryBefore = sha256Bytes(await readFile(ORDINARY));
   const copy = isolatedCompiledCopy(t), addon = copy.path('../../native/abg_physical_path.node');
+  const physicalAddon = join(await realpath(dirname(addon)), basename(addon)), copyAddon = sha256Bytes(await readFile(addon));
+  await retain(t.name, label + ' copy', { tmpdir: tmpdir(), addon, physicalAddon, ordinary: ORDINARY, ordinarySha256: ordinaryBefore, copyAddonSha256: copyAddon });
   assert.ok(addon.startsWith(tmpdir() + '/'), 'the copy lives below TMPDIR: ' + addon);
-  const physicalAddon = join(await realpath(dirname(addon)), basename(addon));
-  assert.equal(sha256Bytes(await readFile(addon)), ordinaryBefore, 'the copy carries the candidate addon');
-  const control = await coldOwner(copy, label + '-control');
+  assert.equal(copyAddon, ordinaryBefore, 'the copy carries the candidate addon');
+  const control = await coldOwner(copy, label + '-control', t.name);
   assert.equal(control.refusal, null, 'intact addon: ' + JSON.stringify(control.refusal));
   assert.deepEqual(control.native.target, { platform: 'darwin', arch: 'arm64', abi: 'abg-physical-path/1', nodeApiVersion: 8, mountPopulationLimit: 4096 });
   await mutate(addon);
-  const observed = await coldOwner(copy, label);
-  assert.equal(sha256Bytes(await readFile(ORDINARY)), ordinaryBefore, 'the candidate addon is untouched');
+  const mutatedAddon = await observe(async () => sha256Bytes(await readFile(addon)));
+  const observed = await coldOwner(copy, label, t.name);
+  const ordinaryAfter = sha256Bytes(await readFile(ORDINARY));
+  await retain(t.name, label + ' mutated', { addon, mutatedAddonSha256: mutatedAddon, ordinarySha256After: ordinaryAfter });
+  assert.equal(ordinaryAfter, ordinaryBefore, 'the candidate addon is untouched');
   assert.equal(observed.refusal?.kind, 'worksite_effect_refusal', JSON.stringify(observed.refusal));
   assert.equal(observed.refusal.code, 'invalid_coordinate');
   assert.equal(typeof observed.native, 'string');

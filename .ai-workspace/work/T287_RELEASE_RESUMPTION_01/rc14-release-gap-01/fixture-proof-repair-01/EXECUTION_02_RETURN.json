@@ -1,0 +1,517 @@
+{
+  "kind": "rc14_proof_fixture_execution_02_return",
+  "activationId": "RC14-PROOF-FIXTURE-REPAIR-NATIVE-001",
+  "recordedUtc": "2026-11-14T20:24:20.382313+00:00",
+  "disposition": "Bounded author/source and mechanical proof return; Root owns source assurance, integration and any release disposition.",
+  "source": {
+    "parent": "346de86607f168e1951ff64306070359aeb5cfa4",
+    "commit": "7a2411defd9ef7c1968512703c3b4b1493114453",
+    "tree": "b3d1cbd81659336eedf28f319de87eda080b8143",
+    "rows": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 363159,
+        "sha256": "ceac959e387d421225f50637d9e3e94e04160acc4aa3c297096055df93916670",
+        "physicalMode": "0o644",
+        "gitTreeEntry": "100644 blob a8367997675d4210906d2a54b6b09f7046bc2c42\tbuild_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t293-native-build-inputs.test.mjs",
+        "bytes": 54566,
+        "sha256": "f016df91844a58a438a9ea91cfd7914aec76da7f153d00addc97ec3c4a841e0c",
+        "physicalMode": "0o644",
+        "gitTreeEntry": "100644 blob b2b19f4b06dd3f3781df65e9856607d557ef034f\tbuild_tenants/abiogenesis/typescript/test_env/tests/t293-native-build-inputs.test.mjs"
+      }
+    ],
+    "postimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/NATIVE_SOURCE_POSTIMAGE.json",
+      "bytes": 322629,
+      "sha256": "8e0cf4670ade0b4da389ab66e29f643baf2d23ff7f0748ae93f6ceb5f9d8e0a7"
+    },
+    "diff": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/NATIVE_SOURCE.diff",
+      "bytes": 34012,
+      "sha256": "a60f315712c381d3f2e5a04194bea4913f54317528c667eafaf021a5506951be"
+    },
+    "sourceUnchangedDuringProof": true,
+    "productionUnchangedByThisSlice": true
+  },
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "launch": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/LAUNCH.json",
+    "bytes": 6465,
+    "sha256": "3c02ccdc3ce6c2d43f07033f95dd6ba90e7cd0c35759f79e2164df4377007d59"
+  },
+  "acceptedControls": {
+    "manifest": {
+      "path": "/private/tmp/abg-rc14-proof-fixture-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/CONTROL_MANIFEST.json",
+      "bytes": 3614,
+      "sha256": "ae61c1e916af759dd00db22192c39777f275d1f5e582fc9652c40c318de19537"
+    },
+    "rootCarrierAcceptance": {
+      "path": "/private/tmp/abg-rc14-proof-fixture-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/ROOT_CARRIER_SUCCESSOR_ACCEPTANCE.json",
+      "bytes": 1817,
+      "sha256": "47146e79d8f2f50aed7b3aa2f1457a69ede1cc61b72f1b2631436470111c741c"
+    },
+    "task": {
+      "path": "/private/tmp/abg-rc14-proof-fixture-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/TASK.json",
+      "bytes": 6415,
+      "sha256": "e3fabe3579f98f45227f20e6ad8c0779e9ceb744d3e6f996c846bf79fb681799"
+    },
+    "host": {
+      "path": "/private/tmp/abg-rc14-proof-fixture-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/HOST.mjs",
+      "bytes": 17010,
+      "sha256": "37446ee36479ae4032b276a09e3a7cbf12ce8d5336b3b448a60df94736187f92"
+    },
+    "proof": {
+      "path": "/private/tmp/abg-rc14-proof-fixture-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/prove.py",
+      "bytes": 19539,
+      "sha256": "a44fcd593decff05e875980bed0293b924ce080e745f9ed7eda877279f0c9103"
+    }
+  },
+  "native": {
+    "actorStart": {
+      "receipt": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/ACTOR_START.json",
+        "bytes": 2534,
+        "sha256": "d4eec2348cbf64179e178a9408d2d0788f9d6b405b2a98bad67691fe2d32aded"
+      },
+      "eventRef": "event://abiogenesis/a7b23b7d82197f9a8023e96417417ae58de3ee104c9f708f9ea0c387b4eebc81",
+      "eventTime": "2026-11-14T19:59:49.789Z",
+      "pid": 14709,
+      "runRef": "run://abiogenesis/7359ff68454cfddb7c170814fbe7dd530a89f02b656cb8ebf882edf8d05de869",
+      "eventLineSha256": "7cb887fa8866b8d3ec8adb028fa0855996a715fbb2525f802acd3724ba1399bb",
+      "protocolModels": [
+        {
+          "model": "claude-opus-5-5",
+          "recordType": "system",
+          "lineSha256": "ba7be13214f4c42ad1ddd954f1a57127ea8cf069165e964790bc8c7ee4cec380"
+        }
+      ],
+      "effort": "xhigh from bound transport argv; no remote effort attestation"
+    },
+    "hostReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/HOST_RETURN.json",
+      "bytes": 534,
+      "sha256": "4974c48fa1c1ceee79e3c7186b7a1f158efab4f097169fb4f3b8a86a57d23f06"
+    },
+    "actualResourceClose": true,
+    "hostProcessGroupAbsent": true,
+    "final": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/runtime/FINAL.json",
+      "bytes": 860,
+      "sha256": "a0d03e056e40b0748d8ef510561fbdbe56d82b7247e6575c8066670348aff2f0"
+    },
+    "freshReadbacks": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/runtime/FRESH_READBACKS.json",
+      "bytes": 5717,
+      "sha256": "4593ef00519cbe435d815007532c0bb5eeb8e5c1f230ed9d9761fd4d934d68f8"
+    },
+    "authorReport": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 6198,
+      "sha256": "5f825d3427626a93dce2854baaaf0a21ab3ccf5a24ae25b8d784040ac794607f"
+    },
+    "commandAudit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/NATIVE_COMMAND_AUDIT.json",
+      "bytes": 61599,
+      "sha256": "87ffc38fe227028cca1139409adde3f8d15df304702878cab53503920bcbd9e5"
+    },
+    "toolCounts": {
+      "Bash": 29,
+      "Read": 2,
+      "Edit": 22,
+      "StructuredOutput": 1
+    },
+    "nativeOutcome": "result",
+    "returnedUtc": "2026-11-14T20:09:30.341Z"
+  },
+  "processDeviations": {
+    "readOnlyGit": "Two Bash calls ran read-only Git status/diff. Exact TASK prohibited Git mutation; no Git mutation occurred. Root retained broader launch shorthand and actual observations without a false full-compliance claim.",
+    "inMemoryExecutions": "Pure node:url comparison and execution of newly authored stubDeclaredNames via new Function against pinned SDK bytes were beyond static syntax-only checking. They are disclosed and supply no substitute proof.",
+    "authorityReading": "Native author disclosed not reading AGENTS.md, PRODUCT.md, REQ-P-QUAL, REQ-P-INSTALL, D6/default-library designs and support/default-library.mjs; it relied on the supplied frame. Root independently reacquired authority/source.",
+    "noBroadComplianceClaim": true,
+    "rootMechanicalAdmission": "Root separately conjoined exact scope, close/readbacks and complete audit and admitted this already-selected single proof pass; source review did not gate evidence execution."
+  },
+  "proof": {
+    "return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/RETURN.json",
+      "bytes": 1862,
+      "sha256": "a13d6c18ed0a37ed5555138be1e524aa545cb638a20e34703e3c3b9289305dff"
+    },
+    "elapsedMs": 313678,
+    "commands": [
+      {
+        "name": "001-candidate-build",
+        "exitCode": 0,
+        "elapsedMs": 24648
+      },
+      {
+        "name": "002-default-library",
+        "exitCode": 0,
+        "elapsedMs": 252755
+      },
+      {
+        "name": "003-native-inputs",
+        "exitCode": 0,
+        "elapsedMs": 20275
+      },
+      {
+        "name": "004-pack",
+        "exitCode": 0,
+        "elapsedMs": 4433
+      },
+      {
+        "name": "005-offline-install",
+        "exitCode": 0,
+        "elapsedMs": 2390
+      },
+      {
+        "name": "006-installed-physical-owner",
+        "exitCode": 0,
+        "elapsedMs": 525
+      },
+      {
+        "name": "007-t287-native-semantic-job",
+        "exitCode": 0,
+        "elapsedMs": 1155
+      },
+      {
+        "name": "008-t287-qualification-law",
+        "exitCode": 0,
+        "elapsedMs": 539
+      },
+      {
+        "name": "009-t287-qualification-contraction",
+        "exitCode": 0,
+        "elapsedMs": 1506
+      },
+      {
+        "name": "010-t287-installed-qualification-conservation",
+        "exitCode": 0,
+        "elapsedMs": 425
+      }
+    ],
+    "population": [
+      {
+        "command": "002-default-library",
+        "file": "t287-default-library.test.mjs",
+        "counts": {
+          "tests": 37,
+          "failed": 0,
+          "passed": 36,
+          "cancelled": 0,
+          "skipped": 1,
+          "todo": 0,
+          "topLevel": 36,
+          "suites": 0
+        },
+        "receipt": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/002-default-library/COUNTS.json",
+          "bytes": 15146,
+          "sha256": "ddaa026b731d4f0d545109f1b817acb20711cc7e8559d21b9314bf9a820101d1"
+        }
+      },
+      {
+        "command": "003-native-inputs",
+        "file": "t293-native-build-inputs.test.mjs",
+        "counts": {
+          "tests": 7,
+          "failed": 0,
+          "passed": 7,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 7,
+          "suites": 0
+        },
+        "receipt": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/003-native-inputs/COUNTS.json",
+          "bytes": 2834,
+          "sha256": "2054fc5335717bb2cbe951a42a3d53e0fd9829b71656c5a5d2b86e5bf8b795fd"
+        }
+      },
+      {
+        "command": "007-t287-native-semantic-job",
+        "file": "t287-native-semantic-job.test.mjs",
+        "counts": {
+          "tests": 11,
+          "failed": 0,
+          "passed": 11,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 10,
+          "suites": 0
+        },
+        "receipt": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/007-t287-native-semantic-job/COUNTS.json",
+          "bytes": 4580,
+          "sha256": "cfbb65ae94ee5075f600ae75ffd52422feb2348dfa247dc51deb7f6528127ef7"
+        }
+      },
+      {
+        "command": "008-t287-qualification-law",
+        "file": "t287-qualification-law.test.mjs",
+        "counts": {
+          "tests": 10,
+          "failed": 0,
+          "passed": 7,
+          "cancelled": 0,
+          "skipped": 3,
+          "todo": 0,
+          "topLevel": 10,
+          "suites": 0
+        },
+        "receipt": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/008-t287-qualification-law/COUNTS.json",
+          "bytes": 4472,
+          "sha256": "b068d57e0d55f5d93c2ccabcfbf8fe6bb57eadbe3d3696eb5ce885c18a6b0afb"
+        }
+      },
+      {
+        "command": "009-t287-qualification-contraction",
+        "file": "t287-qualification-contraction.test.mjs",
+        "counts": {
+          "tests": 4,
+          "failed": 0,
+          "passed": 4,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 4,
+          "suites": 0
+        },
+        "receipt": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/009-t287-qualification-contraction/COUNTS.json",
+          "bytes": 2048,
+          "sha256": "03c4826b982be26170ee6aed81e23ca3a53265fd2fe50334e966292df76b439a"
+        }
+      },
+      {
+        "command": "010-t287-installed-qualification-conservation",
+        "file": "t287-installed-qualification-conservation.test.mjs",
+        "counts": {
+          "tests": 1,
+          "failed": 0,
+          "passed": 0,
+          "cancelled": 0,
+          "skipped": 1,
+          "todo": 0,
+          "topLevel": 1,
+          "suites": 0
+        },
+        "receipt": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/010-t287-installed-qualification-conservation/COUNTS.json",
+          "bytes": 980,
+          "sha256": "7f73b6bda684ff593e8b51ec817a4af2972c1cc2af1d76b283cd913c65a7dace"
+        }
+      }
+    ],
+    "total": {
+      "executions": 70,
+      "passed": 65,
+      "failed": 0,
+      "skipped": 5,
+      "topLevel": 68,
+      "retries": 0
+    },
+    "namedSkips": [
+      {
+        "file": "t287-default-library.test.mjs",
+        "name": "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+        "reason": "ABI5_DEFAULT_LIBRARY_LIVE is not '1'; selects the installed Public default-library invocation"
+      },
+      {
+        "file": "t287-qualification-law.test.mjs",
+        "name": "authority staging and ordinary reproduction bind selectedRC2's exact Definition-selected release",
+        "reason": "ABG_QUALIFICATION_STAGE_FIXTURES unset; exact historical/current staging fixtures not supplied"
+      },
+      {
+        "file": "t287-qualification-law.test.mjs",
+        "name": "authority staging refuses wrong manifest and altered selected member before writing",
+        "reason": "ABG_QUALIFICATION_SOURCE_ROOT or ABG_QUALIFICATION_RELEASE_ROOT unset; exact installed source acquisition roots not supplied"
+      },
+      {
+        "file": "t287-qualification-law.test.mjs",
+        "name": "authority staging refuses a crossed release identity or member-set even with a matching manifest byte digest",
+        "reason": "ABG_QUALIFICATION_STAGE_FIXTURES unset; exact current staging fixture not supplied"
+      },
+      {
+        "file": "t287-installed-qualification-conservation.test.mjs",
+        "name": "installed qualification conservation over the installed territory, package, archive and pinned interpreter",
+        "reason": "ABI5_INSTALLED_CONSERVATION_ROOT, _PACKAGE_ROOT, _ARCHIVE or _NODE unset; requires the installed conservation territory, the installed package, its archive and the pinned interpreter"
+      }
+    ],
+    "clock": {
+      "startedUtc": "2026-11-14T20:16:10.628873+00:00",
+      "originalHostDeadlineUtc": "2026-11-14T21:09:42.776494+00:00",
+      "requestedProofDeadlineUtc": "2026-11-14T21:16:10.628873+00:00",
+      "deadlineUtc": "2026-11-14T21:09:42.776494+00:00",
+      "executionStopDeadlineUtc": "2026-11-14T21:09:27.776494+00:00",
+      "cleanupReserveMs": 15000
+    },
+    "originalClock": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01/CONTROL_START.json",
+      "bytes": 760,
+      "sha256": "856143da35f6abfdee327987670f746ab0b75ecc0cdfd7cb53f4b4fc14a3ee82"
+    },
+    "sourceBinding": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/SOURCE_BINDING.json",
+      "bytes": 158,
+      "sha256": "dc79526e750306269f35ca98e85f1fe67c3b5dd6e8cf3d6d9341bd932552e898"
+    },
+    "setupCustodyAtEntry": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/SETUP_CUSTODY_AT_ENTRY.json",
+      "bytes": 1101,
+      "sha256": "6beb796591c97553f42f105869bc7f961966b45c3cf9dfe38918b4a8bdb73af9"
+    },
+    "setupCustodyAtReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/SETUP_CUSTODY_AT_RETURN.json",
+      "bytes": 1101,
+      "sha256": "6beb796591c97553f42f105869bc7f961966b45c3cf9dfe38918b4a8bdb73af9"
+    },
+    "nativeInputIdentity": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/NATIVE_INPUT_IDENTITY.json",
+      "bytes": 46367,
+      "sha256": "4b7f512b9947962a7e750380e9ef3906a21d4983d9740df38766aca48aa6c77c"
+    },
+    "retainedRelations": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/RETAINED_RELATIONS_VERIFIED.json",
+      "bytes": 207,
+      "sha256": "100d5669495814a40f5731604b28eb1c760e18e1f94c889cecd73b4336425708"
+    },
+    "priorPopulationAccounting": "Prior 126 owner passes and 6 identity cases remain separately retained through exact unchanged relations; they are not added to these 70 executions."
+  },
+  "nativeReproduction": {
+    "record": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/NATIVE_REPRODUCTION.json",
+      "bytes": 615,
+      "sha256": "b20848b65f5fd6b3747692174b1f09b3c8c7e0c0ad549622da825497abb755d4"
+    },
+    "relocationResult": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/scratch/NATIVE_RELOCATION_RESULT.json",
+      "bytes": 18081,
+      "sha256": "160f89656ce2777af7701447eb5b5ed2af5030ea099e16eb74b45d08c8656bc1"
+    },
+    "ordinaryOutputSha256": "1b6a1d8944275c98d84ba9b2124fda72b7942285fc7e64930ee00578130edb77",
+    "ordinaryAndTwoRelocatedOutputsEqual": true,
+    "compilerInputs": 184,
+    "linkerTraceEntries": 287,
+    "sdkDeclaredNames": 39,
+    "systemSubstrate": 0,
+    "unknownEntries": 0,
+    "protectedExecutionAndHostDigestsConserved": true,
+    "childCustodyRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/scratch/native-input-children-ulrvp5",
+    "childCustodyInventory": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/NATIVE_CHILD_CUSTODY_INVENTORY.json",
+      "bytes": 27883,
+      "sha256": "7c6f8e5909e655167fdd586619d97cba0c234ef4586ea94dc7622d0b5d3e2831"
+    },
+    "childCustodyFiles": 73,
+    "childCustodyBytes": 475510
+  },
+  "preservedProofInstall": {
+    "candidate": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/CANDIDATE.json",
+      "bytes": 801,
+      "sha256": "82fb1805aee18b0cd9edc41491884a9d064356e6178d86e4079dc0c9724fb980"
+    },
+    "archive": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/archives/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "archiveSha256": "9f9812e42c154511541762235f26180c0cf64c762f490ea57ae135a14c8e4225",
+    "archiveBytes": 10814321,
+    "installed": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/installed/node_modules/@abiogenesis/typescript-tenant",
+    "files": 5302,
+    "byteEqual": true,
+    "manifestSha256": "ace624f1747a2071adcd6035b21d88dc3c459eeddc809e7f3b85627dbae5929a",
+    "native": [
+      {
+        "path": "abg_physical_path.node",
+        "bytes": 52264,
+        "sha256": "1b6a1d8944275c98d84ba9b2124fda72b7942285fc7e64930ee00578130edb77"
+      }
+    ],
+    "qualified": false,
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.13",
+    "productContentDigest": "sha256:a7cc8e76c241a37198933ac30c22150c31067e175ef729399552ac7ca0627e8b",
+    "publicModule": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/installed/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+      "bytes": 666,
+      "sha256": "64466232bfbe070bf68b23806104e6023d4b379009a43c64646ecf54cf40a504"
+    },
+    "cli": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/installed/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+      "bytes": 4707,
+      "sha256": "a6ec59ee5e8496bd492e4471273a39a8532fe793dd2f0ce0f416be69a866e59c"
+    },
+    "packageJson": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/installed/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 9787,
+      "sha256": "fa05615864043dc0bd91255fca3c10c7b925e9c8696e4ab35d69b8bacf49010b"
+    },
+    "manifest": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/installed/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3101102,
+      "sha256": "ace624f1747a2071adcd6035b21d88dc3c459eeddc809e7f3b85627dbae5929a"
+    },
+    "actualInstalledPhysicalOwner": {
+      "request": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/006-installed-physical-owner/START.json",
+        "bytes": 1156,
+        "sha256": "2f41e4e0d8d08965cd12676b24f752c8843e27f77d2048436b9ceb7de9bb8d9a"
+      },
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/006-installed-physical-owner/RETURN.json",
+        "bytes": 457,
+        "sha256": "2d63ee71f229cc3869b6beddb191b1346a634a07d3b06cf2912e6f6167da165c"
+      },
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/006-installed-physical-owner/stdout.raw",
+        "bytes": 836,
+        "sha256": "f5d17173f45aaba8ba98260e065b3963901c388a07e1bbc744984bee14191fea"
+      },
+      "componentCoordinates": true,
+      "publicAdmissionClaim": false
+    },
+    "metadataNote": "No version bump: composed-source proof payload retains 5.0.0-rc.13 metadata; this is not a new RC14 cut or global pin."
+  },
+  "tools": {
+    "nodeRequested": "/opt/homebrew/bin/node",
+    "nodeActual": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    "nodeVersion": "24.7.0",
+    "npmRequested": "/opt/homebrew/bin/npm",
+    "npmActual": {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    "platform": "darwin",
+    "arch": "arm64",
+    "proofScript": "/private/tmp/abg-rc14-proof-fixture-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/prove.py",
+    "proofLaunch": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/LAUNCH.json"
+  },
+  "sourceReviewLimitsFromRoot": [
+    "Existing no-host-read comment overclaims the D4/D5 foundation contract; passing dependency/trace checks are not a whole-machine no-host-read proof.",
+    "Mutated-addon digest can be lost on a first cold failure despite retained child request/stdout/stderr custody. This passing run retained the actual observations; no assertion-order repair was made."
+  ],
+  "limits": [
+    "Five exact prerequisite skips remain open proof premises, not discharged cases.",
+    "The system-substrate allowance was not exercised: actual count 0. Its bounded contract/claim interpretation remains within source assurance.",
+    "No Node 20 or non-Darwin-arm64 execution claim.",
+    "Generated qualification inventories still require composed-source refresh.",
+    "No broad/release qualification, final RC14 cut, global pin, Product publication or human acceptance.",
+    "Failed01 zero-provider carrier refusal, source/manifest and original clock remain preserved unchanged.",
+    "No successful population rerun or rebuild after this completed proof."
+  ],
+  "qualified": false,
+  "rawPublication": false
+}
