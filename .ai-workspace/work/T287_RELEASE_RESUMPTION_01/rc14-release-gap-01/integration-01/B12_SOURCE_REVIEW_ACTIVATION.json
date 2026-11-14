@@ -1,0 +1,103 @@
+{
+  "id": "RC14-B12-INDEPENDENT-SOURCE-REVIEW-001",
+  "role": "Independent read-only Reviewer; returns to Root, never repairs or activates a Writer",
+  "frameUri": "stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md#11-derived-generic-specialist-frame-set",
+  "frames": [
+    "Product",
+    "Public Boundary",
+    "Owner",
+    "Effect",
+    "Proof"
+  ],
+  "referenceBasis": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "purpose": "Review bounded B12 raw-call admission and encodable semantic/diagnostic returns against fixed5.0 Product without changing authority, classifications, defaults or held identities",
+  "recordedUtc": "2026-11-14T16:47:07.316568+00:00",
+  "sourceRoot": "/private/tmp/abg-rc14-b12-20261115-01",
+  "sourceBaseHead": "df4d2cbca9e075c8c8017f07d37e7a02687f926a",
+  "subjectRowsSha256": "38d798a69c7bd5d7ca965b89800b0bf96d82d28e1821c32de291ba51b29f54b0",
+  "changedFiles": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "bytes": 38462,
+      "sha256": "e877e1a5c6561de89449fd0cb6d9bc279cb64fbce363e30ace81862456c235a5"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 73241,
+      "sha256": "9b4015b415c30dc681994420f7c81349721ad12b9713d0c4bfdb30a271d73d21"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "bytes": 30222,
+      "sha256": "a803cfe2150bbc2331e83d88c19b6ae6654e1245e86173f159946516c8605040"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+      "bytes": 16984,
+      "sha256": "9e40d2d268844945b54a3ee3b6911467487922269a9d5e49fdcf3502416765d3"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/workspace_definition_bindings.ts",
+      "bytes": 12058,
+      "sha256": "953b5a8a4ef9fed450a73b3c95f4f3157f1e638421f70b6bf5e0ff19ee722fe5"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+      "bytes": 21492,
+      "sha256": "d97b4990a14403d594ef807e7ae5446b713033cd25bbe514603cb66905b1f6f0"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/cli.ts",
+      "bytes": 5355,
+      "sha256": "7f8f304715970e0aeccba9762efb47f88535734eac0cf56b62f710dc8e7d990b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/diagnostic_text.ts",
+      "bytes": 1420,
+      "sha256": "6861e35681060128b07723b1588499c94f1fec534edf11d018fd066d9f1f10b2"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+      "bytes": 5741,
+      "sha256": "56b7c97a187d7581e1c5a64731cfad147c187e25bb08c9d04376a934fd4c9341"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "bytes": 45970,
+      "sha256": "88f6c19d1c77150102660c0da7615081efddd59cf415e39c5115553878f04661"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td79-cli-exit-classification.test.mjs",
+      "bytes": 31559,
+      "sha256": "5e7eff11048f94573aa2399894411828017df865b4c7c58c7e4855728bf0d509"
+    }
+  ],
+  "freezeEvidence": {
+    "nativeReturned": true,
+    "realResourceClose": true,
+    "freshReadbacksPassed": true,
+    "rawFinalSha256": "c7f1b895c9883813c087d1d76a9780920d80c14140cb796701c681e338292d8b",
+    "rawHostReturnSha256": "d34cb4ac82a2b2a7aa115bcf824f059c2a2b48930529f3740cd2e2bc7cfe79bd"
+  },
+  "sourceRoutes": [
+    "stdo_abiogenesis.json",
+    "specification/GOALS.md current selection, then exact Product path from stdo_abiogenesis.json",
+    "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+    "specification/requirements/product/REQ-P-POLICY.md",
+    "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/applicability-01/B12_PREPARATION.md",
+    "Exact changed owners/tests plus their existing admission/resource/receipt callers and fixtures"
+  ],
+  "effects": [
+    "Read/hash exact source and dependent owner declarations; read git diff against base",
+    "Inspect actual native return/proof receipts only when present",
+    "Return concise Product Frame, actionable counterexamples with exact locations, bounded repair/reproof cone, and residual evidence limits"
+  ],
+  "prohibitions": [
+    "No edits/Git mutation/provider/build/test/cleanup",
+    "No repair loop or scope expansion; no new Public/requirement policy",
+    "Do not inspect a moving source; hash-check at entry and return; stop if changed"
+  ],
+  "proofLimit": "Focused build/tests have not run at activation; separately conjoin Operator proof. Source review is not qualification.",
+  "returnTo": "Root Executive"
+}

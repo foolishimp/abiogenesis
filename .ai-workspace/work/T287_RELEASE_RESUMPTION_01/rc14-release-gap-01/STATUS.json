@@ -1,5 +1,5 @@
 {
-  "status": "B31_ACCEPTED_B12_B21_NATIVE_AUTHORS_RUNNING",
+  "status": "B31_ACCEPTED_B12_SOURCE_FROZEN_PROOF_PREPARING_B21_NATIVE_RUNNING",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -8,7 +8,7 @@
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
   "providerCalls": 3,
-  "triage": "B31 technically closed and B13 wording corrected. B12 and B21 each running one RC13 native repair. No implementation proof results yet. Exact composed regression, installed lifecycle and qualification remain open.",
+  "triage": "B31 technically closed; B13 wording corrected. B12 source author returned successfully and is frozen for source QA and fresh focused proof; no passing implementation tests yet. B21 native author active. Composed regression, installed lifecycle and qualification remain open.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
   "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T16:38:19.573829+00:00",
-  "nativeAuthorState": "B12 and B21 actual native processes observed; source repair and proof results pending",
+  "recordedUtc": "2026-11-14T16:47:50.347349+00:00",
+  "nativeAuthorState": "B12 successful author return/actual close/fresh result and replay;11 authored files frozen for independent source review. B21 native author running.",
   "b21Preparation": {
     "state": "NATIVE_AUTHOR_RUNNING",
     "record": "b21-foundation-01/README.md",
@@ -43,7 +43,7 @@
     "B12": "b12-native-01/ACTIVATION.json"
   },
   "b12Preparation": {
-    "state": "NATIVE_AUTHOR_RUNNING",
+    "state": "AUTHOR_RETURNED_SOURCE_FROZEN_PROOF_PREPARING",
     "commit": "c11db33ddedae51c3edde1961b15f3f7280f003e",
     "rootAcceptance": "integration-01/B12_PREPARATION_ACCEPTANCE.json"
   },
@@ -55,7 +55,11 @@
     "model": "claude-opus-5-5",
     "effort": "xhigh",
     "evidence": "Operator observed actual actor_process_started event and native stdout system/init",
-    "rawEvidencePublished": false
+    "rawEvidencePublished": false,
+    "returnedUtc": "2026-11-14T16:41:13.261Z",
+    "actualResourceClose": true,
+    "freshResultAndReplay": "result; run closed",
+    "sourceReviewActivation": "integration-01/B12_SOURCE_REVIEW_ACTIVATION.json"
   },
   "b21Native": {
     "sourceHead": "aa730058e30f3f4fd6be9f4e306ecc1275d9eb93",
@@ -70,9 +74,10 @@
     "rawEvidencePublished": false
   },
   "proofControls": {
-    "state": "SETUP_OWNED_ATTRIBUTION_SUCCESSORS_ACCEPTED_AWAITING_PUSH",
+    "state": "SUCCESSORS_PUSHED_AND_AUTHORIZED_AFTER_ORIGINAL_NATIVE_SUCCESS",
     "record": "integration-01/PROOF_CONTROL_SUCCESSOR_ACCEPTANCE.json",
     "nativeWorkUnchanged": true,
-    "proofExecuted": false
+    "proofExecuted": false,
+    "pushedCheckpoint": "70de9e928091b31c3a8a61844d435a304c69dafc"
   }
 }
