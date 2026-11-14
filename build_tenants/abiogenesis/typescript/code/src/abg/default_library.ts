@@ -106,7 +106,10 @@ type GovernanceWorksiteObservation = Readonly<{
  */
 async function observeGovernanceWorksite(o: Owner, state: GovernanceWorkState, observedPaths: readonly string[],
   refusal?: GovernanceTestingRefusal): Promise<GovernanceWorksiteObservation | null> {
-  const observed = await observeWorksiteContext({ ...operating(o), protectedInstallRoots: o.environment.productInstalls.map(i => i.installedRoot), readRoots: state.original.readRoots, maxFiles: state.original.maxContextFiles, maxBytes: state.original.maxContextBytes });
+  // The held authenticated environment's admitted installs protect both the
+  // context and every selected subject; selected paths need not lie in R.
+  const protectedInstallRoots = o.environment.productInstalls.map(i => i.installedRoot);
+  const observed = await observeWorksiteContext({ ...operating(o), protectedInstallRoots, readRoots: state.original.readRoots, maxFiles: state.original.maxContextFiles, maxBytes: state.original.maxContextBytes });
   if (!isWorksiteContextObservation(observed)) return testingRefused(refusal, "testing_context", "context_observation");
   // Current W is reobserved above; unchanged bodies already held by this Run's
   // admitted Results, or declared by its admitted retained source's native
@@ -117,7 +120,7 @@ async function observeGovernanceWorksite(o: Owner, state: GovernanceWorkState, o
   for (const relativePath of observedPaths) {
     const subject = constructWorksiteSubject({ ...current, relativePath, subjectUri: pathToFileURL(resolve(current.workspaceAuthorityBasis.canonicalRoot, relativePath)).href });
     if (subject.kind !== "worksite_subject") return testingRefused(refusal, "testing_observed_subject", "subject_construction");
-    const observation = await observeWorksiteSubject(current.workspaceAuthorityBasis, current.workspaceBinding, subject);
+    const observation = await observeWorksiteSubject(current.workspaceAuthorityBasis, current.workspaceBinding, subject, protectedInstallRoots);
     if (observation.kind !== "worksite_observation" || observation.state !== "file") return testingRefused(refusal, "testing_observed_subject", "file_observation");
     observedFiles.push({ subject, observation });
   }

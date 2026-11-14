@@ -20,6 +20,7 @@ import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructI
   pendingExecutionUseRequest,constructInstalledPendingCall} from '../support/registered-graph-selection.mjs';
 import {libraryConsumerDeclaration,libraryEnvironment,witnessInput,witnessRef,assessmentSchema,schemaPath} from '../support/default-library.mjs';
 import {eventStoreLockPath} from '../support/event-store-lock.mjs';
+import fsPromises from 'node:fs/promises';import {syncBuiltinESMExports} from 'node:module';import {lstatSync,realpathSync} from 'node:fs';
 // Authentic retained RC2 stdout (4616 bytes, sha256 bee000fc…87b6) and its historical producer citation from
 // rc3-operator-inputs/increment-a-01/retained-stdout-custody.json, embedded so this test reads no untracked operator path.
 const RETAINED_STDOUT_CUSTODY=Object.freeze({"sourcePath":"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/result.json","sourceSha256":"b2d43b8976ca84d9202661bf8a6a8422f5279d0a375db1791e7cae82959fc2f8","sourceBytes":5484013,"helperArtifactRef":"worksite-command-helper-artifact://abiogenesis/ce43471cd42e48566357375ad44f9c35d6daa8c68c1840e5575a3c472e4222e5","helperArtifactDigest":"sha256:ce43471cd42e48566357375ad44f9c35d6daa8c68c1840e5575a3c472e4222e5","commandId":"command://abiogenesis/rc2-dogfood/fixture-repair-01/fixture-tests","ordinal":4,"observationRef":"worksite-command-observation://abiogenesis/10718e7ba44510b0d85985fd4bdd87b433da4b0d461829b7e7164215a3fdf4eb","observationDigest":"sha256:10718e7ba44510b0d85985fd4bdd87b433da4b0d461829b7e7164215a3fdf4eb","stream":"stdout","streamSha256":"bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6","streamBytes":4616,"declaredStreamDigest":"sha256:bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6","admittedTestingResult":"result://abiogenesis/3607433aa2790c7a2e0bdd0b49f7a3b1bc54687844c3d5bcc2c9dfad931a1968","resultSource":"failure-008.json","scope":"Byte-identical extraction with supplied producer coordinates; no new ABG event or semantic judgment"});
@@ -1229,6 +1230,65 @@ test('RC7 fixed proof: direct Testing refuses open scope, fabricated or retained
     const {task}=await x.prepareTesting(initial);assert.ok(task?.sourceObservedInput,id+' preparation');assert.deepEqual(x.refusals,[]);
     assert.equal(x.fold('testing',initial,observed).folded,null,id+' selector-free fold');
   }
+});
+// T-293 B21 component evidence over rc7FixedRoute's controlled owner premises.
+// The held environment's admitted-install row is a substituted premise (the
+// route supplies none); the governance owner, the C0 subject owner and the
+// observed C2 constructor are actual. Opens, path reads and handle content
+// reads are counted at node:fs/promises. The installed Public direct
+// Testing-to-UAT route remains the RC7 fixed admission case; its live-provider
+// case stays gated. No installed, provider or release claim is made here.
+async function b21Watched(run){
+  const names=['open','readFile','mkdir','writeFile','link','rename','unlink'],originals=Object.fromEntries(names.map(n=>[n,fsPromises[n]])),calls=[];
+  for(const name of names)fsPromises[name]=async(...args)=>{const path=String(args[0]);calls.push({syscall:name,path});const value=await originals[name](...args);
+    if(name==='open')for(const method of ['read','readFile','readv','readLines','createReadStream']){const original=value[method];
+      if(typeof original==='function')value[method]=(...rest)=>{calls.push({syscall:'content',path});return original.apply(value,rest);};}
+    return value;};
+  syncBuiltinESMExports();
+  try{return {result:await run(),calls};}finally{Object.assign(fsPromises,originals);syncBuiltinESMExports();}
+}
+const B21_DATA='/System/Volumes/Data';
+function b21AliasHolds(path){
+  if(process.platform!=='darwin')return false;
+  try{const a=lstatSync(path,{bigint:true}),b=lstatSync(B21_DATA+path,{bigint:true});
+    return a.dev===b.dev&&a.ino===b.ino&&realpathSync.native(path)===path&&realpathSync.native(B21_DATA+path)===B21_DATA+path;}catch{return false;}
+}
+test('B21 component: direct Testing observes selected subjects under the held admitted install roots before any read',async t=>{
+  const x=await rc7FixedRoute(t),{f,initial}=x,secretPath='b21-install/secret.txt';
+  const installDir=join(f.canonicalRoot,'b21-install'),secret=join(installDir,'secret.txt');
+  await mkdir(installDir);await writeFile(secret,'admitted install bytes\n');
+  assert.equal(initial.original.readRoots.some(root=>root==='.'||root==='b21-install'||root===secretPath||secretPath.startsWith(root+'/')),false,
+    'premise: the install lies under the worksite but outside R');
+  const selected=product.constructGovernanceWorkState({...initial.original,testing:{...initial.original.testing,
+    selectedPaths:[...initial.original.testing.selectedPaths,secretPath]}});
+  const effects=calls=>calls.filter(c=>['mkdir','writeFile','link','rename','unlink'].includes(c.syscall));
+  const prepare=(id,state,installedRoot)=>{
+    x.owned.environment={...x.owned.environment,productInstalls:installedRoot===null?[]:[{installedRoot}]};
+    x.enter({id,state,graphFunctionRef:RC7_TESTING});
+    return b21Watched(()=>x.prepareTesting(state));
+  };
+  // Control: with no held install the same selection is an ordinary subject the owner reads.
+  const control=await prepare('rc7-b21-control',selected,null);
+  assert.ok(control.result.task?.sourceObservedInput,'control preparation');assert.deepEqual(x.refusals,[]);
+  assert.ok(control.calls.some(c=>c.path===secret&&['content','readFile'].includes(c.syscall)),'control: instrumentation sees the subject read');
+  const refused=async(id,installedRoot)=>{
+    const {result,calls}=await prepare(id,selected,installedRoot);
+    assert.equal(result.task,null,id+': no task is prepared');
+    assert.deepEqual(x.refusals.map(r=>r.slice(0,2)),[['testing_observed_subject','file_observation']],id);
+    assert.deepEqual(calls.filter(c=>c.path===secret||c.path===B21_DATA+secret),[],id+': the held install member is never opened or read');
+    assert.ok(calls.some(c=>c.syscall==='content'||c.syscall==='readFile'),id+': lawful selected subjects are still read (instrumentation live)');
+    assert.deepEqual(effects(calls),[],id);
+  };
+  await refused('rc7-b21-lexical',installDir);
+  await t.test('Data-aliased held install root',{skip:!b21AliasHolds(f.canonicalRoot)&&'host premise absent: no /System/Volumes/Data alias of the worksite'},
+    ()=>refused('rc7-b21-data',B21_DATA+installDir));
+  // Lawful positive: the same held install with the original selection.
+  const lawful=await prepare('rc7-b21-lawful',initial,installDir);
+  assert.ok(lawful.result.task?.sourceObservedInput,'the lawful selection prepares the observed C2 task');assert.deepEqual(x.refusals,[]);
+  assert.deepEqual(lawful.calls.filter(c=>c.path===secret),[]);
+  const named=task=>task.protectedObservations.some(row=>row.subject.relativePath===secretPath);
+  assert.equal(named(control.result.task),true,'control: the unprotected selection is an observed source');
+  assert.equal(named(lawful.result.task),false);
 });
 test('RC7 fixed proof: direct UAT takes the admitted Testing state Result as its single producer and folds unmet and satisfied assessments without a selector',async t=>{
   const x=await rc7FixedRoute(t),{nativeOwner,provenance}=x;

@@ -58,6 +58,7 @@ import { classifyPathRelation, pathRelation, pathStrictlyWithin, pathWithin } fr
 import { spelledAsStored, storedSpelling } from "../shared/stored_spelling.js";
 import { runPhysicalSync } from "../shared/physical_path_observation.js";
 import { physicalSeparationProgram, type PhysicalRelationMode } from "../shared/physical_path_relation.js";
+import { worksiteCommandRootBoundary } from "../shared/worksite_command_physical_boundary.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitJson } from "../shared/admit/index.js";
 import type {
@@ -332,32 +333,19 @@ function assertArchiveExecutionBoundary(
     assertFinalRootNotSymlink(root);
   }
   assertCanonicalArchiveRoot(task.workspaceBinding.roots.archiveRoot);
-  const productRoot = plannedCanonicalPath(task.workspaceBinding.roots.productRoot);
-  const archiveRoot = plannedCanonicalPath(task.workspaceBinding.roots.archiveRoot);
-  const nonProductRoots = [
-    task.workspaceBinding.roots.productRoot,
-    task.workspaceBinding.roots.toolchainRoot,
-    task.workspaceBinding.roots.eventLogRoot,
-    task.workspaceBinding.roots.runtimeStateRoot,
-    task.workspaceBinding.roots.projectionRoot,
-  ].map(plannedCanonicalPath);
-  if (nonProductRoots.some((root) =>
-    pathWithin(pathRelation(root, archiveRoot)) || pathWithin(pathRelation(archiveRoot, root))
-  )) {
-    throw new TypeError("command execution archive root overlaps a protected workspace root");
-  }
-  // The archive is recursive: physical equality, containment and enclosure refuse.
-  assertPhysicalSeparation([archiveRoot], nonProductRoots, "enclosing", "command execution archive root");
-  const otherMutableRoots = [
-    task.workspaceBinding.roots.eventLogRoot,
-    task.workspaceBinding.roots.runtimeStateRoot,
-    task.workspaceBinding.roots.projectionRoot,
-    task.workspaceBinding.roots.toolchainRoot,
-  ].map(plannedCanonicalPath);
-  if (otherMutableRoots.some((root) => pathWithin(pathRelation(productRoot, root)))) {
-    throw new TypeError("command execution workspace mechanics overlap the Product root");
-  }
-  assertPhysicalSeparation(otherMutableRoots, [productRoot], "contained", "command execution workspace mechanics");
+  const roots = task.workspaceBinding.roots;
+  const productRoot = plannedCanonicalPath(roots.productRoot);
+  const archiveRoot = plannedCanonicalPath(roots.archiveRoot);
+  // The archive enclosure and directional Product-root rules: the one program
+  // the helper also runs independently over its own derivation of these roots.
+  runPhysicalSync(worksiteCommandRootBoundary({
+    productRoot,
+    toolchainRoot: plannedCanonicalPath(roots.toolchainRoot),
+    eventLogRoot: plannedCanonicalPath(roots.eventLogRoot),
+    runtimeStateRoot: plannedCanonicalPath(roots.runtimeStateRoot),
+    projectionRoot: plannedCanonicalPath(roots.projectionRoot),
+    archiveRoot,
+  }));
   for (const path of [
     plan.attemptRoot,
     plan.helperPlan.taskManifestPath,
