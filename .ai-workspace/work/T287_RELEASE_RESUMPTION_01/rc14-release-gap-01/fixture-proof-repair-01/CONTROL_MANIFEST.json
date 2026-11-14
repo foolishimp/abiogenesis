@@ -1,0 +1,112 @@
+{
+  "kind": "prepared_control_inventory",
+  "sourceParent": "b3ffef9f0bf6306dbee4e2419d5326e5261860be",
+  "excludedSelfAndReturn": [
+    "CONTROL_MANIFEST.json",
+    "PREPARATION_RETURN.json",
+    "CREDENTIAL_SCOPE_RETURN.json"
+  ],
+  "controls": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 5941,
+      "sha256": "3ce2b650c4e31b1254bc31907cbc2acd2689431bd9b13a68f3df8ffbd5b9e993"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 639,
+      "sha256": "c4f5f3ae466ce7cdee3956612013234860f3c39080c700293acc9a3d61c5811d"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 16763,
+      "sha256": "20d2f8159c0aee781edd598e3d0a148b254927049ad06100bb1ff0b53b2f3beb"
+    },
+    {
+      "path": "LAYOUT.json",
+      "bytes": 1202,
+      "sha256": "9ad0b98644812810ecab0a4e63425ade2e6463802162ee0d999eb47383efb10a"
+    },
+    {
+      "path": "NATIVE_INPUTS_OBSERVED.json",
+      "bytes": 1405,
+      "sha256": "c3a50ec26284913280e9ef5b5e059fdde4c7a3369956a40458ddd8629c933b66"
+    },
+    {
+      "path": "PROOF_FIXTURE_INPUTS.json",
+      "bytes": 3613,
+      "sha256": "6e07ce2d9b2bcc52976d4ee572f80a59a4198e12d5af024f04ab0e769a3a5c3b"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 14156,
+      "sha256": "2fbaa115724e3f1fc5684003bfec203ffc1462ac936afcdc2a45213982ec5b97"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4476,
+      "sha256": "3f42069b09c63fd8a732c544cdfcebfd10b72c2453cdb709466ae15baba68111"
+    },
+    {
+      "path": "RETAINED_RELATIONS.json",
+      "bytes": 5816,
+      "sha256": "bd825015b26430024bce45b24ee97e5cd62eb63536039667410c4691ac13af66"
+    },
+    {
+      "path": "ROOT_ACTIVATION.json",
+      "bytes": 2570,
+      "sha256": "36963e49880fa22eaaae9eb4956c395cc8f1afc79b13ba7a7e077464dc20dfe3"
+    },
+    {
+      "path": "SOURCE_BINDING.json",
+      "bytes": 520,
+      "sha256": "be862b5d9fc6662c5f582bffcdc0a0a0fd00d725f2c79350813b130147141078"
+    },
+    {
+      "path": "TASK.json",
+      "bytes": 6405,
+      "sha256": "c25eab68b3377c09a01f5f72f921ba02c4a1970c97c841039f065effcc5644be"
+    },
+    {
+      "path": "check-installed.mjs",
+      "bytes": 2472,
+      "sha256": "b67edd4080e1dfae95d5d4d9f15debcf002e4a7141dc1648995a8ec3189b7420"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 2403,
+      "sha256": "7b26df18d1507f674385cbe80080116645501dec975468d41e1e9e6fe438a81e"
+    },
+    {
+      "path": "operate.py",
+      "bytes": 4032,
+      "sha256": "6c92470a4f48d142bf50fd488234a76caa917cbccb4aa3f4ae69411f6d623ece"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 19190,
+      "sha256": "597abb6987537084bad847f9e3c52897631b7f870e333af6903af1abe385903d"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ],
+  "succession": "Root-selected C01 credential-scope control repair; original b3ffef9 and its preparation Return remain historical"
+}

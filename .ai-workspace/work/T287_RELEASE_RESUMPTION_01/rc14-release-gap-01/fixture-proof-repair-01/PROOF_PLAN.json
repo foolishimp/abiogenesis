@@ -1,0 +1,159 @@
+{
+  "id": "RC14-PROOF-FIXTURE-REPAIR-NATIVE-001-PROOF",
+  "firstFailureStops": true,
+  "retries": 0,
+  "campaignMs": 3600000,
+  "originalHostDeadline": "CONTROL_START.json deadlineUtc; no reset",
+  "effectiveDeadline": "min(original host deadline, proof start + one hour) minus 15000ms cleanup reserve",
+  "cleanupReserveMs": 15000,
+  "perBuildMs": 300000,
+  "perWholeFileMs": 600000,
+  "testTimeoutMs": 590000,
+  "order": [
+    "source/setup custody and exact dependency/native inputs",
+    "one composed ordinary build",
+    "whole failed default-library from spaced external root",
+    "whole seven-case native-input sequence; child custody before assertions",
+    "verify successful two-relocation conjunction",
+    "one pack/offline install/archive equality/installed owner check for newly composed payload",
+    "previously unperformed semantic-job",
+    "qualification law/contraction/conservation",
+    "source/setup/input conservation and return"
+  ],
+  "newWholeFiles": [
+    {
+      "file": "t287-default-library.test.mjs",
+      "topLevelNames": [
+        "default library preserves cumulative wrapper bindings and rejects duplicate carried refs",
+        "installed root publication precondition rejects a bad non-selected publication",
+        "default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation",
+        "independent consumer restricts choices while preserving actual native role and schema owners",
+        "retention and execution share root, imported and exact external semantics owner selection",
+        "declared wrapper judgments advance actual observations, including red C2, without satisfying parent state",
+        "RC5 STDO 3.0.4 default role content is the exact packaged subset with its selected skill closure and capability instructions separate",
+        "RC5 STDO 3.0.4 actual acquisition delivers each role its selected skill closure and refuses altered, missing and unpermitted members",
+        "framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe",
+        "framed synthesis binds imported contracts, exact raw judgment and compact choice provenance",
+        "selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges",
+        "selector planning delivers a short strict UTF-8 stream whole and keeps longer, binary or unverified streams as explicit omissions",
+        "native-work assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "worksite command-executor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "worksite constructor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+        "fold and assessment consume actual native, C2 and assessment carriers with exact retained origin",
+        "RC7 fixed proof: direct root Testing prepares the observed C2 task and folds one selector-free Testing observation",
+        "RC7 fixed proof: direct Testing refuses open scope, fabricated or retained input, and a selector-free fold off the root Testing wrapper",
+        "B21 component: direct Testing observes selected subjects under the held admitted install roots before any read",
+        "RC7 fixed proof: direct UAT takes the admitted Testing state Result as its single producer and folds unmet and satisfied assessments without a selector",
+        "RC7 fixed proof: direct UAT refuses crossed source, row population, producer identity, currentness and off-root relations",
+        "RC7 fixed proof: selected children keep the synthesis target guard, selected Result ref and selected instruction order",
+        "RC7 fixed proof: public-setup invokes Testing directly, derives its admitted state Result once and invokes UAT over exactly that source; the lifecycle start is unchanged",
+        "UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations",
+        "C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources",
+        "parent conservation joins the pre-Run root basis through exact invocation and root implementation set",
+        "one governance-root projection: the ancestry owner and the governance owner refuse two indexed roots and an ancestry that misses the indexed root",
+        "DataMapper caller separates author territories and baseline inputs from future final proof",
+        "consumer-authored source and scope remain exact application data; no solution is in library",
+        "observed child provenance joins the current preparation and rejects crossed or missing causal facts",
+        "observed command correspondence conserves explicit input across empty and different process environments",
+        "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+        "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+        "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+        "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission",
+        "RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage"
+      ],
+      "expectedSkips": {
+        "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes": "ABI5_DEFAULT_LIBRARY_LIVE is not '1'; selects the installed Public default-library invocation"
+      }
+    },
+    {
+      "file": "t293-native-build-inputs.test.mjs",
+      "topLevelNames": [
+        "mandatory native closure and hierarchy are exact",
+        "missing changed and colliding native inputs refuse before execution",
+        "protected placement rewrites every compiler input without ambient fallback",
+        "snapshot mode loss permits two byte equal relocated native builds",
+        "relocated build preserves original protected and execution bytes",
+        "cold missing native addon gives existing uncertainty refusal",
+        "cold incompatible native addon gives existing uncertainty refusal"
+      ],
+      "allowSkips": false
+    }
+  ],
+  "existingWholeFiles": [
+    {
+      "file": "t287-native-semantic-job.test.mjs",
+      "topLevelNames": [
+        "native Design command budget retains exact capacity through both roles, readiness and historical correspondence",
+        "command cleanup budget rejects the old one-grace envelope through the semantic owner",
+        "command budget shares HTTP terms and exact existing C2 selector behavior",
+        "native workspace candidate derives through the Product algebra; provenance never becomes cold admission",
+        "independent rejection is retained and cannot advance; changed candidate or protected source refuses",
+        "native author fold preserves exact contract issues for same-response requirement refs outside the incoming domain",
+        "four assessed stages conserve requirement bindings and restrict construction/C2 to current Design",
+        "native typed semantic assessment uses the exact installed schema owner and rejects wrong declarations",
+        "native C2 retains assessed non-target dependencies without granting realization credit",
+        "B21 component: the semantic-job bridge observes targets and read dependencies under the held admitted install roots"
+      ],
+      "expectedSkips": {},
+      "sourceSha256": "f23543234518daa5842bc345b5d90fee77e8b5222ea10b865652963f264914e5"
+    },
+    {
+      "file": "t287-qualification-law.test.mjs",
+      "conditionalSkip": "Three exact existing staging cases. ABG_QUALIFICATION_STAGE_FIXTURES, ABG_QUALIFICATION_SOURCE_ROOT and ABG_QUALIFICATION_RELEASE_ROOT stay unset; no fresh staged qualification authority is invented.",
+      "expectedSkips": {
+        "authority staging and ordinary reproduction bind selectedRC2's exact Definition-selected release": "ABG_QUALIFICATION_STAGE_FIXTURES unset; exact historical/current staging fixtures not supplied",
+        "authority staging refuses wrong manifest and altered selected member before writing": "ABG_QUALIFICATION_SOURCE_ROOT or ABG_QUALIFICATION_RELEASE_ROOT unset; exact installed source acquisition roots not supplied",
+        "authority staging refuses a crossed release identity or member-set even with a matching manifest byte digest": "ABG_QUALIFICATION_STAGE_FIXTURES unset; exact current staging fixture not supplied"
+      },
+      "topLevelNames": [
+        "qualification law and every rule span bind the selected frozen source bytes",
+        "coverage declarations preserve retained behavior without execution slots or fabricated results",
+        "authority staging and ordinary reproduction bind selectedRC2's exact Definition-selected release",
+        "authority staging refuses wrong manifest and altered selected member before writing",
+        "authority staging refuses a crossed release identity or member-set even with a matching manifest byte digest",
+        "leaf admission reads both catalogs once from the owner install and refuses bytes that differ from the recorded digest at authority_verification",
+        "a typed failure of an F_D qualification leaf arrives through the port boundary with its evidence",
+        "O1 (A): parseQualificationCatalogs refuses a coverage catalog outside I-JSON on its throw",
+        "O1 (A): an install manifest outside I-JSON is refused at the coverage catalog it binds",
+        "O1 (A): an installed coverage catalog outside I-JSON is refused at its path"
+      ],
+      "sourceSha256": "d171fb1d365c9805079d9299a191fd3d84b591a5450447029f429ca94d692a5d"
+    },
+    {
+      "file": "t287-qualification-contraction.test.mjs",
+      "conditionalSkip": null,
+      "expectedSkips": {},
+      "topLevelNames": [
+        "actual execution evidence is authenticated once, with foreign, substituted, aliased and ambiguous producers refused",
+        "green execution cannot replace independent coverage judgment; shared evidence must actually be in each selected task",
+        "whole native F11 assessment feeds sole AF22 directly; development/foreign/missing/duplicate evidence remains non-green",
+        "AF22 shares its exact owner through separate installed realization, success validation and cloned judgment; cold and changed bases stay checked"
+      ],
+      "sourceSha256": "b768ee0976a20b66a8ae204b9452742ed9afca2008f75dc98240bc648f910236"
+    },
+    {
+      "file": "t287-installed-qualification-conservation.test.mjs",
+      "conditionalSkip": "All ABI5_INSTALLED_CONSERVATION_* acquisition prerequisites deliberately unset. Existing whole file must record its one prerequisite skip; no fake authority, provider or formal qualification. Actual external archive/install conservation is a separate executed step.",
+      "expectedSkips": {
+        "installed qualification conservation over the installed territory, package, archive and pinned interpreter": "ABI5_INSTALLED_CONSERVATION_ROOT, _PACKAGE_ROOT, _ARCHIVE or _NODE unset; requires the installed conservation territory, the installed package, its archive and the pinned interpreter"
+      },
+      "topLevelNames": [
+        "installed qualification conservation over the installed territory, package, archive and pinned interpreter"
+      ],
+      "sourceSha256": "2d4761cb518388e919029478f98df36e477b57ba1b813d12fe84efb8252e7f2a"
+    }
+  ],
+  "nativeRelocationEvidence": "The native-input whole file writes ABI5_NATIVE_BUILD_PROOF_RECORD as JSON. It records two distinct clean roots; protected and execution input inventories before/after; snapshot-style regular input modes 0644; actual child argv/exit/duration; relocated compiler/linker/resource/SDK/include roots; output path/bytes/SHA256 for each build; source/protected/host conservation; no ambient fallback negatives. Exact arrays/paths remain test-owned implementation. Operator retains and checks record, output equality and conserved hashes. When the Operator record path is selected, leave the two run directories and exact output files in that external proof scratch until the Operator has read them; ordinary unrecorded test runs may clean up. The execution input digest excludes compiler outputs and includes the derived executable input view only.",
+  "nativeRelocationRecordPath": "proof-01/scratch/NATIVE_RELOCATION_RESULT.json",
+  "coldLoadEvidence": "Both missing and incompatible addon cases use disposable candidate copies in fresh Node processes; cold loading, unaffected public import and existing uncertainty refusal, with no target effects. Never patch the cached native exports as a substitute.",
+  "qualification": false,
+  "generatedFinalInventories": "No refresh until final composed source; this is preparation evidence only.",
+  "nativeRelocationRecordSchema": {
+    "kind": "native_relocation_proof",
+    "ambientFallbackRefused": true,
+    "runs": "exactly two rows: root, protectedRoot, executionRoot, compiler, argv[], exitCode=0, output={path,bytes,sha256}, protectedBeforeDigest=protectedAfterDigest, executionBeforeDigest=executionAfterDigest, hostBeforeDigest=hostAfterDigest, snapshotInputMode=420. All digests lowercase bare SHA256. Paths absolute under external proof scratch; executionRoot under each run root/build. Each output must equal the ordinary build native output."
+  },
+  "retainedEvidence": "Earlier126 owner passes and6 identity cases remain subject-bound; explicit unchanged relations and exclusions in RETAINED_RELATIONS.json. Never add these to the new executed population.",
+  "packDecision": "One new pack/install selected: composed native build/payload changes invalidate blind reuse of the b529 archive receipt.",
+  "childEvidence": "Actual requests/stdout/stderr/result/classification before assertions; original missing traces remain missing."
+}

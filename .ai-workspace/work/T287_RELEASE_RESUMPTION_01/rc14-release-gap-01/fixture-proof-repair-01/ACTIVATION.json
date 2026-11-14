@@ -1,41 +1,99 @@
 {
-  "id": "RC14-PROOF-FIXTURE-REPAIR-001-PREPARATION",
-  "role": "Separate Operator preparation activation for /root/b30_catalog_triage",
-  "recordedUtc": "2026-11-14T19:18:40.651811+00:00",
-  "productFrame": "Fixed ABIogenesis 5.0; existing owner and exact candidate/native-input proof. These two tests are derived tools and may not weaken owner contracts or author qualification truth.",
-  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
-  "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
-  "sourceBase": "5680ae9ae9d2f310342f9e58ece86032d42e379c",
-  "triage": "integration-01/PROOF_FIXTURE_FAILURE_TRIAGE_01.md",
-  "builderPin": "../rc13-operational-pin-01/BUILDER_PIN.json",
-  "controlDirectory": "fixture-proof-repair-01",
-  "worktree": "/private/tmp/abg-rc14-proof-fixture-20261115-01",
-  "branch": "codex/rc14-proof-fixture-20261115",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26",
+    "bytes": 5769
+  },
+  "provider": {
+    "agent": "claude",
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "version": "2.1.322 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "providerCallsAtMost": 1,
+    "protocol": "Use existing actual Claude owner path. No Codex-as-Claude wrapper or new provider feature."
+  },
+  "id": "RC14-PROOF-FIXTURE-REPAIR-NATIVE-001",
+  "role": "Prepared Operator/native control configuration; execution requires separate exact Root launch authorization",
+  "operator": "/root/b30_catalog_triage",
+  "decisionOwner": "Root under the owner-selected RC14 delivery and current fix RC14 instruction",
+  "sourceBinding": "Product source5680ae9ae9d2f310342f9e58ece86032d42e379c; preparation parent e89ed8bd8aa709816894721ec1c30f19045b4e3c is tenant-equal. Actual launch requires explicit pushed sourceHead and fresh preimage.",
+  "sourceWorktree": "/private/tmp/abg-rc14-proof-fixture-20261115-01",
+  "sourceBranch": "codex/rc14-proof-fixture-20261115",
   "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01",
-  "futureNativeWriteSet": [
+  "changeClass": "derived Proof fixture repair; no Product/build/helper/schema changes",
+  "nativeWriteScope": [
     "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
     "build_tenants/abiogenesis/typescript/test_env/tests/t293-native-build-inputs.test.mjs"
   ],
-  "prospectiveBounds": {
-    "nativeModel": "claude-opus-5-5",
-    "effort": "xhigh",
-    "nativeWallSeconds": 1200,
-    "enclosingWallSeconds": 5400,
-    "authors": 1,
-    "firstFailure": "stop retain return; no autonomous retry"
-  },
-  "permittedEffects": [
+  "operatorWriteTerritory": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01",
+    "/private/tmp/abg-rc14-proof-fixture-20261115-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01",
+    "local registration for this named branch/worktree"
+  ],
+  "operatorEffects": [
     "Create isolated source worktree from exact merged source",
     "Reuse accepted physical topology, finite process owner, source/setup custody and RC13 public host controls",
     "Prepare concise exact two-file task and proof selection from closed triage; freeze and commit control source only on worker branch",
     "Read source and prior closed receipts; static parse/JSON/hash checks only",
     "Return exact control subject, paths, hashes, source binding and remaining gaps to Root"
   ],
-  "prohibitedEffects": [
-    "No Product/test edits by Operator",
-    "No Product imports, runtime setup, provider, build, tests, archive or install during preparation",
-    "No raw evidence, dependency or SDK/header/archive copies in Git",
-    "No main mutation, remote push, acceptance, release or extra work selection"
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 1200000,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 5400000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 16777216,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "oldRc13CampaignClockReused": false,
+    "proofCampaignMs": 3600000,
+    "perBuildMs": 300000,
+    "perTestFileMs": 600000
+  },
+  "preflight": {
+    "state": "PREPARE_ONLY_RETURN_TO_ROOT_BEFORE_PROVIDER",
+    "observer": "Reuse exact b21-native-01/physical-topology.py SHAeb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31, bounded controlled ASCII layout only",
+    "required": "Fresh actual root topology immediately before dispatch; include installed ABI container and all binding/install roots; preserve original setup-owned manifest custody and preimage instead of blanket exclusion"
+  },
+  "nativeInstructions": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t293-native-build-inputs.test.mjs"
   ],
-  "returnRelation": "Root reviews and pushes exact controls before separately admitting native dispatch; a prepared command is not execution authority"
+  "proof": [
+    "PROOF_PLAN.json is the prospective finite selection; no execution until exact Root launch packet is admitted."
+  ],
+  "exclusions": [
+    "No direct Operator-authored production/test repair",
+    "No immutable RC13/dependency mutation or model/provider fallback",
+    "No Product/requirement change, version bump, global binding policy, shared JSON checker rewrite or broad filesystem framework",
+    "No main write/merge/push by worker; no raw evidence, archives, LFS, other refs or force publication",
+    "No broad/release qualification, Product publication or human acceptance",
+    "No repair to native toolchain/qualification scripts in this owner slice; separate closed build-frame findings return to Root"
+  ],
+  "admission": "Existing owner RC13-built RC14 mandate and current fix RC14 instruction; Root conjoins closed B21 Product/Design/Effect/Foundation and B12 Public-owner triage. Accepted HOW is in the pushed activation checkpoint.",
+  "targetTruth": "Correct filesystem URI conversion and exact native auxiliary/trace/evidence carriers without weakening existing owners.",
+  "selection": "integration-01/PROOF_FIXTURE_FAILURE_TRIAGE_01.md",
+  "owningDesign": [
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md"
+  ],
+  "returnTo": "Root Executive, exact frozen source and bounded results/gaps; stop at first failure or completed return",
+  "recordedUtc": "2026-11-14T19:23:43.951008+00:00",
+  "preparationGrant": {
+    "path": "ROOT_ACTIVATION.json",
+    "sha256": "36963e49880fa22eaaae9eb4956c395cc8f1afc79b13ba7a7e077464dc20dfe3",
+    "id": "RC14-PROOF-FIXTURE-REPAIR-001-PREPARATION"
+  }
 }

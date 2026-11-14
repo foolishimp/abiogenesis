@@ -1,0 +1,76 @@
+{
+  "kind": "exact_tracked_whole_file_fixture_inputs",
+  "sourceHead": "917085a01b701a979de59e426b3553782bbf78f6",
+  "paths": [
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness"
+  ],
+  "files": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/README.md",
+      "bytes": 1195,
+      "sha256": "19126c510544b3442d7361131f2709f79494d6608a2c147cf119cc77c5263f2c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/implementation-design.md",
+      "bytes": 639,
+      "sha256": "b96765496fe0c3888365ba72780af33824fa7f34acdb042af45df4d120ba0145"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/test-design.md",
+      "bytes": 684,
+      "sha256": "617dd54841f7128842616ce42a3befb15b30cd454215894c067980e5ede43406"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/generated/hello-world.mjs",
+      "bytes": 29,
+      "sha256": "647697a5fb5d141a2b1163363170a7a845b61a36096ff52f7a369f1736cd4993"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/basic-cli.oracle.json",
+      "bytes": 1112,
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/original-basic-cli.txt",
+      "bytes": 4325,
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/witness-contract.md",
+      "bytes": 1674,
+      "sha256": "29e669318aa0c9dc2fceca23f8caf22b01e475cd3f918070f980c70ac00355b3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/specification/project-conformance.md",
+      "bytes": 751,
+      "sha256": "9aaa62cadeaa74520e5e45542e699c9a97e55bf4b475b2de7f7347b3fb4cee81"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/component/hello-cli.test.mjs",
+      "bytes": 369,
+      "sha256": "8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/uat/hello-cli.uat.test.mjs",
+      "bytes": 371,
+      "sha256": "5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test-execution-plan.json",
+      "bytes": 268,
+      "sha256": "e3250aae29261ebf20fc942aa31ddce5d152b14d4e9c6262e4eab820be34a350"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json",
+      "bytes": 5835,
+      "sha256": "ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/supplied-work-contract.md",
+      "bytes": 1692,
+      "sha256": "35264dc6830838f7037ea97acf7131b3396342a88604730bd5cf290a350a697d"
+    }
+  ],
+  "bytes": 18944,
+  "purpose": "Maintained default-library component and actual installed Public direct Testing/UAT proof. Copy exact tracked rows to external mirror; no fallback or reconstructed witness."
+}

@@ -1,0 +1,41 @@
+{
+  "id": "RC14-PROOF-FIXTURE-REPAIR-001-PREPARATION",
+  "role": "Separate Operator preparation activation for /root/b30_catalog_triage",
+  "recordedUtc": "2026-11-14T19:18:40.651811+00:00",
+  "productFrame": "Fixed ABIogenesis 5.0; existing owner and exact candidate/native-input proof. These two tests are derived tools and may not weaken owner contracts or author qualification truth.",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "sourceBase": "5680ae9ae9d2f310342f9e58ece86032d42e379c",
+  "triage": "integration-01/PROOF_FIXTURE_FAILURE_TRIAGE_01.md",
+  "builderPin": "../rc13-operational-pin-01/BUILDER_PIN.json",
+  "controlDirectory": "fixture-proof-repair-01",
+  "worktree": "/private/tmp/abg-rc14-proof-fixture-20261115-01",
+  "branch": "codex/rc14-proof-fixture-20261115",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01",
+  "futureNativeWriteSet": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t293-native-build-inputs.test.mjs"
+  ],
+  "prospectiveBounds": {
+    "nativeModel": "claude-opus-5-5",
+    "effort": "xhigh",
+    "nativeWallSeconds": 1200,
+    "enclosingWallSeconds": 5400,
+    "authors": 1,
+    "firstFailure": "stop retain return; no autonomous retry"
+  },
+  "permittedEffects": [
+    "Create isolated source worktree from exact merged source",
+    "Reuse accepted physical topology, finite process owner, source/setup custody and RC13 public host controls",
+    "Prepare concise exact two-file task and proof selection from closed triage; freeze and commit control source only on worker branch",
+    "Read source and prior closed receipts; static parse/JSON/hash checks only",
+    "Return exact control subject, paths, hashes, source binding and remaining gaps to Root"
+  ],
+  "prohibitedEffects": [
+    "No Product/test edits by Operator",
+    "No Product imports, runtime setup, provider, build, tests, archive or install during preparation",
+    "No raw evidence, dependency or SDK/header/archive copies in Git",
+    "No main mutation, remote push, acceptance, release or extra work selection"
+  ],
+  "returnRelation": "Root reviews and pushes exact controls before separately admitting native dispatch; a prepared command is not execution authority"
+}
