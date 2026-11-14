@@ -1,10 +1,17 @@
 import datetime, hashlib, json, os, pathlib, signal, subprocess, sys, time
 
 CONTROL = pathlib.Path(__file__).resolve().parent
-RAW = pathlib.Path('/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01')
-SOURCE = pathlib.Path('/private/tmp/abg-rc14-proof-fixture-20261115-01')
+RAW = pathlib.Path('/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02')
+SOURCE = pathlib.Path('/private/tmp/abg-rc14-proof-fixture-20261115-02')
 ACT = json.loads((CONTROL / 'ACTIVATION.json').read_text())
-LIMIT = ACT['limits']['hostControlDeadlineMs'] / 1000
+ORIGINAL = ACT['inheritedClock']
+original_path = pathlib.Path(ORIGINAL['path'])
+assert hashlib.sha256(original_path.read_bytes()).hexdigest() == ORIGINAL['sha256']
+original = json.loads(original_path.read_text())
+assert original['sourceHead'] == ORIGINAL['sourceHead'] and original['deadlineUtc'] == ORIGINAL['deadlineUtc']
+original_deadline = datetime.datetime.fromisoformat(original['deadlineUtc'])
+assert original_deadline.tzinfo is not None
+CLEANUP_RESERVE = ORIGINAL['cleanupReserveMs'] / 1000
 MAX_BYTES = ACT['limits']['outputBytesPerCommand']
 
 def write(name, value):
@@ -25,6 +32,9 @@ def stop_group(pid):
     return {'signals':signals,'hostProcessGroupAbsent':not group_exists(pid)}
 
 started=time.monotonic(); start_utc=datetime.datetime.now(datetime.timezone.utc)
+LIMIT=(original_deadline-start_utc).total_seconds()
+assert CLEANUP_RESERVE < LIMIT <= ACT['limits']['hostControlDeadlineMs']/1000, 'insufficient remaining original host deadline'
+EXECUTION_LIMIT=LIMIT-CLEANUP_RESERVE
 env={k:v for k,v in os.environ.items() if k in ['HOME','PATH','LANG','LC_ALL','CLAUDE_CODE_OAUTH_TOKEN']}
 env.update({'HOME':'/Users/jim','PATH':'/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin',
             'TMPDIR':str(RAW/'host-scratch/tmp'),'NODE_OPTIONS':'--max-old-space-size=8192','GIT_OPTIONAL_LOCKS':'0'})
@@ -34,15 +44,16 @@ launch=json.loads(launch_path.read_text())
 assert launch['activationId']==ACT['id'] and launch['dispatchAuthorized'] is True
 command=['/opt/homebrew/bin/node',str(CONTROL/'HOST.mjs'),str(launch_path)]
 write('CONTROL_START.json',{'command':command,'source':str(SOURCE),'sourceHead':launch['sourceHead'],'launchSha256':hashlib.sha256(launch_path.read_bytes()).hexdigest(),'startedUtc':start_utc.isoformat(),
-    'deadlineUtc':(start_utc+datetime.timedelta(seconds=LIMIT)).isoformat(),'hostControlDeadlineMs':int(LIMIT*1000),
-    'providerCallsAtMost':1,'proofRetry':False,'oldCampaignClockReused':False})
+    'deadlineUtc':original_deadline.isoformat(),'hostControlDeadlineMs':int(LIMIT*1000),'originalClock':ORIGINAL,
+    'executionStopDeadlineUtc':(original_deadline-datetime.timedelta(seconds=CLEANUP_RESERVE)).isoformat(),'cleanupReserveMs':int(CLEANUP_RESERVE*1000),
+    'providerCallsAtMost':1,'proofRetry':False,'oldCampaignClockReused':True})
 with (RAW/'host.stdout.raw').open('xb') as out, (RAW/'host.stderr.raw').open('xb') as err:
     child=subprocess.Popen(command,cwd=SOURCE,env=env,stdin=subprocess.DEVNULL,stdout=out,stderr=err,start_new_session=True)
     write('HOST_PID.json',{'pid':child.pid,'processGroup':child.pid})
     reason=None; offset=0
     while child.poll() is None:
         elapsed=time.monotonic()-started
-        if elapsed>=LIMIT: reason='host_deadline'; break
+        if elapsed>=EXECUTION_LIMIT: reason='original_host_deadline_cleanup_reserve'; break
         if out.tell()+err.tell()>MAX_BYTES: reason='host_output_limit'; break
         # Small phase records only; full original bytes remain in raw files.
         with (RAW/'host.stdout.raw').open('rb') as reader:

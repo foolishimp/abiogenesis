@@ -1,0 +1,122 @@
+{
+  "id": "RC14-PROOF-FIXTURE-CARRIER-SUCCESSOR-02-PREPARATION",
+  "recordedUtc": "2026-11-14T19:51:46.099636+00:00",
+  "state": "PREPARED_NOT_DISPATCHED",
+  "parent": "abdedc82610cdae436a3ac0423ac49532e98d275",
+  "worktree": "/private/tmp/abg-rc14-proof-fixture-20261115-02",
+  "branch": "codex/rc14-proof-fixture-20261115-02",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02",
+  "grant": {
+    "path": "TASK_CARRIER_TRIAGE_AND_REENTRY.md",
+    "sha256": "283354b37b21d9387a106a73a00ccfe946365c785204b962ebb1db245c3a9b98"
+  },
+  "taskCorrection": {
+    "previousShape": "instructions:string",
+    "successorShape": "instructions:[exact same string]",
+    "utf8Bytes": 2810,
+    "instructionSha256": "2f9d0dcd85a829db5a6411ec3a8a8d3e145cb1286e8d65a3bbc3932066409d67",
+    "allOtherTaskValuesEqual": true,
+    "taskSha256": "e3fabe3579f98f45227f20e6ad8c0779e9ceb744d3e6f996c846bf79fb681799"
+  },
+  "canonicalTypeCheck": {
+    "receipt": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/static-carrier/RETURN.json",
+    "receiptSha256": "c79ef729a62296fa38bc79895a0ddbfc2e3f14254f34736c6f59e2a5588c07a4",
+    "exitCode": 0,
+    "owner": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.d.ts",
+      "sha256": "5410c41260ad69471997b7873c615b422656ce24a65d2af07568c859baa2fc6c"
+    },
+    "checkerSource": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/static-carrier/task-carrier.mts",
+      "sha256": "f08b6639dbd9801a264cab3b116b1874608c72d7b8bc2e66bced62468594566b"
+    },
+    "compiler": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/tsc.js",
+      "sha256": "2cffde0b8c6760dfb0b5b0382bbb7e00ba6a8b2d981b9205b256a700a481d983"
+    },
+    "noEmit": true,
+    "ProductEvaluation": false,
+    "fields": [
+      "outcome",
+      "instructions",
+      "readFirst",
+      "writeRoots",
+      "checks"
+    ],
+    "limits": "Canonical exported types, with skipLibCheck for declaration bodies; runtime nonempty/path/currentness/context/grant relationships remain owner admission. No rival schema."
+  },
+  "readFirst": {
+    "files": [
+      {
+        "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/ROOT_ACTIVATION.json",
+        "bytes": 2570,
+        "sha256": "36963e49880fa22eaaae9eb4956c395cc8f1afc79b13ba7a7e077464dc20dfe3"
+      },
+      {
+        "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/PROOF_FIXTURE_FAILURE_TRIAGE_01.md",
+        "bytes": 5213,
+        "sha256": "10069ff9d4e122302a6f6e649227d8116b5be1c16ba19468531aa1e6e3009701"
+      },
+      {
+        "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/README.md",
+        "bytes": 5130,
+        "sha256": "a33d50ce185f628a77df1378e9fefaf8b9375eba88daea2892b59ffd8dfabc6a"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 363147,
+        "sha256": "959d5f0941cb8ea925c79f3ca5a1d5f7172874b9297d20cea955ea589998831e"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t293-native-build-inputs.test.mjs",
+        "bytes": 43192,
+        "sha256": "ced86d24779fe52eb5d090acaaec5429d650cc12eeb99d77b85840fecc1f103b"
+      }
+    ],
+    "allPresentRegularNonSymlinks": true,
+    "receiptSha256": "3c2c9a92bd6010299e9f5533aab326d9be02e415cddd58df21053ef95d950b94"
+  },
+  "clock": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01/CONTROL_START.json",
+    "sha256": "856143da35f6abfdee327987670f746ab0b75ecc0cdfd7cb53f4b4fc14a3ee82",
+    "sourceHead": "484f4b721d8efafdcf6aa5ddabc69b06bed58756",
+    "startedUtc": "2026-11-14T19:39:42.776494+00:00",
+    "deadlineUtc": "2026-11-14T21:09:42.776494+00:00",
+    "cleanupReserveMs": 15000,
+    "rule": "Reuse this exact original deadline, never a fresh90min clock; proof min(original deadline, proof start+1h)."
+  },
+  "clockImplementation": "operate authenticates actual01 receipt before spawning, uses its exact absolute deadline and15s cleanup reserve. Proof authenticates the same original binding and uses min(original deadline, proof start+1h) with15s reserve. HOST refuses dispatch if native20min ceiling plus cleanup cannot fit. No new90min clock.",
+  "staticChecks": {
+    "pythonAstFiles": [
+      "dependency-inputs.py",
+      "freeze-source.py",
+      "operate.py",
+      "physical-topology.py",
+      "process-owner.py",
+      "prove.py",
+      "setup-custody.py"
+    ],
+    "nodeSyntaxFiles": [
+      "HOST.mjs",
+      "check-installed.mjs"
+    ]
+  },
+  "controlsManifestSha256": "ae61c1e916af759dd00db22192c39777f275d1f5e582fc9652c40c318de19537",
+  "preserved": [
+    "failed01 source/setup/control/evidence untouched",
+    "instruction text and every other TASK value",
+    "same exact two native write files",
+    "same native model/effort and proof order/populations/gates",
+    "credential isolation and accepted topology/custody mechanisms",
+    "Product/spec/Definition equal preceding source"
+  ],
+  "noExecution": [
+    "no Product imports/evaluation",
+    "no runtime setup",
+    "no provider",
+    "no build/test/pack/install",
+    "no main mutation/push"
+  ],
+  "remaining": "Root exact successor review/checkpoint/push; separate dispatch grant; clean final advance/refreeze and future actual owner joins. No automatic retry.",
+  "qualified": false
+}

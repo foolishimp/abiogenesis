@@ -1,16 +1,17 @@
 {
   "kind": "prepared_control_inventory",
-  "sourceParent": "b3ffef9f0bf6306dbee4e2419d5326e5261860be",
+  "sourceParent": "abdedc82610cdae436a3ac0423ac49532e98d275",
   "excludedSelfAndReturn": [
     "CONTROL_MANIFEST.json",
     "PREPARATION_RETURN.json",
-    "CREDENTIAL_SCOPE_RETURN.json"
+    "CREDENTIAL_SCOPE_RETURN.json",
+    "CARRIER_SUCCESSOR_RETURN.json"
   ],
   "controls": [
     {
       "path": "ACTIVATION.json",
-      "bytes": 5941,
-      "sha256": "3ce2b650c4e31b1254bc31907cbc2acd2689431bd9b13a68f3df8ffbd5b9e993"
+      "bytes": 6693,
+      "sha256": "5d59231634683ca38144c884c8b68886cbf10c2f2551d26639810f6a74c0ea4e"
     },
     {
       "path": "DEPENDENCY_INPUTS.json",
@@ -19,13 +20,13 @@
     },
     {
       "path": "HOST.mjs",
-      "bytes": 16763,
-      "sha256": "20d2f8159c0aee781edd598e3d0a148b254927049ad06100bb1ff0b53b2f3beb"
+      "bytes": 17010,
+      "sha256": "37446ee36479ae4032b276a09e3a7cbf12ce8d5336b3b448a60df94736187f92"
     },
     {
       "path": "LAYOUT.json",
       "bytes": 1202,
-      "sha256": "9ad0b98644812810ecab0a4e63425ade2e6463802162ee0d999eb47383efb10a"
+      "sha256": "b57c1d1b01f651b28edf372f75d4fe517fb282bb4a52cfca328e73b3ad61ec25"
     },
     {
       "path": "NATIVE_INPUTS_OBSERVED.json",
@@ -44,8 +45,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4476,
-      "sha256": "3f42069b09c63fd8a732c544cdfcebfd10b72c2453cdb709466ae15baba68111"
+      "bytes": 5130,
+      "sha256": "a33d50ce185f628a77df1378e9fefaf8b9375eba88daea2892b59ffd8dfabc6a"
     },
     {
       "path": "RETAINED_RELATIONS.json",
@@ -59,13 +60,18 @@
     },
     {
       "path": "SOURCE_BINDING.json",
-      "bytes": 520,
-      "sha256": "be862b5d9fc6662c5f582bffcdc0a0a0fd00d725f2c79350813b130147141078"
+      "bytes": 1088,
+      "sha256": "83aaa34d2a47df2a05cb773db45f7bf245b9caea2a69f973386521a58b9aae21"
     },
     {
       "path": "TASK.json",
-      "bytes": 6405,
-      "sha256": "c25eab68b3377c09a01f5f72f921ba02c4a1970c97c841039f065effcc5644be"
+      "bytes": 6415,
+      "sha256": "e3fabe3579f98f45227f20e6ad8c0779e9ceb744d3e6f996c846bf79fb681799"
+    },
+    {
+      "path": "TASK_CARRIER_TRIAGE_AND_REENTRY.md",
+      "bytes": 3492,
+      "sha256": "283354b37b21d9387a106a73a00ccfe946365c785204b962ebb1db245c3a9b98"
     },
     {
       "path": "check-installed.mjs",
@@ -84,8 +90,8 @@
     },
     {
       "path": "operate.py",
-      "bytes": 4032,
-      "sha256": "6c92470a4f48d142bf50fd488234a76caa917cbccb4aa3f4ae69411f6d623ece"
+      "bytes": 4878,
+      "sha256": "66544d757a6043779c8ec1c90787face6787c0adc9ae43a304eb9f630b058d3a"
     },
     {
       "path": "physical-topology.py",
@@ -99,8 +105,8 @@
     },
     {
       "path": "prove.py",
-      "bytes": 19190,
-      "sha256": "597abb6987537084bad847f9e3c52897631b7f870e333af6903af1abe385903d"
+      "bytes": 19539,
+      "sha256": "a44fcd593decff05e875980bed0293b924ce080e745f9ed7eda877279f0c9103"
     },
     {
       "path": "setup-custody.py",
@@ -108,5 +114,5 @@
       "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
     }
   ],
-  "succession": "Root-selected C01 credential-scope control repair; original b3ffef9 and its preparation Return remain historical"
+  "succession": "Fresh02 control carrier and inherited-clock successor; failed01 and original receipts remain immutable"
 }

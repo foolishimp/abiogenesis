@@ -12,8 +12,8 @@ const providerCredentials=Object.fromEntries(['CLAUDE_CODE_OAUTH_TOKEN']
 for(const key of Object.keys(providerCredentials))delete process.env[key];
 
 const dir=dirname(fileURLToPath(import.meta.url));
-const source='/private/tmp/abg-rc14-proof-fixture-20261115-01';
-const raw='/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-01';
+const source='/private/tmp/abg-rc14-proof-fixture-20261115-02';
+const raw='/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02';
 const runtimeRoot=join(raw,'runtime'), tenant=join(source,'build_tenants/abiogenesis/typescript');
 const launchPath=resolve(process.argv[2]??'');
 assert(process.argv.length===3,'one explicit Root launch-packet path required');
@@ -21,6 +21,7 @@ const launch=JSON.parse(await readFile(launchPath,'utf8'));
 assert.equal(launch.activationId,'RC14-PROOF-FIXTURE-REPAIR-NATIVE-001');
 assert.equal(launch.dispatchAuthorized,true,'Root must accept packet and pushed source before launch');
 const head=launch.sourceHead;assert.match(head,/^[0-9a-f]{40}$/);
+const controlClock=JSON.parse(await readFile(join(raw,'CONTROL_START.json'),'utf8'));
 assert.equal(launch.observerSha256,'eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31');
 const pinPath='/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json';
 const sha=b=>createHash('sha256').update(b).digest('hex');
@@ -116,6 +117,7 @@ try {
   await record('topology-immediately-before-dispatch.json',await observeTopology({worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots:finalProtected,archiveRoot:finalEnv.workspaceBinding.roots.archiveRoot}));
   await record('setup-owned-custody-at-dispatch.json',custody('preflight'));
   abg.assertAcquiredAbgEventResourceSelectionCurrent(entry);
+  assert(Date.parse(controlClock.deadlineUtc)-Date.now()>limits.nativeAbsoluteMs+15000,'remaining original deadline cannot contain native ceiling and cleanup');
   await mark('one-author-dispatch');launched=true;
   outcome=await runner.invokeLifecycle(caller,setup.installations,constructed.call,{...providerCredentials,...worker});
   await record('NATIVE_RETURN.json',{run:outcome.receipt?.resources?.run??null,ownerOutput:outcome.receipt?.ownerOutput??null,launched});await mark('native-returned');
