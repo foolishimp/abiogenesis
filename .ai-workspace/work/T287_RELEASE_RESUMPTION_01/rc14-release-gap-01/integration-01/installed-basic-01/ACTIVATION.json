@@ -1,0 +1,49 @@
+{
+  "id": "RC14-INSTALLED-BASIC-001",
+  "role": "Separate external Operator /root/b29_vm_triage after closed read-only binding preparation",
+  "selectionUtc": "2026-11-14T20:32:27.715375+00:00",
+  "deadlineUtc": "2026-11-14T21:32:27.715375+00:00",
+  "productFrame": "Fixed5.0 S01/S03 ordinary installed Public invocation, existing Executive/declared work/independent UAT. Host is external tooling; GTL/HoG/ABG own all selections, effects, admission and evidence. This is the earliest end-to-end discriminator after B21/B32 affected proof.",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "sourceMainAtSelection": "1a4e5d30a7d25252a14ecaa0882fbab535eb458c",
+  "candidateSource": "7a2411defd9ef7c1968512703c3b4b1493114453",
+  "frozenControl": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862",
+  "bindingSha256": "9e1300311fa481cddceb001a428e63d1a505779c1050a0ed34c279ad098224ea",
+  "topologyAcceptanceSha256": "35487588ca663d1277b01bbf5c8b26cc6990740de7936329db811a626169c9fa",
+  "authority": [
+    "Owner RC13-built RC14 mandate and fix RC14; status does not pause authorized work",
+    "PLAN.md order5 and installed first-composition control/credential acceptance",
+    "Fixture native source7a2411def and composed proof65pass/0fail/5declared skips; actual proof archive/install equality independently reacquired"
+  ],
+  "typedHandoffs": "Existing installed exported Product/GTL/Public constructors and retained maintained helpers; original task and oracle unchanged. No private invocation-truth import, host graph selection or new runtime.",
+  "permittedEffects": [
+    "After this exact grant/binding/topology are committed and pushed, invoke unchanged run.py exactly once on BINDING.json",
+    "Create only fresh declared external raw/worksite roots and ordinary Public installs/resources; acquire declared credential key privately, never record its value",
+    "Run deterministic installed-language smoke once; only if passed and all actual topology observations pass, one fresh Public basic-cli lifecycle",
+    "Observe actual native model/choices/outcomes, existing source/file-link/install conservation, actual resource close, held/fresh readbacks and unchanged independent oracle",
+    "Return first failure or complete compact result to Root; retain all raw records locally. No need to wait for unrelated peer-red triage before this lawful discriminator"
+  ],
+  "prohibitedEffects": [
+    "No Product/test/control editing, branch/source mutation, candidate rebuild/repack/version bump, new provider or external retry",
+    "No amendment/S06/continuation/qualification claim, RC14 cut or change of pinned RC13 builder",
+    "No raw evidence, credentials, snapshots or archives in Git; no global descendant-absence claim"
+  ],
+  "stops": [
+    "Any unexpected setup, topology, owner, oracle, readback or conservation failure",
+    "Original deadline or output bound; accepted finite termination/reap and exit audit reserve remain mandatory",
+    "No repeated successful population, changed binding or reset clock without Root causal intake"
+  ],
+  "runtimeLimits": {
+    "enclosingMs": 3600000,
+    "exitAuditReserveMs": 120000,
+    "cleanupReserveMs": 15000,
+    "maxConcurrentNativeAuthors": 2,
+    "externalParallelLaunches": 0,
+    "nativeAbsoluteMs": 900000,
+    "nativeInactivityMs": 300000,
+    "nativeMaxTurns": 100,
+    "recursiveProgramBound": 12
+  },
+  "returnRelation": "Root separately conjoins actual receipt and scope. A development proof payload with rc13 metadata is not an immutable RC14 or a repin."
+}

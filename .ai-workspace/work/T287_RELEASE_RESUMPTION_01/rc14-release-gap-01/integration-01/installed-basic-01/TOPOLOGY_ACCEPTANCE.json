@@ -1,0 +1,34 @@
+{
+  "id": "RC14-INSTALLED-BASIC-TOPOLOGY-001",
+  "meaning": "Acceptance of the exact planned layout and accepted observation recipe, not a preclaimed separation measurement",
+  "source": "7a2411defd9ef7c1968512703c3b4b1493114453",
+  "worksiteRoot": "/private/tmp/abg-rc14-installed-basic-20261115-01",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01",
+  "writePaths": [
+    "/private/tmp/abg-rc14-installed-basic-20261115-01/design/implementation-design.md",
+    "/private/tmp/abg-rc14-installed-basic-20261115-01/design/test-design.md",
+    "/private/tmp/abg-rc14-installed-basic-20261115-01/execution-evidence",
+    "/private/tmp/abg-rc14-installed-basic-20261115-01/generated/hello-world.mjs",
+    "/private/tmp/abg-rc14-installed-basic-20261115-01/specification/project-conformance.md",
+    "/private/tmp/abg-rc14-installed-basic-20261115-01/test-execution-plan.json",
+    "/private/tmp/abg-rc14-installed-basic-20261115-01/test/component/hello-cli.test.mjs",
+    "/private/tmp/abg-rc14-installed-basic-20261115-01/test/uat/hello-cli.uat.test.mjs"
+  ],
+  "protectedRoots": [
+    "/Users/jim/src/apps/abiogenesis",
+    "/private/tmp/abg-rc14-installed-prep-20261115-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/installed/node_modules/@abiogenesis/typescript-tenant",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/archives/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz"
+  ],
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "owningAcceptance": "integration-01/installed-smoke-preparation-01/ROOT_CREDENTIAL_SCOPE_ACCEPTANCE.json and closed C02-C04 control reviews",
+  "requiredActualObservations": [
+    "planned prospective roots before deterministic smoke",
+    "complete actual binding roots and both admitted installs after Public setup",
+    "same complete actual layout immediately before native dispatch"
+  ],
+  "admission": "Each bounded observer must exit0 with ok:true and disposition:separated; any missing/uncertain/overlapping relation stops before dispatch. Host credentials remain absent during imports/setup/probes.",
+  "limits": "Controlled ASCII Darwin/APFS relation; no general race/Unicode, directory metadata or whole-machine process-absence assertion. Raw roots are not yet created."
+}

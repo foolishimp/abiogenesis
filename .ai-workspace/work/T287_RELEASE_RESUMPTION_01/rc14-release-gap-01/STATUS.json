@@ -27,7 +27,7 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T20:26:50.617362+00:00",
+  "recordedUtc": "2026-11-14T20:32:27.715375+00:00",
   "nativeAuthorState": "Fixture native author returned with actual resource close; no author active. Composed proof complete, no retry. Author process deviations retained separately from passing proof.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
@@ -327,11 +327,14 @@
     "returnRecordSha256": "38519573c5172a7a153baa9c4ae66c1446fa87953bc9ac8f523f07b5b6a1f506"
   },
   "installedCompositionPreparation": {
-    "state": "STATIC_CONTROLS_ACCEPTED_EXECUTION_DISABLED",
+    "state": "CONCRETE_ONE_RUN_BINDING_SELECTED_PENDING_PUSH",
     "controlCommit": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862",
     "acceptance": "integration-01/installed-smoke-preparation-01/ROOT_CREDENTIAL_SCOPE_ACCEPTANCE.json",
-    "missing": "Final candidate/bootstrap/layout/tool bindings, exact execution grant and actual live evidence",
-    "bindingPreparation": "Read-only exact binding preparation selected on frozen controls c1683d3 with repaired proof payload; no dispatch granted yet"
+    "missing": "Exact grant push and actual bounded installed smoke/Public lifecycle evidence",
+    "bindingPreparation": "Read-only exact binding preparation selected on frozen controls c1683d3 with repaired proof payload; no dispatch granted yet",
+    "executionGrant": "integration-01/installed-basic-01/ACTIVATION.json",
+    "bindingSha256": "9e1300311fa481cddceb001a428e63d1a505779c1050a0ed34c279ad098224ea",
+    "deadlineUtc": "2026-11-14T21:32:27.715375+00:00"
   },
   "peerReviewIntake": {
     "path": ".ai-workspace/comments/claude/20261114T194815Z_REVIEW_RC13_AND_RC14_RELEASE_GAP/README.md",
