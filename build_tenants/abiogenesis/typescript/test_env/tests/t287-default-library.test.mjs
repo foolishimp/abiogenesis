@@ -60,7 +60,7 @@ const RETAINED_STDOUT_BASE64=[
   'b2QtMDEvc2V0dXAtMDAxL3Jlc291cmNlcy9hcmNoaXZlcy93b3Jrc2l0ZS1jb21tYW5kLWV4ZWN1dGlvbi8xNDlhYzkxYTkwZjY5YzNiNGY0MGM1ODVlY2NiZWNhOWFmZDgyMDNjMDdkNDYwNWQ2YTc5NzM2ZTU2OWVjYmNlLzUxYjc1Mzcy',
   'ODdjZGYzZTU1NTIyZjEyMDA0ODJlODE1MjZhM2Q2MDhkNjJjNTllOThiMmJlZDJlZjBmZTI0NTUvc2FuZGJveC9idWlsZF90ZW5hbnRzL2FiaW9nZW5lc2lzL3R5cGVzY3JpcHQvdGVzdF9lbnYvdGVzdHMvdDI4Ny1uYXRpdmUtc2VtYW50',
   'aWMtcmV2aXNpb24udGVzdC5tanMnCiAgfQo='].join('');
-const canonicalPackageRoot=new URL('../..',import.meta.url).pathname;
+const canonicalPackageRoot=fileURLToPath(new URL('../..',import.meta.url));
 const packageRoot=process.env.ABI5_DEFAULT_LIBRARY_BUILD_ROOT??canonicalPackageRoot;
 const product=packageRoot===canonicalPackageRoot?canonicalProduct:await import(pathToFileURL(resolve(packageRoot,'build/code/src/product/index.js')).href);
 // Controlled basis-owner premise for these component seams: a native Result's
@@ -69,7 +69,7 @@ const product=packageRoot===canonicalPackageRoot?canonicalProduct:await import(p
 const admittedNativeTasks=new Map();
 const heldNativeObservation=(owner,task,...rest)=>{admittedNativeTasks.set(product.sha256Canonical(task),task);return owner.constructNativeWorkspaceWorkObservation(task,...rest);};
 const nativeResultTaskPremise={projectNativeWorkspaceWorkResultTaskAtPrefix:(_p,event)=>admittedNativeTasks.get(event?.payload?.value?.inputDigest)??null};
-const governanceRoot=new URL('../../../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/',import.meta.url).pathname;
+const governanceRoot=fileURLToPath(new URL('../../../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/',import.meta.url));
 const witnessRoot=join(governanceRoot,'default-library-witness');
 const basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:product.ABI5_PACKAGE_VERSION,artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
 const constructors=['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'];
