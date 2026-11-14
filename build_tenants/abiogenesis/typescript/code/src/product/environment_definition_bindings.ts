@@ -1,4 +1,6 @@
 import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
+import { admitJson } from "../shared/admit/index.js";
+import { renderDiagnosticText } from "../shared/diagnostic_text.js";
 import { withAdmissionAuthority, type AdmissionDefinitionOwner } from "./admission_authority.js";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -137,7 +139,7 @@ function fault<K extends ResolvePacket["definitionKey"] | BindPacket["definition
     definitionKey,
     stage,
     code,
-    message,
+    message: renderDiagnosticText(message),
     evidence: {},
   });
 }
@@ -284,13 +286,17 @@ function resolveRefusalCode(refusal: EnvironmentRefusal): ResolveRefusalCode {
   }
 }
 
+// Direct output joins (resolve and bind): no common gate follows them, so the
+// output is admitted as I-JSON before its recursive contract check. The
+// original output returns.
 function validateResolveOutput(
   output: OwnerSemanticOutput<ResolvePacket>,
 ): OwnerSemanticOutput<ResolvePacket> {
   const schema = output.outcomeKind === "result"
     ? PRODUCT_ENVIRONMENT_CONTRACTS.resolve.resultSchema
     : PRODUCT_ENVIRONMENT_CONTRACTS.resolve.refusalSchema;
-  if (admitRuntimeContract(schema, output.value).disposition !== "admitted") {
+  if (admitJson(output).kind !== "ok" ||
+      admitRuntimeContract(schema, output.value).disposition !== "admitted") {
     throw new TypeError("Product resolution output differs from its exact contract");
   }
   return output;
@@ -610,7 +616,8 @@ function validateBindOutput(
   const schema = output.outcomeKind === "result"
     ? PRODUCT_ENVIRONMENT_CONTRACTS.bind.resultSchema
     : PRODUCT_ENVIRONMENT_CONTRACTS.bind.refusalSchema;
-  if (admitRuntimeContract(schema, output.value).disposition !== "admitted") {
+  if (admitJson(output).kind !== "ok" ||
+      admitRuntimeContract(schema, output.value).disposition !== "admitted") {
     throw new TypeError("workspace binding output differs from its exact contract");
   }
   return output;

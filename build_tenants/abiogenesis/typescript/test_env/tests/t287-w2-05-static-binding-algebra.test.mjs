@@ -265,6 +265,57 @@ async function faultOf(program) {
   return Effect.runPromise(Effect.flip(program));
 }
 
+// `count` arrays, each but the innermost holding the next.
+function nestedArrays(count) {
+  let value = [];
+  for (let level = 1; level < count; level += 1) value = [value];
+  return value;
+}
+
+// One Run invoke result admitted by its result schema; `terminalResult.value`
+// is any JSON-shaped value under that schema, which checks no code unit, no
+// integer range and no depth there.
+function resultOutputOf(value) {
+  return Object.freeze({
+    outcomeKind: "result",
+    value: Object.freeze({
+      invocationKind: "invoke",
+      run: coordinate("run://binding-algebra"),
+      graphCall: coordinate("graph-call://binding-algebra"),
+      disposition: "completed",
+      result: coordinate("result://binding-algebra"),
+      terminalResult: Object.freeze({
+        kind: "abg_typed_terminal_result",
+        schemaVersion,
+        result: coordinate("result://binding-algebra"),
+        contract: coordinate("contract://binding-algebra/output"),
+        valueKind: "binding_algebra_value",
+        valueDigest: sha256Canonical({ value: "binding-algebra" }),
+        value,
+        producer: Object.freeze({
+          runRef: "run://binding-algebra",
+          graphCallRef: "graph-call://binding-algebra",
+          invocationAdmissionRef: "event://binding-algebra/invocation",
+          program: coordinate("program://binding-algebra"),
+          graphFunction: coordinate("graph-function://binding-algebra"),
+          executionBasis: coordinate("execution-basis://binding-algebra"),
+          cCallRef: "c-call://binding-algebra",
+          resultAdmissionEventRef: "event://binding-algebra/result",
+          judgmentRef: "judgment://binding-algebra",
+          judgmentAdmissionEventRef: "event://binding-algebra/judgment",
+          terminalRoute: coordinate("route://binding-algebra"),
+        }),
+        projectionBasis: coordinate("projection-basis://binding-algebra"),
+      }),
+      stop: null,
+      gap: null,
+      interaction: null,
+      evidence: Object.freeze([coordinate("evidence://binding-algebra")]),
+      replay: coordinate("replay://binding-algebra"),
+    }),
+  });
+}
+
 test("W2-05 three-function static binding algebra admits once and fails closed", async (context) => {
   assert.deepEqual(Object.keys(staticBindings).sort(), ["bindStaticOwner"]);
   assert.deepEqual(Object.keys(prefixBindings).sort(), [
@@ -338,6 +389,49 @@ test("W2-05 three-function static binding algebra admits once and fails closed",
     1,
     "a raw/defaulted request identity divergence never reaches the owner",
   );
+
+  // T-293 B12: cold call admission admits the raw invocation as I-JSON before
+  // any recursive schema or digest work. Otherwise valid cold calls whose
+  // digests name their own request witness the existing 512-container bound:
+  // `input` is the invocation's third container, so `n` nested arrays reach
+  // depth n + 2.
+  const deepCall = (count) => exactRunCall("invoke", resources, {
+    rawRequest: Object.freeze({ ...call.invocation.request, input: nestedArrays(count) }),
+  });
+  const atBound = deepCall(510);
+  const beyondBound = deepCall(511);
+  for (const witness of [atBound, beyondBound]) {
+    assert.equal(
+      witness.invocation.requestDigest,
+      sha256Canonical(witness.invocation.request),
+      "the cold call's digests name its own request",
+    );
+  }
+  assert.notEqual(
+    callAdmission.admitExactDefinitionCall(atBound, RUN_OPERATION_CONTRACTS.invoke.invoke),
+    null,
+    "a cold call 512 containers deep is admitted",
+  );
+  assert.equal(
+    callAdmission.admitExactDefinitionCall(beyondBound, RUN_OPERATION_CONTRACTS.invoke.invoke),
+    null,
+    "a cold call 513 containers deep refuses",
+  );
+  let deepCalls = 0;
+  const deepBinding = bindings.bindStaticOwner(
+    RUN_OPERATION_CONTRACTS.invoke.invoke,
+    () => {
+      deepCalls += 1;
+      return Effect.succeed(Object.freeze({ ownerOutput: refusal, resources: receipt }));
+    },
+    assertionSchema,
+    receiptSchema,
+  );
+  await Effect.runPromise(deepBinding(atBound));
+  assert.equal(deepCalls, 1, "the call at the bound enters the owner");
+  const beyondBoundFault = await faultOf(deepBinding(beyondBound));
+  assert.equal(beyondBoundFault.code, "call_identity_mismatch");
+  assert.equal(deepCalls, 1, "the call beyond the bound never reaches the owner");
 
   const invocationCoordinate = constructExactOperationInvocationCoordinate(
     {
@@ -500,6 +594,62 @@ test("W2-05 three-function static binding algebra admits once and fails closed",
     );
     const invalidEnvelopeFault = await faultOf(invalidEnvelope(call));
     assert.equal(invalidEnvelopeFault.code, "invalid_owner_output");
+  }
+
+  // T-293 B12: the common output gate admits the output as I-JSON before its
+  // recursive contract check and returns the original valid output. Each
+  // malformed output below is admitted by the result schema alone, so only the
+  // gate refuses it; the receipt is admitted first, so a malformed receipt
+  // keeps its precedence. `terminalResult.value` is the output's fourth
+  // container, so `n` nested arrays there reach depth n + 3.
+  const outputBinding = (ownerOutput, ownerReceipt = receipt) => {
+    let calls = 0;
+    const bound = bindings.bindStaticOwner(
+      RUN_OPERATION_CONTRACTS.invoke.invoke,
+      () => {
+        calls += 1;
+        return Effect.succeed(Object.freeze({ ownerOutput, resources: ownerReceipt }));
+      },
+      assertionSchema,
+      receiptSchema,
+    );
+    return { bound, calls: () => calls };
+  };
+  const deepestValidOutput = resultOutputOf(nestedArrays(509));
+  const deepestValid = outputBinding(deepestValidOutput);
+  const deepestReturned = await Effect.runPromise(deepestValid.bound(call));
+  assert.equal(deepestValid.calls(), 1);
+  assert.equal(
+    deepestReturned.ownerOutput,
+    deepestValidOutput,
+    "an output 512 containers deep is admitted and returned as the original value",
+  );
+  for (const [label, malformedOutput] of [
+    ["lone surrogate", resultOutputOf("binding-algebra \ud800")],
+    ["unsafe integer", resultOutputOf(Object.freeze({ count: 2 ** 53 }))],
+    ["excessive nesting", resultOutputOf(nestedArrays(510))],
+  ]) {
+    assert.equal(
+      v.safeParse(RUN_OPERATION_CONTRACTS.invoke.invoke.resultSchema, malformedOutput.value).success,
+      true,
+      `${label}: the result schema alone admits it`,
+    );
+    const refused = outputBinding(malformedOutput);
+    const refusedFault = await faultOf(refused.bound(call));
+    assert.deepEqual(
+      [refusedFault.stage, refusedFault.code],
+      ["owner_output_admission", "invalid_owner_output"],
+      label,
+    );
+    assert.equal(refused.calls(), 1, `${label}: one owner call precedes output admission`);
+    const receiptFirst = outputBinding(malformedOutput, Object.freeze({ ...receipt, token: "wrong" }));
+    const receiptFirstFault = await faultOf(receiptFirst.bound(call));
+    assert.equal(
+      receiptFirstFault.code,
+      "invalid_resource_receipt",
+      `${label}: a malformed receipt keeps its precedence`,
+    );
+    assert.equal(receiptFirst.calls(), 1);
   }
 
   for (const [label, bind] of [

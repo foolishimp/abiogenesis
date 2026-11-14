@@ -2,6 +2,8 @@ import { withAdmissionAuthority } from "./admission_authority.js";
 import * as Effect from "effect/Effect";
 
 import { canonicalJson } from "../shared/canonical_json.js";
+import { admitJson } from "../shared/admit/index.js";
+import { renderDiagnosticText } from "../shared/diagnostic_text.js";
 import {
   type DefinitionCall,
   type DefinitionExecutionFault,
@@ -61,7 +63,7 @@ function fault<K extends CleanPacket["definitionKey"] | ImportedPacket["definiti
     definitionKey,
     stage: "resource_admission",
     code,
-    message,
+    message: renderDiagnosticText(message),
     evidence: {},
   });
 }
@@ -129,6 +131,8 @@ function openRefusalCode(
     : "invalid_target";
 }
 
+// A direct output join: no common gate follows it, so the output is admitted
+// as I-JSON before its recursive contract check. The original output returns.
 function validatedOutput<TPacket extends OwnerContractSourceDeclaration>(
   packet: TPacket,
   output: OwnerSemanticOutput<TPacket>,
@@ -138,7 +142,8 @@ function validatedOutput<TPacket extends OwnerContractSourceDeclaration>(
     : output.outcomeKind === "refusal"
     ? packet.refusalSchema
     : packet.nonTerminalSchema;
-  if (schema === null || admitRuntimeContract(schema, output.value).disposition !== "admitted") {
+  if (schema === null || admitJson(output).kind !== "ok" ||
+      admitRuntimeContract(schema, output.value).disposition !== "admitted") {
     throw new TypeError("workspace owner output differs from its exact contract");
   }
   return output;

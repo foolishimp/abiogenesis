@@ -8,6 +8,7 @@ import type {
   DefinitionExecutionFault,
 } from "../../shared/effect_definition.js";
 import { deepFreeze } from "../../shared/immutable.js";
+import { renderDiagnosticText } from "../../shared/diagnostic_text.js";
 import {
   admitRuntimeContract,
   contractBoundValueSchema,
@@ -65,6 +66,8 @@ export function reference<T = unknown>(
   return deepFreeze({ ref, digest });
 }
 
+/** The common fault carrier. Its message is diagnostic text: a lone surrogate
+ * is rendered as its escape, so the receipt carrying it stays encodable. */
 export function definitionFault<K extends PublicDefinitionKeyLike>(
   definitionKey: K,
   stage: string,
@@ -77,7 +80,7 @@ export function definitionFault<K extends PublicDefinitionKeyLike>(
     definitionKey,
     stage,
     code,
-    message,
+    message: renderDiagnosticText(message),
     evidence: {},
   });
 }
@@ -88,6 +91,13 @@ export function isDefinitionFault(
   return isRecord(value) && value.kind === "definition_execution_fault";
 }
 
+/**
+ * The common semantic-output gate. The output is admitted as one I-JSON value
+ * before its recursive contract check, so a lone surrogate, an unsafe integer,
+ * a non-JSON member or nesting beyond the I-JSON bound is the same malformed
+ * output as a contract mismatch. The original valid output is returned; the
+ * gate's detached value is discarded.
+ */
 export function validatedOwnerOutput<
   TPacket extends OwnerContractSourceDeclaration,
 >(
@@ -95,6 +105,9 @@ export function validatedOwnerOutput<
   output: OwnerSemanticOutput<TPacket>,
   ownerLabel: string,
 ): OwnerSemanticOutput<TPacket> {
+  if (admitJson(output).kind !== "ok") {
+    throw new TypeError(`${ownerLabel} output differs from its exact contract`);
+  }
   const resultEnvelope = v.strictObject({
     outcomeKind: v.literal("result"),
     value: packet.resultSchema as v.GenericSchema,
@@ -451,6 +464,13 @@ export function admitExactDefinitionCall<
     return rawInvocation as unknown as DefinitionCall<TPacket, never>["invocation"];
   }
   definitionCallWork.callAdmissions += 1;
+  // Cold ingress (T-293 B12): the whole raw invocation is admitted as one
+  // I-JSON value before any recursive schema or digest work, so nesting beyond
+  // the I-JSON bound, a lone surrogate, an unsafe integer or a non-JSON member
+  // refuses here as an ordinary invalid call. The gate's detached value is
+  // discarded: the schemas below run over the raw invocation, and the
+  // canonical invocation they return keeps its defaults and transforms.
+  if (admitJson(rawInvocation).kind !== "ok") return null;
   const admittedRequest = admitRuntimeContract(
     packet.requestSchema,
     rawInvocation.request,

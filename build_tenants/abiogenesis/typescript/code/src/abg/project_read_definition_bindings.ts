@@ -11,6 +11,7 @@ import {
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { renderDiagnosticText } from "../shared/diagnostic_text.js";
 import {
   admitRuntimeContract,
   type OwnerSemanticOutput,
@@ -163,7 +164,7 @@ function fault(
     definitionKey: call.invocation.definitionKey,
     stage,
     code,
-    message,
+    message: renderDiagnosticText(message),
     evidence: {},
   });
 }
@@ -515,6 +516,23 @@ export function projectAbgReadOutput(
   memberKey: AbgProjectReadMemberKey,
   native: AbgProjectReadResult,
 ): OwnerSemanticOutput<AnyReadPacket> {
+  return projectReadOutput(packet, request, memberKey, native, false);
+}
+
+/**
+ * The exact read output of one native projection. A Run read reaches the
+ * common output gate through its exact-prefix binder and is not gated twice.
+ * A legacy read is a direct output join (`directJoin`): no common gate follows
+ * it, so its output is admitted as I-JSON before the recursive contract check.
+ * Either way the original output returns.
+ */
+function projectReadOutput(
+  packet: AnyReadPacket,
+  request: Readonly<Record<string, JsonValue>>,
+  memberKey: AbgProjectReadMemberKey,
+  native: AbgProjectReadResult,
+  directJoin: boolean,
+): OwnerSemanticOutput<AnyReadPacket> {
   if (native.kind === "abg_project_read_projection" &&
       (memberKey === "run_replay" || memberKey === "graph_call_replay")) {
     const selector = asRecord(request.selector)!;
@@ -547,7 +565,8 @@ export function projectAbgReadOutput(
   const schema = output.outcomeKind === "result"
     ? packet.resultSchema
     : packet.refusalSchema;
-  if (admitRuntimeContract(schema, output.value).disposition !== "admitted") {
+  if ((directJoin && admitJson(output).kind !== "ok") ||
+      admitRuntimeContract(schema, output.value).disposition !== "admitted") {
     throw new TypeError(`ABG ${memberKey} output differs from its exact owner contract`);
   }
   return output as unknown as OwnerSemanticOutput<AnyReadPacket>;
@@ -913,7 +932,7 @@ function binding<TPacket extends AnyReadPacket>(
           prefix: resource.entryPrefix,
           targetRef: sourceCoordinate(request).ref,
         });
-        const ownerOutput = projectAbgReadOutput(packet, request, memberKey, native);
+        const ownerOutput = projectReadOutput(packet, request, memberKey, native, true);
         return deepFreeze({
           ownerOutput,
           resources: {
