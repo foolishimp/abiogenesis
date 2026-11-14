@@ -15,8 +15,11 @@
   "topologyAcceptance": {"path": null, "sha256": null},
   "runId": null,
   "rawRoot": null,
+  "worksiteRoot": null,
+  "protectedRoots": null,
+  "pythonPath": null,
   "deadlineUtc": null,
-  "cleanupGraceMs": null,
+  "exitAuditReserveMs": null,
   "smokeTimeoutMs": null,
   "maxCaptureBytes": null,
   "setupEnvironment": null,
@@ -26,6 +29,6 @@
     "processTimeoutMs": null,
     "maxProcessOutputBytes": null,
     "toolchains": {"node": {"executable": null, "versionArgs": ["--version"]}, "npm": {"executable": null, "versionArgs": ["--version"]}},
-    "provider": {"enabled": false, "agent": "claude", "command": null, "executableSha256": null, "versionArgs": ["--version"], "model": null, "appendArgs": [], "inactivityTimeoutMs": null, "absoluteTimeoutMs": null, "maxTurns": null}
+    "provider": {"enabled": false, "agent": "claude", "command": null, "executableSha256": null, "versionArgs": ["--version"], "model": null, "appendArgs": [], "inheritEnvironment": [], "inactivityTimeoutMs": null, "absoluteTimeoutMs": null, "maxTurns": null}
   }
 }
