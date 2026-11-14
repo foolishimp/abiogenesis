@@ -1,5 +1,5 @@
 {
-  "status": "B12_SOURCE_ACCEPTED_PROOF_CONTINUATION_PREPARING_B21_NATIVE_RUNNING",
+  "status": "B12_TECHNICALLY_ACCEPTED_B21_TWO_OWNER_REPAIRS_SELECTED_PENDING_TRIAGE",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -8,7 +8,7 @@
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
   "providerCalls": 3,
-  "triage": "B31 technically closed, B13 wording corrected. B12 bounded source relation independently accepted; initial Run-read source hypothesis withdrawn after producer trace. Build and29test executions pass;1conditional case skipped and original audit failure retained. Authentic fixture/remaining proof continuation preparing under original clock. B21 author still active. No RC14 release qualification.",
+  "triage": "B31 and B12 technically closed, B13 wording closed. B21 mechanical proof passed178 cases with6 existing skips; independent source QA found2 C2 boundary defects and a reachable Default Testing install-input omission. Final source/qualification remains open.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
   "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
@@ -27,10 +27,10 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T17:02:56.609530+00:00",
-  "nativeAuthorState": "B12 successful author return/actual close/fresh result and replay;11 authored files frozen for independent source review. B21 native author running.",
+  "recordedUtc": "2026-11-14T17:32:22.933261+00:00",
+  "nativeAuthorState": "B12 and B21 native authors returned successfully; actual resource close and fresh result/replay. No native author running.",
   "b21Preparation": {
-    "state": "NATIVE_AUTHOR_RUNNING",
+    "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
     "finding": "Unmatched lexical ancestor lists do not prove separation across the observed protected-Data bridge",
     "productionRepairStarted": true,
@@ -43,7 +43,7 @@
     "B12": "b12-native-01/ACTIVATION.json"
   },
   "b12Preparation": {
-    "state": "SOURCE_RELATION_ACCEPTED_PROOF_STOPPED_ON_OPERATOR_EXPECTATION",
+    "state": "TECHNICALLY_ACCEPTED_FOR_MAIN_INTEGRATION",
     "commit": "c11db33ddedae51c3edde1961b15f3f7280f003e",
     "rootAcceptance": "integration-01/B12_PREPARATION_ACCEPTANCE.json"
   },
@@ -59,7 +59,8 @@
     "returnedUtc": "2026-11-14T16:41:13.261Z",
     "actualResourceClose": true,
     "freshResultAndReplay": "result; run closed",
-    "sourceReviewActivation": "integration-01/B12_SOURCE_REVIEW_ACTIVATION.json"
+    "sourceReviewActivation": "integration-01/B12_SOURCE_REVIEW_ACTIVATION.json",
+    "sourceCommit": "124be1e3242f117fe4e8d480f982f9177b8c9332"
   },
   "b21Native": {
     "sourceHead": "aa730058e30f3f4fd6be9f4e306ecc1275d9eb93",
@@ -71,17 +72,22 @@
     "topology": "Planned9 roots and actual10 roots; each225 separated relations/27 stable mounts; immediately-before-dispatch check passed",
     "originalHostDeadlineUtc": "2026-11-14T18:24:22.653503+00:00",
     "evidence": "Operator observed actual actor_process_started event and actor stdout activity",
-    "rawEvidencePublished": false
+    "rawEvidencePublished": false,
+    "returnedUtc": "2026-11-14T17:11:56.389Z",
+    "actualResourceClose": true,
+    "freshResultAndReplay": true,
+    "sourceCommit": "ad6c195f56ebeea0f8cd1a620a0346a26a5c0667",
+    "returnCommit": "074e45d9cb16e7ae841cc209a5069c431bc579ca"
   },
   "proofControls": {
     "state": "SUCCESSORS_PUSHED_AND_AUTHORIZED_AFTER_ORIGINAL_NATIVE_SUCCESS",
     "record": "integration-01/PROOF_CONTROL_SUCCESSOR_ACCEPTANCE.json",
     "nativeWorkUnchanged": true,
-    "proofExecuted": false,
+    "proofExecuted": true,
     "pushedCheckpoint": "70de9e928091b31c3a8a61844d435a304c69dafc"
   },
   "b12Proof": {
-    "status": "FIRST_FAILURE_STOP_RETAINED_CONTINUATION_PREPARING",
+    "status": "COMPLETED_WITH_ORIGINAL_AUDIT_FAILURE_RETAINED",
     "build": "passed",
     "cli": {
       "pass": 26,
@@ -92,17 +98,35 @@
       "skip": 1,
       "operatorAudit": "failed: expected skip false but unchanged fixture prerequisite absent"
     },
-    "unperformed": [
-      "pack/install",
-      "native detachment executed case",
-      "owned-call-reference",
-      "ordinary admission-refusal",
-      "installed smoke"
-    ],
+    "unperformed": [],
     "sourceConservedRows": 1427,
     "sourceReview": "integration-01/B12_SOURCE_REVIEW_CONJUNCTION.md",
     "triage": "integration-01/B12_PROOF_AUDIT_TRIAGE.md",
     "deadlineUtc": "2026-11-14T17:49:11.624Z",
-    "newProviderCallsSelected": 0
+    "newProviderCallsSelected": 0,
+    "totalUniquePassingCases": 36,
+    "passingExecutions": 36,
+    "originalDeclaredSkipEvents": 1,
+    "passingPopulationRepeated": false,
+    "continuationReturnSha256": "758fddebe7d3b89aba98cc0d80892c8f592615698f06c2c9e9578ea0a56d78fd",
+    "acceptance": "b12-integration-01/ACCEPTANCE.json",
+    "completedUtc": "2026-11-14T17:18:46.420006Z"
+  },
+  "b21Proof": {
+    "state": "COMPLETED_ON_ORIGINAL_FROZEN_SOURCE",
+    "wholeFiles": 11,
+    "cases": 184,
+    "pass": 178,
+    "existingFixtureGatedSkips": 6,
+    "fail": 0,
+    "cancelled": 0,
+    "commands": 17,
+    "retries": 0,
+    "returnSha256": "2536152f4f8351f24bf8170d2b7c73884efc1f28aa05cb7fcd9feed31b948aac",
+    "sourceUnchanged": true,
+    "nativeReproductionByteEqual": true,
+    "archiveInstallFiles": 5298,
+    "archiveInstallByteEqual": true,
+    "sourceQa": "Two C2 boundary findings; no qualification closure"
   }
 }

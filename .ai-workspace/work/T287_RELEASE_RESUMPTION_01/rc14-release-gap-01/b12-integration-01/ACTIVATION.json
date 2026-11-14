@@ -1,0 +1,44 @@
+{
+  "id": "RC14-B12-ROOT-SOURCE-INTEGRATION-001",
+  "role": "Separate Root integration Writer, then return to Executive",
+  "authority": "Owner selected fix RC14 using pinned RC13, with source/main/push checkpoint and raw-evidence exclusion",
+  "recordedUtc": "2026-11-14T17:24:27.288189+00:00",
+  "sourceParent": "13ce63cce9fdd77398e8152aadecc3e509b2be98",
+  "sourceSubjectCommit": "124be1e3242f117fe4e8d480f982f9177b8c9332",
+  "sourceRowsSha256": "38d798a69c7bd5d7ca965b89800b0bf96d82d28e1821c32de291ba51b29f54b0",
+  "purpose": "Integrate exact independently reviewed and mechanically proved B12 source; no new implementation edits",
+  "writeTerritory": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/workspace_definition_bindings.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+    "build_tenants/abiogenesis/typescript/code/src/public/cli.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/diagnostic_text.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t292-td79-cli-exit-classification.test.mjs",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/OPERATOR_RETURN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-integration-01",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/STATUS.json",
+    ".ai-workspace/tickets/active/T-293-qa-findings-of-the-consolidation-wave.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/PLAN.md"
+  ],
+  "effects": [
+    "Ordinary merge of exact124be1e3 worker subject",
+    "Verify complete tenant tree equals frozen tested worker tenant",
+    "Record bounded technical acceptance and retained failures/limits",
+    "Normal main push and direct remote parity; no other refs or force"
+  ],
+  "stops": [
+    "Conflict or unexpected source difference",
+    "Missing/changed source/proof binding",
+    "Unresolved Product or authority change"
+  ],
+  "exclusions": [
+    "No new source/test implementation or generated qualification refresh",
+    "No raw substrate/scratch/captures/archives copied or pushed",
+    "No RC14 cut/qualification/publication/human acceptance"
+  ]
+}

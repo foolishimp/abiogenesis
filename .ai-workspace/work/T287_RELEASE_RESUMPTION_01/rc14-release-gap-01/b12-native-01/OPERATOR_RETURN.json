@@ -1,0 +1,431 @@
+{
+  "activation": "RC14-B12-NATIVE-AUTHOR-001",
+  "status": "AUTHOR_SOURCE_AND_BOUNDED_PROOF_RETURNED",
+  "recordedUtc": "2026-11-14T17:21:14.775461+00:00",
+  "roles": {
+    "sourceAuthor": "One actual pinned RC13 native Claude actor",
+    "operator": "b29_vm_triage: setup, execution custody, proof and worker freeze only",
+    "decisionOwner": "Root Executive: source acceptance, integration, final qualification and push"
+  },
+  "change": {
+    "problem": "Cold raw calls could reach recursive schema/digest work before finite I-JSON admission; malformed diagnostics or semantic outputs could escape as unencodable transport results.",
+    "result": "Cold invocation I-JSON admission precedes recursion while established identity/defaults remain; output joins admit I-JSON and preserve valid original objects/receipt precedence; diagnostic lone UTF-16 code units are escaped without changing semantic data.",
+    "productionFiles": 9,
+    "testFiles": 2,
+    "publicSchemasChanged": false,
+    "packageVersionChanged": false
+  },
+  "source": {
+    "baseHead": "df4d2cbca9e075c8c8017f07d37e7a02687f926a",
+    "worktree": "/private/tmp/abg-rc14-b12-20261115-01",
+    "branch": "codex/rc14-b12-native-20261115",
+    "rows": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+        "bytes": 38462,
+        "sha256": "e877e1a5c6561de89449fd0cb6d9bc279cb64fbce363e30ace81862456c235a5"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+        "bytes": 73241,
+        "sha256": "9b4015b415c30dc681994420f7c81349721ad12b9713d0c4bfdb30a271d73d21"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+        "bytes": 30222,
+        "sha256": "a803cfe2150bbc2331e83d88c19b6ae6654e1245e86173f159946516c8605040"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+        "bytes": 16984,
+        "sha256": "9e40d2d268844945b54a3ee3b6911467487922269a9d5e49fdcf3502416765d3"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/workspace_definition_bindings.ts",
+        "bytes": 12058,
+        "sha256": "953b5a8a4ef9fed450a73b3c95f4f3157f1e638421f70b6bf5e0ff19ee722fe5"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+        "bytes": 21492,
+        "sha256": "d97b4990a14403d594ef807e7ae5446b713033cd25bbe514603cb66905b1f6f0"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/cli.ts",
+        "bytes": 5355,
+        "sha256": "7f8f304715970e0aeccba9762efb47f88535734eac0cf56b62f710dc8e7d990b"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/diagnostic_text.ts",
+        "bytes": 1420,
+        "sha256": "6861e35681060128b07723b1588499c94f1fec534edf11d018fd066d9f1f10b2"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+        "bytes": 5741,
+        "sha256": "56b7c97a187d7581e1c5a64731cfad147c187e25bb08c9d04376a934fd4c9341"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+        "bytes": 45970,
+        "sha256": "88f6c19d1c77150102660c0da7615081efddd59cf415e39c5115553878f04661"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td79-cli-exit-classification.test.mjs",
+        "bytes": 31559,
+        "sha256": "5e7eff11048f94573aa2399894411828017df865b4c7c58c7e4855728bf0d509"
+      }
+    ],
+    "reviewSubjectRowsSha256": "38d798a69c7bd5d7ca965b89800b0bf96d82d28e1821c32de291ba51b29f54b0",
+    "fullPostimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/SOURCE_POSTIMAGE.json",
+      "bytes": 322696,
+      "sha256": "08c46b71a69b7ae2d6d05a7f24832d0f348fc408191375717fe1a71de5320728"
+    },
+    "fullRowsConservedThroughProof": 1427,
+    "retainedExternalSourceBuildDependencyRowsConserved": 6633,
+    "sourceChangedDuringProof": false,
+    "setupOwnedUntrackedFile": {
+      "path": ".abiogenesis/workspace-manifest.json",
+      "bytes": 1868,
+      "sha256": "fcf45129b08eb232355db13540abba8a72474d0c6835db186c7fd6cc6fb85e46"
+    },
+    "setupFileCommitted": false
+  },
+  "builder": {
+    "pin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+      "bytes": 5769,
+      "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26"
+    },
+    "meaning": "Pinned installed RC13 supplied author/setup only. Changed production was built, packed and installed separately in the external proof root."
+  },
+  "native": {
+    "providerPasses": 1,
+    "provider": {
+      "executable": "/Users/jim/.local/share/claude/versions/2.1.322",
+      "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+      "version": "2.1.322 (Claude Code)",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "measurement": "CLI identity and advertised argument support; no remote model attestation"
+    },
+    "providerSession": "c9370d74-fdf7-478a-8e9b-806545836165",
+    "hostExitCode": 0,
+    "hostWallMs": 1363365,
+    "actualResourceClose": true,
+    "freshResultAndReplayReadbacks": true,
+    "nativeFailure": null,
+    "providerFallback": false,
+    "nativeReport": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/AUTHOR_REPORT.json",
+      "bytes": 8881,
+      "sha256": "54a433ea7b721a72544cefb45f9e26214a6030b904ff14caa84c5216ee5191e2"
+    },
+    "observedToolCounts": {
+      "bashCommands": 80,
+      "writeEditCalls": 36,
+      "syntaxOnlyChecks": 2,
+      "testRuns": 0,
+      "providerInitializations": 1
+    },
+    "commandAssessment": "Observed shell commands are source inspection, read-only Git, two Node --check syntax checks, and one authorized-file Python edit attempt reported as failing before execution; no test/build/pack/install/Product import/provider/Git mutation command found."
+  },
+  "proof": {
+    "firstSegment": {
+      "build": {
+        "passed": true,
+        "wallMs": 27528
+      },
+      "cliWholeFile": {
+        "passedCases": 26,
+        "skipped": 0,
+        "exactPopulation": true
+      },
+      "staticWholeFile": {
+        "passedCases": 3,
+        "declaredSkips": 1,
+        "assertionFailures": 0,
+        "populationAudit": "FIRST_FAILURE_STOP: Operator expected skip:false for existing environment-gated case"
+      }
+    },
+    "continuation": {
+      "authorizationCheckpoint": "13ce63cce9fdd77398e8152aadecc3e509b2be98",
+      "receipt": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-continuation-01/execution/CONTINUATION_RETURN.json",
+        "bytes": 14230,
+        "sha256": "758fddebe7d3b89aba98cc0d80892c8f592615698f06c2c9e9578ea0a56d78fd"
+      },
+      "commands": [
+        {
+          "label": "03-candidate-package-install",
+          "exitCode": 0,
+          "wallMs": 76227,
+          "cleanup": {
+            "signals": [],
+            "ownedProcessGroupAbsent": true
+          }
+        },
+        {
+          "label": "04-current-candidate-resolve-fixture",
+          "exitCode": 0,
+          "wallMs": 25549,
+          "cleanup": {
+            "signals": [],
+            "ownedProcessGroupAbsent": true
+          }
+        },
+        {
+          "label": "05-native-detachment-gate",
+          "exitCode": 0,
+          "wallMs": 19306,
+          "cleanup": {
+            "signals": [],
+            "ownedProcessGroupAbsent": true
+          }
+        },
+        {
+          "label": "06-t287-owned-call-reference",
+          "exitCode": 0,
+          "wallMs": 59853,
+          "cleanup": {
+            "signals": [],
+            "ownedProcessGroupAbsent": true
+          }
+        },
+        {
+          "label": "07-t291-m6-admission-refusal-surface",
+          "exitCode": 0,
+          "wallMs": 611,
+          "cleanup": {
+            "signals": [],
+            "ownedProcessGroupAbsent": true
+          }
+        },
+        {
+          "label": "08-installed-owner-smoke",
+          "exitCode": 0,
+          "wallMs": 19705,
+          "cleanup": {
+            "signals": [],
+            "ownedProcessGroupAbsent": true
+          }
+        }
+      ],
+      "freshPublicFixture": {
+        "actualOperations": [
+          "abg.operation.product.verify/verify",
+          "abg.operation.product.resolve/resolve"
+        ],
+        "bothResultExitZero": true,
+        "eventless": true,
+        "providerCalls": 0,
+        "eventResourceAcquisitions": 0,
+        "fullResolveCall": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-continuation-01/execution/fixture/calls/product-resolve.full-call.json",
+          "bytes": 26583572,
+          "sha256": "8a65a9a4847eba8260db133d43864ff821e84e65f42d1a5d4f594e66937de97c"
+        }
+      },
+      "targetedGate": {
+        "name": "native detachment retains only actual immutable verifier bodies and detaches raw copies",
+        "passed": 1,
+        "declaredSkips": 0,
+        "executedOtherStaticCases": 0,
+        "reportedNameFilterExclusions": 0,
+        "selectedBy": "anchored positive exact name; original other three case names excluded prospectively"
+      },
+      "ownedReferenceWholeFileCases": 1,
+      "admissionRefusalWholeFileCases": 5,
+      "installedOwnerSmoke": {
+        "passed": true,
+        "exports": 15,
+        "publicDefinitions": 46,
+        "actualClose": true,
+        "coldSerializedPrefixRead": true,
+        "eventCount": 0
+      }
+    },
+    "totalUniquePassingCases": 36,
+    "passingCaseExecutions": 36,
+    "originalDeclaredSkipEventsRetained": 1,
+    "originalFailureAndFalseExpectationPreserved": true,
+    "buildReruns": 0,
+    "passingPopulationReruns": 0,
+    "firstProofStartedUtc": "2026-11-14T16:49:11.624335+00:00",
+    "originalProofDeadlineUtc": "2026-11-14T17:49:11.624335+00:00",
+    "originalHostDeadlineUtc": "2026-11-14T18:18:34.786596+00:00",
+    "completedUtc": "2026-11-14T17:18:46.420006+00:00",
+    "clockReset": false
+  },
+  "candidate": {
+    "archive": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+      "sha256": "3d895f576d6e8cb15508e66c467e9a7854a5e02ce9b3f3a92774bbabcbeaf2a6",
+      "bytes": 10796409
+    },
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/installed/node_modules/@abiogenesis/typescript-tenant",
+    "manifestRawSha256": "1ee0d4f8e78047d6cbb0684462a435e928b59672dba1c910a09a23cc1985be1c",
+    "publicFunctionFamilyDigest": "sha256:ac845697338cda289b83c4e654365b5c45a07ca317d4caae048c8762e8216123",
+    "version": "5.0.0-rc.13",
+    "meaning": "Changed-source B12 proof artifact only; neither the pinned RC13 builder nor an RC14 release archive",
+    "qualified": false
+  },
+  "deviationsAndDisposition": [
+    {
+      "kind": "Operator Git selection and receipt error",
+      "observation": "Preparation checkout detached the named worktree and its predecessor receipt inaccurately claimed branch attachment.",
+      "disposition": "Root admitted one same-commit switch; source preimages conserved; predecessor raw receipt and committed PREPARATION_BRANCH_CORRECTION.json retained."
+    },
+    {
+      "kind": "Operator setup attribution premise",
+      "observation": "Maintained imported workspace setup created .abiogenesis/workspace-manifest.json after SOURCE_PREIMAGE and before dispatch.",
+      "disposition": "Root accepted and pushed exact setup-custody successor; original preimage/control preserved; setup row remains full postimage and is excluded only from native W attribution."
+    },
+    {
+      "kind": "Operator case manifest error",
+      "observation": "Declared conditional skip prerequisite was overlooked; original exact population audit correctly stopped after 29 passes and one skip.",
+      "disposition": "No original expectation rewrite. Root separately accepted/pushed continuation; a fresh candidate-bound full call supplied the one previously unexercised gate, with no repeated passing population."
+    },
+    {
+      "kind": "Native disclosed command issue",
+      "observation": "One authorized-file Python heredoc edit attempt failed before execution because shell temporary-file creation failed; later native Edit tool authored the intended file. Two node --check syntax parses ran.",
+      "disposition": "Retained actual command audit; no native Product tests/build/pack/install, provider retry or Git mutation observed."
+    }
+  ],
+  "nativeGapsAndConjunction": {
+    "fullReport": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/AUTHOR_REPORT.json",
+      "bytes": 8881,
+      "sha256": "54a433ea7b721a72544cefb45f9e26214a6030b904ff14caa84c5216ee5191e2"
+    },
+    "rootConjunction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B12_SOURCE_REVIEW_CONJUNCTION.md",
+      "bytes": 3631,
+      "sha256": "801295efb279aa30fbd3537cc5d86e4c9ef187f4ed403c6d6aacd85fe632afb3"
+    },
+    "dispositions": [
+      "Native proof-unperformed gap is now bounded by the Operator results above, not native self-report.",
+      "Generated qualification inventories remain for the composed final source; none were updated or claimed current here.",
+      "Historical in-process 2800-depth attribution remains weaker; real CLI and correct-digest 512/513 controls provide the stronger relation.",
+      "Component transport substitutions remain labelled component evidence; Node 24.7.0 executed them.",
+      "Root producer trace withdrew the proposed Run-read schema-ordering defect; existing projection is admitted before the later gate.",
+      "Root narrowed diagnostic notes: materialization delegates to the rendered shared fault; unsupported other malformed producers did not establish an actionable defect.",
+      "No post-append encoding failure or universal internal-fault absence is proved."
+    ]
+  },
+  "cleanup": {
+    "nativeHostOwnedGroupAbsent": true,
+    "nativeSessionActualResourceClosed": true,
+    "allProofCommandGroupsAbsent": true,
+    "signalsSent": [],
+    "candidateSmokeActualResourceClosed": true,
+    "limits": "Owned process groups and explicit owner resources only; no global process absence claim. Raw captures and archives retained; no Operator cleanup deletion after proof. Tests and owners retain their declared scoped cleanup."
+  },
+  "evidencePins": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/LAUNCH_BINDING.json",
+      "bytes": 5082,
+      "sha256": "ec8b2a55cfbba206770568212709016a6e7319dda314181ce1678c475762cc8f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/CONTROL_START.json",
+      "bytes": 462,
+      "sha256": "cde0137ec672fb21096ec4c47fc3ab60950511e2642bf75cf23a71b8c4069997"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/HOST_RETURN.json",
+      "bytes": 584,
+      "sha256": "d34cb4ac82a2b2a7aa115bcf824f059c2a2b48930529f3740cd2e2bc7cfe79bd"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/FINAL.json",
+      "bytes": 861,
+      "sha256": "c7f1b895c9883813c087d1d76a9780920d80c14140cb796701c681e338292d8b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/resource-close.json",
+      "bytes": 2228,
+      "sha256": "c62965a679e001c2a1fed0cfc680a12013c1b35d63e996796601ef873fa13e3f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/FRESH_READBACKS.json",
+      "bytes": 5717,
+      "sha256": "5fb01555e51316f235657f0270f234707c740dabad633fa01a58d62067f1e37b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/topology-before-dispatch.json",
+      "bytes": 116001,
+      "sha256": "6d1ba32594efea91cb82ead2f1017dff73a2ff1a2c3d0e991fda79cd4f8044a8"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/provider-identity.json",
+      "bytes": 333,
+      "sha256": "1bd54b030eb5bc7b1de97c18816b538aed518b5f856caed67fe377c6f29c5d57"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/AUTHOR_REPORT.json",
+      "bytes": 8881,
+      "sha256": "54a433ea7b721a72544cefb45f9e26214a6030b904ff14caa84c5216ee5191e2"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/NATIVE_TOOL_AUDIT.json",
+      "bytes": 404700,
+      "sha256": "58f6c99f38e0fdd4bf72ceceb6ed1e257945b68836d1746c9568b92cf832f9a5"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/SOURCE_POSTIMAGE.json",
+      "bytes": 322696,
+      "sha256": "08c46b71a69b7ae2d6d05a7f24832d0f348fc408191375717fe1a71de5320728"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/PROOF_CASES.json",
+      "bytes": 7750,
+      "sha256": "7e8b800ce89c0a856efa31a82075a5ea19f0bda5e70954647149f5bd584de17e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/PROOF_RETURN.json",
+      "bytes": 3189,
+      "sha256": "99fe912536d4098701d4ec14d0de169211180f70ffa7cc10bc353f42b40de53b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/STOPPED_PROOF_AUDIT.json",
+      "bytes": 3367,
+      "sha256": "0a2f6c4f34c1d21777e42b391c1cb9c210897045b85e939cefb82042c1cd85ff"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-continuation-01/LAUNCH_BINDING.json",
+      "bytes": 839,
+      "sha256": "9eabe10a6b76c6a31981d31538f6870fdde2b0205eba0ec61e8c10192273f6bb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-continuation-01/execution/CONTINUATION_RETURN.json",
+      "bytes": 14230,
+      "sha256": "758fddebe7d3b89aba98cc0d80892c8f592615698f06c2c9e9578ea0a56d78fd"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-continuation-01/execution/fixture/RESULT.json",
+      "bytes": 2876,
+      "sha256": "3343e77ec47ffa1546f1aac9565b2cfe248aef4d40c4861bbbcc8c7b5c80ac15"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/CANDIDATE_PACKAGE.json",
+      "bytes": 2411,
+      "sha256": "0340b9b947f4cbf2aa2cac2ab01bcee6eff88684e1f9162459363ca5da4a770d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/SMOKE_RESULT.json",
+      "bytes": 1710,
+      "sha256": "9e3d6e77483f62da858be31c3396d6803715f91a779645cd3634532fe39fd623"
+    }
+  ],
+  "returnLimits": {
+    "sameHostTechnicalEvidence": true,
+    "semanticIndependence": false,
+    "qualified": false,
+    "mergedMain": false,
+    "pushedByWorker": false,
+    "generatedInventoriesCurrentForComposedFinal": false,
+    "rootOwnsIntegrationAndRemainingReleaseProof": true
+  }
+}

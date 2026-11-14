@@ -16,6 +16,7 @@ import * as Option from "effect/Option";
 import * as v from "valibot";
 
 import { sampleNativeEventTime } from "../abg/native_event_time.js";
+import { renderDiagnosticText } from "../shared/diagnostic_text.js";
 import {
   CAPABILITY_DEFINITION_GRAPH_ID,
   CAPABILITY_DEFINITION_GRAPH_VERSION,
@@ -172,11 +173,14 @@ interface AdmittedSetupTruth {
   readonly workspaceBinding: WorkspaceBinding;
 }
 
+// Run exception evidence is diagnostic text: each thrown value's own text and
+// each Effect cause renders a lone surrogate as its escape. Concatenating
+// rendered text keeps it well formed.
 function exceptionDiagnostic(error: unknown, seen = new Set<unknown>()): string {
-  if (!(error instanceof Error)) return String(error);
+  if (!(error instanceof Error)) return renderDiagnosticText(String(error));
   if (seen.has(error)) return "[circular Error cause]";
   seen.add(error);
-  const own = error.stack ?? `${error.name}: ${error.message}`;
+  const own = renderDiagnosticText(String(error.stack ?? `${error.name}: ${error.message}`));
   const cause = error.cause === undefined ? "" : `\nCaused by: ${exceptionDiagnostic(error.cause, seen)}`;
   const members = error instanceof AggregateError
     ? error.errors.map(member => `\nAggregate cause: ${exceptionDiagnostic(member, seen)}`).join("")
@@ -186,9 +190,9 @@ function exceptionDiagnostic(error: unknown, seen = new Set<unknown>()): string 
 
 function causeDiagnostic(cause: Cause.Cause<unknown>): string {
   const defects = Array.from(Cause.defects(cause));
-  return defects.length === 0 ? Cause.pretty(cause)
+  return defects.length === 0 ? renderDiagnosticText(Cause.pretty(cause))
     : defects.length === 1 ? exceptionDiagnostic(defects[0])
-    : `${Cause.pretty(cause)}\n${defects.map(error => exceptionDiagnostic(error)).join("\n")}`;
+    : `${renderDiagnosticText(Cause.pretty(cause))}\n${defects.map(error => exceptionDiagnostic(error)).join("\n")}`;
 }
 
 function fault<TPacket extends RunPacket>(
@@ -204,7 +208,7 @@ function fault<TPacket extends RunPacket>(
     definitionKey: call.invocation.definitionKey,
     stage,
     code,
-    message,
+    message: renderDiagnosticText(message),
     evidence,
   });
 }
@@ -1259,7 +1263,7 @@ function runInvocationOwner<TPacket extends InvocationPacket>(
           diagnosticClassRef,
           stage: executionFault?.stage ?? (interrupted ? "interruption" : "hog_traversal"),
           code: executionFault?.code ?? (interrupted ? "interrupted" : "defect"),
-          message: executionFault?.message ?? Cause.pretty(cause),
+          message: executionFault?.message ?? renderDiagnosticText(Cause.pretty(cause)),
           cause: executionFault?.evidence.cause ?? causeDiagnostic(cause),
         };
         const recoverAndFinish = () =>

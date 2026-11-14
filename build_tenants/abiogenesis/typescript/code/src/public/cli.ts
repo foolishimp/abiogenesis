@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
 import { admitJson } from "../shared/admit/index.js";
+import { renderDiagnosticText } from "../shared/diagnostic_text.js";
 
 import { readFile } from "node:fs/promises";
 
@@ -64,13 +65,15 @@ function parseTransportRequest(value: unknown): CliTransportRequest | null {
   return null;
 }
 
+// The message is diagnostic text (for a failure, the string of what was
+// thrown): a lone surrogate is written as its escape, so the line stays I-JSON.
 function transportRefusal(code: string, message: string): JsonValue {
   return {
     kind: "public_transport_refusal",
     schemaVersion: "5.0.0",
     disposition: "refused",
     code,
-    message,
+    message: renderDiagnosticText(message),
   };
 }
 

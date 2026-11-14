@@ -13,6 +13,7 @@ import type {
   PublicDefinitionKeyLike,
 } from "./public_invocation.js";
 import type { JsonValue } from "./canonical_json.js";
+import { renderDiagnosticText } from "./diagnostic_text.js";
 
 /**
  * Physical or execution-substrate failure at one installed definition
@@ -156,7 +157,8 @@ export async function runExactDefinition<
         ? "defect_or_interruption" as const
         : "typed_execution_fault" as const,
       fault: typedFault,
-      cause: Cause.pretty(exit.cause),
+      // Diagnostic text: a lone surrogate in the cause renders as its escape.
+      cause: renderDiagnosticText(Cause.pretty(exit.cause)),
     }),
   });
 }

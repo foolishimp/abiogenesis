@@ -9,6 +9,8 @@ import type {
   ExactDefinitionCallable,
 } from "../shared/effect_definition.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { admitJson } from "../shared/admit/index.js";
+import { renderDiagnosticText } from "../shared/diagnostic_text.js";
 import {
   absolutePathSchema, admitRuntimeContract, digestSchema, nonblankSchema,
   refDigestSchema, type OwnerRefusalOf, type OwnerSemanticOutput,
@@ -84,7 +86,7 @@ function fault(
     definitionKey: call.invocation.definitionKey,
     stage,
     code,
-    message,
+    message: renderDiagnosticText(message),
     evidence: {},
   });
 }
@@ -319,11 +321,14 @@ function projectOwnerOutput(
   } as OwnerSemanticOutput<VerifyPacket>;
 }
 
+// A direct output join: no common gate follows it, so the output is admitted
+// as I-JSON before its recursive contract check. The original output returns.
 function validatedOutput(output: OwnerSemanticOutput<VerifyPacket>): OwnerSemanticOutput<VerifyPacket> {
   const schema = output.outcomeKind === "result"
     ? PRODUCT_VERIFICATION_CONTRACTS.verify.resultSchema
     : PRODUCT_VERIFICATION_CONTRACTS.verify.refusalSchema;
-  if (admitRuntimeContract(schema, output.value).disposition !== "admitted") {
+  if (admitJson(output).kind !== "ok" ||
+      admitRuntimeContract(schema, output.value).disposition !== "admitted") {
     throw new TypeError("Product verification output differs from its exact contract");
   }
   return output;

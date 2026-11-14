@@ -1,0 +1,147 @@
+{
+  "id": "RC14-B21-PHYSICAL-OWNER-SOURCE-REVIEW-001",
+  "role": "Independent read-only Reviewer; no repair or secondary author loop",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "frames": [
+    "Product",
+    "Mutable-Worksite Causality",
+    "Owner",
+    "Effect",
+    "Proof"
+  ],
+  "purpose": "Assess B21 physical confinement and complete authenticated input propagation against Product and accepted HOW; evaluate author gaps before adopting them",
+  "sourceRoot": "/private/tmp/abg-rc14-b21-20261115-01",
+  "sourceBaseHead": "aa730058e30f3f4fd6be9f4e306ecc1275d9eb93",
+  "fullPostimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/proof-01/SOURCE_POSTIMAGE.json",
+    "sha256": "753e314c805851f40a0838a7d6bdb4f2d5cf92699fe4cf0ea5a0ef54f899c771"
+  },
+  "changedFiles": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/native/abg_physical_path.c",
+      "bytes": 10972,
+      "sha256": "d5698d57e9b5602091ffc3621f704720f7477f9921b5d9432db4d3c0c5d3f519"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "bytes": 38277,
+      "sha256": "249fc0fd1d853ead9e2c716226eb7f337e8e240e024a0651e00eca6388772cae"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "bytes": 96118,
+      "sha256": "8a92248a1e3af54757efe1cc046e5588b12a27179111424d393faf16a0e236c0"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+      "bytes": 3169,
+      "sha256": "82168a6df762d73e7cd3b63d812596beb3f15847d42dd38183c626239c2b1f2d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "bytes": 8436,
+      "sha256": "baaec434ab15cf8ac553e5326bc8021e0a4d3e1b9a94c2fe2fa5b53fee27fa63"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+      "bytes": 36274,
+      "sha256": "28dc439be35d1a690ee62ba542101d25d87ecf7aa207b8135b89abba1c4a30bb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "bytes": 67188,
+      "sha256": "cf5c3ed4ace15956dd477d4e9936040aef3633e34cd0ecb15957280f4305f149"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "bytes": 54046,
+      "sha256": "f51226f12a849140e1951075345f3a99bc34c3f0f3916c0314551352150d0ca0"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/physical_path_observation.ts",
+      "bytes": 21540,
+      "sha256": "4f78d15afd14e87cb54146ccdd797b4aa1cfab2fe59ebcfda08e8f8b04ef01d5"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/physical_path_relation.ts",
+      "bytes": 18728,
+      "sha256": "88906233b669938ef25e0696630911689c88d7a0b31b0f2fd88b8a2704512ec1"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 9787,
+      "sha256": "fa05615864043dc0bd91255fca3c10c7b925e9c8696e4ab35d69b8bacf49010b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/build-native.mjs",
+      "bytes": 7860,
+      "sha256": "66e04c66a9dbfcdbef48796155c6f53bc28c9a1aeaca5f610c014202c4288c38"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+      "bytes": 47890,
+      "sha256": "271dc16b108d1999a4215a45049f58e00b2d81191f9be9167242e17e0b75e555"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/declared-commands.json",
+      "bytes": 19295,
+      "sha256": "4afc4402edad98677eb208becd74e5f1889fa3446462c2ca3e9c2cf9105f3c27"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+      "bytes": 10523,
+      "sha256": "1791d59f8fdae2bd414e8037dbaddfec685c4b881823bee5a9c8578cbbafdf04"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "bytes": 70007,
+      "sha256": "3257777435a7fb98ca20901e1e2a0a2d3160e564b0134119dbbe8e87b234ce95"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+      "bytes": 4801,
+      "sha256": "e35b653c57735c996ec2c87693c177e47bfaea7dc4f8c3b69c083588da4ca371"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "bytes": 49443,
+      "sha256": "a9ceb4454d69f4407b5205af68ab099bf373ed83d13e0083619c4aa6e2925bca"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t293-b21-physical-confinement.test.mjs",
+      "bytes": 19519,
+      "sha256": "408081d01559c53edafd09d6aa6c59da771dde47710ced54f3d9cea87cbf27bd"
+    }
+  ],
+  "subjectRowsSha256": "9a720e408f20acd8e7331e8fd5861b0c1a299414ea0607220be0b1fcfb948c54",
+  "sourceRoutes": [
+    "Actual Product from stdo_abiogenesis.json",
+    "specification/GOALS.md current selection",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-foundation-01/README.md",
+    "Changed physical C/TS relation and every C0/native/C2/context/revision/reacquisition caller; actual tests and author report"
+  ],
+  "focus": [
+    "Lossless descriptors/backing paths/stable complete mount population/membership/relevant attachment claims; preserve overlap-first, directional rules, stored spelling/link/kind/partial effects",
+    "Complete protection inputs before content reads and writes, both sync and async owner paths",
+    "Evaluate default_library/semantic_job observeWorksiteSubject notes with actual authority and call reachability; distinguish internal exports from exact Public SDK family",
+    "Native tests versus actual owner boundaries, C2 gap versus required selected exit proof",
+    "Check claimed handled local APFS/HFS attachments against sufficient observation; no new platform or atomic mount-lock promise"
+  ],
+  "permittedEffects": [
+    "Read/hash frozen source, baseline diff, existing exact proof artifacts",
+    "Return Product Frame, actionable supported counterexamples with source locations and bounded repair/reproof cone; preserve unproven residuals"
+  ],
+  "prohibitions": [
+    "No source/control/Git edits, Product tests, provider/build/native compile or fixture fabrication",
+    "No moving-source review; verify exact rows at entry and return",
+    "Do not adopt an author report as an established defect or infer universal hostile-host guarantees"
+  ],
+  "separateFrame": "Native build-input/packaging closure review remains a separate frame; this review does not claim full toolchain qualification",
+  "recordedUtc": "2026-11-14T17:18:20.064216+00:00",
+  "returnTo": "Root Executive"
+}
