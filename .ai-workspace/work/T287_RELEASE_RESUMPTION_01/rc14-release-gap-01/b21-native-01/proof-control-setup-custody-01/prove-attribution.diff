@@ -1,0 +1,41 @@
+--- accepted/prove.py
++++ successor/prove.py
+@@ -32,6 +32,7 @@
+ 
+ owner = module('proof_process_owner', 'process-owner.py')
+ deps = module('proof_dependencies', 'dependency-inputs.py')
++custody = module('proof_setup_custody', 'setup-custody.py')
+ write = owner.write
+ sha = lambda data: hashlib.sha256(data).hexdigest()
+ 
+@@ -42,8 +43,11 @@
+     tracked = [p.decode() for p in git('ls-files','-z').split(b'\0') if p]
+     untracked = [p.decode() for p in git('ls-files','--others','--exclude-standard','-z').split(b'\0') if p]
+     changed = [p.decode() for p in git('diff','--name-only','HEAD','-z').split(b'\0') if p] + untracked
++    setup_owned = custody.verify(SOURCE, RAW, head)
++    assert setup_owned['path'] in changed, 'exact setup-owned addition must remain visible'
++    native_changed = [path for path in changed if path != setup_owned['path']]
+     allowed = ACT['nativeWriteScope']
+-    assert all(any(path == root or path.startswith(root+'/') for root in allowed) for path in changed), changed
++    assert all(any(path == root or path.startswith(root+'/') for root in allowed) for path in native_changed), native_changed
+     assert git('diff','--name-only','--cached','-z') == b'', 'native Writer must not stage changes'
+     rows = []
+     for path in sorted(set(tracked+untracked)):
+@@ -60,7 +64,8 @@
+         if row['path'] not in changed:
+             assert current.get(row['path'],{}).get('sha256') == row['sha256'], row['path']
+     assert any(path.endswith('t293-b21-physical-confinement.test.mjs') for path in changed), 'new discriminator required'
+-    return {'head':head,'changedPaths':sorted(set(changed)),'rows':rows}
++    return {'head':head,'changedPaths':sorted(set(changed)),'nativeChangedPaths':sorted(set(native_changed)),
++            'setupOwnedChanges':[setup_owned],'rows':rows}
+ 
+ 
+ def native_inventory(root):
+@@ -112,6 +117,7 @@
+               'campaignMs':ACT['limits']['proofCampaignMs'],'retry':False,'qualified':False})
+         assert time.monotonic()<deadline,'insufficient original host/proof deadline for execution and finite cleanup'
+         postimage=source_inventory(head)
++        write(proof/'SETUP_CUSTODY_VERIFICATION.json',{'verified':True,'setupOwnedChanges':postimage['setupOwnedChanges']})
+         write(proof/'SOURCE_POSTIMAGE.json',postimage)
+         write(proof/'SOURCE_BINDING.json',{'sourceHead':head,'sourcePostimageSha256':sha((proof/'SOURCE_POSTIMAGE.json').read_bytes())})
+         dependency=json.loads((HERE/'DEPENDENCY_INPUTS.json').read_text())

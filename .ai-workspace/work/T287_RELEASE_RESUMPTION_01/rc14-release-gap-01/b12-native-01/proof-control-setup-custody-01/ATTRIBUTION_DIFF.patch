@@ -1,0 +1,32 @@
+--- original/prove.py
++++ successor/prove.py
+@@ -1,6 +1,7 @@
+ """One candidate build and four unfiltered files, then fresh installed smoke."""
+ import collections, datetime, json, os, pathlib, re, shutil, subprocess, sys
+ from bounded import inventory, run, save, sha
++from setup_custody import authenticate_setup_manifest
+ 
+ CONTROL = pathlib.Path(__file__).resolve().parent
+ ACT = json.loads((CONTROL / 'ACTIVATION.json').read_text())
+@@ -23,7 +24,11 @@
+ post_rows = inventory(SOURCE, exclude=(ACT['nativeWriteScope'][-1],))
+ post = {row['path']: row for row in post_rows}
+ changed = sorted(path for path in original.keys() | post.keys() if original.get(path) != post.get(path))
+-assert changed and set(changed) <= set(ACT['nativeWriteScope'][:-1]), changed
++setup_owned = authenticate_setup_manifest(SOURCE, RAW, original)
++assert post.get(setup_owned['path']) == setup_owned['row'], 'Setup custody and full postimage differ'
++setup_owned_changes = [setup_owned]
++native_changed = [path for path in changed if path != setup_owned['path']]
++assert native_changed and set(native_changed) <= set(ACT['nativeWriteScope'][:-1]), native_changed
+ assert [row['path'] for row in selection['testFiles']] == SCHEDULE['wholeFiles']
+ for row in selection['testFiles']:
+     assert sha(SOURCE / row['path']) == row['sha256'], row['path']
+@@ -38,7 +43,7 @@
+ save(RAW / 'PROOF_START.json', {'startedUtc': started.isoformat(), 'deadlineUtc': deadline.isoformat(),
+     'originalHostDeadlineUtc': host_deadline.isoformat(), 'selection': {'path': str(selection_path), 'sha256': sha(selection_path)},
+     'wholeFiles': SCHEDULE['wholeFiles'], 'nameFilters': [], 'retry': False})
+-save(RAW / 'SOURCE_POSTIMAGE.json', {'sourceHead': head, 'changedPaths': changed, 'rows': post_rows,
++save(RAW / 'SOURCE_POSTIMAGE.json', {'sourceHead': head, 'changedPaths': native_changed, 'allChangedPaths': changed, 'setupOwnedChanges': setup_owned_changes, 'rows': post_rows,
+     'nativeWriteScope': ACT['nativeWriteScope'], 'scratchExcluded': ACT['nativeWriteScope'][-1]})
+ env = {k: v for k, v in os.environ.items() if k in ['HOME', 'PATH', 'LANG', 'LC_ALL']}
+ env.update({'HOME': '/Users/jim', 'PATH': '/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin',
