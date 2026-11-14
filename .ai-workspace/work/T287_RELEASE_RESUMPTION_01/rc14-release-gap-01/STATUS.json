@@ -1,5 +1,5 @@
 {
-  "status": "B31_ACCEPTED_B21_B12_HOW_ADMITTED_OPERATORS_PREPARING",
+  "status": "B31_ACCEPTED_B12_CONTROLS_ACCEPTED_B21_PREPARING",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -8,7 +8,7 @@
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
   "providerCalls": 1,
-  "triage": "B31 closed on exact frozen subject. B21 HOW preparation and B12 existing-owner preparation active; B09-B11 dispositions retained. No broad or release qualification.",
+  "triage": "B31 closed; B13 proposed wording corrected; B21 physical confinement and B12 raw/return admission HOW accepted. B12 controls accepted; no new native author yet. Broad and release qualification open.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
   "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T15:50:40.907171+00:00",
-  "nativeAuthorState": "no new dispatch; exact physical preflight preparation required",
+  "recordedUtc": "2026-11-14T16:16:35.711253+00:00",
+  "nativeAuthorState": "B12 controls accepted; dispatch requires checkpoint/push and explicit final source binding. B21 preparing.",
   "b21Preparation": {
     "state": "HOW_ADMITTED_OPERATOR_PREPARATION",
     "record": "b21-foundation-01/README.md",
@@ -40,5 +40,10 @@
   "implementationActivations": {
     "B21": "b21-native-01/ACTIVATION.json",
     "B12": "b12-native-01/ACTIVATION.json"
+  },
+  "b12Preparation": {
+    "state": "ACCEPTED_AWAITING_CONTROL_PUSH_AND_FINAL_SOURCE_BINDING",
+    "commit": "c11db33ddedae51c3edde1961b15f3f7280f003e",
+    "rootAcceptance": "integration-01/B12_PREPARATION_ACCEPTANCE.json"
   }
 }

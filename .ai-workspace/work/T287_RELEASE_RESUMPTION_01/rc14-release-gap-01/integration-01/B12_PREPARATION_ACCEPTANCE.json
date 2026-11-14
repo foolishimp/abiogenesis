@@ -1,0 +1,45 @@
+{
+  "id": "RC14-B12-PREPARATION-ACCEPTANCE-001",
+  "status": "ACCEPTED_FOR_ONE_BOUNDED_NATIVE_AUTHOR_AFTER_PUSH_AND_FINAL_SOURCE_BINDING",
+  "recordedUtc": "2026-11-14T16:16:35.711253+00:00",
+  "preparationCommit": "c11db33ddedae51c3edde1961b15f3f7280f003e",
+  "controlManifestSha256": "c2aec1eaac4154b3362ff05fac9c174b0f761632e3d2641d78001c599b938d72",
+  "controlsVerified": 16,
+  "sharedObserverSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "physicalEvidence": {
+    "sha256": "b7212fcbd03bc74b7b151006f205267c2177bfd41f9ea7c0cff374d772a8d290",
+    "bytes": 98869,
+    "disposition": "separated",
+    "mountCount": 27,
+    "stableCompleteSnapshot": true,
+    "plannedOnly": true
+  },
+  "rootReview": [
+    "Accepted bounded source/task territory and owner causal mechanism",
+    "Checked Operator launch and proof controls, finite original host deadline, first-failure stop and cleanup receipts",
+    "Candidate verify/install and actual-resource smoke call shapes match owning source",
+    "Exact postimage case manifest must precede whole-file test execution; no negative exclusion filters",
+    "Historical preparation branch error corrected on same commit, source conserved and wrong predecessor retained"
+  ],
+  "dispatchCondition": [
+    "This exact preparation and observer committed to main and normal push remotely confirmed",
+    "Operator advances its named clean branch to final pushed control HEAD and binds it explicitly in external LAUNCH_BINDING.json",
+    "Tenant tree remains equal to accepted preparation source before dispatch",
+    "Reacquire topology over every actual binding/install root after setup and immediately before native dispatch"
+  ],
+  "observerLimits": [
+    "Bounded Operator observation of these controlled ASCII-named layouts only",
+    "No general Unicode or B05 Product proof; no atomic mount lock claim",
+    "Product stored-spelling owner check remains; do not reuse Python Unicode assumptions as Product law"
+  ],
+  "effects": [
+    "One actual installed RC13 native author session with claude-opus-5-5/xhigh",
+    "Granted one candidate build, four whole test files, candidate pack/install and installed-owner smoke",
+    "No automatic native/proof retry; first failure returns retained evidence to Root"
+  ],
+  "scopeLimits": [
+    "No qualification, release publication, human acceptance or elapsed-time performance claim",
+    "No bulk evidence/archive upload; no pinned RC13 mutation"
+  ],
+  "sourceHeadBinding": "Exact resulting pushed control commit is supplied separately; no self-referential commit field"
+}
