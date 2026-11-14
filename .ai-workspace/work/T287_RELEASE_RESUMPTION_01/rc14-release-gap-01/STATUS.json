@@ -27,7 +27,7 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T19:16:19.731276+00:00",
+  "recordedUtc": "2026-11-14T19:18:40.651811+00:00",
   "nativeAuthorState": "Both native authors returned and closed; both proof sequences stopped at retained first reds; no provider currently running",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
@@ -200,5 +200,26 @@
     "record": "integration-01/PROOF_FIXTURE_FAILURE_TRIAGE_01.md",
     "sourceFiles": 2,
     "providerStarted": false
+  },
+  "sourceCheckpoint002": {
+    "id": "RC14-CLOSED-SOURCE-CHECKPOINT-002-VERIFIED",
+    "recordedUtc": "2026-11-14T19:18:40.651811+00:00",
+    "integratedMain": "5680ae9ae9d2f310342f9e58ece86032d42e379c",
+    "sourceRowsVerified": 19,
+    "sourceSubjects": [
+      "b529fdbe16315180b4fe83e03bb60e561efe5635",
+      "b4026fa6445a098431ce9c26afe2cac978474932"
+    ],
+    "controlCommit": "6167d43c55357daf18f078656c7620a2b138fd81",
+    "controlPathsVerified": 10,
+    "integration": "Three ordinary merges; exact source/control bodies conserved",
+    "claims": "Incomplete source checkpoint only; first-red failures retained; fixture repair and release qualification remain open",
+    "rawEvidencePublished": false
+  },
+  "fixtureRepair": {
+    "state": "OPERATOR_PREPARATION_SELECTED_NOT_DISPATCHED",
+    "activation": "fixture-proof-repair-01/ACTIVATION.json",
+    "sourceBase": "5680ae9ae9d2f310342f9e58ece86032d42e379c",
+    "sourceFiles": 2
   }
 }
