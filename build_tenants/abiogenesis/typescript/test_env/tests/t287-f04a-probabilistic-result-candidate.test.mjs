@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { isDeepStrictEqual } from "node:util";
 import test from "node:test";
 
 import { setupInstalledRootExecutionBasis } from
@@ -173,6 +174,25 @@ function assertPureRefusal(environment, admit, candidate, code) {
   return result;
 }
 
+// TD78 executing-Product identity is an explicit lower-owner premise of these
+// component compositions, never a native answer over synthetic coordinates. The
+// production guard still calls the relation; it holds only at the fixture's
+// expected prefix and exact WorkspaceBinding ref/digest while the bound lock's
+// Product identity equals the executing identity. A wrong prefix, a foreign ref
+// or digest, or a false or unavailable executing identity refuses. Installed
+// TD78 correctness stays with the genuine installed relation checks.
+function executingProductPremise(expected) {
+  const premise = { ...expected, calls: [], boundWorkspaceMatchesExecutingToolchain: (prefix, binding) => {
+    const answer = typeof premise.prefix === "object" && premise.prefix !== null && isDeepStrictEqual(prefix, premise.prefix) &&
+      typeof premise.ref === "string" && premise.ref.length > 0 && binding?.ref === premise.ref &&
+      typeof premise.digest === "string" && premise.digest.length > 0 && binding?.digest === premise.digest &&
+      typeof premise.boundIdentity === "string" && premise.executingIdentity === premise.boundIdentity;
+    premise.calls.push({ prefix, binding, answer });
+    return answer;
+  } };
+  return premise;
+}
+
 function actorObservation(basis, overrides) {
   return {
     ...basis.observation,
@@ -304,7 +324,13 @@ async function finalizedArtifactCases(environment, basis, context) {
     const premise = await composeStdoutComponentPremise({ ownerRoot: join(environment.installedRoot, 'build/code/src'),
       store, rows, append, durable: () => currentPrefix,
       commit: () => (currentPrefix = { ...currentPrefix, coordinateDigest: hash(mode + ':' + rows.length) }) });
+    // TD78 lower-owner premise at this mode's exact predecessor and the real
+    // admitted WorkspaceBinding ref/digest; the real binding admission still runs.
+    const td78 = executingProductPremise({ prefix: predecessor, ref: environment.workspaceBinding.bindingId,
+      digest: environment.workspaceBinding.bindingDigest, boundIdentity: hash('f04-executing-toolchain'),
+      executingIdentity: hash('f04-executing-toolchain') });
     const actor = await component('abg/actor_process', {
+      './environment_admission.js': { boundWorkspaceMatchesExecutingToolchain: td78.boundWorkspaceMatchesExecutingToolchain },
       // The actual pure-memory store route reads the current recorder rows.
       './event_prefix.js': { readOwnedRuntimeEventPrefixAtDurablePrefix: () => prefixes.selectValidatedRuntimeEventPrefix(deepFreeze([...rows])) },
       './invocation_admission.js': { rehydrateInvocationAdmissionAtPrefix: () => null },
@@ -330,7 +356,7 @@ async function finalizedArtifactCases(environment, basis, context) {
         } }); } catch (error) { caught = error; throw error; }
       } },
     }, '\nexport { invokeActorProcessWithAssembly };');
-    const effect = await actor.invokeActorProcessWithAssembly({ store, predecessorPrefix: predecessor,
+    const actorInput = { store, predecessorPrefix: predecessor,
       executionBasis: environment.executionBasis,
       scope: { runId: call.runId, graphCallId: call.graphCallId, frameId: call.frameId }, cCall: call,
       expectedInputDigest: basis.request.inputDigest, occurrence: basis.occurrence,
@@ -338,8 +364,36 @@ async function finalizedArtifactCases(environment, basis, context) {
       runtime: { workspaceBinding: environment.workspaceBinding, artifactTruth: environment.artifactTruth },
       request: basis.request, dispatchOrdinal: 1, basis: { correlationId: 'f04-finalized' },
       ...(mode === 'owner-unavailable' ? {} : { rawResultOwner: { port: environment.leafPort, resolution: basis.resolution, input: basis.input } }),
-    }, { request: basis.request });
+    };
+    if (mode === 'valid') {
+      // TD78 negative controls, once over this composition: each refuses at the
+      // production guard before any actor row or transport plan. The binding is
+      // genuinely admitted here, so foreign ref/digest controls live in the
+      // proof-reuse component below, where binding admission is a premise.
+      const before = rows.length;
+      for (const [label, supplied, identity = td78.boundIdentity] of [
+        ['wrong predecessor prefix', { ...actorInput, predecessorPrefix: { ...predecessor, coordinateDigest: hash(mode + ':foreign') } }],
+        ['false executing identity', actorInput, hash('f04-foreign-toolchain')],
+        ['unavailable executing identity', actorInput, null],
+      ]) {
+        td78.calls.length = 0; td78.executingIdentity = identity;
+        const refused = await actor.invokeActorProcessWithAssembly(supplied, { request: basis.request });
+        td78.executingIdentity = td78.boundIdentity;
+        assert.equal(refused.kind, 'actor_process_effect_refusal', label);
+        assert.equal(refused.code, 'actor_process_invocation_refused', label);
+        assert.match(refused.message, /actor process request or workspace differs from the admitted execution basis/u, label);
+        assert.deepEqual(td78.calls.map(entry => entry.answer), [false], label);
+        assert.equal(rows.length, before, `${label}: no actor row`);
+        assert.equal(plan, undefined, `${label}: no transport plan`);
+      }
+      td78.calls.length = 0;
+    }
+    const effect = await actor.invokeActorProcessWithAssembly(actorInput, { request: basis.request });
     if (preflight !== null) throw preflight;
+    // Returned refusal evidence precedes artifact counts: the TD78 premise held
+    // at this mode's exact coordinates and the actor reached its transport.
+    assert.deepEqual(td78.calls.map(entry => entry.answer), [true], `${mode}: ${JSON.stringify(effect)}`);
+    assert.notEqual(finalFacts, null, `${mode}: actor returned before transport finalization: ${JSON.stringify(effect)}`);
     context.diagnostic(`E03 ${mode} staged stdout windows: ${JSON.stringify(rows.filter(row => row.payload.stdoutWindow !== undefined)
       .map(row => ({ eventId: row.eventId, byteLength: row.payload.byteLength, probes: rows.filter(event => event.kind === 'runtime_activity_probe_observed' &&
         event.payload.observation.underlyingEventRef === row.eventId).map(event => event.payload.observation.signal) })))}`);
@@ -376,7 +430,7 @@ async function finalizedArtifactCases(environment, basis, context) {
     assert.equal(effect.kind, mode === 'normal' ? 'actor_process_effect_receipt' : 'actor_process_effect_refusal');
     assert.deepEqual(effect.successorPrefix, currentPrefix, 'actual recorded prefix retained, including committed artifact before probe refusal');
     assert.equal(rows.some(row => row.kind === 'c_call_result_admitted'), false);
-    context.diagnostic(`E03 ${mode}: authentic installed F_P assessment; controlled physical and admission substrate, no OS/Run/fresh-process claim.`);
+    context.diagnostic(`E03 ${mode}: authentic installed F_P assessment; controlled physical and admission substrate and TD78 executing-Product premise, no OS/Run/fresh-process or installed TD78 claim.`);
   }
 }
 
@@ -1132,8 +1186,9 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
   assert.deepEqual(environment.store.readAll(), beforeEvents);
 });
 
-// Source/component join: installation, prefix admission and loaded semantics are
-// explicit lower-owner premises. The real leaf port, raw verifier and F04 owner
+// Source/component join: installation, prefix admission, TD78 executing-Product
+// identity and loaded semantics are explicit lower-owner premises. The real
+// leaf port, raw verifier and F04 owner
 // run; no Product install, event append or provider is performed by this case.
 test('F04 same native contract proof is reused while raw and changed bases still check', async t => {
   const {SourceTextModule,SyntheticModule}=await import('node:vm');
@@ -1157,7 +1212,12 @@ test('F04 same native contract proof is reused while raw and changed bases still
   const binding=publication.implementationBindings.find(x=>x.implementationRef===FP_IDS.implementationRef);
   const row={...binding,computeRegime:'F_P',implementationBindingRef:binding.bindingRef,implementationOwnerProductId:install.productId,implementationPublicationDigest:publicationDigest,graphFunctionRef:GRAPH_FUNCTION_REF,programLocusRef:'locus://component/f04'};
   const set={rows:[row],implementationSetRef:'set://component/f04',implementationSetDigest:hash([row]),invocationAdmissionRef:'admission://component/f04',invocationRef:'invocation://component/f04'};
-  const execution={...set,graphFunctionRef:GRAPH_FUNCTION_REF,workspaceBindingId:'workspace://component/f04'};
+  const execution={...set,graphFunctionRef:GRAPH_FUNCTION_REF,workspaceBindingId:'workspace://component/f04',workspaceBindingDigest:hash('workspace-binding://component/f04')};
+  // TD78 executing-Product identity is a supplied lower-owner premise at this
+  // artifact-truth prefix and the execution's exact WorkspaceBinding ref/digest.
+  const truthPrefix={storeIdentity:{eventContractDigest:hash('component-f04-event-contract')},coordinateDigest:hash('component-f04-prefix')};
+  const td78=executingProductPremise({prefix:truthPrefix,ref:execution.workspaceBindingId,digest:execution.workspaceBindingDigest,
+    boundIdentity:hash('component-f04-toolchain'),executingIdentity:hash('component-f04-toolchain')});
   const closure={selectedGraphFunctionRef:GRAPH_FUNCTION_REF,semanticsOwner:coordinate('semantics',publication.productSemanticsBinding.bindingRef),publications:[publication],
     contractOwners:publication.contracts.map(c=>coordinate('contract',c.contractRef)),implementationBindingOwners:[coordinate('implementation_binding',binding.bindingRef)]};
   const projection={...install,publicationDigest,bindingRef:publication.productSemanticsBinding.bindingRef};let current=true,rawChecks=0;
@@ -1168,8 +1228,9 @@ test('F04 same native contract proof is reused while raw and changed bases still
   const leafPort=await ports.constructAdmittedLeafInvocationPort({prefix:{},artifactTruth:{},implementationSet:set,semanticsProjection:projection,
     executionResolution:{declarationClosure:closure,declarationPublications:[publication],ownerInstalls:[install]}});
   const owner=await component('abg/probabilistic_result',{'./execution_basis.js':{hasAdmittedImplementationSetAtPrefix:()=>current,hasAdmittedExecutionBasisAtPrefix:()=>current},
-    './environment_admission.js':{projectAdmittedWorkspaceProductInstall:()=>current?{install}:null}});
-  const env={product:digests,implementationRow:row,implementation,artifactTruth:{},executionBasis:execution,implementationSet:set,leafPort,
+    './environment_admission.js':{projectAdmittedWorkspaceProductInstall:()=>current?{install}:null,
+      boundWorkspaceMatchesExecutingToolchain:td78.boundWorkspaceMatchesExecutingToolchain}});
+  const env={product:digests,implementationRow:row,implementation,artifactTruth:{prefix:truthPrefix},executionBasis:execution,implementationSet:set,leafPort,
     abg:{selectValidatedRuntimeEventPrefix:x=>x},store:{readAll:()=>[]}};
   const basis=constructBasis(env,JSON.stringify(validResult()));
   const verifyInput={resolution:row,input:basis.input,inputDigest:hash(basis.input),instructionContractRef:INPUT_CONTRACT_REF,rawResultContractRef:OUTPUT_CONTRACT_REF,rawResult:validResult()};
@@ -1179,7 +1240,10 @@ test('F04 same native contract proof is reused while raw and changed bases still
   // The native actor projection itself is tested by the retained actual-owner
   // relation in t287-native-assessment-evidence; here its exact proof is supplied.
   let projections=0;const authenticated=()=>{projections++;return {nativeResultAssessment:{disposition:'admitted',verification:verified}};};
-  const warm=owner.admitProbabilisticResultFromActorTransport(basis,authenticated);assert.equal(warm.kind,'contract_admitted_probabilistic_result_candidate');assert.equal(rawChecks,1);assert.equal(projections,1);
+  const warm=owner.admitProbabilisticResultFromActorTransport(basis,authenticated);
+  // Returned refusal evidence precedes the candidate and count assertions.
+  assert.deepEqual(td78.calls,[{prefix:truthPrefix,binding:{ref:execution.workspaceBindingId,digest:execution.workspaceBindingDigest},answer:true}],JSON.stringify(warm));
+  assert.equal(warm.kind,'contract_admitted_probabilistic_result_candidate');assert.equal(rawChecks,1);assert.equal(projections,1);
   assert.deepEqual(owner.admitProbabilisticResultCandidate({...basis,observation:structuredClone(basis.observation)}),warm);
   assert.equal(rawChecks,2,'raw exported ingress still performs the declared result check');
   assertRefusal(owner.admitProbabilisticResultCandidate({...basis,leafPort:{...leafPort}}),'unadmitted_contract_capability');
@@ -1197,6 +1261,28 @@ test('F04 same native contract proof is reused while raw and changed bases still
   const changed=withRawResult(env,basis,JSON.stringify({...validResult(),message:'wrong'}));assertRefusal(owner.admitProbabilisticResultFromActorTransport(changed,authenticated),'declared_contract_refused');
   assertRefusal(owner.admitProbabilisticResultFromActorTransport({...basis,request:{...basis.request,resultContractRef:'contract://foreign'}},authenticated),'transport_basis_mismatch');
   assertRefusal(owner.admitProbabilisticResultFromActorTransport(withRawResult(env,basis,JSON.stringify({...validResult(),actorRef:'actor://ineligible'})),authenticated),'declared_contract_refused');
+  // TD78 negative controls: each foreign coordinate or false/unavailable
+  // executing identity refuses at the workspace join before any candidate, with
+  // the authenticated proof reused and no additional raw check.
+  const td78RawChecks=rawChecks;
+  for(const [label,supplied,identity=td78.boundIdentity] of [
+    ['wrong artifact-truth prefix',{...basis,artifactTruth:{prefix:{...truthPrefix,coordinateDigest:hash('component-f04-foreign-prefix')}}}],
+    ['foreign WorkspaceBinding ref',{...basis,executionBasis:{...execution,workspaceBindingId:'workspace://component/foreign'}}],
+    ['foreign WorkspaceBinding digest',{...basis,executionBasis:{...execution,workspaceBindingDigest:hash('workspace-binding://component/foreign')}}],
+    ['false executing identity',basis,hash('component-f04-foreign-toolchain')],
+    ['unavailable executing identity',basis,null],
+  ]){
+    td78.calls.length=0;td78.executingIdentity=identity;
+    const refused=owner.admitProbabilisticResultFromActorTransport(supplied,authenticated);
+    td78.executingIdentity=td78.boundIdentity;
+    assertRefusal(refused,'unadmitted_contract_capability');
+    assert.match(refused.message,/does not join one admitted workspace install/u,label);
+    assert.deepEqual(td78.calls.map(entry=>entry.answer),[false],label);
+  }
+  assert.equal(rawChecks,td78RawChecks,'TD78 refusals reuse the authenticated proof without another raw check');
+  td78.calls.length=0;
+  assert.deepEqual(owner.admitProbabilisticResultFromActorTransport(basis,authenticated),warm,'the restored exact premise admits again');
+  assert.deepEqual(td78.calls.map(entry=>entry.answer),[true]);
   current=false;assertRefusal(owner.admitProbabilisticResultFromActorTransport(basis,authenticated),'unadmitted_contract_capability');
-  t.diagnostic('Actual compiled leaf/F04 owners; prefix/install/semantic-loader facts and authenticated actor proof are supplied component premises. No runtime or native claim.');
+  t.diagnostic('Actual compiled leaf/F04 owners; prefix/install/TD78 executing-Product identity/semantic-loader facts and authenticated actor proof are supplied component premises. No runtime, native or installed TD78 claim.');
 });

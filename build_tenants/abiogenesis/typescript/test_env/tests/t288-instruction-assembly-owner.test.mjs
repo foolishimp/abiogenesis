@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { isDeepStrictEqual } from 'node:util';
 import { SourceTextModule, SyntheticModule } from 'node:vm';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -115,6 +116,25 @@ async function component(name, overrides) {
   return module.namespace;
 }
 
+// TD78 executing-Product identity is an explicit lower-owner premise of the
+// actor composition below, never a native answer over synthetic coordinates.
+// The production guard still calls the relation; it holds only at the fixture's
+// expected prefix and exact WorkspaceBinding ref/digest while the bound lock's
+// Product identity equals the executing identity. A wrong prefix, a foreign ref
+// or digest, or a false or unavailable executing identity refuses. Installed
+// TD78 correctness stays with the genuine installed relation checks.
+function executingProductPremise(expected) {
+  const premise = { ...expected, calls: [], boundWorkspaceMatchesExecutingToolchain: (prefix, binding) => {
+    const answer = typeof premise.prefix === 'object' && premise.prefix !== null && isDeepStrictEqual(prefix, premise.prefix) &&
+      typeof premise.ref === 'string' && premise.ref.length > 0 && binding?.ref === premise.ref &&
+      typeof premise.digest === 'string' && premise.digest.length > 0 && binding?.digest === premise.digest &&
+      typeof premise.boundIdentity === 'string' && premise.executingIdentity === premise.boundIdentity;
+    premise.calls.push({ prefix, binding, answer });
+    return answer;
+  } };
+  return premise;
+}
+
 test('actor owner retains its own assembly, authenticates raw dispatch, and rejects forged return/basis/drift', async () => {
   // Component boundary: admitted basis/workspace and assembly construction are
   // supplied; the actual compiled preparation and dispatch comparison execute.
@@ -132,6 +152,9 @@ test('actor owner retains its own assembly, authenticates raw dispatch, and reje
     manifest: { promptDigest: hash(request.prompt) }, manifestDigest: hash('manifest'), request });
   const basis = deepFreeze({ admitted: true, publication: {}, predecessorPrefix: { coordinateDigest: hash('prefix') },
     executionBasis: { basisRef: 'basis://one', basisDigest: hash('basis') }, cCall: { cCallDigest: hash('call') } });
+  // TD78 is a premise at the basis predecessor and the input's exact binding.
+  const td78 = executingProductPremise({ prefix: basis.predecessorPrefix, ref: 'binding://one', digest: hash('binding'),
+    boundIdentity: hash('toolchain://unit'), executingIdentity: hash('toolchain://unit') });
   const actor = await component('abg/actor_process', {
     './instruction_assembly.js': {
       // Supplied lower assembly premise, through the actual private owner call.
@@ -145,7 +168,8 @@ test('actor owner retains its own assembly, authenticates raw dispatch, and reje
     './execution_basis.js': { constructNativeInstructionAssemblyBasis: b => b === basis ? b : Object.freeze({ ...b }),
       authenticateOwnedNativeInstructionAssemblyBasis: () => ({ call: { cCallRef: 'call://one' }, execution: { basisRef: 'basis://one' }, inputDigest: request.inputDigest, inputValue: { input: 1 } }) },
     './semantic_stage.js': { semanticInputValueAtBasis: () => ({ input: 1 }) },
-    './environment_admission.js': { hasAdmittedWorkspaceBinding: () => true },
+    './environment_admission.js': { hasAdmittedWorkspaceBinding: () => true,
+      boundWorkspaceMatchesExecutingToolchain: td78.boundWorkspaceMatchesExecutingToolchain },
     './event_prefix.js': { readOwnedRuntimeEventPrefixAtDurablePrefix: () => { reads++; if (!physicalCurrent) throw new TypeError('physical prefix changed'); return Object.freeze({ fixture: 'supplied prefix' }); } },
     './invocation_admission.js': { rehydrateInvocationAdmissionAtPrefix: () => null },
     './worker_transport.js': { prepareWorkerTransport: () => { throw stopped; } },
@@ -160,7 +184,30 @@ test('actor owner retains its own assembly, authenticates raw dispatch, and reje
   const prepared = actor.prepareActorProcessInvocation({ input: 1 }, occurrence);
   assert.equal(prepared.prepareInstructionAssembly(), assembly);
   await refused(prepared.invokeActorProcess(input), /component transport reached/);
+  assert.deepEqual(td78.calls, [{ prefix: basis.predecessorPrefix, binding: { ref: 'binding://one', digest: hash('binding') }, answer: true }]);
   assert.equal(builds, 1); assert.equal(cold, 0); assert.equal(reads, 1);
+  // TD78 negative controls refuse at the production guard before assembly
+  // reconstruction, the physical prefix read or transport. The prepared path
+  // refuses a moved prefix earlier, so the wrong prefix uses standalone dispatch;
+  // foreign binding coordinates reach both execution basis and runtime binding.
+  const foreignBinding = over => ({ ...input, executionBasis: { ...input.executionBasis, ...over.basis },
+    runtime: { ...input.runtime, workspaceBinding: { ...input.runtime.workspaceBinding, ...over.binding } } });
+  for (const [label, dispatch, identity = td78.boundIdentity] of [
+    ['wrong prefix', () => actor.invokeActorProcess({ ...input, predecessorPrefix: { coordinateDigest: hash('foreign prefix') } })],
+    ['foreign binding ref', () => prepared.invokeActorProcess(foreignBinding({ basis: { workspaceBindingId: 'binding://foreign' }, binding: { bindingId: 'binding://foreign' } }))],
+    ['foreign binding digest', () => prepared.invokeActorProcess(foreignBinding({ basis: { workspaceBindingDigest: hash('foreign binding') }, binding: { bindingDigest: hash('foreign binding') } }))],
+    ['false executing identity', () => prepared.invokeActorProcess(input), hash('toolchain://foreign')],
+    ['unavailable executing identity', () => prepared.invokeActorProcess(input), null],
+  ]) {
+    td78.calls.length = 0; td78.executingIdentity = identity;
+    const counts = [builds, cold, reads];
+    const result = await dispatch();
+    td78.executingIdentity = td78.boundIdentity;
+    assert.equal(result.kind, 'actor_process_effect_refusal', label);
+    assert.match(result.message, /actor process request or workspace differs from the admitted execution basis/, label);
+    assert.deepEqual(td78.calls.map(call => call.answer), [false], label);
+    assert.deepEqual([builds, cold, reads], counts, `${label}: no assembly, prefix read or transport`);
+  }
   for (const key of ['prompt', 'rendererRef', 'materializationPlanRef', 'actorRef', 'workerBindingRef']) {
     await refused(prepared.invokeActorProcess({ ...input, request: { ...request, [key]: request[key] + '/forged' } }), /exact native admitted instruction assembly/);
   }

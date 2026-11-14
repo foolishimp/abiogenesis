@@ -6,6 +6,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import process from 'node:process';
 import { pathToFileURL } from 'node:url';
+import { isDeepStrictEqual } from 'node:util';
 import { SourceTextModule, SyntheticModule } from 'node:vm';
 import * as events from '../../build/code/src/abg/event_store.js';
 import * as prefixes from '../../build/code/src/abg/event_prefix.js';
@@ -46,6 +47,25 @@ async function component(name, overrides = {}, suffix = '', transform = source =
   });
   await module.evaluate();
   return module.namespace;
+}
+
+// TD78 executing-Product identity is an explicit lower-owner premise of these
+// actor compositions, never a native answer over synthetic coordinates. The
+// production guard still calls the relation; it holds only at the fixture's
+// expected prefix and exact WorkspaceBinding ref/digest while the bound lock's
+// Product identity equals the executing identity. A wrong prefix, a foreign ref
+// or digest, or a false or unavailable executing identity refuses. Installed
+// TD78 correctness stays with the genuine installed relation checks.
+function executingProductPremise(expected) {
+  const premise = { ...expected, calls: [], boundWorkspaceMatchesExecutingToolchain: (prefix, binding) => {
+    const answer = typeof premise.prefix === 'object' && premise.prefix !== null && isDeepStrictEqual(prefix, premise.prefix) &&
+      typeof premise.ref === 'string' && premise.ref.length > 0 && binding?.ref === premise.ref &&
+      typeof premise.digest === 'string' && premise.digest.length > 0 && binding?.digest === premise.digest &&
+      typeof premise.boundIdentity === 'string' && premise.executingIdentity === premise.boundIdentity;
+    premise.calls.push({ prefix, binding, answer });
+    return answer;
+  } };
+  return premise;
 }
 
 // The physical premise: the group probe answers unknown, signals are inert,
@@ -90,7 +110,10 @@ const scope = { runId: 'run://t287/carrier', graphCallId: 'graph-call://t287/car
 const common = { correlationId: 'correlation://t287/carrier', workflowVersion: '5.0.0', scopeClass: 'run',
   basisId: 'basis://t287/carrier', eventTime: time, ...scope };
 
-async function driveActor(t, mode, stamp = events.ROOT_EVENT_CONTRACT_DIGEST) {
+// `supplied` replaces the actor's prefix or binding coordinates, or the
+// executing identity, for the TD78 negative controls; the premise keeps the
+// drive's own expected coordinates.
+async function driveActor(t, mode, stamp = events.ROOT_EVENT_CONTRACT_DIGEST, supplied = {}) {
   const scratch = await realpath(await mkdtemp(join(tmpdir(), `abi5-carrier-${mode}-`)));
   t.after(() => rm(scratch, { recursive: true, force: true }));
   const archiveRoot = join(scratch, 'workspace', '.abg', 'archives');
@@ -132,11 +155,16 @@ async function driveActor(t, mode, stamp = events.ROOT_EVENT_CONTRACT_DIGEST) {
   // named premises (the probe signals are recorded, no probe row is written);
   // the binding row carries the actor's real liveness binding. The store's
   // committed prefix is the recorder rows, and no stdout window is bound.
+  // TD78 is a premise at this drive's initial prefix and exact binding.
+  const td78 = executingProductPremise({ prefix: currentPrefix, ref: 'workspace-binding://t287/carrier', digest: hash('binding'),
+    boundIdentity: hash('toolchain://t287/carrier'), executingIdentity: hash('toolchain://t287/carrier') });
+  if (Object.hasOwn(supplied, 'executingIdentity')) td78.executingIdentity = supplied.executingIdentity;
   const actor = await component('abg/actor_process', {
     './event_prefix.js': { readOwnedRuntimeEventPrefixAtDurablePrefix: () => null,
       selectRuntimeEventPrefixFromStore: () => prefixes.selectValidatedRuntimeEventPrefix(deepFreeze([...rows])) },
     './invocation_admission.js': { rehydrateInvocationAdmissionAtPrefix: () => null },
-    './environment_admission.js': { hasAdmittedWorkspaceBinding: () => true },
+    './environment_admission.js': { hasAdmittedWorkspaceBinding: () => true,
+      boundWorkspaceMatchesExecutingToolchain: td78.boundWorkspaceMatchesExecutingToolchain },
     '../implementation/leaf_invocation_port.js': { isAdmittedLeafInvocationPort: () => true },
     './event_store.js': { assertHeldEventStoreAtDurablePrefix: () => {}, admitRuntimeEvent: (_store, candidate) => append(candidate),
       bindNativeStdoutWindow: () => () => {},
@@ -170,9 +198,9 @@ async function driveActor(t, mode, stamp = events.ROOT_EVENT_CONTRACT_DIGEST) {
     instructionContractRef: 'contract://t287/carrier/instruction', resultContractRef: 'contract://t287/carrier/result',
     transportLane: 'closed_prompt_proof', prompt: 'Return the fixed fixture payload.', responseJsonSchema: { type: 'object' } };
   const occurrence = { cCallRef, ...scope, programLocusRef: 'locus://t287/carrier', taskOrdinal: null, attempt: 1 };
-  const workspaceBinding = { bindingId: 'workspace-binding://t287/carrier', bindingDigest: hash('binding'), roots: { archiveRoot } };
+  const workspaceBinding = { bindingId: supplied.bindingId ?? td78.ref, bindingDigest: supplied.bindingDigest ?? td78.digest, roots: { archiveRoot } };
   const effect = await actor.invokeActorProcessWithAssembly({
-    store: {}, predecessorPrefix: currentPrefix, scope, occurrence, request, dispatchOrdinal: 1,
+    store: {}, predecessorPrefix: supplied.prefix ?? currentPrefix, scope, occurrence, request, dispatchOrdinal: 1,
     executionBasis: { basisRef: common.basisId, workspaceBindingId: workspaceBinding.bindingId,
       workspaceBindingDigest: workspaceBinding.bindingDigest, invocationAdmissionRef: 'invocation-admission://t287/carrier',
       graphFunctionRef: 'graph-function://t287/carrier', graphRef: 'graph://t287/carrier' },
@@ -185,12 +213,14 @@ async function driveActor(t, mode, stamp = events.ROOT_EVENT_CONTRACT_DIGEST) {
       resolution: { implementationRef: request.implementationRef, outputContractRef: request.resultContractRef },
       input: { subject: mode } },
   });
-  return { rows, effect, finalFacts, transportError, plan, probes, spawned };
+  return { rows, effect, finalFacts, transportError, plan, probes, spawned, td78 };
 }
 
 test('worker no-child launch failure: spawn_failed admitted; the bound transport artifact carries processFacts', async t => {
-  const { rows, effect, finalFacts, plan, probes } = await driveActor(t, 'spawn_failed');
-  assert.notEqual(finalFacts, null);
+  const { rows, effect, finalFacts, plan, probes, td78 } = await driveActor(t, 'spawn_failed');
+  // Returned refusal evidence precedes the transport and artifact assertions.
+  assert.deepEqual(td78.calls.map(call => call.answer), [true], JSON.stringify(effect));
+  assert.notEqual(finalFacts, null, JSON.stringify(effect));
   assert.equal(rows.find(row => row.kind === 'actor_transport_binding_admitted').payload.livenessBinding.kind, 'runtime_liveness_binding');
   assert.deepEqual(probes, [], 'no process start, so no start probe');
   assert.equal(finalFacts.noChildEstablished, true);
@@ -312,9 +342,34 @@ test('an actor invocation runs only on the current profile: on L, RC6 and S2 it 
   }
 });
 
+// TD78 negative controls over the same actor composition: the production guard
+// consults the controlled premise and refuses before the profile check, any
+// binding or start row, any transport plan and any spawn.
+test('TD78 premise: a wrong prefix, a foreign binding ref or digest, or a false or unavailable executing identity refuses before any binding or start', async t => {
+  for (const [label, supplied] of [
+    ['wrong-prefix', { prefix: { storeIdentity: { eventContractDigest: events.ROOT_EVENT_CONTRACT_DIGEST }, coordinateDigest: hash('td78-foreign:0') } }],
+    ['foreign-binding-ref', { bindingId: 'workspace-binding://t287/carrier/foreign' }],
+    ['foreign-binding-digest', { bindingDigest: hash('foreign-binding') }],
+    ['false-executing-identity', { executingIdentity: hash('toolchain://t287/foreign') }],
+    ['unavailable-executing-identity', { executingIdentity: null }],
+  ]) {
+    const { rows, effect, plan, probes, spawned, td78 } = await driveActor(t, `td78-${label}`, events.ROOT_EVENT_CONTRACT_DIGEST, supplied);
+    assert.equal(effect.kind, 'actor_process_effect_refusal', label);
+    assert.equal(effect.code, 'actor_process_invocation_refused', label);
+    assert.match(effect.message, /actor process request or workspace differs from the admitted execution basis/u, label);
+    assert.deepEqual(td78.calls.map(call => call.answer), [false], label);
+    assert.deepEqual(rows.map(row => row.kind), ['c_call_fibre_selected'], `${label}: no binding or start row`);
+    assert.equal(plan, null, `${label}: no transport plan`);
+    assert.equal(spawned, 0, `${label}: no process is spawned`);
+    assert.deepEqual(probes, [], label);
+  }
+});
+
 test('worker error after launch with unresolved cleanup: termination_unconfirmed admitted; the refusal carries processFacts; failCCall retains it', async t => {
-  const { rows, effect, finalFacts, transportError, probes } = await driveActor(t, 'unconfirmed');
-  assert.notEqual(finalFacts, null);
+  const { rows, effect, finalFacts, transportError, probes, td78 } = await driveActor(t, 'unconfirmed');
+  // Returned refusal evidence precedes the transport and artifact assertions.
+  assert.deepEqual(td78.calls.map(call => call.answer), [true], JSON.stringify(effect));
+  assert.notEqual(finalFacts, null, JSON.stringify(effect));
   assert.deepEqual(probes.find(probe => probe.source === 'process_lifecycle'), { source: 'process_lifecycle', signal: 'activity' },
     'the start probe reaches the liveness owner');
   assert.equal(classifyOwnedProcessTerminal(finalFacts), 'unconfirmed');
@@ -674,9 +729,15 @@ test('RC7 HS03 actor successor: a not_reached decision that commits the pending 
   const sentinel = new Error('rc7 hs03 actor successor fixture stop');
   const observed = { flushed: 0, decision: null, beforeWakeup: null, afterWakeup: null, nextRow: null, nextPredecessor: null };
   const worker = await component('abg/worker_transport');
+  // TD78 is a premise at the held store's exact predecessor and the actor's
+  // exact binding; nothing is admitted between this read and the invocation.
+  const predecessorPrefix = events.selectHeldEventStoreDurablePrefix(store);
+  const td78 = executingProductPremise({ prefix: predecessorPrefix, ref: 'workspace-binding://rc7-hs03/actor', digest: hash('rc7-hs03-binding'),
+    boundIdentity: hash('toolchain://rc7-hs03/actor'), executingIdentity: hash('toolchain://rc7-hs03/actor') });
   const actor = await component('abg/actor_process', {
     './invocation_admission.js': { rehydrateInvocationAdmissionAtPrefix: () => null },
-    './environment_admission.js': { hasAdmittedWorkspaceBinding: () => true },
+    './environment_admission.js': { hasAdmittedWorkspaceBinding: () => true,
+      boundWorkspaceMatchesExecutingToolchain: td78.boundWorkspaceMatchesExecutingToolchain },
     './worker_transport.js': {
       prepareWorkerTransport: input => worker.prepareWorkerTransport(input),
       runPreparedWorkerTransport: async (prepared, observer) => {
@@ -715,11 +776,12 @@ test('RC7 HS03 actor successor: a not_reached decision that commits the pending 
     instructionContractRef: 'contract://rc7-hs03/actor/instruction', resultContractRef: 'contract://rc7-hs03/actor/result',
     transportLane: 'closed_prompt_proof', prompt: 'Return the fixed fixture payload.', responseJsonSchema: { type: 'object' } };
   const occurrence = { cCallRef, runId, graphCallId, frameId, programLocusRef: 'locus://rc7-hs03/actor', taskOrdinal: null, attempt: 1 };
-  const workspaceBinding = { bindingId: 'workspace-binding://rc7-hs03/actor', bindingDigest: hash('rc7-hs03-binding'), roots: { archiveRoot } };
+  const workspaceBinding = { bindingId: td78.ref, bindingDigest: td78.digest, roots: { archiveRoot } };
   // The stopped transport ends the actor through its ordinary failure carrier;
-  // that outcome is not the subject here.
-  await actor.invokeActorProcessWithAssembly({
-    store, predecessorPrefix: events.selectHeldEventStoreDurablePrefix(store), scope: { runId, graphCallId, frameId }, occurrence, request, dispatchOrdinal: 1,
+  // that outcome is not the subject here, but its returned refusal is exposed
+  // before the window assertions.
+  const effect = await actor.invokeActorProcessWithAssembly({
+    store, predecessorPrefix, scope: { runId, graphCallId, frameId }, occurrence, request, dispatchOrdinal: 1,
     executionBasis: { basisRef, workspaceBindingId: workspaceBinding.bindingId, workspaceBindingDigest: workspaceBinding.bindingDigest,
       invocationAdmissionRef: 'invocation-admission://rc7-hs03/actor', graphFunctionRef: basisBody.graphFunctionRef, graphRef: 'graph://rc7-hs03/actor' },
     cCall: { ...occurrence, implementationRef, outputContractRef: request.resultContractRef, implementationBindingRef, fibreSelectedEventRef: fibre.eventId },
@@ -727,6 +789,8 @@ test('RC7 HS03 actor successor: a not_reached decision that commits the pending 
     workerContracts: { instructionContractRef: request.instructionContractRef, resultContractRef: request.resultContractRef },
     runtime: { workspaceBinding, artifactTruth: {} }, basis: { correlationId },
   }).catch(error => error);
+  assert.deepEqual(td78.calls.map(call => call.answer), [true], JSON.stringify(effect));
+  assert.equal(effect?.message, sentinel.message, `the actor stopped only at the transport sentinel: ${JSON.stringify(effect)}`);
   assert.notEqual(observed.nextRow, null, 'the driven observer reached the next admission');
   // The real threshold relation flushed the pending window once, committed it and decided not_reached.
   assert.equal(observed.flushed, 1, 'the wakeup drained the pending window exactly once');

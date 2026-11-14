@@ -52,6 +52,24 @@ const realizeNativeWorkspaceWork = await (async () => {
 })();
 const ids = native.NATIVE_WORKSPACE_WORK_IDS;
 const digest = label => product.sha256Canonical({ label });
+// TD78 executing-Product identity is an explicit lower-owner premise of the
+// actor compositions below, never a native answer over synthetic coordinates.
+// The production guard still calls the relation; it holds only at the fixture's
+// expected prefix and exact WorkspaceBinding ref/digest while the bound lock's
+// Product identity equals the executing identity. A wrong prefix, a foreign ref
+// or digest, or a false or unavailable executing identity refuses. Installed
+// TD78 correctness stays with the genuine installed relation checks.
+function executingProductPremise(expected) {
+  const premise = {...expected, calls: [], boundWorkspaceMatchesExecutingToolchain: (prefix, binding) => {
+    const answer = typeof premise.prefix === 'object' && premise.prefix !== null && isDeepStrictEqual(prefix, premise.prefix) &&
+      typeof premise.ref === 'string' && premise.ref.length > 0 && binding?.ref === premise.ref &&
+      typeof premise.digest === 'string' && premise.digest.length > 0 && binding?.digest === premise.digest &&
+      typeof premise.boundIdentity === 'string' && premise.executingIdentity === premise.boundIdentity;
+    premise.calls.push({prefix, binding, answer});
+    return answer;
+  }};
+  return premise;
+}
 // Component frontier: the owned assembly basis is a controlled premise keyed by
 // the exact basis each fixture constructs, and the STDO role read supplies one
 // assessor role and no constructor role. The actual NativeInstructionAssembly
@@ -154,8 +172,11 @@ test('post-effect channel conflict retains admitted native failure scope without
   // owner over this same transaction, recorder and current prefix.
   const premise=await composeStdoutComponentPremise({ownerRoot:resolve(import.meta.dirname,'../../build/code/src'),store,rows,append,
     durable:()=>currentPrefix,commit:()=>(currentPrefix=prefixAt())});
+  // TD78 is a premise at the actor's exact predecessor and the fixture binding.
+  const td78=executingProductPremise({prefix:currentPrefix,ref:env.workspaceBinding.bindingId,digest:env.workspaceBinding.bindingDigest,
+    boundIdentity:digest('executing-toolchain'),executingIdentity:digest('executing-toolchain')});
   const overrides={
-    './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true},
+    './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true,boundWorkspaceMatchesExecutingToolchain:td78.boundWorkspaceMatchesExecutingToolchain},
     './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>({call,execution:basis,inputDigest:basis.rawInputDigest,inputValue:env.task})},
     './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>null},
     // Controlled physical-read premise follows the actual ActorProcess import;
@@ -204,6 +225,8 @@ test('post-effect channel conflict retains admitted native failure scope without
       leader:presence(row.payload.processId),group:process.platform==='win32'?'not-posix':presence(-row.payload.processId)})),
     targetContent:await fs.readFile(join(env.canonicalRoot,'target.txt'),'utf8'),groupConfirmedBeforeConflict,
     actorDisposition:effect.kind,actorMessage:effect.message??null}));
+  // Returned refusal evidence precedes the downstream artifact assertions.
+  assert.deepEqual(td78.calls.map(entry=>entry.answer),[true],JSON.stringify({kind:effect.kind,message:effect.message??null}));
   assert.equal(effect.kind,'actor_process_effect_refusal');assert.match(effect.message,/distinct worker output channels disagree/);
   assert.equal(currentProfileArtifactHook,true,'the actual ActorProcess current-profile path supplies channel assessment');
   assert.equal(groupConfirmedBeforeConflict,true,'healthy group confirmation precedes post-process channel parsing');
@@ -1047,11 +1070,14 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
     './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner,constructNativeInstructionAssemblyBasis:value=>value},
     './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:(...args)=>{requestedRole=args.at(-1);return requestedRole===roleSelection?role:false;}},
   });
+  // TD78 is a premise at the authority's exact predecessor and fixture binding.
+  const td78=executingProductPremise({prefix:authority.predecessorPrefix,ref:env.workspaceBinding.bindingId,digest:env.workspaceBinding.bindingDigest,
+    boundIdentity:digest('executing-toolchain'),executingIdentity:digest('executing-toolchain')});
   const actor=await component('abg/actor_process',{
     './instruction_assembly.js':assembly,'./execution_basis.js':{constructNativeInstructionAssemblyBasis:value=>value,
       authenticateOwnedNativeInstructionAssemblyBasis:()=>owner},
     // Admission is a supplied component fact; preparation below remains real.
-    './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true},
+    './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true,boundWorkspaceMatchesExecutingToolchain:td78.boundWorkspaceMatchesExecutingToolchain},
     './worker_transport.js':{prepareWorkerTransport:async input=>{
       capturedTransport=input;capturedPlan=await prepareWorkerTransport(input);
       throw new Error('stopped after local transport preparation');
@@ -1074,10 +1100,35 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
   assert.equal(prepared.workerRequest.prompt.includes('Return this exact basisDigest'),false);
   assert.equal(prepared.workerRequest.prompt.includes('basisDigest'),false,'core adds no field to the selected digest-free schema');
   assert.equal(prepared.workerRequest.prompt.includes(a.schemaAsset.bytesBase64),false,'schema bytes are not redundantly encoded in native guidance');
-  const transportBoundary=await actor.invokeActorProcess({store:null,predecessorPrefix:authority.predecessorPrefix,
+  const transportInput=(over={})=>({store:null,predecessorPrefix:authority.predecessorPrefix,
     executionBasis:authority.executionBasis,scope:{},cCall:p.call,expectedInputDigest:owner.inputDigest,
     occurrence:occurrence(),workerContracts:{instructionContractRef:ids.taskContractRef,resultContractRef:assessmentContract.contractRef},
-    runtime:{workspaceBinding:env.workspaceBinding,artifactTruth:{}},request:prepared.workerRequest,dispatchOrdinal:1,basis:{}});
+    runtime:{workspaceBinding:env.workspaceBinding,artifactTruth:{}},request:prepared.workerRequest,dispatchOrdinal:1,basis:{},...over});
+  // TD78 negative controls: each refuses at the production guard before any
+  // transport preparation. Foreign binding coordinates are supplied
+  // consistently to the execution basis and runtime binding.
+  const foreignBindingId='workspace-binding://component/foreign',foreignBindingDigest=digest('foreign-binding');
+  for(const [label,over,identity=td78.boundIdentity] of [
+    ['wrong prefix',{predecessorPrefix:{...authority.predecessorPrefix,coordinateDigest:digest('foreign-prefix')}}],
+    ['foreign binding ref',{executionBasis:{...authority.executionBasis,workspaceBindingId:foreignBindingId},
+      runtime:{workspaceBinding:{...env.workspaceBinding,bindingId:foreignBindingId},artifactTruth:{}}}],
+    ['foreign binding digest',{executionBasis:{...authority.executionBasis,workspaceBindingDigest:foreignBindingDigest},
+      runtime:{workspaceBinding:{...env.workspaceBinding,bindingDigest:foreignBindingDigest},artifactTruth:{}}}],
+    ['false executing identity',{},digest('foreign-toolchain')],
+    ['unavailable executing identity',{},null],
+  ]){
+    td78.calls.length=0;td78.executingIdentity=identity;
+    const refusedTransport=await actor.invokeActorProcess(transportInput(over));
+    td78.executingIdentity=td78.boundIdentity;
+    assert.equal(refusedTransport.kind,'actor_process_effect_refusal',label);
+    assert.match(refusedTransport.message,/actor process request or workspace differs from the admitted execution basis/,label);
+    assert.deepEqual(td78.calls.map(entry=>entry.answer),[false],label);
+    assert.equal(capturedTransport,null,label+': no transport preparation');
+  }
+  td78.calls.length=0;
+  const transportBoundary=await actor.invokeActorProcess(transportInput());
+  // Returned refusal evidence precedes the transport assertions.
+  assert.deepEqual(td78.calls.map(entry=>entry.answer),[true],JSON.stringify({kind:transportBoundary.kind,message:transportBoundary.message??null}));
   assert.equal(transportBoundary.message,'stopped after local transport preparation');
   assert.equal(capturedTransport.responsePresentation,'result_text');
   assert.deepEqual(capturedTransport.responseJsonSchema,selectedSchema);

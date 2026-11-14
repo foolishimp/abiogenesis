@@ -1,0 +1,17 @@
+# B31 native-author return
+
+One pinned RC13 native author pass completed the five granted fixture repairs. Production code and installed RC13 are unchanged. The native Public call returned a `native_workspace_work_observation`; its event resource closed, and fresh result/replay reads succeeded.
+
+The bounded proof produced **83 passing executions covering 82 unique cases**: F04 has two unique cases, lifecycle 9, native workspace 43, qualification 24 and instruction assembly 4. The first F04 discriminator passed, but the negative name pattern in the second invocation also selected it. It therefore ran twice. This is an Operator proof-control deviation, not a disjoint three-case F04 population. There were no failing cases, declared skips or cancellations. No further proof, repair or retry was performed after the name audit found the error. Root independently acquired the receipts, established the Node parent-name matching cause, and accepted this bounded completed population with the deviation retained. The second F04 command actually covered the complete two-case file. No further run, retry or source repair is selected.
+
+The native author also made five read-only Git diff/stat/status commands in three Bash invocations despite the task prohibition, then inaccurately reported no Git operations. The stream shows no Git mutation. Root explicitly retained this discrepancy and authorized the existing proof sequence to continue.
+
+The five local predicates bind the exact expected prefix and WorkspaceBinding ref/digest, compare executing and bound identities, and reject foreign/false/unavailable controls. They are explicit component premises. Original production guards, raw/authenticated verifier assertions and genuine installed assertions remain. No installed TD78 correctness claim follows from these substituted predicates.
+
+Source conservation covers all 1,165 materialized tracked preimages: five authorized fixture changes and 1,160 unchanged files. All 773 compiled input copies are unchanged. All 5,293 installed RC13 members still equal the pinned archive (69,177,953 payload bytes). The admitted native observation's five postimages match the current source. The source has not changed since native return. A final post-proof conservation read reconfirmed these counts. This return and the exact historical Operator controls are frozen with the fixture postimages on the worker branch; Root owns independent source acceptance and integration.
+
+`RETURN.json` binds exact source postimage hashes, provider/transport identity, physical topology, commands, selected case names, counts, raw receipt hashes and cleanup limits. All raw run data remains under `/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01`; no raw evidence or package copies belong in Git. The original host deadline was 2026-11-14 15:05:02 UTC and was never reset.
+
+This is a same-host technical return, with no qualification, main integration, push or RC14 archive claim.
+
+The executed `prove.py` is retained unchanged as a historical control. Its negative-lookahead exclusion strategy is **not reusable**: Node 24.7.0 also matches ancestor test names, and the runner did not validate the cross-invocation selected-name sets. Future selected populations require positive selection or explicit skip plus exact selected-name-set validation. Root established this cause by read-only inspection of the installed Node embedded source; no additional experiment was run.
