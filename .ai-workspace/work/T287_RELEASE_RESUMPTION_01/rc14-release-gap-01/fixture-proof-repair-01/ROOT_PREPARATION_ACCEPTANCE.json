@@ -1,0 +1,22 @@
+{
+  "id": "RC14-PROOF-FIXTURE-REPAIR-001-CONTROLS-ACCEPTED",
+  "role": "Root separate read-only control Reviewer and records Writer; Executive conjoins the closed result",
+  "productFrame": "Fixed 5.0 under STDO3.0.4; derived proof repairs preserve owner contracts and actual evidence. RC13 remains the builder. These external controls do not supply qualification or runtime truth.",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "controlCommit": "d0b52dd80b4e7524d0dfb2bbd448aad4f3416da5",
+  "predecessor": "b3ffef9f0bf6306dbee4e2419d5326e5261860be",
+  "manifestSha256": "d3846662283d38e362a74edf50c7895a95ecf1c0e0faaa6d5bc7fedf32439e35",
+  "hostSha256": "20d2f8159c0aee781edd598e3d0a148b254927049ad06100bb1ff0b53b2f3beb",
+  "review": [
+    "All20 manifested control bodies independently verified against exact Git; tenant/spec/Definition unchanged from e89ed8bd8",
+    "Task admits exactly the two selected test edits, native author1200s, enclosing5400s, no author proof/provider/Git mutation",
+    "Fresh planned and complete actual physical topology, setup-owned manifest custody, pinned builder/provider and final source preimage remain execution prerequisites",
+    "One composed build; two failed whole files; actual relocation conjunction; newly composed pack/install/owner check; four unperformed follow-on files; one-hour proof clipped to original host deadline with15s cleanup",
+    "Whole top-level names and exact existing gates are checked; native7 cases cannot skip; observed nested cases retained; earlier126owner and6identity passes remain separately source-bound with a native-binary equality condition",
+    "Root found the same C01 ambient-credential route in predecessor HOST. The successor privately captures optional auth and removes it before imports/setup/probes, supplying it only to maintained invokeLifecycle. Existing withWorkerEnvironment restores sanitized ambient on success or failure; no values inspected",
+    "First new failure stops and preserves evidence. Generated final resources, broader installed witnesses, qualification and human acceptance remain open"
+  ],
+  "nativeDispatchYetAuthorized": false,
+  "next": "Merge exact controls and compact records, inspect outgoing objects, push main and verify direct parity; then issue one exact launch packet and bounded Operator execution activation",
+  "rawEvidencePublication": false
+}

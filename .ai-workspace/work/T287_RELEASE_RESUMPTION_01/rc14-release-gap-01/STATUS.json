@@ -27,7 +27,7 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T19:18:40.651811+00:00",
+  "recordedUtc": "2026-11-14T19:37:09.741607+00:00",
   "nativeAuthorState": "Both native authors returned and closed; both proof sequences stopped at retained first reds; no provider currently running",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
@@ -217,9 +217,21 @@
     "rawEvidencePublished": false
   },
   "fixtureRepair": {
-    "state": "OPERATOR_PREPARATION_SELECTED_NOT_DISPATCHED",
+    "state": "CONTROLS_REVIEWED_PENDING_PUSH_AND_EXACT_LAUNCH",
     "activation": "fixture-proof-repair-01/ACTIVATION.json",
     "sourceBase": "5680ae9ae9d2f310342f9e58ece86032d42e379c",
-    "sourceFiles": 2
+    "sourceFiles": 2,
+    "controlCommit": "d0b52dd80b4e7524d0dfb2bbd448aad4f3416da5",
+    "acceptance": "fixture-proof-repair-01/ROOT_PREPARATION_ACCEPTANCE.json",
+    "nativeAuthorsRunning": 0,
+    "proofFilesSelected": 6,
+    "nativeAbsoluteMs": 1200000,
+    "enclosingMs": 5400000
+  },
+  "installedCompositionPreparation": {
+    "state": "STATIC_CONTROLS_ACCEPTED_EXECUTION_DISABLED",
+    "controlCommit": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862",
+    "acceptance": "integration-01/installed-smoke-preparation-01/ROOT_CREDENTIAL_SCOPE_ACCEPTANCE.json",
+    "missing": "Final candidate/bootstrap/layout/tool bindings, exact execution grant and actual live evidence"
   }
 }
