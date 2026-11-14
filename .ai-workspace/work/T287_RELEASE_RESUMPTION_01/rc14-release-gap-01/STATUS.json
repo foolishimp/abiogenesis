@@ -1,5 +1,5 @@
 {
-  "status": "B31_TECHNICALLY_ACCEPTED_B21_PREPARATION_ACTIVE_B12_SELECTED",
+  "status": "B31_ACCEPTED_B21_B12_HOW_ADMITTED_OPERATORS_PREPARING",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -27,13 +27,18 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T14:29:51Z",
-  "nativeAuthorState": "closed",
+  "recordedUtc": "2026-11-14T15:50:40.907171+00:00",
+  "nativeAuthorState": "no new dispatch; exact physical preflight preparation required",
   "b21Preparation": {
-    "state": "NATIVE_BACKING_PATH_AND_MOUNT_FOUNDATION_SELECTED_HOW_AND_IMPLEMENTATION_PENDING",
+    "state": "HOW_ADMITTED_OPERATOR_PREPARATION",
     "record": "b21-foundation-01/README.md",
     "finding": "Unmatched lexical ancestor lists do not prove separation across the observed protected-Data bridge",
     "productionRepairStarted": false,
     "nextAuthorPreflight": "Historical B31 ancestry-only topology helper is not reusable as a separation proof"
+  },
+  "b13": "Three proposed-design wording rows corrected; no production change",
+  "implementationActivations": {
+    "B21": "b21-native-01/ACTIVATION.json",
+    "B12": "b12-native-01/ACTIVATION.json"
   }
 }

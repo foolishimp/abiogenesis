@@ -145,16 +145,25 @@ computation before assembly/provider dispatch. Its three results are `separate`,
 `overlap`, and `indeterminate`. Equality, enclosure and containment refuse;
 unproved possible overlap returns existing `invalid_coordinate` with explicit
 uncertainty, not an assertion of an observed alias. Canonical existing branches
-can establish separation. The ASCII missing-name discriminator applies only
+alone cannot establish separation; C0's B21 backing-path and mount observation
+owns that premise. The ASCII missing-name discriminator applies only
 to the cited Darwin APFS and Linux ext/tmpfs name models identified by read-only
 `statfs`; Windows trailing-dot/space and short-name behavior, FAT, unknown
 filesystems and unproved Unicode comparisons do not supply that evidence.
 Case-sensitive case-only names and different Unicode missing siblings can be
 conditionally indeterminate. This records a missing physical-coordinate premise,
-not a permanent filename prohibition, changed binding policy or new dependency;
+not a permanent filename prohibition or changed binding policy;
 stronger later evidence can admit them. Proven-disjoint siblings and nested write
 roots retain the positive law above. No cleanup after dispatch can substitute
 for preflight, and actual later effects retain their existing fact/result law.
+
+B21 preserves the complete context input: the shared before/after observation
+carries every admitted environment install's `installedRoot`, including empty-W
+assessment. R checks physical exclusion before reading protected contents;
+permitting an enclosing read directory does not permit entry into a protected
+node. W remains recursive and requires the supported attachment exclusion
+before provider dispatch. The narrow prebuilt observer selected by C0 supplies
+physical evidence, not another native worker or authority.
 
 The relation has a path reading and a physical reading, both in the existing
 worksite owners:

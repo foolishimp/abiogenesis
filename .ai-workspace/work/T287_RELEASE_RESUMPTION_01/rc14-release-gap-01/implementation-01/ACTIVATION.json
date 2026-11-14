@@ -1,0 +1,26 @@
+{
+  "id": "RC14-IMPLEMENTATION-PREPARATION-001",
+  "role": "Root separately activated Design and activation Writer",
+  "admission": "Owner selected RC13-built RC14, source/main publication before implementation, and now explicitly instructed fix RC14. Root applies the closed B21 and B12 frame results; Product WHAT is unchanged.",
+  "sourceParent": "da9bd4d1d06ba49a75f4ad1b3ceed40d4a101c9b",
+  "basis": "urn:stdo:product-definition:abiogenesis / stdo://releases/v3.0.4/ / manifest 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "writeTerritory": [
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+    "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/implementation-01",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-native-01/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/PLAN.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/STATUS.json",
+    ".ai-workspace/tickets/active/T-293-qa-findings-of-the-consolidation-wave.md",
+    "specification/GOALS.md current status sentence only"
+  ],
+  "effects": ["Amend owning HOW before implementation", "Record separate bounded Operator/native-Writer grants", "Check exact diff, commit and normally push main only", "Return to Executive and dispatch after remote parity"],
+  "exclusions": ["No production/test/package implementation by this Writer", "No provider, native build or proof campaign", "No raw runs, archives, LFS payloads, other refs or forced push", "No Product publication, qualification or human acceptance"],
+  "stops": ["Unexpected source changes", "Unresolved Product change", "Out-of-territory diff", "Non-fast-forward publication"],
+  "result": "Exact HOW and activation checkpoint; separate admitted Operators own implementation execution"
+}

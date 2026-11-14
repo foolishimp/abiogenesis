@@ -72,3 +72,9 @@ or additional native-provider feature is selected automatically.
 RC14 is the target, not a guarantee: changing a qualifying immutable RC's Product
 or release-claim bytes requires a higher RC. Human release acceptance remains
 an actual decision after concrete qualification, not something this plan supplies.
+
+Implementation checkpoint: B21 and B12 owning HOWs are admitted; B13 wording
+is corrected. Separate RC13 author grants are in `b21-native-01` and
+`b12-native-01`. Operators first return sufficient physical-preflight controls
+and exact layout facts. B12 may proceed independently after that prerequisite.
+At most two authors, one pass each, finite clocks and first-failure return.

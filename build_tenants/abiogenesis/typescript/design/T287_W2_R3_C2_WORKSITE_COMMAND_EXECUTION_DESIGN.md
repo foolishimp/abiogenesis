@@ -477,6 +477,17 @@ process environment crosses the helper boundary.
 
 ## 5. Snapshot And Effect Boundary
 
+B21/RC14 uses the physical relation in C0's
+`Physical observation across aliases` HOW. Host and helper independently
+establish archive/source/protected separation before their affected reads,
+snapshot/result materialization, launch or command effects. Lexical checks
+remain but do not prove physical separation. Preserve the existing directional
+Product-root rule, archive enclosure refusal and attempt-locus checks; reacquire
+at completion/synchronization. Use the same internal computation at the
+synchronous boundary, without a controller or host-only trusted flag. Uncertainty
+uses the existing refusal channel. Task/envelope, lifetime and partial-effect
+contracts remain unchanged.
+
 Before execution, the ABI owner resolves every protected subject beneath
 `A.canonicalRoot`, re-observes every protected `O1` through no-symlink
 confinement, and verifies exact file bytes, digest, length, full `A`, and full

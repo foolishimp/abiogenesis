@@ -184,6 +184,40 @@ reappend, immutable prior prefixes and refusal isolation remain binding.
 Recovery reconstructs; a handoff or query within the live lifetime is not itself
 a reason to reconstruct history. No competing persistent state is introduced.
 
+### Raw admission and encodable returns (T-293 B12 / RC14)
+
+The existing Public/I-JSON contracts and CLI exit classification are unchanged.
+After the established-invocation identity fast path, the cold call owner gates
+only `rawInvocation` with existing total `admitJson` before recursive schema or
+digest computation. Discard its temporary detached value; preserve request
+defaults/transforms, required slots and the canonical returned invocation.
+Neither established calls nor native resource slots receive JSON conversion.
+The existing 512-container bound remains the law.
+
+Existing semantic-output joins admit I-JSON before recursive schema validation,
+return the original valid object and retain malformed-output and resource-receipt
+failure precedence. Cover direct workspace, verification, environment and
+project-read joins that bypass the common gate. Run invocation/reads and release
+snapshots already reach it; do not duplicate it there. The mixed-use runtime
+contract helper is not a blanket JSON boundary.
+
+Diagnostic text alone may express invalid UTF-16 code units as literal escaped
+text, preserving valid Unicode and ordinary messages. A small shared renderer
+serves existing fault constructors, Run exception evidence, Effect cause text
+and the CLI transport-failure fallback. Preserve code, classification, stage,
+evidence and receipt shape. Refuse malformed semantic data; do not sanitize it.
+No public field, event, exit code or error family is added.
+
+First proof uses the historical deep invocation and malformed authority string
+through actual SDK and emitted CLI, plus valid/defaulted calls. Excess depth
+returns invalid_definition_call before owner/effect entry and CLI 2. Resource
+admission retains its typed execution fault with an encodable receipt and lawful
+CLI 70. Emitted-CLI component substitutions may supply transport throw/invalid
+output; label that scope and add no production fault switch. Preserve complete
+reference/counter/default, static-binding-algebra, ordinary diagnostics and
+unchanged-store/absent-effect checks. No post-append encoding failure was proved
+by the historical inputs.
+
 ### Maintained setup owner reuse (RC4 setup020)
 
 Maintained setup composes the canonical installed calls in one installed module

@@ -1,0 +1,123 @@
+{
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26",
+    "bytes": 5769
+  },
+  "provider": {
+    "agent": "claude",
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "version": "2.1.322 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "providerCallsAtMost": 1,
+    "protocol": "Use existing actual Claude owner path. No Codex-as-Claude wrapper or new provider feature."
+  },
+  "id": "RC14-B21-NATIVE-AUTHOR-001",
+  "role": "Separate Operator for setup/proof; actual pinned RC13 native Writer owns implementation",
+  "operator": "/root/b30_catalog_triage",
+  "decisionOwner": "Root under the owner-selected RC14 delivery and current fix RC14 instruction",
+  "sourceBinding": "Exact committed/pushed activation HEAD supplied by Root; freeze before setup",
+  "sourceWorktree": "/private/tmp/abg-rc14-b21-20261115-01",
+  "sourceBranch": "codex/rc14-b21-native-20261115",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01",
+  "changeClass": "realization_refactor implementing the accepted bounded RC14 HOW",
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/physical_path_observation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/physical_path_relation.ts",
+    "build_tenants/abiogenesis/typescript/code/native",
+    "build_tenants/abiogenesis/typescript/scripts/build-native.mjs",
+    "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/declared-commands.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t293-b21-physical-confinement.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t292-td85n-absent-protected-root.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+    "build_tenants/abiogenesis/typescript/qualification-scratch/rc14-b21-native-01"
+  ],
+  "operatorWriteTerritory": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-native-01",
+    "/private/tmp/abg-rc14-b21-20261115-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01",
+    "local registrations for this named worktree and branch"
+  ],
+  "operatorEffects": [
+    "Create one sparse isolated worktree, source preimage and declared read-only dependency/build inputs",
+    "Prepare thin host/task using maintained Public setup and actual RC13 native-work owner; fresh authority, bindings and resources",
+    "Prepare bounded native-metadata topology observer; return exact code, layout facts and prospective proof schedule to Root BEFORE provider dispatch",
+    "After Root accepts that preflight, invoke at most one native author; no Operator implementation",
+    "Freeze authored postimages; build and prove in external raw-root mirrors; deterministic generated outputs stay external for this slice",
+    "Commit only authored source and compact control/return records on worker branch; Root integrates/pushes"
+  ],
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 3600000,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 7200000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 16777216,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "oldRc13CampaignClockReused": false,
+    "proofCampaignMs": 3600000,
+    "perBuildMs": 300000,
+    "perTestFileMs": 600000
+  },
+  "preflight": {
+    "state": "PREPARE_ONLY_RETURN_TO_ROOT_BEFORE_PROVIDER",
+    "required": "Descriptor backing paths, complete stable mount population, relevant-attachment exclusion; exact finite W/archive separated from all protected roots",
+    "observer": "B21 Operator prepares one observer. B12 consumes that exact frozen digest only after Root acceptance. Historical ancestry-only helper is prohibited."
+  },
+  "nativeInstructions": [
+    "No provider calls, subagents, reviewer activation, Git mutation, build/test/pack/install by native Writer. Read-only Git and compiler/header inspection are allowed.",
+    "Use the exact write scope; preserve all unaffected Product, authority, event and refusal meanings. Return a gap for missing scope, not an unauthorized edit.",
+    "Return the Product summary/gaps report once, stop editing. Operator owns independent mechanical proof."
+  ],
+  "proof": [
+    "First cheap whole-file bug discriminator on newly built candidate, with exact case names; no negative-regex exclusion or duplicate population",
+    "First build/integration/proof failure stops and returns retained evidence to Root; no automatic retry or repair loop",
+    "Finite prospective clocks, process/capture limits, unchanged predecessor inputs and real resource close plus fresh result/replay readbacks",
+    "Exact candidate/archive/source identities, changed-path conservation, local raw hashes, no whole-release claim",
+    "New t293-b21-physical-confinement whole file first: real protected-Data bridge, lawful sibling, missing suffix aliases",
+    "Whole B05 absent-root, native context/revision/reacquisition and C2 populations; retain B04 accounting",
+    "Pinned native input record, two clean-location binary builds byte-equal, actual candidate installed native load and alias observation",
+    "Add declared native recipe build step. Full generated qualification inventories are refreshed on composed final source; do not claim them current in this slice."
+  ],
+  "exclusions": [
+    "No direct Operator-authored production/test repair",
+    "No immutable RC13/dependency mutation or model/provider fallback",
+    "No Product/requirement change, version bump, global binding policy, shared JSON checker rewrite or broad filesystem framework",
+    "No main write/merge/push by worker; no raw evidence, archives, LFS, other refs or force publication",
+    "No broad/release qualification, Product publication or human acceptance"
+  ],
+  "admission": "Existing owner RC13-built RC14 mandate and current fix RC14 instruction; Root conjoins closed B21 Product/Design/Effect/Foundation and B12 Public-owner triage. Accepted HOW is in the pushed activation checkpoint.",
+  "targetTruth": "Protect all declared binding/install roots across witnessed aliases; restore authenticated install inputs; preserve lawful siblings, currentness and partial effects.",
+  "selection": "b21-foundation-01/README.md",
+  "owningDesign": [
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md"
+  ],
+  "returnTo": "Root Executive, exact frozen source and bounded results/gaps; stop at first failure or completed return"
+}

@@ -724,7 +724,8 @@ returns `separate`, `overlap`, or `indeterminate`; it is shared with native
 write-root preflight. It preserves nearest-existing-ancestor canonical and
 no-symlink checks. C0 refuses equality/containment; native also refuses enclosure.
 
-Different canonical existing branches provide physical separation. For two
+Different canonical existing branches do not establish physical separation;
+the B21 observation below owns that premise. For two
 missing components, exact text retains the ordinary prefix relation. Different
 ASCII names whose ASCII case-folded names differ, or a differing initial ASCII
 prefix before either name reaches a non-ASCII character, provide separation only under
@@ -737,8 +738,9 @@ non-ASCII suffix. APFS
 uses Unicode normalization/case semantics; Linux ext's optional Unicode casefold
 also preserves this ASCII distinction. The type numbers are platform-specific.
 All other models, including Windows, FAT/short-name aliases, network/FUSE and
-unknown types, supply no such proof. No subprocess, native addon or dependency
-is introduced. A failed metadata read supplies no positive separation evidence.
+unknown types, supply no such missing-name proof. B21 supersedes the earlier
+no-native-addon implementation choice. A failed metadata read supplies no
+positive separation evidence.
 
 Case-only differences and unproved non-ASCII comparisons between missing
 components remain indeterminate unless another corresponding component proves
@@ -763,6 +765,79 @@ ordinary positive paths, and the existing partial/post-publication result law.
 Name-model sources: [Apple APFS FAQ](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/APFS_Guide/FAQ/FAQ.html),
 [Linux ext4 casefold](https://kernel.org/doc/html/v5.19/admin-guide/ext4.html),
 and [Linux filesystem type constants](https://github.com/torvalds/linux/blob/master/include/uapi/linux/magic.h).
+
+### Physical observation across aliases (T-293 B21 / RC14)
+
+Root selects this bounded `design_reframe` under the unchanged protected-effect
+law. The closed triage and cost comparison are in the RC14 B21 foundation
+record. A protected Data directory can contain `/Users/...` despite absence
+from its lexical ancestor list. Unmatched ancestors and different device
+numbers do not establish separation. Metadata supplies evidence only.
+
+```mermaid
+sequenceDiagram
+  participant O as Existing effect owner
+  participant P as Physical observation
+  participant N as Native metadata
+  O->>P: paths and existing directional policy
+  P->>N: complete mount population and existing anchors
+  N-->>P: backing paths, descriptor mounts and identities
+  P->>P: topology, missing suffix and freshness checks
+  P-->>O: separate / overlap / indeterminate
+  O->>O: refuse uncertainty or perform existing guarded effect
+```
+
+One internal relation serves the synchronous C2 and asynchronous C0/native
+boundaries. Pure lexical confinement remains distinct. Preserve requested
+spelling, no-symlink and node-kind/hard-link checks. Open the nearest existing
+anchor read-only; bind its lossless integer device/inode to its returned
+backing path and recheck descriptor/path identity. Rebase unresolved suffixes
+afterward, retaining B05's absence and supported-name constraints.
+
+A small C Node-API v8 module supplies Darwin `F_GETPATH_NOFIRMLINK`, descriptor
+`fstatfs` and complete bounded `getfsstat` metadata. TypeScript keeps descriptor
+custody, comparison and refusal meaning. Native code supplies no policy, event
+authority, retained filesystem state, write or child process. Lazy exact
+package-relative loading preserves unaffected Public imports on other hosts.
+The initial explicit native target is Darwin arm64. Missing/incompatible code,
+native errors and unsupported topology return the existing uncertainty refusal,
+never a lexical fallback. No cross-platform qualification is inferred.
+
+Decide demonstrated identity/backing-prefix overlap before requiring separation
+support, including protected `/` and protected Data. Positive separation needs
+both anchors on one positively identified APFS mount instance, unique matching
+descriptor membership in a complete stable mount population, and no unhandled
+attachment beneath either compared recursive scope. Type or device alone is
+insufficient. Resolve attachment locations through parent descriptors/backing
+coordinates; do not read unrelated network-volume contents. Duplicate, union,
+alias or unclassifiable relevant attachments, truncation, bounds or changing
+membership yield `indeterminate`. Complete snapshots bracket acquisition and
+agree on identity/topology; free-space counters are not topology. Work follows
+path depth and finite mount population. Exact file effects need not exclude
+unrelated descendant mounts. Cross-mount separation stays uncertain absent a
+stronger supported witness.
+
+C0 permits a proven enclosing ancestor but refuses equality/containment;
+native W and archive scopes also refuse enclosure. Context checks each node
+before reading protected content. Reacquire at the existing final boundary;
+do not cache currentness across calls. Snapshot agreement is not an atomic
+mount lock against subsequent external namespace mutation. B04 partial effects
+and compensation remain unchanged.
+
+The exact Product archive contains its selected prebuilt member under
+`build/native/`, covered by existing payload, manifest and installed-byte
+checks. Offline installation with scripts disabled remains unchanged. Pin
+headers, compiler/linker, SDK, architecture, deployment target and flags.
+Compile before manifest generation in both ordinary build and the existing
+qualification recipe. Prove clean-location native byte equality and actual
+installed load/observation. No consumer compilation/download, host-selected
+payload variant, new installer schema, npm dependency or per-call subprocess.
+
+First proof: protected-Data bridge, lawful siblings and missing suffix aliases.
+Then cover overlap directions, all binding/install roots, unsupported/changing
+mount evidence, identity changes, ordinary positives and no forbidden effects.
+Preserve B05/B04 tests. Controlled metadata can prove uncertainty handling;
+host alias premises and installed native load require real observations.
 
 ## Retained Worksite-Root Proof Matrix (Outside B04 Selection)
 

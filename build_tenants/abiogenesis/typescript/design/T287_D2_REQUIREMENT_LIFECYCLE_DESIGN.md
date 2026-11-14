@@ -62,6 +62,14 @@ and admitted binding correspondence and observes current context; later
 consumers use that one admitted acquisition and exact referenced leaves within
 its basis, without repeating failure discovery.
 
+B21's context protection uses existing authenticated inputs. Semantic revision
+supplies installs from `facts.owner.environment`. Native-work reacquisition
+retains its authenticated environment through intake and supplies that install
+set to the physical currentness check and implementation consumer. Omission
+cannot silently become an empty set at these callers. This adds no lookup,
+authority or public field. Historical reconstruction and downstream ancestry
+algorithms remain pure; physical exclusion belongs to currentness observation.
+
 A separately admitted operational arm may use a lifecycle
 author or assessor's genuine undispatched preparation failure. Existing CCall
 outcome authentication retains the sole undispatched evidence, blocked J,

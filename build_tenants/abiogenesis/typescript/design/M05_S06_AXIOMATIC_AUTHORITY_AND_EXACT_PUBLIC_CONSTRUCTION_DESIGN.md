@@ -298,7 +298,7 @@ framework rewrite.
 | Entity | Kind | Owner | Identity/content | Authority and lifecycle |
 |---|---|---|---|---|
 | `DurablePrefixCoordinate` | durable truth coordinate | ABG Event Store projects; Event Calculus verifies | closed kind/version, canonical local file URL, byte length/digest, device/inode, event-contract digest, coordinate digest | names one immutable prefix; independently serializable and fresh-process readable; a verified transaction commit, no-argument close, or verified reopen may return an equal or successor coordinate |
-| `EventStoreReopenAuthority` | durable write-reacquisition evidence | ABG Event Store | existing canonical path, device/inode, byte length/digest, contract digest, authority digest | projected atomically with a coordinate by no-argument close from the same verified bytes; authority-only reopen returns the mechanically equal coordinate; authority is not required for read projection |
+| `EventStoreReopenAuthority` | durable write-reacquisition evidence | ABG Event Store | existing canonical path, device/inode, byte length/digest, contract digest, authority digest | projected atomically by no-argument close from held committed state and retained verification facts; fresh reopen verifies the named bytes; authority-only reopen returns the mechanically equal coordinate; authority is not required for read projection |
 | `AbgEventStore` | sole opaque non-durable write capability | ABG Event Store | held descriptor, exact file identity, exclusive append lock, ordered in-memory admission state | guards envelope/order/durability effects only; never supplies semantic truth or read authority; released by existing close behavior; no second sink type is introduced |
 | `NewEmptyAppendSinkRequest` | closed acquisition input | concrete installed setup owner | canonical absent event-log path | exclusively creates one empty durable sink and zero prefix; cannot reopen |
 | `ProductInstallPort.install` | existing concrete callable owner | Product install | exact install request/result contract | directly constructs and admits install artifact candidate; no dispatcher |
@@ -548,7 +548,7 @@ stateDiagram-v2
   SinkAcquired --> WriteHandoff : no-arg close returns prefix plus authority and releases
   WriteHandoff --> SinkAcquired : authority-only reopen returns equal prefix for later write
   WriteHandoff --> PureProjection : coordinate-only fresh-process read
-  WriteRefusedNoSuccessor --> WriteHandoff : no-arg close held sink; returned pair names verified bytes only
+  WriteRefusedNoSuccessor --> WriteHandoff : no-arg close held sink; pair derives from held committed state
 ```
 
 The state machine contains no episode currentness, object-consumption state,
@@ -1508,7 +1508,7 @@ outside M1-M7 is deferred rather than solved here.
 | Axiom | Target-design evidence | Construction/deletion map | Module owner | Verdict and current-code gap |
 |---|---|---|---|---|
 | `AX-W1A-01 Event Calculus sole runtime truth` | M5 alone derives typed aggregate/rows; M6 consumes projection | replace unscoped EC booleans, raw scans, and WeakMap authority at 5.5.1 | M5/M6 | target `pass`; code `fail` at `event_calculus.ts:11-23`, `replay.ts:107-145,475-489`, and named consumers |
-| `AX-W1A-02 exact durable-prefix conservation` | M4 keeps the mechanical snapshot check and constructs configured non-empty durable successors inside rollback; M7 close/reopen derive equal coordinates from verified bytes | extend checked transaction result plus atomic close/reopen result shapes | M4/M7 | target `pass`; code `fail` until coordinates are closed/self-digesting, configured non-empty transactions return successors while empty/in-memory returns `null`, close returns the atomic pair, and reopen returns the equal prefix |
+| `AX-W1A-02 exact durable-prefix conservation` | M4 keeps the mechanical snapshot check and constructs configured non-empty durable successors inside rollback; M7 close derives coordinates from held committed state; fresh reopen verifies bytes and derives the equal coordinate | extend checked transaction result plus atomic close/reopen result shapes | M4/M7 | target `pass`; code `fail` until coordinates are closed/self-digesting, configured non-empty transactions return successors while empty/in-memory returns `null`, close returns the atomic pair, and reopen returns the equal prefix |
 | `AX-W1A-03 complete lifecycle` | M7 owns new/reopen/use/handoff/close only; no episode | 5.2.1 lifecycle plus 5.2.2 caller classes | M7 | target `pass`; code `fail` while zero-argument context and mutable pending authority remain |
 | `AX-W1A-04 new versus existing-prefix disjointness` | M7 has disjoint new-empty acquisition and authority-only reopen | internalize bare construction/configure fallback | M7 | target `pass`; code `fail` while `configureDurableLog` remains reachable |
 | `AX-W1A-05 owner continuity and replacement prohibition` | M7 sink is effect capability only; M5 read is coordinate-only | delete context.store replacement/read authority | M7/M5 | target `pass`; code `fail` at `public/operations.ts:128-166,2273-2556` |
