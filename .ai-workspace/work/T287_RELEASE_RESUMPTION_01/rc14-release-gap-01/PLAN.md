@@ -12,7 +12,7 @@ not a new Product authority or an assertion of qualification.
 
 | Order | Deliverable | Closure |
 |---|---|---|
-| 1 | B31: complete lower-owner premises in F04 and the same affected ActorProcess component fixtures | Preserve TD78 production guards, reject foreign coordinates, assert both executing-identity answers, retain installed positive checks; prove the repaired complete affected files |
+| 1 | B31: technically closed at aa1856315, integrated through 2c12d65d3 | Five fixture repairs, preserved production guards/installed positives, 82 unique passing cases over 83 executions; both control deviations retained in b31-integration-01 |
 | 2 | B21: physical ancestry confinement | Re-enter the bounded C0/native/C2 HOW, implement one supported physical relation over identities/ancestry and unresolved suffixes, preserve separate/overlap/indeterminate and existing effect laws; prove alias refusals before effects plus lawful siblings and owner/replay composition |
 | 3 | B12: bounded raw-call and semantic-output admission repair; B13 wording clarification | Existing I-JSON/refusal/fault contracts, established native identity carriage preserved; historical inputs and lawful positives through SDK/CLI. Separate exact implementation/proof activation follows B31 route closure |
 | 4 | Compose regression and retained-history evidence | New prospectively bounded campaign on exact RC14 subject; do not reset the expired RC13 clock or inherit passes across changed subjects without valid retained relations |
@@ -27,8 +27,9 @@ artifacts; the later reuse fixture receives an admission refusal. Other affected
 fixtures are t287-lifecycle-failure-carrier, t287-native-workspace-work,
 t287-qualification-scopes and t288-instruction-assembly-owner. This supports a
 test-only realization_refactor; no production regression is demonstrated.
-The bounded native author is active; no frozen repair/reproof has been accepted.
-The current phase and evidence limits are in `STATUS.json`.
+The frozen repair and bounded proof are accepted in `b31-integration-01/README.md`.
+The current phase and evidence limits are in `STATUS.json`; no broad or release
+qualification follows from that closure.
 
 B21 read-only triage: component counts and differing canonical spellings cannot
 establish physical separation when Darwin firmlink paths share directory
@@ -50,7 +51,9 @@ RC13's native actor owner hardcodes the Claude protocol; Codex is not selectable
 on that path despite a shared transport definition. Do not substitute a Codex
 binary into the Claude command. Provider availability/model/limits, exact task,
 write scope, actual cleanup and the return relation are bound by
-`b31-native-01/ACTIVATION.json`. One supported Claude native pass is active.
+`b31-native-01/ACTIVATION.json`. Its one supported Claude native pass closed,
+with an actual resource close and fresh result/replay reads. Any next execution
+requires its own exact source, scope, topology and bounds.
 
 B09–B13 dispositions are in `applicability-01/README.md`: no new global binding
 policy or duplicated realizer guards; B12 receives a bounded existing-owner

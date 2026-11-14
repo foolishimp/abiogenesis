@@ -1,0 +1,51 @@
+{
+  "id": "RC14-B31-ROOT-ACCEPTANCE-001",
+  "recordedUtc": "2026-11-14T14:13:04.815702+00:00",
+  "status": "B31_TECHNICALLY_ACCEPTED_INTEGRATED",
+  "workerCommit": "aa1856315f9884035c9ff41bc8111ea011c95b5d",
+  "workerTree": "97e6faaa5b40db78cf7e397f4f2ecac0cfae03e2",
+  "mainParent": "c1c849696896ff48b4dd9c78a074dd46e3f548bf",
+  "mergeCommit": "2c12d65d3973334df281eb668509b9bd168d5e1e",
+  "integrationRelation": "Merged tenant tree exactly equals frozen worker; production, specification and design equal prior main",
+  "proof": {
+    "fixturePostimageHashesVerified": 5,
+    "proofReceiptAndStreamIdentitiesVerified": 24,
+    "passingExecutions": 83,
+    "uniqueCases": 82,
+    "failures": 0,
+    "skips": 0,
+    "cancelled": 0,
+    "extraExecution": "One repeated F04 discriminator; the second command covered the complete two-case F04 file",
+    "rerun": false
+  },
+  "sourceAssurance": {
+    "actor": "/root/b30_catalog_triage",
+    "subject": "aa1856315f9884035c9ff41bc8111ea011c95b5d",
+    "mode": "read-only Git/source assessment; no tests/imports/provider",
+    "actionableFindings": 0,
+    "record": "README.md"
+  },
+  "native": {
+    "builder": "5.0.0-rc.13",
+    "dispatches": 1,
+    "reportedApiRetries": 0,
+    "actualResourceClose": true,
+    "freshReadbackFailure": null,
+    "ownerOutputKind": "result"
+  },
+  "deviationsRetained": [
+    "Native read-only Git commands contrary to task plus inaccurate self-report",
+    "Operator negative-name pattern selected parent/root; cross-invocation name-set validation missing"
+  ],
+  "qualification": false,
+  "remaining": [
+    "B21 physical confinement",
+    "B12 raw call/output admission",
+    "B13 wording",
+    "composed regression and history",
+    "installed specification/amendment witness",
+    "exact qualification and actual human acceptance"
+  ],
+  "rawEvidenceRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01",
+  "rawEvidencePublished": false
+}

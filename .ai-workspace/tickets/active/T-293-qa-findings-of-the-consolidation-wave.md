@@ -68,13 +68,13 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | B-30 | Historical Catalog seam proof invokes the strict new-work default on its retained old-release input | Exact `21e6d7571` broad file014; `b30-catalog-proof-01/INPUTS.json` | S4 | P1 | Integrated at `6b3fe2712`; exact old fixture and all negatives use recorded, strict/default refuse before/after. Author 2/2 and non-author technical QA satisfied. Production unchanged; composed continuation pending |
 
-| B-31 | F04-A valid probabilistic-result candidate tests return refusal: two failures after 68 completed files | Exact a2626fa54 broad-04 file069, checkpoint-20261114-01/broad-04 | S4 | RC14 before composed completion | One RC13-governed native author active under `RC14-B31-NATIVE-AUTHOR-001`; exact five-file scope after physical topology preflight. Production guards retained. No frozen repair/reproof accepted; original failure and raw receipts remain local |
+| B-31 | F04-A valid probabilistic-result candidate tests return refusal: two failures after 68 completed files | Exact a2626fa54 broad-04 file069, checkpoint-20261114-01/broad-04 | S4 | Technical repair closed | RC13-built five-fixture repair aa1856315 accepted and integrated through 2c12d65d3. 82 unique passing cases/83 executions, independent source QA no actionable findings; production guards retained. Duplicate discriminator and native read-only Git deviation preserved. No RC14 archive/broad/release claim. `rc14-release-gap-01/b31-integration-01/README.md` |
 
 ## Schedule
 
 | When | Items |
 |---|---|
-| Current | RC13 locally delivered/pinned unqualified; source checkpoint pushed. RC14 selects B31/B21 and remaining release proof. Old broad clock expired; no retry or history-completion claim |
+| Current | RC13 delivered/pinned unqualified. RC14 B31 technically closed; B21 and B12 remain selected, B13 wording pending, wider regression/lifecycle/qualification open. Old broad clock expired; no retry or history-completion claim |
 | Dependency-ready sequence | Composed history and physical reads under the unchanged clock, then local delivery |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |

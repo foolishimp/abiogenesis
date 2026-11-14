@@ -1,0 +1,46 @@
+{
+  "id": "RC14-B31-INTEGRATION-001",
+  "role": "Root, separately activated integration and records Writer/Operator",
+  "decisionOwner": "Root Executive under the owner-selected RC14 delivery and source-publication instruction",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "mainParent": "c1c849696896ff48b4dd9c78a074dd46e3f548bf",
+  "workerCommit": "aa1856315f9884035c9ff41bc8111ea011c95b5d",
+  "workerTree": "97e6faaa5b40db78cf7e397f4f2ecac0cfae03e2",
+  "decision": "Accept the five-file B31 fixture repair and bounded proof: 82 unique passing cases over 83 executions, with one repeated discriminator. Independent source assurance reports no actionable findings. Preserve both execution deviations and all wider qualification limits.",
+  "effects": [
+    "Verify the frozen Git postimages and raw proof receipt hashes; no additional test run",
+    "Normally merge the exact worker commit into main without rewriting either parent",
+    "Record independent assurance, Root acceptance, conservation and B12 preparation; reconcile the existing RC14 plan/status and T293 B31 row",
+    "Commit and push only main by normal fast-forward; verify direct remote parity",
+    "After source is integrated and pushed, preserve the worker's generated workspace metadata in the existing external run root, then remove only the no-longer-needed B31 worktree; retain the branch in main ancestry and preserve immutable builder/dependency donors"
+  ],
+  "writeTerritory": [
+    "Git merge of exactly aa1856315f9884035c9ff41bc8111ea011c95b5d and main bookkeeping",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b31-integration-01",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/applicability-01/B12_PREPARATION.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/PLAN.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/STATUS.json",
+    ".ai-workspace/tickets/active/T-293-qa-findings-of-the-consolidation-wave.md",
+    "/private/tmp/abg-rc14-b31-20261115-01 after preservation and completed use",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/worktree-retirement"
+  ],
+  "exclusions": [
+    "No implementation or test changes beyond the frozen worker diff",
+    "No B21/B12 implementation, provider dispatch, new test run or campaign",
+    "No raw runtime bodies, captures, package copies or recovery archives published",
+    "No immutable RC13, global selector, dependency donor or unrelated worktree changes",
+    "No release qualification, human acceptance, Product publication or global process-absence claim"
+  ],
+  "stops": [
+    "Unexpected dirty source, changed candidate or differing postimage/receipt hashes",
+    "Merge conflict affecting an unreviewed relation",
+    "Unexpected untracked worker source that cannot be preserved and classified",
+    "Any push requiring force or selecting excluded evidence"
+  ],
+  "return": "Integrated source and exact main/remote identities, preserved raw evidence, bounded acceptance and teardown result; return to Executive coordination"
+}
