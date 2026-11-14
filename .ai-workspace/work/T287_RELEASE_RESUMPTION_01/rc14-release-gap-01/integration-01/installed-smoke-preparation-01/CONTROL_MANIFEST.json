@@ -6,23 +6,43 @@
   "controls": [
     {
       "path": "basic-cli.mjs",
-      "bytes": 8818,
-      "sha256": "74d0e8c300992ed7777cba3dbb98961905dad319defa610091624de4c539990a"
+      "bytes": 13890,
+      "sha256": "81c5312db9ed487b3e7eacba02f4cd13ba372c6753370456e8b4f9c2c21b3632"
     },
     {
       "path": "run.py",
-      "bytes": 8609,
-      "sha256": "f55f79b25190cc8e25e254306dfe20a2398d2f0854e854af982124c265e02f34"
+      "bytes": 12098,
+      "sha256": "2db8c8e5e6667b3972bf3e48a6272dc2c1578c35fb1f85f45f91dd41d86226d1"
     },
     {
       "path": "BINDING.template.json",
-      "bytes": 1079,
-      "sha256": "fc6642c1f52bb5bcce2b28c6205d073b032a60aa5ab9b04fd86a38e491168002"
+      "bytes": 1181,
+      "sha256": "624abb342002d2296968e260c9a7eb15cd3381f6e9dfed528a9cc156b74d93ce"
     },
     {
       "path": "README.md",
-      "bytes": 5410,
-      "sha256": "e4e5ab41531f6a4a79df447054a880308babfeac455d3409730f09d15fa7467b"
+      "bytes": 8531,
+      "sha256": "e920ebb99d8117decdaf816f4856b19904a9d6b1482ac68acbbdde16fabd0750"
+    },
+    {
+      "path": "bounded.py",
+      "bytes": 4206,
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "path": "command-owner.py",
+      "bytes": 807,
+      "sha256": "c53f52ada945543d32f9eb77ef588c5c7fbb12372eb709a821a81d14b24dfcf6"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "REUSED_HELPERS.json",
+      "bytes": 646,
+      "sha256": "a72fd34e15e400e53f8ab0c85c24d13bf9b3d71033d517a641cdce4d08a30b5c"
     }
   ],
   "inputs": [
@@ -121,5 +141,7 @@
       "bytes": 1112,
       "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
     }
-  ]
+  ],
+  "repairCheckpoint": "f9ea4fba8f8db2f061da79efebf70afd27a75333",
+  "predecessorControlCommit": "d5191d502b1269da158c68735bd3f4aad552e7df"
 }

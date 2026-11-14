@@ -1,12 +1,14 @@
 // External test Operator only. Imports Product exclusively through package exports.
 import assert from 'node:assert/strict';
+import {spawn} from 'node:child_process';
 import {createRequire} from 'node:module';
 import {readFile,mkdir,writeFile,readdir,lstat,readlink} from 'node:fs/promises';
 import {join,relative,isAbsolute} from 'node:path';
-import {pathToFileURL} from 'node:url';
+import {pathToFileURL,fileURLToPath} from 'node:url';
 
 const b=JSON.parse(await readFile(process.argv[2],'utf8'));
 assert.equal(b.executionAuthorized,true,'Root must separately authorize execution');
+const control=fileURLToPath(new URL('.',import.meta.url));
 const tenant=join(b.controlSourceRoot,'build_tenants/abiogenesis/typescript');
 const load=path=>import(pathToFileURL(join(tenant,path)).href);
 const R=await load('test_env/uat/runner.mjs'), S=await load('test_env/uat/scenarios.mjs');
@@ -16,11 +18,34 @@ const record=(path,value,raw=false)=>R.exclusiveRecord(root,path,value,raw);
 const config={...b.configuration,sourceCommit:b.candidate.sourceCommit,runId:b.runId,
   package:{archivePath:b.candidate.archivePath,sha256:b.candidate.archiveSha256},
   archiveRoot:b.rawRoot,fixtureRoot:join(tenant,'test_env/fixtures/sandbox-uat'),
-  worksiteRoot:join(root,'sandbox/worksite'),setupEnvironment:b.setupEnvironment,
+  worksiteRoot:b.worksiteRoot,setupEnvironment:b.setupEnvironment,
   inheritEnvironment:[],toolchainEnvironment:b.setupEnvironment};
 assert.equal(config.provider.enabled,true);
-const command=R.commandRecorder(root,{environment:config.setupEnvironment,
-  timeoutMs:config.processTimeoutMs,maxOutputBytes:config.maxProcessOutputBytes});
+const executionDeadline=new Date(Date.parse(b.deadlineUtc)-b.exitAuditReserveMs).toISOString();
+// Delegate command custody to the byte-identical accepted Python owner. The
+// bridge inherits this host's group; its child has an explicit PID/group receipt.
+async function command(label,executable,args,{cwd=root,environment=config.setupEnvironment,timeoutMs=config.processTimeoutMs,maxBytes=config.maxProcessOutputBytes}={}) {
+  assert(/^[A-Za-z0-9_-]+$/.test(label));
+  for(const key of config.provider.inheritEnvironment)assert(!Object.hasOwn(environment,key),'Credentials may reach only native worker environment');
+  const folder=join(root,'commands',label);await mkdir(join(root,'commands'),{recursive:true});
+  const job={folder,argv:[executable,...args],cwd,environment,deadlineUtc:executionDeadline,capMs:timeoutMs,maxBytes};
+  const child=spawn(b.pythonPath,[join(control,'command-owner.py')],{cwd:root,env:{...config.setupEnvironment,PYTHONDONTWRITEBYTECODE:'1'},stdio:['pipe','pipe','pipe']});
+  const out=[],err=[];let captured=0,truncated=false,launchError=null;
+  const collect=target=>chunk=>{captured+=chunk.length;if(captured<=65536)target.push(chunk);else truncated=true;};
+  child.stdout.on('data',collect(out));child.stderr.on('data',collect(err));child.on('error',e=>{launchError=String(e);});
+  const closing=new Promise(resolve=>child.on('close',(exitCode,signal)=>resolve({exitCode,signal})));
+  child.stdin.on('error',e=>{launchError??=String(e);});child.stdin.end(JSON.stringify(job));
+  await record('commands/'+label+'.bridge-launch.json',{pid:child.pid??null,enclosingHostPid:process.pid,commandOwner:join(control,'command-owner.py'),deadlineUtc:executionDeadline});
+  const closed=await closing;
+  await record('commands/'+label+'.bridge-close.json',{...closed,launchError,truncated,captured});
+  await record('commands/'+label+'.bridge.stdout',Buffer.concat(out),true);await record('commands/'+label+'.bridge.stderr',Buffer.concat(err),true);
+  if(launchError||truncated)throw new P.BoundaryFailure(label+'-command-bridge',{launchError,truncated,folder});
+  const result=JSON.parse(await readFile(join(folder,'result.json'),'utf8'));
+  const finalCapture=JSON.parse(await readFile(join(root,'commands',label+'.final-capture.json'),'utf8'));
+  if(result.stopReason||!result.cleanup.ownedProcessGroupAbsent||!finalCapture.withinLimit)
+    throw new P.BoundaryFailure(label+'-command-custody',{result,finalCapture});
+  return {...result,stdout:await readFile(join(folder,'stdout.raw'),'utf8'),stderr:await readFile(join(folder,'stderr.raw'),'utf8'),timedOut:false,truncated:false};
+}
 const require=createRequire(pathToFileURL(join(b.candidate.bootstrapPackageRoot,'package.json')));
 const runtime={};
 for(const [name,key] of [['product','product'],['abg','abg'],['gtl','gtl'],['validator','validator'],['public','api']]) {
@@ -50,8 +75,13 @@ try {
   const [row]=S.selectScenarios(fixtures.rows,{caseKey:'basic-cli'});
   const selected=await S.acquireScenario(fixtures.root,row);
   const snapshot=await S.snapshotScenario(fixtures,selected,root);await record('oracle-acquisition.json',snapshot);
-  const ready=await R.preflight(config,[row],root);await record('preflight.json',ready);
-  assert.equal(ready.disposition,'ready');
+  // Same selected version probes as maintained preflight, through the retained
+  // finite owner. No provider credential is forwarded to these probes.
+  const probes=[['node',config.nodePath,['--version']],...['npm',...(row.toolchainObligations.requiredExecutables??[]).filter(x=>x!=='node'&&x!=='npm')].map(name=>[name,config.toolchains[name].executable,config.toolchains[name].versionArgs]),
+    ['provider',config.provider.command,config.provider.versionArgs??['--version']]];
+  const observations=[];
+  for(const [name,executable,args] of probes){const observed=await command('preflight-'+name,executable,args,{timeoutMs:20000});observations.push({name,...observed});assert.equal(observed.exitCode,0);}
+  await record('preflight.json',{disposition:'ready',observations,providerReachability:'Version observed; no semantic provider dispatch yet'});
   const manifest=JSON.parse(await readFile(join(b.candidate.bootstrapPackageRoot,'product-toolchain-manifest.json'),'utf8'));
   const native=await P.verifyArtifact(runtime,{artifactPath:config.package.archivePath,manifest,
     expectedArtifactDigest:config.package.sha256},record,'abg');
@@ -64,8 +94,25 @@ try {
   }
   const before=await tree(config.worksiteRoot);await record('worksite-before.json',before);
   const input=S.constructWorkloadInput(runtime.product,selected,C.assessmentSelection,config.toolchains);
+  async function observeLayout(phase) {
+    assert.equal(S.digest(await readFile(join(control,'physical-topology.py'))),'sha256:eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31');
+    const environment=caller.refresh(),binding=environment.workspaceBinding;
+    const roots=Object.values(binding.roots);assert(roots.every(value=>typeof value==='string'));
+    const installRoots=environment.productInstalls.map(row=>row.installedRoot);assert.equal(installRoots.length,2);
+    const writes=[...new Set([...Object.values(input.original.workOrders).flatMap(order=>order.writeRoots),
+      ...input.original.testing.allowedWriteTerritories.map(row=>row.relativePath)])].map(path=>S.fixturePath(config.worksiteRoot,path));
+    const layout={worksite:config.worksiteRoot,writePaths:writes,
+      protectedRoots:[...new Set([...roots,...installRoots,b.candidate.bootstrapPackageRoot,b.candidate.archivePath,b.controlSourceRoot,b.rawRoot,...b.protectedRoots])].sort(),archiveRoot:b.rawRoot};
+    const layoutPath=await record('topology-'+phase+'.layout.json',{...layout});
+    const observed=await command('topology-'+phase,b.pythonPath,[join(control,'physical-topology.py'),layoutPath],{timeoutMs:60000,maxBytes:4194304});
+    assert.equal(observed.exitCode,0);const value=JSON.parse(observed.stdout);
+    await record('topology-'+phase+'.observation.json',{layout,bindingId:binding.bindingId??null,installRoots,observed:value,at:new Date().toISOString()});
+    assert.equal(value.ok,true);assert.equal(value.disposition,'separated');
+  }
+  await observeLayout('after-setup');
   const prepared=await P.constructLifecycleCall(caller,input);
   await record('prepared-definition-call.json',prepared.call);
+  await observeLayout('before-dispatch');
   await record('dispatch.json',{at:new Date().toISOString(),provider:config.provider,phase:'native-start-call'});
   const execution=await R.invokeLifecycle(caller,installations,prepared.call,R.workerEnvironment(config));
   const events=await R.readOracleEvents(runtime.abg,caller.prefix(),record);
@@ -85,7 +132,8 @@ try {
   const inRoots=(p,roots)=>roots.some(r=>p===r||p.startsWith(r+'/'));
   const permitted=p=>writes.some(r=>p===r.relativePath||r.pathKind==='subtree'&&p.startsWith(r.relativePath+'/'));
   const forbidden=changes.filter(p=>!permitted(p)&&!(insideArchive&&inRoots(p,[archiveRelative])));
-  await record('whole-worksite-conservation.json',{changes,writes,archive,forbidden});assert.deepEqual(forbidden,[]);
+  await record('worksite-file-link-conservation.json',{changes,writes,archive,forbidden,
+    measured:'Regular-file bytes and symbolic-link targets, including entry additions/removals; directory metadata, modes, ownership and timestamps are not compared.'});assert.deepEqual(forbidden,[]);
   for(const source of selected.sources)assert.equal(S.digest(await readFile(S.fixturePath(config.worksiteRoot,source.path))),source.digest);
   const archived=await S.acquireArchivedScenario(snapshot);
   const oracle=await import(pathToFileURL(S.fixturePath(snapshot.root,archived.row.oracleModule)).href);

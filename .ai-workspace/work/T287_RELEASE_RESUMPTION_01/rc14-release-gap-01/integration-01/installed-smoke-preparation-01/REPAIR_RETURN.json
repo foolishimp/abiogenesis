@@ -1,0 +1,83 @@
+{
+  "activation": "RC14-INSTALLED-CONTROL-REVIEW-001 repairGrant",
+  "role": "Separate preparation Operator/controls Writer; independent successor review remains Root-owned",
+  "productFrame": "Fixed ABIogenesis 5.0 S01/S03 installed first composition; external derived controls preserve published owner admission and semantic authority. No S06, continuation or qualification claim.",
+  "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b; project #exact-basis and #f-end-to-end-interface-integration",
+  "status": "control_successor_prepared_for_independent_review; execution_unactivated",
+  "repairCheckpoint": "f9ea4fba8f8db2f061da79efebf70afd27a75333",
+  "rootReviewSha256": "35a956f21d3ab9a0c06f2c17f93096abdc0213aff99eedbfe413b119b2fa2376",
+  "predecessorControlCommit": "d5191d502b1269da158c68735bd3f4aad552e7df",
+  "predecessorPreservation": "Original controls and Return preserved in ancestry; OPERATOR_RETURN.json is unchanged and historical. This successor narrows its whole-worksite wording to measured file/link content.",
+  "worktree": "/private/tmp/abg-rc14-installed-prep-20261115-01",
+  "branch": "codex/rc14-installed-prep-20261115",
+  "entry": "Clean named branch fast-forwarded to exact review checkpoint; no moving-main follow",
+  "preparationTenantEquals": "244895231432a931409298195845b250ad32e0cb",
+  "controlManifestSha256": "b921503d82053e94801db2b21ac4b328fe0b044c87b5c260cfc2d00b35ed7ef6",
+  "changedPaths": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01/basic-cli.mjs",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01/run.py",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01/BINDING.template.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01/README.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01/CONTROL_MANIFEST.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01/bounded.py",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01/command-owner.py",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01/physical-topology.py",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01/REUSED_HELPERS.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01/REPAIR_RETURN.json"
+  ],
+  "corrections": {
+    "C01": "Explicit selected credential key names; values required in launching environment, absent from retained binding/config/setup and deterministic smoke; forwarded only to basic host, then maintained workerEnvironment at held native invocation.",
+    "C02": "Separate unresolved worksiteRoot protects the complete raw archive. Exact accepted observer at prospective entry and actual environment-derived complete binding/install/bootstrap/archive/source roots after setup and immediately before dispatch; require exit zero and explicit separated result.",
+    "C03": "Exact accepted bounded.py owns all spawned command/preflight/Git/observer children. Thin stdin bridge preserves environment values without recording them. Original deadline minus explicit exit audit reserve, existing finite cleanup reserve, final capture-size audit, and precise PID/group records. No claim of separately grouped descendant absence.",
+    "C04": "Identical controls, maintained inputs, binding, archive, complete bootstrap, provider and interpreter identities reacquired at exit including first failure; errors or deadline exhaustion prevent success. Worksite measurement limited to file bytes and link targets."
+  },
+  "reusedHelpers": [
+    {
+      "path": "bounded.py",
+      "sourceCommit": "f9ea4fba8f8db2f061da79efebf70afd27a75333",
+      "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b12-native-01/bounded.py",
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2",
+      "bytes": 4206
+    },
+    {
+      "path": "physical-topology.py",
+      "sourceCommit": "f9ea4fba8f8db2f061da79efebf70afd27a75333",
+      "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-native-01/physical-topology.py",
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+      "bytes": 14764
+    }
+  ],
+  "staticChecks": {
+    "pythonAst": "4 files passed",
+    "javascriptSyntax": "node --check basic-cli.mjs passed",
+    "json": "parsed controls",
+    "maintainedInputHashes": "19 unchanged",
+    "acceptedHelperHashes": "2 exact",
+    "tenantConservation": "git diff --quiet 244895231 -- tenant passed",
+    "diffWhitespace": "git diff --check passed"
+  },
+  "executed": {
+    "productImports": 0,
+    "builds": 0,
+    "installs": 0,
+    "tests": 0,
+    "observerCalls": 0,
+    "providerDispatches": 0
+  },
+  "unresolved": [
+    "Root independent control review and separate execution grant",
+    "Exact final repaired archive/source/version/manifest and byte-equal bootstrap install",
+    "Explicit final worksite/raw/protected paths and accepted topology binding; actual observations unperformed",
+    "Explicit Python/Node/npm/provider identity, arguments, credential key selection and fresh original clocks",
+    "Runtime custody and setup congruence unperformed; static checks supply no semantic or qualification evidence"
+  ],
+  "limits": [
+    "Exact accepted helper owns its command process group only; forced failure requires Root observation of any separately grouped native descendants",
+    "Input reads and filesystem observations are not atomic; blocking local IO can leave an incomplete receipt and earns no conservation success",
+    "No directory metadata/mode/ownership/time conservation claim",
+    "No Product, maintained-tool or test source changes"
+  ],
+  "grantStartedUtc": "2026-11-14T18:37:39Z",
+  "grantDeadlineUtc": "2026-11-14T18:57:39Z",
+  "recordedUtc": "2026-11-14T18:52:28.196866+00:00"
+}

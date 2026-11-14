@@ -1,102 +1,135 @@
 #!/usr/bin/env python3
-"""Future one-shot execution only after Root binds and authorizes exact inputs."""
-import datetime as dt, hashlib, json, os, pathlib, re, signal, subprocess, sys, tarfile, time
+"""External one-shot Operator. No Product import; all children use the retained owner."""
+import datetime as dt, hashlib, importlib.util, json, os, pathlib, re, sys, tarfile
 
-CONTROL = pathlib.Path(__file__).resolve().parent
-def sha(path): return hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()
-def need(value, message):
-    if not value: raise RuntimeError(message)
-def positive(value): return isinstance(value, int) and not isinstance(value, bool) and value > 0
-def expired(_signum, _frame): raise TimeoutError('Original enclosing host deadline expired')
-def canonical(path):
-    p = pathlib.Path(path); need(p.is_absolute() and str(p.resolve()) == str(p), 'Noncanonical input path: '+str(p)); return p
+CONTROL=pathlib.Path(__file__).resolve().parent
+sys.dont_write_bytecode=True
+def sha(path):
+    h=hashlib.sha256()
+    with pathlib.Path(path).open('rb') as stream:
+        for chunk in iter(lambda:stream.read(1048576),b''): h.update(chunk)
+    return h.hexdigest()
+def need(ok,message):
+    if not ok: raise RuntimeError(message)
+def save(path,value):
+    with pathlib.Path(path).open('x') as stream: json.dump(value,stream,indent=2); stream.write('\n')
+def positive(x): return isinstance(x,int) and not isinstance(x,bool) and x>0
+def canonical(value):
+    p=pathlib.Path(value); need(p.is_absolute() and p.resolve()==p,'Noncanonical path: '+str(p)); return p
+def owner():
+    spec=importlib.util.spec_from_file_location('accepted_bounded',CONTROL/'bounded.py')
+    module=importlib.util.module_from_spec(spec); spec.loader.exec_module(module); return module
+def owned(module,folder,args,cwd,env,deadline,cap_ms,max_bytes):
+    save(folder.parent/(folder.name+'.intent.json'),{'argv':args,'cwd':str(cwd),'environmentKeys':sorted(env),'deadlineUtc':deadline.isoformat()})
+    failure=None
+    try: module.run(folder,args,cwd,env,deadline,cap_ms,max_bytes)
+    except Exception as error: failure=str(error)
+    finally:
+        files=[folder/'stdout.raw',folder/'stderr.raw']; size=sum(p.stat().st_size for p in files if p.exists())
+        save(folder.parent/(folder.name+'.final-capture.json'),{'bytes':size,'limit':max_bytes,'withinLimit':size<=max_bytes,'ownerFailure':failure,
+          'ownershipRecord':str(folder/'pid.json'),'ownerResult':str(folder/'result.json'),
+          'scope':'Owned command group only; separately grouped descendants require their owner receipts.'})
+    need(failure is None and size<=max_bytes,failure or 'Final output limit exceeded: '+str(folder))
+    return (folder/'stdout.raw').read_text()
 def main():
-    need(len(sys.argv)==2, 'Usage: run.py ROOT_ACCEPTED_BINDING.json')
-    binding_path=canonical(sys.argv[1]); b=json.loads(binding_path.read_text())
-    need(b.get('executionAuthorized') is True and isinstance(b.get('executionGrant'),str) and b['executionGrant'], 'Execution not separately authorized')
-    need(sha(CONTROL/'CONTROL_MANIFEST.json')==b['controlManifestSha256'], 'Control manifest changed')
-    manifest=json.loads((CONTROL/'CONTROL_MANIFEST.json').read_text())
-    for row in manifest['controls']: need(sha(CONTROL/row['path'])==row['sha256'],'Control changed: '+row['path'])
-    source=canonical(b['controlSourceRoot']); candidate=b['candidate']; config=b['configuration']
-    actual=subprocess.check_output(['git','-C',str(source),'rev-parse','HEAD'],text=True).strip()
-    need(actual==b['controlSourceCommit'],'Control checkout HEAD changed')
-    for row in manifest['inputs']: need(sha(source/row['path'])==row['sha256'],'Maintained helper/fixture changed: '+row['path'])
-    need(subprocess.run(['git','-C',str(source),'diff','--quiet',manifest['preparationSource'],'--','build_tenants/abiogenesis/typescript']).returncode==0,'Tenant input differs from preparation subject')
-    for key in ['cleanupGraceMs','smokeTimeoutMs','maxCaptureBytes']: need(positive(b[key]),'Finite '+key+' required')
-    for key in ['recursionBound','processTimeoutMs','maxProcessOutputBytes']: need(positive(config[key]),'Finite '+key+' required')
-    provider=config['provider']; need(provider['enabled'] is True and provider['agent']=='claude','Explicit supported provider selection required')
-    for key in ['inactivityTimeoutMs','absoluteTimeoutMs','maxTurns']: need(positive(provider[key]),'Finite provider '+key+' required')
-    need(isinstance(provider['model'],str) and provider['model'],'Model required')
-    need(sha(canonical(provider['command']))==provider['executableSha256'],'Provider executable changed')
-    node=str(canonical(config['nodePath'])); need(os.access(node,os.X_OK),'Node not executable')
-    need(isinstance(b['setupEnvironment'],dict) and all(isinstance(k,str) and isinstance(v,str) for k,v in b['setupEnvironment'].items()),'Explicit setup environment required')
-    deadline=dt.datetime.fromisoformat(b['deadlineUtc'].replace('Z','+00:00')).timestamp()
-    need(time.time()<deadline,'Prospective deadline expired')
-    signal.signal(signal.SIGALRM,expired); signal.setitimer(signal.ITIMER_REAL,deadline-time.time())
-    topology=canonical(b['topologyAcceptance']['path']); need(sha(topology)==b['topologyAcceptance']['sha256'],'Topology acceptance changed')
-    need(candidate['sourceCommit'] and candidate['packageVersion'],'Final candidate identity unresolved')
-    archive=canonical(candidate['archivePath']); package=canonical(candidate['bootstrapPackageRoot'])
-    need('sha256:'+sha(archive)==candidate['archiveSha256'],'Final archive changed')
-    need(sha(package/'product-toolchain-manifest.json')==candidate['manifestSha256'],'Bootstrap manifest changed')
-    need(json.loads((package/'package.json').read_text())['version']==candidate['packageVersion'],'Bootstrap version changed')
-    # The supplied install is an exact copy of the selected archive, not a convenient earlier runtime.
-    with tarfile.open(archive,'r:gz') as tar:
-        expected={}
-        for member in tar.getmembers():
-            name=member.name.removeprefix('package/').rstrip('/')
-            if member.isdir(): continue
-            need(member.name.startswith('package/') and name and not pathlib.PurePosixPath(name).is_absolute() and '..' not in pathlib.PurePosixPath(name).parts,'Archive path refused')
-            need(member.isfile() and name not in expected,'Unsupported or duplicate archive member: '+name)
-            expected[name]=hashlib.sha256(tar.extractfile(member).read()).hexdigest()
-        actual={}
-        for parent,dirs,files in os.walk(package,followlinks=False):
-            for name in dirs+files: need(not (pathlib.Path(parent)/name).is_symlink(),'Bootstrap symlink refused')
-            for name in files:
-                p=pathlib.Path(parent)/name; actual[p.relative_to(package).as_posix()]=sha(p)
-        need(actual==expected,'Archive/bootstrap member sets or bytes differ')
-    root=canonical(b['rawRoot']); need(not root.exists(),'Raw root already exists; no retry')
-    root.mkdir(parents=True); (root/'BINDING.json').write_bytes(binding_path.read_bytes())
-    env=dict(b['setupEnvironment']); env['TMPDIR']=str(root/'tmp'); pathlib.Path(env['TMPDIR']).mkdir()
-    env.update({'ABI5_WAVE1_FROZEN_ARTIFACT_PATH':str(archive),'ABI5_WAVE1_FROZEN_ARTIFACT_SHA256':candidate['archiveSha256'],
-        'ABI5_WAVE1_FROZEN_INSTALL_HOST':str(package.parents[2]),'ABI5_CANDIDATE_BASIS_SOURCE':'packed_artifact'})
-    def run(label,args,limit):
-        out=root/(label+'.stdout'); err=root/(label+'.stderr'); started=time.time(); cause=None
-        (root/(label+'.request.json')).write_text(json.dumps({'args':args,'cwd':str(source),
-            'environmentKeys':sorted(env),'deadlineUtc':b['deadlineUtc'],'phaseTimeoutMs':limit,
-            'startedUtc':dt.datetime.fromtimestamp(started,dt.timezone.utc).isoformat()},indent=2)+'\n')
-        with out.open('xb') as stdout,err.open('xb') as stderr:
-            p=subprocess.Popen(args,cwd=source,env=env,stdout=stdout,stderr=stderr,start_new_session=True)
+    need(len(sys.argv)==2,'Usage: run.py ROOT_ACCEPTED_BINDING.json')
+    binding_path=canonical(sys.argv[1]); binding_bytes=binding_path.read_bytes(); b=json.loads(binding_bytes)
+    need(b.get('executionAuthorized') is True and b.get('executionGrant'),'Execution not separately authorized')
+    m=json.loads((CONTROL/'CONTROL_MANIFEST.json').read_text())
+    need(sha(CONTROL/'CONTROL_MANIFEST.json')==b['controlManifestSha256'],'Control manifest changed')
+    for row in m['controls']: need(sha(CONTROL/row['path'])==row['sha256'],'Control changed: '+row['path'])
+    keys=b['configuration']['provider']['inheritEnvironment']; need(isinstance(keys,list) and len(set(keys))==len(keys),'Explicit unique credential key selection required')
+    secrets={}
+    for key in keys:
+        need(isinstance(key,str) and re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*',key),'Invalid credential key')
+        need(os.environ.get(key),'Missing selected credential key: '+key); secrets[key]=os.environ[key]
+        need(key not in b['setupEnvironment'],'Credential key in retained setup environment: '+key)
+        need(secrets[key] not in binding_bytes.decode(),'Credential value present in retained binding: '+key)
+    need(isinstance(b['setupEnvironment'],dict) and all(isinstance(k,str) and isinstance(v,str) for k,v in b['setupEnvironment'].items()),'Explicit nonsecret setup environment required')
+    deadline=dt.datetime.fromisoformat(b['deadlineUtc'].replace('Z','+00:00')); need(deadline.tzinfo is not None,'UTC deadline required')
+    for key in ['exitAuditReserveMs','smokeTimeoutMs','maxCaptureBytes']: need(positive(b[key]),'Finite '+key+' required')
+    execution_deadline=deadline-dt.timedelta(milliseconds=b['exitAuditReserveMs'])
+    need((execution_deadline-dt.datetime.now(dt.timezone.utc)).total_seconds()>15,'Insufficient original time for execution and owner cleanup')
+    source=canonical(b['controlSourceRoot']); root=canonical(b['rawRoot']); worksite=canonical(b['worksiteRoot']); c=b['candidate']; cfg=b['configuration']
+    need(not root.exists() and not worksite.exists(),'Fresh raw root and worksite required; no retry')
+    need(isinstance(b['protectedRoots'],list) and b['protectedRoots'],'Explicit additional protected roots required')
+    for key in ['recursionBound','processTimeoutMs','maxProcessOutputBytes']: need(positive(cfg[key]),'Finite '+key+' required')
+    p=cfg['provider']; need(p['enabled'] is True and p['agent']=='claude' and p['model'],'Explicit provider identity required')
+    for key in ['inactivityTimeoutMs','absoluteTimeoutMs','maxTurns']: need(positive(p[key]),'Finite provider '+key+' required')
+    node=str(canonical(cfg['nodePath'])); python=str(canonical(b['pythonPath'])); archive=canonical(c['archivePath']); package=canonical(c['bootstrapPackageRoot'])
+    need(c['sourceCommit'] and c['packageVersion'],'Final candidate unresolved')
+    root.mkdir(parents=True); save(root/'ENTRY.json',{'pid':os.getpid(),'deadlineUtc':deadline.isoformat(),'executionDeadlineUtc':execution_deadline.isoformat(),'cleanupReserveSeconds':15,'exitAuditReserveMs':b['exitAuditReserveMs']})
+    (root/'BINDING.json').write_bytes(binding_bytes)
+    env=dict(b['setupEnvironment']); need(not set(keys)&set(env),'Credentials cannot reach smoke')
+    env['TMPDIR']=str(root/'tmp'); pathlib.Path(env['TMPDIR']).mkdir()
+    module=owner(); counter=0
+    def command(label,args,cap,environment=None,until=execution_deadline):
+        nonlocal counter; counter+=1
+        return owned(module,root/(str(counter).zfill(3)+'-'+label),args,str(source),env if environment is None else environment,until,cap,b['maxCaptureBytes'])
+    def capture(label,until):
+        rows={}; errors=[]
+        def measure(key,fn):
             try:
-                while p.poll() is None:
-                    if time.time()>=min(deadline,started+limit/1000): cause='deadline'
-                    if out.stat().st_size+err.stat().st_size>b['maxCaptureBytes']: cause='capture_limit'
-                    if cause: break
-                    time.sleep(.2)
-            except TimeoutError: cause='enclosing_host_deadline'
-            if cause:
-                try: os.killpg(p.pid,signal.SIGTERM)
-                except ProcessLookupError: pass
-                try: p.wait(timeout=b['cleanupGraceMs']/1000)
-                except subprocess.TimeoutExpired:
-                    try: os.killpg(p.pid,signal.SIGKILL)
-                    except ProcessLookupError: pass
-                    try: p.wait(timeout=b['cleanupGraceMs']/1000)
-                    except subprocess.TimeoutExpired: pass
-        receipt={'args':args,'exitCode':p.poll(),'cause':cause,'startedUtc':dt.datetime.fromtimestamp(started,dt.timezone.utc).isoformat(),
-            'elapsedMs':round((time.time()-started)*1000),'stdoutSha256':sha(out),'stderrSha256':sha(err),
-            'hostClosed':p.poll() is not None,'descendantAbsence':'not established by host process close'}
-        (root/(label+'.json')).write_text(json.dumps(receipt,indent=2)+'\n')
-        need(cause is None and p.poll()==0,'First failure: '+label)
-        return out.read_text()
+                need(dt.datetime.now(dt.timezone.utc)<until,'Original input-audit deadline exhausted')
+                rows[key]=fn()
+                need(dt.datetime.now(dt.timezone.utc)<until,'Input acquisition completed after original deadline')
+            except Exception as error: errors.append({'input':key,'reason':str(error)})
+        for row in m['controls']: measure('control:'+row['path'],lambda row=row:sha(CONTROL/row['path']))
+        measure('control:CONTROL_MANIFEST.json',lambda:sha(CONTROL/'CONTROL_MANIFEST.json'))
+        for row in m['inputs']: measure('source:'+row['path'],lambda row=row:sha(source/row['path']))
+        measure('binding',lambda:sha(binding_path));measure('retainedBinding',lambda:sha(root/'BINDING.json'))
+        measure('archive',lambda:sha(archive));measure('provider',lambda:sha(canonical(p['command'])))
+        measure('node',lambda:sha(node));measure('python',lambda:sha(python))
+        measure('topologyAcceptance',lambda:sha(canonical(b['topologyAcceptance']['path'])))
+        def bootstrap():
+            inventory={}
+            for parent,dirs,files in os.walk(package,followlinks=False):
+                for name in dirs+files: need(not (pathlib.Path(parent)/name).is_symlink(),'Bootstrap symlink refused')
+                for name in files:
+                    path=pathlib.Path(parent)/name; inventory[path.relative_to(package).as_posix()]=sha(path)
+            return inventory
+        measure('bootstrap',bootstrap)
+        measure('sourceHead',lambda:command(label+'-source-head',['git','-C',str(source),'rev-parse','HEAD'],cfg['processTimeoutMs'],until=until).strip())
+        measure('tenantDiff',lambda:command(label+'-tenant-check',['git','-C',str(source),'diff','--quiet',m['preparationSource'],'--','build_tenants/abiogenesis/typescript'],cfg['processTimeoutMs'],until=until))
+        save(root/('INPUTS_'+label+'.json'),{'rows':rows,'errors':errors,'completedUtc':dt.datetime.now(dt.timezone.utc).isoformat()}); return rows,errors
+    baseline=None; failure=None
     try:
-        test=source/'build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs'
-        tap=run('001-installed-language',[node,'--test','--test-reporter=tap','--test-concurrency=1',str(test)],b['smokeTimeoutMs'])
-        for key,value in [('tests',1),('pass',1),('fail',0),('cancelled',0),('skipped',0),('todo',0)]:
-            need(re.search(r'^# '+key+r' '+str(value)+r'$',tap,re.M),'Unexpected deterministic case population: '+key)
-        need('Hello World is an external minimal GTL program through installed Public execution and fresh reads' in tap,'Wrong deterministic case')
-        run('002-basic-cli',[node,str(CONTROL/'basic-cli.mjs'),str(root/'BINDING.json')],max(1,int((deadline-time.time())*1000)))
-        (root/'RETURN.json').write_text(json.dumps({'status':'passed','qualified':False,'deadlineUtc':b['deadlineUtc']})+'\n')
+        baseline,errors=capture('ENTRY',execution_deadline);need(not errors,'Entry input acquisition failed')
+        for row in m['controls']:need(baseline['control:'+row['path']]==row['sha256'],'Control mismatch')
+        for row in m['inputs']:need(baseline['source:'+row['path']]==row['sha256'],'Maintained source mismatch')
+        need(baseline['sourceHead']==b['controlSourceCommit'],'Control source HEAD differs')
+        need('sha256:'+baseline['archive']==c['archiveSha256'],'Candidate archive differs')
+        need(baseline['provider']==p['executableSha256'],'Provider differs')
+        need(baseline['topologyAcceptance']==b['topologyAcceptance']['sha256'],'Topology acceptance differs')
+        need(baseline['bootstrap'].get('product-toolchain-manifest.json')==c['manifestSha256'],'Bootstrap manifest differs')
+        need(json.loads((package/'package.json').read_text())['version']==c['packageVersion'],'Bootstrap version differs')
+        expected={}
+        with tarfile.open(archive,'r:gz') as tar:
+            for member in tar.getmembers():
+                if member.isdir():continue
+                name=member.name.removeprefix('package/')
+                need(member.name.startswith('package/') and member.isfile() and name not in expected and '..' not in pathlib.PurePosixPath(name).parts,'Unsupported archive member')
+                expected[name]=hashlib.sha256(tar.extractfile(member).read()).hexdigest()
+        need(expected==baseline['bootstrap'],'Archive/bootstrap member sets or bytes differ')
+        tenant=source/'build_tenants/abiogenesis/typescript'; request=json.loads((tenant/'test_env/fixtures/sandbox-uat/basic-cli/request.json').read_text())
+        writes=sorted({str(worksite/path) for order in request['workOrders'].values() for path in order['writeRoots']}|{str(worksite/row['relativePath']) for row in request['testing']['allowedWriteTerritories']})
+        layout={'worksite':str(worksite),'writePaths':writes,'protectedRoots':sorted(set([str(source),str(package),str(archive),str(root),*b['protectedRoots']])),'archiveRoot':str(root)}
+        save(root/'PLANNED_LAYOUT.json',layout)
+        observed=command('planned-topology',[python,str(CONTROL/'physical-topology.py'),str(root/'PLANNED_LAYOUT.json')],60000)
+        value=json.loads(observed);need(value.get('ok') is True and value.get('disposition')=='separated','Prospective topology not established')
+        smoke_env={**env,'ABI5_WAVE1_FROZEN_ARTIFACT_PATH':str(archive),'ABI5_WAVE1_FROZEN_ARTIFACT_SHA256':c['archiveSha256'],'ABI5_WAVE1_FROZEN_INSTALL_HOST':str(package.parents[2]),'ABI5_CANDIDATE_BASIS_SOURCE':'packed_artifact'}
+        tap=command('installed-language',[node,'--test','--test-reporter=tap','--test-concurrency=1',str(tenant/'test_env/tests/installed-language-smoke.test.mjs')],b['smokeTimeoutMs'],smoke_env)
+        for key,want in [('tests',1),('pass',1),('fail',0),('cancelled',0),('skipped',0),('todo',0)]:need(re.search(r'^# '+key+' '+str(want)+r'$',tap,re.M),'Wrong smoke population: '+key)
+        need('Hello World is an external minimal GTL program through installed Public execution and fresh reads' in tap,'Wrong smoke case')
+        command('basic-cli',[node,str(CONTROL/'basic-cli.mjs'),str(root/'BINDING.json')],max(1,int((execution_deadline-dt.datetime.now(dt.timezone.utc)).total_seconds()*1000)),{**env,**secrets})
     except Exception as error:
-        (root/'FIRST_FAILURE.json').write_text(json.dumps({'reason':str(error),'retry':False,'qualified':False})+'\n'); raise
-    finally: signal.setitimer(signal.ITIMER_REAL,0)
-if __name__=='__main__': main()
+        failure=str(error); save(root/'FIRST_FAILURE.json',{'reason':failure,'retry':False,'qualified':False})
+    finally:
+        final,errors=capture('EXIT',deadline)
+        mismatches=[] if baseline is None else [key for key in set(baseline)|set(final) if baseline.get(key)!=final.get(key)]
+        audit={'complete':baseline is not None and not errors,'mismatches':mismatches,'errors':errors,'conserved':baseline is not None and not errors and not mismatches}
+        save(root/'INPUT_CONSERVATION.json',audit)
+        status='passed' if failure is None and audit['conserved'] else 'failed'
+        save(root/'RETURN.json',{'status':status,'qualified':False,'firstFailure':failure,'inputConservation':audit,'deadlineUtc':b['deadlineUtc']})
+        need(status=='passed','Execution or exit custody failed; retained evidence requires Root triage')
+if __name__=='__main__':main()
