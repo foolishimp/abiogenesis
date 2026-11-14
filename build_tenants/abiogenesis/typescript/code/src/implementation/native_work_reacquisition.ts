@@ -21,7 +21,7 @@ export async function prepareNativeWorksiteCommandReacquisition(input: unknown, 
   const basis = occurrence.nativeWorkReacquisitionBasis, owner = nativeProof?.nativeOwnedWorkReacquisition !== undefined
     ? nativeProof.nativeOwnedWorkReacquisition(input, occurrence)
     : basis === undefined ? null : authenticateOwnedNativeWorkReacquisition(basis, input, true, historicalSource);
-  if (owner === null || owner.call.cCallRef !== occurrence.cCallRef || !await nativeWorkReacquisitionContextCurrent(owner.task.sourceReacquisition!.request))
+  if (owner === null || owner.call.cCallRef !== occurrence.cCallRef || !await nativeWorkReacquisitionContextCurrent(owner.task.sourceReacquisition!.request, owner.environment))
     throw new TypeError("native reacquisition requires its current admitted owner, preserved child and complete current context");
   const resultCandidate = owner.task;
   const admittedInput = admitJson(input);

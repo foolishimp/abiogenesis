@@ -39,7 +39,8 @@ test('actual historical pre-result occurrence authenticates with unchanged sourc
  assert.deepEqual(authenticated.task.capabilityGrant,input.capabilityGrant);
  assert.ok(authenticated.task.sourceReacquisition.bindingCoverEventRefs.length>0,'actual changed-binding witness is required');
  assert.equal(input.currentContext.entries.filter(e=>e.state==='file').length,35);
- assert.equal(await nativeWorkReacquisitionContextCurrent(input),true,'read-only complete 35-file actual worksite check');
+ assert.equal(authenticated.environment.kind,'exact_prefix_workspace_environment','the authenticated environment travels with the owner');
+ assert.equal(await nativeWorkReacquisitionContextCurrent(input,authenticated.environment),true,'read-only complete 35-file actual worksite check');
  const after=statSync(eventPath);assert.equal(after.dev,before.dev);assert.equal(after.ino,before.ino);assert.equal(after.size,before.size);assert.equal(after.mtimeMs,before.mtimeMs);assert.equal(p.sha256Bytes(readFileSync(eventPath)),beforeHash);
  t.diagnostic(JSON.stringify({historicalOnly:true,requireCurrent:false,selectedOrdinal:8112,prefix:retained.prefix,requestDigest:h(input),graphFunctionDigest:authenticated.execution.graphFunctionDigest,
   cCallRef:basis.cCallRef,sourceObservationDigest:h(input.sourceNativeWork),sourceAuthor:input.sourceNativeWork.provenance,bindingCoverEventRefs:authenticated.task.sourceReacquisition.bindingCoverEventRefs,

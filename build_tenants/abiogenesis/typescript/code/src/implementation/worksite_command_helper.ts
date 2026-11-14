@@ -10,6 +10,8 @@ import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessF
 import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from "../shared/process/index.js";
 import { hasExactKeys as exactKeys, isTrimmedNonblankNulFreeString as exactString } from "../shared/admission_predicates.js";
 import { classifyPathRelation, pathRelation, pathStrictlyWithin, pathWithin } from "../shared/path_confinement.js";
+import { runPhysicalAsync } from "../shared/physical_path_observation.js";
+import { physicalSeparationProgram } from "../shared/physical_path_relation.js";
 import { constructWorksiteCommandExecutionLaunchManifest, isAuthorityFreeWorksiteCommandOccurrence,
   type WorksiteCommandExecutionLaunchManifest } from "../product/worksite_command_launch.js";
 import { isWorksiteExecutionTask, worksiteExecutionSources, worksiteExecutionLocus,
@@ -261,6 +263,7 @@ async function assertLaunchArchiveBoundary(
   if (archiveRoot === undefined) {
     throw new TypeError("helper launch manifest has no canonical archive root");
   }
+  const otherRoots: string[] = [];
   for (const name of [
     "productRoot", "toolchainRoot", "eventLogRoot", "runtimeStateRoot",
     "projectionRoot",
@@ -270,6 +273,17 @@ async function assertLaunchArchiveBoundary(
       pathWithin(pathRelation(otherRoot, archiveRoot))) {
       throw new TypeError("command execution archive root overlaps a protected workspace root");
     }
+    otherRoots.push(otherRoot);
+  }
+  // Independent helper check through the same physical relation: the archive
+  // is recursive, so physical equality, containment and enclosure all refuse.
+  const finding = await runPhysicalAsync(physicalSeparationProgram({
+    targets: [archiveRoot], protectedRoots: otherRoots, mode: "enclosing",
+  }));
+  if (finding !== null) {
+    throw new TypeError(finding.separation === "overlap"
+      ? `command execution archive root overlaps a protected workspace root (${finding.reason})`
+      : `command execution archive root: protected-root separation cannot be established: ${finding.reason}`);
   }
 }
 

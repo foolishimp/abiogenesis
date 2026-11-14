@@ -1,0 +1,752 @@
+{
+  "activationId": "RC14-B21-NATIVE-AUTHOR-001",
+  "recordedAtUtc": "2026-11-14T17:29:53.356815+00:00",
+  "status": "native_author_completed_bounded_proof_passed_source_frozen_for_root_review",
+  "qualified": false,
+  "source": {
+    "baseHead": "aa730058e30f3f4fd6be9f4e306ecc1275d9eb93",
+    "commit": "ad6c195f56ebeea0f8cd1a620a0346a26a5c0667",
+    "tree": "a4f21e612d1066bc0d9d8196324ef0726bab360f",
+    "branch": "codex/rc14-b21-native-20261115",
+    "worktree": "/private/tmp/abg-rc14-b21-20261115-01",
+    "authoredPaths": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/native/abg_physical_path.c",
+        "bytes": 10972,
+        "sha256": "d5698d57e9b5602091ffc3621f704720f7477f9921b5d9432db4d3c0c5d3f519"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+        "bytes": 38277,
+        "sha256": "249fc0fd1d853ead9e2c716226eb7f337e8e240e024a0651e00eca6388772cae"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+        "bytes": 96118,
+        "sha256": "8a92248a1e3af54757efe1cc046e5588b12a27179111424d393faf16a0e236c0"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+        "bytes": 3169,
+        "sha256": "82168a6df762d73e7cd3b63d812596beb3f15847d42dd38183c626239c2b1f2d"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+        "bytes": 8436,
+        "sha256": "baaec434ab15cf8ac553e5326bc8021e0a4d3e1b9a94c2fe2fa5b53fee27fa63"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+        "bytes": 36274,
+        "sha256": "28dc439be35d1a690ee62ba542101d25d87ecf7aa207b8135b89abba1c4a30bb"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "bytes": 67188,
+        "sha256": "cf5c3ed4ace15956dd477d4e9936040aef3633e34cd0ecb15957280f4305f149"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+        "bytes": 54046,
+        "sha256": "f51226f12a849140e1951075345f3a99bc34c3f0f3916c0314551352150d0ca0"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/physical_path_observation.ts",
+        "bytes": 21540,
+        "sha256": "4f78d15afd14e87cb54146ccdd797b4aa1cfab2fe59ebcfda08e8f8b04ef01d5"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/physical_path_relation.ts",
+        "bytes": 18728,
+        "sha256": "88906233b669938ef25e0696630911689c88d7a0b31b0f2fd88b8a2704512ec1"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package.json",
+        "bytes": 9787,
+        "sha256": "fa05615864043dc0bd91255fca3c10c7b925e9c8696e4ab35d69b8bacf49010b"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/scripts/build-native.mjs",
+        "bytes": 7860,
+        "sha256": "66e04c66a9dbfcdbef48796155c6f53bc28c9a1aeaca5f610c014202c4288c38"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+        "bytes": 47890,
+        "sha256": "271dc16b108d1999a4215a45049f58e00b2d81191f9be9167242e17e0b75e555"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/declared-commands.json",
+        "bytes": 19295,
+        "sha256": "4afc4402edad98677eb208becd74e5f1889fa3446462c2ca3e9c2cf9105f3c27"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+        "bytes": 10523,
+        "sha256": "1791d59f8fdae2bd414e8037dbaddfec685c4b881823bee5a9c8578cbbafdf04"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+        "bytes": 70007,
+        "sha256": "3257777435a7fb98ca20901e1e2a0a2d3160e564b0134119dbbe8e87b234ce95"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+        "bytes": 4801,
+        "sha256": "e35b653c57735c996ec2c87693c177e47bfaea7dc4f8c3b69c083588da4ca371"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+        "bytes": 49443,
+        "sha256": "a9ceb4454d69f4407b5205af68ab099bf373ed83d13e0083619c4aa6e2925bca"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t293-b21-physical-confinement.test.mjs",
+        "bytes": 19519,
+        "sha256": "408081d01559c53edafd09d6aa6c59da771dde47710ced54f3d9cea87cbf27bd"
+      }
+    ],
+    "sourceUnchangedThroughProof": true,
+    "proofPostimageSha256": "753e314c805851f40a0838a7d6bdb4f2d5cf92699fe4cf0ea5a0ef54f899c771"
+  },
+  "execution": {
+    "builder": "pinned actual installed RC13",
+    "provider": "claude-opus-5-5",
+    "effort": "xhigh",
+    "providerCallsAtMost": 1,
+    "retry": false,
+    "run": {
+      "ref": "run://abiogenesis/cdee36d03711139e6cdbc8df62594b94626b927a95321d9d69a90a0ce61c92d3",
+      "digest": "sha256:fc40f72ba56bfd42a5ecc840aba6916125eaa8e6a76c92794fd59515ae791c74"
+    },
+    "phases": [
+      {
+        "phase": "identity-and-topology-bound",
+        "utc": "2026-11-14T16:24:23.133Z",
+        "wallMs": 428.740209
+      },
+      {
+        "phase": "fresh-public-setup-held",
+        "utc": "2026-11-14T16:25:29.703Z",
+        "wallMs": 66997.640709
+      },
+      {
+        "phase": "one-author-dispatch",
+        "utc": "2026-11-14T16:25:31.045Z",
+        "wallMs": 68340.250334
+      },
+      {
+        "phase": "native-returned",
+        "utc": "2026-11-14T17:11:56.389Z",
+        "wallMs": 2853665.414667
+      }
+    ],
+    "hostElapsedMs": 2859777,
+    "hostExitCode": 0,
+    "hostProcessGroupAbsent": true,
+    "actualResourceClose": true,
+    "freshReadbacks": "run_result result and run_replay closed"
+  },
+  "proof": {
+    "ok": true,
+    "elapsedMs": 731831,
+    "retries": 0,
+    "wholeFiles": 11,
+    "counts": {
+      "tests": 184,
+      "passed": 178,
+      "failed": 0,
+      "skipped": 6,
+      "cancelled": 0,
+      "todo": 0
+    },
+    "population": [
+      {
+        "file": "t293-b21-physical-confinement.test.mjs",
+        "command": "003-first-b21",
+        "counts": {
+          "tests": 7,
+          "passed": 7,
+          "failed": 0,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0
+        },
+        "countsSha256": "dd5fab7f7127d13f45a563f4a24964031afb56d28fccb137397c94bc07351c42"
+      },
+      {
+        "file": "t292-td85n-absent-protected-root.test.mjs",
+        "command": "008-t292-td85n-absent-protected-root",
+        "counts": {
+          "tests": 58,
+          "passed": 58,
+          "failed": 0,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0
+        },
+        "countsSha256": "c0a0b870195f5fe3934ceed2302f7b97b1cf59ab8b8b4f0fc744d897a9925224"
+      },
+      {
+        "file": "t292-td85a-stored-spelling.test.mjs",
+        "command": "009-t292-td85a-stored-spelling",
+        "counts": {
+          "tests": 12,
+          "passed": 12,
+          "failed": 0,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0
+        },
+        "countsSha256": "0a6f55483be250ef661955c299252f25ecec5a00dceead227b1a6be825ad9158"
+      },
+      {
+        "file": "t287-c0-post-publication-failure.test.mjs",
+        "command": "010-t287-c0-post-publication-failure",
+        "counts": {
+          "tests": 16,
+          "passed": 16,
+          "failed": 0,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0
+        },
+        "countsSha256": "1a01e517367fd9b2540de79b0bab193f03cff75f22743c7375b92d74eb6a90b7"
+      },
+      {
+        "file": "t287-c0-post-publication-failure-owner-admission-close.test.mjs",
+        "command": "011-t287-c0-post-publication-failure-owner-admission-close",
+        "counts": {
+          "tests": 15,
+          "passed": 15,
+          "failed": 0,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0
+        },
+        "countsSha256": "afb767d6cfb6d990b4ae60c659fa8a39a25b506a8d6ad4cf052cf61911b4ebaa"
+      },
+      {
+        "file": "t287-native-semantic-revision.test.mjs",
+        "command": "012-t287-native-semantic-revision",
+        "counts": {
+          "tests": 8,
+          "passed": 6,
+          "failed": 0,
+          "skipped": 2,
+          "cancelled": 0,
+          "todo": 0
+        },
+        "countsSha256": "56af6352be4c948745c70a888eae3878bab319e1896ba30ac848a260d5e95023"
+      },
+      {
+        "file": "t287-native-work-reacquisition.test.mjs",
+        "command": "013-t287-native-work-reacquisition",
+        "counts": {
+          "tests": 8,
+          "passed": 7,
+          "failed": 0,
+          "skipped": 1,
+          "cancelled": 0,
+          "todo": 0
+        },
+        "countsSha256": "32a586cfa2921ced884de4e99bedfe13fd226385bb2fb82d57bd4ac46a5fc3db"
+      },
+      {
+        "file": "t287-native-work-reacquisition-normalization.test.mjs",
+        "command": "014-t287-native-work-reacquisition-normalization",
+        "counts": {
+          "tests": 2,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 1,
+          "cancelled": 0,
+          "todo": 0
+        },
+        "countsSha256": "d94c3cb0707c9e0eb508548ddd061d2fd4aee69b021b770dfb367c9b14cde207"
+      },
+      {
+        "file": "t287-native-owner-reuse.test.mjs",
+        "command": "015-t287-native-owner-reuse",
+        "counts": {
+          "tests": 2,
+          "passed": 0,
+          "failed": 0,
+          "skipped": 2,
+          "cancelled": 0,
+          "todo": 0
+        },
+        "countsSha256": "99e007913ef2e0a762e0dedf6cabd71b43c971d5495df71b9e2288adeb34427a"
+      },
+      {
+        "file": "t287-native-workspace-work.test.mjs",
+        "command": "016-t287-native-workspace-work",
+        "counts": {
+          "tests": 43,
+          "passed": 43,
+          "failed": 0,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0
+        },
+        "countsSha256": "dfa82eaeccff73677ebd414dfdc6c97e2cb28422758f785f3f04d0234ceae43c"
+      },
+      {
+        "file": "t287-worksite-command-execution.test.mjs",
+        "command": "017-t287-worksite-command-execution",
+        "counts": {
+          "tests": 13,
+          "passed": 13,
+          "failed": 0,
+          "skipped": 0,
+          "cancelled": 0,
+          "todo": 0
+        },
+        "countsSha256": "570a89b6ee87e60dfe9ca4aa838521f2b7964b09fe6c501a16740bf27f4cd8a0"
+      }
+    ],
+    "skips": [
+      {
+        "file": "t287-native-semantic-revision.test.mjs",
+        "name": "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+        "reason": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)"
+      },
+      {
+        "file": "t287-native-semantic-revision.test.mjs",
+        "name": "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+        "reason": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)"
+      },
+      {
+        "file": "t287-native-work-reacquisition.test.mjs",
+        "name": "later admitted failure invalidates full reacquired context beyond the C2 snapshot subset",
+        "reason": "ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root"
+      },
+      {
+        "file": "t287-native-work-reacquisition-normalization.test.mjs",
+        "name": "actual historical pre-result occurrence authenticates with unchanged source and all current physical context",
+        "reason": "ABG_REACQUISITION_NORMALIZATION_RETAINED_ROOT unset; requires the explicit retained continuation root"
+      },
+      {
+        "file": "t287-native-owner-reuse.test.mjs",
+        "name": "actual historical reacquisition contracts owner work without changing task or refusals",
+        "reason": "ABG_OWNER_REUSE_PREDECESSOR, ABG_OWNER_REUSE_TASK or ABG_OWNER_REUSE_EVIDENCE unset; requires the predecessor build, retained reacquisition task and evidence directory"
+      },
+      {
+        "file": "t287-native-owner-reuse.test.mjs",
+        "name": "R10 keeps same-owner exact prefix warm while copies, closed owners and malformed cuts remain cold/refused",
+        "reason": "ABG_OWNER_REUSE_PREDECESSOR, ABG_OWNER_REUSE_TASK or ABG_OWNER_REUSE_EVIDENCE unset; requires the predecessor build, retained reacquisition task and evidence directory"
+      }
+    ],
+    "commands": [
+      {
+        "name": "001-native-input-verification",
+        "exitCode": 0,
+        "elapsedMs": 314,
+        "returnSha256": "d85567dfd689a7168da03dc11c668cb189788b083699879849d355859c7e20f5",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 70,
+          "sha256": "d33df5b300c0184eb2bb6c58c639260c221d0efcda1331ac93089168f29bec4a"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "002-candidate-build",
+        "exitCode": 0,
+        "elapsedMs": 28550,
+        "returnSha256": "c0dec48681d0e6867539db809e85f5eeb057f5417b57cf059ba1fc83cfb83381",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 381,
+          "sha256": "09a40151097b7765bd5da025b86d67c6a20595d4597b2015f350356b4ae3bfec"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "003-first-b21",
+        "exitCode": 0,
+        "elapsedMs": 1039,
+        "returnSha256": "68c87f653438e72dfcac87d5d93ebd358e60685dcd7968692e317a066c31853f",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 2453,
+          "sha256": "01679290685036874034de125b797afe3cd1795c089882c3eead85e6a70f725f"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "004-clean-native-reproduction",
+        "exitCode": 0,
+        "elapsedMs": 524,
+        "returnSha256": "e2cfd72c96b463b2591a4ba27610de4b1abe74da2fa2ad082f99a6a3099255ec",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 131,
+          "sha256": "262054305aec19748bc949e8448f3975e7cda782db62f64d433b4f82283ff84a"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "005-pack",
+        "exitCode": 0,
+        "elapsedMs": 25177,
+        "returnSha256": "2744bacaf9964814e4e63efe1d4d25eecb1f8f5496b1ce68fd477d01b1fd8d36",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 696598,
+          "sha256": "d4701c64e0a535dc325ec5e17053a388665fb5f95731e8d8900f1fd1b31b28bb"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "006-offline-install",
+        "exitCode": 0,
+        "elapsedMs": 22544,
+        "returnSha256": "a905c5341552c6ee9bece1d9ee38cf44bd25e310f8f5bfa632fac85fb51deb3b",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 24,
+          "sha256": "c70c4574e4c35eacf1815bf3cdf96ce4244171da81b8d843257c134555dd7038"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "007-installed-physical-owner",
+        "exitCode": 0,
+        "elapsedMs": 525,
+        "returnSha256": "3f99283791785407fd6839d3a3de7cd8d060c50d1d6c26ddf8e1d7f6ea5bd3fa",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 826,
+          "sha256": "86a162f909ecb06239f35c7c22f5150020e1c0d86b1270115a4d023abf0a66eb"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "008-t292-td85n-absent-protected-root",
+        "exitCode": 0,
+        "elapsedMs": 824,
+        "returnSha256": "85183b4e7c35f7fbd36bc86cadd7174862b5e0e3cac03a86598a4385b7c972b9",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 16200,
+          "sha256": "40b4f78ff39bde342c0afef318691ea137057a358017257dd601424d6a3a46d8"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "009-t292-td85a-stored-spelling",
+        "exitCode": 0,
+        "elapsedMs": 522,
+        "returnSha256": "0d4243dc746b281f376220095fee0f5abf9238c10caa6ef2c905fb4f863165bd",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 4553,
+          "sha256": "e71cbfb8b160518e81d32f061f2f0cd592cc00a2062807edf788f02636b0ba93"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "010-t287-c0-post-publication-failure",
+        "exitCode": 0,
+        "elapsedMs": 224169,
+        "returnSha256": "9cec0f09ab23f1e6d30bc73b1cbc149a4dfb750a8e5102a967cbe411e816fe1d",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 4900,
+          "sha256": "90e257c46456ce7c95748d382ba20f1159c139be0f0597710fad1b166a214af1"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "011-t287-c0-post-publication-failure-owner-admission-close",
+        "exitCode": 0,
+        "elapsedMs": 201864,
+        "returnSha256": "d6c3152908477549744518f1cc49e8c746a0a7875f6dec30048cdce52a80d2ca",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 4999,
+          "sha256": "5b36a1841a48a5a0aafe4f2620e029fc72be0168c544cf917090bceeb60af41b"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "012-t287-native-semantic-revision",
+        "exitCode": 0,
+        "elapsedMs": 1562,
+        "returnSha256": "1a27faac1e2676a2ce524681abd3b3d67e56bf7cf98f4ff7d2b5135e2162b69c",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 3270,
+          "sha256": "6f0a392b224de2336e4d2682929107483870641a7d9ee9c06b0ac69984971331"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "013-t287-native-work-reacquisition",
+        "exitCode": 0,
+        "elapsedMs": 834,
+        "returnSha256": "33877bc597a9b0fc43312ae38ac635f680bfeb8d9514a65b6ca90299a9c51f76",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 2930,
+          "sha256": "c4644ff55653fca128884e442dfced79c6f5ad5b72a17f5ca52eb6fbb4f4154b"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "014-t287-native-work-reacquisition-normalization",
+        "exitCode": 0,
+        "elapsedMs": 418,
+        "returnSha256": "11e40c59a53fecc36640c1b2bc3bc1cc1cd899b2016ea7e21ed22b1eeb9628f0",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 1256,
+          "sha256": "b85662131da69ca4df196525a24f846bbf3d52a7c217eadd8c52db2f1dc4b9e9"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "015-t287-native-owner-reuse",
+        "exitCode": 0,
+        "elapsedMs": 108,
+        "returnSha256": "3a540dd58b74ee32f55924b5ea330fa17003b18c3fe6473694fa6bda5fa12e78",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 1423,
+          "sha256": "9a669b7bb831863ea68f3bddc35adfc2e9b3ecd33b64fde480107a5aad006f76"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "016-t287-native-workspace-work",
+        "exitCode": 0,
+        "elapsedMs": 2996,
+        "returnSha256": "106a256c2797f9cc82958f70987458cd21ea7cbeda31b964c00596cc307e33a7",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 12341,
+          "sha256": "52144ea39e25d0a819dd5b900c0c52be52d2e82dc274378474ad7ab47f9b3b18"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "017-t287-worksite-command-execution",
+        "exitCode": 0,
+        "elapsedMs": 212895,
+        "returnSha256": "b7e0d3f1c913cfa292162a8a2f0ea4b974df4f05ed8cafb983dcc29fa1c332f0",
+        "processGroupAbsent": true,
+        "stdout": {
+          "bytes": 4418,
+          "sha256": "68bc7568432967d90280d11d084a62996a26a098ab81c33b46024cfce7ce1911"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    ],
+    "originalHostDeadlineUtc": "2026-11-14T18:24:22.653503+00:00",
+    "proofStartedUtc": "2026-11-14T17:13:51.823237+00:00",
+    "effectiveProofDeadlineUtc": "2026-11-14T18:13:51.823237+00:00",
+    "executionStopDeadlineUtc": "2026-11-14T18:13:36.823237+00:00",
+    "cleanupReserveMs": 15000,
+    "nativeReproduction": {
+      "first": [
+        {
+          "path": "abg_physical_path.node",
+          "bytes": 52264,
+          "sha256": "1b6a1d8944275c98d84ba9b2124fda72b7942285fc7e64930ee00578130edb77"
+        }
+      ],
+      "second": [
+        {
+          "path": "abg_physical_path.node",
+          "bytes": 52264,
+          "sha256": "1b6a1d8944275c98d84ba9b2124fda72b7942285fc7e64930ee00578130edb77"
+        }
+      ],
+      "byteEqual": true,
+      "scope": "native payload only; not whole-release qualification"
+    },
+    "candidate": {
+      "archive": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/proof-01/archives/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+      "archiveSha256": "1f38412f95ec3625c81193f9673d725c7c2a7ebdd8d80b34ad1bc90209684662",
+      "archiveBytes": 10809848,
+      "installed": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/proof-01/installed/node_modules/@abiogenesis/typescript-tenant",
+      "files": 5298,
+      "byteEqual": true,
+      "manifestSha256": "2da77b75a66d34d39ac17ca1257d7548ec3caac2f75983acf9b6124ddfe69783",
+      "native": [
+        {
+          "path": "abg_physical_path.node",
+          "bytes": 52264,
+          "sha256": "1b6a1d8944275c98d84ba9b2124fda72b7942285fc7e64930ee00578130edb77"
+        }
+      ],
+      "qualified": false
+    }
+  },
+  "custody": {
+    "setupOwnedChanges": [
+      {
+        "path": ".abiogenesis/workspace-manifest.json",
+        "bytes": 1868,
+        "sha256": "bfa94afc6388acf75b5e0607e4c22a7cdb5a1f34437a40e830f3dd0d616b3866",
+        "canonicalValueDigest": "sha256:ec57c391d2798a50cf80aca7f0ec32906d8ccecafcb3c05490b694aa3f9f26a7",
+        "attribution": "existing imported-create setup owner; no native write grant",
+        "custodyRecordSha256": "14ef511ab4041b5b87a6ab6f9169d38ddb81c9d29efaec07676b75035e594ca1",
+        "createInvocationRef": "invocation://abiogenesis/32ddc146169baa0196a23f425d768951cc2938ef21826e861b7fc2a9ad66abc1",
+        "preDispatchSetupPhaseUtc": "2026-11-14T16:25:29.703Z",
+        "dispatchPhaseUtc": "2026-11-14T16:25:31.045Z",
+        "actorStartedUtc": "2026-11-14T16:25:34.700Z",
+        "laterObservationUtc": "2026-11-14T16:28:38.707487+00:00",
+        "verified": true
+      }
+    ],
+    "nativeScratchNotPublished": [
+      "build_tenants/abiogenesis/typescript/qualification-scratch/rc14-b21-native-01/abg_physical_path.d",
+      "build_tenants/abiogenesis/typescript/qualification-scratch/rc14-b21-native-01/closure-headers.txt",
+      "build_tenants/abiogenesis/typescript/qualification-scratch/rc14-b21-native-01/dependency.stderr",
+      "build_tenants/abiogenesis/typescript/qualification-scratch/rc14-b21-native-01/driver-jobs.txt",
+      "build_tenants/abiogenesis/typescript/qualification-scratch/rc14-b21-native-01/input-rows.json"
+    ],
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01",
+    "rawEvidenceNotPublished": true,
+    "sourceCommitExcludesSetupManifestAndScratch": true
+  },
+  "proofSuccessor": {
+    "mainCheckpoint": "70de9e928091b31c3a8a61844d435a304c69dafc",
+    "acceptancePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/PROOF_CONTROL_SUCCESSOR_ACCEPTANCE.json",
+    "acceptanceSha256": "9ff64ae0e63d285ce96305a30dacd07a73c68211456ed87ba01163db16588081",
+    "exactExternalControlsVerifiedBeforeProof": 12
+  },
+  "rawEvidenceReferences": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/LAUNCH.json",
+      "bytes": 3393,
+      "sha256": "ff282adc918cbbcf2aad215d9713db96577988d5550d09f1da190e89c15cc385"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/CONTROL_START.json",
+      "bytes": 720,
+      "sha256": "1d3649cd8d7dcb6964ecd4bbc02227db7c574b54c43835363b69b6d92f6f0f2f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/HOST_RETURN.json",
+      "bytes": 535,
+      "sha256": "303507875f2c41c577e1982ee4e729df31f7d79e24a5e8d953d54570171fee6d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/FINAL.json",
+      "bytes": 861,
+      "sha256": "3fb205c28d66f4cfcf2fbd22443e159b9fd17d7c151c4438767d733c982e3e9a"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/runtime/FRESH_READBACKS.json",
+      "bytes": 5717,
+      "sha256": "9b5fec57b2c9fbc9bc21495cc1ae3be4491f7c8a8dda864fb04ab2038e85d95e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/AUTHOR_REPORT.json",
+      "bytes": 14588,
+      "sha256": "0ce4d2609726dccc93648c89a9ddc8e9647d42d105eb8b31d1d0c6c84938957c"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/PROOF_SUCCESSOR_EXECUTION_BINDING.json",
+      "bytes": 2580,
+      "sha256": "850ddd5c5feebae3788995ae9166cde0f6e5e28ebae76dd5d173acc00e7cd219"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/SOURCE_PREIMAGE.json",
+      "bytes": 431353,
+      "sha256": "51f6441c65d2a480066de23375efefaead89da932de4d36711620565803adc19"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/proof-01/SOURCE_POSTIMAGE.json",
+      "bytes": 319765,
+      "sha256": "753e314c805851f40a0838a7d6bdb4f2d5cf92699fe4cf0ea5a0ef54f899c771"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/proof-01/SETUP_CUSTODY_VERIFICATION.json",
+      "bytes": 889,
+      "sha256": "2dfed4fca7604699a60a5919ca8263522d5790b4609ccbb5d9b4480894f56a32"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/proof-01/RETURN.json",
+      "bytes": 2583,
+      "sha256": "2536152f4f8351f24bf8170d2b7c73884efc1f28aa05cb7fcd9feed31b948aac"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/proof-01/CANDIDATE.json",
+      "bytes": 781,
+      "sha256": "ea67b8e0fca67f970bf50257d2282b53d8e45a2d85c4b8d1a293c905992a7a38"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/proof-01/NATIVE_REPRODUCTION.json",
+      "bytes": 442,
+      "sha256": "a787cbb1486762432afef870f73f19bf3c363fe85b330d84955f2477dfa74403"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/proof-01/NATIVE_INPUT_IDENTITY.json",
+      "bytes": 45707,
+      "sha256": "3cd1285e77797cfc9764b238ebf57739bd8a841e8521374c38fba7a2e2ed4613"
+    }
+  ],
+  "limits": [
+    "Operator mechanical evidence only; no independent semantic assurance, whole-release qualification, Product publication or human acceptance.",
+    "Darwin arm64 and Node24.7.0 observed only. Node-API8 target is declared, not a Node20 execution proof. No unsupported-platform portability claim.",
+    "Six existing historical fixture gates remain skips, not passes or discharged obligations.",
+    "Generated full qualification/resource inventories remain for the composed final source. Proof archive retains predecessor rc.13 version; it is not an RC14 cut.",
+    "Author-reported gaps are preserved separately and require Root disposition. Later bounded proof supplies only the specifically recorded build, selected-tests, native-reproduction and installed-owner evidence.",
+    "No post-return source repair, provider/proof retry, main integration or push by this Operator."
+  ]
+}

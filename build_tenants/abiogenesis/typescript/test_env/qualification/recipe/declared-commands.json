@@ -36,6 +36,21 @@
       "expectedReports": []
     },
     {
+      "commandId": "command://abiogenesis/qualification/build-native",
+      "role": "build",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "scripts/build-native.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": {
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+      },
+      "timeoutMs": 120000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
       "commandId": "command://abiogenesis/qualification/build-product-manifest",
       "role": "build",
       "executable": "/opt/homebrew/bin/node",

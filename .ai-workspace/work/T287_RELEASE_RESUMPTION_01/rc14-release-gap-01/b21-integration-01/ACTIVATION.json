@@ -1,0 +1,53 @@
+{
+  "id": "RC14-B21-ROOT-SOURCE-CHECKPOINT-001",
+  "role": "Separate Root integration Writer, then return to Executive",
+  "recordedUtc": "2026-11-14T17:33:55.035926+00:00",
+  "authority": "Owner RC13-built RC14 repair and main/push checkpoint mandate; no raw evidence publication",
+  "mainParent": "9b65167583bf9ceb9c0fb076e8d9b4a65471b628",
+  "sourceCommit": "ad6c195f56ebeea0f8cd1a620a0346a26a5c0667",
+  "deliveryCommit": "074e45d9cb16e7ae841cc209a5069c431bc579ca",
+  "sourceRowsSha256": "9a720e408f20acd8e7331e8fd5861b0c1a299414ea0607220be0b1fcfb948c54",
+  "purpose": "Preserve exact19-file B21 source and3 compact Returns on main as an explicitly incomplete technical checkpoint; prepare bounded successor for demonstrated boundary failures",
+  "writeTerritory": [
+    "build_tenants/abiogenesis/typescript/code/native/abg_physical_path.c",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/physical_path_observation.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/physical_path_relation.ts",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/scripts/build-native.mjs",
+    "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/declared-commands.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t293-b21-physical-confinement.test.mjs",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-native-01",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-integration-01",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/STATUS.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/PLAN.md",
+    ".ai-workspace/tickets/active/T-293-qa-findings-of-the-consolidation-wave.md"
+  ],
+  "effects": [
+    "Merge exact frozen worker subject without new implementation",
+    "Verify selected source rows and conserved B12 rows; record existing findings and narrow evidence",
+    "Normal main push with direct parity verification"
+  ],
+  "stops": [
+    "Unexpected conflict or source delta",
+    "Hash mismatch",
+    "Changed Product or authority"
+  ],
+  "exclusions": [
+    "No technical closure of B21",
+    "No new Product/test implementation",
+    "No raw captures, scratch, archives, other refs, force push, qualification or release claim"
+  ]
+}

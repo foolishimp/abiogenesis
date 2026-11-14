@@ -1,0 +1,41 @@
+{
+  "id": "RC14-B21-ROOT-INCOMPLETE-CHECKPOINT-001",
+  "recordedUtc": "2026-11-14T17:35:12.813709+00:00",
+  "status": "SOURCE_CHECKPOINTED_WITH_OPEN_BOUNDARY_DEFECTS",
+  "sourceCommit": "ad6c195f56ebeea0f8cd1a620a0346a26a5c0667",
+  "deliveryCommit": "074e45d9cb16e7ae841cc209a5069c431bc579ca",
+  "mainParent": "9b65167583bf9ceb9c0fb076e8d9b4a65471b628",
+  "integrationRelation": "All19 B21 source rows and all11 accepted B12 source rows exactly equal their frozen reviewed bytes in index",
+  "sourceRowsSha256": "9a720e408f20acd8e7331e8fd5861b0c1a299414ea0607220be0b1fcfb948c54",
+  "deliverySha256": "4e5e1cefe6b0647b498abcc8207368429fd2776aea38fec69d5491f0efbc1b0f",
+  "proof": {
+    "cases": 184,
+    "pass": 178,
+    "skip": 6,
+    "fail": 0,
+    "wholeFiles": 11,
+    "retries": 0,
+    "commands": 17,
+    "nativeBinaryByteEqual": true,
+    "archiveInstallFilesByteEqual": 5298,
+    "receiptSha256": "2536152f4f8351f24bf8170d2b7c73884efc1f28aa05cb7fcd9feed31b948aac"
+  },
+  "sourceReview": {
+    "reviewer": "/root/rc14_release_proof",
+    "completeBoundaryClosure": "falsified",
+    "findings": [
+      "C0 inspectCommitLocus invokes target content read before physical exclusion; C2 helper uses it",
+      "C2 helper omits host directional mutable-roots versus Product-root boundary"
+    ],
+    "additionalSupportedFinding": "Default direct Testing can observe selectedPaths outside readRoots without authenticated ProductInstall roots",
+    "semanticJobInstallInputOmission": "Parent/context reachability follow-up pending",
+    "buildInputPackageReview": "Separate frame running"
+  },
+  "limits": [
+    "No B21 technical closure",
+    "No final composed-source proof",
+    "Six retained fixture gates open",
+    "No RC14 cut, installed qualification, human acceptance or release"
+  ],
+  "rawEvidencePublished": false
+}

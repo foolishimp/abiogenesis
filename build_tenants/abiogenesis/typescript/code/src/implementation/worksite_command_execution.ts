@@ -56,6 +56,8 @@ import {
 import { admitIJsonValue } from "../shared/i_json.js";
 import { classifyPathRelation, pathRelation, pathStrictlyWithin, pathWithin } from "../shared/path_confinement.js";
 import { spelledAsStored, storedSpelling } from "../shared/stored_spelling.js";
+import { runPhysicalSync } from "../shared/physical_path_observation.js";
+import { physicalSeparationProgram, type PhysicalRelationMode } from "../shared/physical_path_relation.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitJson } from "../shared/admit/index.js";
 import type {
@@ -229,6 +231,22 @@ function plannedCanonicalPath(path: string): string {
   }
 }
 
+/** The shared physical relation at the synchronous C2 boundary. Demonstrated
+ * overlap and unproved separation both refuse before any effect. */
+function assertPhysicalSeparation(
+  targets: readonly string[],
+  protectedRoots: readonly string[],
+  mode: PhysicalRelationMode,
+  label: string,
+): void {
+  const finding = runPhysicalSync(physicalSeparationProgram({ targets, protectedRoots, mode }));
+  if (finding !== null) {
+    throw new TypeError(finding.separation === "overlap"
+      ? `${label} overlaps a protected workspace root (${finding.reason})`
+      : `${label}: protected-root separation cannot be established: ${finding.reason}`);
+  }
+}
+
 function assertFinalRootNotSymlink(path: string): void {
   try {
     if (lstatSync(resolve(path)).isSymbolicLink()) {
@@ -283,6 +301,7 @@ function observeWorksiteSubjectSync(
       throw new TypeError("protected subject has a hard-link alias");
     }
   }
+  assertPhysicalSeparation([target], protectedRoots, "contained", "protected subject");
   const status = lstatSync(target);
   const bytes = readFileSync(target);
   const observation = constructWorksiteObservation({
@@ -327,6 +346,8 @@ function assertArchiveExecutionBoundary(
   )) {
     throw new TypeError("command execution archive root overlaps a protected workspace root");
   }
+  // The archive is recursive: physical equality, containment and enclosure refuse.
+  assertPhysicalSeparation([archiveRoot], nonProductRoots, "enclosing", "command execution archive root");
   const otherMutableRoots = [
     task.workspaceBinding.roots.eventLogRoot,
     task.workspaceBinding.roots.runtimeStateRoot,
@@ -336,6 +357,7 @@ function assertArchiveExecutionBoundary(
   if (otherMutableRoots.some((root) => pathWithin(pathRelation(productRoot, root)))) {
     throw new TypeError("command execution workspace mechanics overlap the Product root");
   }
+  assertPhysicalSeparation(otherMutableRoots, [productRoot], "contained", "command execution workspace mechanics");
   for (const path of [
     plan.attemptRoot,
     plan.helperPlan.taskManifestPath,

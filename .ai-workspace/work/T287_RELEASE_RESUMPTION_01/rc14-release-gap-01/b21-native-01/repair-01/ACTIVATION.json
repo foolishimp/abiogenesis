@@ -1,0 +1,121 @@
+{
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26",
+    "bytes": 5769
+  },
+  "provider": {
+    "agent": "claude",
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "version": "2.1.322 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "providerCallsAtMost": 1,
+    "protocol": "Use existing actual Claude owner path. No Codex-as-Claude wrapper or new provider feature."
+  },
+  "id": "RC14-B21-OWNER-REPAIR-NATIVE-001",
+  "role": "Separate Operator for setup/proof; actual pinned RC13 native Writer owns implementation",
+  "operator": "/root/b30_catalog_triage",
+  "decisionOwner": "Root under the owner-selected RC14 delivery and current fix RC14 instruction",
+  "sourceBinding": "Root supplies exact committed and pushed composed B12+B21 checkpoint after this grant is preserved; no provider before separate control acceptance",
+  "sourceWorktree": "/private/tmp/abg-rc14-b21-repair-20261115-01",
+  "sourceBranch": "codex/rc14-b21-owner-repair-20261115",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01",
+  "changeClass": "realization_refactor at existing observation/effect owners; no Product or Public contract change",
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/shared/worksite_command_physical_boundary.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t293-b21-physical-confinement.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t293-b21-owner-boundaries.test.mjs",
+    "build_tenants/abiogenesis/typescript/qualification-scratch/rc14-b21-repair-01"
+  ],
+  "operatorWriteTerritory": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-native-01/repair-01",
+    "/private/tmp/abg-rc14-b21-repair-20261115-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01",
+    "local registration for this named branch/worktree"
+  ],
+  "operatorEffects": [
+    "Prepare one fresh isolated worktree at supplied pushed composed HEAD with exact frozen dependency/native inputs",
+    "Adapt maintained installed-Public RC13 native-work route and already accepted physical-topology observer; fresh resources and exact finite W/protected roots",
+    "Return compact controls, complete native task, prospective proof populations and clocks to Root BEFORE provider dispatch",
+    "After Root control acceptance run one bounded native author; Operator must not implement Product/test code",
+    "Freeze source, build/prove in external raw-root mirrors; retain original failed evidence and stop at first failure",
+    "Commit authored source and compact Return on worker branch only; no main merge/push"
+  ],
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 3600000,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 7200000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 16777216,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "oldRc13CampaignClockReused": false,
+    "proofCampaignMs": 3600000,
+    "perBuildMs": 300000,
+    "perTestFileMs": 600000
+  },
+  "preflight": {
+    "state": "PREPARE_ONLY_RETURN_TO_ROOT_BEFORE_PROVIDER",
+    "observer": "Reuse exact b21-native-01/physical-topology.py SHAeb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31, bounded controlled ASCII layout only",
+    "required": "Fresh actual root topology immediately before dispatch; include installed ABI container and all binding/install roots; preserve original setup-owned manifest custody and preimage instead of blanket exclusion"
+  },
+  "nativeInstructions": [
+    "No provider calls, subagents, reviewer activation, Git mutation, build/test/pack/install by native Writer. Read-only Git and compiler/header inspection are allowed.",
+    "Use the exact write scope; preserve all unaffected Product, authority, event and refusal meanings. Return a gap for missing scope, not an unauthorized edit.",
+    "Return the Product summary/gaps report once, stop editing. Operator owns independent mechanical proof.",
+    "Move physical exclusion ahead of target content acquisition in inspectCommitLocus; preserve later parent/target currentness and close/error/partial-effect semantics.",
+    "Apply complete existing directional Product-root boundary in helper independently. Common helper/computation placement is Writer-owned; optional shared/worksite_command_physical_boundary.ts may avoid divergent host/helper policy. Do not introduce a second authority, caller flag, serialized task field or generic filesystem framework.",
+    "Carry environment.productInstalls roots in default-library selected subject observation. At both semantic_job calls pass the current.protectedInstallRoots already derived by operating(owner). Retain exact admitted predecessors, historical contexts, identities and digest comparisons; do not refresh them or re-resolve installs.",
+    "Tests must invoke actual helper/owner paths. Count protected target content reads and forbidden effects; final unchanged trees or shared relation parity alone are insufficient. Negative Data aliases and lawful sibling positives are required.",
+    "Use maintained direct Testing rc7FixedRoute component harness and existing Public direct Testing/UAT setup where applicable; label substituted admission premises honestly. A synthetic environment is not Public proof.",
+    "Native module, native build pins, package version and generated qualification inventories are outside this repair. Return gaps if additional source is needed."
+  ],
+  "proof": [
+    "First cheap whole-file new actual-owner discriminator on newly built candidate, exact case names/population; no negative name patterns or duplicate passing population",
+    "Actual async C0 subject Data-alias refusal before read plus lawful sibling; preserve absent target, stored spelling, symlink/hard-link and currentness refusals",
+    "Actual C2 helper directional Product alias negative and lawful sibling positive with no protected read/snapshot/result/command effects; retain host and completion/currentness assertions",
+    "Direct Testing installed-root protected file outside readRoots refuses before read/task preparation, plus lawful direct Testing; semantic-job existing authenticated input carried at both real subject call sites",
+    "Retain relevant B04/B05 and whole C2/changed default-library/semantic-job populations once; bind exact declared gate prerequisites, not assumed false skip flags",
+    "Ordinary composed-source build and offline candidate install/actual native load; preserve existing native binary proof only with exact input/source/output conservation, otherwise return for new selection",
+    "Actual native resource close and fresh Public result/replay; inspect actual provider output and command audit; no provider/repair/proof automatic retry",
+    "At first failure retain evidence and return to Root; original finite clocks clipped at original host deadline with cleanup reserve, not reset",
+    "Return exact source rows, command identities, case counts/skips, counterexamples and limitations; no whole release qualification"
+  ],
+  "exclusions": [
+    "No direct Operator-authored production/test repair",
+    "No immutable RC13/dependency mutation or model/provider fallback",
+    "No Product/requirement change, version bump, global binding policy, shared JSON checker rewrite or broad filesystem framework",
+    "No main write/merge/push by worker; no raw evidence, archives, LFS, other refs or force publication",
+    "No broad/release qualification, Product publication or human acceptance",
+    "No repair to native toolchain/qualification scripts in this owner slice; separate closed build-frame findings return to Root"
+  ],
+  "admission": "Existing owner RC13-built RC14 mandate and current fix RC14 instruction; Root conjoins closed B21 Product/Design/Effect/Foundation and B12 Public-owner triage. Accepted HOW is in the pushed activation checkpoint.",
+  "targetTruth": "At actual C0/C2/direct-Testing/semantic-job owners, exclude protected content before reads and preserve independent directional helper guard and complete authenticated installed-root inputs.",
+  "selection": "../../integration-01/B21_SOURCE_REVIEW_CONJUNCTION.md",
+  "owningDesign": [
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md"
+  ],
+  "returnTo": "Root Executive, exact frozen source and bounded results/gaps; stop at first failure or completed return",
+  "recordedUtc": "2026-11-14T17:36:23.328842+00:00"
+}

@@ -1,0 +1,67 @@
+{
+  "sourceReport": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/AUTHOR_REPORT.json",
+    "bytes": 14588,
+    "sha256": "0ce4d2609726dccc93648c89a9ddc8e9647d42d105eb8b31d1d0c6c84938957c"
+  },
+  "status": "author_reported_gaps_not_independent_findings",
+  "gaps": [
+    {
+      "id": "A01",
+      "text": "Nothing was compiled, built, type-checked, linted or tested. TypeScript correctness of the new modules and edits, compilation and linking of the C addon, the build-native script, and every new or changed test assertion are unverified. Errors that only a build or test run would show may exist."
+    },
+    {
+      "id": "A02",
+      "text": "Generated qualification files outside the write scope were not refreshed. `verification-recipe.json` (command order and test members) and `inventory.json` do not list the new build-native command or t293. The 'candidate pack reproduced: 5293 files' predicate will change, because the pack gains the .node binary plus compiled .js and .d.ts files for two new modules. Generated inventories and material selection are not refreshed."
+    },
+    {
+      "id": "A03",
+      "text": "Callers outside the write scope still call `observeWorksiteSubject` with binding roots only, not install roots: `default_library.ts:120` and `semantic_job.ts:326/341`. The physical relation applies to binding roots there."
+    },
+    {
+      "id": "A04",
+      "text": "On any host other than Darwin arm64 with the built addon (including Linux, and Node 20, which was not available to check), every C0, native, context and C2 boundary now refuses with `invalid_coordinate`. The B05 t292 'existing physical branch proves separation' assertions now hold only on the declared target. The producer build itself fails on non-Darwin-arm64 hosts."
+    },
+    {
+      "id": "A05",
+      "text": "Cross-mount pairs are always indeterminate. A protected binding or install root on another volume (for example the sealed System volume or an external disk) makes every comparison refuse, including every context node."
+    },
+    {
+      "id": "A06",
+      "text": "Locating an attachment trusts the kernel mount path of its parent at observation time. A parent renamed after mounting is detected only by the stored-name and identity rechecks. An unhandled mount whose parent cannot be opened is treated as unknown and therefore relevant, which refuses every relation on that host."
+    },
+    {
+      "id": "A07",
+      "text": "Agreement between the two mount snapshots is not a mount lock. Changes to the namespace after validation are not excluded, matching the design's stated limit."
+    },
+    {
+      "id": "A08",
+      "text": "Which attachments count as 'handled' (local, non-union, unique APFS/HFS block device distinct from the anchors) is my implementation choice; a Reviewer should check it against the design's 'unhandled' wording."
+    },
+    {
+      "id": "A09",
+      "text": "C2 owner-level alias tests were not authored for the host realize/complete paths or the helper process. C2 is covered only through the shared relation under both drivers. Whether a sandboxed helper may call getfsstat and F_GETPATH is unverified."
+    },
+    {
+      "id": "A10",
+      "text": "Native closure limits: the closure comes only from `clang -M` and `-###`. System dylibs loaded by clang and ld, and the node binary, are not bound. libLTO is bound even though no LTO is used. Clean-location byte equality, the determinism of the ad-hoc signature and UUID, actual install and load, and real observations from the installed addon are all unproved. The Mach-O check covers only magic, CPU type and file type."
+    },
+    {
+      "id": "A11",
+      "text": "The case where the addon file is actually absent is simulated by patching the native exports to throw. A real missing or incompatible module load is not exercised by any test."
+    },
+    {
+      "id": "A12",
+      "text": "Context reads now do a native observation and a population re-read per node. The cost on large contexts is unmeasured."
+    },
+    {
+      "id": "A13",
+      "text": "`nativeWorkReacquisitionContextCurrent` is re-exported from `abg/index.ts` and now has a required second `environment` parameter. No public contract inventory references it, but this is a signature change on an exported module."
+    },
+    {
+      "id": "A14",
+      "text": "The owner-reuse and normalization reacquisition tests stay gated by their retained fixtures. The predecessor RC13 build ignores the added argument."
+    }
+  ],
+  "laterEvidence": "Build, selected test population, two clean-location native builds, offline archive/install byte equality and installed native owner checks subsequently passed. Other claims and gaps have not been adjudicated by this Operator."
+}

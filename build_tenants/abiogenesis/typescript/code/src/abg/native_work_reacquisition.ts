@@ -28,7 +28,7 @@ import { runtimeEventBodiesAtPrefix, unscopedRuntimeEventPrefix,
 import { projectClosedGraphCallTerminalAtDurablePrefix } from "./project_read_ports.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix, hasAdmittedGovernanceSourceUse,
   hasAdmittedGovernanceCoveredSourceUse, governanceHistoricalDeclarationReferenceAtPrefix } from "./invocation_execution_truth.js";
-import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
+import { projectExactPrefixWorkspaceEnvironment, type ExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
 import { projectWorksiteRevisionBindingCover } from "./worksite_revision.js";
 import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix } from "./c_call.js";
 import { rehydrateAdmittedImplementationSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
@@ -94,7 +94,9 @@ function deriveNativeWorkReacquisitionTask(current: DurablePrefixCoordinate,
   if (source === null) return refused(refusal, stage, "command_source");
   if (source.sourceResult.eventId !== terminal.producer.resultAdmissionEventRef ||
     source.sourceJudgment.eventId !== terminal.producer.judgmentAdmissionEventRef) return refused(refusal, stage, "result_judgment_identity", { resultAdmissionEventRef: source.sourceResult.eventId, judgmentAdmissionEventRef: source.sourceJudgment.eventId });
-  return { task, source };
+  // The authenticated current environment travels with the task so that its
+  // context-current check excludes every admitted install root; no new lookup.
+  return { task, source, environment };
   } catch (error) {
     if (refusal === undefined) throw error;
     return refused(refusal, stage, "caught", {}, error);
@@ -284,14 +286,21 @@ function deriveAuthenticatedNativeWorkReacquisition(basis: NativeWorkReacquisiti
   const derived = deriveNativeWorkReacquisitionTask(basis.predecessorPrefix, prefix, input, basis, declarationProof, refusal);
   if (derived === null) return null;
   if (derived.source.sourceResult.runId === occurrence.call.runId) return refused(refusal, "native_source_run", "historical_run", { sourceResultEventRef: derived.source.sourceResult.eventId });
-  return { ...occurrence, task: derived.task };
+  return { ...occurrence, task: derived.task, environment: derived.environment };
 }
 /** Read-only existing physical observation owner; all read-scope files, not just C2 sources.
- * Fresh physical facts are compared by identity, independent of body carriage. */
-export async function nativeWorkReacquisitionContextCurrent(request: NativeWorksiteCommandReacquisitionRequest): Promise<boolean> {
+ * Fresh physical facts are compared by identity, independent of body carriage.
+ * The environment is the one authenticated with the reacquisition; its exact
+ * A/W must match the request and every admitted install root is excluded. */
+export async function nativeWorkReacquisitionContextCurrent(request: NativeWorksiteCommandReacquisitionRequest,
+  environment: ExactPrefixWorkspaceEnvironment): Promise<boolean> {
+  if (environment?.kind !== "exact_prefix_workspace_environment" ||
+    !same(environment.workspaceAuthorityBasis, request.workspaceAuthorityBasis) ||
+    !same(environment.workspaceBinding, request.workspaceBinding)) return false;
   const { readRoots, maxFiles, maxBytes } = request.currentContext;
   const current = await observeWorksiteContext({ workspaceAuthorityBasis: request.workspaceAuthorityBasis,
-    workspaceBinding: request.workspaceBinding, readRoots, maxFiles, maxBytes });
+    workspaceBinding: request.workspaceBinding, protectedInstallRoots: environment.productInstalls.map(install => install.installedRoot),
+    readRoots, maxFiles, maxBytes });
   return isWorksiteContextObservation(current) && sameWorksiteContextIdentity(current, request.currentContext);
 }
 /** The optional owner coordinate only reidentifies an already authenticated

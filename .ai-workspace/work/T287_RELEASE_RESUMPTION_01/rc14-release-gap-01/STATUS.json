@@ -1,5 +1,5 @@
 {
-  "status": "B12_TECHNICALLY_ACCEPTED_B21_TWO_OWNER_REPAIRS_SELECTED_PENDING_TRIAGE",
+  "status": "B12_CLOSED_B21_INCOMPLETE_CHECKPOINT_OWNER_REPAIR_PREPARING",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -27,7 +27,7 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T17:32:22.933261+00:00",
+  "recordedUtc": "2026-11-14T17:36:23.329527+00:00",
   "nativeAuthorState": "B12 and B21 native authors returned successfully; actual resource close and fresh result/replay. No native author running.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
@@ -35,7 +35,9 @@
     "finding": "Unmatched lexical ancestor lists do not prove separation across the observed protected-Data bridge",
     "productionRepairStarted": true,
     "nextAuthorPreflight": "Historical B31 ancestry-only topology helper is not reusable as a separation proof",
-    "rootAcceptance": "integration-01/B21_PREPARATION_ACCEPTANCE.json"
+    "rootAcceptance": "integration-01/B21_PREPARATION_ACCEPTANCE.json",
+    "sourceQaConjunction": "integration-01/B21_SOURCE_REVIEW_CONJUNCTION.md",
+    "checkpoint": "b21-integration-01/CHECKPOINT.json"
   },
   "b13": "Three proposed-design wording rows corrected; no production change",
   "implementationActivations": {
@@ -60,7 +62,9 @@
     "actualResourceClose": true,
     "freshResultAndReplay": "result; run closed",
     "sourceReviewActivation": "integration-01/B12_SOURCE_REVIEW_ACTIVATION.json",
-    "sourceCommit": "124be1e3242f117fe4e8d480f982f9177b8c9332"
+    "sourceCommit": "124be1e3242f117fe4e8d480f982f9177b8c9332",
+    "mainMerge": "9b65167583bf9ceb9c0fb076e8d9b4a65471b628",
+    "directRemoteParityVerified": true
   },
   "b21Native": {
     "sourceHead": "aa730058e30f3f4fd6be9f4e306ecc1275d9eb93",
@@ -128,5 +132,11 @@
     "archiveInstallFiles": 5298,
     "archiveInstallByteEqual": true,
     "sourceQa": "Two C2 boundary findings; no qualification closure"
+  },
+  "b21Repair": {
+    "activation": "b21-native-01/repair-01/ACTIVATION.json",
+    "state": "CONTROLS_PREPARATION_ONLY",
+    "scope": "Pre-read physical guard; helper directional policy; Default Testing and two semantic-job authenticated install inputs",
+    "providerStarted": false
   }
 }
