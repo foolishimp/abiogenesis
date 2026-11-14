@@ -1,0 +1,89 @@
+{
+  "kind": "local_rc13_installed_owner_smoke",
+  "mode": "apply",
+  "status": "INSTALLED_OWNER_SMOKE_CLOSED",
+  "startedUtc": "2026-11-14T13:08:35.656Z",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant",
+  "installRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13/installation/INSTALL_RECORD.json",
+    "bytes": 6225,
+    "sha256": "aea9dded1d81ebc50342db25ae72e25a1479901d3ca2fceae149577039a31d45"
+  },
+  "cutRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13/CUT_RECORD.json",
+    "bytes": 8248,
+    "sha256": "a380c8fb78ce78bb0cf25f4dc287d719cc3f8670543c55fbc5d1ff378e619036"
+  },
+  "archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "bytes": 10793225,
+    "sha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0"
+  },
+  "nativeTransportInvoked": false,
+  "providerCalls": 0,
+  "qualified": false,
+  "version": "5.0.0-rc.13",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.13",
+  "artifactDigest": "sha256:12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0",
+  "verification": "verified",
+  "installedContentMatches": true,
+  "importedModules": [
+    "product",
+    "abg",
+    "public",
+    "validator"
+  ],
+  "publicFunctionDefinitions": 46,
+  "publicFunctionFamilyDigest": "sha256:ac845697338cda289b83c4e654365b5c45a07ca317d4caae048c8762e8216123",
+  "packageExportPaths": 15,
+  "expectedFrom": "cut record candidate facts and the installed adapter projection",
+  "resource": {
+    "eventLogPath": "/private/tmp/abg-rc13-pin-20261114/delivery/smoke/smoke-apply-20261114T130835649Z-11403/owner-resource/events.jsonl",
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-rc13-pin-20261114/delivery/smoke/smoke-apply-20261114T130835649Z-11403/owner-resource/events.jsonl",
+      "prefixLength": 0,
+      "prefixDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 881723776,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:8cb31f581807c49d4d9214cdd2413be5ec908e3aaa6ec4a5544d83db882c9de3"
+    }
+  },
+  "ownerReadEvents": 0,
+  "actualClose": {
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-rc13-pin-20261114/delivery/smoke/smoke-apply-20261114T130835649Z-11403/owner-resource/events.jsonl",
+      "prefixLength": 0,
+      "prefixDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 881723776,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:8cb31f581807c49d4d9214cdd2413be5ec908e3aaa6ec4a5544d83db882c9de3"
+    },
+    "reopenAuthority": {
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/private/tmp/abg-rc13-pin-20261114/delivery/smoke/smoke-apply-20261114T130835649Z-11403/owner-resource/events.jsonl",
+      "device": 16777231,
+      "inode": 881723776,
+      "eventLogDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "durableByteLength": 0,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+      "authorityDigest": "sha256:f7a50ddbf28bb06bbb00501121801a87474aeb5c5f9e1ff790e9b241bb4a5d37"
+    }
+  },
+  "closedEmptyLog": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "retained": "/private/tmp/abg-rc13-pin-20261114/delivery/smoke/smoke-apply-20261114T130835649Z-11403/owner-resource"
+  },
+  "endedUtc": "2026-11-14T13:08:54.405Z"
+}

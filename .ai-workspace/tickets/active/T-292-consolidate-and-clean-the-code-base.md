@@ -6,9 +6,9 @@
 - owner: abiogenesis
 - build_tenant: typescript
 - parent: T-287
-- updated_at: 2026-11-14
+- updated_at: 2026-11-15
 - current_activation: T292_CONSOLIDATION_01
-- current_package: broad-04 halted at file069 (B31), 68 files/530 passes/14 skips; user-selected main checkpoint and obsolete-worktree cleanup; history and delivery unperformed
+- current_package: RC13 locally delivered and pinned unqualified; source pushed; B31/B21 and remaining release proof carried by selected RC14 plan
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -51,8 +51,9 @@ attribution alone does not close it.
 - Each package runs in a sparse worktree created from local `main`. At
   acceptance its branch is merged back to local `main` and the worktree is
   deleted (owner rule, 2026-11-11).
-- Nothing is pushed. Pins are refreshed per package. A cut is made only at a
-  checkpoint the owner selects.
+- The owner now selects source-only main checkpoints and pushes. Raw execution
+  evidence and recovery archives stay local. RC13 is the pinned development
+  builder for selected RC14 work; older no-push/current-builder rules are historical.
 - Source packages that touch disjoint files may run side by side (from
   2026-11-12, after TD-36). Their Writers commit authored changes only. At
   each merge the Executive rebuilds on `main` and commits the regenerated

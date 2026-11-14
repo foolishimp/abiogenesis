@@ -1,0 +1,32 @@
+{
+  "id": "RC13-DELIVERY-AFTER-SOURCE-PUSH-001",
+  "role": "Writer/Operator",
+  "ownerInstruction": "Pin RC13, use it to build RC14; source checked in on main and pushed; raw evidence stays local",
+  "sourceCheckpoint": {
+    "head": "db0983c9e2f2609fcd155ad165d6e562e080025f",
+    "exitCode": 0,
+    "log": "/Users/jim/Library/Application Support/ABIogenesis/local-evidence/20261114-publication-correction/source-push.log",
+    "finishedUtc": "2026-11-14T13:03:39.419202+00:00",
+    "remoteMain": "db0983c9e2f2609fcd155ad165d6e562e080025f",
+    "directRemoteParity": true
+  },
+  "originalMeasuredSource": "a2626fa540d39cc9894b8a90895a3739b49b75fb",
+  "publicationSource": "f6729433bdfd9b404b61754742db8ed8e225e880",
+  "publicationSourceTree": "0c80b7ce8194edd20470f2bfd0fb3c491fe3f5e3",
+  "tenantTreeUnchanged": "8d9698a96aa4773353bbbf76b928dada5037d415",
+  "scope": "Run existing clean RC13 cut, archive-owner verify/install and installed smoke. No source/build policy changes. Record actual exact identities and operational pin; no qualification or broad completion claim.",
+  "expectedArchiveSha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0",
+  "remainingLimits": [
+    "B21 physical firmlink confinement defect",
+    "B31 component fixture failures; stopped broad-04, 68 files only",
+    "Old six-hour campaign expired; no retry or reset",
+    "Formal S01/S02/S03/S06/S07 and human acceptance incomplete"
+  ],
+  "effectTerritory": [
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13",
+    "/private/tmp/abg-rc13-pin-20261114/delivery",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01"
+  ],
+  "createdUtc": "2026-11-14T13:05:15.285164+00:00"
+}

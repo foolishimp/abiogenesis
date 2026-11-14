@@ -1,0 +1,14 @@
+{
+  "status": "SELECTED_AWAITING_PIN_CHECKPOINT_PUSH_AND_BOUNDED_EXECUTION",
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 5769,
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26"
+  },
+  "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
+  "implementationStarted": false,
+  "providerCalls": 0,
+  "triage": "B31 and B21 read-only frame returns conjoined; code and proof remain unperformed",
+  "rawEvidencePublication": false,
+  "recordedUtc": "2026-11-14T13:14:50.325246+00:00"
+}

@@ -1,0 +1,133 @@
+{
+  "kind": "local_unqualified_development_candidate_install",
+  "schemaVersion": "1",
+  "mode": "apply",
+  "status": "INSTALL_COMPLETE_UNQUALIFIED",
+  "startedUtc": "2026-11-14T13:07:49.501Z",
+  "version": "5.0.0-rc.13",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.13",
+  "cutRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13/CUT_RECORD.json",
+    "bytes": 8248,
+    "sha256": "a380c8fb78ce78bb0cf25f4dc287d719cc3f8670543c55fbc5d1ff378e619036"
+  },
+  "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13",
+  "output": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13/installation",
+  "archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "bytes": 10793225,
+    "sha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0"
+  },
+  "expected": {
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.13",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.13",
+    "artifactDigest": "sha256:12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0",
+    "productContentDigest": "sha256:ab3c4deeb7d7fa8c057a7d3ce49c2b310809dd54cea99b7702de02926c5e4955",
+    "manifestDigest": "sha256:75d1402d80d1d88f022e6644472a38c1ff22987c14c68f9857e279235b0bea4e",
+    "sourceCommit": "f6729433bdfd9b404b61754742db8ed8e225e880"
+  },
+  "endedUtc": "2026-11-14T13:08:35.536Z",
+  "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.13/ab3c4deeb7d7fa8c057a7d3ce49c2b310809dd54cea99b7702de02926c5e4955/6a9b7add2b881047bfa04f5c0aaec5ebbdd03b772dc21600555f82423799c8b9",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant",
+  "installedCli": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "members": 5293,
+  "installedFiles": 5293,
+  "installedEqualsArchive": true,
+  "hostFilesOutsideInstalledRoot": [
+    "node_modules/.package-lock.json",
+    "package-lock.json",
+    "package.json"
+  ],
+  "owners": {
+    "imported": "archive bootstrap extraction",
+    "verification": "verified",
+    "lock": "resolved_product_lock",
+    "installation": "materialized",
+    "installCandidateInLock": true,
+    "installedContentMatches": true
+  },
+  "records": {
+    "verification": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13/installation/verification.json",
+      "bytes": 14681117,
+      "sha256": "f9b7d974eb96eca24d3961479237eaeeb966bb89939b70cda4c4cb4e245985e4"
+    },
+    "resolvedLock": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13/installation/resolved-lock.json",
+      "bytes": 4256559,
+      "sha256": "4d6b3712604e2eb8e4c76e4f328a48d4d4d92d170a16ebf85c65123fc83e0eed"
+    },
+    "installation": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13/installation/installation.json",
+      "bytes": 3947878,
+      "sha256": "d343d8ea6b7b1b0dffe8298ccfcdd011fe582853dcda38dd00955b5cbeab9b71"
+    },
+    "payloadCorrespondence": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13/installation/payload-correspondence.json",
+      "bytes": 1029059,
+      "sha256": "91a0e8ecee1567783a7e6298cf3a85010cf494ce90c5237501ce52c228fe9c3b"
+    }
+  },
+  "toolchain": {
+    "node": {
+      "name": "node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0",
+      "execPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    },
+    "npm": {
+      "name": "npm",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    },
+    "tar": {
+      "name": "tar",
+      "path": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    },
+    "git": {
+      "name": "git",
+      "path": "/usr/bin/git",
+      "realPath": "/usr/bin/git",
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    }
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "TMPDIR": "/private/tmp/abg-rc13-pin-20261114/delivery/install/install-apply-20261114T130749176Z-10923/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_userconfig": "/private/tmp/abg-rc13-pin-20261114/delivery/install/install-apply-20261114T130749176Z-10923/npm/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-rc13-pin-20261114/delivery/install/install-apply-20261114T130749176Z-10923/npm/npm-global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-rc13-pin-20261114/delivery/install/install-apply-20261114T130749176Z-10923/npm/cache",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false"
+  },
+  "installWallMs": 21590,
+  "claims": {
+    "local": true,
+    "unqualified": true,
+    "published": false,
+    "providerCalls": 0,
+    "nativeRuns": 0,
+    "tagsCreated": false,
+    "selectorChanged": false,
+    "pinChanged": false,
+    "qualificationTransferredFromEarlierCandidates": false
+  },
+  "claim": "Local install of the unqualified development candidate 5.0.0-rc.13 (sha256:12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0) through the Product's own verify, lock, install and content owners. It claims nothing about qualification, native workflows or earlier candidates."
+}

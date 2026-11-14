@@ -1,0 +1,91 @@
+{
+  "status": "RC13_OPERATIONAL_BUILDER_PINNED_UNQUALIFIED",
+  "result": "satisfied",
+  "recordedUtc": "2026-11-14T13:14:50.325246+00:00",
+  "decisionOwner": "Root under exact owner instruction",
+  "recordedBy": "Root, separately activated Writer/Operator",
+  "ownerInstruction": "lets pin rc13 then, using it is testing it while we build rc14 as the gap to take us to 5.0.0 release. Everything must be checked in before work begins and eveything in main and pushed",
+  "sourcePublicationCorrection": "Raw execution evidence stays local under owner correction; source checkpoint db0983c9e was pushed before delivery.",
+  "selection": "Installed immutable RC13 is the project/work operational builder for RC14. Every RC14 execution must consume this pin and installed Public owners. No machine-global selector is changed.",
+  "version": "5.0.0-rc.13",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.13",
+  "sourceCommit": "f6729433bdfd9b404b61754742db8ed8e225e880",
+  "sourceTree": "0c80b7ce8194edd20470f2bfd0fb3c491fe3f5e3",
+  "originalMeasuredSource": "a2626fa540d39cc9894b8a90895a3739b49b75fb",
+  "publicationMapping": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/publication-correction/COMMIT_MAP.txt",
+  "tenantTreeEquality": "8d9698a96aa4773353bbbf76b928dada5037d415",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant",
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13",
+  "archive": {
+    "name": "abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "bytes": 10793225,
+    "sha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0",
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz"
+  },
+  "productContentDigest": "sha256:ab3c4deeb7d7fa8c057a7d3ce49c2b310809dd54cea99b7702de02926c5e4955",
+  "canonicalManifestDigest": "sha256:75d1402d80d1d88f022e6644472a38c1ff22987c14c68f9857e279235b0bea4e",
+  "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.13/ab3c4deeb7d7fa8c057a7d3ce49c2b310809dd54cea99b7702de02926c5e4955/6a9b7add2b881047bfa04f5c0aaec5ebbdd03b772dc21600555f82423799c8b9",
+  "resolvedLockDigest": "sha256:6a9b7add2b881047bfa04f5c0aaec5ebbdd03b772dc21600555f82423799c8b9",
+  "rawPackage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant/package.json",
+    "bytes": 9754,
+    "sha256": "bb3cc328ff68902bbc51767fcde40fb2045b41cae4c32592ec1d87383df77a88"
+  },
+  "rawProductToolchainManifest": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+    "bytes": 3100640,
+    "sha256": "00e0647836f72999ab899375067c4093a79d3cec07b1e063e0fb937f88019410"
+  },
+  "cutRecord": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/CUT_RECORD.json",
+    "bytes": 8248,
+    "sha256": "a380c8fb78ce78bb0cf25f4dc287d719cc3f8670543c55fbc5d1ff378e619036"
+  },
+  "installRecord": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/INSTALL_RECORD.json",
+    "bytes": 6225,
+    "sha256": "aea9dded1d81ebc50342db25ae72e25a1479901d3ca2fceae149577039a31d45"
+  },
+  "installedOwnerSmoke": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/INSTALLED_OWNER_SMOKE.json",
+    "bytes": 4151,
+    "sha256": "13b74aba4355cdd34f40eed317132d6506ca868219e3d49eba6e73d9a1074694"
+  },
+  "archiveInstalledEquality": {
+    "members": 5293,
+    "installedFiles": 5293,
+    "payloadBytes": 69177953,
+    "inventoryDigest": "c3a3515d0f86cb5ac657b92290eeea9629f8d1f3e158dfef88b4cc27544d468a",
+    "archiveEqualsMeasuredRc13": true,
+    "generatedEqual": true,
+    "installedEqualsArchive": true,
+    "changedMembers": 0
+  },
+  "installedSmoke": {
+    "status": "INSTALLED_OWNER_SMOKE_CLOSED",
+    "ownerContentVerified": true,
+    "publicFunctionDefinitions": 46,
+    "packageExportPaths": 15,
+    "emptyResourceReadEvents": 0,
+    "resourceActuallyClosed": true,
+    "providerCalls": 0
+  },
+  "previousPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 7969,
+    "sha256": "8f09264b611d4686648965b5fd74ae034ddfd08016fd61f222f3e674f764869f"
+  },
+  "previousPinDisposition": "Historical RC11 builder selection remains evidence. This exact later owner selection supersedes its current-builder role, and the historical operational statement inside the immutable RC13 release claim. RC13 bytes are not edited.",
+  "qualified": false,
+  "publishedProduct": false,
+  "sourcePushed": true,
+  "globalSelectorChanged": false,
+  "rc14ImplementationStarted": false,
+  "limits": [
+    "B21 physical firmlink confinement defect remains. Establish physically isolated finite work scopes before using RC13 for development.",
+    "Broad-04 completed 68 files/530 passes/14 skips, then F04 file069 failed two cases. B31 fixture composition is diagnosed but not repaired.",
+    "The old six-hour campaign expired. No rerun, history completion, physical-witness completion or formal qualification is implied.",
+    "S01/S02/S03/S06, self-conformance, exact pre-RC and installed-RC qualification, actual human acceptance and post-publication evidence remain distinct open obligations.",
+    "Current native-author owner selects Claude. A shared Codex transport definition alone does not make Codex selectable on this route."
+  ]
+}
