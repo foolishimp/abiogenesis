@@ -1,0 +1,60 @@
+{
+  "id": "RC14-INSTALLED-FIRST-COMPOSITION-CONTROL-PREPARATION-001",
+  "role": "Separate preparation Operator/controls Writer; not Product implementation or assurance",
+  "operator": "/root/b29_vm_triage",
+  "recordedUtc": "2026-11-14T18:18:34.220647+00:00",
+  "authority": "Owner RC13-built RC14 delivery mandate; existing closed installed steel-thread and composition-control findings",
+  "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "frameUris": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#exact-basis",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  ],
+  "sourceCheckpoint": "244895231432a931409298195845b250ad32e0cb",
+  "purpose": "Prepare the smallest bounded external controls for deterministic installed-language smoke then first ordinary installed basic-cli Public composition, ready for exact final repaired artifact binding; do not expand into amendment or S06 implementation",
+  "worktree": "/private/tmp/abg-rc14-installed-prep-20261115-01",
+  "branch": "codex/rc14-installed-prep-20261115",
+  "writeTerritory": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01 authored compact controls and return"
+  ],
+  "sourceRoutes": [
+    "specification/PRODUCT.md selected S01/S03/S06/S07 boundaries",
+    "integration-01/INSTALLED_STEEL_THREAD_PREPARATION.md",
+    "integration-01/INSTALLED_COMPOSITION_CONTROL_FINDINGS.md",
+    "test_env/tests/installed-language-smoke.test.mjs and its maintained helpers",
+    "scripts/sandbox-uat.mjs and test_env/uat/{public-setup,runner,consumer,scenarios}.mjs",
+    "exact basic-cli fixture and oracle"
+  ],
+  "handoffs": [
+    "Root supplies exact pushed source checkpoint for preparation only",
+    "Operator returns frozen control commit, inventory and unresolved binding inputs",
+    "Root independently verifies controls and final candidate bindings before any build/install/test/provider execution"
+  ],
+  "permittedEffects": [
+    "Create isolated worktree and branch at exact supplied checkpoint",
+    "Read pinned source, instructions and retained compact records",
+    "Write minimal external orchestration controls only in declared territory; reuse existing library contracts and maintained helpers",
+    "Run syntax/static checks that do not import Product or launch tests/builds/providers",
+    "Commit only compact authored controls on worker branch and return"
+  ],
+  "constraints": [
+    "No final candidate identities invented or inherited from earlier proof archives",
+    "No raw evidence, archives, dependency/SDK copies or copied inventories committed",
+    "No new qualification schema, private event writer, workflow controller or host graph choice",
+    "Strict ordinary caller uses published package exports; distinguish private proof helper observations",
+    "Fresh prospective original campaign deadline, actual resource close and held/fresh Public reads; do not reuse expired clocks",
+    "Only deterministic installed smoke and basic-cli controls; richer amendment and keyed-accounting remain separately selected"
+  ],
+  "stops": [
+    "Any needed Product/test/maintained-tool source change returns for Root triage",
+    "Unexpected or out-of-scope source changes",
+    "Preparation exceeds15 minutes without ready minimal control return; return partial findings without execution",
+    "Exact frozen source or helper hash mismatch"
+  ],
+  "exclusions": [
+    "No Product imports/build/install/tests/provider execution",
+    "No edits in the two live author worktrees",
+    "No main integration or push by Operator",
+    "No qualification/publication/human acceptance claim"
+  ],
+  "returnTo": "Root Executive"
+}
