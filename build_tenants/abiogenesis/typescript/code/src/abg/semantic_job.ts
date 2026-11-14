@@ -323,7 +323,9 @@ async function observeDesignWorksite(basis: SemanticStageNativeBasis, input: unk
   for (const target of request.targets) {
     const subject = constructWorksiteSubject({ ...current, relativePath: target.relativePath, subjectUri: pathToFileURL(resolve(current.workspaceAuthorityBasis.canonicalRoot, target.relativePath)).href });
     if (subject.kind !== "worksite_subject") return null;
-    const observation = await observeWorksiteSubject(current.workspaceAuthorityBasis, current.workspaceBinding, subject);
+    // The live observation receives the current owner's complete protected
+    // inputs; historical provenance does not freeze later physical topology.
+    const observation = await observeWorksiteSubject(current.workspaceAuthorityBasis, current.workspaceBinding, subject, current.protectedInstallRoots);
     if (observation.kind !== "worksite_observation") return null;
     // The target bytes are the admitted envelope context's, as the saved
     // relation (`semanticJobSavedWorksite`) reads them; the live subject
@@ -338,7 +340,7 @@ async function observeDesignWorksite(basis: SemanticStageNativeBasis, input: unk
   }
   // Read-only members are exact context observations, never replacement targets.
   for (const dependency of deriveSemanticJobReadDependencies(original, current)?.members ?? []) {
-    const observed = await observeWorksiteSubject(current.workspaceAuthorityBasis, current.workspaceBinding, dependency.subject);
+    const observed = await observeWorksiteSubject(current.workspaceAuthorityBasis, current.workspaceBinding, dependency.subject, current.protectedInstallRoots);
     if (!canonicalEquals(observed, dependency.observation)) return null;
   }
   return { workspaceAuthorityBasis: current.workspaceAuthorityBasis, workspaceBinding: current.workspaceBinding, capabilityGrant: current.capabilityGrant,

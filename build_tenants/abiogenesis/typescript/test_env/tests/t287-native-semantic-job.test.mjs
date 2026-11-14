@@ -6,6 +6,9 @@ import { pathToFileURL } from 'node:url';
 import { genericLifecyclePublicationData } from '../support/t287-generic-job-lifecycle.mjs';
 import { ordinaryJob } from '../support/t287-generic-job-intake.mjs';
 import { worksiteFixture } from '../support/t287-generic-job-worksite.mjs';
+import fsPromises from 'node:fs/promises';
+import { syncBuiltinESMExports } from 'node:module';
+import { lstatSync, realpathSync } from 'node:fs';
 const root = process.env.ABI5_GENERIC_JOB_BUILD_ROOT ?? resolve(import.meta.dirname, '../..');
 const load = name => import(pathToFileURL(join(root, 'build/code/src', name + '.js')).href);
 const [p,g,m,n,ops,effects,owners,prefixes,immutable] = await Promise.all(['product/index','gtl/index','product/semantic_job',
@@ -375,4 +378,108 @@ test('native C2 retains assessed non-target dependencies without granting realiz
   assert.throws(()=>implementation.realizeWorksiteCommandExecution(c2,occurrence),/protected worksite observation changed/);
   await writeFile(join(env.canonicalRoot,path),original);}
  assert.equal(await readFile(join(env.canonicalRoot,dependency),'utf8'),'export const value = 7;\n');
+});
+
+// T-293 B21 component evidence: both live subject observations of the
+// semantic-job bridge (Design targets and read-only dependencies) receive the
+// authenticated owner's complete admitted install roots and refuse a held
+// install before reading it. Upstream authentication, prefix events and
+// predecessor projections are supplied component premises, as in the Design
+// budget case; the bridge, the actual C0 subject owner and the cold parent
+// effect run. Opens, path reads and handle content reads are counted at
+// node:fs/promises. No journal, runtime admission, actor, provider or
+// installed claim.
+test('B21 component: the semantic-job bridge observes targets and read dependencies under the held admitted install roots',async t=>{
+ const DATA='/System/Volumes/Data';
+ const aliasHolds=path=>{if(process.platform!=='darwin')return false;
+  try{const a=lstatSync(path,{bigint:true}),b=lstatSync(DATA+path,{bigint:true});
+   return a.dev===b.dev&&a.ino===b.ino&&realpathSync.native(path)===path&&realpathSync.native(DATA+path)===DATA+path;}catch{return false;}};
+ const watched=async run=>{
+  const names=['open','readFile','mkdir','writeFile','link','rename','unlink'],originals=Object.fromEntries(names.map(n=>[n,fsPromises[n]])),calls=[];
+  for(const name of names)fsPromises[name]=async(...args)=>{const path=String(args[0]);calls.push({syscall:name,path});const value=await originals[name](...args);
+   if(name==='open')for(const method of ['read','readFile','readv','readLines','createReadStream']){const original=value[method];
+    if(typeof original==='function')value[method]=(...rest)=>{calls.push({syscall:'content',path});return original.apply(value,rest);};}
+   return value;};
+  syncBuiltinESMExports();
+  try{return {result:await run(),calls};}finally{Object.assign(fsPromises,originals);syncBuiltinESMExports();}
+ };
+ const env=await fixture(t),dependency='config/value.mjs',dependencyPath=join(env.canonicalRoot,dependency);
+ await mkdir(join(env.canonicalRoot,'config'));await writeFile(dependencyPath,'export const value = 7;\n');
+ let current=env.envelope;
+ for(let i=0;i<4;i++){const value=candidate(current,i);if(i===3)value.design.dependencyPaths=[dependency];
+  const a=await author(env,current,i,value);current=assess(env,a.authored,i).assessed;}
+ const asset=current.assets.at(-1);
+ // The cold parent effect over the assessed Design targets (component coordinates).
+ const request=await env.request(['app/main.mjs','app/check.mjs'],{sourceEnvelopeRef:'component:design-result',sourceEnvelopeDigest:hash(current),
+  sourceDesignAssetRef:asset.assetRef,sourceDesignAssetDigest:asset.assetDigest,jobRef:current.basis.jobRef,jobDigest:current.basis.jobDigest});
+ assert.equal(request.kind,'worksite_file_parents_request',JSON.stringify(request));
+ const success=await env.create(request);assert.equal(success.kind,'worksite_file_parents_result',JSON.stringify(success));
+ const ids=g.SEMANTIC_STAGE_IDS,pub=await load('product/publication'),{WORKSITE_FILE_PARENTS_IMPLEMENTATION:parents}=await load('implementation/worksite_file_replace');
+ const selectedPublication={...publication,semanticJobLifecycle:current.declaration};
+ const execution={...env.executionBasis,basisRef:current.basis.rootExecutionBasisRef,parentExecutionBasisRef:null,
+  rawInputValue:env.job,rawInputDigest:hash(env.job),rawInputAdmissionRef:current.basis.rootInputRef,invocationAdmissionRef:current.basis.invocationAdmissionRef};
+ const events=[{kind:'c_call_result_admitted',aggregateId:'component:plan',payload:{value:request}},
+  {kind:'c_call_result_admitted',aggregateId:'component:design',payload:{resultRef:request.sourceEnvelopeRef,resultDigest:request.sourceEnvelopeDigest,value:current}},
+  {kind:'c_call_result_admitted',aggregateId:'component:parents',payload:{value:success}}];
+ const previous=(value,implementationRef,basisId)=>({cCall:{implementationRef,basisId},result:{resultClass:'success',value},judgment:{judgment:'advance'}});
+ const predecessors=new Map([['component:plan',previous(request,ids.jobPlanImplementationRef,'component:plan-basis')],
+  ['component:design',previous(current,ids.assessorImplementationRef,'component:design-basis')],
+  ['component:parents',previous(success,parents.implementationRef,'component:parents-basis')]]);
+ const install=installedRoot=>({productId:selectedPublication.owningProductId,artifactDigest:selectedPublication.artifactDigest,
+  productContentDigest:selectedPublication.productContentDigest,manifestDigest:selectedPublication.productManifestDigest,installedRoot,
+  contributionManifest:{publicationBindings:[{moduleRef:selectedPublication.moduleRef,publicationDigest:pub.modulePublicationSemanticDigest(selectedPublication)}]}});
+ const native={execution,inputValue:success,inputDigest:hash(success),program:{},prefix:{component:'supplied'},
+  call:{...env.cCall,regime:'F_D',implementationRef:ids.jobBridgeImplementationRef},events,
+  environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]}};
+ const {SourceTextModule,SyntheticModule}=await import('node:vm');
+ async function component(name,overrides){
+  const file=join(root,'build/code/src',name+'.js'),module=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+  await module.link(async spec=>{
+   const imported=await import(spec.startsWith('node:')?spec:pathToFileURL(resolve(dirname(file),spec)).href);
+   const values={...imported,...overrides[spec]};
+   return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});
+  });await module.evaluate();return module.namespace;
+ }
+ // Every live subject call is recorded and delegated to the actual C0 owner.
+ const observed=[];
+ const abg=await component('abg/semantic_job',{
+  './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>native,
+   rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>({...execution,basisRef:ref,parentExecutionBasisRef:execution.basisRef,rawInputValue:ref==='component:plan-basis'?current:env.job})},
+  './event_prefix.js':{runtimeEventBodiesAtPrefix:()=>events,indexedRuntimeEvents:(_prefix,key)=>key==='invocation:'+execution.invocationRef
+   ?[{kind:'basis_admitted',payload:{basisClass:'root',basisRef:execution.basisRef,invocationAdmissionRef:execution.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:execution.rawInputValue}}]
+   :key==='kind:c_call_result_admitted'?events:events.filter(e=>key==='payload:resultRef:'+e.payload.resultRef)},
+  './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[env.capabilityGrant]})},
+  '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},
+  './semantic_stage.js':{projectSemanticPredecessorAtPrefix:(_prefix,_events,_pub,ref)=>predecessors.get(ref)??null},
+  '../product/worksite_operations.js':{observeWorksiteSubject:async(...args)=>{const value=await ops.observeWorksiteSubject(...args);observed.push({args,value});return value;}},
+ });
+ const basis={publication:selectedPublication,graphFunction:{declarations:{}}};
+ const bridge=installedRoot=>{native.environment={...native.environment,productInstalls:[install(installedRoot)]};observed.length=0;
+  return watched(()=>abg.projectSemanticJobBridge(basis,success));};
+ const heldRoots=installedRoot=>observed.map(()=>[installedRoot]);
+ const dependencyReads=calls=>calls.filter(c=>(c.path===dependencyPath||c.path===DATA+dependencyPath)&&['open','readFile','content'].includes(c.syscall));
+ // Lawful: the held admitted install lies outside the worksite.
+ const productRoot=env.workspaceBinding.roots.productRoot,lawful=await bridge(productRoot);
+ assert.ok(lawful.result,'the lawful bridge prepares its construction input');
+ assert.deepEqual(observed.map(row=>row.args[2].relativePath),['app/main.mjs','app/check.mjs',dependency],'both live call sites run');
+ assert.deepEqual(observed.map(row=>row.args[3]),heldRoots(productRoot),'every live subject observation carries the held install roots');
+ assert.ok(dependencyReads(lawful.calls).length>=1,'the lawful dependency is read through the actual owner (instrumentation live)');
+ // Lexical held installs over a read dependency and over the Design targets.
+ for(const [label,installedRoot,refusedPath] of [['dependency install',join(env.canonicalRoot,'config'),dependency],['target install',join(env.canonicalRoot,'app'),'app/main.mjs']]){
+  const {result,calls}=await bridge(installedRoot);
+  assert.equal(result,null,label);
+  assert.deepEqual(observed.map(row=>row.args[3]),heldRoots(installedRoot),label+': held install roots reach every subject call');
+  assert.equal(observed.at(-1).args[2].relativePath,refusedPath,label);
+  assert.equal(observed.at(-1).value.code,'binding_mismatch',label+': '+JSON.stringify(observed.at(-1).value));
+  assert.deepEqual(dependencyReads(calls),[],label+': the dependency is never opened or read');
+ }
+ await t.test('Data-aliased held install over the read dependency',{skip:!aliasHolds(env.canonicalRoot)&&'host premise absent: no /System/Volumes/Data alias of the worksite'},async()=>{
+  const {result,calls}=await bridge(DATA+join(env.canonicalRoot,'config'));
+  assert.equal(result,null);
+  assert.equal(observed.at(-1).args[2].relativePath,dependency);
+  assert.equal(observed.at(-1).value.code,'subject_outside_territory',JSON.stringify(observed.at(-1).value));
+  assert.deepEqual(dependencyReads(calls),[],'refused before the dependency is opened or read');
+ });
+ assert.equal(await readFile(dependencyPath,'utf8'),'export const value = 7;\n');
+ t.diagnostic('Component semantic-job bridge proof; upstream authentication, prefix events and predecessors supplied; no actor or installed execution.');
 });

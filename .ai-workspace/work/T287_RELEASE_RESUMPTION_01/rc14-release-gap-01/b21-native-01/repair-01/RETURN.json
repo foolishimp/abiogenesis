@@ -1,0 +1,204 @@
+{
+  "activationId": "RC14-B21-OWNER-REPAIR-NATIVE-001",
+  "recordedUtc": "2026-11-14T18:55:53.661288+00:00",
+  "disposition": "STOPPED_AT_FIRST_PROOF_FAILURE",
+  "sourceCommit": "b529fdbe16315180b4fe83e03bb60e561efe5635",
+  "sourceTree": "7662e4dbb4af9a7af5c73f402185ce251ac94900",
+  "sourceBase": "514aac439ab37e5bea60a55f5904eba50c18fe16",
+  "workerBranch": "codex/rc14-b21-owner-repair-20261115",
+  "mainOrRemoteModified": false,
+  "native": {
+    "providerCalls": 1,
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "actorStartedUtc": "2026-11-14T17:59:18.809Z",
+    "runRef": "run://abiogenesis/6ac089c507bbbc57c03a8929fc6d801ffb96431ce92c985afd8d7895b87ee16f",
+    "exitCode": 0,
+    "actualResourceClose": true,
+    "freshResultReplayReadbacks": true,
+    "audit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/NATIVE_COMMAND_AUDIT_FINAL.json",
+      "bytes": 4369,
+      "sha256": "86f54f491c3bf12dd573def156858a7269f4fc727d954daf6376872ad12bdd17"
+    },
+    "authorReport": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/AUTHOR_REPORT.json",
+      "bytes": 10861,
+      "sha256": "d00ea28a8a337e351b125d4eac65771e58deccf904d1e5a14d23924d446d0521"
+    },
+    "auditLimits": [
+      "Four real read-only Bash diagnostic calls, including one failed separator command and three glob-error calls, remain retained. Author mentions only two glob calls.",
+      "Native disclosed broader material owner/support reads beyond the assembled read roots; no acquisition-isolation claim.",
+      "Metadata require, node --check and unlinked/unevaluated vm.SourceTextModule parse were read/syntax work, not Product/test execution."
+    ]
+  },
+  "source": {
+    "files": 9,
+    "productionFiles": 6,
+    "testFiles": 3,
+    "rows": {
+      "path": "/private/tmp/abg-rc14-b21-repair-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-native-01/repair-01/SOURCE_ROWS.json",
+      "bytes": 2432,
+      "sha256": "024c844216a0e8bde1ed0a7a01c4b90fcf4e461b8c0bb1d960195e8d4a23aa41"
+    },
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/source-freeze-01/FREEZE.json",
+      "bytes": 2728,
+      "sha256": "a773846a8cd24aeeb0154fa61b0d0037ecea5a883b4290b83918ccd23295e2a1"
+    },
+    "diff": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/source-freeze-01/SOURCE_DIFF.patch",
+      "bytes": 70711,
+      "sha256": "f9068e2e77ce11171b04be9caff1d2c7de330f22b9294d783c2c5bc1138d7866"
+    },
+    "postimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/source-freeze-01/SOURCE_POSTIMAGE.json",
+      "bytes": 320790,
+      "sha256": "328801f0233a6cb8d9231c3d2e269909e319d456ae1b99e8c034c19742f645b3"
+    },
+    "retention": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/SOURCE_BRANCH_RETENTION.json",
+      "bytes": 553,
+      "sha256": "169f8417411cfc130eb6cf6efae54b8144418def50a4213f1d9c1ed3d4a9d3dc"
+    },
+    "independentSourceReview": "Root reported closed read-only source assurance with no actionable finding; selected nine-row repair only, not whole proof/release assurance."
+  },
+  "proof": {
+    "outcome": "first failing file retained; no retry and no successor execution",
+    "elapsedMs": 525707,
+    "counts": {
+      "path": "/private/tmp/abg-rc14-b21-repair-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b21-native-01/repair-01/PROOF_COUNTS.json",
+      "bytes": 16117,
+      "sha256": "9d71cd1c189611abd89132c24fc56b71aafd8efebbecb5266bb021f036768ad1"
+    },
+    "firstFailure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/FIRST_FAILURE.json",
+      "bytes": 2317,
+      "sha256": "4ae6a633eb190a27c7d00e80412a20d8bee1569784a8a8669e3fd266e20280b5"
+    },
+    "failedCommand": {
+      "argv": [
+        "/opt/homebrew/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-timeout=590000",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-default-library.test.mjs"
+      ],
+      "cwd": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/subject/build_tenants/abiogenesis/typescript",
+      "startedUtc": "2026-11-14T18:50:19.067503+00:00",
+      "commandBudgetMs": 600000,
+      "maxOutputBytes": 16777216,
+      "environmentKeys": [
+        "GIT_OPTIONAL_LOCKS",
+        "HOME",
+        "LANG",
+        "LC_ALL",
+        "NODE_OPTIONS",
+        "NPM_CONFIG_CACHE",
+        "NPM_CONFIG_GLOBALCONFIG",
+        "NPM_CONFIG_OFFLINE",
+        "NPM_CONFIG_UPDATE_NOTIFIER",
+        "NPM_CONFIG_USERCONFIG",
+        "PATH",
+        "STDO_STORE",
+        "TMPDIR"
+      ]
+    },
+    "failedReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/014-t287-default-library/RETURN.json",
+      "bytes": 459,
+      "sha256": "f93c039eb9c1abed5277dfa11f5ccfd2c00f8a96c5da825fae288d1d6ea2d662"
+    },
+    "clock": {
+      "startedUtc": "2026-11-14T18:41:33.896220+00:00",
+      "originalHostDeadlineUtc": "2026-11-14T19:58:33.930934+00:00",
+      "requestedProofDeadlineUtc": "2026-11-14T19:41:33.896220+00:00",
+      "deadlineUtc": "2026-11-14T19:41:33.896220+00:00",
+      "executionStopDeadlineUtc": "2026-11-14T19:41:18.896220+00:00",
+      "cleanupReserveMs": 15000
+    },
+    "candidate": {
+      "record": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/CANDIDATE.json",
+        "bytes": 795,
+        "sha256": "07c7050b6aadd7880dfc12c7813189b4ec958948414cbc3111b0896ccbcc38d8"
+      },
+      "archiveSha256": "9f9812e42c154511541762235f26180c0cf64c762f490ea57ae135a14c8e4225",
+      "archiveBytes": 10814321,
+      "files": 5302,
+      "byteEqual": true,
+      "version": "5.0.0-rc.13 proof artifact only",
+      "installedPhysicalOwnerPassed": true,
+      "qualified": false
+    }
+  },
+  "firstRedObservations": {
+    "firstCase": "independent consumer restricts choices while preserving actual native role and schema owners",
+    "firstDiagnostic": "ENOENT realpath of literal Application%20Support/.../contracts/default-library/stdo/context.inventory.json",
+    "failureClasses": {
+      "ENOENT": 29,
+      "ERR_MODULE_NOT_FOUND": 1
+    },
+    "all30DiagnosticsContainEncodedDirectory": true,
+    "distinctFailedPaths": 6,
+    "all6DecodedPhysicalPathsExist": true,
+    "pathObservation": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/FAILURE_PATH_OBSERVATIONS.json",
+      "bytes": 3719,
+      "sha256": "ecbcfed8949d18610af54028122758e241a911a07a4bbd280c63d0e017188e5e"
+    },
+    "sourceLocations": [
+      "t287-default-library.test.mjs:63 canonicalPackageRoot uses URL.pathname",
+      "t287-default-library.test.mjs:64 packageRoot uses it absent explicit override",
+      "t287-default-library.test.mjs:72 governanceRoot uses URL.pathname",
+      "t287-default-library.test.mjs:291 dynamic import wraps the already escaped filesystem spelling in pathToFileURL"
+    ],
+    "sourcePathStatementsUnchangedFromBase": true,
+    "requiredFixture": {
+      "record": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/FIXTURE_INPUTS_VERIFIED.json",
+        "bytes": 122,
+        "sha256": "90eaa2651402887a3942effe5f274a605d8b7af85507e7e8f04d7dd5730ea138"
+      },
+      "files": 13,
+      "bytes": 18944,
+      "selectionPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/subject/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json",
+      "selectionSha256": "ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc"
+    },
+    "scope": "Observed path-acquisition failure in this selected external mirror; no repaired run or claim that all later assertions will pass."
+  },
+  "conservation": {
+    "postFailureReadOnlyClose": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/POST_FAILURE_CONSERVATION.json",
+      "bytes": 920,
+      "sha256": "21f9a0590d6de96e3960c3ff54c008099b60ebb6151c5b974cfbfbed0f8cce5e"
+    },
+    "sourceAndActiveIndexUnchangedThroughProof": true,
+    "setupCustodyVerified": true,
+    "dependenciesConserved": true,
+    "declaredNativeRowsConserved": 193,
+    "nativeSourceRecordsConserved": 3,
+    "threeExtraHostLibraries": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/NATIVE_HOST_LIBRARIES_AT_FAILED_RETURN.json",
+      "bytes": 1403,
+      "sha256": "263cf7de6e2febaaeb3b1d86466e0acdc10bd7bd968bec4a357d1226d51c602f"
+    },
+    "completeNativeToolchainClosure": false,
+    "proofSuccessTailReached": false
+  },
+  "limits": [
+    "The B21 direct-Testing component and existing Public direct Testing/UAT route did not complete their file; they are not closed by this run.",
+    "The changed semantic-job whole file was not reached.",
+    "One explicit ABI5_DEFAULT_LIBRARY_LIVE gate is a skip, not a passed live demonstration.",
+    "Actual owner counters cover Node target-content acquisition/effects, not zero native metadata calls.",
+    "Source tests retain controlled component/admission/retained-O1 premises disclosed in the native report and Root review.",
+    "Platform execution is Darwin arm64 on Node 24.7.0; no Node 20 or other-platform execution claim.",
+    "B32 formal native input closure/protected relocation and generated qualification inventories remain separate.",
+    "This is neither an RC14 release cut, whole release qualification nor human acceptance."
+  ],
+  "qualified": false,
+  "retry": false,
+  "nextDecisionOwner": "Root; no new source/proof selection made by Operator"
+}

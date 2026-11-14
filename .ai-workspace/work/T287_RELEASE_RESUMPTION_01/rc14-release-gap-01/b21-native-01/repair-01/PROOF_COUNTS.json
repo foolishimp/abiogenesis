@@ -1,0 +1,453 @@
+{
+  "activationId": "RC14-B21-OWNER-REPAIR-NATIVE-001",
+  "sourceCommit": "b529fdbe16315180b4fe83e03bb60e561efe5635",
+  "selection": "nine whole test files once; stop at first failing file",
+  "files": [
+    {
+      "name": "003-first-owner-boundaries",
+      "counts": {
+        "tests": 5,
+        "failed": 0,
+        "passed": 5,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 5,
+        "suites": 0
+      },
+      "exitCode": 0,
+      "elapsedMs": 3201,
+      "processGroupAbsent": true,
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/003-first-owner-boundaries/stdout.raw",
+        "bytes": 2009,
+        "sha256": "068c0614dc8646364d332b8db1043501cd57f90196c5c832be737593d3bf342a"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/003-first-owner-boundaries/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "008-t293-b21-physical-confinement",
+      "counts": {
+        "tests": 7,
+        "failed": 0,
+        "passed": 7,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 7,
+        "suites": 0
+      },
+      "exitCode": 0,
+      "elapsedMs": 642,
+      "processGroupAbsent": true,
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/008-t293-b21-physical-confinement/stdout.raw",
+        "bytes": 2450,
+        "sha256": "ff3d7fec3658efb603069dc0c1c788fbf7defa28771fede51d448f2eb23a5210"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/008-t293-b21-physical-confinement/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "009-t292-td85n-absent-protected-root",
+      "counts": {
+        "tests": 58,
+        "failed": 0,
+        "passed": 58,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 58,
+        "suites": 0
+      },
+      "exitCode": 0,
+      "elapsedMs": 756,
+      "processGroupAbsent": true,
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/009-t292-td85n-absent-protected-root/stdout.raw",
+        "bytes": 16201,
+        "sha256": "eb0dd24fc0f68208cb13a3171f02148e4a5cd70e743d66221e96c45b16fe2181"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/009-t292-td85n-absent-protected-root/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "010-t292-td85a-stored-spelling",
+      "counts": {
+        "tests": 12,
+        "failed": 0,
+        "passed": 12,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 12,
+        "suites": 0
+      },
+      "exitCode": 0,
+      "elapsedMs": 540,
+      "processGroupAbsent": true,
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/010-t292-td85a-stored-spelling/stdout.raw",
+        "bytes": 4550,
+        "sha256": "89cf7f0bce2463f35c96ba6f9a42164c6eefd625a136df93ca9f09696e8311a9"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/010-t292-td85a-stored-spelling/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "011-t287-c0-post-publication-failure",
+      "counts": {
+        "tests": 16,
+        "failed": 0,
+        "passed": 16,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 16,
+        "suites": 0
+      },
+      "exitCode": 0,
+      "elapsedMs": 161802,
+      "processGroupAbsent": true,
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/011-t287-c0-post-publication-failure/stdout.raw",
+        "bytes": 4897,
+        "sha256": "73c0fb490141e260493fa98802e21a1419bbf143036d60dd5e9f75b2be0cf655"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/011-t287-c0-post-publication-failure/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "012-t287-c0-post-publication-failure-owner-admission-close",
+      "counts": {
+        "tests": 15,
+        "failed": 0,
+        "passed": 15,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 15,
+        "suites": 0
+      },
+      "exitCode": 0,
+      "elapsedMs": 154264,
+      "processGroupAbsent": true,
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/012-t287-c0-post-publication-failure-owner-admission-close/stdout.raw",
+        "bytes": 4999,
+        "sha256": "159f876a907ab29c912fa92fd4e4c64a5a5167d89a7d6ff36082cd9289cd6a63"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/012-t287-c0-post-publication-failure-owner-admission-close/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "013-t287-worksite-command-execution",
+      "counts": {
+        "tests": 13,
+        "failed": 0,
+        "passed": 13,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 13,
+        "suites": 0
+      },
+      "exitCode": 0,
+      "elapsedMs": 166774,
+      "processGroupAbsent": true,
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/013-t287-worksite-command-execution/stdout.raw",
+        "bytes": 4414,
+        "sha256": "f9e0928c2a74e629746c17e42ffcaa2e3c0330c6620e151b8a065d5cdf1656b6"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/013-t287-worksite-command-execution/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "014-t287-default-library",
+      "counts": {
+        "tests": 36,
+        "failed": 30,
+        "passed": 5,
+        "cancelled": 0,
+        "skipped": 1,
+        "todo": 0,
+        "topLevel": 36,
+        "suites": 0
+      },
+      "exitCode": 1,
+      "elapsedMs": 537,
+      "processGroupAbsent": true,
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/014-t287-default-library/stdout.raw",
+        "bytes": 66930,
+        "sha256": "c8adcafa8c2e79fe422f7f531065ca200de34d8fe8ac1a7aeaac597e40cd8acb"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/proof-01/014-t287-default-library/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "completedSuccessfulWholeFiles": 7,
+  "successfulWholeFileCases": {
+    "tests": 126,
+    "passed": 126,
+    "failed": 0,
+    "skipped": 0
+  },
+  "allExecutedCases": {
+    "tests": 162,
+    "passed": 131,
+    "failed": 30,
+    "skipped": 1,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "firstFailingFileCases": [
+    {
+      "name": "default library preserves cumulative wrapper bindings and rejects duplicate carried refs",
+      "passed": true,
+      "skip": false,
+      "errorCode": null
+    },
+    {
+      "name": "installed root publication precondition rejects a bad non-selected publication",
+      "passed": true,
+      "skip": false,
+      "errorCode": null
+    },
+    {
+      "name": "default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation",
+      "passed": true,
+      "skip": false,
+      "errorCode": null
+    },
+    {
+      "name": "independent consumer restricts choices while preserving actual native role and schema owners",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "retention and execution share root, imported and exact external semantics owner selection",
+      "passed": true,
+      "skip": false,
+      "errorCode": null
+    },
+    {
+      "name": "declared wrapper judgments advance actual observations, including red C2, without satisfying parent state",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "RC5 STDO 3.0.4 default role content is the exact packaged subset with its selected skill closure and capability instructions separate",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "RC5 STDO 3.0.4 actual acquisition delivers each role its selected skill closure and refuses altered, missing and unpermitted members",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ERR_MODULE_NOT_FOUND"
+    },
+    {
+      "name": "framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "framed synthesis binds imported contracts, exact raw judgment and compact choice provenance",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "selector planning delivers a short strict UTF-8 stream whole and keeps longer, binary or unverified streams as explicit omissions",
+      "passed": true,
+      "skip": false,
+      "errorCode": null
+    },
+    {
+      "name": "native-work assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "worksite command-executor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "worksite constructor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "fold and assessment consume actual native, C2 and assessment carriers with exact retained origin",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "RC7 fixed proof: direct root Testing prepares the observed C2 task and folds one selector-free Testing observation",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "RC7 fixed proof: direct Testing refuses open scope, fabricated or retained input, and a selector-free fold off the root Testing wrapper",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "B21 component: direct Testing observes selected subjects under the held admitted install roots before any read",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "RC7 fixed proof: direct UAT takes the admitted Testing state Result as its single producer and folds unmet and satisfied assessments without a selector",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "RC7 fixed proof: direct UAT refuses crossed source, row population, producer identity, currentness and off-root relations",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "RC7 fixed proof: selected children keep the synthesis target guard, selected Result ref and selected instruction order",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "RC7 fixed proof: public-setup invokes Testing directly, derives its admitted state Result once and invokes UAT over exactly that source; the lifecycle start is unchanged",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "parent conservation joins the pre-Run root basis through exact invocation and root implementation set",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "one governance-root projection: the ancestry owner and the governance owner refuse two indexed roots and an ancestry that misses the indexed root",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "DataMapper caller separates author territories and baseline inputs from future final proof",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "consumer-authored source and scope remain exact application data; no solution is in library",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "observed child provenance joins the current preparation and rejects crossed or missing causal facts",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "observed command correspondence conserves explicit input across empty and different process environments",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes",
+      "passed": true,
+      "skip": "ABI5_DEFAULT_LIBRARY_LIVE is not '1'; selects the installed Public default-library invocation",
+      "errorCode": null
+    },
+    {
+      "name": "default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "name": "RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage",
+      "passed": false,
+      "skip": false,
+      "errorCode": "ENOENT"
+    }
+  ],
+  "notRun": [
+    "t287-native-semantic-job.test.mjs"
+  ],
+  "noRetry": true,
+  "qualified": false
+}

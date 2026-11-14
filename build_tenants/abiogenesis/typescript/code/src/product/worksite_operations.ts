@@ -265,13 +265,14 @@ async function resolveWorksiteTarget(
   }
 }
 
-async function inspectTargetPath(
+/** Metadata only: stored spelling, no-symlink, node-kind and hard-link
+ * premises of the subject and every containing directory. No target content
+ * is opened or read here, so the physical protected-root exclusion can
+ * precede content acquisition (T-293 B21). */
+async function inspectTargetLocation(
   target: ResolvedWorksiteTarget,
   subject: WorksiteSubject,
-): Promise<WorksiteEffectRefusal | "absent" | {
-  readonly fileIdentity: string;
-  readonly bytes: Uint8Array;
-}> {
+): Promise<WorksiteEffectRefusal | "absent" | "file"> {
   const segments = subject.relativePath.split("/");
   let cursor = target.canonicalRoot;
   for (const [index, segment] of segments.entries()) {
@@ -304,6 +305,14 @@ async function inspectTargetPath(
           "worksite subject must be absent or one regular file",
         );
       }
+      // The hard-link premise keeps its precedence over the physical
+      // relation; the opened descriptor rechecks it before any read.
+      if (final && status.nlink !== 1) {
+        return worksiteRefusal(
+          "aliased_subject",
+          "worksite subject must not share its file identity with another hard link",
+        );
+      }
     } catch (error) {
       if (errnoCode(error) === "ENOENT") {
         return index === segments.length - 1
@@ -323,7 +332,18 @@ async function inspectTargetPath(
       );
     }
   }
+  return "file";
+}
 
+/** Target content acquisition, entered only after the metadata premises and
+ * the physical protected-root exclusion hold. The descriptor is closed on
+ * every path; a close failure is retained beside the primary outcome. */
+async function readTargetFile(
+  target: ResolvedWorksiteTarget,
+): Promise<WorksiteEffectRefusal | {
+  readonly fileIdentity: string;
+  readonly bytes: Uint8Array;
+}> {
   let handle;
   let inspected: WorksiteEffectRefusal | { readonly fileIdentity: string; readonly bytes: Uint8Array };
   try {
@@ -457,10 +477,15 @@ async function inspectCommitLocus(
   const parentPath = dirname(target.targetPath);
   const parentBefore = await inspectPhysicalDirectory(parentPath);
   if ("kind" in parentBefore) return parentBefore;
-  const inspected = await inspectTargetPath(target, subject);
-  if (typeof inspected !== "string" && "kind" in inspected) return inspected;
+  const located = await inspectTargetLocation(target, subject);
+  if (typeof located !== "string") return located;
+  // Physical exclusion precedes target content acquisition: a protected node
+  // reached through an alias is refused before it is opened or read. Parent
+  // identity and O0 currentness are still rechecked after acquisition.
   const separation = await checkPlannedProtectedRoots([target.targetPath], target.protectedRoots, "contained");
   if (separation !== null) return separation;
+  const inspected = located === "absent" ? "absent" as const : await readTargetFile(target);
+  if (typeof inspected !== "string" && "kind" in inspected) return inspected;
   const parentAfter = await inspectPhysicalDirectory(parentPath);
   if ("kind" in parentAfter) return parentAfter;
   if (parentBefore.fileIdentity !== parentAfter.fileIdentity) {
@@ -540,15 +565,21 @@ async function inspectStagingFile(
   }
 }
 
+/** Read-only subject observation. A caller that holds an authenticated
+ * environment passes its admitted install roots, the same existing protected
+ * input every other worksite owner applies; it adds no authority. */
 export async function observeWorksiteSubject(
   workspaceAuthorityBasis: WorkspaceAuthorityBasis,
   workspaceBinding: WorkspaceBinding,
   subject: WorksiteSubject,
+  protectedInstallRoots: readonly string[] = [],
 ): Promise<WorksiteEffectRefusal | WorksiteObservation> {
   const locus = await inspectCommitLocus(
     workspaceAuthorityBasis,
     workspaceBinding,
     subject,
+    undefined,
+    protectedInstallRoots,
   );
   return "kind" in locus ? locus : locus.observation;
 }

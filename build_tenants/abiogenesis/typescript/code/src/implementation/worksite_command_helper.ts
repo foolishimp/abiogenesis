@@ -9,9 +9,9 @@ import { runEffectProgram } from "../shared/effect_definition.js";
 import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
 import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from "../shared/process/index.js";
 import { hasExactKeys as exactKeys, isTrimmedNonblankNulFreeString as exactString } from "../shared/admission_predicates.js";
-import { classifyPathRelation, pathRelation, pathStrictlyWithin, pathWithin } from "../shared/path_confinement.js";
+import { classifyPathRelation, pathStrictlyWithin, pathWithin } from "../shared/path_confinement.js";
 import { runPhysicalAsync } from "../shared/physical_path_observation.js";
-import { physicalSeparationProgram } from "../shared/physical_path_relation.js";
+import { worksiteCommandRootBoundary } from "../shared/worksite_command_physical_boundary.js";
 import { constructWorksiteCommandExecutionLaunchManifest, isAuthorityFreeWorksiteCommandOccurrence,
   type WorksiteCommandExecutionLaunchManifest } from "../product/worksite_command_launch.js";
 import { isWorksiteExecutionTask, worksiteExecutionSources, worksiteExecutionLocus,
@@ -263,28 +263,24 @@ async function assertLaunchArchiveBoundary(
   if (archiveRoot === undefined) {
     throw new TypeError("helper launch manifest has no canonical archive root");
   }
-  const otherRoots: string[] = [];
-  for (const name of [
-    "productRoot", "toolchainRoot", "eventLogRoot", "runtimeStateRoot",
-    "projectionRoot",
-  ]) {
-    const otherRoot = canonicalRoots.get(name);
-    if (otherRoot === undefined || pathWithin(pathRelation(archiveRoot, otherRoot)) ||
-      pathWithin(pathRelation(otherRoot, archiveRoot))) {
+  const root = (name: string): string => {
+    const value = canonicalRoots.get(name);
+    if (value === undefined) {
       throw new TypeError("command execution archive root overlaps a protected workspace root");
     }
-    otherRoots.push(otherRoot);
-  }
-  // Independent helper check through the same physical relation: the archive
-  // is recursive, so physical equality, containment and enclosure all refuse.
-  const finding = await runPhysicalAsync(physicalSeparationProgram({
-    targets: [archiveRoot], protectedRoots: otherRoots, mode: "enclosing",
+    return value;
+  };
+  // Independent helper admission through the one physical relation and the
+  // complete existing host policy: archive enclosure plus the directional
+  // Product-root rule, before any protected read, snapshot, result or command.
+  await runPhysicalAsync(worksiteCommandRootBoundary({
+    productRoot: root("productRoot"),
+    toolchainRoot: root("toolchainRoot"),
+    eventLogRoot: root("eventLogRoot"),
+    runtimeStateRoot: root("runtimeStateRoot"),
+    projectionRoot: root("projectionRoot"),
+    archiveRoot,
   }));
-  if (finding !== null) {
-    throw new TypeError(finding.separation === "overlap"
-      ? `command execution archive root overlaps a protected workspace root (${finding.reason})`
-      : `command execution archive root: protected-root separation cannot be established: ${finding.reason}`);
-  }
 }
 
 async function admitLaunchManifest(): Promise<Readonly<{
