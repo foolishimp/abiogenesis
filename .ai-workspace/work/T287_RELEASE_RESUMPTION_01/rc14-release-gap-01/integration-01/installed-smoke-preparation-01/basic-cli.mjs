@@ -8,6 +8,13 @@ import {pathToFileURL,fileURLToPath} from 'node:url';
 
 const b=JSON.parse(await readFile(process.argv[2],'utf8'));
 assert.equal(b.executionAuthorized,true,'Root must separately authorize execution');
+// Retain selected values only in memory. Public installation inherits ambient
+// environment, so remove them before importing Product or running any setup.
+const providerCredentials=Object.fromEntries(b.configuration.provider.inheritEnvironment.map(key=>[key,process.env[key]]));
+for(const key of Object.keys(providerCredentials)) {
+  assert(providerCredentials[key],'Missing selected credential key: '+key);
+  delete process.env[key];
+}
 const control=fileURLToPath(new URL('.',import.meta.url));
 const tenant=join(b.controlSourceRoot,'build_tenants/abiogenesis/typescript');
 const load=path=>import(pathToFileURL(join(tenant,path)).href);
@@ -114,7 +121,9 @@ try {
   await record('prepared-definition-call.json',prepared.call);
   await observeLayout('before-dispatch');
   await record('dispatch.json',{at:new Date().toISOString(),provider:config.provider,phase:'native-start-call'});
-  const execution=await R.invokeLifecycle(caller,installations,prepared.call,R.workerEnvironment(config));
+  // The maintained invocation scope installs this environment only across the
+  // native call and restores the credential-free ambient environment in finally.
+  const execution=await R.invokeLifecycle(caller,installations,prepared.call,{...providerCredentials,...R.workerEnvironment(config)});
   const events=await R.readOracleEvents(runtime.abg,caller.prefix(),record);
   const held=await R.heldReadbacks(caller,execution);await record('held-readback.json',R.freshReadbackRecord(held,runtime.product.sha256Canonical));
   await record('session-close.json',caller.close());
