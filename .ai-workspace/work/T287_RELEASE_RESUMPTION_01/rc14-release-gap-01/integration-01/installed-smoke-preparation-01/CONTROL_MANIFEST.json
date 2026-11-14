@@ -6,8 +6,8 @@
   "controls": [
     {
       "path": "basic-cli.mjs",
-      "bytes": 13890,
-      "sha256": "81c5312db9ed487b3e7eacba02f4cd13ba372c6753370456e8b4f9c2c21b3632"
+      "bytes": 14518,
+      "sha256": "72ea8e9689de735527309f475cb8ab7e474af7a5cd98df7379a58b93a2597f7d"
     },
     {
       "path": "run.py",
@@ -21,8 +21,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 8531,
-      "sha256": "e920ebb99d8117decdaf816f4856b19904a9d6b1482ac68acbbdde16fabd0750"
+      "bytes": 9053,
+      "sha256": "31587636f0ab40909ee47fb1f6d8b4c17952dda8ba9fb03538438356fe36e8ce"
     },
     {
       "path": "bounded.py",
@@ -143,5 +143,6 @@
     }
   ],
   "repairCheckpoint": "f9ea4fba8f8db2f061da79efebf70afd27a75333",
-  "predecessorControlCommit": "d5191d502b1269da158c68735bd3f4aad552e7df"
+  "predecessorControlCommit": "d5191d502b1269da158c68735bd3f4aad552e7df",
+  "credentialScopeRepairCheckpoint": "6167d43c55357daf18f078656c7620a2b138fd81"
 }

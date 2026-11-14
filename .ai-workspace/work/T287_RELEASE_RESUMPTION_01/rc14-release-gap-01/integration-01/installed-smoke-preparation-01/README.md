@@ -3,7 +3,10 @@
 Preparation only under `RC14-INSTALLED-FIRST-COMPOSITION-CONTROL-PREPARATION-001`.
 This successor addresses C01–C04 under `ROOT_CONTROL_REVIEW.json` at
 `f9ea4fba8f8db2f061da79efebf70afd27a75333`; the original d519 controls remain
-in ancestry. Root separately reviews this repair; the Operator claims no
+in ancestry. A further C01 lifetime repair from `6167d43` follows Root's
+`ROOT_SUCCESSOR_REVIEW.md`; `CREDENTIAL_SCOPE_RETURN.json` records its bounded
+preparation. Both preceding Returns remain historical and unchanged.
+Root separately reviews this repair; the Operator claims no
 independent review or live proof.
 No artifact is selected and no execution occurred. Root separately reviews,
 binds the final repaired candidate and authorizes one prospective execution.
@@ -60,10 +63,14 @@ build the Product or silently install a substitute.
 
 `provider.inheritEnvironment` contains only explicitly selected credential key
 names. Each selected value must exist in the launching Operator environment;
-values cannot appear in the binding or retained setup environment. Only the
-basic host receives them. The maintained `workerEnvironment` constructs the
-native actor environment at invocation. Version probes, setup commands and
-the deterministic smoke receive no selected credentials. An empty key list
+values cannot appear in the binding or retained setup environment. The basic
+host immediately retains them in a private in-memory map and removes their
+keys from ambient environment before any dynamic helper/Product import or
+setup. The map is supplied only to the maintained native invocation environment;
+the existing `withWorkerEnvironment` scope restores the credential-free ambient
+environment in `finally`, including synchronous throws and asynchronous rejection.
+Version probes, Public installation children, other setup commands and the
+deterministic smoke receive no selected credentials. An empty key list
 is an explicit selection, not evidence that provider authentication works.
 
 The accepted observer is copied byte-for-byte as `physical-topology.py`, SHA
