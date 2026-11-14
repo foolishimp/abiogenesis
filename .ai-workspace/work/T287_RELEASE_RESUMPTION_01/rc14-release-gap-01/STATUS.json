@@ -1,5 +1,5 @@
 {
-  "status": "B21_OWNER_AND_QUALIFICATION_NATIVE_REPAIRS_RUNNING",
+  "status": "NATIVE_REPAIRS_FROZEN_PROOF_STOPPED_FIXTURE_REENTRY_SELECTED",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -8,7 +8,7 @@
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
   "providerCalls": 5,
-  "triage": "B31 and B12 technically closed, B13 wording closed. B21 mechanical proof passed178 cases with6 existing skips; independent source QA found2 C2 boundary defects and a reachable Default Testing install-input omission. Final source/qualification remains open.",
+  "triage": "B31 and B12 technically closed; B13 wording closed. B21 owner and qualification/native-input repairs are frozen and source-reviewed. Both proof sequences stopped on independently localized test fixture defects; one two-test RC13-native repair selected. RC14 remains uncut and unqualified.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
   "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T18:18:34.218616+00:00",
-  "nativeAuthorState": "Two pinned RC13 authors running on isolated exact pushed source checkpoints; no corrective proof or RC14 cut yet",
+  "recordedUtc": "2026-11-14T19:16:19.731276+00:00",
+  "nativeAuthorState": "Both native authors returned and closed; both proof sequences stopped at retained first reds; no provider currently running",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -135,7 +135,7 @@
   },
   "b21Repair": {
     "activation": "b21-native-01/repair-01/ACTIVATION.json",
-    "state": "NATIVE_AUTHOR_RUNNING",
+    "state": "SOURCE_REVIEW_CLOSED_PROOF_STOPPED_URL_FIXTURE",
     "scope": "Pre-read physical guard; helper directional policy; Default Testing and two semantic-job authenticated install inputs",
     "providerStarted": true,
     "controlCommit": "7704ad059a5b507ee6aa2879ae08a02b45beebab",
@@ -150,11 +150,22 @@
     "launchSha256": "43b1e63ad81e22c98696b68b04afa554d1a4a89367ac246c8eee20d27e14715e",
     "setupManifestSha256": "d84cc74ebd3a93391c95adf123cf62510d0c3c369846bc69cdd93e0e10ed1074",
     "topology": "27 stable mounts/126relations; complete actual10roots passed after setup and immediately before dispatch",
-    "rawEvidencePublished": false
+    "rawEvidencePublished": false,
+    "returnedUtc": "2026-11-14T18:37:26.998Z",
+    "sourceCommit": "b529fdbe16315180b4fe83e03bb60e561efe5635",
+    "returnCommit": "40624ad65134277eaca9bdf34ae0a8183a4768b7",
+    "successfulWholeFiles": 7,
+    "successfulWholeFilePasses": 126,
+    "failedFile": {
+      "pass": 5,
+      "fail": 30,
+      "skip": 1
+    },
+    "semanticJobExecuted": false
   },
   "qualificationPreparation": {
     "activation": "qualification-preparation-01/ACTIVATION.json",
-    "state": "NATIVE_AUTHOR_RUNNING",
+    "state": "SOURCE_REVIEW_CLOSED_PROOF_STOPPED_NATIVE_FIXTURE",
     "scope": "Canonical exact RC/two-subject preparation; B32 native library closure and actual protected input consumption",
     "rawEvidencePublished": false,
     "controlCommit": "dc4135d5e242559cdee844e5815a732733b61e92",
@@ -172,6 +183,22 @@
     "sourcePreimageSha256": "caea8bd8ea49649799fd14f75aad01fb5732e2d75d85125536ae7beb14632211",
     "setupManifestSha256": "926058637cc99efb54a564fc5548fc7d84f189c85126552b4cd1470786b5d7c6",
     "topology": "Fresh complete actual roots passed after setup and immediately before dispatch",
-    "proofStarted": false
+    "proofStarted": true,
+    "returnedUtc": "2026-11-14T18:54:38.239Z",
+    "sourceCommit": "b4026fa6445a098431ce9c26afe2cac978474932",
+    "returnCommit": "e71fce6622a14518c37f717a16d0b0a226dd914b",
+    "qualificationPreparationPasses": 6,
+    "nativeInputCases": {
+      "pass": 4,
+      "fail": 3,
+      "skip": 0
+    },
+    "laterProofExecuted": false
+  },
+  "fixtureReentry": {
+    "state": "SELECTED_PREPARATION_ONLY",
+    "record": "integration-01/PROOF_FIXTURE_FAILURE_TRIAGE_01.md",
+    "sourceFiles": 2,
+    "providerStarted": false
   }
 }

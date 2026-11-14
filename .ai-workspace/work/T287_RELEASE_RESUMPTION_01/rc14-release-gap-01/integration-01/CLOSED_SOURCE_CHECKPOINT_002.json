@@ -1,0 +1,49 @@
+{
+  "id": "RC14-CLOSED-SOURCE-CHECKPOINT-002",
+  "role": "Separate Root exact-source integration and records Writer; no Product/test authoring",
+  "recordedUtc": "2026-11-14T19:11:46.235598+00:00",
+  "authority": "Owner continuation, RC13-built RC14 and checkpoint/main/push mandate; raw evidence excluded from GitHub",
+  "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#exact-basis",
+  "parentMain": "f9ea4fba8f8db2f061da79efebf70afd27a75333",
+  "sourceSubjects": [
+    {
+      "source": "b529fdbe16315180b4fe83e03bb60e561efe5635",
+      "return": "40624ad65134277eaca9bdf34ae0a8183a4768b7",
+      "paths": 9,
+      "sourceReview": "B21_OWNER_REPAIR_SOURCE_REVIEW.md",
+      "proof": "7 files126pass; default-library5pass30fail1skip; semantic-job unrun"
+    },
+    {
+      "source": "b4026fa6445a098431ce9c26afe2cac978474932",
+      "return": "e71fce6622a14518c37f717a16d0b0a226dd914b",
+      "paths": 10,
+      "sourceReview": "Separate /root/b29_vm_triage closed Install/Proof review; no additional implementation finding",
+      "proof": "build passed; preparation6pass; native-input4pass3fail; later proof unrun"
+    }
+  ],
+  "controlSubject": "6167d43c55357daf18f078656c7620a2b138fd81",
+  "writeTerritory": [
+    "Exact9+10 source/test paths in the two closed source commits via Git integration only",
+    "Their compact Return/source-row/count records",
+    "Closed installed-smoke preparation controls",
+    "integration-01 records, STATUS.json, PLAN.md and T293 current dispositions"
+  ],
+  "effects": [
+    "Verify exact frozen source identities",
+    "Merge exact closed source/Return/control commits while retaining source QA and first-red evidence limits",
+    "Commit compact authored records and normally push main; verify direct remote parity"
+  ],
+  "stops": [
+    "Unexpected source delta or merge conflict",
+    "Material hash mismatch",
+    "Non-fast-forward push"
+  ],
+  "status": "INCOMPLETE_SOURCE_CHECKPOINT_NOT_TECHNICAL_OR_QUALIFICATION_ACCEPTANCE",
+  "exclusions": [
+    "No code repair by Root",
+    "No raw Runs/captures/inventories/archives/SDK/header copies published",
+    "No test/build/provider effect through this Writer",
+    "No cut, qualification, publication or human acceptance"
+  ]
+}
