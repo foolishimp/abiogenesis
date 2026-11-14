@@ -1,0 +1,73 @@
+{
+  "id": "RC14-INSTALLED-CONTROL-REVIEW-001",
+  "productFrame": "Fixed ABIogenesis5.0, selected RC14 S01/S03 installed composition under STDO3.0.4. Published Product/GTL/HoG/ABG owners retain semantics and admission; the external host supplies exact declarations, inputs and bounded process custody only. A mechanical smoke, static control check or prepared host is not semantic acceptance, S06 or qualification.",
+  "reviewer": "Root in a separate read-only Install/Proof assurance role; records written through existing Root control Writer activation",
+  "frameUris": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#exact-basis",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  ],
+  "recordedUtc": "2026-11-14T18:35:52.707318+00:00",
+  "subjectCommit": "d5191d502b1269da158c68735bd3f4aad552e7df",
+  "manifestSha256": "dcb96b33de6a28c75eaeaed4c78069f8c1781268763807903e1be4cd60a735a9",
+  "sourceRoutes": [
+    "specification/PRODUCT.md S01/S03/S06/S07",
+    "installed composition planning records",
+    "exact frozen six control files",
+    "maintained uat runner/public-setup/consumer/scenarios and accepted process-owner/physical-topology controls"
+  ],
+  "classification": "Derived external proof/Operator controls; no runtime authority",
+  "observations": [
+    "All4 executable/document/template inventory rows and19 maintained inputs hash-match; unchanged tenant244895231",
+    "Only published package exports loaded for basic-cli; private deterministic smoke explicitly limited",
+    "Maintained setup, real close, held/fresh reads and unchanged original oracle are reused; host does not choose graph steps",
+    "Template is execution-disabled; no candidate/provider/test execution occurred"
+  ],
+  "findings": [
+    {
+      "id": "C01",
+      "boundary": "Environment/credential handoff",
+      "evidence": "run.py constructs child environment solely from retained setupEnvironment; basic-cli then builds workerEnvironment from that environment. Template has no explicit inherited provider-secret route. Adding secrets to setupEnvironment would retain them in BINDING.json and run.json.",
+      "repair": "Select only explicit provider.inheritEnvironment key names; require selected values in Operator process environment and forward them only to the basic host/worker. Never retain values in binding/config/command records or give credentials to the deterministic smoke. Preserve existing workerEnvironment semantics and the exact provider pin."
+    },
+    {
+      "id": "C02",
+      "boundary": "Physical identity and actual setup composition",
+      "evidence": "run.py authenticates only a prior topologyAcceptance file hash. basic-cli creates the real environment/install roots, then dispatches without a fresh complete-root observation.",
+      "repair": "Reuse the already accepted external physical-topology observer by exact hash. Bind prospective layout and reobserve all actual worksite/binding/install/bootstrap/archive/protected source roots after setup and immediately before provider dispatch. Persist observations externally and require the declared relation; no Product guard or second semantic owner."
+    },
+    {
+      "id": "C03",
+      "boundary": "Original deadline, process custody and failure evidence",
+      "evidence": "Unbounded Git children execute before the enclosing timer is armed; the SIGALRM can also interrupt the cleanup wait outside its catch. Output size is checked while running but not after a fast process has exited.",
+      "repair": "Reuse the accepted finite process-owner pattern/helper instead of a second partial timer coordinator. Cover spawned preflight children, reserve finite cleanup inside the original deadline, always retain command/failure/close receipts and check final capture size. Preserve explicit no-claim for separately grouped descendants and return exact ownership coordinates for Root cleanup on forced failure; do not claim host exit proves their absence."
+    },
+    {
+      "id": "C04",
+      "boundary": "End-to-end input conservation and claim precision",
+      "evidence": "Control/helper/archive/bootstrap identity checks run only before execution; source/helper or bootstrap changes during live work are not compared afterward. Worksite tree records regular files/symlinks, not all directory metadata.",
+      "repair": "Recheck the same exact control, maintained-source, archive/bootstrap and provider identities at exit including first-failure exit, retaining mismatches. Keep whole-worksite claim explicitly limited to actual compared file/link content, or include the additional entry types with a precise lawful parent-directory allowance; no broader conservation claim than measured."
+    }
+  ],
+  "rootCauseConjunction": "The small host preserved the successful maintained invocation route but omitted parts of its surrounding Operator custody contract. Existing Product/Design require exact inputs and truthful close; environment, physical-identity, lifecycle and Proof frames locate the missing joins in external controls, not a new Product feature. Static syntax/hash checks did not exercise those joins.",
+  "disposition": "Preserve disabled controls on main; not ready for execution. One bounded control-only repair selected.",
+  "repairGrant": {
+    "operator": "/root/b29_vm_triage",
+    "scope": "Same installed-smoke-preparation-01 territory; may add small exact copies of accepted authored Operator helpers. No tenant/Product/test or maintained-tool changes.",
+    "entry": "After Root pushes the review checkpoint, reconcile exact compact control-only advance; do not follow moving main.",
+    "limitMinutes": 20,
+    "effects": [
+      "Read frozen source and current accepted controls",
+      "Repair only listed external control custody joins",
+      "Syntax/AST/JSON/hash checks only; no Product imports/build/install/tests/provider",
+      "Freeze one successor commit and compact Return; no main push"
+    ],
+    "stops": [
+      "Any Product change or broader test requirement",
+      "Unresolved actual contract join",
+      "First unexpected effect or time ceiling; return partial control state without execution"
+    ],
+    "returnTo": "Root Executive for independent successor control review and later exact artifact/execution binding"
+  },
+  "executionAuthorized": false,
+  "qualification": false
+}

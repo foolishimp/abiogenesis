@@ -1,0 +1,125 @@
+{
+  "kind": "operator_control_inventory",
+  "preparationSource": "5d28aa1dd0096578072e68e92064cdb7638b25a5",
+  "activationTenantSource": "244895231432a931409298195845b250ad32e0cb",
+  "tenantTree": "d7d033153e624bbf3e6d9fb9c2e81691341f3d35",
+  "controls": [
+    {
+      "path": "basic-cli.mjs",
+      "bytes": 8818,
+      "sha256": "74d0e8c300992ed7777cba3dbb98961905dad319defa610091624de4c539990a"
+    },
+    {
+      "path": "run.py",
+      "bytes": 8609,
+      "sha256": "f55f79b25190cc8e25e254306dfe20a2398d2f0854e854af982124c265e02f34"
+    },
+    {
+      "path": "BINDING.template.json",
+      "bytes": 1079,
+      "sha256": "fc6642c1f52bb5bcce2b28c6205d073b032a60aa5ab9b04fd86a38e491168002"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5410,
+      "sha256": "e4e5ab41531f6a4a79df447054a880308babfeac455d3409730f09d15fa7467b"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+      "bytes": 1831,
+      "sha256": "ecda0215f8dfb85b22332f199482edbfd1ccf164415caaeb776892581e923e77"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "bytes": 4878,
+      "sha256": "9099c80e78261f507288c8597bad0495d70628a9b21990f1e3283c536df70c65"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 50216,
+      "sha256": "3274c5ef23c5fd5b362b42a899bc0d7c9d588f363848e1b033150b968f8a7008"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "bytes": 19702,
+      "sha256": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+      "bytes": 2973,
+      "sha256": "e8053600a769281634b4b48f2def507d23c1f84f257d95398e8085cfbc24baad"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+      "bytes": 2656,
+      "sha256": "2b70dfe98899a637c6b9d07e1f3b5daf04e4d8320535e4f434c7a716e343e778"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/product-payload.mjs",
+      "bytes": 10554,
+      "sha256": "6436442d7db32d2a2c9a7a42cd50d71c159fe45baeac53f57d47b5bac40c9df4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39738,
+      "sha256": "9bb83493f9bd34691dda02bb48f864d04b57f302edbdd39f2964f3857e59ab71"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "bytes": 39630,
+      "sha256": "ab22d56dfa8130d84992f0aa06cd97de86c869c48fd7fee6c3c79567fdd7a723"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "bytes": 27124,
+      "sha256": "6b1fd7a41fe0e03708d6dbebeec171f6cef7ac36af8d3baef8bfdc8451515407"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/source.original.txt",
+      "bytes": 4325,
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/obligations.json",
+      "bytes": 4916,
+      "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/request.json",
+      "bytes": 23299,
+      "sha256": "340c8a331d41d4b0160131be7ba700ab2833d9a3ea10ae62df4febce40e50219"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/oracle.json",
+      "bytes": 1112,
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+    }
+  ]
+}
