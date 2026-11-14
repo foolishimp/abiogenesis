@@ -1,0 +1,109 @@
+{
+  "id": "RC14-QUALIFICATION-PREPARATION-NATIVE-001-PROOF",
+  "firstFailureStops": true,
+  "retries": 0,
+  "campaignMs": 3600000,
+  "originalHostDeadline": "CONTROL_START.json deadlineUtc; no reset",
+  "effectiveDeadline": "min(original host deadline, proof start + one hour) minus 15000ms cleanup reserve",
+  "cleanupReserveMs": 15000,
+  "perBuildMs": 300000,
+  "perWholeFileMs": 600000,
+  "testTimeoutMs": 590000,
+  "order": [
+    "source and setup custody freeze",
+    "exact dependency and native-input identities",
+    "one ordinary candidate build",
+    "whole new qualification preparation discriminator",
+    "whole new native input discriminator including two real relocations and cold addon copies",
+    "pack and offline ignore-scripts install",
+    "archive/install complete byte equality and actual installed native owner check",
+    "whole existing qualification law",
+    "whole existing qualification contraction",
+    "whole installed conservation file with its existing prerequisites intentionally unset",
+    "unchanged source dependency and original native input inventories; return"
+  ],
+  "newWholeFiles": [
+    {
+      "file": "t293-rc14-qualification-preparation.test.mjs",
+      "topLevelNames": [
+        "canonical positive RC identities derive from exact candidate joins",
+        "malformed and noncanonical RC identities refuse",
+        "candidate package manifest artifact content and claim mismatches refuse",
+        "changed release claims change the exact preparation basis",
+        "subject kind is explicit distinct and preserved at reopening",
+        "stale resources refuse before qualification preparation"
+      ],
+      "allowSkips": false
+    },
+    {
+      "file": "t293-native-build-inputs.test.mjs",
+      "topLevelNames": [
+        "mandatory native closure and hierarchy are exact",
+        "missing changed and colliding native inputs refuse before execution",
+        "protected placement rewrites every compiler input without ambient fallback",
+        "snapshot mode loss permits two byte equal relocated native builds",
+        "relocated build preserves original protected and execution bytes",
+        "cold missing native addon gives existing uncertainty refusal",
+        "cold incompatible native addon gives existing uncertainty refusal"
+      ],
+      "allowSkips": false
+    }
+  ],
+  "existingWholeFiles": [
+    {
+      "file": "t287-qualification-law.test.mjs",
+      "conditionalSkip": "Three exact existing staging cases. ABG_QUALIFICATION_STAGE_FIXTURES, ABG_QUALIFICATION_SOURCE_ROOT and ABG_QUALIFICATION_RELEASE_ROOT stay unset; no fresh staged qualification authority is invented.",
+      "expectedSkips": {
+        "authority staging and ordinary reproduction bind selectedRC2's exact Definition-selected release": "ABG_QUALIFICATION_STAGE_FIXTURES unset; exact historical/current staging fixtures not supplied",
+        "authority staging refuses wrong manifest and altered selected member before writing": "ABG_QUALIFICATION_SOURCE_ROOT or ABG_QUALIFICATION_RELEASE_ROOT unset; exact installed source acquisition roots not supplied",
+        "authority staging refuses a crossed release identity or member-set even with a matching manifest byte digest": "ABG_QUALIFICATION_STAGE_FIXTURES unset; exact current staging fixture not supplied"
+      },
+      "topLevelNames": [
+        "qualification law and every rule span bind the selected frozen source bytes",
+        "coverage declarations preserve retained behavior without execution slots or fabricated results",
+        "authority staging and ordinary reproduction bind selectedRC2's exact Definition-selected release",
+        "authority staging refuses wrong manifest and altered selected member before writing",
+        "authority staging refuses a crossed release identity or member-set even with a matching manifest byte digest",
+        "leaf admission reads both catalogs once from the owner install and refuses bytes that differ from the recorded digest at authority_verification",
+        "a typed failure of an F_D qualification leaf arrives through the port boundary with its evidence",
+        "O1 (A): parseQualificationCatalogs refuses a coverage catalog outside I-JSON on its throw",
+        "O1 (A): an install manifest outside I-JSON is refused at the coverage catalog it binds",
+        "O1 (A): an installed coverage catalog outside I-JSON is refused at its path"
+      ],
+      "sourceSha256": "d171fb1d365c9805079d9299a191fd3d84b591a5450447029f429ca94d692a5d"
+    },
+    {
+      "file": "t287-qualification-contraction.test.mjs",
+      "conditionalSkip": null,
+      "expectedSkips": {},
+      "topLevelNames": [
+        "actual execution evidence is authenticated once, with foreign, substituted, aliased and ambiguous producers refused",
+        "green execution cannot replace independent coverage judgment; shared evidence must actually be in each selected task",
+        "whole native F11 assessment feeds sole AF22 directly; development/foreign/missing/duplicate evidence remains non-green",
+        "AF22 shares its exact owner through separate installed realization, success validation and cloned judgment; cold and changed bases stay checked"
+      ],
+      "sourceSha256": "b768ee0976a20b66a8ae204b9452742ed9afca2008f75dc98240bc648f910236"
+    },
+    {
+      "file": "t287-installed-qualification-conservation.test.mjs",
+      "conditionalSkip": "All ABI5_INSTALLED_CONSERVATION_* acquisition prerequisites deliberately unset. Existing whole file must record its one prerequisite skip; no fake authority, provider or formal qualification. Actual external archive/install conservation is a separate executed step.",
+      "expectedSkips": {
+        "installed qualification conservation over the installed territory, package, archive and pinned interpreter": "ABI5_INSTALLED_CONSERVATION_ROOT, _PACKAGE_ROOT, _ARCHIVE or _NODE unset; requires the installed conservation territory, the installed package, its archive and the pinned interpreter"
+      },
+      "topLevelNames": [
+        "installed qualification conservation over the installed territory, package, archive and pinned interpreter"
+      ],
+      "sourceSha256": "2d4761cb518388e919029478f98df36e477b57ba1b813d12fe84efb8252e7f2a"
+    }
+  ],
+  "nativeRelocationEvidence": "The native-input whole file writes ABI5_NATIVE_BUILD_PROOF_RECORD as JSON. It records two distinct clean roots; protected and execution input inventories before/after; snapshot-style regular input modes 0644; actual child argv/exit/duration; relocated compiler/linker/resource/SDK/include roots; output path/bytes/SHA256 for each build; source/protected/host conservation; no ambient fallback negatives. Exact arrays/paths remain test-owned implementation. Operator retains and checks record, output equality and conserved hashes. When the Operator record path is selected, leave the two run directories and exact output files in that external proof scratch until the Operator has read them; ordinary unrecorded test runs may clean up. The execution input digest excludes compiler outputs and includes the derived executable input view only.",
+  "nativeRelocationRecordPath": "proof-01/scratch/NATIVE_RELOCATION_RESULT.json",
+  "coldLoadEvidence": "Both missing and incompatible addon cases use disposable candidate copies in fresh Node processes; cold loading, unaffected public import and existing uncertainty refusal, with no target effects. Never patch the cached native exports as a substitute.",
+  "qualification": false,
+  "generatedFinalInventories": "No refresh until final composed source; this is preparation evidence only.",
+  "nativeRelocationRecordSchema": {
+    "kind": "native_relocation_proof",
+    "ambientFallbackRefused": true,
+    "runs": "exactly two rows: root, protectedRoot, executionRoot, compiler, argv[], exitCode=0, output={path,bytes,sha256}, protectedBeforeDigest=protectedAfterDigest, executionBeforeDigest=executionAfterDigest, hostBeforeDigest=hostAfterDigest, snapshotInputMode=420. All digests lowercase bare SHA256. Paths absolute under external proof scratch; executionRoot under each run root/build. Each output must equal the ordinary build native output."
+  }
+}
