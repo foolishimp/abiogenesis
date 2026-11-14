@@ -1,0 +1,67 @@
+{
+  "status": "NATIVE_DISPATCH_OBSERVED_FINAL_RETURN_PENDING",
+  "acquiredBy": "Root records Writer",
+  "observedUtc": "2026-11-14T13:45:09.834953+00:00",
+  "subject": "27e6412853f1d8afb1a2e960def6eb055f8ede50",
+  "activation": "RC14-B31-NATIVE-AUTHOR-001",
+  "builderVersion": "5.0.0-rc.13",
+  "rawRecords": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/setup-identity.json",
+      "bytes": 8890055,
+      "sha256": "9e1d8252e3d3f544349bbe63fb396f71f4fd04ef5dafbcc1e1fc8179d22765d3"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/topology-before-dispatch.json",
+      "bytes": 32601,
+      "sha256": "be487ecdf674ef68a83af065cf921de2d62129272b6a9b19df0967d56fdb6c6f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/file-write-scope-preflight.json",
+      "bytes": 625,
+      "sha256": "d98566895d94fd4b494d1224fe629b477c601f62cf7eeca8c638fdb0f59a4951"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/PREPARED.json",
+      "bytes": 1663,
+      "sha256": "8668b94df25e87a892939144a476d17ed343484dbccbb5415818f10c6bc99b50"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/provider-transport-selection.json",
+      "bytes": 1965,
+      "sha256": "7632dcae72289cfee34aab12185c196db1cec54e248767c02ac1c02825e38d53"
+    }
+  ],
+  "eventResourcePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/runtime/resources/events/runtime.events.jsonl",
+  "eventRows": [
+    {
+      "line": 16,
+      "sha256": "8311b53b7364e5ae5f7069e8c31fcc1ff36561c3b9c91c8d6ae52585fb0b550c",
+      "kind": "actor_transport_binding_admitted",
+      "eventId": "event://abiogenesis/0e0d15683161371c34b00bc9f455bd3cfd601fdf9ad89b9667ef302f1355f6cf",
+      "eventTime": "2026-11-14T13:36:20.767Z",
+      "runId": "run://abiogenesis/0f8034aafa7398b726c24a71e4b72501be1d6ad16d87b531b715f014c53c74d3"
+    },
+    {
+      "line": 17,
+      "sha256": "d945746940177611f6858c725ec6da0197b5938e0b55138808d1c7e93f5a5bb5",
+      "kind": "actor_invocation_started",
+      "eventId": "event://abiogenesis/cd957395f529caf6319dfebe7decbc76422018af3854684ee9a5af7838cd5587",
+      "eventTime": "2026-11-14T13:36:20.767Z",
+      "runId": "run://abiogenesis/0f8034aafa7398b726c24a71e4b72501be1d6ad16d87b531b715f014c53c74d3"
+    },
+    {
+      "line": 18,
+      "sha256": "eb9bde418e913cc71365795de431594013679ecbbf13211896dcd6824277f082",
+      "kind": "actor_process_started",
+      "eventId": "event://abiogenesis/2ff27f542762ee54f7bb6e0fd45b9fc4b13f4fb1e6e7e4711354ec0c9ea8bc9b",
+      "eventTime": "2026-11-14T13:36:20.776Z",
+      "runId": "run://abiogenesis/0f8034aafa7398b726c24a71e4b72501be1d6ad16d87b531b715f014c53c74d3"
+    }
+  ],
+  "configuredModel": "claude-opus-5-5",
+  "effortArgument": "xhigh",
+  "processIdObservedAtStart": 28635,
+  "topologyScope": "6 W entries versus 9 protected roots, trusted stable namespace; no general confinement or adversarial-race claim",
+  "proofStatus": "No final frozen source, close, reproof or qualification accepted; raw evidence remains local"
+}

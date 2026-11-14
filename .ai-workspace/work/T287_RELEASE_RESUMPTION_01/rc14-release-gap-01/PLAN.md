@@ -14,10 +14,11 @@ not a new Product authority or an assertion of qualification.
 |---|---|---|
 | 1 | B31: complete lower-owner premises in F04 and the same affected ActorProcess component fixtures | Preserve TD78 production guards, reject foreign coordinates, assert both executing-identity answers, retain installed positive checks; prove the repaired complete affected files |
 | 2 | B21: physical ancestry confinement | Re-enter the bounded C0/native/C2 HOW, implement one supported physical relation over identities/ancestry and unresolved suffixes, preserve separate/overlap/indeterminate and existing effect laws; prove alias refusals before effects plus lawful siblings and owner/replay composition |
-| 3 | Compose regression and retained-history evidence | New prospectively bounded campaign on exact RC14 subject; do not reset the expired RC13 clock or inherit passes across changed subjects without valid retained relations |
-| 4 | Installed specification/amendment lifecycle | Real installed-Public work, declared reviews, affected-evidence invalidation, targeted correction, truthful failure/stop and persisted continuation; complete the selected mandatory witness outcomes |
-| 5 | Qualification closure | Reconcile remaining release applicability, the 4.6 conservation dispositions, exact self-conformance, current qualification resources and S01/S02/S03/S06; repair the existing RC1-bound qualification preparation path without inventing a new qualification system |
-| 6 | Exact S07 release path | Green pre-RC authorization, immutable RC materialization without rebuild, exact installed-RC qualification, required reviews, actual human acceptance, then authorized publication and fresh source-blind install |
+| 3 | B12: bounded raw-call and semantic-output admission repair; B13 wording clarification | Existing I-JSON/refusal/fault contracts, established native identity carriage preserved; historical inputs and lawful positives through SDK/CLI. Separate exact implementation/proof activation follows B31 route closure |
+| 4 | Compose regression and retained-history evidence | New prospectively bounded campaign on exact RC14 subject; do not reset the expired RC13 clock or inherit passes across changed subjects without valid retained relations |
+| 5 | Installed specification/amendment lifecycle | Real installed-Public work, declared reviews, affected-evidence invalidation, targeted correction, truthful failure/stop and persisted continuation; complete the selected mandatory witness outcomes |
+| 6 | Qualification closure | Reconcile remaining release applicability, the 4.6 conservation dispositions, exact self-conformance, current qualification resources and S01/S02/S03/S06; repair the existing RC1-bound qualification preparation path without inventing a new qualification system |
+| 7 | Exact S07 release path | Green pre-RC authorization, immutable RC materialization without rebuild, exact installed-RC qualification, required reviews, actual human acceptance, then authorized publication and fresh source-blind install |
 
 B31 read-only triage: actor fixtures substitute earlier direct owners but leave
 TD78's boundWorkspaceMatchesExecutingToolchain native over synthetic/missing
@@ -26,7 +27,8 @@ artifacts; the later reuse fixture receives an admission refusal. Other affected
 fixtures are t287-lifecycle-failure-carrier, t287-native-workspace-work,
 t287-qualification-scopes and t288-instruction-assembly-owner. This supports a
 test-only realization_refactor; no production regression is demonstrated.
-No repair or reproof has run.
+The bounded native author is active; no frozen repair/reproof has been accepted.
+The current phase and evidence limits are in `STATUS.json`.
 
 B21 read-only triage: component counts and differing canonical spellings cannot
 establish physical separation when Darwin firmlink paths share directory
@@ -39,18 +41,21 @@ symlink/hard-link/spelling/freshness checks and existing partial-effect law.
 Before any RC13 author run, establish a stable canonical isolated worksite; its
 finite W roots must be physically disjoint from all protected binding/install
 roots, and the C2 archive from source/protected roots. Canonical strings alone
-are insufficient. This topology has not yet been measured.
+are insufficient. The exact finite B31 topology passed its Operator observation;
+that does not establish another worksite's topology or close B21.
 
 Use the maintained installed-Public setup and native-work route with a fresh
 workspace manifest, event resource, installs, lock, binding and Catalog. Current
 RC13's native actor owner hardcodes the Claude protocol; Codex is not selectable
 on that path despite a shared transport definition. Do not substitute a Codex
 binary into the Claude command. Provider availability/model/limits, exact task,
-write scope, actual cleanup and the return relation are bound by the next
-execution activation. No provider has been launched.
+write scope, actual cleanup and the return relation are bound by
+`b31-native-01/ACTIVATION.json`. One supported Claude native pass is active.
 
-B09–B13 require explicit release-applicability dispositions; an unresolved owner
-policy stays an owner decision. Standalone Consensus, observer/tuner, mandatory
+B09–B13 dispositions are in `applicability-01/README.md`: no new global binding
+policy or duplicated realizer guards; B12 receives a bounded existing-owner
+repair before complete Public conformance; B13 needs wording clarification.
+Unexecuted adversarial discriminators remain explicit. Standalone Consensus, observer/tuner, mandatory
 host parity, native human-response and the full original Data Mapper evaluation
 remain the existing deferred/independently owned scope. No broad Effect rewrite
 or additional native-provider feature is selected automatically.

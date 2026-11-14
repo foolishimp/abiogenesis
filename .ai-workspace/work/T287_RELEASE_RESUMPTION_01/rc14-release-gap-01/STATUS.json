@@ -1,14 +1,21 @@
 {
-  "status": "SELECTED_AWAITING_PIN_CHECKPOINT_PUSH_AND_BOUNDED_EXECUTION",
+  "status": "B31_NATIVE_AUTHOR_ACTIVE_B21_PENDING_B12_PREPARATION_SELECTED",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
     "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26"
   },
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
-  "implementationStarted": false,
-  "providerCalls": 0,
-  "triage": "B31 and B21 read-only frame returns conjoined; code and proof remain unperformed",
+  "implementationStarted": true,
+  "providerCalls": 1,
+  "triage": "B31/B21 triage retained. B09-B13 applicability conjoined in applicability-01/README.md; B12 bounded repair preparation selected, no new root policy or duplicate realizer gate",
   "rawEvidencePublication": false,
-  "recordedUtc": "2026-11-14T13:14:50.325246+00:00"
+  "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
+  "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
+  "pushedActivationSubject": "27e6412853f1d8afb1a2e960def6eb055f8ede50",
+  "nativeProcessStartedUtc": "2026-11-14T13:36:20.776Z",
+  "executionObservationSource": "applicability-01/EXECUTION_PHASE.json; actual admitted start rows acquired by Root, final runtime close and frozen source pending",
+  "acceptedSourceRepair": false,
+  "acceptedReproof": false,
+  "recordedUtc": "2026-11-14T13:45:09.834953+00:00"
 }
