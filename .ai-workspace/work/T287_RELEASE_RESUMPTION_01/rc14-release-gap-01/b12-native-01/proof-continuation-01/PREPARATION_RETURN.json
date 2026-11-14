@@ -1,0 +1,155 @@
+{
+  "activation": "B12_PROOF_CONTINUATION_01",
+  "status": "PREPARED_NOT_EXECUTED",
+  "preparedUtc": "2026-11-14T17:06:42.286453+00:00",
+  "reason": "Operator case manifest omitted an existing conditional preparation-resolve-call prerequisite; no Product assertion failed. Original false expectation and FIRST_FAILURE remain unchanged.",
+  "controlRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-continuation-01",
+  "sourceHead": "df4d2cbca9e075c8c8017f07d37e7a02687f926a",
+  "sourcePostimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/SOURCE_POSTIMAGE.json",
+    "bytes": 322696,
+    "sha256": "08c46b71a69b7ae2d6d05a7f24832d0f348fc408191375717fe1a71de5320728"
+  },
+  "sourceRows": 1427,
+  "retainedBuildRows": 6633,
+  "controls": [
+    {
+      "name": "continue.py",
+      "bytes": 11540,
+      "sha256": "eea0a7addf8898b92d360fba169ba50f3713fe528cfd86c955dd1bdce046f450"
+    },
+    {
+      "name": "resolve-fixture.mjs",
+      "bytes": 8062,
+      "sha256": "7e25ab6800f30aa11713bbab2bc8feddc84ec77d9da3d2d209dc2310bfcf3086"
+    },
+    {
+      "name": "INPUT_BINDING.json",
+      "bytes": 10699,
+      "sha256": "fa0d78ff1ca1118c93b02fdee1602748a22698453b2dd8e5ff179b4f77b8c67d"
+    }
+  ],
+  "externalOnlyRawInventory": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-continuation-01/RETAINED_SUBJECT_INVENTORY.json",
+    "bytes": 1240064,
+    "sha256": "7e6a500409c4b002c6587fe28ea73c84efe47113af66f3cc0ddcf50c3637e1c4"
+  },
+  "checkpointFiles": [
+    "continue.py",
+    "resolve-fixture.mjs",
+    "INPUT_BINDING.json",
+    "PREPARATION_RETURN.json",
+    "CONTROL_MANIFEST.json"
+  ],
+  "doNotStage": [
+    "RETAINED_SUBJECT_INVENTORY.json",
+    "execution/",
+    "LAUNCH_BINDING.json"
+  ],
+  "retained": {
+    "build": "passed",
+    "cli": {
+      "passed": 26,
+      "skipped": 0,
+      "populationAudit": true
+    },
+    "static": {
+      "passed": 3,
+      "skipped": 1,
+      "failed": 0,
+      "populationAudit": false
+    },
+    "reason": "Existing conditional skip omitted from Operator expectation; original false expectation and first failure remain immutable."
+  },
+  "prospectiveSequence": [
+    {
+      "label": "03-candidate-package-install",
+      "entrypoint": "unchanged accepted candidate.mjs package",
+      "capMs": 300000
+    },
+    {
+      "label": "04-current-candidate-resolve-fixture",
+      "entrypoint": "resolve-fixture.mjs",
+      "capMs": 300000,
+      "effects": "New installed candidate verifyArtifact; one genuine eventless Public product.verify and product.resolve; preserve actual full calls/outcomes. No workspace/Catalog/event resource/provider."
+    },
+    {
+      "label": "05-native-detachment-gate",
+      "file": "t287-w2-05-static-binding-algebra.test.mjs",
+      "positiveNamePattern": "^native detachment retains only actual immutable verifier bodies and detaches raw copies$",
+      "executedCases": 1,
+      "otherThreeCases": "Explicit name-filter exclusions only; none may execute again. Report emitted exclusion events separately from original declared skip.",
+      "capMs": 600000
+    },
+    {
+      "label": "06-t287-owned-call-reference",
+      "file": "t287-owned-call-reference.test.mjs",
+      "wholeFile": true,
+      "expectedCases": 1,
+      "capMs": 600000
+    },
+    {
+      "label": "07-t291-m6-admission-refusal-surface",
+      "file": "t291-m6-admission-refusal-surface.test.mjs",
+      "wholeFile": true,
+      "expectedCases": 5,
+      "capMs": 600000
+    },
+    {
+      "label": "08-installed-owner-smoke",
+      "entrypoint": "unchanged accepted candidate.mjs smoke",
+      "capMs": 300000
+    }
+  ],
+  "preservation": {
+    "noBuildRerun": true,
+    "noCliRerun": true,
+    "noCompletedStaticCaseRerun": true,
+    "noSourceControlReceiptIndexHeadEdit": true,
+    "newProviderCalls": 0,
+    "firstFailureStops": true,
+    "automaticRetry": false
+  },
+  "limits": {
+    "originalProofDeadlineUtc": "2026-11-14T17:49:11.624335+00:00",
+    "originalHostDeadlineUtc": "2026-11-14T18:18:34.786596+00:00",
+    "stdoutStderrAndEventCaptureBytes": 16777216,
+    "fullCallArtifactBytesPerFile": 67108864,
+    "reserveBytes": 4294967296,
+    "cleanup": "Original bounded.py, owned process group TERM5s/KILL5s/wait5s; no global absence claim"
+  },
+  "validation": {
+    "pythonAstParsed": true,
+    "nodeCheckParsed": true,
+    "sourceConserved": true,
+    "retainedBuildConserved": true,
+    "ProductExecutions": 0,
+    "tests": 0
+  },
+  "launch": {
+    "command": [
+      "python3",
+      "-B",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-continuation-01/continue.py",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-continuation-01/LAUNCH_BINDING.json"
+    ],
+    "requiredBinding": {
+      "activation": "B12_PROOF_CONTINUATION_01",
+      "rootAcceptedAndPushed": true,
+      "checkpointHead": "Root supplied direct-remote-parity checkpoint, 40 hex",
+      "controlManifestSha256": "Exact frozen CONTROL_MANIFEST.json SHA256",
+      "acceptance": {
+        "path": "Root committed acceptance path",
+        "sha256": "Exact acceptance bytes SHA256"
+      }
+    }
+  },
+  "premiseLimits": [
+    "Current-candidate Public fixture and targeted gate are unperformed; successful construction is a condition, not a claim.",
+    "Candidate dependency list is actually empty in retained build manifest and must remain empty at actual verification.",
+    "The detachment gate retains its existing capture-only resolve receiver and cannot establish full admission/effect behavior.",
+    "Historical RC1 and slim RC13 coordinate records are not used as a call carrier.",
+    "No release qualification or composed-final generated inventory claim."
+  ],
+  "qualified": false
+}

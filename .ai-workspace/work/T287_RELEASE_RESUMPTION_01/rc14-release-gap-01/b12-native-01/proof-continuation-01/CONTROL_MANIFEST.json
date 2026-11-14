@@ -1,0 +1,30 @@
+{
+  "activation": "B12_PROOF_CONTINUATION_01",
+  "files": [
+    {
+      "name": "continue.py",
+      "bytes": 11540,
+      "sha256": "eea0a7addf8898b92d360fba169ba50f3713fe528cfd86c955dd1bdce046f450"
+    },
+    {
+      "name": "resolve-fixture.mjs",
+      "bytes": 8062,
+      "sha256": "7e25ab6800f30aa11713bbab2bc8feddc84ec77d9da3d2d209dc2310bfcf3086"
+    },
+    {
+      "name": "INPUT_BINDING.json",
+      "bytes": 10699,
+      "sha256": "fa0d78ff1ca1118c93b02fdee1602748a22698453b2dd8e5ff179b4f77b8c67d"
+    },
+    {
+      "name": "PREPARATION_RETURN.json",
+      "bytes": 5920,
+      "sha256": "e9e7bb73393f2626ba0eac6f19899b2af7c6b997d70cb1e0988e6b12731a4d0b"
+    }
+  ],
+  "rawInventoryExternalOnly": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-continuation-01/RETAINED_SUBJECT_INVENTORY.json",
+    "bytes": 1240064,
+    "sha256": "7e6a500409c4b002c6587fe28ea73c84efe47113af66f3cc0ddcf50c3637e1c4"
+  }
+}

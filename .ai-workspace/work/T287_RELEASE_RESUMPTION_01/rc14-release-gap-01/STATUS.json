@@ -1,5 +1,5 @@
 {
-  "status": "B31_ACCEPTED_B12_SOURCE_FROZEN_PROOF_PREPARING_B21_NATIVE_RUNNING",
+  "status": "B12_SOURCE_ACCEPTED_PROOF_CONTINUATION_PREPARING_B21_NATIVE_RUNNING",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -8,7 +8,7 @@
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
   "providerCalls": 3,
-  "triage": "B31 technically closed; B13 wording corrected. B12 source author returned successfully and is frozen for source QA and fresh focused proof; no passing implementation tests yet. B21 native author active. Composed regression, installed lifecycle and qualification remain open.",
+  "triage": "B31 technically closed, B13 wording corrected. B12 bounded source relation independently accepted; initial Run-read source hypothesis withdrawn after producer trace. Build and29test executions pass;1conditional case skipped and original audit failure retained. Authentic fixture/remaining proof continuation preparing under original clock. B21 author still active. No RC14 release qualification.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
   "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
@@ -27,7 +27,7 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T16:47:50.347349+00:00",
+  "recordedUtc": "2026-11-14T17:02:56.609530+00:00",
   "nativeAuthorState": "B12 successful author return/actual close/fresh result and replay;11 authored files frozen for independent source review. B21 native author running.",
   "b21Preparation": {
     "state": "NATIVE_AUTHOR_RUNNING",
@@ -43,7 +43,7 @@
     "B12": "b12-native-01/ACTIVATION.json"
   },
   "b12Preparation": {
-    "state": "AUTHOR_RETURNED_SOURCE_FROZEN_PROOF_PREPARING",
+    "state": "SOURCE_RELATION_ACCEPTED_PROOF_STOPPED_ON_OPERATOR_EXPECTATION",
     "commit": "c11db33ddedae51c3edde1961b15f3f7280f003e",
     "rootAcceptance": "integration-01/B12_PREPARATION_ACCEPTANCE.json"
   },
@@ -79,5 +79,30 @@
     "nativeWorkUnchanged": true,
     "proofExecuted": false,
     "pushedCheckpoint": "70de9e928091b31c3a8a61844d435a304c69dafc"
+  },
+  "b12Proof": {
+    "status": "FIRST_FAILURE_STOP_RETAINED_CONTINUATION_PREPARING",
+    "build": "passed",
+    "cli": {
+      "pass": 26,
+      "skip": 0
+    },
+    "staticBinding": {
+      "pass": 3,
+      "skip": 1,
+      "operatorAudit": "failed: expected skip false but unchanged fixture prerequisite absent"
+    },
+    "unperformed": [
+      "pack/install",
+      "native detachment executed case",
+      "owned-call-reference",
+      "ordinary admission-refusal",
+      "installed smoke"
+    ],
+    "sourceConservedRows": 1427,
+    "sourceReview": "integration-01/B12_SOURCE_REVIEW_CONJUNCTION.md",
+    "triage": "integration-01/B12_PROOF_AUDIT_TRIAGE.md",
+    "deadlineUtc": "2026-11-14T17:49:11.624Z",
+    "newProviderCallsSelected": 0
   }
 }

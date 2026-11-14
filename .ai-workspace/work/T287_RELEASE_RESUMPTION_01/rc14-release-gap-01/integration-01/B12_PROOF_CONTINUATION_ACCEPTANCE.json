@@ -1,0 +1,70 @@
+{
+  "id": "RC14-B12-PROOF-CONTINUATION-ACCEPTANCE-001",
+  "recordedUtc": "2026-11-14T17:10:43.282321+00:00",
+  "role": "Root control-integration Writer records Executive disposition; Operator executes only after checkpoint/push",
+  "sourceHead": "df4d2cbca9e075c8c8017f07d37e7a02687f926a",
+  "sourcePostimageSha256": "08c46b71a69b7ae2d6d05a7f24832d0f348fc408191375717fe1a71de5320728",
+  "status": "ACCEPTED_FOR_ONE_CONTINUATION_AFTER_DIRECT_REMOTE_PARITY",
+  "triage": "integration-01/B12_PROOF_AUDIT_TRIAGE.md",
+  "controls": [
+    {
+      "name": "continue.py",
+      "bytes": 11540,
+      "sha256": "eea0a7addf8898b92d360fba169ba50f3713fe528cfd86c955dd1bdce046f450"
+    },
+    {
+      "name": "resolve-fixture.mjs",
+      "bytes": 8062,
+      "sha256": "7e25ab6800f30aa11713bbab2bc8feddc84ec77d9da3d2d209dc2310bfcf3086"
+    },
+    {
+      "name": "INPUT_BINDING.json",
+      "bytes": 10699,
+      "sha256": "fa0d78ff1ca1118c93b02fdee1602748a22698453b2dd8e5ff179b4f77b8c67d"
+    },
+    {
+      "name": "PREPARATION_RETURN.json",
+      "bytes": 5920,
+      "sha256": "e9e7bb73393f2626ba0eac6f19899b2af7c6b997d70cb1e0988e6b12731a4d0b"
+    },
+    {
+      "name": "CONTROL_MANIFEST.json",
+      "bytes": 976,
+      "sha256": "96d4937a5851f5db1948ce8d5c50e178c56bc1667990228a59f5a73dd27090e6"
+    }
+  ],
+  "executionRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-continuation-01",
+  "rootReview": [
+    "Read full runner and actual Public fixture producer",
+    "Verified maintained publicCaller/authorize/invoke call shapes and Product resolve output fields against source",
+    "Fixture performs genuine successful eventless verification and resolution for exact newly installed candidate; no manufactured historical call",
+    "Retained build/1427source rows/6633subject rows and32 predecessor inputs are pinned",
+    "Only unperformed work is scheduled; native detachment uses exact positive name, exclusions separately classified",
+    "Original proof failure, declared skip and29passing executions retained; no retrospective expectation rewrite"
+  ],
+  "effects": [
+    "Existing candidate package/install from retained unchanged fresh build",
+    "Current-candidate eventless Public verify+resolve fixture, capture actual full calls/outcomes externally",
+    "One previously skipped detachment case, remaining whole owned-reference1 and ordinary-admission5, existing installed smoke"
+  ],
+  "limits": {
+    "originalProofDeadlineUtc": "2026-11-14T17:49:11.624Z",
+    "originalHostDeadlineUtc": "2026-11-14T18:18:34.786Z",
+    "commandCaptureBytes": 16777216,
+    "fullCallArtifactBytesPerFile": 67108864,
+    "providerCalls": 0,
+    "workspaceCreateBindCalls": 0,
+    "catalogCalls": 0,
+    "newBuilds": 0,
+    "repeatPassingCases": 0,
+    "automaticRetry": false
+  },
+  "conditions": [
+    "Verify exact external controls and committed acceptance SHA in external LAUNCH_BINDING",
+    "Use original exact source and preserved setup ownership checks; no active worktree or old control changes",
+    "Stop at first continued failure, preserve result and return to Root",
+    "No source/qualification/release/human acceptance inferred from counts"
+  ],
+  "publication": "Exactly5 enumerated authored control/compact files; raw6633row inventory, actual full calls, execution outputs and LAUNCH_BINDING stay external",
+  "checkpointBinding": "Final pushed control commit supplied separately, not self-referential"
+}

@@ -1,0 +1,218 @@
+{
+  "activation": "B12_PROOF_CONTINUATION_01",
+  "preparedUtc": "2026-11-14T17:02:30.483995+00:00",
+  "sourceWorktree": "/private/tmp/abg-rc14-b12-20261115-01",
+  "sourceHead": "df4d2cbca9e075c8c8017f07d37e7a02687f926a",
+  "sourcePostimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/SOURCE_POSTIMAGE.json",
+    "bytes": 322696,
+    "sha256": "08c46b71a69b7ae2d6d05a7f24832d0f348fc408191375717fe1a71de5320728"
+  },
+  "sourceRows": 1427,
+  "builtSubject": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/subject",
+  "builtSubjectInventory": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-continuation-01/RETAINED_SUBJECT_INVENTORY.json",
+    "bytes": 1240064,
+    "sha256": "7e6a500409c4b002c6587fe28ea73c84efe47113af66f3cc0ddcf50c3637e1c4"
+  },
+  "builtSubjectRows": 6633,
+  "originalProofDeadlineUtc": "2026-11-14T17:49:11.624335+00:00",
+  "originalHostDeadlineUtc": "2026-11-14T18:18:34.786596+00:00",
+  "retainedFiles": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/SOURCE_PREIMAGE.json",
+      "bytes": 316162,
+      "sha256": "5724e378397f388ab7981f6ecdf541908811ca6491b917f5263c70dc078be728"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/SOURCE_POSTIMAGE.json",
+      "bytes": 322696,
+      "sha256": "08c46b71a69b7ae2d6d05a7f24832d0f348fc408191375717fe1a71de5320728"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/PROOF_CASES.json",
+      "bytes": 7750,
+      "sha256": "7e8b800ce89c0a856efa31a82075a5ea19f0bda5e70954647149f5bd584de17e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/PROOF_START.json",
+      "bytes": 858,
+      "sha256": "2469c4190e829ba10d462f7e283f7fa7c5a8c7b8d82c9155a17687f50be6d5b4"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/PROOF_RETURN.json",
+      "bytes": 3189,
+      "sha256": "99fe912536d4098701d4ec14d0de169211180f70ffa7cc10bc353f42b40de53b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/HOST_RETURN.json",
+      "bytes": 584,
+      "sha256": "d34cb4ac82a2b2a7aa115bcf824f059c2a2b48930529f3740cd2e2bc7cfe79bd"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/runtime/FINAL.json",
+      "bytes": 861,
+      "sha256": "c7f1b895c9883813c087d1d76a9780920d80c14140cb796701c681e338292d8b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/STOPPED_PROOF_AUDIT.json",
+      "bytes": 3367,
+      "sha256": "0a2f6c4f34c1d21777e42b391c1cb9c210897045b85e939cefb82042c1cd85ff"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/PROOF_SUCCESSOR_BINDING.json",
+      "bytes": 2232,
+      "sha256": "e40d3b05482508f02b673aa8664859e116107b16b47a9c5e545d9a19f54d97ef"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/00-candidate-build/request.json",
+      "bytes": 594,
+      "sha256": "dc90f8471212a00b6fd1d5307bd9f31ebbf479b9fdfd4be38e9d253ca7821771"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/00-candidate-build/result.json",
+      "bytes": 606,
+      "sha256": "0cc3947efc71e7be1e576059b1a15edacb1bd43ebeaf1e018b4a0a277189e528"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/00-candidate-build/stdout.raw",
+      "bytes": 217,
+      "sha256": "dd523baa1a7e42723bd90ed9b71035c34a503d4abd50995015eb98cacff1033f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/00-candidate-build/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/01-t292-td79-cli-exit-classification.test/request.json",
+      "bytes": 1128,
+      "sha256": "086072551be22540fa4e160bb156ac67f9eb4c0ed381af7b41bb7f3e7d88ecf6"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/01-t292-td79-cli-exit-classification.test/result.json",
+      "bytes": 915,
+      "sha256": "58e9964c8c0c0f61a2041123482d1741e491be66d4246cdd2f2a34dec35f2a90"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/01-t292-td79-cli-exit-classification.test/stdout.raw",
+      "bytes": 5298,
+      "sha256": "ae008d2681514f0be792127d8eeb59a2c91e9efdc2ff6d8c7c9ecaf3f3774e99"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/01-t292-td79-cli-exit-classification.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/01-t292-td79-cli-exit-classification.test/events.jsonl",
+      "bytes": 45905,
+      "sha256": "700a0731dc4e53f67939e6d029dd9565d82223472ef6081536df054467fa7ebf"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/01-t292-td79-cli-exit-classification.test/POPULATION_AUDIT.json",
+      "bytes": 8883,
+      "sha256": "e90eace16be8cd55d357e598cf31b5cc005f368d1d9f9a7942e03cb52cd19142"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/02-t287-w2-05-static-binding-algebra.test/request.json",
+      "bytes": 1128,
+      "sha256": "a455787b4a230817b6f2b31f4f3c05593c610beae28a41250a5dcbb8435d3710"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/02-t287-w2-05-static-binding-algebra.test/result.json",
+      "bytes": 914,
+      "sha256": "763ef0486c2730dd33ae19360bc3d01b342f165bff6c9e77710cd5d88992236b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/02-t287-w2-05-static-binding-algebra.test/stdout.raw",
+      "bytes": 2026,
+      "sha256": "c56153e51669b9ff0a034165319b781ef3acff04073d9a186fd24a424ecaea6e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/02-t287-w2-05-static-binding-algebra.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/02-t287-w2-05-static-binding-algebra.test/events.jsonl",
+      "bytes": 11432,
+      "sha256": "9459b1c4cb0590ccca6cb0e8889f75d4a487a1ee90e8a19a9e65962a5c8caeaf"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof/02-t287-w2-05-static-binding-algebra.test/POPULATION_AUDIT.json",
+      "bytes": 1935,
+      "sha256": "92fa53804f83a23dbc9da32d586be611af31cbeb8bd93caadb22cf67cb53001d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-control-setup-custody-01/bounded.py",
+      "bytes": 4206,
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-control-setup-custody-01/candidate.mjs",
+      "bytes": 5994,
+      "sha256": "0a56d7df614d386d302c4db35e3ee907f5e68bc4d943085ad76215a913b5a379"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-control-setup-custody-01/events-reporter.mjs",
+      "bytes": 312,
+      "sha256": "a1f110aa80b03a0a20620b27dd4076ffe67151325094c57cdb1c4d0a28778b04"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-control-setup-custody-01/ACTIVATION.json",
+      "bytes": 7613,
+      "sha256": "04d12f76c34a908d3753df918ffff05ed1c18c5637daf98a4e848213aca599a7"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-control-setup-custody-01/PROOF_SCHEDULE.json",
+      "bytes": 2377,
+      "sha256": "599e4f911d89fd44dd4cd07b2a0db026af28082d798b582e6d06c19a96c7df84"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-control-setup-custody-01/prove.py",
+      "bytes": 8928,
+      "sha256": "17f413831ece43b63e02a722f841e6e36b9a513b3da42597618125f332c4efbe"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b12-20261115-01/proof-control-setup-custody-01/setup_custody.py",
+      "bytes": 7134,
+      "sha256": "64457407ecfa7a32d900ecc985e4ae26198bfe2ec2a8408ba53a56e720f94f23"
+    }
+  ],
+  "tools": [
+    {
+      "path": "/opt/homebrew/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/opt/homebrew/bin/npm",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3",
+      "bytes": 33816,
+      "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa"
+    }
+  ],
+  "retainedEvidence": {
+    "build": "passed",
+    "cli": {
+      "passed": 26,
+      "skipped": 0,
+      "populationAudit": true
+    },
+    "static": {
+      "passed": 3,
+      "skipped": 1,
+      "failed": 0,
+      "populationAudit": false
+    },
+    "reason": "Existing conditional skip omitted from Operator expectation; original false expectation and first failure remain immutable."
+  },
+  "gateName": "native detachment retains only actual immutable verifier bodies and detaches raw copies",
+  "fullCallArtifactBytesLimit": 67108864,
+  "qualified": false
+}
