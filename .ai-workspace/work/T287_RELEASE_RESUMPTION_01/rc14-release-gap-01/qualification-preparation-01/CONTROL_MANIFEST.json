@@ -1,0 +1,110 @@
+{
+  "kind": "operator_control_manifest",
+  "activationId": "RC14-QUALIFICATION-PREPARATION-NATIVE-001",
+  "baseSourceHead": "0ddffb770b6686a92fc8b67a5fbb79f669b38afc",
+  "state": "PREPARED_NOT_DISPATCHED",
+  "files": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 11084,
+      "sha256": "42387707de8e6a692e7afe347b17c8ec7a094443639b99d44e820a0106f0d9eb"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 647,
+      "sha256": "4047aa15caeed2ae1218f030689e44949cee17df85eca58e95cf8c46a348ee93"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 16652,
+      "sha256": "7f63dcdd1557e5bc2a80aa95262b925df8289795676005a4232cc8e9fe3b7509"
+    },
+    {
+      "path": "LAYOUT.json",
+      "bytes": 3078,
+      "sha256": "8395ace811a3fea937214a8e7702deb6bab8e98f15088786d261d2bf1d56dfad"
+    },
+    {
+      "path": "NATIVE_INPUTS_OBSERVED.json",
+      "bytes": 1405,
+      "sha256": "c3a50ec26284913280e9ef5b5e059fdde4c7a3369956a40458ddd8629c933b66"
+    },
+    {
+      "path": "PREPARATION.md",
+      "bytes": 4475,
+      "sha256": "ae11b591ba3896e61860a97784f0ba2192e9b8ee3885f3074ee07a1699a742af"
+    },
+    {
+      "path": "PREPARATION_RETURN.json",
+      "bytes": 7311,
+      "sha256": "b70e50d3e7001b1dbb0e4dbe0eeada9089e6b087af56e2626563b21bcd05badb"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 8198,
+      "sha256": "be4e91e2c784e4d59819bd3c827d0aa82c0794d6d5f6d735e51459d7b03fe9f6"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1509,
+      "sha256": "dbe8109746d9368b5fdab1fe241b893b9f3c6ff2788f26155c0a7339ad20323c"
+    },
+    {
+      "path": "ROOT_ACTIVATION.json",
+      "bytes": 2224,
+      "sha256": "556d6a7df283e486700250794a9e0312e7836c97f691d06390370b508f3c84e4"
+    },
+    {
+      "path": "TASK.json",
+      "bytes": 9158,
+      "sha256": "c76028783b7a1ca5ff8e5d9e1f6c0845c8580e7441aaf32466c66387f85e907a"
+    },
+    {
+      "path": "TRIAGE.md",
+      "bytes": 5545,
+      "sha256": "9e64f5cb7469d8c984a105c1584922fab25e43bbfb002d8ceece033dbcfb397e"
+    },
+    {
+      "path": "check-installed.mjs",
+      "bytes": 2472,
+      "sha256": "b67edd4080e1dfae95d5d4d9f15debcf002e4a7141dc1648995a8ec3189b7420"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 2403,
+      "sha256": "7b26df18d1507f674385cbe80080116645501dec975468d41e1e9e6fe438a81e"
+    },
+    {
+      "path": "operate.py",
+      "bytes": 4042,
+      "sha256": "dedfa7325d6d5f8344ef591ce7ab60f8cf8b64ec02458a54537333b4e8784e5d"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 16810,
+      "sha256": "958115f87b8da0522dd421425fee9a0ab2041fa8324377a16c4d1b5e2af69aa3"
+    },
+    {
+      "path": "setup_custody.py",
+      "bytes": 6241,
+      "sha256": "a8eb658f813c4ec68a940559c2b8d93ba12d291ed87b9d2f9eb80ae5301e8b2a"
+    }
+  ],
+  "selfPin": "Root launch packet additionally pins CONTROL_MANIFEST.json bytes; no self-reference",
+  "rawPublication": false
+}

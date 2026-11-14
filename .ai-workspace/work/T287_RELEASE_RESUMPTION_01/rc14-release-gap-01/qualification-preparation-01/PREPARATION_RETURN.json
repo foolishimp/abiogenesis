@@ -1,0 +1,131 @@
+{
+  "id": "RC14-QUALIFICATION-PREPARATION-NATIVE-001",
+  "role": "Operator preparation only",
+  "state": "PREPARED_NOT_DISPATCHED",
+  "recordedUtc": "2026-11-14T18:02:06.141078+00:00",
+  "baseSourceHead": "0ddffb770b6686a92fc8b67a5fbb79f669b38afc",
+  "worktree": "/private/tmp/abg-rc14-qualification-prep-20261115-01",
+  "branch": "codex/rc14-qualification-prep-20261115",
+  "controlDirectory": "/private/tmp/abg-rc14-qualification-prep-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/qualification-preparation-01",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "sourceDelta": "Operator controls only; native implementation and tests are unmodified",
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26",
+    "bytes": 5769
+  },
+  "provider": {
+    "agent": "claude",
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "version": "2.1.322 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "providerCallsAtMost": 1,
+    "protocol": "Use existing actual Claude owner path. No Codex-as-Claude wrapper or new provider feature."
+  },
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/scripts/build-native.mjs",
+    "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+    "build_tenants/abiogenesis/typescript/scripts/native-build",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/build-resources.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-qualification.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-identity.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/native-inputs.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/declared-commands.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t293-rc14-qualification-preparation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t293-native-build-inputs.test.mjs",
+    "build_tenants/abiogenesis/typescript/qualification-scratch/rc14-qualification-prep-01"
+  ],
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 3600000,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 7200000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 16777216,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "oldRc13CampaignClockReused": false,
+    "proofCampaignMs": 3600000,
+    "perBuildMs": 300000,
+    "perTestFileMs": 600000
+  },
+  "preparationChecks": {
+    "stdoExactReleaseVerified": true,
+    "builderArchiveAndManifestPinsVerified": true,
+    "providerBinaryPinVerified": true,
+    "providerInvocations": 0,
+    "nativeOriginalInputsVerified": 193,
+    "nativeMandatoryAdditionalLibrariesVerified": 3,
+    "dependencyInventorySha256": "dc55a042e47b4119487c1ef1b1288b0de607a9687b6a60e4efbb0443f9584aff",
+    "dependencyFilesAndLinks": 4576,
+    "layout": "separated",
+    "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+    "productImports": 0,
+    "productBuilds": 0,
+    "productTests": 0,
+    "nativeCompilations": 0,
+    "qualificationRuns": 0
+  },
+  "receipts": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/STDO_VERIFICATION.json",
+      "bytes": 14723,
+      "sha256": "9f6e93c201b508371ac89fc8c7f3c6dc66cdbbb3259486888c742c2d6263c651"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/TOPOLOGY_PREPARATION.json",
+      "bytes": 755,
+      "sha256": "acaacbfac7b2155d15a87946d808f95d1127c4a1145fb61ccb0225bf3cb3278e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/DEPENDENCY_PREIMAGE.json",
+      "bytes": 987915,
+      "sha256": "d5963980b0d8ce53b85847a547f44d308757bf4766aadd0f3dda49dad401a8ef"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-qualification-prep-20261115-01/NATIVE_INPUT_PREIMAGE.json",
+      "bytes": 46384,
+      "sha256": "7c9708d1956f7c55428299f6c8ad23695b90b9f08f970831d7228720743b3574"
+    }
+  ],
+  "finiteProof": {
+    "plan": "PROOF_PLAN.json",
+    "newFiles": 2,
+    "newTopLevelCases": 13,
+    "existingFiles": 3,
+    "existingTopLevelCases": 15,
+    "existingPrerequisiteSkips": 4,
+    "ordinaryBuilds": 1,
+    "actualRelocatedNativeBuilds": 2,
+    "offlineIgnoreScriptsInstall": 1,
+    "actualFormalQualification": false
+  },
+  "setupCustody": "Actual RC13 imported createWorkspace owns only the exact canonical .abiogenesis/workspace-manifest.json delta. Original receipt, invocation, coordinates, bytes and before-dispatch chronology must authenticate; no blanket ignore.",
+  "nextRequired": [
+    "Root accepts exact controls and manifest, checkpoints/pushes main, then supplies sourceHead and exact launch pins.",
+    "Advance this named worktree to that exact accepted pushed checkpoint; final freeze requires clean source.",
+    "Run freeze-source.py with exact pushed HEAD to create fresh external SOURCE_PREIMAGE.json.",
+    "Root supplies one LAUNCH.json with activationId, dispatchAuthorized=true, exact sourceHead, observerSha256 and every control digest including CONTROL_MANIFEST.json.",
+    "Only then run operate.py once; successful real owner return/close/fresh readbacks precede prove.py once within original deadline.",
+    "Return first failure or exact frozen bounded proof to Root; no retry, source repair loop, main merge/push, or formal qualification by this role."
+  ],
+  "residuals": [
+    "No dispatch or source implementation has occurred.",
+    "Actual post-setup and immediately-pre-dispatch physical topology and exact setup manifest custody remain mandatory.",
+    "Three existing authority staging cases and one installed native conservation prerequisite case remain intentionally skipped; no qualification conclusion follows.",
+    "Generated resources and final candidate inventories await final composed source and are not refreshed on this partial slice.",
+    "Proof platform is Darwin arm64 on Node 24.7.0 with Node-API 8 output; no Node 20 execution or whole-machine closure claim.",
+    "Independent source assurance and complete RC14/S07 qualification remain unexecuted."
+  ],
+  "publication": "Only authored compact controls/pins/provenance are eligible for Git. SDK/header/compiler/dependency bytes, copied-tree inventories, raw captures and archives remain external.",
+  "returnTo": "Root Executive; stop before dispatch"
+}

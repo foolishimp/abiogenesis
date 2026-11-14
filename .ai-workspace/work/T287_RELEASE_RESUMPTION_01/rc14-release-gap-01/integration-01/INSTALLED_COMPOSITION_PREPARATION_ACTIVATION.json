@@ -1,0 +1,34 @@
+{
+  "id": "RC14-INSTALLED-COMPOSITION-CONTROL-PREPARATION-REVIEW-001",
+  "role": "Read-only planning Reviewer; no implementation or execution",
+  "reviewer": "/root/b29_vm_triage",
+  "recordedUtc": "2026-11-14T18:01:16.279204+00:00",
+  "frameUris": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#exact-basis",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  ],
+  "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "sourceCommit": "514aac439ab37e5bea60a55f5904eba50c18fe16",
+  "purpose": "Refine existing closed installed steel-thread preparation into exact maintained helper/call/fixture/oracle composition for first post-repair ordinary Public demonstration; no duplicate broad review",
+  "sourceRoutes": [
+    "Actual Product/selected S06 witness",
+    "integration-01/INSTALLED_STEEL_THREAD_PREPARATION.md",
+    "Maintained sandbox-uat public-setup/runner/consumer/scenarios/continuation",
+    "Amendment fixture and owner tests/default library declared prerequisite and review semantics"
+  ],
+  "questions": [
+    "Smallest thin external host carrying declared reviews and process prerequisites using existing constructors; host never selects graph choices",
+    "Whether lawful declared process can require genuine initial counterevidence before correction without fabricated semantic verdict",
+    "Required exact witness/oracles, fresh reads and continuation distinctions; supported finite bounds without invented API count or timing"
+  ],
+  "permittedEffects": [
+    "Read exact Git/source and existing retained records",
+    "Return minimal concrete preparation and exact blocker versus later qualification gap"
+  ],
+  "prohibitions": [
+    "No code/control/Git edits",
+    "No tests/builds/Product imports/provider",
+    "No new Product feature/authority or worker activation"
+  ],
+  "returnTo": "Root Executive"
+}

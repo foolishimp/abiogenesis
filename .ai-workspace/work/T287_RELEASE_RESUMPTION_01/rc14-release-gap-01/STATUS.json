@@ -1,5 +1,5 @@
 {
-  "status": "B12_CLOSED_B21_INCOMPLETE_CHECKPOINT_OWNER_REPAIR_PREPARING",
+  "status": "B21_OWNER_REPAIR_NATIVE_RUNNING_QUALIFICATION_CONTROLS_PREPARING",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -7,7 +7,7 @@
   },
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
-  "providerCalls": 3,
+  "providerCalls": 4,
   "triage": "B31 and B12 technically closed, B13 wording closed. B21 mechanical proof passed178 cases with6 existing skips; independent source QA found2 C2 boundary defects and a reachable Default Testing install-input omission. Final source/qualification remains open.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T17:56:19.679434+00:00",
-  "nativeAuthorState": "B12 and B21 native authors returned successfully; actual resource close and fresh result/replay. No native author running.",
+  "recordedUtc": "2026-11-14T18:09:18.109361+00:00",
+  "nativeAuthorState": "B21 owner repair actual RC13 native author running; qualification preparation controls not dispatched",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -49,7 +49,7 @@
     "commit": "c11db33ddedae51c3edde1961b15f3f7280f003e",
     "rootAcceptance": "integration-01/B12_PREPARATION_ACCEPTANCE.json"
   },
-  "providerCallsMeaning": "Historical field counts observed native author sessions (B31, B12, B21), not underlying provider API requests",
+  "providerCallsMeaning": "Observed native author sessions B31, B12, initial B21 and B21 owner repair; not underlying provider API requests",
   "b12Native": {
     "sourceHead": "df4d2cbca9e075c8c8017f07d37e7a02687f926a",
     "startedUtc": "2026-11-14T16:19:44.332Z",
@@ -135,16 +135,29 @@
   },
   "b21Repair": {
     "activation": "b21-native-01/repair-01/ACTIVATION.json",
-    "state": "CONTROLS_ACCEPTED_PENDING_PUSH_AND_LAUNCH",
+    "state": "NATIVE_AUTHOR_RUNNING",
     "scope": "Pre-read physical guard; helper directional policy; Default Testing and two semantic-job authenticated install inputs",
-    "providerStarted": false,
+    "providerStarted": true,
     "controlCommit": "7704ad059a5b507ee6aa2879ae08a02b45beebab",
-    "acceptance": "integration-01/B21_OWNER_REPAIR_PREPARATION_ACCEPTANCE.json"
+    "acceptance": "integration-01/B21_OWNER_REPAIR_PREPARATION_ACCEPTANCE.json",
+    "sourceHead": "514aac439ab37e5bea60a55f5904eba50c18fe16",
+    "startedUtc": "2026-11-14T17:59:18.809Z",
+    "pid": 13091,
+    "runRef": "run://abiogenesis/6ac089c507bbbc57c03a8929fc6d801ffb96431ce92c985afd8d7895b87ee16f",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "originalHostDeadlineUtc": "2026-11-14T19:58:33.930934Z",
+    "launchSha256": "43b1e63ad81e22c98696b68b04afa554d1a4a89367ac246c8eee20d27e14715e",
+    "setupManifestSha256": "d84cc74ebd3a93391c95adf123cf62510d0c3c369846bc69cdd93e0e10ed1074",
+    "topology": "27 stable mounts/126relations; complete actual10roots passed after setup and immediately before dispatch",
+    "rawEvidencePublished": false
   },
   "qualificationPreparation": {
     "activation": "qualification-preparation-01/ACTIVATION.json",
-    "state": "PREPARATION_SELECTED_NO_PROVIDER",
+    "state": "CONTROLS_ACCEPTED_PENDING_PUSH_AND_LAUNCH",
     "scope": "Canonical exact RC/two-subject preparation; B32 native library closure and actual protected input consumption",
-    "rawEvidencePublished": false
+    "rawEvidencePublished": false,
+    "controlCommit": "dc4135d5e242559cdee844e5815a732733b61e92",
+    "acceptance": "qualification-preparation-01/ROOT_PREPARATION_ACCEPTANCE.json"
   }
 }
