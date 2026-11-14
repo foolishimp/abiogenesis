@@ -32,5 +32,21 @@
     "No provider/build/test execution by this Writer",
     "No raw captures, archives, LFS payloads, other refs or force push",
     "No qualification, release publication or human acceptance"
-  ]
+  ],
+  "selectedSuccessorIntegration": {
+    "id": "RC14-TWO-FIXTURE-CLOSED-SOURCE-INTEGRATION-003",
+    "recordedUtc": "2026-11-14T20:26:50.617362+00:00",
+    "role": "Root separate integration/records Writer; no test authoring",
+    "source": "7a2411defd9ef7c1968512703c3b4b1493114453",
+    "parent": "346de86607f168e1951ff64306070359aeb5cfa4",
+    "effects": [
+      "Ordinarily merge exact frozen two-test source and its compact Operator successor Return after reacquiring identities; preserve first failed Return in ancestry",
+      "Update current status and T-293 dispositions, commit and push only source/authored compact records after outgoing-object inspection",
+      "Verify exact merged file hashes, direct remote parity and cleanliness with unrelated peer review preserved"
+    ],
+    "proof": "65pass/0fail/5declared skips; selected source assurance closed with explicit custody/comment/procedural limits",
+    "excluded": [
+      "No novel Product/test edits, provider execution, archive/raw publication, ref rewrite or qualification claim"
+    ]
+  }
 }
