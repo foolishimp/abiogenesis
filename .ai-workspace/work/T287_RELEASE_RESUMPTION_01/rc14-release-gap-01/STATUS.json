@@ -27,7 +27,7 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-14T17:45:23.297776+00:00",
+  "recordedUtc": "2026-11-14T17:56:19.679434+00:00",
   "nativeAuthorState": "B12 and B21 native authors returned successfully; actual resource close and fresh result/replay. No native author running.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
@@ -135,9 +135,11 @@
   },
   "b21Repair": {
     "activation": "b21-native-01/repair-01/ACTIVATION.json",
-    "state": "CONTROLS_PREPARATION_ONLY",
+    "state": "CONTROLS_ACCEPTED_PENDING_PUSH_AND_LAUNCH",
     "scope": "Pre-read physical guard; helper directional policy; Default Testing and two semantic-job authenticated install inputs",
-    "providerStarted": false
+    "providerStarted": false,
+    "controlCommit": "7704ad059a5b507ee6aa2879ae08a02b45beebab",
+    "acceptance": "integration-01/B21_OWNER_REPAIR_PREPARATION_ACCEPTANCE.json"
   },
   "qualificationPreparation": {
     "activation": "qualification-preparation-01/ACTIVATION.json",

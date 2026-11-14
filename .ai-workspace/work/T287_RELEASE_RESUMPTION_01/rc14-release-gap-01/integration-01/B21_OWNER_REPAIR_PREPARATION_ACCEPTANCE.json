@@ -1,0 +1,143 @@
+{
+  "id": "RC14-B21-OWNER-REPAIR-ROOT-PREPARATION-ACCEPTANCE-001",
+  "recordedUtc": "2026-11-14T17:56:19.679434+00:00",
+  "status": "CONTROLS_ACCEPTED_EXECUTION_AFTER_PUSH_PARITY",
+  "workerControlCommit": "7704ad059a5b507ee6aa2879ae08a02b45beebab",
+  "workerSourceBase": "917085a01b701a979de59e426b3553782bbf78f6",
+  "mainParent": "0ddffb770b6686a92fc8b67a5fbb79f669b38afc",
+  "preparationReturnSha256": "d14edc474b692f939a2c94408d80db47b97ee01629f5a3e781ac5efab1d46ac8",
+  "controls": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 10220,
+      "sha256": "847c0d8da8663eb70f6564276d225286e4f6a18039381759be5609a7009fffea"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 639,
+      "sha256": "c4f5f3ae466ce7cdee3956612013234860f3c39080c700293acc9a3d61c5811d"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 16440,
+      "sha256": "e6293b36d1d67b9b80f8434a600e42c593801f2484ca99ebc8a615f883bb198a"
+    },
+    {
+      "path": "LAYOUT.json",
+      "bytes": 3091,
+      "sha256": "c2eec8500f18bc79b1ff7b956f5bcd493d39f99d3f56226b2ee28af8f487b51b"
+    },
+    {
+      "path": "NATIVE_HOST_OBSERVATIONS.json",
+      "bytes": 1755,
+      "sha256": "c4df57d1f98d10dc32e1b460d4bd125ca4a60dc9f18be96fd792980d8c755962"
+    },
+    {
+      "path": "NATIVE_REUSE_INPUTS.json",
+      "bytes": 2006,
+      "sha256": "dc275389a4c7963755f27ecde092293355fe43d93c05361d15b2b3d563e0c373"
+    },
+    {
+      "path": "PREPARATION.md",
+      "bytes": 7280,
+      "sha256": "d6bd4fc40bdbb005135d3a06f8e9ba00ceec747529a40a4577f0b75bcecbb2ba"
+    },
+    {
+      "path": "PROOF_FIXTURE_INPUTS.json",
+      "bytes": 3613,
+      "sha256": "6e07ce2d9b2bcc52976d4ee572f80a59a4198e12d5af024f04ab0e769a3a5c3b"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 3896,
+      "sha256": "ae3670e1cce2980dc2c4419e3d7f928de4966cfba30f7835fd2f770b898f1e32"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2132,
+      "sha256": "e5f2e8c686a5d6f5bacd267f4d959254d31a443974259486b267587257452244"
+    },
+    {
+      "path": "TASK.json",
+      "bytes": 13598,
+      "sha256": "51f7c2ffb5ca882126d48257b742e0f74dd8ff54cc66394da68527c502b0ff56"
+    },
+    {
+      "path": "check-installed.mjs",
+      "bytes": 2472,
+      "sha256": "b67edd4080e1dfae95d5d4d9f15debcf002e4a7141dc1648995a8ec3189b7420"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 2403,
+      "sha256": "7b26df18d1507f674385cbe80080116645501dec975468d41e1e9e6fe438a81e"
+    },
+    {
+      "path": "observe-preparation.py",
+      "bytes": 4192,
+      "sha256": "4d6506a3b7298b170b140afcaab63bf7b6544f8cb57f3fc0be58b770f88201b2"
+    },
+    {
+      "path": "operate.py",
+      "bytes": 4026,
+      "sha256": "411a5120fd1c14b4b5f646b7e0accdaa2c9e5df4cd118f74ad4de1c5cbf613cf"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 17034,
+      "sha256": "57a90bfcd1afcbb6fd8ce7b767d59435b168ea383155dc365f435ef14beacecb"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ],
+  "sourceReconciliation": {
+    "finalSource": "Exact resulting main checkpoint to be supplied only after normal push and directremote parity",
+    "permittedAdvance": "Clean worker branch fast-forward to exact supplied checkpoint, then exclusive final source preimage; no moving main follow",
+    "productionTestsBuildPackage": "Equal to exact7704ad059 worker source before advance",
+    "additionalTenantPaths": [
+      "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md"
+    ],
+    "meaning": "Two accepted HOW supplements for independent native-input/qualification slice; no Product/test/build change, no changed native W. Full final preimage will bind current HOW before setup."
+  },
+  "acceptedRelations": [
+    "Exact20 control hashes/lengths match frozen worker Git objects and main copies",
+    "Task12 write roots equal grant; fixed5.0 outcomes; one RC13 actual author Opus5.5 xhigh",
+    "Existing physical observer byte-equal; planned layout and real alias/lawful-sibling/uncertainty checks retained; fresh actual roots required before dispatch",
+    "Fresh setup manifest canonical receipt/readback/custody capture before dispatch and verification at proof entry/end; all other changes under W",
+    "Exact13-file default Testing witness;9 whole files once, actual-owner discriminator first; real Public scripted route distinct from component and gated live case",
+    "Proof deadline clipped to original2h host and at most1h proof with15s cleanup reserve; native1h/5min inactivity; first failure stop",
+    "193 declared native input conservation plus3 separate actual library observations; no false complete closure/reproduction claim"
+  ],
+  "executionGrant": {
+    "nativeAuthorSessionsAtMost": 1,
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "afterSuccessfulNativeReturn": "Freeze source, retain actual close/readbacks/command audit, then execute accepted bounded proof once without further user confirmation",
+    "firstFailure": "Stop and return exact retained evidence to Root, no retry"
+  },
+  "limits": [
+    "Controlled ASCII Operator layout only",
+    "No full release/cross-platform qualification",
+    "Required actual-owner cases may not skip; historical explicit provider/fixture gates remain unexercised",
+    "Raw evidence and toolchain bytes stay external; source/compact records only"
+  ]
+}

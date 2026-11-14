@@ -1,0 +1,30 @@
+{
+  "kind": "extra_local_native_host_library_observations",
+  "sourceHead": "917085a01b701a979de59e426b3553782bbf78f6",
+  "observedUtc": "2026-11-14T17:49:18.685386+00:00",
+  "rootSelection": {
+    "commit": "0ddffb770",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/qualification-preparation-01/TRIAGE.md"
+  },
+  "rows": [
+    {
+      "path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libtapi.dylib",
+      "resolvedPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libtapi.dylib",
+      "bytes": 655920,
+      "sha256": "cdeba15b2a8bb4274a371d4c1d834c8d2dcac06235e6f9f1b1394ee3ed8805fc"
+    },
+    {
+      "path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libcodedirectory.dylib",
+      "resolvedPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libcodedirectory.dylib",
+      "bytes": 139296,
+      "sha256": "a720532c8ca0033ecd277463298cda19fb1fc5cd79e7c308c152975c2e1e7d6d"
+    },
+    {
+      "path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libswiftDemangle.dylib",
+      "resolvedPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libswiftDemangle.dylib",
+      "bytes": 1241648,
+      "sha256": "6110525f5d2f5873ff088b7dc11366db276f1ce8ebef4326eb669940bf1cfb3b"
+    }
+  ],
+  "scope": "Observe/conserve these3 actual host libraries around ordinary build, separately from the193 declared native rows. No Product input-record mutation or complete native toolchain closure claim. B32 formal closure/relocation belongs to its separate Writer."
+}
