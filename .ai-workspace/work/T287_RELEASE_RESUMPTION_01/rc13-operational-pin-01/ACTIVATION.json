@@ -1,0 +1,62 @@
+{
+  "id": "RC13-PIN-RC14-START-001",
+  "role": "Writer/Operator",
+  "actor": "/root, explicitly transitioned from Executive",
+  "recordedUtc": "2026-11-14T04:48:41.958677+00:00",
+  "ownerInstruction": "lets pin rc13 then, using it is testing it while we build rc14 as the gap to take us to 5.0.0 release. Everything must be checked in before work begins and eveything in main and pushed",
+  "admission": "Exact owner instruction authorizes checkpoint and non-force push of main, local unqualified RC13 cut/install/pin, and prospective RC14 gap closure. Existing no-push and RC11 current-builder restrictions are superseded for this work. RC14 implementation waits for remote checkpoint parity and a verified RC13 pin.",
+  "basis": {
+    "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": []
+  },
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "purpose": "Preserve every current source/evidence checkpoint remotely, select exact immutable RC13 as development builder, then admit the release gap as RC14.",
+  "checkpointCommit": "192727a6004ba2c754f8dc62a3975eb99ab4ac75",
+  "cutSource": {
+    "commit": "a2626fa540d39cc9894b8a90895a3739b49b75fb",
+    "tree": "9a11ff240da2b7e66dc76e024c48de65b24c240c"
+  },
+  "expectedArchiveSha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0",
+  "permittedEffects": [
+    "Checkpoint documentary activation on main and push main and required LFS objects without force",
+    "Invoke existing RC13 cut/install/smoke scripts with exact frozen source and pinned dependencies, new release/install locations and isolated scratch",
+    "Write exact delivery and pin records in this carrier and T292 rc13-local-cut-01; preserve old pins and failed evidence",
+    "Reconcile T287/T292/T293 and current Goals to latest owner selection, commit and push documentary changes",
+    "Record RC14 gap plan and separate bounded activations before implementation"
+  ],
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "/private/tmp/abg-rc13-pin-20261114",
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13"
+  ],
+  "closureLaw": [
+    "Direct remote main equals pushed checkpoint before RC14 work",
+    "RC13 cut byte-equals the selected measured archive; Product owner verifies and installs; every installed member equals archive; bounded installed-owner smoke",
+    "Operational pin names actual install and immutable identities, retaining B21, B31, incomplete broad and all qualification limits",
+    "Pin and RC14 scope committed on main and pushed before RC14 implementation"
+  ],
+  "stops": [
+    "Push rejection or missing LFS object: preserve logs, do not claim remote parity or start RC14",
+    "Cut/install/identity/smoke failure: preserve exact failure and return for applicable frame triage",
+    "Do not reuse expired RC13 campaign clock or reclassify failed tests as passes"
+  ],
+  "sourceClaimDisposition": "The immutable RC13 claim describes that historical delivery and does not itself select a pin/push. This later explicit owner selection supersedes its operational-builder statement externally without changing or relabelling artifact bytes.",
+  "excluded": [
+    "Stable release or qualification claim",
+    "npm/public registry publication",
+    "Force push or history rewriting",
+    "Automatic enlargement of 5.0 feature scope",
+    "RC14 code changes under this Operator-only activation"
+  ],
+  "returnTo": "Root Executive and owner, durable result in this carrier"
+}
