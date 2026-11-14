@@ -1,0 +1,102 @@
+{
+  "kind": "operator_preparation_return",
+  "activation": "RC14-B21-NATIVE-AUTHOR-001",
+  "state": "PREPARED_NOT_DISPATCHED",
+  "base": "526b698beb69e07f52b3d7ade8b8c4a49d7d2de7",
+  "source": "/private/tmp/abg-rc14-b21-20261115-01",
+  "branch": "codex/rc14-b21-native-20261115",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01",
+  "providerCalls": 0,
+  "productImports": 0,
+  "productTests": 0,
+  "builds": 0,
+  "nativeCompilations": 0,
+  "sourceImplementationChanges": 0,
+  "stdo": {
+    "definition": "stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "verified": true,
+    "failures": []
+  },
+  "observer": {
+    "file": "physical-topology.py",
+    "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+    "acceptance": "Root accepted exact digest in this Operator handoff for controlled ASCII-named B21/B12 layouts; not Product/general-Unicode/atomic-race assurance.",
+    "planned": {
+      "disposition": "separated",
+      "mountCount": 27,
+      "anchors": 39,
+      "relations": 200,
+      "elapsedMs": 42.895,
+      "stdoutSha256": "74124847dfe0b5438d977f65f4a21d1b952fb23b4597432bae7480e1dc74381a"
+    },
+    "falsifiers": [
+      {
+        "actual": "overlap",
+        "bytes": 37262,
+        "elapsedMs": 12.51,
+        "exitCode": 1,
+        "expected": "overlap",
+        "name": "real-data-bridge",
+        "sha256": "799ccb54d0a8967fb445cb32ee8e5dd8c21eeb564eb05273a30d6fd95c516291"
+      },
+      {
+        "actual": "overlap",
+        "bytes": 9907,
+        "elapsedMs": 10.265,
+        "exitCode": 1,
+        "expected": "overlap",
+        "name": "real-absent-alias",
+        "sha256": "ec5e2f125deee0906c96cccfd6e56d55ef8adc2be13280b060eefe8530686138"
+      },
+      {
+        "actual": "separated",
+        "bytes": 51482,
+        "elapsedMs": 14.484,
+        "exitCode": 0,
+        "expected": "separated",
+        "name": "real-lawful-siblings",
+        "sha256": "cb6a6377734b97f88d81d6265b8b4f621533a0b9f049243b4f0faeee68c6634c"
+      },
+      {
+        "actual": "indeterminate",
+        "kind": "pure injected observation, no actual mount",
+        "name": "controlled-relevant-attachment",
+        "reason": "unhandled mount attachment beneath compared recursive scope: /private/tmp/abg-rc14-b21-20261115-01/controlled-unhandled-mount"
+      },
+      {
+        "actual": "indeterminate",
+        "kind": "pure injected observation, no actual mount",
+        "name": "controlled-duplicate-membership",
+        "reason": "descriptor mount lacks unique complete-population membership"
+      }
+    ],
+    "bounds": {
+      "mounts": 128,
+      "paths": 128,
+      "seconds": 45
+    }
+  },
+  "preimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-20261115-01/SOURCE_PREIMAGE_PREPARATION.json",
+    "files": 1388,
+    "bytes": 35339501,
+    "finalRefreezeRequired": true
+  },
+  "syntaxOnly": {
+    "nodeFiles": 2,
+    "pythonFiles": 7,
+    "result": "pass; no Product execution"
+  },
+  "nativeInputClosure": "15 exact anchor file identities observed; actual selected dependency closure must be authored/hashed by native Writer before build. The failed universal SDK census assumption is retained in NATIVE_INPUTS_OBSERVED.json. Root permits dependency-only preprocessing, not binary compile/build.",
+  "next": [
+    "Root checkpoints/pushes exact controls with source",
+    "Advance this clean named branch/worktree to Root supplied pushed checkpoint; refreeze SOURCE_PREIMAGE.json",
+    "Root writes explicit sourceHead/dispatchAuthorized/control-digest LAUNCH.json",
+    "Invoke at most one actual RC13 native author with operate.py; then bounded proof only on frozen return",
+    "Root separately activates source assurance, integrates/pushes; Operator does not merge main or publish raw evidence"
+  ],
+  "qualified": false
+}
