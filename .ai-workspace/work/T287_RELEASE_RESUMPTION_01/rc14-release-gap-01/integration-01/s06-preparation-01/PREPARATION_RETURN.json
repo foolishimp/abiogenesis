@@ -1,15 +1,15 @@
 {
   "kind": "s06_preparation_return",
   "status": "repaired_frozen_for_independent_review_not_execution",
-  "parentSubject": "6af06d60ea84ba15f1222479070b5950ca887267",
+  "parentSubject": "ffdf680fe348ac5a6a84d2ed2effa131a3efa5ca",
   "originalPreparationSource": "ebe085acf2812252daf45bc7d86b5dc3f4cb1b5e",
   "changedTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-01",
   "controlManifest": {
     "path": "/private/tmp/abg-rc14-s06-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-01/CONTROL_MANIFEST.json",
-    "bytes": 5109,
-    "sha256": "f861971499735c73a636d554fa5791f317e7c5d1207090fa50412d72973b9c37"
+    "bytes": 5266,
+    "sha256": "cc48ceebad92f8d425912b81dea6ac37c49b396a92240bd2ae7e97c0ddb7780a"
   },
-  "controlCount": 21,
+  "controlCount": 22,
   "maintainedInputCount": 7,
   "externalInputs": {
     "count": 35,
@@ -35,7 +35,14 @@
     "actualRetainedC2": "closed basic04 Result471, helper/task artifact and10 snapshot files authenticated; no S06 credit",
     "expectedReportJoin": "source/type checked, not exercised by basic04 report-free example",
     "physicalRoles": "both separated, shared60second preparation bound,309/303ms, groups absent; retained basic04 binding/install fields and prospective S06 W only",
-    "originalProbeFailure": "Retained external installedProduct-coordinate/installedRoot mismatch; Root-selected projection-only re-entry; no repeated constructor/C2 run"
+    "originalProbeFailure": "Retained external installedProduct-coordinate/installedRoot mismatch; Root-selected projection-only re-entry; no repeated constructor/C2 run",
+    "D1ResultSelector": "Six bounded selector checks passed; genuine decoded471/484, owner-coordinate selection, old uniqueness refusal, negative controls and unchanged D2 selection. No S06 credit.",
+    "selectorReceipt": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/SELECTOR_CHECKS.json",
+      "bytes": 1439,
+      "sha256": "6c60f4fe33ca482b1481a9a83bd6d2644615630605d8757c177fa0c40f7dfee5"
+    },
+    "selectorControlFailure": "Wrong deadline argument type stopped before process creation; retained, corrected typed call separately bounded"
   },
   "externalProofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preflight-20261115-02",
   "sourceOrRuntimeEffects": {
@@ -47,7 +54,8 @@
     "applicationTests": 0,
     "providerCalls": 0,
     "S06ExecutionClockStarted": false,
-    "mainOrPush": false
+    "mainOrPush": false,
+    "readonlyPrefixDerivations": 1
   },
   "unresolvedBeforeExecution": [
     "Independent exact successor review and Root acceptance",
@@ -58,5 +66,6 @@
     "Actual Java/SBT startup, compilation/application execution and five-minute-command capacity",
     "Actual S06 report/output evidence, independent semantic adequacy, real amendment and affected/unaffected evidence relation"
   ],
-  "qualification": false
+  "qualification": false,
+  "recordedUtc": "2026-11-15T08:58:10.653637+00:00"
 }

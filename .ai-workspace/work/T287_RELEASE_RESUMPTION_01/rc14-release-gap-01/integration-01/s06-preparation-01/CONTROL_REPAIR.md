@@ -101,3 +101,27 @@ silently acquire missing dependencies or write shared user/toolchain caches.
 That unresolved premise is not repaired by a path/version string or the retained
 Scala runtime jar. No new Product feature or general machine-closure policy is
 selected here.
+
+## D1 Result-coordinate successor
+
+The independent review of ffdf680 found one remaining S06-04 defect: value
+equality is not producer identity. A C2 child leaf and its forwarded parent
+carry equal observation values; basic04 records this at471 and484. The semantic
+evidence owner already supplies executionResultRef/executionResultDigest from
+its authenticated predecessor. The external selector now uses that exact pair,
+then checks successful admission and equality with the declared observation.
+It preserves the typed C2 and downstream task/helper/snapshot/report checks.
+No first/last value match, graph change or new runtime owner is introduced.
+
+Root acted as a separately activated Writer (SELECTOR_REENTRY.json). One
+read-only installed owner prefix derivation supplied both genuine decoded
+events to a pure selector input specimen. The prior selector refuses it; the
+successor selects the declared leaf in either row order. Missing/mismatched
+coordinates, duplicate exact coordinates and changed observation values refuse.
+Existing D2 final Testing selection stays exact. Six checks passed in5907ms,
+owned group absent; event bytes conserved. No D1/S06 envelope was admitted and
+no application/report execution was claimed. Source syntax and canonical no-emit
+types pass. The first wrapper call supplied the wrong Python deadline type and
+stopped before child creation; its empty folder and causal record are retained,
+with the corrected UTC API call in a new bounded receipt. No prior successful
+constructor, topology or C2-custody probe was repeated.

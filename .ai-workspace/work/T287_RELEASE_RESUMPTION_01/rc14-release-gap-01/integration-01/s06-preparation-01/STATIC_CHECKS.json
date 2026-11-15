@@ -85,7 +85,7 @@
     "snapshotMembers": 10,
     "reportOutputJoinExercised": false,
     "S06Credit": false,
-    "finalModuleRelation": "Only // @ts-check and three JSDoc Product parameter annotations added after this successful read; executable body unchanged"
+    "finalModuleRelation": "D2 selection and authenticateExecutionEvidence bodies unchanged from ffdf680; D1 selection now separately checks exact semantic-owner Result coordinates. New selector discriminator includes actual D2 selection conservation."
   },
   "preservedProbeFailure": {
     "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preflight-20261115-02/FIRST_PREPARATION_FAILURE.json",
@@ -163,5 +163,40 @@
     "derivedFrom": "INPUTS.json oracle boundedApplicationCase.expectedBackwardRelations.error:src-103.originalRecord",
     "comparison": "JSON-typed exact canonical object; Boolean true remains distinct from integer1 or string true",
     "onlyD2Change": "source_key property name to record_id"
+  },
+  "selectorReentry": {
+    "subject": "ffdf680fe348ac5a6a84d2ed2effa131a3efa5ca",
+    "ownerCoordinate": "semantic evidence executionResultRef/executionResultDigest",
+    "discriminator": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/SELECTOR_CHECKS.json",
+      "bytes": 1439,
+      "sha256": "6c60f4fe33ca482b1481a9a83bd6d2644615630605d8757c177fa0c40f7dfee5"
+    },
+    "script": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/probe.mjs",
+      "bytes": 4620,
+      "sha256": "6cff9ff5f3f9aa13129fa7b30d4ae04b7a83fb74de56e8e4299f5fc97afaecf5"
+    },
+    "execution": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/command-02/result.json",
+      "bytes": 614,
+      "sha256": "2078c85f46ebef3f17d0fc2245113d5c680ead6119e1aaa3e73e0ddaf94f8403"
+    },
+    "syntax": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/syntax/result.json",
+      "bytes": 604,
+      "sha256": "c31f2f72c259eacf77aab9954af826ecc9a8f15c0818df3b4d1f1c494f678e5f"
+    },
+    "types": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/types/result.json",
+      "bytes": 603,
+      "sha256": "36ef5b28b4cd4b80af39f98f8c0fc4be60e26c5207d1f46f01d1f5f597caa5fa"
+    },
+    "priorControlEntryFailure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/FIRST_CONTROL_ENTRY_FAILURE.json",
+      "bytes": 415,
+      "sha256": "75850ca30724a2f5a80480d04f16296979cc1700ec582af940d4c68f086613a6"
+    },
+    "scope": "Six checks on genuine decoded471/484 plus D1 input specimen, no S06/admission credit"
   }
 }

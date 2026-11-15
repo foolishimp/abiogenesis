@@ -20,10 +20,13 @@ export function selectAdmittedExecution(product,result,phase) {
  assert(['d1','d2'].includes(phase));
  let event;
  if(phase==='d1') {
-  const observation=result.value.evidence?.executionObservation;
+  const evidence=result.value.evidence,observation=evidence?.executionObservation;
   assert(product.isWorksiteExecutionObservation(observation),'D1 needs its actual admitted C2 observation');
-  const rows=result.events.filter(e=>e.kind==='c_call_result_admitted'&&e.payload.resultClass==='success'&&same(product,e.payload.value,observation));
-  assert.equal(rows.length,1,'D1 C2 observation has one exact admitted Result');event=rows[0];
+  assert(typeof evidence.executionResultRef==='string'&&typeof evidence.executionResultDigest==='string','D1 needs its owner-selected C2 Result coordinate');
+  const rows=result.events.filter(e=>e.kind==='c_call_result_admitted'&&e.payload.resultClass==='success'&&
+   e.payload.resultRef===evidence.executionResultRef&&e.payload.resultDigest===evidence.executionResultDigest);
+  assert.equal(rows.length,1,'D1 owner coordinate names one exact admitted Result');event=rows[0];
+  assert(same(product,event.payload.value,observation),'D1 owner-selected Result carries the declared observation');
  } else {
   const testing=result.value.observations.filter(o=>o.purpose==='testing').at(-1);
   assert(testing,'D2 needs its final Testing observation');

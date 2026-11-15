@@ -10,8 +10,8 @@
     },
     {
       "path": "CONTROL_REPAIR.md",
-      "bytes": 7625,
-      "sha256": "4f1413ed01e9ba20c06ebb588cd17bdf6584080acc7d21c3c3e2e4572c428403"
+      "bytes": 9190,
+      "sha256": "b1044692c3a5bd0fc45c19af70a837ab6fe505596ea59a32bc3f1efc3c58a89a"
     },
     {
       "path": "D2_RUBRIC.md",
@@ -39,9 +39,14 @@
       "sha256": "2ebbce863f958f13f3f0fc41abcdf9a9bf7ebe150706bc47fc71cd4ba5b703a7"
     },
     {
+      "path": "SELECTOR_REENTRY.json",
+      "bytes": 2002,
+      "sha256": "e2271389d7c34bdf59c57100359ac840df693368dc9b1a5082abc773e3117025"
+    },
+    {
       "path": "STATIC_CHECKS.json",
-      "bytes": 6136,
-      "sha256": "929620d72efe0dea6a274430afe14d468e86bd4651dee486e736ba381611b293"
+      "bytes": 8167,
+      "sha256": "bcd790b727388ff02bad4a1315ec6d5f54c656507f1daa33afe5b986123e7b3a"
     },
     {
       "path": "bounded.py",
@@ -50,8 +55,8 @@
     },
     {
       "path": "c2-evidence.mjs",
-      "bytes": 8166,
-      "sha256": "80fc106f935467631632b14f17bd4798fb122e76e4d589adf500ba9b5c0d6ea0"
+      "bytes": 8532,
+      "sha256": "97b4550e453b632ded002177c414548fde3fbddfa1c8e16b6e5940982f0bfb44"
     },
     {
       "path": "command-owner.py",
@@ -148,6 +153,6 @@
   ],
   "executionAuthorized": false,
   "scope": "External consumer declarations, ordinary inputs, Public setup/run and read-only witness observation",
-  "repairBase": "6af06d60ea84ba15f1222479070b5950ca887267",
-  "repairScope": "S06-01..05 external input, physical roles and admitted C2 evidence custody only"
+  "repairBase": "ffdf680fe348ac5a6a84d2ed2effa131a3efa5ca",
+  "repairScope": "D1 exact owner Result-coordinate selector; prior four closed relations conserved"
 }
