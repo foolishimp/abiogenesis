@@ -1,0 +1,34 @@
+{
+  "id": "RC14-NATIVE07-PROOF-REENTRY-ACCEPTANCE-01",
+  "recordedUtc": "2026-11-15T13:00:59.282600+00:00",
+  "authority": "ROOT_RECORDS_WRITER_12.json; owner finish RC14",
+  "subjectCommit": "0bbe7d0939da35758e0231ca9b93409dc5768e64",
+  "subjectTree": "69411ecc85edbcc2e4d862901975a28f2dc346f1",
+  "mainMerge": "ca0e62da50302542587bb97413e9f71060f7d0c6",
+  "manifestSha256": "2ec7e794b47010ef40bab0a537b5600d726e0ac6b195f7d1a14e267b5f21597a",
+  "runnerSha256": "79b908339d7a3cc7d8a5904388ba2f15e9ecefd03f4f39585c484aedc6542bfc",
+  "returnSha256": "3cde55373fe5e41d263f61670961ae2636ffa94c77d77bfd743f10a068f8d947",
+  "disposition": "accepted_for_one_bounded_proof_after_authored_checkpoint_and_main_push",
+  "rootReview": {
+    "manifestMembersVerified": 5,
+    "unchangedOriginalHelpers": 10,
+    "addedHelper": "require_proof_reentry",
+    "mainDelta": "explicit Root authority; exact actual audit gate; PROOF_REENTRY receipt",
+    "unchanged": "ten-file population, six-file retained relation, finally conservation, primary failure preservation, cleanup and original deadline",
+    "checkerCorrection": "Initial Root helper-count assertion included main; corrected helper-only AST comparison passes. No execution or source effect."
+  },
+  "auditDisposition": {
+    "path": "NATIVE07_AUDIT_DISPOSITION.json",
+    "sha256": "9c9790798cce3763756fae6d9d49c4260582c5c76a5a63be372bf61f19d137af"
+  },
+  "sourceReview": {
+    "path": "NATIVE07_SOURCE_REVIEW.json",
+    "sha256": "2f093eb904206777c34eb520463151185b050ff8d29ea8f8a00ec23566db37cd"
+  },
+  "originalHostDeadlineUtc": "2026-11-15T14:44:43.176910+00:00",
+  "proofStarted": false,
+  "nativeRetry": false,
+  "literalCommandCompliance": false,
+  "qualified": false,
+  "rawPublished": false
+}

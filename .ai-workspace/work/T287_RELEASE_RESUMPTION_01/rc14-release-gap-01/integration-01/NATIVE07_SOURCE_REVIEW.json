@@ -1,0 +1,30 @@
+{
+  "id": "RC14-NATIVE07-SOURCE-REVIEW-001",
+  "recordedUtc": "2026-11-15T12:50:07.743915+00:00",
+  "reviewer": "/root/rc14_release_proof",
+  "reviewDisposition": "satisfied_bounded_source_readiness",
+  "RootDisposition": "accepted_for_proof_subject_pending_separate_audit_entry",
+  "ProductFrame": "Fixed5.0 derived test fixture. Event Store retains durable history authentication and rollback authority; no Product guard/export change, runtime event admission or semantic-acceptance claim.",
+  "sourceHead": "b47ee9e72eb2dd6ae247f111fca7fa966f4c9d46",
+  "file": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+  "sourceBytes": 146657,
+  "sourceSha256": "3e8fc89527f3bc533bc4a2242059362f33bd946ddc5cfdd083e5a975b81c9cbb",
+  "diffSha256": "43cbb39f291e49bb74b6dbfab56883646e76b7243f5f48a4866a833c3f3662a9",
+  "postimageSha256": "65db2d1664509c6731389e259255bd90be2e9ff1289eb61f22cec8ff4391540e",
+  "rootRehashedCurrentRows": 1428,
+  "findings": [],
+  "acceptedRelations": [
+    "Existing eventStoreOwner reidentifies SAME historical execution-basis cut from current held coordinate; all canonical coordinate fields and current held-history ownership are checked",
+    "Historical events feed leaf construction; current admitted artifact truth reaches leaf port, actor binding and continuation basis as the same object; diagnostic copies never supply authority",
+    "Complete candidate persistence precedes helper behavioral assertions; returned/thrown/unreached remain distinct; persistence failure retains observed owner errors in AggregateError",
+    "Additional held-history assertions match live-owner premise; early leaf construction performs admission/content checks only, without leaf invocation or event admission",
+    "Entire prefix/suffix outside helper region byte-equal to b47: rollback fault controls, bytes/events/digest, strict negatives, next attempt and restarted consumer assertions remain intact"
+  ],
+  "limits": [
+    "No test execution by reviewer",
+    "Whole F09 and nine unrun files remain required",
+    "Separate actual author audit preserves one literal node-version command variance; no retrospective compliance claim",
+    "Six retained files remain conditional historical observations, not new executions or qualification"
+  ],
+  "qualified": false
+}

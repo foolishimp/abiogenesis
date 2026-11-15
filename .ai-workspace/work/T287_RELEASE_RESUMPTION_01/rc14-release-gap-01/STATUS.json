@@ -1,5 +1,5 @@
 {
-  "status": "RC14_NATIVE06_PROOF_RUNNING_FIRST_FRESH_FILE_PASSED",
+  "status": "RC14_NATIVE07_SOURCE_ACCEPTED_PROOF_ENTRY_CHECKPOINTING",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -7,8 +7,8 @@
   },
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
-  "providerCalls": 9,
-  "triage": "Native05 five-file source checkpointed; two whole files13cases passed, third14pass/3fail has two stale P5 expectations plus recorder cascade. Native06 one-file controls preparing;13 other files unrun. Peer diagnostics closed18/18, offline S06 dependency closure passed; C2 Tool join source review satisfied with bounded network claim pending records. Qualification policy remains unanswered.",
+  "providerCalls": 10,
+  "triage": "F09 stale held-history selection repaired through existing Event Store reidentification owner. Six prior whole files retain44 actual passes; ten fresh files pending. Candidate cut, installed amendment/S06 and separate qualification remain.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
   "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T09:34:25.866288+00:00",
-  "nativeAuthorState": "Native06 source review closed; proof now running, no provider. First fresh whole file003 passes17/17 and retains both candidate captures. Remaining13 fresh files unclosed.",
+  "recordedUtc": "2026-11-15T13:00:59.282600+00:00",
+  "nativeAuthorState": "Native07 closed successfully, independent source review satisfied, actual audit retains one admitted node-version metadata variance. No active provider. Ten-file proof entry accepted, not yet run.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -49,7 +49,7 @@
     "commit": "c11db33ddedae51c3edde1961b15f3f7280f003e",
     "rootAcceptance": "integration-01/B12_PREPARATION_ACCEPTANCE.json"
   },
-  "providerCallsMeaning": "Observed source-author sessions B31,B12,initialB21,B21owner repair,qualification preparation,corrected fixture repair,native04,native05,native06; not provider API requests. Installed basic04 six actors remain separate.",
+  "providerCallsMeaning": "Ten observed source-author sessions through native07; not API requests. Installed basic04 six actors remain separate.",
   "b12Native": {
     "sourceHead": "df4d2cbca9e075c8c8017f07d37e7a02687f926a",
     "startedUtc": "2026-11-14T16:19:44.332Z",
@@ -683,7 +683,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T12:35:39.080978+00:00",
+  "updatedUtc": "2026-11-15T12:52:10.978424+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -767,7 +767,7 @@
     "qualification": false
   },
   "regressionRepair07": {
-    "state": "NATIVE_AUTHOR_RUNNING",
+    "state": "SOURCE_REVIEWED_AUDIT_CLOSED_PROOF_ENTRY_PREPARING",
     "triage": "integration-01/NATIVE07_F09_TRIAGE.json",
     "executionBound": true,
     "nativeWritePaths": 1,
@@ -788,12 +788,23 @@
     "actorStartedUtc": "2026-11-15T12:30:44.500Z",
     "actorPid": 94487,
     "runId": "run://abiogenesis/6c8fe00dd9def440ec08dcded55f21f3b5829b5d3ab28b60ba179f39132d28a3",
-    "actorStartObservationSha256": "d69903ffe8ba82eab849b9d6b18a86c6797b126c171c83ebf0fa845242dc1f73"
+    "actorStartObservationSha256": "d69903ffe8ba82eab849b9d6b18a86c6797b126c171c83ebf0fa845242dc1f73",
+    "sourceReview": "integration-01/NATIVE07_SOURCE_REVIEW.json",
+    "auditDisposition": "integration-01/NATIVE07_AUDIT_DISPOSITION.json",
+    "nativeTurns": 75,
+    "nativeSdkMs": 687237,
+    "actualCloseAndFreshReplay": true
   },
   "rc14PublicSetupPreparation": {
     "state": "ACCEPTED_PREPARATION_CANDIDATE_UNBOUND",
     "subject": "bc597e0d055094755dc3d29d6cf1b3c7ac30bd62",
     "acceptance": "integration-01/RC14_PUBLIC_SETUP_PREPARATION_ACCEPTANCE.json",
     "executionAuthorized": false
+  },
+  "native07ProofReentry": {
+    "state": "ACCEPTED_PENDING_PUSH_AND_SEPARATE_OPERATOR_GRANT",
+    "record": "integration-01/NATIVE07_PROOF_REENTRY_ACCEPTANCE.json",
+    "proofStarted": false,
+    "originalHostDeadlineUtc": "2026-11-15T14:44:43.176910+00:00"
   }
 }

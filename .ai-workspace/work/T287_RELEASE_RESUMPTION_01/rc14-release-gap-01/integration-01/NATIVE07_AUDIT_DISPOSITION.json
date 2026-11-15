@@ -1,0 +1,60 @@
+{
+  "id": "RC14-NATIVE07-AUDIT-DISPOSITION-001",
+  "recordedUtc": "2026-11-15T12:52:10.978424+00:00",
+  "owner": "Root",
+  "authority": "Owner finishRC14, existing source-development scope and Root Writer12; bounded technical disposition only",
+  "sourceHead": "b47ee9e72eb2dd6ae247f111fca7fa966f4c9d46",
+  "sourceDiffSha256": "43cbb39f291e49bb74b6dbfab56883646e76b7243f5f48a4866a833c3f3662a9",
+  "audit": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/AUTHOR_AUDIT.json",
+    "bytes": 7616,
+    "sha256": "37d399a76f75f8beb6fe50465673913ecb97cbd8fb2203170bd4807933a8da65"
+  },
+  "observation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/AUTHOR_AUDIT_OBSERVATION.json",
+    "bytes": 114388,
+    "sha256": "d5df12b7c8208d222a76a49762cb36021041acfc0fcf899999a18972cd57bd0c"
+  },
+  "authorReport": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/AUTHOR_REPORT.json",
+    "bytes": 7582,
+    "sha256": "e16c39c8b3e51a4e82b1e7ef69469c84d5f244e21c6e030024f1706dbe9741cb"
+  },
+  "actualNative": {
+    "turns": 75,
+    "sdkMs": 687237,
+    "typedCompletion": true,
+    "resourceClosed": true,
+    "freshResultAndClosedReplay": true,
+    "ownedActorAndHostGroupsAbsent": true
+  },
+  "sourceScope": "Only authorized F09 worker changed; separate authenticated setup manifest is setup-owned. Frozen source review is satisfied and all1428 current rows were independently rehashed.",
+  "method": "All five selected method inputs/ranges content-verified before Edit, all readFirst material content acquired; GOALS and worker were selected sections, not whole-file acquisition.",
+  "literalVariance": [
+    {
+      "id": "native07-node-version-metadata-probe",
+      "actualCommand": "node --version",
+      "containerCallId": "toolu_01D77inrt9uoRDgS2BTZBAnP",
+      "selectedTaskText": "Bash only read-only text acquisition or node --check on this authored file",
+      "standing": "Literal allowance variance, preserved as observed; not cured or relabelled zero",
+      "rootDisposition": "Read-only pinned tool-version metadata has no Product/source/custody consequence and does not warrant another author. Proof remains held for source review and a truthful audit-entry successor."
+    }
+  ],
+  "selectedDisposition": "Admit this exact read-only pinned Node version metadata probe for bounded proof. It changes no Product/source/custody fact and warrants no further author. Preserve original literal variance and full compliance=false. Do not broaden to other commands or future subjects.",
+  "proofEntry": "Separate exact Root authority must join frozen source review and this actual audit, preserving original07 controls, original enclosing deadline and all proof/failure/cleanup guards.",
+  "parserObservation": {
+    "priorDiagnostic": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/AUDIT_CONTENT_COMPARISON_DIAGNOSTIC.json",
+      "bytes": 12892,
+      "sha256": "d77a7c8c3a399dc2441bf803c5c77a99f67fe254dc6a5d4cc7243f69c03100d6"
+    },
+    "cause": "Read-only first comparator assumed arrow line delimiters. Actual SDK Read result lines use decimal number then TAB then exact source text. Corrected extraction retains all actual lines and compares each selected method line byte-for-text against its pinned source. No source/control/Product effect or provider retry."
+  },
+  "terminalRenderingLimit": "Eight extra blank EOF lines are SDK trailing-newline rendering; actual source lines matched. Original observations remain preserved.",
+  "claims": {
+    "fullLiteralCommandCompliance": false,
+    "qualified": false,
+    "proofExecuted": false,
+    "priorNativeOmissionsCured": false
+  }
+}
