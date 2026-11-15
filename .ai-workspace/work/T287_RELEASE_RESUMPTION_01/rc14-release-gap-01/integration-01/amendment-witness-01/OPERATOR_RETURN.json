@@ -1,0 +1,216 @@
+{
+  "kind": "closed_installed_amendment_operator_attempt",
+  "recordedUtc": "2026-11-15T18:28:54.054446+00:00",
+  "activation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-01/ACTIVATION.json",
+    "bytes": 9750,
+    "sha256": "b904f4fa802437ac3ed06eda08f6d5cdcf5b5c1fae32c473fc10ea2c26cf0d55"
+  },
+  "binding": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-01/BINDING.json",
+    "bytes": 7945,
+    "sha256": "02b0c1f347f85287ad94f5d0b4590790c5f0b94def61e96d7545d57e985205a3"
+  },
+  "smokeInputs": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-01/SMOKE_INPUTS.json",
+    "bytes": 5944,
+    "sha256": "f9c8331550c23f8d91750f6e310bf6c661d700928482d053c8b3d9a567f2bab9"
+  },
+  "operatorStart": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-01/OPERATOR_START.json",
+    "bytes": 1734,
+    "sha256": "657576908d40a515c4ba87876996f17b7cc3c8a0c56fb5c993472e76e55ac180"
+  },
+  "startedUtc": "2026-11-15T18:26:13.842832+00:00",
+  "deadlineUtc": "2026-11-15T21:26:13.842832+00:00",
+  "status": "failed_before_smoke",
+  "firstFailure": "First command failure: /Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-01/003-planned-topology/result.json",
+  "retry": false,
+  "qualified": false,
+  "smokeCalls": 0,
+  "publicSetupCalls": 0,
+  "lifecycleCalls": 0,
+  "providerCalls": 0,
+  "inputConservation": {
+    "complete": true,
+    "mismatches": [],
+    "errors": [],
+    "conserved": true
+  },
+  "entryRows": 87,
+  "outerOperatorPid": 30668,
+  "outerOperatorAbsent": true,
+  "latePhysicalObservation": {
+    "path": "/usr/bin/git",
+    "role": "protectedRoot from CUT_RECORD.toolchain.git.realPath",
+    "regular": true,
+    "dev": 16777231,
+    "ino": 1152921500312571564,
+    "nlink": 78,
+    "mode": "0o755",
+    "bytes": 118640,
+    "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a",
+    "realpath": "/usr/bin/git",
+    "classification": "Late read-only descriptor observation; original observer output retains only generic refusal, not partial anchor rows."
+  },
+  "causalAttribution": {
+    "observer": "physical-topology.py:140-172,241,260-261",
+    "producer": "smoke-custody.py:188-193 requires all cut.toolchain realPath values in protectedRoots; run.py:140 sends that set to planned observer",
+    "conclusion": "External binding/tool-coordinate to observer-support join. The explicitly protected /usr/bin/git anchor is a multiply-linked regular file and the selected observer refuses such an anchor. No physical overlap or Product-owner failure was established.",
+    "sourceRuntimeSplit": "Input custody is derived tooling. Planned observer stopped before smoke and amendment Product imports/setup/lifecycle. No runtime actual protected-root set was constructed."
+  },
+  "operatorReadDeviation": {
+    "attemptedReturnFilename": "PREPARATION_RETURN.json",
+    "actualReturnFilename": "RETURN.json",
+    "readOnlyENOENT": true,
+    "executionOrClockAtMistake": false,
+    "actualReturnHashVerified": "7e81ea403d4e2de50263279515f5d884c7fa7bf664f45c67f3a3b1eb8914119d"
+  },
+  "closureLimits": "No amendment lifecycle or selective-currentness evidence. Unchanged prior Public setup and mechanical install remain separate evidence.",
+  "productFrame": "Fixed ABI5/T287 F17/S03 installed amendment/selective currentness; external execution and evidence tooling, actual Public/ABG owners unchanged. No formal qualification or release acceptance.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "controls": {
+    "commit": "580c6eb0e37a3e5c3dbf59c2fb2e162f685e86dc",
+    "manifestSha256": "52f66f58ec8117923fec3d0e75419b100edd73db58fa405d7ed80e6dc9d108b7",
+    "unchanged": true
+  },
+  "externalClosure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-01/OPERATOR_CLOSURE.json",
+    "bytes": 12218,
+    "sha256": "3e3f8762eec2a6bb427a6f3eca5749e3a445968f3d222bf774593f03bc28bdf0"
+  },
+  "receipts": {
+    "PLANNED_LAYOUT.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-01/PLANNED_LAYOUT.json",
+      "bytes": 3934,
+      "sha256": "2bd53b51a32b07f57c9fa4c58addf28f7d24bc660c796dd7684cd0d96559bebb"
+    },
+    "FIRST_FAILURE.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-01/FIRST_FAILURE.json",
+      "bytes": 217,
+      "sha256": "aee9d825d112ce3546b5730ff54aabdb108150474264bd5e5894bab07a0a5dd8"
+    },
+    "INPUT_CONSERVATION.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-01/INPUT_CONSERVATION.json",
+      "bytes": 80,
+      "sha256": "36179beb6b12b5c847642eae213744c3f9f0880b1d8b17aade15d6c00dc99eec"
+    },
+    "RETURN.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-01/RETURN.json",
+      "bytes": 394,
+      "sha256": "84c3537d0d15f842e3952d22e1a10d1574b015d20557045a79472ac7b83a1b6c"
+    }
+  },
+  "commands": [
+    {
+      "label": "001-ENTRY-source-head",
+      "pid": {
+        "pid": 30708,
+        "processGroup": 30708
+      },
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-01/001-ENTRY-source-head/result.json",
+        "bytes": 625,
+        "sha256": "67255ad172182519edff9403593a188c6af084eb4b0783bf2a531e4a1ec95aca"
+      },
+      "exitCode": 0,
+      "stopReason": null,
+      "wallMs": 207,
+      "recordedCleanup": {
+        "signals": [],
+        "ownedProcessGroupAbsent": true
+      },
+      "groupAbsentAtLateRead": true
+    },
+    {
+      "label": "002-ENTRY-tenant-check",
+      "pid": {
+        "pid": 30709,
+        "processGroup": 30709
+      },
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-01/002-ENTRY-tenant-check/result.json",
+        "bytes": 626,
+        "sha256": "612e89a68c84a67aa99848ce6519c30ceff5ceb960f94bf55619f8a3a8f10d06"
+      },
+      "exitCode": 0,
+      "stopReason": null,
+      "wallMs": 412,
+      "recordedCleanup": {
+        "signals": [],
+        "ownedProcessGroupAbsent": true
+      },
+      "groupAbsentAtLateRead": true
+    },
+    {
+      "label": "003-planned-topology",
+      "pid": {
+        "pid": 30731,
+        "processGroup": 30731
+      },
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-01/003-planned-topology/result.json",
+        "bytes": 624,
+        "sha256": "9431f3acbf69b530964aa49e38b37d5a5595b53fcff4ec5f61b776f050bcc632"
+      },
+      "exitCode": 2,
+      "stopReason": null,
+      "wallMs": 207,
+      "recordedCleanup": {
+        "signals": [],
+        "ownedProcessGroupAbsent": true
+      },
+      "groupAbsentAtLateRead": true
+    },
+    {
+      "label": "004-EXIT-source-head",
+      "pid": {
+        "pid": 30742,
+        "processGroup": 30742
+      },
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-01/004-EXIT-source-head/result.json",
+        "bytes": 623,
+        "sha256": "60824f91f128ed66ca633c295bb72dd34e6b59829c8804221ea448eb4aabd9fc"
+      },
+      "exitCode": 0,
+      "stopReason": null,
+      "wallMs": 207,
+      "recordedCleanup": {
+        "signals": [],
+        "ownedProcessGroupAbsent": true
+      },
+      "groupAbsentAtLateRead": true
+    },
+    {
+      "label": "005-EXIT-tenant-check",
+      "pid": {
+        "pid": 30757,
+        "processGroup": 30757
+      },
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-01/005-EXIT-tenant-check/result.json",
+        "bytes": 624,
+        "sha256": "6bb7b19bb1574eaba3e16977ad2b6c4ec99c41cb268f2e1f5b7a9009ace624d5"
+      },
+      "exitCode": 0,
+      "stopReason": null,
+      "wallMs": 205,
+      "recordedCleanup": {
+        "signals": [],
+        "ownedProcessGroupAbsent": true
+      },
+      "groupAbsentAtLateRead": true
+    }
+  ],
+  "failedObserverStdout": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-01/003-planned-topology/stdout.raw",
+    "bytes": 159,
+    "sha256": "85ae5d4ff1feda53eb99724f898edfec16a26eaef505ff96d2ad9087677a7660"
+  },
+  "observedOutcome": "Planned physical-readiness command stopped before installed-language smoke or amendment host. The first failure is retained; no retry or repair selected/performed.",
+  "recordsWorktreePreparation": "A no-checkout sparse worktree initially had no populated index; the clean-check assertion stopped before record creation. Ordinary read-tree populated exact HEAD, then cleanliness was verified. This occurred after the closed witness and did not execute or alter it."
+}
