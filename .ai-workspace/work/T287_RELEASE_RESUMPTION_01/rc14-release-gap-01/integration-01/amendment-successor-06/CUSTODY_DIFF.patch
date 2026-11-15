@@ -1,0 +1,428 @@
+--- amendment03/run.py
++++ amendment04/run.py
+@@ -49,2 +49,4 @@
+-    smoke_inputs=json.loads((CONTROL/'SMOKE_INPUTS.json').read_text())
+-    need(sha(CONTROL/'SMOKE_INPUTS.json')==b['smokeInputsSha256'],'Smoke input binding changed')
++    smoke_input_path=canonical(b['smokeInputsPath'])
++    need(sha(smoke_input_path)==b['smokeInputsSha256'],'Smoke input binding changed')
++    smoke_inputs=json.loads(smoke_input_path.read_text())
++    need(smoke_inputs['executionBindingComplete'] is True,'Final cut smoke inputs unresolved')
+@@ -53 +55,3 @@
+-    need(b['candidate']['sourceCommit']==smoke_inputs['sourceCommit'],'Smoke/candidate source split differs')
++    need(b['candidate']['sourceCommit']==smoke_inputs['sourceCommit'] and b['candidate']['sourceTree']==smoke_inputs['sourceTree'],'Smoke/candidate C0 binding differs')
++    protected_inputs=[str(smoke_input_path),*[row['path'] for row in smoke_inputs['receipts'].values()],smoke_inputs['dependencyReader']['path'],smoke_inputs['npmTree']['path']]
++    need(set(protected_inputs)<=set(b['protectedRoots']),'Complete cut smoke inputs must be protected in both physical roles')
+@@ -99,0 +104 @@
++        measure('smokeInputs',lambda:sha(smoke_input_path))
+@@ -108 +113 @@
+-        measure('smokeProof',lambda:smoke_custody.inspect(smoke_inputs,b,rows['bootstrap']))
++        measure('candidateSmokeInputs',lambda:smoke_custody.inspect(smoke_inputs,b,rows['bootstrap']))
+@@ -118,0 +124 @@
++        need(baseline['smokeInputs']==b['smokeInputsSha256'],'Smoke input packet changed before entry')
+--- amendment03/smoke-custody.py
++++ amendment04/smoke-custody.py
+@@ -1 +1 @@
+-"""Read-only custody of the existing composed proof; never builds or imports Product."""
++"""Read-only actual RC14 cut-input custody; never builds or imports Product."""
+@@ -6,0 +7 @@
++import tarfile
+@@ -51,0 +53,2 @@
++    need(spec['executionBindingComplete'] is True and spec['tenantRelativePath'] == 'build_tenants/abiogenesis/typescript',
++         'Final cut input binding unresolved')
+@@ -53 +56,3 @@
+-    result = {'sourceCommit': spec['sourceCommit'], 'subjectRoot': str(subject), 'receipts': {}}
++    selected = binding['candidate']
++    result = {'sourceCommit': spec['sourceCommit'], 'sourceTree': spec['sourceTree'], 'subjectRoot': str(subject), 'receipts': {}}
++    need(set(spec['receipts']) == {'cutRecord', 'archiveMembers', 'dependencyInventory'}, 'Exact cut receipt roles required')
+@@ -58,25 +63,33 @@
+-        if row['path'].endswith('.json'):
+-            documents[name] = json.loads(data)
+-    freeze, post = documents['sourceFreeze'], documents['sourcePostimage']
+-    need(freeze['frozenCommit'] == binding['candidate']['sourceCommit'] == spec['sourceCommit'],
+-         'Frozen source does not own this candidate')
+-    need(freeze['postimage']['sha256'] == spec['receipts']['sourcePostimage']['sha256'],
+-         'Frozen source/postimage relation differs')
+-    need(documents['sourceBinding']['sourcePostimageSha256'] == freeze['postimage']['sha256'],
+-         'Proof source binding differs')
+-    need(freeze['sourceHead'] == documents['sourceBinding']['sourceHead'] ==
+-         documents['proofReturn']['sourceHead'] == post['head'], 'Proof source lineage differs')
+-    need(documents['buildReturn']['exitCode'] == 0 and documents['proofReturn']['ok'] is True,
+-         'Retained build/proof did not succeed')
+-    need(documents['buildStart']['cwd'] == str(tenant), 'Build used another subject')
+-    candidate = documents['candidate']
+-    selected = binding['candidate']
+-    need(candidate['archive'] == selected['archivePath'] and
+-         'sha256:' + candidate['archiveSha256'] == selected['archiveSha256'] and
+-         candidate['installed'] == selected['bootstrapPackageRoot'] and
+-         candidate['manifestSha256'] == selected['manifestSha256'] and
+-         candidate['files'] == len(bootstrap) and candidate['byteEqual'] is True,
+-         'Retained candidate does not match this execution')
+-
+-    # Source rows retain their frozen meaning. The two generated outputs use
+-    # the proved archive instead; an arbitrary source exception is not allowed.
++        documents[name] = json.loads(data)
++    cut, members = documents['cutRecord'], documents['archiveMembers']
++    need(spec['receipts']['cutRecord']['path'] == selected['cutRecordPath'] and
++         spec['receipts']['cutRecord']['sha256'] == selected['cutRecordSha256'] and
++         spec['receipts']['archiveMembers']['path'] == selected['archiveMembersPath'] and
++         spec['receipts']['archiveMembers']['sha256'] == selected['archiveMembersSha256'], 'Root cut receipt binding differs')
++    need(cut['kind'] == 'local_unqualified_development_candidate_cut' and cut['mode'] == 'apply' and
++         cut['status'] == 'PROSPECTIVE_CANDIDATE_PREPARED_SOURCE_FINALIZATION_REQUIRED' and
++         cut['stage'] == 'prospective_candidate_preparation', 'Actual prospective cut required; no scratch or old proof transfer')
++    need(cut['version'] == selected['packageVersion'] == '5.0.0-rc.14' and
++         cut['source']['committedVersion'] == cut['version'] and
++         cut['source']['scratchStampDelta'] is None and cut['source']['scratchClaimDelta'] is None,
++         'Candidate must come from actual stamped C0, not a relabelled scratch proof')
++    need(cut['source']['commit'] == selected['sourceCommit'] == spec['sourceCommit'] and
++         cut['source']['tree'] == selected['sourceTree'] == spec['sourceTree'] and
++         len(spec['sourceCommit']) == 40 and len(spec['sourceTree']) == 40, 'Exact C0 commit/tree differs')
++    need(str(tenant) == cut['buildRoot'] and tenant.resolve() == tenant, 'Smoke must consume actual cut buildRoot')
++    need(cut['archive']['path'] == selected['archivePath'] and
++         'sha256:' + cut['archive']['sha256'] == selected['archiveSha256'] == cut['identity']['artifactDigest'], 'Cut/archive identity differs')
++    result['archive'], _ = checked(cut['archive'])
++    need(members['archiveName'] == cut['archive']['name'] and members['archiveSha256'] == cut['archive']['sha256'] and
++         members['inventoryDigest'] == cut['members']['inventoryDigest'] and
++         cut['members']['builtTreeByteEqual'] is True and cut['verification']['disposition'] == 'verified', 'Cut member ownership differs')
++    member_rows = members['rows']
++    need(member_rows and len(member_rows) == members['members'] == cut['members']['count'] and
++         len({r['path'] for r in member_rows}) == len(member_rows) and
++         sum(r['bytes'] for r in member_rows) == members['payloadBytes'] == cut['members']['payloadBytes'], 'Incomplete archive member population')
++    need({r['path']: r['sha256'] for r in member_rows} == bootstrap, 'Actual archive/bootstrap member identity differs')
++
++    # The cut's authenticated git archive owns C0 source bytes. Do not invent a
++    # postimage/proof receipt or confuse source.subject (commit label) with a path.
++    result['sourceArchive'], _ = checked(cut['source']['sourceArchive'])
++    source_rows = {}
+@@ -83,0 +97,10 @@
++    with tarfile.open(cut['source']['sourceArchive']['path'], 'r:') as archive:
++        for member in archive:
++            if member.isdir():
++                continue
++            need(member.isfile() and member.name.startswith(prefix) and
++                 '..' not in Path(member.name).parts and member.name not in source_rows, 'Unexpected C0 source archive member')
++            relative = member.name[len(prefix):]
++            need(relative and relative not in source_rows, 'Duplicate C0 source member')
++            source_rows[relative] = {'bytes': member.size, 'sha256': hashlib.sha256(archive.extractfile(member).read()).hexdigest()}
++    need(source_rows, 'Empty C0 source archive')
+@@ -85,9 +108,17 @@
+-    need(generated == {'contracts/capabilities/capability-definition-graph.json',
+-                       'product-toolchain-manifest.json'}, 'Generated output scope differs')
+-    source_rows = []
+-    by_path = {row['path']: row for row in post['rows']}
+-    for row in post['rows']:
+-        if not row['path'].startswith(prefix):
+-            continue
+-        relative = row['path'][len(prefix):]
+-        if relative in generated:
++    need(generated == {'contracts/capabilities/capability-definition-graph.json', 'product-toolchain-manifest.json'}, 'Generated output scope differs')
++    basis_path = 'test_env/fixtures/abi5-root-candidate-basis.json'
++    refresh = cut['source']['scratchBasisRefresh']
++    need(refresh['owner'] == 'scripts/refresh-candidate-basis.mjs' and
++         refresh['before']['path'] == refresh['after']['path'] == str(tenant / basis_path) and
++         {k: refresh['before'][k] for k in ['bytes', 'sha256']} == source_rows[basis_path], 'Candidate-basis refresh does not begin at C0')
++    result['candidateBasis'], basis_bytes = checked(cut['candidateBasis'], retain=True)
++    need(cut['candidateBasis']['path'] == refresh['after']['path'] and
++         result['candidateBasis'] == {k: refresh['after'][k] for k in ['bytes', 'sha256']} and
++         cut['candidateBasis']['exactArchiveIdentity'] is True and cut['candidateBasis']['runtimePayload'] is False,
++         'Candidate fixture must be the actual recorded refresh')
++    need(json.loads(basis_bytes) == {'kind': 'abi5_root_candidate_basis', 'schemaVersion': '5.0.0',
++         **cut['identity'], 'productId': cut['productId'], 'packageName': cut['packageName'], 'packageVersion': cut['version']},
++         'Refreshed fixture differs from actual candidate identity')
++    observed_source = []
++    for relative, expected in sorted(source_rows.items()):
++        if relative in generated or relative == basis_path:
+@@ -96,5 +127,3 @@
+-        need(actual == {key: row[key] for key in ['bytes', 'sha256']},
+-             'Smoke source no longer matches frozen postimage: ' + relative)
+-        source_rows.append({'path': relative, **actual})
+-    need(source_rows, 'Empty smoke source relation')
+-    result['tenantSource'] = {'count': len(source_rows), 'sha256': digest(source_rows)}
++        need(actual == expected, 'Smoke source differs from C0: ' + relative)
++        observed_source.append({'path': relative, **actual})
++    result['tenantSource'] = {'count': len(observed_source), 'sha256': digest(observed_source)}
+@@ -102 +131 @@
+-    need(len(spec['smokeInputs']) == 11, 'Exact eleven-file smoke closure required')
++    need(len(spec['smokeInputs']) == 11 and len({r['path'] for r in spec['smokeInputs']}) == 11, 'Exact eleven-file smoke closure required')
+@@ -105,3 +134,2 @@
+-        expected = by_path[prefix + relative]
+-        need(all(row[key] == expected[key] for key in ['bytes', 'sha256']),
+-             'Smoke input is not the frozen source: ' + relative)
++        expected = result['candidateBasis'] if relative == basis_path else source_rows[relative]
++        need({k: row[k] for k in ['bytes', 'sha256']} == expected, 'Smoke input has no current C0/refresh owner: ' + relative)
+@@ -109 +137 @@
+-        need(actual == {key: row[key] for key in ['bytes', 'sha256']}, 'Smoke input changed: ' + relative)
++        need(actual == expected, 'Smoke input changed: ' + relative)
+@@ -112,5 +140,3 @@
+-    # Compare the entire consumed Product payload with the already authenticated
+-    # bootstrap/archive inventory, including generated outputs and native addon.
+-    for relative, expected in bootstrap.items():
+-        actual, _ = file(tenant / relative)
+-        need(actual['sha256'] == expected, 'Compiled proof payload differs: ' + relative)
++    for row in member_rows:
++        actual, _ = file(tenant / row['path'])
++        need(actual == {k: row[k] for k in ['bytes', 'sha256']}, 'Compiled cut payload differs: ' + row['path'])
+@@ -118,6 +144,11 @@
+-    result['generatedOutputs'] = [{'path': relative, 'sourceSha256': by_path[prefix + relative]['sha256'],
+-                                   'sha256': bootstrap[relative], 'authority': selected['archiveSha256']}
+-                                  for relative in sorted(generated)]
+-
+-    # Reuse the exact retained dependency reader and its original compact pin;
+-    # do not duplicate its 4,576-row ledger or write to either dependency tree.
++    result['generatedOutputs'] = []
++    for key, expected in [('committed', source_rows), ('regenerated', {r['path']: r for r in member_rows})]:
++        rows = cut['generated'][key]
++        need({r['path'] for r in rows} == generated and len(rows) == len(generated), 'Generated population differs')
++        for row in rows:
++            need(all(row[k] == expected[row['path']][k] for k in ['bytes', 'sha256']), 'Generated source/archive join differs')
++            result['generatedOutputs'].append({'stage': key, **row})
++    need(bootstrap['product-toolchain-manifest.json'] == selected['manifestSha256'], 'Actual manifest bytes differ')
++
++    # Reuse the retained complete inventory reader; adapt only the cut owner's
++    # explicitly ordered inventory-digest fields. No new dependency ledger.
+@@ -128 +158,0 @@
+-    dependency = documents['dependencyBinding']
+@@ -130,2 +160 @@
+-    need(original_inventory['sha256'] == dependency['inventorySha256'], 'Dependency receipt relation differs')
+-    need(digest(original_inventory['rows']) == dependency['inventorySha256'], 'Dependency ledger digest differs')
++    need(digest(original_inventory['rows']) == original_inventory['sha256'], 'Dependency ledger digest differs')
+@@ -133,3 +162,12 @@
+-    need(current['sha256'] == dependency['inventorySha256'] and
+-         len(current['rows']) == dependency['filesAndLinks'] and current['bytes'] == dependency['bytes'],
+-         'Compiled proof dependencies changed')
++    need(current['rows'] == original_inventory['rows'] and current['sha256'] == original_inventory['sha256'] and
++         current['bytes'] == original_inventory['bytes'], 'Copied cut dependency inventory differs')
++    donor = dependency_reader.inventory(cut['dependencies']['donor'])
++    need(donor == current and len(current['rows']) == cut['dependencies']['donorFilesAndLinks'], 'Actual cut donor/copy differs')
++    cut_rows = [({'path': r['path'], 'kind': r['kind'], 'target': r['target']} if r['kind'] == 'symlink' else
++                 {'path': r['path'], 'kind': r['kind'], 'bytes': r['bytes'], 'mode': r['mode'] & 0o777, 'sha256': r['sha256']}) for r in current['rows']]
++    need(hashlib.sha256(json.dumps(cut_rows, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest() ==
++         cut['dependencies']['donorInventoryDigest'], 'Dependency inventory is not the cut-consumed tree')
++    pinned = cut['dependencies']['pinnedInventory']
++    if pinned is not None:
++        need(pinned['equal'] is True and pinned['rows'] == len(current['rows']) and
++             all(pinned[k] == spec['receipts']['dependencyInventory'][k] for k in ['path', 'bytes', 'sha256']), 'Cut pinned dependency input differs')
+@@ -137,3 +175,3 @@
+-    need(lock['sha256'] == dependency['lockSha256'], 'Dependency lock changed')
+-    result['dependencies'] = {'sha256': current['sha256'], 'count': len(current['rows']),
+-                              'bytes': current['bytes'], 'lock': lock}
++    need(lock == source_rows['package-lock.json'], 'C0 dependency lock differs')
++    result['dependencies'] = {'sha256': current['sha256'], 'count': len(current['rows']), 'bytes': current['bytes'], 'lock': lock,
++                              'donorInventoryDigest': cut['dependencies']['donorInventoryDigest']}
+@@ -143,2 +181 @@
+-         {path: value for path, value in bootstrap.items() if path.startswith('build/')},
+-         'Build member set differs from candidate')
++         {path: value for path, value in bootstrap.items() if path.startswith('build/')}, 'Build member set differs from candidate')
+@@ -146,5 +183,14 @@
+-    result['native'] = []
+-    for row in candidate['native']:
+-        actual, _ = file(tenant / 'build/native' / row['path'])
+-        need(actual == {key: row[key] for key in ['bytes', 'sha256']}, 'Native addon differs')
+-        result['native'].append({'path': row['path'], **actual})
++    result['native'] = [row for row in member_rows if row['path'].startswith('build/native/')]
++    need(any(row['path'].endswith('.node') for row in result['native']), 'Packaged native owner absent')
++    result['nativeBuildInputs'], _ = checked(cut['nativeBuildInputs'])
++    need(cut['nativeBuildInputs']['path'] == str(tenant / 'scripts/native-build-inputs.json') and
++         result['nativeBuildInputs'] == source_rows['scripts/native-build-inputs.json'], 'Native producer declaration differs from C0')
++    protected = [cut['source']['sourceArchive']['path'], cut['dependencies']['donor'], *[v['realPath'] for v in cut['toolchain'].values()]]
++    need(set(protected) <= set(binding['protectedRoots']), 'Cut source/dependency/tool inputs must be protected in both physical roles')
++    result['cutTools'] = {}
++    for name, row in cut['toolchain'].items():
++        actual, _ = file(row['realPath'])
++        need(actual['sha256'] == row['sha256'], 'Cut tool changed: ' + name)
++        result['cutTools'][name] = {'path': row['realPath'], **actual}
++    need(cut['toolchain']['node']['execPath'] == binding['configuration']['nodePath'] and
++         cut['toolchain']['npm']['realPath'] == binding['configuration']['toolchains']['npm']['executable'], 'Smoke and cut tools differ')
+--- amendment03/BINDING.template.json
++++ amendment04/BINDING.template.json
+@@ -4,2 +4,2 @@
+-  "controlSourceRoot": null,
+-  "controlSourceCommit": null,
++  "controlSourceRoot": "/private/tmp/abg-rc14-amendment-controls-823-20261116-01",
++  "controlSourceCommit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+@@ -13 +13,6 @@
+-    "packageVersion": null
++    "packageVersion": "5.0.0-rc.14",
++    "sourceTree": null,
++    "cutRecordPath": null,
++    "cutRecordSha256": null,
++    "archiveMembersPath": null,
++    "archiveMembersSha256": null
+@@ -33,2 +38,2 @@
+-    "NPM_CONFIG_USERCONFIG": "/private/tmp/abg-rc14-amendment-successor-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/npm-user.npmrc",
+-    "NPM_CONFIG_GLOBALCONFIG": "/private/tmp/abg-rc14-amendment-successor-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/npm-global.npmrc",
++    "NPM_CONFIG_USERCONFIG": "/private/tmp/abg-rc14-amendment-successor-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-04/npm-user.npmrc",
++    "NPM_CONFIG_GLOBALCONFIG": "/private/tmp/abg-rc14-amendment-successor-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-04/npm-global.npmrc",
+@@ -73,2 +78,2 @@
+-  "preparationStatus": "disabled; successor03 bridge and explicit npm configs prepared; Root must bind fresh raw/worksite/TMPDIR/cache, exact candidate/provider/topology and finite clock",
+-  "retainedControlRoot": null,
++  "preparationStatus": "Disabled amendment04. Root must bind actual RC14 CUT_RECORD/C0/tree/build/archive/bootstrap, exact smoke input packet, fresh roots/topology, finite limits and private credential keys. Exact823 helper checkout is declared but not provisioned.",
++  "retainedControlRoot": "/private/tmp/abg-rc14-amendment-controls-823-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-preparation-01",
+@@ -76 +81,2 @@
+-  "smokeInputsSha256": null
++  "smokeInputsSha256": null,
++  "smokeInputsPath": null
+--- amendment03/SMOKE_INPUTS.json
++++ amendment04/SMOKE_INPUTS.template.json
+@@ -2,3 +2,5 @@
+-  "kind": "bounded_existing_smoke_input_binding",
+-  "sourceCommit": "7a2411defd9ef7c1968512703c3b4b1493114453",
+-  "subjectRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/subject",
++  "kind": "prospective_cut_smoke_input_binding",
++  "executionBindingComplete": false,
++  "sourceCommit": null,
++  "sourceTree": null,
++  "subjectRoot": null,
+@@ -9,2 +11,3 @@
+-      "bytes": 1831,
+-      "sha256": "ecda0215f8dfb85b22332f199482edbfd1ccf164415caaeb776892581e923e77"
++      "bytes": null,
++      "sha256": null,
++      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+@@ -14,2 +17,3 @@
+-      "bytes": 4878,
+-      "sha256": "9099c80e78261f507288c8597bad0495d70628a9b21990f1e3283c536df70c65"
++      "bytes": null,
++      "sha256": null,
++      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+@@ -19,2 +23,3 @@
+-      "bytes": 50216,
+-      "sha256": "3274c5ef23c5fd5b362b42a899bc0d7c9d588f363848e1b033150b968f8a7008"
++      "bytes": null,
++      "sha256": null,
++      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+@@ -24,2 +29,3 @@
+-      "bytes": 10554,
+-      "sha256": "6436442d7db32d2a2c9a7a42cd50d71c159fe45baeac53f57d47b5bac40c9df4"
++      "bytes": null,
++      "sha256": null,
++      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+@@ -29,2 +35,3 @@
+-      "bytes": 2973,
+-      "sha256": "e8053600a769281634b4b48f2def507d23c1f84f257d95398e8085cfbc24baad"
++      "bytes": null,
++      "sha256": null,
++      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+@@ -34,2 +41,3 @@
+-      "bytes": 7276,
+-      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
++      "bytes": null,
++      "sha256": null,
++      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+@@ -39,2 +47,3 @@
+-      "bytes": 19702,
+-      "sha256": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a"
++      "bytes": null,
++      "sha256": null,
++      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+@@ -44,2 +53,3 @@
+-      "bytes": 8359,
+-      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
++      "bytes": null,
++      "sha256": null,
++      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+@@ -49,2 +59,3 @@
+-      "bytes": 2656,
+-      "sha256": "2b70dfe98899a637c6b9d07e1f3b5daf04e4d8320535e4f434c7a716e343e778"
++      "bytes": null,
++      "sha256": null,
++      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+@@ -54,2 +65,3 @@
+-      "bytes": 9826,
+-      "sha256": "f2080bdb2b262763aaff1ea6f4897c3fb125e94f8e15a641ab74905ce85dbb8f"
++      "bytes": null,
++      "sha256": null,
++      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+@@ -59,2 +71,3 @@
+-      "bytes": 517,
+-      "sha256": "44a65bf686cbeb1be48b5f62f50e778578a0f8a824926550198a3582950fa4b2"
++      "bytes": null,
++      "sha256": null,
++      "authority": "CUT_RECORD.source.scratchBasisRefresh.after"
+@@ -73,4 +86,4 @@
+-    "sourceFreeze": {
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/NATIVE_SOURCE_FREEZE.json",
+-      "bytes": 2423,
+-      "sha256": "701c7bb0e9c558d5c9ef0ab3cfd5336365163b485338d359180961c71fc9dc2e"
++    "cutRecord": {
++      "path": null,
++      "bytes": null,
++      "sha256": null
+@@ -78,39 +91,4 @@
+-    "sourcePostimage": {
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/SOURCE_POSTIMAGE.json",
+-      "bytes": 322629,
+-      "sha256": "8e0cf4670ade0b4da389ab66e29f643baf2d23ff7f0748ae93f6ceb5f9d8e0a7"
+-    },
+-    "sourceBinding": {
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/SOURCE_BINDING.json",
+-      "bytes": 158,
+-      "sha256": "dc79526e750306269f35ca98e85f1fe67c3b5dd6e8cf3d6d9341bd932552e898"
+-    },
+-    "buildStart": {
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/001-candidate-build/START.json",
+-      "bytes": 685,
+-      "sha256": "073b8b8bb914ed2e967dd630f67ff676582652cdf53f7c47df34207a13a5fd66"
+-    },
+-    "buildReturn": {
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/001-candidate-build/RETURN.json",
+-      "bytes": 459,
+-      "sha256": "86692826e71128aabd9b4b481c913e652e900fc7576069c578fc2d233b32a795"
+-    },
+-    "candidate": {
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/CANDIDATE.json",
+-      "bytes": 801,
+-      "sha256": "82fb1805aee18b0cd9edc41491884a9d064356e6178d86e4079dc0c9724fb980"
+-    },
+-    "proofReturn": {
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/RETURN.json",
+-      "bytes": 1862,
+-      "sha256": "a13d6c18ed0a37ed5555138be1e524aa545cb638a20e34703e3c3b9289305dff"
+-    },
+-    "nativeReproduction": {
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/NATIVE_REPRODUCTION.json",
+-      "bytes": 615,
+-      "sha256": "b20848b65f5fd6b3747692174b1f09b3c8c7e0c0ad549622da825497abb755d4"
+-    },
+-    "dependencyBinding": {
+-      "path": "/private/tmp/abg-rc14-proof-fixture-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/DEPENDENCY_INPUTS.json",
+-      "bytes": 639,
+-      "sha256": "c4f5f3ae466ce7cdee3956612013234860f3c39080c700293acc9a3d61c5811d"
++    "archiveMembers": {
++      "path": null,
++      "bytes": null,
++      "sha256": null
+@@ -119,28 +97,3 @@
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/DEPENDENCY_PREIMAGE.json",
+-      "bytes": 987915,
+-      "sha256": "d5963980b0d8ce53b85847a547f44d308757bf4766aadd0f3dda49dad401a8ef"
+-    },
+-    "firstFailure": {
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01/FIRST_FAILURE.json",
+-      "bytes": 217,
+-      "sha256": "90f25cb7403f61db5d854a09c8da29671622aa1647922621c2bfd3b484cf60c9"
+-    },
+-    "failedReturn": {
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01/RETURN.json",
+-      "bytes": 394,
+-      "sha256": "27344b979173834c779d49c6c4f44016757729bf61df6bda7497d6365e8fea0f"
+-    },
+-    "failedInputConservation": {
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01/INPUT_CONSERVATION.json",
+-      "bytes": 80,
+-      "sha256": "36179beb6b12b5c847642eae213744c3f9f0880b1d8b17aade15d6c00dc99eec"
+-    },
+-    "failedSmoke": {
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01/004-installed-language/stdout.raw",
+-      "bytes": 1836,
+-      "sha256": "8edee28b6e8edc2d355a64db0c015872fd9087d3562f4780a114c92251f18e99"
+-    },
+-    "failedSmokeReturn": {
+-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01/004-installed-language/result.json",
+-      "bytes": 625,
+-      "sha256": "25bf554068f17bef181dffdb0ee9ccadb2f139de5b2ae96351b641f36ca8829f"
++      "path": null,
++      "bytes": null,
++      "sha256": null
+@@ -181 +134 @@
+-  "scope": "Read retained source/proof and existing compiled inputs. No rebuild, copy, Product import or old Run authority. OS/Node/Python system execution substrate is not a complete-machine closure."
++  "scope": "Fill from actual cut and exact C0 only. No old proof/candidate receipt transfer. cut.buildRoot owns subjectRoot/tenant; source.subject is a commit label, not a path. The dependency inventory must match the actual cut donor digest; when cut.dependencies.pinnedInventory is present it must be that exact recorded input."

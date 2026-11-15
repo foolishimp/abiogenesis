@@ -1,0 +1,87 @@
+{
+  "executionAuthorized": false,
+  "executionGrant": null,
+  "controlSourceRoot": "/private/tmp/abg-rc14-amendment-controls-823-20261116-01",
+  "controlSourceCommit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+  "controlManifestSha256": null,
+  "candidate": {
+    "sourceCommit": null,
+    "archivePath": null,
+    "archiveSha256": null,
+    "bootstrapPackageRoot": null,
+    "manifestSha256": null,
+    "packageVersion": "5.0.0-rc.14",
+    "sourceTree": null,
+    "cutRecordPath": null,
+    "cutRecordSha256": null,
+    "archiveMembersPath": null,
+    "archiveMembersSha256": null,
+    "installRecordPath": null,
+    "installRecordSha256": null,
+    "installHost": null,
+    "installedRoot": null
+  },
+  "topologyAcceptance": {
+    "path": null,
+    "sha256": null
+  },
+  "runId": null,
+  "rawRoot": null,
+  "worksiteRoot": null,
+  "protectedRoots": null,
+  "pythonPath": null,
+  "deadlineUtc": null,
+  "exitAuditReserveMs": null,
+  "smokeTimeoutMs": null,
+  "maxCaptureBytes": null,
+  "setupEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "C",
+    "NPM_CONFIG_USERCONFIG": "/private/tmp/abg-rc14-amendment-successor-20261116-06/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-06/npm-user.npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/private/tmp/abg-rc14-amendment-successor-20261116-06/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-06/npm-global.npmrc",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false"
+  },
+  "configuration": {
+    "nodePath": null,
+    "recursionBound": null,
+    "processTimeoutMs": null,
+    "maxProcessOutputBytes": null,
+    "toolchains": {
+      "node": {
+        "executable": null,
+        "versionArgs": [
+          "--version"
+        ]
+      },
+      "npm": {
+        "executable": null,
+        "versionArgs": [
+          "--version"
+        ]
+      }
+    },
+    "provider": {
+      "enabled": false,
+      "agent": "claude",
+      "command": null,
+      "executableSha256": null,
+      "versionArgs": [
+        "--version"
+      ],
+      "model": null,
+      "appendArgs": [],
+      "inheritEnvironment": [],
+      "inactivityTimeoutMs": null,
+      "absoluteTimeoutMs": null,
+      "maxTurns": null
+    }
+  },
+  "preparationStatus": "Disabled amendment06. Root must bind the actual mechanical INSTALL_RECORD as fourth smoke receipt and exact recorded installHost/installedRoot, separate from archive bootstrap. Preserve historical git/tar byte custody and all other protections; failed01/02 remain closed. No execution clock selected.",
+  "retainedControlRoot": "/private/tmp/abg-rc14-amendment-controls-823-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-preparation-01",
+  "smokeSourceRoot": null,
+  "smokeInputsSha256": null,
+  "smokeInputsPath": null
+}

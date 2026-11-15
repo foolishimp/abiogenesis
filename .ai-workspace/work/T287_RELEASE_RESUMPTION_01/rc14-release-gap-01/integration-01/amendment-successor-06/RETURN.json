@@ -1,0 +1,67 @@
+{
+  "kind": "external_control_preparation_return",
+  "id": "RC14-AMENDMENT-CONTROL-WRITER-006",
+  "status": "frozen_preparation_for_independent_review",
+  "baseCommit": "623ff9d87eaeb75b7c9a079460244d98cc969e58",
+  "predecessor": "c1b6468736c6289e5689c22bf8ab54658a50b14d",
+  "territory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-06",
+  "manifestSha256": "15a3bba1eadb7e723305ebd9ef880c9c13b3713b834301613ebc839356a92cdb",
+  "staticChecksSha256": "9066a0b4f5842f8a016bc4543111bafc8345e3201b7e41d243a3a6497c4a45d0",
+  "exactExecutableDiffSha256": "c02426139e90a9cd323399fbf18cdd5534d6ea1c301f4635838faeecc864c465",
+  "executableChanges": {
+    "smoke-custody.py": "Fourth mechanical INSTALL_RECORD, full exact candidate/host/package joins, complete actual installed tree equality through existing reader; require receipt/host/package protection.",
+    "run.py": "Smoke host environment consumes the checked explicit entry custody result; no bootstrap ancestry inference."
+  },
+  "bindingChanges": [
+    "candidate installRecordPath/installRecordSha256/installHost/installedRoot",
+    "fourth installRecord receipt",
+    "two successor-local npm coordinates; execution/deadline remain disabled"
+  ],
+  "preservedByteIdenticalFiles": 16,
+  "preserved": "All lifecycle/PROCESS/ORACLE/coverage/observer/process owner/credential/budget/failure/cleanup mechanisms; four custody helpers; B52 git/tar role split and every original tool/source/build/bootstrap/dependency check. Exact reversal of only the declared additions restores predecessor source.",
+  "readiness": {
+    "attempts": 1,
+    "request": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-readiness-20261116-06/REQUEST.json",
+      "bytes": 2816,
+      "sha256": "e6c175dbcd98fcb6e5320c95305eee5de0bcb26c90711ea60ee0d39eaf68ff2a"
+    },
+    "result": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-readiness-20261116-06/RESULT.json",
+      "bytes": 8097,
+      "sha256": "7ba480cca42171134cdcdeaaa7a33e14a65b3b7ea2e997635393ff16b319bba1"
+    },
+    "status": "passed",
+    "elapsedMs": 3785,
+    "installed": {
+      "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+      "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14/node_modules/@abiogenesis/typescript-tenant",
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.14/7646989ad108d1f4cfb8075909c9a26208f5f605b23b590e264c25544ba3332a/0657e3111a0c31651b2443da00dc2d0a98abb82eb169560f44418bc80988cf54",
+      "count": 5302,
+      "bytes": 69284648,
+      "sha256": "ec785e52357f181e6af896e5c33bd9b53ca48ad93031a23b97222abf8d0795b3"
+    },
+    "firstFailure": null,
+    "ProductImports": false,
+    "physicalProbe": false,
+    "smokeOrLifecycle": false,
+    "provider": false
+  },
+  "staticChecks": "Python AST and JSON parsing, unaffected byte equality, unchanged helper AST/tool tail, exact executable delta reversal; no Product import or behavior test.",
+  "intakeObservation": "A read-only initial script treated the grant prose word only as a path suffix; ENOENT before worktree/acquisition. Root confirmed literal path and unchanged grant. No readiness attempt occurred.",
+  "futureBinding": "Use exact selected mechanical install receipt and record-owned host/root; protect both plus the fourth receipt. Retain bootstrap separately. Root must independently review/checkpoint/push then select a fresh finite execution, never reopen01/02.",
+  "priorFailuresClosed": true,
+  "executionAuthorized": false,
+  "executionClockStarted": false,
+  "ProductImports": false,
+  "provider": false,
+  "test": false,
+  "smoke": false,
+  "physicalProbe": false,
+  "build": false,
+  "candidateOrInstallMutation": false,
+  "qualificationClaim": false,
+  "mainMutation": false,
+  "push": false,
+  "returnTo": "Root; stop for separate exact source review"
+}
