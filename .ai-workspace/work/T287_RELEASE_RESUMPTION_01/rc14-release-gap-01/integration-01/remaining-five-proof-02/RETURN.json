@@ -1,0 +1,110 @@
+{
+  "status": "prepared_execution_disabled",
+  "preparationBase": "df87de1dbf86c3c373bb856511913ee4d6668a76",
+  "sourceCommit": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+  "sourceRows": 1428,
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/UNRUN_SIX_CLOSURE_AND_INPUT_REENTRY.json",
+    "bytes": 4401,
+    "sha256": "a4099349019ec538f43e99905f8a654ba79dc5a802660b54684f0829504ea674"
+  },
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 1312,
+    "sha256": "0778520d45dc178a211c48bfc7e119a4eb2fd10689e2d3e5c9ec2764a470b3b3"
+  },
+  "runner": {
+    "path": "run.py",
+    "bytes": 17991,
+    "sha256": "2334198eb64e79ff9b66cb6b9d15cc8c89cae091f12cba42785137ffb7c60c6d"
+  },
+  "previousControlCommit": "0fcb38edc81c4a8a4c51270c8640545bfe90ccb5",
+  "previousProofReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/RETURN.json",
+    "bytes": 14066,
+    "sha256": "0e007a0e9bffb3a9f5351aec7ace5ff681c68bd344e61eac34dc9eefc80df914"
+  },
+  "sourceRoute": "Original07 source99, historical b47 setup custody and exact1428-row physical postimage retained; fresh copied subject and output. No new native gate.",
+  "reuse": "Original07 command, physical observer, population and dependency owners imported unchanged. Successor-local final_input_conservation is an exact literal copy with expected cardinality22\u219224 only; underlying verify_inventory/digest/deps owners identical. Original07 remains immutable.",
+  "population": {
+    "originalOrdinals": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "wholeFiles": 5,
+    "namedTopLevelCases": 24,
+    "optionalHistoricalGateCount": 0,
+    "priorAcquisitionFailureOrdinals": [
+      12
+    ],
+    "previouslyUnrunOrdinals": [
+      13,
+      14,
+      15,
+      16
+    ],
+    "separatelyRetained": {
+      "ordinal": 11,
+      "pass": 1,
+      "skip": 1,
+      "wholeFile": true
+    },
+    "partial012Credit": false,
+    "excluded": [
+      10,
+      11
+    ]
+  },
+  "limits": {
+    "enclosingMs": 3600000,
+    "perFileMs": 1800000,
+    "cleanupReserveMs": 15000,
+    "outputBytesPerCommand": 33554432,
+    "firstFailureStop": true,
+    "automaticRetry": false
+  },
+  "staticChecks": "STATIC_CHECKS.json: prior affected preparation checks retained; new local helper AST sole constant delta and exact surrounding-runner preservation checked; no execution.",
+  "unresolved": [
+    "Independent Root review of exact frozen controls",
+    "Main checkpoint/push, actual binding/manifest digest and fresh60min deadline with explicit one-shot Operator grant",
+    "Actual outcomes for012-016; no predicted green or qualification"
+  ],
+  "qualified": false,
+  "providerCalls": 0,
+  "testsRun": 0,
+  "builds": 0,
+  "rawPublished": false,
+  "rejectedPreparation": {
+    "rejectedCommit": "8c9f4b6140ed520ee1525ee7f8b33853ca680a6d",
+    "finding": "Original07 final_input_conservation asserts exactly22 comparisons; eight retained inputs create24 and throw before returning the comparison list. Prior claim that the unchanged helper accepts24 is withdrawn. Rejected before execution.",
+    "authority": "Root separate external-controls Writer repair instruction; existing selected eight-row/24-comparison disposition, unchanged Product.",
+    "repair": "Literal successor-local nested final_input_conservation copy; sole function AST delta is expected count22 to24. Existing verify_inventory and digest are lexical aliases to authenticated base owners; deps already comes from that base. Local call replaces base call; original07 unchanged.",
+    "originalHelperSource": {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/prove.py",
+      "bytes": 27559,
+      "sha256": "a10d3f3aa336f5d6b28a110ef0fe63fab673eb2f504b90150f1979632f880465"
+    },
+    "originalFunction": {
+      "startLine": 151,
+      "endLine": 173,
+      "bytes": 2181,
+      "sha256": "055e809eb089eeb46ee5df66e5e2fcf46458982e92ae0a9eaf9cc7eefbe5c23a",
+      "astSha256": "cecb988ddec20e5e9e22ca3940f4e53b5634db972deaeb346844192a29cd26a9"
+    },
+    "successorFunction": {
+      "startLine": 48,
+      "endLine": 70,
+      "astSha256": "8280999c2faee68124a6485fad4012b37770a170fed51debb215ded89317405e"
+    },
+    "staticRelation": {
+      "soleFunctionAstDelta": "assert len(checks)==22 -> assert len(checks)==24",
+      "normalizedAstEqual": true,
+      "runnerOutsideInsertionAndCallEqualToRejectedSubject": true,
+      "authenticOwnerAliases": true
+    },
+    "execution": false
+  }
+}
