@@ -1,0 +1,53 @@
+{
+  "kind": "root_external_controls_preparation_grant",
+  "activationId": "RC14-REGRESSION-REPAIR-NATIVE-007",
+  "sourceBase": "0234b02d89f01723a9cee26051669bf9e93cf41a",
+  "receivedFrom": "/root",
+  "operator": "/root/b30_catalog_triage",
+  "productFrame": "Fixed15-family5.0; T287/T293 RC14 selected derived fixture repair. Immutable coordinates are distinct from disposable owner selections. Product runtime owns rollback/admission/replay. External controls/evidence confer no Product authority.",
+  "triage": {
+    "sourceCommit": "9b0757a206fb9ec50afee0c8c57415c475b28dc4",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE07_F09_TRIAGE.json",
+    "bytes": 6017,
+    "sha256": "98d2d7a4bf433d92768556c0f7ce2bce22136341ee6b67841c95e20e1e3ab254",
+    "localExactCopy": "ROOT_TRIAGE.json"
+  },
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs"
+  ],
+  "permittedNow": [
+    "Control-only isolated07 branch preparation",
+    "Static syntax/JSON/hash and exact source/input reads",
+    "One compact frozen control commit, return and stop"
+  ],
+  "prohibitedNow": [
+    "Tenant source edits",
+    "Product imports/setup/provider/build/test/pack/install",
+    "Main mutation/push",
+    "Starting launch or proof clock"
+  ],
+  "futureDispatch": "Root separately accepts controls and supplies pushed exact source/launch grant; preparation is not dispatch",
+  "prospectiveBounds": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 1200000,
+    "nativeMaxTurns": 160,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 8100000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 15000
+  },
+  "prospectiveSequence": [
+    "Actual installed pinnedRC13 native author with method reads",
+    "Actual terminal/resourceclose/fresh reads and complete command audit",
+    "Independent source review and Root proof disposition",
+    "007wholefile then008-016 once, with retained6 causal relation and finally conservation"
+  ],
+  "executionAuthorized": false
+}

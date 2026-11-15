@@ -1,0 +1,36 @@
+{
+  "kind": "root_selected_f09_fixture_reentry",
+  "activation": "RC14-REGRESSION-REPAIR-NATIVE-007",
+  "productFrame": "Fixed15-family5.0; T287/T293 RC14 selected derived fixture repair. Immutable coordinates are distinct from disposable owner selections. Product runtime owns rollback/admission/replay. External controls/evidence confer no Product authority.",
+  "sourceSubject": "8888155c2fdd3e13ba75c16934412ee424b19bef",
+  "triage": {
+    "sourceCommit": "9b0757a206fb9ec50afee0c8c57415c475b28dc4",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE07_F09_TRIAGE.json",
+    "bytes": 6017,
+    "sha256": "98d2d7a4bf433d92768556c0f7ce2bce22136341ee6b67841c95e20e1e3ab254",
+    "localExactCopy": "ROOT_TRIAGE.json"
+  },
+  "evidence": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/proof-01/RETURN.json",
+    "bytes": 5803,
+    "sha256": "70dba2402e01cab124ae918b19570d3302f5e6091d7b6ca4681595e7b87fa15b"
+  },
+  "failedFile": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/proof-01/007-t287-f09-frontier-handoff/stdout.raw",
+    "bytes": 11663,
+    "sha256": "9ed5ae3831a1ced8e9bd183a0d0e82d1f2fbeed1f7a7f43144be1e0ddc9499a2"
+  },
+  "originalOutcomes": {
+    "05files001-002": "13passes",
+    "06files003-006": "31passes",
+    "06file007": "one failed case, no timeout, no full producer candidate",
+    "files008-016": "not yet executed in selected proof"
+  },
+  "selectedCorrection": "Existing owner reidentifies SAME historical execution basis after rollback; no runtime change. Finally conserves inputs even after failure.",
+  "unresolved": [
+    "Final pushed source/control identity and Root dispatch grant",
+    "Actual native source, audit/source review and exact bounded proof"
+  ],
+  "executionAuthorized": false,
+  "clockStarted": false
+}

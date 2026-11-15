@@ -1,0 +1,110 @@
+{
+  "kind": "native07_static_preparation_checks",
+  "startedUtc": "2026-11-15T12:17:22.159965+00:00",
+  "completedUtc": "2026-11-15T12:17:23.441071+00:00",
+  "elapsedMs": 1281,
+  "sourceBase": "0234b02d89f01723a9cee26051669bf9e93cf41a",
+  "sourceUnchanged": true,
+  "jsonPythonSyntax": "passed",
+  "hostNodeSyntax": "passed",
+  "taskReadRootsPresent": 25,
+  "installedMethodPins": 5,
+  "sourcePreconditions": 16,
+  "buildInputRows": 1295,
+  "buildExceptions": 17,
+  "buildPayloadFiles": 782,
+  "buildPayloadBytes": 26015425,
+  "dependencyEntries": 4576,
+  "dependencyBytes": 58290948,
+  "dependencyInventorySha256": "dc55a042e47b4119487c1ef1b1288b0de607a9687b6a60e4efbb0443f9584aff",
+  "requiredRetainedInputFiles": 7,
+  "requiredRetainedInputBytes": 669118059,
+  "retainedHistoricalCounts": [
+    {
+      "ordinal": 1,
+      "cases": 11,
+      "topLevel": 4,
+      "returnSha256": "fae954e9a1788ae9f614c1f42cc09a27d85cad5d6fa39637fb80d60a83f74d96"
+    },
+    {
+      "ordinal": 2,
+      "cases": 2,
+      "topLevel": 2,
+      "returnSha256": "fb37089f55fd1dc0db7215db89b1e28274e782a4a640be8c153811f3bae6ed75"
+    },
+    {
+      "ordinal": 3,
+      "cases": 17,
+      "topLevel": 13,
+      "returnSha256": "670c6a22664d8ac6d25eb8a0f24ea429b5f5ab475f5036a0e4a1cd27287f2b04"
+    },
+    {
+      "ordinal": 4,
+      "cases": 3,
+      "topLevel": 3,
+      "returnSha256": "bd980f60c6575bb15f24866e48109085c7775a68377fcc4a6c22275a6059f71b"
+    },
+    {
+      "ordinal": 5,
+      "cases": 7,
+      "topLevel": 7,
+      "returnSha256": "51970c56b418789193444c79e091abf770ada1f646ab3b4b564b42f58c1a94ce"
+    },
+    {
+      "ordinal": 6,
+      "cases": 4,
+      "topLevel": 4,
+      "returnSha256": "6c8d7537417867f17518e4998d97418e3b00e46d03460ac6670e0a5870875151"
+    }
+  ],
+  "freshFiles": 10,
+  "freshTopLevelCases": 38,
+  "overallTopLevelCases": 71,
+  "maintainedHelperBytesConserved": [
+    "dependency-inputs.py",
+    "process-owner.py",
+    "setup-custody.py",
+    "physical-topology.py",
+    "freeze-source.py"
+  ],
+  "hostAndOperateDelta": "coordinates only",
+  "proofAstDelta": [
+    "retained_proof_relation",
+    "main",
+    "new final_input_conservation"
+  ],
+  "finallyConservationPlacementVerified": true,
+  "runtimeBehaviorProbe": false,
+  "sourceOrProductExecution": false,
+  "providerCalls": 0,
+  "clockStarted": false,
+  "provisionalReadRootCorrections": "Unfrozen draft leaf_invocation_port path corrected to actual code/src/implementation before final existence check",
+  "limits": "Static/hash/source relations only; no native author, runtime topology/setup, synthetic proof behavior or Product/test execution. Fresh boundary checks remain mandatory.",
+  "boundedOwnerReferenceCorrection": {
+    "predecessorCommit": "cb850a67032877e85f993600477b422d980b7fc3",
+    "review": "Root closed B29 control review: remaining controls satisfied; one nonexported abg barrel reference in TASK selected for correction.",
+    "correctedReference": {
+      "from": "abg.reidentifyHistoricalDurablePrefixCoordinate",
+      "to": "environment.eventStoreOwner.reidentifyHistoricalDurablePrefixCoordinate",
+      "occurrences": 1
+    },
+    "ownerRoute": "Existing worker eventStoreOwner imports installed build/code/src/abg/event_store.js at1088-1091 and retains it at1165; existing owner exports the function at event_store.ts1960. No export/source/scope change.",
+    "checkedUtc": "2026-11-15T12:24:49.538877+00:00",
+    "predecessorTask": {
+      "path": "TASK.json",
+      "bytes": 11636,
+      "sha256": "f2fb2370d21cbc06d3d7c655fcff49e3ec4e889558d004b823cc5e4fb57e10bf"
+    },
+    "successorTask": {
+      "path": "TASK.json",
+      "bytes": 11660,
+      "sha256": "bee2b7b9d755f631ab7d45f57c539a528d477e298b9bf5ebc3c807aeffbd2272"
+    },
+    "checks": [
+      "TASK bytes differ only by the single selected reference substitution",
+      "TASK JSON parses and all remaining task values/text are unchanged",
+      "No executable control or tenant source changed; prior successful unchanged static/input checks retained"
+    ],
+    "execution": false
+  }
+}

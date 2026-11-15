@@ -1,0 +1,29 @@
+{
+  "sourceDiffSha256": "83cb2bf4ce1386a3a4a1fb2f6cd19ad9386a0168ba6e79245aa4afefe83fd9e0",
+  "independentReviewer": "/root/b30_catalog_triage",
+  "rootDecision": "Accept these three prospective title mappings under unchanged Product retirement meaning; no case deletion or result credit",
+  "declaredTopLevelCasesPreserved": 71,
+  "mappings": [
+    {
+      "file": "t287-single-address-space-consolidation.test.mjs",
+      "priorTitle": "complete-pair owners refuse orphan F_H, construction-intent and selected-action operations by stage and admission order, alike warm, copied and cold; a mixed arm is refused at admission; the baseline and unrelated growth keep their values",
+      "successorTitle": "complete-pair owners refuse retired construction-intent and selected-action continuations and orphan F_H operations as one F_H orphan set, alike warm, copied and cold; a mixed arm is refused at admission; the baseline and unrelated growth keep their values",
+      "disposition": "accepted_retirement_transition_before_proof",
+      "basis": "Fixed15-family5.0 retirement: one F_H orphan set; selected_action absent from publication; pending current_intent refusal laws retained"
+    },
+    {
+      "file": "t292-td26-p3-continuation-refused.test.mjs",
+      "priorTitle": "selected_action keeps its published definition and the installed transport refuses it installed_binding_unavailable",
+      "successorTitle": "selected_action is retired from the published continue family and the installed transport refuses a selected_action call unknown_definition",
+      "disposition": "accepted_retirement_transition_before_proof",
+      "basis": "Fixed15-family5.0 retirement: one F_H orphan set; selected_action absent from publication; pending current_intent refusal laws retained"
+    },
+    {
+      "file": "t292-td26-p3-continuation-refused.test.mjs",
+      "priorTitle": "the published continue refusal contracts keep the selected_action list and give current_intent the five pending codes",
+      "successorTitle": "the published continue refusal contracts give current_intent the five pending codes and publish no selected_action list",
+      "disposition": "accepted_retirement_transition_before_proof",
+      "basis": "Fixed15-family5.0 retirement: one F_H orphan set; selected_action absent from publication; pending current_intent refusal laws retained"
+    }
+  ]
+}

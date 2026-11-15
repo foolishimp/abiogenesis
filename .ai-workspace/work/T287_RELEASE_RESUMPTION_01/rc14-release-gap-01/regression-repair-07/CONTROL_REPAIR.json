@@ -1,0 +1,22 @@
+{
+  "kind": "bounded_native07_control_delta",
+  "predecessorManifest": {
+    "path": "/private/tmp/abg-rc14-regression-repair-20261115-06/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06/CONTROL_MANIFEST.json",
+    "bytes": 4026,
+    "sha256": "e5d035b375d23a74bf1beb6979c2dd8bbba96db9428bd09b5cca32276373088d"
+  },
+  "changes": [
+    "Fresh07 coordinates, single F09 helper task and complete installed-method section pins",
+    "Six retained file relations and10 remaining wholefiles; no population dropping",
+    "Finally-path final build/dependency/generated/retained comparisons when fixtures initialized, preserving primary failure and reporting secondary errors"
+  ],
+  "unchanged": [
+    "Actual RC13 host/native completion and fresh readback owners",
+    "Exclusive launch staging",
+    "Process owner, setup custody and physical topology observer",
+    "Original test/child budgets, title/skip guards, native audit refusal",
+    "Exact reused build/dependencies/7 retained inputs"
+  ],
+  "noProductChange": true,
+  "executionAuthorized": false
+}
