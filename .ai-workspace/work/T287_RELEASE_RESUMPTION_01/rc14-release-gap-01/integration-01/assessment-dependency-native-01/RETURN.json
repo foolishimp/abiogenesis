@@ -1,0 +1,165 @@
+{
+  "id": "RC14-B56-NATIVE-RETURN-001",
+  "recordedUtc": "2026-11-15T20:21:19.677622+00:00",
+  "role": "Separate native Operator/evidence Writer; source authored by actual pinned RC13 Claude native actor",
+  "activation": "integration-01/B56_NATIVE_ACTIVATION_01.json",
+  "sourceBase": "17e8224bfa4514bcee137d3b11544fe0b52d4cc8",
+  "acceptedControls": "7ae1bdd4f048d00f642485b9cd70da9909412e14",
+  "controlManifestSha256": "401cce2b6191f4d8d17c1d902fb10b55edbf99cf125c5fbd142c1b9c9e624fee",
+  "status": "closed_native_source_return_incomplete_and_method_disposition_pending",
+  "native": {
+    "model": "claude-opus-5-5",
+    "modelObservation": "protocol init",
+    "effort": "xhigh",
+    "effortObservation": "configured maintained dispatch arguments; no separate remote effort attestation",
+    "turns": 102,
+    "sdkWallMs": 930190,
+    "hostWallMs": 981491,
+    "terminal": "completed task-matching typed native_workspace_work_observation",
+    "run": {
+      "ref": "run://abiogenesis/7ca7f5c07011388c31754b4688bb6e70af89274e333f7aa932990eebb922108d",
+      "digest": "sha256:08f9a72ce523fec893c89a12980405ebff4edb7299b9af45545b2df1bbb50d3c"
+    },
+    "result": {
+      "ref": "result://abiogenesis/244b7e7823cc94379b098055322041617c93529ab6601f2dec74048a849a8f91",
+      "digest": "sha256:244b7e7823cc94379b098055322041617c93529ab6601f2dec74048a849a8f91"
+    },
+    "actualResourceClose": true,
+    "freshResult": true,
+    "freshClosedReplay": true
+  },
+  "clock": {
+    "startUtc": "2026-11-15T19:57:33.049891+00:00",
+    "originalDeadlineUtc": "2026-11-15T22:57:33.049891+00:00",
+    "nativeMaximumMs": 2700000,
+    "maxTurns": 360,
+    "inactivityMs": 300000,
+    "enclosingMs": 10800000,
+    "clockReset": false,
+    "proofStarted": false
+  },
+  "cost": {
+    "reportedListCostUSD": 7.365782599999999,
+    "basis": "Provider protocol list-price estimate, not account billing.",
+    "inputTokens": 170,
+    "cacheCreationInputTokens": 313262,
+    "cacheReadInputTokens": 14249833,
+    "outputTokens": 100452
+  },
+  "source": {
+    "worktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-01",
+    "headUnchanged": true,
+    "indexEmpty": true,
+    "postimageRows": 1426,
+    "nativeWritePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "setupManifestOnlyOtherDelta": true,
+    "frozenRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject",
+    "frozenRowsSha256": "72fbcf0248f88c631dac27d247efa214775962813ad58108e8336de610e38be7",
+    "accepted": false
+  },
+  "outstanding": [
+    "Required installed split-owner test and b56-installed-split.candidate.json were not authored. Author alleges support/broad-fixture dependency outside W; independent adjudication is pending.",
+    "RC7 coincident capture is retained in finally; the selected preassert capture relation is not fully delivered.",
+    "Author reports component assembly/use publication inconsistency, unaudited partial leaf-authority test callers and unproved genuine S06 membership placement. These remain reported limits, not adopted diagnoses.",
+    "Two source edits used Bash/Python despite its read-only tool restriction. They were confined to selected test W; no retroactive method compliance is claimed."
+  ],
+  "method": {
+    "disposition": "method_deviations_pending_root_disposition",
+    "deviationIds": [
+      "B56-METHOD-01",
+      "B56-METHOD-02"
+    ],
+    "actualMethodInputsRead": 5,
+    "requiredRangesReadBeforeFirstEdit": 8,
+    "readFirstAcquisitionsBeforeFirstEdit": 13,
+    "howEditedFirst": true,
+    "toolCounts": {
+      "Bash": 62,
+      "Read": 17,
+      "Grep": 5,
+      "Edit": 16,
+      "StructuredOutput": 1
+    },
+    "buildTestImportProviderNestingOrGitWriteObserved": false
+  },
+  "closure": {
+    "hostExitCode": 0,
+    "actualResourceClose": true,
+    "freshResult": true,
+    "freshClosedReplay": true,
+    "sourceAndControlCustodyMatched": true,
+    "finalPinsMatched": 46,
+    "hostAndActorGroupsAbsent": true,
+    "groupScope": "Observed host95298 and actor95853 only; no global absence claim.",
+    "frozenOriginalRC14AndBuilderPinPreserved": true
+  },
+  "evidence": {
+    "OPERATOR_RETURN.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/OPERATOR_RETURN.json",
+      "bytes": 11394,
+      "sha256": "49b567c1385c693487226b105e0a2469a4f44f442ce33e5bedf066986d2f4668"
+    },
+    "OPERATOR_FINAL_CUSTODY.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/OPERATOR_FINAL_CUSTODY.json",
+      "bytes": 16841,
+      "sha256": "834041f588b47840e8453f02cc84540862bca9000e8d480f8fd38af5318f48db"
+    },
+    "FROZEN_SOURCE.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/FROZEN_SOURCE.json",
+      "bytes": 6029,
+      "sha256": "ba26e11bee1af74aefece39e6718c0dd646946771f0520b3d01e4bed3b290d44"
+    },
+    "SOURCE_POSTIMAGE.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/SOURCE_POSTIMAGE.json",
+      "bytes": 358512,
+      "sha256": "9b8b0a263a103c5a473df1cae22190960ccf18241b6ef49c0e4ebd538a9ddcb6"
+    },
+    "SOURCE_DIFF.patch": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/SOURCE_DIFF.patch",
+      "bytes": 64786,
+      "sha256": "ad087ba92f97f3a7764fd93cdf09f1e7eadcd28b97f902c1137566a23d37d6fa"
+    },
+    "AUTHOR_AUDIT.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/AUTHOR_AUDIT.json",
+      "bytes": 3005,
+      "sha256": "f84e882f1c95302c2493ba07fd74ce565295735d2b623864cc5814f583c676c2"
+    },
+    "AUTHOR_TOOL_AUDIT.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/AUTHOR_TOOL_AUDIT.json",
+      "bytes": 87777,
+      "sha256": "052ac23936f2459ca1690b7e5d7a2d2b3d5610dff82e5bd5a996723a8a085d63"
+    },
+    "NATIVE_AUTHOR_REPORT.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 5128,
+      "sha256": "6c40051bf0ef640ea45efe9b0863042c442371de6f69958de397d91593e9ed1a"
+    },
+    "NATIVE_AUTHOR_REPORT_BINDING.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/NATIVE_AUTHOR_REPORT_BINDING.json",
+      "bytes": 704,
+      "sha256": "2fe535dc0794050af36fad4a908ed23cafbede65f7e6e2b040a2b18c8f36fbb1"
+    },
+    "BUDGET_COST.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/BUDGET_COST.json",
+      "bytes": 2284,
+      "sha256": "8a83a471283d42d68ecc0ba19be868a47069880841e2b06e03bf394a176b6110"
+    }
+  },
+  "proofAuthorized": false,
+  "proofStarted": false,
+  "builds": 0,
+  "tests": 0,
+  "retry": false,
+  "qualified": false,
+  "rawPublished": false,
+  "sourceCommittedOrStaged": false,
+  "returnTo": "Root independent source/fixture review and explicit method/authority/effect/proof re-entry. This return authorizes no retry, proof or candidate rebuild."
+}
