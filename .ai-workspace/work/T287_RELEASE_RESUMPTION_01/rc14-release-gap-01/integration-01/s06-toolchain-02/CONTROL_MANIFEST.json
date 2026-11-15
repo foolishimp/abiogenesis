@@ -1,0 +1,35 @@
+{
+  "activationId": "RC14-S06-TOOLCHAIN-OFFLINE-PREFLIGHT-002",
+  "controls": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 4602,
+      "sha256": "bf316c2ebbd19cd0fd2397255810c223a0f1081e82c9dca7e12eecf3e29d8336"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1421,
+      "sha256": "5a337c2e88286ab90c3c85df5e0f0c46f68148077dacc4717805d5795f7b56e6"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 537,
+      "sha256": "5cdf2c2873351d583123fb707b6795b2638228673f5121cd38ae2b32b4071440"
+    },
+    {
+      "path": "freeze.py",
+      "bytes": 6073,
+      "sha256": "27237334d39c7580477119a00e70f842d901c0f8e56cfe839a5eaab947440424"
+    },
+    {
+      "path": "preflight.py",
+      "bytes": 9933,
+      "sha256": "0539cc73d474da5c5f989256896fb2636009e0c3992aadd539f672916f179d7a"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    }
+  ]
+}

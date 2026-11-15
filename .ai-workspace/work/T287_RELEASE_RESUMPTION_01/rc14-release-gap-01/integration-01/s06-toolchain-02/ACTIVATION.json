@@ -1,0 +1,79 @@
+{
+  "id": "RC14-S06-TOOLCHAIN-OFFLINE-PREFLIGHT-002",
+  "role": "Separate external-tool Writer; preparation plus one finite offline toolchain preflight",
+  "admittingAuthority": "Root separate bounded successor grant after reviewed f8e045b25 ordering-only zero-child failure; one fresh preflight, no further retry",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+    "projectFrame": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": "Fixed 15-family 5.0, F17/S06 and T287 RC14. Exact immutable tool inputs and derived toolchain evidence only; no ABG/runtime authority, lifecycle/application acceptance, qualification or Product change.",
+  "sourceWorktree": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-02",
+  "sourceHeadBeforeControls": "f8e045b25fa36eb619a3112013dd491624f270ec",
+  "sourceBranch": "codex/rc14-s06-toolchain-20261115",
+  "acceptedS06": {
+    "sourceCommit": "60cd47319b360048f2176f97d0d2cb8703df1397",
+    "sourceWorktree": "/private/tmp/abg-rc14-s06-preparation-20261115-01",
+    "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-01",
+    "manifestSha256": "cc48ceebad92f8d425912b81dea6ac37c49b396a92240bd2ae7e97c0ddb7780a",
+    "inputsSha256": "f823ca394a51388a6b9c57b14fd36b423d80036a53d785fe8c21336a1add6851"
+  },
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02",
+  "inputs": {
+    "jdk": "/opt/homebrew/Cellar/openjdk@11/11.0.28/libexec/openjdk.jdk/Contents/Home",
+    "javaSha256": "a77aaa13441a13405be3018f3c7fc6d4cb7754411a2f51bb8c9004a7bb97bf07",
+    "launcher": "/opt/homebrew/Cellar/sbt/1.11.7/libexec/bin/sbt-launch.jar",
+    "launcherSha256": "f92a2095ac75008764fe3b2b793ffe624c4fbef5bfd9b0022e4bc2daf668c651",
+    "boot": "/Users/jim/.sbt/boot",
+    "bootSelections": [
+      "scala-2.12.20/lib",
+      "scala-2.12.20/org.scala-sbt/sbt/1.11.7"
+    ],
+    "maven": "/Users/jim/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2"
+  },
+  "versions": {
+    "jdk": "11.0.28",
+    "sbt": "1.11.7",
+    "buildScala": "2.12.20",
+    "applicationScala": "2.13.12",
+    "spark": "3.5.1",
+    "scalaTest": "3.2.18"
+  },
+  "limits": {
+    "preflightMs": 900000,
+    "cleanupReserveMs": 120000,
+    "maxCaptureBytesPerCommand": 67108864,
+    "reserveBytes": 8589934592,
+    "resolutionLaunchesAtMost": 1,
+    "javaVersionLaunchesAtMost": 1
+  },
+  "effects": [
+    "Create only this carrier and external raw/frozen/work roots",
+    "Hash-verify exact retained01 read-only tool/cache/application inputs; create only fresh02 writable work/cache and evidence",
+    "One direct pinned Java version and one sandboxed SBT build-definition/dependency/external-classpath resolution; no app compile/test/run",
+    "Commit only this carrier on own branch; no main/push"
+  ],
+  "network": "File Maven repository only in boot and build configuration; sanitized environment and fresh Java home/cache locations; sandbox denies all network. No Spark/application invocation or loopback requirement in this preflight.",
+  "stops": [
+    "Missing prerequisite or uncertain execution boundary leaves disabled preflight",
+    "First resolution failure, absent coordinate, network attempt/error, timeout, output bound or unresolved resource closure stops; no retry or download"
+  ],
+  "returnTo": "Root; exact frozen controls, input/graph identities and closed result or smallest observed missing set; stop editing",
+  "createdUtc": "2026-11-15T09:30:20.829868+00:00",
+  "retainedInputs": {
+    "freezeReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/FREEZE_RETURN.json",
+      "bytes": 2478,
+      "sha256": "2b32fd2378260ba0c6ed19b75789f07967e73942bd7145d7aa16b1968fdf51b6"
+    },
+    "frozenRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen",
+    "oldFailure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/preflight-01/RETURN.json",
+      "bytes": 1037,
+      "sha256": "4089b3f78ce7ddffe99a34a0e9ded1fa7f19392f2760eb74b0f083e9a0ec5881"
+    },
+    "oldControlsCommit": "f8e045b25fa36eb619a3112013dd491624f270ec",
+    "reuse": "Exact frozen01 inputs remain read-only; no acquisition recopy; fresh02 work/cache/commands/clock"
+  }
+}

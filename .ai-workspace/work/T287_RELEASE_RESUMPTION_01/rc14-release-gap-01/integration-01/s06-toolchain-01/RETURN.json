@@ -1,0 +1,57 @@
+{
+  "activationId": "RC14-S06-TOOLCHAIN-OFFLINE-PREFLIGHT-001",
+  "disposition": "preparation_frozen_preflight_stopped_zero_children",
+  "sourceParent": "b53c0182b7064d4f2694e68a845642d888adb999",
+  "acceptedS06": "60cd47319b360048f2176f97d0d2cb8703df1397",
+  "manifest": {
+    "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-toolchain-01/CONTROL_MANIFEST.json",
+    "bytes": 973,
+    "sha256": "20002f667b3dc988b9aebb531a947977d5bde52bd5f7e7c243a17da801289f24"
+  },
+  "externalEvidence": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/FREEZE_RETURN.json",
+      "bytes": 2478,
+      "sha256": "2b32fd2378260ba0c6ed19b75789f07967e73942bd7145d7aa16b1968fdf51b6"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/PREFLIGHT_CONTROL_BINDING.json",
+      "bytes": 1076,
+      "sha256": "bbdad6679117644aaabccd9e30f674493b1eb5535e64372fe8c0b9e0b17bbe8a"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/preflight-01/CONTROL_START.json",
+      "bytes": 350,
+      "sha256": "fdf49686d4b7ee9e75e716f7f27dfc060e2c89def08106ce7225c13b20ca2135"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/preflight-01/FIRST_FAILURE.json",
+      "bytes": 53,
+      "sha256": "2e2aad699a57c2175d2b3da9fa0adbf5a5766c52399bbdb540ea79205572ec5b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/preflight-01/RETURN.json",
+      "bytes": 1037,
+      "sha256": "4089b3f78ce7ddffe99a34a0e9ded1fa7f19392f2760eb74b0f083e9a0ec5881"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/CAUSAL_RETURN.json",
+      "bytes": 1449,
+      "sha256": "f46de1eb8ba7dc3801a17a2ead7496eb5e86a6cf127dc5a425bee34488a05cb8"
+    }
+  ],
+  "actualJavaChildren": 0,
+  "actualSbtChildren": 0,
+  "actualApplicationExecution": false,
+  "oneAttemptClosed": true,
+  "retryPerformed": false,
+  "cause": "Ordering-only control invariant mismatch before command launch",
+  "minimalSuccessor": "Normalize compared inventory row ordering by relative path string; preserve exact set/bytes/modes and old failure; separately admit a fresh preflight",
+  "missingCoordinates": null,
+  "missingCoordinatesMeaning": "Unknown: resolver not reached, not evidence of complete or incomplete local closure",
+  "readOnlyCausalConservation": "All 4179 original and frozen selected Maven rows agree by path/kind/mode/length/SHA; original failed whole-phase conservation assertion preserved",
+  "selectedClosureKnown": false,
+  "qualificationOrAcceptance": false,
+  "rawPublication": false,
+  "mainOrPush": false
+}
