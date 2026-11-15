@@ -1,0 +1,16 @@
+{
+  "id": "RC14-REGRESSION-REPAIR-NATIVE-005-CONTROL-REPAIR",
+  "predecessor": "fd7ecfa64f70cff6228b2a21e7e82335a18b1d6f",
+  "repairs": [
+    "Native author scope17\u21925: three substantive fixtures plus ST1/P3 retention-only;45min/360turns, all16proof files",
+    "Prior13 preimages bound;11 immutable and ST1/P3 targeted corrections; build-reuse exception17",
+    "Actual inner completed/result/typed native observation gate before proof; fresh run_result result and closed replay required",
+    "Automatic exclusive approved LAUNCH staging and original finite cleanup/output/deadline controls retained"
+  ],
+  "notSelected": [
+    "Product/test implementation by Operator",
+    "New provider/retry/clock reset",
+    "Rewrite/delete04 failure or postimage",
+    "Implicit title retirement or lost optional/required gate distinction"
+  ]
+}

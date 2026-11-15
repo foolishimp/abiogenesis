@@ -1,0 +1,116 @@
+{
+  "kind": "exact_operator_control_manifest",
+  "activationId": "RC14-REGRESSION-REPAIR-NATIVE-005",
+  "files": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 6631,
+      "sha256": "7b1fbaedc1ca8915ae061b61383f7ebc6335fcf6606153b7579ad0f9df556e7b"
+    },
+    {
+      "path": "BUILD_REUSE.json",
+      "bytes": 4706,
+      "sha256": "406044893fdfc430cfce9462936d48de2c11f7d3202e2f82bbb0e094678f9ae6"
+    },
+    {
+      "path": "CONTROL_REPAIR.json",
+      "bytes": 842,
+      "sha256": "81019f1556a857fc4092e5abee78a2fe2867704ff6912922c47b8ce88b6f527f"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 706,
+      "sha256": "f57ae6dd95a2280fa6ec0e2976fd13b48c9d28858bb324cdf6ff05f2455b5540"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 20818,
+      "sha256": "d91e7cfc0a2796a39fcfafe57832aa8a027ced152ccbbd8218766914bfa5c06e"
+    },
+    {
+      "path": "LAYOUT.json",
+      "bytes": 1696,
+      "sha256": "985e3f197b5e2293b0ecf701ddd91e990737f6a89dc34441e2791ddbb661cc56"
+    },
+    {
+      "path": "PRIOR_PARTIAL_SOURCE.json",
+      "bytes": 3761,
+      "sha256": "92ec408b44b169fb0f090a7ae25dcbfac0522a11d8fa8168facb0da9c635996a"
+    },
+    {
+      "path": "PRIOR_TITLE_MAP.json",
+      "bytes": 2379,
+      "sha256": "1bb45ecacff4faef9ea3cf8444d950df232d6d041334ce959cd71a43bfa6b281"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 18647,
+      "sha256": "1dcbf46a6a2891f6b81baea2ee6d69687df6553b6ba23ef02edb7650f1a0b4a4"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5799,
+      "sha256": "593c998348a8817c5640ed71c9ad2d69864fc5d04a57d40e5d8dead2ce98f31b"
+    },
+    {
+      "path": "REENTRY.json",
+      "bytes": 3515,
+      "sha256": "ab3a478aea3e03d9426f38a7e68c1291d9d8600fcb82a202e5a1063e1b2ce4fd"
+    },
+    {
+      "path": "RETAINED_INPUTS.json",
+      "bytes": 2617,
+      "sha256": "6b3acd6edd34a09ee213a583ffc743c88c96ecf9ca94757b34270407efbdb74b"
+    },
+    {
+      "path": "ROOT_ACTIVATION.json",
+      "bytes": 2241,
+      "sha256": "e5409b2dbc5b35c9da3bbef4070cb5d288e40060e68659daf6cc7db9423c1e64"
+    },
+    {
+      "path": "SOURCE_BINDING.json",
+      "bytes": 832,
+      "sha256": "063ae4391c372a1f8616c4a91ad624329159fb43bbdb5ee283129e7d8962fa1c"
+    },
+    {
+      "path": "TASK.json",
+      "bytes": 11401,
+      "sha256": "1e612b306761821ab846dbc3c75c69befbe4d74aea6fb6dc23052ad87da38162"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 3393,
+      "sha256": "7cd9d8d083eefb6e0177c3ac25c55796f3766d36001c64f227c6ddf7b3015331"
+    },
+    {
+      "path": "operate.py",
+      "bytes": 6471,
+      "sha256": "7f2614e6d97a57e6b12ea55fc8a7b0c7da931528291d24ce80f48ddbeb5ab0b5"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 17439,
+      "sha256": "26baaa481b4ddf9c8bc4437c02736f09dc78f56f758782fce706b484255728f3"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ]
+}
