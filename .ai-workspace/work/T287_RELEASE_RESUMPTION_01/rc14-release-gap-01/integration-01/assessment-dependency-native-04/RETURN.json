@@ -1,0 +1,223 @@
+{
+  "kind": "rc14_b56_native04_compact_return",
+  "status": "native_closed_source_frozen_audit_residuals_pending_root",
+  "operator": "RC14-B56-NATIVE-OPERATOR-004",
+  "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+  "controlCommit": "e00aa6668e37f336464aed21079c87b91bb5cf6d",
+  "controlManifestSha256": "7063325b879e1d6c12d3d7dcab2dff423a16cfe237b094722c0589a2cf15d452",
+  "rootAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE_ACTIVATION_04.json",
+    "bytes": 9537,
+    "sha256": "34ddedf954e00cbf3b9f87da6b314480ca74a447284b628eb1bf1948a5410448"
+  },
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04",
+  "rawOperatorReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/OPERATOR_RETURN.json",
+    "bytes": 19712,
+    "sha256": "631bda6310a39ea19623de070983052a3881d03ad5962f9ba00d48d1e4838754"
+  },
+  "actualStartUtc": "2026-11-15T22:47:31.946547+00:00",
+  "originalDeadlineUtc": "2026-11-16T01:47:31.946547+00:00",
+  "executionStopDeadlineUtc": "2026-11-16T01:44:31.946547+00:00",
+  "oldClockReused": false,
+  "nativeAttempt": {
+    "providerCalls": 1,
+    "modelObserved": "claude-opus-5-5",
+    "effortConfiguredAndTransportChecked": "xhigh",
+    "hostPid": 9470,
+    "actorPid": 10001,
+    "runRef": "run://abiogenesis/9ac0e42adf4bd95bbc9c459562fecbc8bd6f61cf9771fdc027523874a2267afd",
+    "actorStartUtc": "2026-11-15T22:48:16.242Z",
+    "actorExitUtc": "2026-11-15T23:02:31.782Z",
+    "actorExitStatus": 0,
+    "hostExitCode": 0,
+    "hostElapsedMs": 909341,
+    "sdkWallMs": 854124,
+    "sdkApiMs": 841919,
+    "turns": 68,
+    "reportedListCostUSD": 6.576858,
+    "costStanding": "Provider list-cost observation only, not invoice/billing confirmation."
+  },
+  "completion": {
+    "typedTaskMatchingNativeObservation": true,
+    "actualResourceClose": true,
+    "freshResult": true,
+    "freshClosedReplay": true,
+    "hostAndActorPidsAndGroupsAbsent": true,
+    "groupScope": "Only exact owned host/actor groups; no global host absence claim."
+  },
+  "source": {
+    "worktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04",
+    "headAndIndexUnchanged": true,
+    "frozenFile": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 425506,
+      "sha256": "9fef11e5ac9201f154922d03346e33d06ed8c79531d0ebea3b389afbc738f185"
+    },
+    "diff": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_DIFF.patch",
+      "bytes": 92620,
+      "sha256": "da01b388dd22d51b9069eb845d6ad2428af71bc875dbc56144622ed67f51bdf1"
+    },
+    "postimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_POSTIMAGE.json",
+      "bytes": 392522,
+      "sha256": "d4226a0532c199bf732f3b613bec196b24fd0e427d1e0aa3a12dccdb573f1d1c"
+    },
+    "rows": 1572,
+    "changedSourcePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    ],
+    "setupOwnedUntracked": [
+      ".abiogenesis/workspace-manifest.json"
+    ],
+    "immutableRecoveredFiles": 7,
+    "standing": "Uncommitted native-authored bytes frozen externally; Operator makes no source acceptance claim."
+  },
+  "actualNativeReport": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/NATIVE_AUTHOR_REPORT.json",
+    "bytes": 8900,
+    "sha256": "8bab197561b4d8f303e2cc536f393af798cb641f3161d35568fcbe73c9f5dd70"
+  },
+  "nativeReportBinding": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/NATIVE_AUTHOR_REPORT_BINDING.json",
+    "bytes": 751,
+    "sha256": "7770fa41774b62fc1b178dda4195f340541a7dc32e074fcea7aaa5bd2ae016fe"
+  },
+  "reportStanding": "Author claims source complete; eight disclosed gaps retain unexecuted behavioral assumptions, capture-proof limits and method deviations. Genuine installed behavior is not established by this source pass.",
+  "audit": {
+    "pin": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/AUTHOR_AUDIT.json",
+      "bytes": 39361,
+      "sha256": "08afaaf3bc30693007b65b5734a606b3196400014569e35a60e4fafa552cb3e0"
+    },
+    "disposition": "held_for_root_method_and_source_disposition",
+    "toolCounts": {
+      "Bash": 65,
+      "Read": 1,
+      "StructuredOutput": 1
+    },
+    "sourceTextEdits": 4,
+    "syntaxChecks": 4,
+    "allSyntaxChecksPassed": true,
+    "actualMethodStatusAnd16ComparisonsObserved": true,
+    "methodResiduals": [
+      {
+        "id": "M04-01",
+        "kind": "late_readFirst",
+        "facts": "ACTIVATION, PRIOR_ATTEMPT and D1_COORDINATES acquired only at tool66, after first source edit tool56. D1 complete compact value; first two truncated to2200characters. No earlier actual bodies or prompt-body credit established."
+      },
+      {
+        "id": "M04-02",
+        "kind": "required_body_not_acquired",
+        "facts": "No actual command/body acquisition for abg/semantic_job.ts98\u2013195 or563\u2013605; its coordinates in Task/prompt and field names elsewhere are not that body."
+      },
+      {
+        "id": "M04-03",
+        "kind": "clipped_source_content",
+        "facts": "Selected reads clipped24 line observations across9 paths; exact ranges/line widths are in ACQUISITION_AUDIT. No later full reacquisition observed for those clipped suffixes; do not count full deciding bodies."
+      }
+    ],
+    "readSeparatorFailures": {
+      "toolOrdinals": [
+        4,
+        34
+      ],
+      "standing": "Both original failed commands retained; later suffix read calls5/43 succeeded before edits, without crediting clipped suffixes."
+    },
+    "acquisitionAudit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/ACQUISITION_AUDIT.json",
+      "bytes": 19818,
+      "sha256": "d4db711760e006165412083c6ff4f5f8e0b40f5b062a94a40feee31a27b297ef"
+    },
+    "actualToolLedger": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/ACTUAL_TOOL_LEDGER.json",
+      "bytes": 643985,
+      "sha256": "4c96e4b1ce4ca708243ca8455e14f1f61e8cc610aab9e9fdb5732fd0beff8fa4"
+    },
+    "actualPrompt": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/runtime/resources/archives/fp-db56258a196f27ac-prompt.txt",
+      "bytes": 15863,
+      "sha256": "fdb0f031f07859c0ab5b62f114a9f9bb5be48ada2548a189e947e1da68f22c67"
+    },
+    "proofEligibilityDecided": false,
+    "retrospectiveComplianceClaimed": false
+  },
+  "conservation": {
+    "postimageRowsRechecked": 1572,
+    "sourceHeadAndIndexContentUnchanged": true,
+    "entryExitFilesEqual": 274,
+    "controlMembersEqual": 35,
+    "dependencyRowsEqual": 4576,
+    "npmRowsEqual": 2326,
+    "nativeInputFilesIncluded": 196,
+    "setupOwnedManifestExact": true,
+    "oneNativeWOnly": true
+  },
+  "custodyPins": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_PREIMAGE.json",
+      "bytes": 486897,
+      "sha256": "60f0e052bc6870037a62983bddd77f073321e0dfd923b01cbd73e8510a26b7de"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/FROZEN_SOURCE.json",
+      "bytes": 2318,
+      "sha256": "356b31e87d72d710c44d2d18ec753211507db5a653d6c2e7143eb6213b2421e8"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/OPERATOR_INPUTS_ENTRY.json",
+      "bytes": 70926,
+      "sha256": "ac42cf879a4b3c447cda2edc133fb2ce43dd0f3eb1797335e1e0a51d30c02b4c"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/OPERATOR_INPUTS_EXIT.json",
+      "bytes": 71856,
+      "sha256": "3c5dbec00c7cb87163a184e15b972a0195b53a9b9f21cd10c8c389422ad33e45"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SETUP_CUSTODY_EXIT.json",
+      "bytes": 1392,
+      "sha256": "cde76dfff1fb0bf36885327b1cc0296cda98cf0ffe55103271bd494df190054b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/runtime/AUTHOR_COMPLETION.json",
+      "bytes": 1395,
+      "sha256": "1a9f9b5b65515a65ed4bbab58bbb6fbe038be6f2df310b45b36d45cb4a0b15cb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/runtime/FINAL.json",
+      "bytes": 890,
+      "sha256": "315355a886994b25555f65bcda621f354e23fb861dbd56d076c0c301e2dbe945"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/runtime/FRESH_READBACKS.json",
+      "bytes": 5717,
+      "sha256": "8caa2255a1331de1b0d061e5fca5028eea0b3f2bea9693937b41a535a682c96e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/HOST_RETURN.json",
+      "bytes": 624,
+      "sha256": "dec6fde4d49e256d6e7cd74e2e7ea16827c76f677ef5294d4c3860f0af08c64d"
+    }
+  ],
+  "operatorDiagnostic": "Initial local audit expression had else43 syntax typo; interpreter refused before reads/writes. Corrected the audit expression only; no source/control/runtime effect or extra native call.",
+  "closedUtc": "2026-11-15T23:13:42.332513+00:00",
+  "notExecuted": [
+    "build",
+    "test/proof",
+    "candidate rebuild or repin",
+    "S06 witness or amendment retry",
+    "formal qualification",
+    "main mutation/push",
+    "raw Git publication"
+  ],
+  "proofAuthorized": false,
+  "proofStarted": false,
+  "sourceAcceptance": false,
+  "S06Completed": false,
+  "qualified": false,
+  "retries": 0,
+  "rawPublished": false,
+  "returnTo": "Root for independent exact-source/method/proof disposition. Native04 is closed; no automatic retry or proof."
+}
