@@ -1,1 +1,0 @@
-code/src/abg/semantic_revision.ts(442,77): error TS18047: 'subject.operationalFailure' is possibly 'null'.

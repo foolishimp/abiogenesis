@@ -116,6 +116,7 @@ build_tenants/abiogenesis/typescript/test_env/**/witness-*/
 .ai-workspace/**/status-preimages-*/
 .ai-workspace/**/TICKET_BEFORE*.md
 .ai-workspace/**/*.jsonl
+.ai-workspace/**/*.ndjson
 .ai-workspace/**/*.stdout
 .ai-workspace/**/*.stderr
 .ai-workspace/**/*.log

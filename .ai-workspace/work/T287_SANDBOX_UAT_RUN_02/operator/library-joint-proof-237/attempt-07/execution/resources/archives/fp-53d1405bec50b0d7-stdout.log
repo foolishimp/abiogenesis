@@ -1,2 +1,0 @@
-{"type":"system","subtype":"init"}
-{"type":"result","subtype":"success","is_error":false,"result":"{\"summary\":\"fixture candidate staged\",\"gaps\":[\"The controlled bad value still requires actual C2 diagnosis, native repair and remeasurement; independent assessment is unresolved.\"]}","structured_output":{"summary":"fixture candidate staged","gaps":["The controlled bad value still requires actual C2 diagnosis, native repair and remeasurement; independent assessment is unresolved."]}}

@@ -1,3 +1,0 @@
-{"type":"system","subtype":"init"}
-{"type":"assistant","message":{"content":[{"type":"text","text":"attempt 1"}]}}
-{"type":"result","subtype":"success","result":"{not-json"}

@@ -1,0 +1,61 @@
+{
+  "id": "ABG-TRACKED-RAW-LOG-CLEANUP-20261115",
+  "role": "Root separate publication-maintenance Writer/Operator",
+  "ownerInstructions": [
+    "yes old event logs should not be on github",
+    "raw data can be deleted",
+    "yes remove them from git they dont belong there"
+  ],
+  "basis": "stdo://releases/v3.0.4/; manifest 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "sourceHead": "669704c158d4ceb69459fd994e0ffc887e7586c0",
+  "classification": "Publication maintenance of generated observation/evidence; no Product, definition, runtime or qualification changes",
+  "scope": "Remove tracking of exactly 6,057 generated log/capture files under .ai-workspace through a normal commit and main-only push. Preserve all local file bytes and a local-only recovery reference; preserve tenant source/tests, specifications, authored scripts, Markdown, the unrelated review, and every other path. Add the NDJSON ignore rule and remove two obsolete exact LFS rules.",
+  "verification": [
+    "Every selected working-file hash and actual LFS-body identity before and after",
+    "Exact staged removed set and complete unselected Git tree conservation",
+    "No raw or new LFS payload in outgoing Git objects",
+    "Direct main remote parity after normal fast-forward push"
+  ],
+  "prohibited": [
+    "No force push, published-history rewrite, repository deletion or other-ref push",
+    "No physical deletion of source/evidence files; no GitHub Support message without explicit send instruction",
+    "No pipeline/build/test/provider execution, pin/version/candidate change"
+  ],
+  "recordedUtc": "2026-11-15T01:16:17.444054+00:00",
+  "status": "INDEX_CLEANUP_VERIFIED",
+  "verifiedUtc": "2026-11-15T01:20:40.177009+00:00",
+  "result": {
+    "removedFiles": 6057,
+    "removedLogicalGitBytes": 11363936100,
+    "localPhysicalFilesPreserved": 6057,
+    "localPhysicalBytesPreserved": 11682129090,
+    "unselectedOriginalTrackedFilesUnchangedBeforePolicyEdits": 136766,
+    "policyEdits": [
+      ".gitignore: ignore generated .ai-workspace NDJSON logs",
+      ".gitattributes: remove exact LFS rules for two untracked raw logs"
+    ],
+    "allRemovedPathsIgnored": true,
+    "sourceTestsSpecificationAndBuilderPinUnchanged": true
+  },
+  "localRecovery": {
+    "directory": "/Users/jim/Library/Application Support/ABIogenesis/local-evidence/20261115-tracked-log-cleanup",
+    "reference": "refs/heads/archive/pre-tracked-log-cleanup-20261115",
+    "selectedPathInventorySha256": "7eeb29eaef25a1878bfacc9e72a9cb01718ce8438b8a6c50670c5b1ce7ea14d5",
+    "beforeManifestSha256": "1726e1a52452f4fd5e5ac72ac2855bcfef69e9e8209ce28d1840f0fb22ede503",
+    "beforeTreeSha256": "d584f0b1cca61c1a1511ab5ba64b77393b15c11dbed97ffbb08a319d700a712e",
+    "verificationSha256": "a6ba2275782142a7acaec81c835f6ccf8a16e64c6626ba454b0d09b24dcc7d0f"
+  },
+  "publicationBoundaries": {
+    "newRawBodiesPublished": false,
+    "publishedHistoryRewritten": false,
+    "gitHubStoredLfsObjectsPurged": false,
+    "remoteLfsObservation": {
+      "objectCount": 6,
+      "bytes": 971780096,
+      "measuredUtc": "2026-11-14T12:42:27.516427+00:00",
+      "alreadyAbsentFromCurrentMain": true
+    },
+    "remaining": "Published historical commits retain their original raw objects. Removing tracking does not reclaim GitHub historical or LFS storage. The six observed LFS objects require a separate GitHub-side purge; no Support message has been sent."
+  },
+  "validation": "Exact full-index conservation outside the selected removals, then only the two named policy files and this record may change. Every retained local raw file matched SHA-256, size, inode, device and mtime before/after. No Product code changed, so no build, provider or test run is selected."
+}
