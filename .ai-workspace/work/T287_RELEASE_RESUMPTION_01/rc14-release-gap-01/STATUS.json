@@ -719,7 +719,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T19:45:46.938054+00:00",
+  "updatedUtc": "2026-11-15T19:53:55.926614+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1065,11 +1065,14 @@
     "retry": false
   },
   "amendmentPromptCapacity": {
-    "state": "EXTERNAL_CONTROL_PREPARATION_SELECTED_NO_RUNTIME",
+    "state": "ACCEPTED_EXTERNAL_CONTROLS_WAITING_FOR_B56_CANDIDATE",
     "triage": "integration-01/AMENDMENT_PROMPT_BOUND_DISPOSITION_01.json",
     "successor": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-07",
     "maxPromptBytes": 524288,
     "previousMaxPromptBytes": 131072,
-    "next": "Independent frozen-control review; paid installed attempt waits for B56 repaired exact candidate."
+    "next": "Independent frozen-control review; paid installed attempt waits for B56 repaired exact candidate.",
+    "controlCommit": "cd1a11eefdcf8790d93087a2015f857d3247ca12",
+    "acceptance": "integration-01/AMENDMENT_CONTROL_ACCEPTANCE_07.json",
+    "executionAuthorized": false
   }
 }

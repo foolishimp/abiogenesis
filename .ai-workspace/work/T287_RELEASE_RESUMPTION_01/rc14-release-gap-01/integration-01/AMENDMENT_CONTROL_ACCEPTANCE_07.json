@@ -1,0 +1,33 @@
+{
+  "id": "RC14-AMENDMENT-CONTROL-ACCEPTANCE-07",
+  "recordedUtc": "2026-11-15T19:53:55.926614+00:00",
+  "role": "Root independent read-only reviewer/Executive conjunction, recorded separately under Records Writer020",
+  "writerGrant": "integration-01/AMENDMENT_PROMPT_BOUND_DISPOSITION_01.json#writerActivation",
+  "productFrame": "Fixed5.0 governed amendment, current required verdicts and acceptance. External process capacity is an immutable task input; ABG alone admits runtime truth. No graph choice, permission or completion criterion changes.",
+  "basis": "stdo://releases/v3.0.4/",
+  "subject": {
+    "commit": "cd1a11eefdcf8790d93087a2015f857d3247ca12",
+    "tree": "e45d3af821d788923180b0e5b6172c3602255562",
+    "parent": "5b75c3a38114685d66d443ffc4e23733e24457c1",
+    "mainMerge": "9a616c1a17d8820a242ddeda9c51e4814352912a",
+    "carrier": "integration-01/amendment-successor-07",
+    "manifestSha256": "a81fbf93e5353569b4aea36ad74b43ecc783cb301f883e93410ceabedf80ee4e",
+    "returnSha256": "54b701175c930fe2dac2ad68884bc4b6279b4640a385cae763bebf3607180b57"
+  },
+  "review": {
+    "ProductDesign": "The independent failure triage supports a finite external capacity change. Current HOW requires refusal beyond the declared limit; this packet changes the declaration, not projection or admission.",
+    "IdentityIntegration": "Exactly one parsed PROCESS leaf changes: limits.maxPromptBytes131072 to524288. Reversing that literal restores predecessor bytes exactly. Ten executable controls and18 unaffected files are byte-identical. BINDING changes two successor-local empty npm-config paths and descriptive preparation status only; executable/template authority remains disabled. Historical PROCESS pin now explicitly names the one-leaf successor relation.",
+    "ProofEffect": "Root independently reacquired25 manifest members, Return hash, exact commit/tree and clean subject; no mismatch. All candidate-dependent values remain unbound. No runtime/provider/build/test proof was run or inferred. The two Writer display-path errors and Root initial manifest-key display error did not alter a control or execute readiness; actual manifest controls key was then checked."
+  },
+  "accepted": "External successor controls only; B57 completion remains open until an actual fresh installed witness.",
+  "runtimeGrant": false,
+  "next": "Bind accepted B56 repaired exact candidate and fresh original clock; independently accept its bindings before a paid run.",
+  "preserved": "All failed01/02/03 bodies/clocks, old C0/C1/archive/install, RC13 pin, reviews/prerequisites/oracle/source scope and context limits.",
+  "limits": [
+    "Run-wide512KiB cap applies beyond selector too.",
+    "No arbitrary-history fit or semantic judgment guarantee.",
+    "No qualification, publication, human acceptance or pin change."
+  ],
+  "qualified": false,
+  "rawPublished": false
+}
