@@ -1,0 +1,72 @@
+--- original07/prove.py
++++ native07-proof-reentry-01/prove.py
+@@ -6 +6 @@
+-HERE=Path(__file__).resolve().parent
++HERE=Path('/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07')
+@@ -181,0 +182,56 @@
++def require_proof_reentry(launchpath,launch,authoritypath):
++ successor=Path(__file__).resolve().parent
++ authoritypath=Path(authoritypath)
++ assert authoritypath.is_file() and not authoritypath.is_symlink(),'exact Root proof authority required'
++ authority=json.loads(authoritypath.read_text())
++ assert authority['id']=='RC14-NATIVE07-PROOF-REENTRY-01' and authority['executionAuthorized'] is True
++ manifestpath=successor/'CONTROL_MANIFEST.json'
++ assert digest(manifestpath)==authority['controlManifestSha256']
++ manifest=json.loads(manifestpath.read_text())
++ for row in manifest['files']:
++  p=successor/row['path'];assert p.is_file() and not p.is_symlink() and p.stat().st_size==row['bytes'] and digest(p)==row['sha256'],row['path']
++ original=manifest['originalControls']
++ assert original['path']==str(HERE) and digest(HERE/'CONTROL_MANIFEST.json')==original['manifestSha256'] and digest(HERE/'prove.py')==original['runnerSha256']
++ auditpath=successor/'AUTHOR_AUDIT.json';audit=json.loads(auditpath.read_text())
++ assert digest(auditpath)==authority['auditSha256']==digest(RAW/'AUTHOR_AUDIT.json'),'retain exact actual audit'
++ assert audit['disposition']=='scope_admitted_with_disclosed_command_variance'
++ assert len(audit['deviations'])==1
++ variance=audit['deviations'][0]
++ assert (variance['id'],variance['actualCommand'],variance['containerCallId'])==('native07-node-version-metadata-probe','node --version','toolu_01D77inrt9uoRDgS2BTZBAnP')
++ assert audit['fullMethodAndCommandComplianceClaim'] is False and audit['proofAuthorized'] is False
++ assert audit['selectedMethodContentVerified'] is True and audit['allReadFirstHaveActualPreEditContent'] is True and audit['actualResourceAndGroupsClosed'] is True
++ for row in [audit['observation'],audit['authorReport'],audit['capture'],audit['sourceFreeze'],audit['sourcePostimage'],*audit['closePins']]:
++  p=Path(row['path']);assert p.is_file() and not p.is_symlink() and p.stat().st_size==row['bytes'] and digest(p)==row['sha256'],row['path']
++ observed=json.loads(Path(audit['observation']['path']).read_text())
++ assert authority['originalObservationSha256']==audit['observation']['sha256']
++ assert observed['deviations']==audit['deviations'] and observed['methodContentCompleteForSelectedRanges'] is True
++ assert observed['sourceHead']==audit['sourceHead'] and observed['launch']['sha256']==audit['launchSha256'] and observed['sourceDiff']['sha256']==audit['sourceDiffSha256']
++ assert observed['scope']['otherSourceConserved'] is True and observed['scope']['headIndexUnchanged'] is True and observed['scope']['ProductTestsBuildsProviderSubagentsGitCommandsObserved'] is False
++ assert observed['scope']['sourcePostimage']==audit['sourcePostimage'] and observed['frozenSource']==audit['sourceFreeze']
++ frozen=json.loads(Path(audit['sourceFreeze']['path']).read_text())
++ assert frozen['sourceHead']==audit['sourceHead'] and frozen['postimage']==audit['sourcePostimage'] and frozen['diff']['sha256']==audit['sourceDiffSha256']
++ assert len(frozen['files'])==1 and frozen['files'][0]['sourcePath']==ACT['nativeWriteScope'][0]
++ row=frozen['files'][0];p=SOURCE/row['sourcePath'];assert p.is_file() and not p.is_symlink() and p.stat().st_size==row['frozenCopy']['bytes'] and digest(p)==row['frozenCopy']['sha256']
++ assert authority['acceptedCommandVarianceIds']==[variance['id']] and authority['varianceRemainsDisclosed'] is True and authority['literalCommandComplianceClaim'] is False
++ assert authority['commandDisposition']=='preserve_actual_variance_and_admit_exact_snapshot_for_bounded_proof'
++ disposition=authority['auditDisposition'];dispositionpath=Path(disposition['path'])
++ assert dispositionpath.is_file() and not dispositionpath.is_symlink() and digest(dispositionpath)==disposition['sha256']
++ decided=json.loads(dispositionpath.read_text())
++ assert decided['sourceHead']==audit['sourceHead'] and decided['sourceDiffSha256']==audit['sourceDiffSha256']
++ assert decided['audit']['sha256']==digest(auditpath) and decided['observation']==audit['observation'] and decided['literalVariance']==audit['deviations']
++ assert decided['claims']['fullLiteralCommandCompliance'] is False and decided['claims']['qualified'] is False
++ assert authority['sourceHead']==audit['sourceHead']==launch['sourceHead']
++ assert authority['sourceDiffSha256']==audit['sourceDiffSha256']
++ assert authority['sourcePostimageSha256']==audit['sourcePostimage']['sha256']
++ assert authority['launchSha256']==audit['launchSha256']==digest(launchpath)
++ review=authority['sourceReview'];assert review['disposition']=='accepted_for_bounded_proof'
++ reviewpath=Path(review['path']);assert reviewpath.is_file() and not reviewpath.is_symlink() and digest(reviewpath)==review['sha256']
++ reviewed=json.loads(reviewpath.read_text())
++ assert review['sourceDiffSha256']==reviewed['diffSha256']==audit['sourceDiffSha256'] and reviewed['sourceHead']==audit['sourceHead'] and reviewed['postimageSha256']==audit['sourcePostimage']['sha256']
++ assert reviewed['reviewDisposition']=='satisfied_bounded_source_readiness' and reviewed['findings']==[]
++ control=json.loads((RAW/'CONTROL_START.json').read_text())
++ assert authority['originalHostDeadlineUtc']==control['deadlineUtc']=='2026-11-15T14:44:43.176910+00:00'
++ assert authority['proofRoot']==str(RAW/'proof-01') and authority['proofSubject']==json.loads((HERE/'LAYOUT.json').read_text())['proofSubject']
++ assert authority['retry'] is False and authority['qualified'] is False
++ return audit,{'authority':{'path':str(authoritypath),'sha256':digest(authoritypath)},'controlManifestSha256':digest(manifestpath),'auditSha256':digest(auditpath),'sourceReview':review,'disclosedCommandVariance':audit['deviations'],'originalHostDeadlineUtc':control['deadlineUtc'],'retry':False,'qualified':False}
++
+@@ -183 +239 @@
+- assert len(sys.argv)==2,'explicit accepted launch packet required'
++ assert len(sys.argv)==3,'original launch and separately accepted Root proof authority required'
+@@ -191,3 +247 @@
+- audit=json.loads((RAW/'AUTHOR_AUDIT.json').read_text())
+- assert audit['disposition']=='scope_and_commands_admitted' and audit['launchSha256']==digest(launchpath)
+- assert audit['deviations']==[],'any deviation returns to Root before proof'
++ audit,reentry=require_proof_reentry(launchpath,launch,sys.argv[2])
+@@ -194,0 +249 @@
++ write(proof/'PROOF_REENTRY.json',reentry)

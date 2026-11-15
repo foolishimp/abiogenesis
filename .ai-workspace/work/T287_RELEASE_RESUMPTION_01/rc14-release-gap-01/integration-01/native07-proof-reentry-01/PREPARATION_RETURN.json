@@ -1,0 +1,43 @@
+{
+  "kind": "external-proof-reentry-preparation-return",
+  "id": "RC14-NATIVE07-PROOF-REENTRY-01",
+  "status": "frozen_preparation_for_Root_mechanical_verification",
+  "writer": "/root/b29_vm_triage",
+  "parentSource": "7c31d6bda84d54a3672b9455cab4a23550a29ab0",
+  "manifestSha256": "2ec7e794b47010ef40bab0a537b5600d726e0ac6b195f7d1a14e267b5f21597a",
+  "runnerSha256": "79b908339d7a3cc7d8a5904388ba2f15e9ecefd03f4f39585c484aedc6542bfc",
+  "auditSha256": "37d399a76f75f8beb6fe50465673913ecb97cbd8fb2203170bd4807933a8da65",
+  "originalObservationSha256": "d5df12b7c8208d222a76a49762cb36021041acfc0fcf899999a18972cd57bd0c",
+  "sourceHead": "b47ee9e72eb2dd6ae247f111fca7fa966f4c9d46",
+  "sourceDiffSha256": "43cbb39f291e49bb74b6dbfab56883646e76b7243f5f48a4866a833c3f3662a9",
+  "sourcePostimageSha256": "65db2d1664509c6731389e259255bd90be2e9ff1289eb61f22cec8ff4391540e",
+  "changedWorkerSha256": "3e8fc89527f3bc533bc4a2242059362f33bd946ddc5cfdd083e5a975b81c9cbb",
+  "originalHostDeadlineUtc": "2026-11-15T14:44:43.176910+00:00",
+  "entryChange": "fixed original07 HERE; exact authority/audit/source-review gate for sole disclosed node-version metadata variance; explicit authority argument and one re-entry receipt",
+  "acceptedCommandVarianceIds": [
+    "native07-node-version-metadata-probe"
+  ],
+  "literalCommandComplianceClaim": false,
+  "staticChecks": {
+    "pythonAstParse": "passed_without_import",
+    "exactEntryReversalRecoversOriginalRunner": true,
+    "unchangedPreexistingHelperAstCount": 10,
+    "allOtherMainStatementsBytePreserved": true,
+    "originalManifestMembersMatched": 27,
+    "actualAuditByteIdentical": true,
+    "auditEvidencePinsMatched": 13,
+    "changedWorkerFreezeMatched": true,
+    "independentSourceReviewSha256": "2f093eb904206777c34eb520463151185b050ff8d29ea8f8a00ec23566db37cd",
+    "proofRootAbsentAtPreparation": true,
+    "authorityDisabled": true,
+    "rootAuditDispositionSha256": "9c9790798cce3763756fae6d9d49c4260582c5c76a5a63be372bf61f19d137af",
+    "patchWhitespace": "Initial diff --check identified a whitespace-only unified-diff context row. Re-emitted the same authored delta with zero context; no runner change."
+  },
+  "setupObservation": "New no-checkout worktree initially had an unpopulated index; read-tree -m -u HEAD initialized the declared sparse view. Named branch/HEAD then matched and index/status were clean before authoring. No existing checkout or source was changed.",
+  "executionAuthorized": false,
+  "proofStarted": false,
+  "retry": false,
+  "qualified": false,
+  "remaining": "Root mechanical entry check, exact checkpoint/push and separate actual authority; original deadline unchanged. Native source and original27 controls remain untouched.",
+  "returnedTo": "/root; stop after own control commit"
+}
