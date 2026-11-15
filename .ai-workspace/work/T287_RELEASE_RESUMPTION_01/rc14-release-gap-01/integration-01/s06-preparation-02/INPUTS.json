@@ -1,0 +1,278 @@
+{
+  "preparationSource": "ebe085acf2812252daf45bc7d86b5dc3f4cb1b5e",
+  "witness": {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260913_ABG5_D1_WITNESS_01/witness.md",
+    "bytes": 12426,
+    "sha256": "75d551fa4ab483d5edb67d657778b99a18565838e512dec781d4b1f8ea7e0130",
+    "audience": "evaluator_only_original_record"
+  },
+  "sourceBasis": {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260913_ABG5_D1_WITNESS_01/source-basis.json",
+    "bytes": 48544,
+    "sha256": "c0940064e77224dff6186afa818db6625a5454fcd3964a56c7371e17a8194897",
+    "audience": "evaluator_only_original_record"
+  },
+  "oracle": {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/stage-contract/oracle.json",
+    "bytes": 7903,
+    "sha256": "eda4749491429b5bd209b67140ab7e3b1357fb44132613709e4a3ffd56049080",
+    "audience": "evaluationData_only"
+  },
+  "retainedOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/preserved-result-implementation-01/installed-run-preparation-04/execution-01/native-outcome.json",
+    "bytes": 57455,
+    "sha256": "5137040e1a77f84e8b5f7e94389fa64ca8918e7930459d5c6f2ffa2c50bc91ce",
+    "classification": "input_inventory_only_no_historical_runtime_credit"
+  },
+  "sources": [
+    {
+      "path": "/Users/jim/src/apps/odd_sdlc/build_tenants/typescript/test_env/fixtures/data_mapper_induction/specification/INTENT.md",
+      "bytes": 9735,
+      "sha256": "76c238b849925eaf103e5cd4d448ff7f7c9d96798f65a61504d950579411fcd2",
+      "relativePath": "source/original/INTENT.md",
+      "audience": "all_roles"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_sdlc/build_tenants/typescript/test_env/fixtures/data_mapper_induction/specification/REQUIREMENTS.md",
+      "bytes": 71503,
+      "sha256": "d033a18697b238a20bee38a06810be1f63bfd4c61bbe3abc3454d677b3b3a8ff",
+      "relativePath": "source/original/REQUIREMENTS.md",
+      "audience": "all_roles"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_sdlc/build_tenants/typescript/test_env/fixtures/data_mapper_induction/specification/appendices/APPENDIX_A_FROBENIUS_ALGEBRAS.md",
+      "bytes": 9594,
+      "sha256": "c699ad6df5294143d268cc1a17b56b0b5d208144c53d7172f4c3c7eadfe99de1",
+      "relativePath": "source/original/appendices/APPENDIX_A_FROBENIUS_ALGEBRAS.md",
+      "audience": "all_roles"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_sdlc/build_tenants/typescript/test_env/fixtures/data_mapper_induction/specification/mapper_requirements.md",
+      "bytes": 44598,
+      "sha256": "d4a90761a5277fa4c8feb95b8712b067b67b35781bfecfe90626d837017dc79f",
+      "relativePath": "source/original/mapper_requirements.md",
+      "audience": "all_roles"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_sdlc/build_tenants/typescript/test_env/fixtures/data_mapper_induction/specification/requirements/00-imported-sources.md",
+      "bytes": 375,
+      "sha256": "2e051312feaf1fd224256ff19b53b13b61d1805e3ddb44c1541c2de7a650a27f",
+      "relativePath": "source/original/requirements/00-imported-sources.md",
+      "audience": "all_roles"
+    }
+  ],
+  "application": [
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/project/build.properties",
+      "bytes": 19,
+      "sha256": "bc2e83307ba4a40cb286711cee6f644d9bca62ab2d791053000c7c9ce7a82bb2",
+      "relativePath": "application/scala_spark/project/build.properties",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/project/plugins.sbt",
+      "bytes": 27,
+      "sha256": "9deb0749f42c1626bf22349b860381e5fed827fe0abf8b71ead48b8ba6c96818",
+      "relativePath": "application/scala_spark/project/plugins.sbt",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/build.sbt",
+      "bytes": 2042,
+      "sha256": "b4d1a944d7d7644be47be455f54e231d746b2083bf2a205efe19a0c04745bb47",
+      "relativePath": "application/scala_spark/build.sbt",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+      "bytes": 19968,
+      "sha256": "d9fb5ccc6ee49967eacc056d77928b97c99aa6ae8d448c22054da486cc9a7fa5",
+      "relativePath": "application/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+      "bytes": 7415,
+      "sha256": "1588ef46bc000ccca38be32386e4490c113b23aed37b69b652822d95b6a7b63d",
+      "relativePath": "application/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+      "bytes": 1335,
+      "sha256": "eb07091efd2bb1a25aa0984a591ce3496efea7c146e1cb89a67de861c962fced",
+      "relativePath": "application/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+      "bytes": 42,
+      "sha256": "2ce942b2789fcc5723f9deea7eaab27ddc4419bc4c6b73a63d10f57530ddfac6",
+      "relativePath": "application/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+      "bytes": 3190,
+      "sha256": "61d9fe1a49e9b1adcdaba4bc2d3909fcde1f2a03d9470b01b5e37590278c4786",
+      "relativePath": "application/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+      "bytes": 6043,
+      "sha256": "d0dd7b3f145f63d7277229ccc46a714d3fca7673cf8fa0071d35aa8700e800ba",
+      "relativePath": "application/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+      "bytes": 2277,
+      "sha256": "a2098a07979c8ae139820b2819cf3c24fb0aa795f19cd1cc9c476fe300e6c035",
+      "relativePath": "application/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+      "bytes": 7664,
+      "sha256": "dd457bae8d32ff669a91d826d9ac736050b2f7fb2721884534fb910803d9f998",
+      "relativePath": "application/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+      "bytes": 5723,
+      "sha256": "0f43ff166a04a0f3645a8d598f021fe29e0e7a6b3b6083218b27794d6243b657",
+      "relativePath": "application/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+      "bytes": 7486,
+      "sha256": "1da14eb874ff98915080a032f5a354d361c4f800c22d2f01ba4d82025afe4f6f",
+      "relativePath": "application/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+      "bytes": 4226,
+      "sha256": "7c263512a3c4583253feb26cd81e1f724b9e0bb923e49601b3cec445c220f3eb",
+      "relativePath": "application/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+      "bytes": 6992,
+      "sha256": "58087ce08f8ff7ebabbcb57aa66e97dc841c052587b6877abb958797fddbcaba",
+      "relativePath": "application/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+      "bytes": 841,
+      "sha256": "2b57a13e7a9c03b1704ecd9c376771b3273dea1f87bee3bfd4cef2f49020a75b",
+      "relativePath": "application/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+      "bytes": 1526,
+      "sha256": "97c148fdd30c5987adda4e371d4f271f0d99ef779590792a5719c30b5c46b2fd",
+      "relativePath": "application/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+      "bytes": 722,
+      "sha256": "2a478d773fb9a3a6835836639991785cf146d4812cbdf73bca514615ea19890b",
+      "relativePath": "application/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+      "bytes": 1729,
+      "sha256": "ad814f14c5028a7492ae556d33d1865b2a806b1e57a57243eac357849f379234",
+      "relativePath": "application/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+      "bytes": 9129,
+      "sha256": "792215f5455845902c4ee54ac5c33714c50343e145f3412122ba8c8aa1119c58",
+      "relativePath": "application/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+      "bytes": 3002,
+      "sha256": "6a605deb9ec4805a21a8bfd4df31986cdfa8a5ab9f257c5d4dee4ff5d70b4dab",
+      "relativePath": "application/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test_runs/generic-live-workflow/data-mapper-full/20260908T154515Z_full-suite-01/worksite/build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala",
+      "bytes": 20177,
+      "sha256": "4926cfb02a7e879aaedb41a97e668f3d693b396716f09c19d49e50fd01825906",
+      "relativePath": "application/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala",
+      "audience": "all_roles",
+      "classification": "imported_source_not_proof"
+    }
+  ],
+  "declarations": [
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+      "bytes": 37448,
+      "sha256": "580f7680cb2fc4cc0dbadacd596fd361f8c1a0f5f13821821ad5530f68ac7a32"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-intent-declarations.mjs",
+      "bytes": 6877,
+      "sha256": "5630d1d25802a8ad1bd3c81d6f68155b439c5edb4cad5e4135650afdf1077ea9"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/product-package.mjs",
+      "bytes": 4619,
+      "sha256": "c3662c18a7d4d2965225aeb683907d9a733b4d7488bfd28c73cdd1e6492b4041"
+    }
+  ],
+  "selectionSpan": {
+    "sourcePath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260913_ABG5_D1_WITNESS_01/witness.md",
+    "wholeSha256": "75d551fa4ab483d5edb67d657778b99a18565838e512dec781d4b1f8ea7e0130",
+    "startByte": 631,
+    "endByte": 5035,
+    "sha256": "2ebbce863f958f13f3f0fc41abcdf9a9bf7ebe150706bc47fc71cd4ba5b703a7",
+    "audience": "generation_and_evaluation; exact original selection and prerequisites, oracle section excluded"
+  },
+  "scalaRuntime": {
+    "path": "/Users/jim/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.12/scala-library-2.13.12.jar",
+    "sha256": "c6a879e4973a60f6162668542a33eaccc2bb565d1c934fb061c5844259131dd1",
+    "bytes": 5917034,
+    "classification": "read-only selected existing Scala 2.13.12 runtime for independent query-only classpath"
+  },
+  "toolchain": {
+    "path": "/private/tmp/abg-rc14-s06-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/TOOLCHAIN.json",
+    "sha256": "9ea7aa7595c605a5f40f51c5ac9d3440d4ec2dd40788f1aedaead14636df4f93",
+    "role": "immutable consumer Tool inputs and external proof, not runtime/application evidence"
+  }
+}

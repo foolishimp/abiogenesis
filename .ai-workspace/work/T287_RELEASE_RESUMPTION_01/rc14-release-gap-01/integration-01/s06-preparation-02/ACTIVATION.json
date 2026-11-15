@@ -1,0 +1,23 @@
+{
+  "id": "RC14-S06-TOOLCHAIN-C2-JOIN-PREP-002",
+  "role": "Writer",
+  "sourceCommit": "27d971a3641ae016451ac72eb766f22c170f63b3",
+  "predecessor": "60cd47319b360048f2176f97d0d2cb8703df1397",
+  "basis": "stdo://releases/v3.0.4/",
+  "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "product": "Fixed 15-family5.0; F17/S06 selected original lifecycle and consequential amendment",
+  "changeClass": "external derived consumer controls only",
+  "permission": "Root separate Writer grant in current conversation; candidate, deadline and runtime execution unbound",
+  "effects": [
+    "new carrier only, own branch commit",
+    "static and canonical pure input joins under one fresh60s check",
+    "small socket controls only if material"
+  ],
+  "forbidden": [
+    "Product/HOW/source/test changes",
+    "Java/SBT/application/build/provider/runtime admission",
+    "main writes or push"
+  ],
+  "toolEffectGrant": "One immutable identity-bound actual C2 launcher owns fresh phase/attempt-specific short JVM cache/tmp/IPC state and external receipts on named disjoint private/tmp roots; inputs read-only; topology/custody and bounded cleanup; no app verdict",
+  "return": "Root exact frozen preparation plus typed joins, proof identities and limits; stop"
+}

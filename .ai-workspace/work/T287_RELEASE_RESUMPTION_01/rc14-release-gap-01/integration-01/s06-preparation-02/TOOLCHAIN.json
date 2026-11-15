@@ -1,0 +1,98 @@
+{
+  "kind": "s06_consumer_tool_inputs",
+  "runtimeAuthority": false,
+  "selectedPlatform": "darwin-arm64",
+  "frozenRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen",
+  "freezeReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/FREEZE_RETURN.json",
+    "bytes": 2478,
+    "sha256": "2b32fd2378260ba0c6ed19b75789f07967e73942bd7145d7aa16b1968fdf51b6"
+  },
+  "inventories": [
+    {
+      "kind": "jdk",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/jdk",
+      "inventory": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/JDK_INVENTORY.json",
+      "sha256": "892b1eaa9cc242b3b51713ae68350e5156b4f62e26fd11006c2ea1d9327ad33f",
+      "rows": 595
+    },
+    {
+      "kind": "boot",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/boot",
+      "inventory": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/BOOT_INVENTORY.json",
+      "sha256": "a79b843d6cac23cdf8b65cdcb1bcee42f4b20aaaef1f7828be8654d41b6e66d0",
+      "rows": 88
+    },
+    {
+      "kind": "maven",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/maven2",
+      "inventory": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/MAVEN_INVENTORY.json",
+      "sha256": "7708d5b1f1f1f191ff95b3b026194af5de02e5887246e528e6dfeb5e6ed81426",
+      "rows": 4179
+    }
+  ],
+  "launcher": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/sbt-launch.jar",
+    "bytes": 3822332,
+    "sha256": "f92a2095ac75008764fe3b2b793ffe624c4fbef5bfd9b0022e4bc2daf668c651"
+  },
+  "repositoryConfig": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/repositories",
+    "bytes": 154,
+    "sha256": "8a4e388ccf097286a129db277fcf921ecefdcb64c792432de5b40e47c31fac49"
+  },
+  "bootConfig": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/sbt.boot.properties",
+    "bytes": 823,
+    "sha256": "c0c8f930cf33e19872cf5dfb9e9d47562d4ff43f1c721aaaf7ccee0a95b75010"
+  },
+  "java": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/jdk/bin/java",
+    "bytes": 69888,
+    "sha256": "a77aaa13441a13405be3018f3c7fc6d4cb7754411a2f51bb8c9004a7bb97bf07"
+  },
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "bytes": 86104016
+  },
+  "python": {
+    "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa",
+    "bytes": 33816
+  },
+  "resolution": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/preflight-01/RETURN.json",
+    "bytes": 2299,
+    "sha256": "f17b0c34aa8b1582e5dc7976cb048ec0e771c50899b75d6d9e613bd4a40433a1"
+  },
+  "selectedClosure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/preflight-01/SELECTED_CLOSURE.json",
+    "bytes": 144473,
+    "sha256": "bf3262de4a6c23c7ecba59edaaa6922f442853a150f31882b44b496c14f9ba36"
+  },
+  "classpathIndex": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/preflight-01/RESOLVED_CLASSPATH.json",
+    "bytes": 51955,
+    "sha256": "9b4e95a8c94fe230794a2e2957cd012f2112cd15e831913af0a9bb11b7ea4ad1"
+  },
+  "stateRoot": "/private/tmp/as6j2",
+  "receiptRoot": "/private/tmp/as6r2",
+  "maxCommandMs": 280000,
+  "queryMs": 20000,
+  "cleanupReserveMs": 10000,
+  "maxCaptureBytes": 67108864,
+  "maxSocketSuffixBytesIncludingNul": 51,
+  "localNetwork": {
+    "remoteIp": "deny",
+    "dnsDaemon": "deny",
+    "witness": "IPv4 TCP loopback only, plus exact owned Unix IPC subtree",
+    "query": "deny all network",
+    "claim": "prospective local Spark/SBT permission; no application execution credit"
+  },
+  "authority": "Root explicit prospective consumer-Tool effect grant; C2 HOW host toolchain/cache boundary; no new ABG authority",
+  "inputLimits": [
+    "Acquisition superset is not a minimal POM/parent/BOM read set",
+    "Resolution does not prove application compile/test/run or five-minute C2 capacity"
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "activationId": "RC14-S06-TOOLCHAIN-C2-JOIN-PREP-002",
+  "disposition": "source_prepared_type_check_stopped_execution_held",
+  "sourceBase": "27d971a3641ae016451ac72eb766f22c170f63b3",
+  "predecessor": "60cd47319b360048f2176f97d0d2cb8703df1397",
+  "controlManifest": {
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/CONTROL_MANIFEST.json",
+    "bytes": 5510,
+    "sha256": "eb9afcc649ceda5cec6872b0057ea1a53fbd933a5b87ee7d098a2bac408185c5"
+  },
+  "controls": 25,
+  "toolExecutable": {
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/tool-launcher.py",
+    "bytes": 15213,
+    "sha256": "16d1b6888ec56fa3108f8bfa1875dbe7acb171bd9e3b004c8b2bbb7db65f5b5d"
+  },
+  "toolInput": {
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/TOOLCHAIN.json",
+    "bytes": 4779,
+    "sha256": "9ea7aa7595c605a5f40f51c5ac9d3440d4ec2dd40788f1aedaead14636df4f93"
+  },
+  "staticChecks": {
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/STATIC_CHECKS.json",
+    "bytes": 3413,
+    "sha256": "93fddc105e07cab263d998b4810fda28dc28514e47092b09deb1f64f6bcefca6"
+  },
+  "grant": "Root separate Writer and60s pure/static/local socket control grant; no live candidate or execution",
+  "realizedJoin": [
+    "One witnessProtocol supplies exact D1/D2 capability, command and expected environment",
+    "Immutable Tool is actual C2 executable, native owns relative application/verifier",
+    "Frozen input conservation, short state and scoped local network configuration, direct Java/SBT entry",
+    "Tool stdout/stderr and actual C2 observed stream equality plus group absence",
+    "Frozen-JDK reader-only fresh queries",
+    "Copy-first external Tool custody and bounded cleanup; original wall/monotonic completion check"
+  ],
+  "firstFailure": {
+    "owner": "external control annotations/input decoding",
+    "diagnostics": [
+      "Public Product namespace does not export source-local SemanticJobExecutionCapability",
+      "Three JSON.parse(readFile(...)) expressions require utf8 for canonical TypeScript checking"
+    ],
+    "stdout": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-02/canonical-types/stdout.raw",
+      "bytes": 702,
+      "sha256": "e910d23201c348934d21092d78b554cfce464328a8e43e1d38bdc480ab6b9fca"
+    },
+    "smallestReentry": "One owner-indexed type annotation through exported SemanticJobInput.worksiteScope.executableCapabilities and three utf8 reads; preserve failed check, then separately select remaining canonical/socket discriminator",
+    "repaired": false,
+    "retried": false
+  },
+  "closedEvidence": {
+    "pythonAstJsonHashes": true,
+    "mjsSyntaxFiles": 7,
+    "allCommandsClosed": true,
+    "withinOriginal60s": true,
+    "elapsedMs": 2526,
+    "syntheticShortRootAbsent": true
+  },
+  "open": [
+    "Type check",
+    "Prospective canonical constructor join",
+    "New local TCP/Unix permission control",
+    "Actual application compilation/ScalaTest/Spark under Tool policy",
+    "Five-minute C2 capacity",
+    "Independent preparation review and exact prospective RC14 candidate/runtime binding",
+    "Full S06 and qualification"
+  ],
+  "conservation": {
+    "writeTerritory": "only integration-01/s06-preparation-02 plus new external control raw root",
+    "oldCarriersAndEvidence": "unchanged",
+    "ProductHowTenantTests": "unchanged",
+    "mainPushVersionPinQualification": "none",
+    "JavaSbtProviderRuntime": "none"
+  },
+  "returnTo": "Root; stopped with exact prepared source; no automatic correction/retry"
+}
