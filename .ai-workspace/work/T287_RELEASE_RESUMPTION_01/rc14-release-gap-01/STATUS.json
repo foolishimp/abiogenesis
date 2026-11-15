@@ -1,5 +1,30 @@
 {
-  "status": "RC14_C1_FROZEN_TWO_INSTALLED_WITNESSES_SELECTED",
+  "status": "RC14_S06_RUNNING_AMENDMENT_CONTROL_REPAIR_SELECTED",
+  "amendmentWitness01": {
+    "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
+    "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
+    "record": "integration-01/amendment-witness-01/OPERATOR_RETURN.json",
+    "triage": "integration-01/AMENDMENT_TOPOLOGY_DISPOSITION_01.json",
+    "finding": "B52: historical read-only OS tools were incorrectly required to satisfy recursive worksite-root topology; /usr/bin/git has78hardlinks, exact cut bytes conserved.",
+    "providerCalls": 0,
+    "inputRowsConserved": 87,
+    "commandGroupsAbsent": 5,
+    "originalDeadlineUtc": "2026-11-15T21:26:13.842832+00:00",
+    "next": "Narrow external-control successor, independent source review, then separately selected finite execution. Failed01 stays closed."
+  },
+  "s06Witness01": {
+    "state": "D1_FIRST_NATIVE_ACTOR_RUNNING",
+    "bindingSha256": "c3c8d31e3644375a50a944b437b1fa681cc69cf82242d84b76e7fdd86a2cc5a5",
+    "startedUtc": "2026-11-15T18:22:45.641111Z",
+    "originalDeadlineUtc": "2026-11-15T22:22:45.641111Z",
+    "actorStartedUtc": "2026-11-15T18:23:49.585Z",
+    "pid": 28413,
+    "modelObserved": "claude-opus-5-5",
+    "effortConfigured": "xhigh",
+    "observation": "Planned/actual after-setup/pre-dispatch topology passed. First actor has completed one Write. No C2 application command or terminal result observed yet.",
+    "D2Started": false,
+    "qualified": false
+  },
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -27,8 +52,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T18:15:30.434479+00:00",
-  "nativeAuthorState": "No active provider. C1 finalized and frozen; amendment and S06 witness grants selected after checkpoint push, at most two provider executions globally.",
+  "recordedUtc": "2026-11-15T18:33:14.201802+00:00",
+  "nativeAuthorState": "S06 D1 first actor running under its original bound. Amendment01 closed before smoke/provider; narrow external-control successor selected. At most two actual provider executions globally.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",

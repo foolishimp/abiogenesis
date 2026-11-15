@@ -1,0 +1,92 @@
+{
+  "id": "RC14-AMENDMENT-TOPOLOGY-DISPOSITION-01",
+  "recordedUtc": "2026-11-15 18:32:37 UTC",
+  "writerActivation": {
+    "id": "RC14-ROOT-RECORDS-WRITER-016",
+    "role": "Separate Root records Writer",
+    "authority": "Owner finish RC14 and continue; ROOT_FINALIZATION_WRITER_14 and closed independent failure triangulation.",
+    "writeTerritory": [
+      "this disposition",
+      "T287",
+      "T293",
+      "rc14-release-gap-01/STATUS.json",
+      "exact unchanged amendment-witness-01/OPERATOR_RETURN.json integration"
+    ],
+    "effects": "Record closed failure and selected bounded external-control successor; integrate exact authored-only returns and main-only push. No Product/control implementation by this records role."
+  },
+  "productFrame": "Fixed5.0 S03/F17 installed amendment and selective currentness. External custody/topology observes and conserves inputs; ABG owns runtime authority. Exact STDO3.0.4, empty composition. No formal qualification, changed Product policy or candidate bytes.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "failedSubject": {
+    "controlCommit": "580c6eb0e37a3e5c3dbf59c2fb2e162f685e86dc",
+    "helperCommit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+    "bindingSha256": "02b0c1f347f85287ad94f5d0b4590790c5f0b94def61e96d7545d57e985205a3",
+    "startedUtc": "2026-11-15T18:26:13.842832+00:00",
+    "deadlineUtc": "2026-11-15T21:26:13.842832+00:00",
+    "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
+    "returnSha256": "bd4d6f18f02b78be611bdb822e9a51ef4283e40d0e01f23ff50959746093cdf2",
+    "rawReturnSha256": "84c3537d0d15f842e3952d22e1a10d1574b015d20557045a79472ac7b83a1b6c"
+  },
+  "firstFailure": {
+    "command": "003-planned-topology",
+    "exitCode": 2,
+    "elapsedMs": 207,
+    "reason": "multiply-linked regular file",
+    "smoke": 0,
+    "setup": 0,
+    "lifecycle": 0,
+    "provider": 0,
+    "qualified": false,
+    "retry": false
+  },
+  "rootVerification": {
+    "exactReceiptPins": 31,
+    "inputRows": 87,
+    "entryExitEqual": true,
+    "acquisitionErrors": [],
+    "mismatches": [],
+    "commandGroupsAbsent": 5,
+    "outerOperatorAbsent": true
+  },
+  "triangulation": {
+    "ProductRequirements": "PRODUCT1291-1316; binding requirements016-018 retain immutable/runtime/observation distinctions. C0 exact runtime roots and subject alias law do not require every historical read-only host tool to become a worksite root.",
+    "Design": "C0 HOW246-279 and C2 HOW647-652 distinguish governed worksite/install roots from trusted desktop host tools/caches.",
+    "IdentityIntegration": "CUT_RECORD.toolchain.git.realPath is /usr/bin/git. Exact recorded SHA5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a still matches; current metadata nlink78. smoke-custody188-189 promotes every cut tool path into protectedRoots; run140-143 supplies that set to observer171-172.",
+    "Proof": "B29 closed ownership/input return and separate amendment_topology_review Design/Proof result conjoined. Original observer retains only generic refusal; exact path attribution is source plus later metadata inference, not an original partial fd receipt.",
+    "originatingRelation": "External custody classification incorrectly requires historical OS tools to satisfy the observer's recursive same-mount/single-link proof.",
+    "affectedCone": "Planned layout and paired actual roles after setup and immediately before dispatch. No Product execution or overlap was established.",
+    "priorMiss": "Actual candidate tool coordinates were bound only after cut; static control review did not distinguish host-tool provenance from governed-root separation.",
+    "severity": "S2 external control readiness; bounded sunny-path obstruction",
+    "confidence": "High for exact control mismatch; unchanged full installed path remains unperformed.",
+    "reviewer": "/root/amendment_topology_review independent read-only, closed",
+    "reentry": "realization_refactor of external controls; no Product repair or policy change"
+  },
+  "disposition": "Preserve failed witness01 and its clock; select one narrow external-control successor for independent source review before any new execution.",
+  "successorWriterActivation": {
+    "id": "RC14-AMENDMENT-CONTROL-WRITER-005",
+    "role": "Separate B29 external-control Writer",
+    "purpose": "Restore constructable actual-cut custody/topology join for unchanged installed RC14.",
+    "sourceCommit": "580c6eb0e37a3e5c3dbf59c2fb2e162f685e86dc",
+    "sourceCarrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-04",
+    "worktree": "/private/tmp/abg-rc14-amendment-successor-20261116-05",
+    "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-05 only",
+    "grant": [
+      "Create one isolated worktree/branch after this selection is pushed. Reuse the exact predecessor controls into successor05.",
+      "In smoke-custody only, stop requiring historical OS cut tools git/tar as recursive protectedRoots. Preserve their original CUT_RECORD paths and digests and all entry/exit cutTools hashing. Preserve Node/npm and all other selected protections.",
+      "Reconcile README, activation, manifest, bounded static readiness and compact Return with this role split; maintain exact immutable predecessor/helper references.",
+      "Parse/syntax-check without execution; compare all unaffected lifecycle, observer, custody and budget mechanics byte-for-byte. Freeze one exact authored-only commit and return to Root."
+    ],
+    "exclusions": [
+      "No Product/source/test change, archive/build/install mutation, physical-observer guard weakening, tool substitution, credential use, provider/test/probe/lifecycle execution, main/push, raw Git, new retry or clock."
+    ],
+    "stops": [
+      "Scope/basis drift, changed preserved inputs, inability to preserve all custody and actual runtime/proof roots; return to Root."
+    ],
+    "elapsedBudgetMs": 1200000,
+    "next": "Root assigns separate exact successor-source review. Only after acceptance/checkpoint push may Root bind a fresh separately finite witness02. Failed01 never reopens."
+  },
+  "qualified": false,
+  "rawPublished": false
+}
