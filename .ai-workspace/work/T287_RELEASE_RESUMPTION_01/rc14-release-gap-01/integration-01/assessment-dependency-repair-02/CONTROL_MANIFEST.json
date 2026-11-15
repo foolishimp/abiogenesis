@@ -25,8 +25,8 @@
     },
     {
       "path": "HOST.mjs",
-      "bytes": 21647,
-      "sha256": "aa90712683425e3fb72bce38e3ee275fc28123eb873e5ee0c7f2b779d59af40e"
+      "bytes": 21672,
+      "sha256": "9a22fdc8d1d37df46a4300a32112b6c7333317b2d6389bee015d4aa49cf056f5"
     },
     {
       "path": "IMMUTABLE_RECOVERY.json",
@@ -110,8 +110,8 @@
     },
     {
       "path": "STATIC_CHECKS.json",
-      "bytes": 11095,
-      "sha256": "867c50d5cead0a1c6ffa9125934fa4e25b5f7b227a2bf9a3da7a827ace22b9b5"
+      "bytes": 12196,
+      "sha256": "d835e058e12074d082ba3cea42f2accd4cc47be2b9f3455c3ec8087680496d55"
     },
     {
       "path": "TASK.json",

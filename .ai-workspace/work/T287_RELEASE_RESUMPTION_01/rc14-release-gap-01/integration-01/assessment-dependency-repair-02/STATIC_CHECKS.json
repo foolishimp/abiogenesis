@@ -278,8 +278,8 @@
     },
     {
       "path": "HOST.mjs",
-      "bytes": 21647,
-      "sha256": "aa90712683425e3fb72bce38e3ee275fc28123eb873e5ee0c7f2b779d59af40e"
+      "bytes": 21672,
+      "sha256": "9a22fdc8d1d37df46a4300a32112b6c7333317b2d6389bee015d4aa49cf056f5"
     },
     {
       "path": "IMMUTABLE_RECOVERY.json",
@@ -407,11 +407,38 @@
       "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
     }
   ],
-  "closedUtc": "2026-11-15T20:49:47.087946+00:00",
+  "closedUtc": "2026-11-15T20:57:15.572602+00:00",
   "finalNarrowDeltaInspection": {
-    "HOST": "Only fresh02 identifiers, added exact controls/evidence pins and the same physical observer protected-input leaves.",
+    "HOST": "Fresh02 identifiers and added exact controls/evidence pins; all three native topology protected lists now include existing externalEvidenceRoots. Delta01 corrects finalProtected omission identified independently.",
     "operate": "Fresh source/raw02 coordinates only.",
     "prove": "Added exact evidence/recovered-source pins; positive exact title selection and exact/disjoint/full immutable semantic population; accepted clock/process/source/finally code conserved.",
     "scope": "Only new external control carrier authored; source worktree and runtime not created."
+  },
+  "delta01": {
+    "activationId": "RC14-B56-COMPLETION-CONTROL-WRITER-002-DELTA-01",
+    "base": "461c522ee09c3966b3ba9f78cfb02fb131612bde",
+    "rootDisposition": {
+      "commit": "5f0282f42",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_COMPLETION_CONTROL_REVIEW_02.json",
+      "bytes": 4063,
+      "sha256": "e1a20ef09e8c47dc685d5ff3c8fd1d30c9f242eab5aa4a23d1b056ed77a77597"
+    },
+    "closedUtc": "2026-11-15T20:57:15.572602+00:00",
+    "soleExecutableDelta": "HOST.mjs finalProtected appends the existing ...externalEvidenceRoots; all other executable/control inputs byte-equal.",
+    "checks": [
+      {
+        "kind": "Exact single byte replacement against frozen461c522ee",
+        "passed": true
+      },
+      {
+        "kind": "Node HOST syntax only",
+        "passed": true
+      },
+      {
+        "kind": "All29 controls outside four-path delta byte-equal",
+        "passed": true
+      }
+    ],
+    "runtimeExecuted": false
   }
 }

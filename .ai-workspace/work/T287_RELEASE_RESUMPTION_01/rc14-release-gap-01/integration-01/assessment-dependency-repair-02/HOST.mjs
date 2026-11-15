@@ -138,7 +138,7 @@ try {
   nativeTask=input;
   await sourceExact(); await reserve();
   const finalEnv=caller.refresh();
-  const finalProtected=[...Object.values(finalEnv.workspaceBinding.roots),...finalEnv.productInstalls.map(x=>x.installedRoot),installed,pin.releaseRoot];
+  const finalProtected=[...Object.values(finalEnv.workspaceBinding.roots),...finalEnv.productInstalls.map(x=>x.installedRoot),installed,pin.releaseRoot,...externalEvidenceRoots];
   await record('topology-immediately-before-dispatch.json',await observeTopology({worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots:finalProtected,archiveRoot:finalEnv.workspaceBinding.roots.archiveRoot}));
   await record('setup-owned-custody-at-dispatch.json',custody('preflight'));
   abg.assertAcquiredAbgEventResourceSelectionCurrent(entry);
