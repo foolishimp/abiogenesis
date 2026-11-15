@@ -1,0 +1,72 @@
+--- original05/prove.py
++++ native05-proof-reentry-01/prove.py
+@@ -3,7 +3,7 @@
+ import datetime,hashlib,importlib.util,json,os,shutil,subprocess,sys,time
+ from pathlib import Path
+ sys.dont_write_bytecode=True
+-HERE=Path(__file__).resolve().parent
++HERE=Path('/private/tmp/abg-rc14-regression-repair-20261115-05/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-05')
+ ACT=json.loads((HERE/'ACTIVATION.json').read_text())
+ SOURCE=Path(ACT['sourceWorktree']);RAW=Path(ACT['rawRoot']);REL=Path('build_tenants/abiogenesis/typescript')
+ NODE='/opt/homebrew/bin/node'
+@@ -86,8 +86,46 @@
+          'protectedRoots':[str(source),str(dependency_root),str(prior_proof_root),str(installed_root),str(release_root),str(raw/'runtime')],
+          'archiveRoot':str(proof)}
+ 
++def require_proof_reentry(launchpath,launch,authoritypath):
++ successor=Path(__file__).resolve().parent
++ authoritypath=Path(authoritypath)
++ assert authoritypath.is_file() and not authoritypath.is_symlink(),'exact Root proof authority required'
++ authority=json.loads(authoritypath.read_text())
++ assert authority['id']=='RC14-NATIVE05-PROOF-REENTRY-01' and authority['executionAuthorized'] is True
++ manifestpath=successor/'CONTROL_MANIFEST.json'
++ assert digest(manifestpath)==authority['controlManifestSha256']
++ manifest=json.loads(manifestpath.read_text())
++ for row in manifest['files']:
++  p=successor/row['path'];assert p.is_file() and not p.is_symlink() and p.stat().st_size==row['bytes'] and digest(p)==row['sha256'],row['path']
++ auditpath=successor/'AUTHOR_AUDIT.json';audit=json.loads(auditpath.read_text())
++ assert authority['auditSha256']==digest(auditpath)
++ assert audit['disposition']=='scope_and_commands_observed_with_disclosed_method_residual'
++ assert [r['id'] for r in audit['deviations']]==['native05-installed-stdo-work-not-acquired']
++ assert all(r['cured'] is False and r['methodComplianceClaim'] is False for r in audit['deviations'])
++ assert authority['acceptedHistoricalMethodResidualIds']==[r['id'] for r in audit['deviations']]
++ assert authority['residualsRemainDisclosed'] is True and authority['authorMethodComplianceClaim'] is False
++ assert authority['methodDisposition']=='preserve_actual_deviation_and_admit_exact_snapshot_for_bounded_proof'
++ assert authority['sourceHead']==audit['sourceHead']==launch['sourceHead']
++ assert authority['sourceDiffSha256']==audit['sourceDiffSha256']
++ assert authority['sourcePostimageSha256']==audit['sourcePostimageSha256']
++ assert authority['launchSha256']==audit['launchSha256']==digest(launchpath)
++ assert digest(HERE/'CONTROL_MANIFEST.json')==audit['originalControlsManifestSha256']
++ assert digest(HERE/'prove.py')==audit['originalRunnerSha256']
++ review=authority['sourceReview'];assert review['disposition']=='accepted_for_bounded_proof'
++ reviewpath=Path(review['path']);assert reviewpath.is_file() and not reviewpath.is_symlink() and digest(reviewpath)==review['sha256']
++ assert review['sourceDiffSha256']==audit['sourceDiffSha256'],'independent source review must bind this postimage'
++ for row in audit['evidence']:
++  p=Path(row['path']);assert p.is_file() and not p.is_symlink() and p.stat().st_size==row['bytes'] and digest(p)==row['sha256'],row['path']
++ for row in audit['changedRows']:
++  p=SOURCE/row['path'];assert p.is_file() and not p.is_symlink() and p.stat().st_size==row['bytes'] and digest(p)==row['sha256'],row['path']
++ control=json.loads((RAW/'CONTROL_START.json').read_text())
++ assert authority['originalHostDeadlineUtc']==audit['originalHostDeadlineUtc']==control['deadlineUtc']
++ assert authority['proofRoot']==str(RAW/'proof-01') and authority['proofSubject']==json.loads((HERE/'LAYOUT.json').read_text())['proofSubject']
++ assert authority['retry'] is False and authority['qualified'] is False
++ return audit,{'authority':{'path':str(authoritypath),'sha256':digest(authoritypath)},'controlManifestSha256':digest(manifestpath),'auditSha256':digest(auditpath),'sourceReview':review,'historicalMethodResiduals':audit['deviations'],'originalHostDeadlineUtc':control['deadlineUtc'],'retry':False,'qualified':False}
++
+ def main():
+- assert len(sys.argv)==2,'explicit accepted launch packet required'
++ assert len(sys.argv)==3,'original launch and separately accepted Root proof authority required'
+  launchpath=Path(sys.argv[1]);launch=json.loads(launchpath.read_text());head=launch['sourceHead']
+  assert launch['activationId']==ACT['id'] and launch['dispatchAuthorized'] is True
+  for row in launch['controls']:assert digest(HERE/row['path'])==row['sha256'],row['path']
+@@ -95,10 +133,9 @@
+  assert host['exitCode']==0 and host['stopReason'] is None and host['cleanup']['hostProcessGroupAbsent']
+  assert final['launched'] and final['actualResourceClose'] and final['failure'] is None and final['readbackFailure'] is None
+  require_author_completion(native,final)
+- audit=json.loads((RAW/'AUTHOR_AUDIT.json').read_text())
+- assert audit['disposition']=='scope_and_commands_admitted' and audit['launchSha256']==digest(launchpath)
+- assert audit['deviations']==[],'any deviation returns to Root before proof'
++ audit,reentry=require_proof_reentry(launchpath,launch,sys.argv[2])
+  proof=RAW/'proof-01';proof.mkdir()
++ write(proof/'PROOF_REENTRY.json',reentry)
+  start=time.monotonic();now=datetime.datetime.now(datetime.timezone.utc)
+  control=json.loads((RAW/'CONTROL_START.json').read_text());assert control['sourceHead']==head and control['oldCampaignClockReused'] is False
+  enclosing=datetime.datetime.fromisoformat(control['deadlineUtc']);requested=now+datetime.timedelta(milliseconds=ACT['limits']['proofCampaignMs']);end=min(enclosing,requested)
