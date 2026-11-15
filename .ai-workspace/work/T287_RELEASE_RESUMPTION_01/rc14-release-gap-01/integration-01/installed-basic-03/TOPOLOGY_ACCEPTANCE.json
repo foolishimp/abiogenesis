@@ -1,0 +1,13 @@
+{
+  "id": "RC14-INSTALLED-BASIC-03-TOPOLOGY",
+  "role": "Root physical-preflight Operator",
+  "observedUtc": "2026-11-15T07:30:34.114480+00:00",
+  "result": "separated",
+  "layoutSha256": "af5b56e70dc1a549fab1025464340a5ae228126098989d328bf297ff4c5de4a7",
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "observationSha256": "01ad4528e6714bf189162bc111feede4a89f8ba163a5f76ad0a86f135d3aec30",
+  "processResultSha256": "86d5a6fb78d4c0c80faf2cac867f8bda7cf233dd67fbe0b1e8e8ffcd7e1fde6c",
+  "worksite": "/private/tmp/abg-rc14-installed-basic-20261115-03",
+  "evidenceRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-03-preflight",
+  "requiredAgain": "Runner repeats planned and actual admitted roots before native dispatch; narrow observed Darwin/ASCII scope"
+}

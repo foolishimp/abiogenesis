@@ -1,5 +1,5 @@
 {
-  "status": "RC14_FINISH_ACTIVE_INSTALLED_BASIC02_READY",
+  "status": "RC14_FINISH_ACTIVE_INSTALLED_BASIC03_READY",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -496,5 +496,20 @@
       "No portable-foundation refactor, new feature, runtime bypass, release-pin change or Product support-policy change by inference",
       "No fabricated qualification or human acceptance"
     ]
+  },
+  "installedBasic02": {
+    "state": "FAILED_BEFORE_BASIC_SETUP_OR_PROVIDER",
+    "firstFailure": "npm double-loading /dev/null as global after user config",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-02",
+    "stdoutSha256": "f858ea78631fdc56e5775933224de44e1587a800c7b00dc8dabf108f21d029f6",
+    "inputConserved": true,
+    "ownedGroupsAbsent": 6,
+    "providerCalls": 0
+  },
+  "installedBasic03": {
+    "state": "EXACT_GRANT_READY_AFTER_INDEPENDENT_REVIEW",
+    "activation": "integration-01/installed-basic-03/ACTIVATION.json",
+    "deadlineUtc": "2026-11-15T09:00:34.114480+00:00",
+    "candidateArchive": "sha256:9f9812e42c154511541762235f26180c0cf64c762f490ea57ae135a14c8e4225"
   }
 }

@@ -1,0 +1,14 @@
+{
+  "id": "RC14-INSTALLED-BASIC-03-CONTROL-ACCEPTANCE",
+  "decision": "satisfied",
+  "role": "Root Executive consuming independent reviewer closed result",
+  "reviewer": "/root/rc14_release_proof",
+  "subject": "e79770398575e8ade182656ece59e8c05d3f1de6",
+  "basis": "stdo://releases/v3.0.4/",
+  "manifestSha256": "5c38bccedec9986e760c5389e7d25d0e792a61d27318b735bb493ee568925712",
+  "scope": "Distinct empty explicit npm user/global controls; unchanged execution and exact built inputs",
+  "finding": "No counterexample to configuration repair; preparation only",
+  "firstFailurePreserved": "installed-basic02, no provider, six owned groups absent, complete input conservation",
+  "statement": "npm rejects duplicate config source path even if empty. Immutable distinct files are already protected and hashed by existing all-controls custody.",
+  "recordedUtc": "2026-11-15T07:30:34.114480+00:00"
+}
