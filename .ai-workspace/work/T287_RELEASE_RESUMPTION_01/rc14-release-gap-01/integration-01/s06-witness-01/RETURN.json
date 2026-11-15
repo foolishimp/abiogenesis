@@ -1,0 +1,266 @@
+{
+  "id": "RC14-INSTALLED-S06-OPERATOR-RETURN-001",
+  "role": "External S06 lifecycle Operator; closed after first failure",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-witness-01/ACTIVATION.json",
+    "sha256": "6353ac2d507e6e2348954f24815807b5843a2fe32682a4dd534ba07711caff75",
+    "mainCommit": "a10e68ce39ddbe905dd2c5ad878f8f84764ecc72",
+    "id": "RC14-INSTALLED-S06-OPERATOR-001",
+    "startUtc": "2026-11-15T18:22:45.641111+00:00",
+    "deadlineUtc": "2026-11-15T22:22:45.641111+00:00",
+    "enclosingMs": 14400000,
+    "sourceFinalization": {
+      "C1Commit": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+      "C1Tree": "db27ed1be8ba16a25888ab785ba26263f730f811",
+      "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-01",
+      "freeze": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-01/FREEZE.json",
+        "bytes": 4776,
+        "sha256": "4db84a20a83e020206e4161fbd4ca50284fd9b929a702d346645e78cc21bd012"
+      }
+    },
+    "oldClockReused": false
+  },
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "controls": {
+    "commit": "62b148155eb087e6fc4d19e6fceb9d2eea4dd9ad",
+    "manifestSha256": "a7f70b26c391929b03fa1e09c8683d3258f1c5134fa2bd916794504444a352e7"
+  },
+  "binding": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-01/BINDING.json",
+    "bytes": 9338,
+    "sha256": "c3c8d31e3644375a50a944b437b1fa681cc69cf82242d84b76e7fdd86a2cc5a5"
+  },
+  "candidate": {
+    "sourceCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "archiveSha256": "sha256:5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/bootstrap/package",
+    "manifestSha256": "2bfb3663bb394f1b735703670cdbbe93c608117ad0527a550ea15e8971555c0d",
+    "packageVersion": "5.0.0-rc.14"
+  },
+  "sourceFinalization": {
+    "C1Commit": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+    "C1Tree": "db27ed1be8ba16a25888ab785ba26263f730f811",
+    "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-01",
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-01/FREEZE.json",
+      "bytes": 4776,
+      "sha256": "4db84a20a83e020206e4161fbd4ca50284fd9b929a702d346645e78cc21bd012"
+    }
+  },
+  "status": "failed",
+  "qualified": false,
+  "retried": false,
+  "originalClock": {
+    "startUtc": "2026-11-15T18:22:45.641111+00:00",
+    "deadlineUtc": "2026-11-15T22:22:45.641111+00:00",
+    "exitAuditReserveMs": 180000,
+    "withinDeadline": true
+  },
+  "native": {
+    "phase": "D1 Intent producer",
+    "configuredModel": "claude-opus-5-5",
+    "configuredEffort": "xhigh",
+    "observedModel": "claude-opus-5-5",
+    "actorPid": 28413,
+    "actorStartedUtc": "2026-11-15T18:23:49.585Z",
+    "actorExitedUtc": "2026-11-15T18:32:44.748Z",
+    "exitStatus": 0,
+    "actorInvocationClosedOrdinal": 246,
+    "run": "run://abiogenesis/349548e317a3b3b04b8c13db8d8b7cf0b8b784dfb8c15dd00e204acea77232bd",
+    "sessionId": "83c51751-c44d-4b0a-8035-c2bacfbff4cf",
+    "protocolResult": {
+      "subtype": "success",
+      "is_error": false,
+      "num_turns": 19,
+      "duration_ms": 533695,
+      "duration_api_ms": 531051,
+      "total_cost_usd": 2.6776584000000003,
+      "usage": {
+        "input_tokens": 24,
+        "cache_creation_input_tokens": 157015,
+        "cache_read_input_tokens": 832012,
+        "output_tokens": 62752,
+        "output_tokens_details": {
+          "thinking_tokens": 29315
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 157015,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    },
+    "costMeaning": "Native protocol-reported USD figure, not a billing audit"
+  },
+  "governedOutcome": {
+    "receiptExitCode": 0,
+    "ownerOutputKind": "result",
+    "disposition": "runtime_failed",
+    "terminalResult": null,
+    "stop": {
+      "ref": "event://abiogenesis/a2133907fb2e5d00e63c1c3882f7522fd33fb864e5ea6ff1ae0870b996c68807",
+      "digest": "sha256:37e5e75623cc51e3e88a9718985d436b54c5876be266779805767f8306bbcd7f"
+    },
+    "stopOrdinal": 377,
+    "stopUtc": "2026-11-15T18:32:55.591Z",
+    "origin": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+    "diagnostic": {
+      "diagnosticClassRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+      "errorClass": "TypeError",
+      "errorCode": null,
+      "message": "declared native dispatch requires exact admitted instruction assembly",
+      "messageTruncated": false,
+      "reason": "thrown",
+      "stack": "TypeError: declared native dispatch requires exact admitted instruction assembly\n    at requireDeclaredNativeInstructionAssembly (file:///Users/jim/Library/Application%20Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/bootstrap/package/build/code/src/abg/instruction_assembly.js:426:15)\n    at prepareInstructionAssembly (file:///Users/jim/Library/Application%20Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/bootstrap/package/build/code/src/abg/actor_process.js:438:23)\n    at realizeNativeWorkspaceWork (file:///Users/jim/Library/Application%20Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/witness/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/native_workspace_work.js:45:27)\n    at async invokeLeafOwnerBoundary (file:///Users/jim/Library/Application%20Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/bootstrap/package/build/code/src/implementation/leaf_invocation_port.js:536:26)",
+      "stackTruncated": false,
+      "stage": "preparation"
+    },
+    "standing": "First Intent producer returned successfully and a semantic_stage_envelope was admitted. Next assessment dispatch preparation failed before a second actor. No semantic acceptance or complete D1 result is claimed."
+  },
+  "laterHostFailure": {
+    "phase": "fresh run_result readback",
+    "reason": "phase-prefixed recorder wrote witness/d1/calls/run_result.request.jsonl; existing caller invoked witness/calls/run_result.request.jsonl, which did not exist",
+    "firstFailure": {
+      "status": "failed",
+      "scenario": "s06-d1-d2",
+      "qualified": false,
+      "reason": "Error: run_result-transport: {\"code\":\"invalid_transport_request\",\"disposition\":\"refused\",\"kind\":\"public_transport_refusal\",\"message\":\"Error: ENOENT: no such file or directory, open '/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/witness/calls/run_result.request.jsonl'\",\"schemaVersion\":\"5.0.0\"}",
+      "boundary": "run_result-transport"
+    },
+    "standing": "Preserved later external transport error does not replace the earlier governed runtime_failed outcome. Fresh replay was not reached."
+  },
+  "closure": {
+    "publicSessionCloseRetained": true,
+    "eventLog": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/witness/resources/events/runtime.events.jsonl",
+      "bytes": 6884376,
+      "sha256": "b8fab3be7b7f11061e259bccef5b3eb0e9b31f12ae1c0c0857d1b219f98ca009"
+    },
+    "closeHandoffExactEventLog": true,
+    "heldResult": "refusal",
+    "heldReplay": "failed",
+    "freshResult": "invalid_transport_request/ENOENT",
+    "freshReplay": "not reached",
+    "ownedCommandGroups": 15,
+    "allReportedAndCurrentlyAbsent": true,
+    "nativeActorPidAbsent": true,
+    "toolAttempts": 0,
+    "toolRootsRemoved": true
+  },
+  "inputConservation": {
+    "entryAndExitByteEqual": true,
+    "entry": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/INPUTS_ENTRY.json",
+      "bytes": 708075,
+      "sha256": "cd0add3b49c49cf2cf941c6a88322e8f787e093614141d4fe0c169d634123028"
+    },
+    "exit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/INPUTS_EXIT.json",
+      "bytes": 708075,
+      "sha256": "cd0add3b49c49cf2cf941c6a88322e8f787e093614141d4fe0c169d634123028"
+    },
+    "topLevelKeys": 80,
+    "controls": 25,
+    "maintainedInputs": 7,
+    "externalInputs": 35,
+    "bootstrapFiles": 5302,
+    "completeFrozenToolInputsConserved": true,
+    "mismatches": [],
+    "errors": [],
+    "controlHeadUnchanged": "62b148155eb087e6fc4d19e6fceb9d2eea4dd9ad"
+  },
+  "unexecuted": [
+    "Second native assessment actor",
+    "C2 application compile/test/Spark and independent executable oracle",
+    "Reader-only query witnesses",
+    "Completed D1 and consequential D2",
+    "Full S06 semantic/executable conjunction",
+    "Formal qualification/B50"
+  ],
+  "effectsLimits": "No Product/test/control repair, rebuild, repack, retry, new provider lane or main/push. Raw remains external.",
+  "rawPins": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/RETURN.json",
+      "bytes": 496,
+      "sha256": "1578f4b2ae970915ad340aea120f9141fa6b25314a3c7734b6e1791bcb892caf"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/FIRST_FAILURE.json",
+      "bytes": 202,
+      "sha256": "a4637ab5366b35353c2453ab2d776ceb467219d3c61b5d9949c65b486c2ed1a8"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/INPUTS_ENTRY.json",
+      "bytes": 708075,
+      "sha256": "cd0add3b49c49cf2cf941c6a88322e8f787e093614141d4fe0c169d634123028"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/INPUTS_EXIT.json",
+      "bytes": 708075,
+      "sha256": "cd0add3b49c49cf2cf941c6a88322e8f787e093614141d4fe0c169d634123028"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/OPERATOR_CLOSURE.json",
+      "bytes": 7904,
+      "sha256": "25b2d62e3fca7d126cda10dfd8c66b141aefa66d8c21e111dee1e192b6de2901"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/004-witness/result.json",
+      "bytes": 597,
+      "sha256": "b2a1f8d242d6206a54e23035b027d7867994b6dd073820f75cbb74dfbd45e669"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/witness/d1/FIRST_FAILURE.json",
+      "bytes": 492,
+      "sha256": "998c52d8b6a26c4974f9e21931993d4fb52caf04e2ee205e88301188a71ddabc"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/witness/d1/held-readback.json",
+      "bytes": 758,
+      "sha256": "6d7de118da37b2e55a8a09cd3d7c169d393f1087e0b65d59851c0429f229b900"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/witness/d1/session-close.json",
+      "bytes": 2252,
+      "sha256": "bac2797c72379117e89cecad50977f18e6e0265aef49984dcaf9182b6bd2ed6c"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/witness/d1/calls/lifecycle-start.outcome.json",
+      "bytes": 92269,
+      "sha256": "0697009889abfdbe420ea4255c69307df6fc35f658af2e8d84f8144c86bc53d4"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/witness/d1/calls/run_result.outcome.json",
+      "bytes": 337,
+      "sha256": "79b3f54609c96365266d14056bb60b4217b1a76ee84801c9e3fea463f58bb774"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/witness/d1/calls/run_result.request.jsonl",
+      "bytes": 9596,
+      "sha256": "206a616224b37cd6ee04e98871e85e119ee2f085aeac113ad6c370f7309a2514"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/witness/d1/failure-worksite-inventory.json",
+      "bytes": 5258,
+      "sha256": "3e8fdda83849e3646daa670ff01330d6988c4511cf9447ad78fd3989923c6f2a"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/witness/resources/archives/fp-51dac5366f9cdb75-stdout.log",
+      "bytes": 2710580,
+      "sha256": "7511a49804397684f35846ed5ba54b9ee010a502cdd60858703d52a393a0147a"
+    }
+  ]
+}
