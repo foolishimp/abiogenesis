@@ -1,0 +1,23 @@
+{
+  "id": "RC14-ROOT-FINALIZATION-WRITER-014",
+  "role": "Separate Root final source-preservation and prospective-candidate Writer",
+  "basis": "stdo://releases/v3.0.4/",
+  "authority": "Owner finish RC14; fixed accepted Product/requirements and already accepted candidate-preparation controls; no qualification-policy change.",
+  "predecessor": "ROOT_RECORDS_WRITER_13.json",
+  "effects": [
+    "Preserve exact RC13-native08 source after actual terminal/close, independent source review and selected proof; integrate/checkpoint/push authored-only source and records without unrelated files.",
+    "Reconcile T287/T293/STATUS and exact component-proof disposition; preserve original failures and method limitations.",
+    "After final source/proof disposition, activate isolated release Writer applying reviewed four-site version stamp, reviewed claim draft and maintained authority generator; commit/push exact compile-input C0 before candidate execution.",
+    "Bind separately finite candidate preparation/install/Public-setup/metadata/freeze and installed amendment/S06 Operator grants to actual selected source and existing accepted controls; finalize only declared generated metadata into C1 and push."
+  ],
+  "candidateControlAcceptance": "RC14_CUT_PREPARATION_ACCEPTANCE_01.json",
+  "publicSetupAcceptance": "RC14_PUBLIC_SETUP_PREPARATION_ACCEPTANCE.json",
+  "exclusions": [
+    "No direct semantic tenant or test repair by Root/Operator; those remain actual pinnedRC13 native work.",
+    "No candidate build/install activated by this record alone; exact downstream bound required after final source/proof.",
+    "No AF25/tag/immutable publication, selector change, qualified release or human acceptance.",
+    "No raw Git/LFS publication, history rewrite or cleanup of retained evidence.",
+    "B50 independence and formal-qualification route remain owner decisions; no inferred response."
+  ],
+  "return": "Exact source/C0/C1 and compact actual evidence identities; all raw data remains external."
+}
