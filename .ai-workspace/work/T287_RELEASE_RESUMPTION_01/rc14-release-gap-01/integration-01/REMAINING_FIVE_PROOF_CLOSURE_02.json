@@ -1,0 +1,100 @@
+{
+  "id": "RC14-REMAINING-FIVE-PROOF-CLOSURE-02",
+  "productFrame": "Fixed ABI5/T287 RC14; selected regression component evidence, not exact candidate qualification.",
+  "reviewer": "Root independently acquired actual Return, case counts and source/mirror comparisons; conjoins R14 Operator closure.",
+  "controlCommit": "f5fbd46c0632c579c8970c4cf2313360acbea6dd",
+  "sourceCommit": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+  "binding": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02.binding.json",
+    "bytes": 969,
+    "sha256": "2659a7f8618d0b3787ba545c8aa1b0e44da1e54fe83c0a27eeb3f6edc012bc4e"
+  },
+  "proofReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/RETURN.json",
+    "bytes": 16313,
+    "sha256": "b144fa1552f3048e34abc5ff9fbccf8c4ae16f09769e037de5fb11ccb8971b28"
+  },
+  "startedUtc": "2026-11-15T13:58:23.444535+00:00",
+  "deadlineUtc": "2026-11-15T14:58:01.551936+00:00",
+  "status": "passed",
+  "elapsedMs": 357862,
+  "files": [
+    {
+      "ordinal": 12,
+      "file": "t287-native-work-currentness-consumers.test.mjs",
+      "pass": 6,
+      "skip": 0,
+      "topLevel": 6,
+      "elapsedMs": 58287
+    },
+    {
+      "ordinal": 13,
+      "file": "t287-readable-stops-foldback.test.mjs",
+      "pass": 5,
+      "skip": 0,
+      "topLevel": 1,
+      "elapsedMs": 143173
+    },
+    {
+      "ordinal": 14,
+      "file": "t287-native-runtime-gate.test.mjs",
+      "pass": 7,
+      "skip": 0,
+      "topLevel": 7,
+      "elapsedMs": 53238
+    },
+    {
+      "ordinal": 15,
+      "file": "t287-observed-worksite-command.test.mjs",
+      "pass": 8,
+      "skip": 0,
+      "topLevel": 8,
+      "elapsedMs": 2058
+    },
+    {
+      "ordinal": 16,
+      "file": "t287-c0-correction-regressions.test.mjs",
+      "pass": 4,
+      "skip": 0,
+      "topLevel": 4,
+      "elapsedMs": 95221
+    }
+  ],
+  "counts": {
+    "wholeFiles": 5,
+    "pass": 30,
+    "fail": 0,
+    "skip": 0,
+    "cancelled": 0,
+    "observedTopLevel": 26,
+    "namedTopLevelMinimum": 24,
+    "minimumDifference": "016 contains four observed top-level cases; original two-name required minimum is preserved."
+  },
+  "conservation": {
+    "checks": 24,
+    "matched": 24,
+    "sourceEntryExitByteEqual": true,
+    "mirrorEntryExitByteEqual": true,
+    "controlPinsMatched": 52,
+    "ownedCommandGroupsAbsent": 6,
+    "secondaryErrors": [],
+    "expired": false
+  },
+  "conjunction": {
+    "retainedWholeFiles": 15,
+    "actualPasses": 83,
+    "declaredSkips": 1,
+    "observedTopLevel": 64,
+    "namedTopLevelMinimum": 62,
+    "onlyFreshRemainingOrdinal": 10,
+    "originalOverallNamedMinimum": 71,
+    "wholeProductQualification": false
+  },
+  "next": "Native08 keeps sole selected governance first-case source repair; retain these exact wholefile receipts without rerunning them; fresh proof only original010 with all nine named cases and unchanged optional C2 gate.",
+  "priorFailuresPreserved": true,
+  "oldClockReused": false,
+  "providerCalls": 0,
+  "builds": 0,
+  "qualified": false,
+  "rawPublished": false
+}
