@@ -1,0 +1,84 @@
+{
+  "kind": "public_setup_control_successor_preparation_return",
+  "status": "prepared_disabled_for_independent_review",
+  "activationId": "RC14-CUT-PUBLIC-SETUP-CONTROL-CORRECTION-002",
+  "parentSource": "e7088e3820cb1fa617f6851e08abaa1c3cceb879",
+  "predecessorCommit": "bc597e0d055094755dc3d29d6cf1b3c7ac30bd62",
+  "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/cut-public-setup-02",
+  "soleExecutableDelta": {
+    "path": "run.py",
+    "line": 108,
+    "before": "command('public-setup', ...)",
+    "after": "command('public-setup-host', ...)",
+    "astDelta": [
+      {
+        "path": "module.body[10].body[56].body[21].value.args[0].value",
+        "before": "public-setup",
+        "after": "public-setup-host"
+      }
+    ],
+    "newSha256": "2d5983f8070d1a6b3ce240ad01629c91a8f032de73573d8d6632e4321947ee47"
+  },
+  "preserved": {
+    "setupOnlySha256": "6d245ac5ead82bde71cf2206083e1007e847bcff4730130ad3c0957c9c6a0cec",
+    "unchangedCarrierFiles": [
+      "BINDING.template.json",
+      "INPUTS.json",
+      "TOOL_PINS.json",
+      "npm-global.npmrc",
+      "npm-user.npmrc",
+      "setup-only.mjs"
+    ],
+    "runtimeRoot": "rawRoot/public-setup",
+    "handoffAndIdentityPathsUnchanged": true,
+    "innerCleanupPathsUnchanged": true,
+    "physicalObserverAndPartitionUnchanged": true,
+    "credentialsAndFiniteProcessOwnersUnchanged": true,
+    "mechanicalInstall": "Root-accepted RC14 archive5f0da1f4/5302files is retained; no reinstall performed"
+  },
+  "originalFailure": {
+    "reason": "Outer capture owner exclusively created raw/public-setup before setup-only.mjs exclusively mkdir of same path",
+    "wallMs": 204,
+    "phase": "Four maintained tooling modules loaded; candidate Product imports, verifyArtifact, publicCaller and populateSandbox not reached",
+    "inputConserved": true,
+    "ownedGroupAbsent": true,
+    "actualIdentityProduced": false,
+    "originalStartedUtc": "2026-11-15T15:28:22.579356Z",
+    "originalDeadlineUtc": "2026-11-15T15:43:22.579356Z",
+    "evidence": [
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-01/RETURN.json",
+        "bytes": 582,
+        "sha256": "c0d2afc13e4e327e9f95a52695b55dd66bf6f2d76022fc6b0b69d8bce21cf67d"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-01/public-setup/result.json",
+        "bytes": 598,
+        "sha256": "32a5bb6d576acc5b1800d997ec3debcff067ea6681283523222b1153529ac3c4"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-01/public-setup/stderr.raw",
+        "bytes": 683,
+        "sha256": "15c8f3f666ac0e74a18516e3dcb44a9155c89d0847d792b39db24f7a74f96767"
+      }
+    ]
+  },
+  "manifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 1870,
+    "sha256": "8e6d98be2aa88e03d868b64c501341f222bf8ea5a968cffa85f1c402e82ed07d"
+  },
+  "staticChecks": {
+    "path": "STATIC_CHECKS.json",
+    "sha256": "3424365b20fa40a53cbd0f8ef30995cb1980216d82ed344cf0ae0930d3371a98"
+  },
+  "basis": "stdo://releases/v3.0.4/",
+  "basisManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "executionAuthorized": false,
+  "executionGrant": null,
+  "newDeadlineUtc": null,
+  "qualification": false,
+  "ProductOrMaintainedSourceChanged": false,
+  "mainOrPush": false,
+  "nextOwner": "Root independent B29 review; separate fresh binding/grant required before setup"
+}

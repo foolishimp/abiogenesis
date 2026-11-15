@@ -1,0 +1,60 @@
+{
+  "kind": "disabled_public_setup_controls",
+  "preparationSource": "e7088e3820cb1fa617f6851e08abaa1c3cceb879",
+  "controls": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 3158,
+      "sha256": "a40a5579b364516d9a0f9132cfbfa3fe0336ecf149c5e534059aef5e106d9507"
+    },
+    {
+      "path": "BINDING.template.json",
+      "bytes": 1738,
+      "sha256": "7f06d288952021e96fd86e6e825181559211f6a70a1f0d4106449fe8eaca65eb"
+    },
+    {
+      "path": "INPUTS.json",
+      "bytes": 2039,
+      "sha256": "875c148074b85901534f2d36cb5c3d8f62ac11eca99031478059b1e0cba25625"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7959,
+      "sha256": "c0f2acea74142ff3495b46d7f101799b6bca0496182822f4f2389ffe6174c940"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 2894,
+      "sha256": "3424365b20fa40a53cbd0f8ef30995cb1980216d82ed344cf0ae0930d3371a98"
+    },
+    {
+      "path": "TOOL_PINS.json",
+      "bytes": 953,
+      "sha256": "001c3e9c64d9cdf56293178057214f4bb4c65b6caee5418e5cebb790aae9f825"
+    },
+    {
+      "path": "npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "run.py",
+      "bytes": 12762,
+      "sha256": "2d5983f8070d1a6b3ce240ad01629c91a8f032de73573d8d6632e4321947ee47"
+    },
+    {
+      "path": "setup-only.mjs",
+      "bytes": 8841,
+      "sha256": "6d245ac5ead82bde71cf2206083e1007e847bcff4730130ad3c0957c9c6a0cec"
+    }
+  ],
+  "executionAuthorized": false,
+  "dependencyPins": "INPUTS.json and TOOL_PINS.json",
+  "scope": "One prospective Public setup, separate exact final candidate binding; no qualification",
+  "predecessorCommit": "bc597e0d055094755dc3d29d6cf1b3c7ac30bd62"
+}

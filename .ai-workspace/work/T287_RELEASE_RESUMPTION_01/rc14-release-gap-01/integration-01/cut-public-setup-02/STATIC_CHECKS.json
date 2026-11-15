@@ -1,0 +1,92 @@
+{
+  "kind": "narrow_successor_static_checks",
+  "recordedUtc": "2026-11-15T17:54:08.025214+00:00",
+  "predecessorCommit": "bc597e0d055094755dc3d29d6cf1b3c7ac30bd62",
+  "checks": [
+    {
+      "check": "Python AST parses without executing imports",
+      "passed": true
+    },
+    {
+      "check": "sole AST value delta is the selected outer command label",
+      "passed": true,
+      "delta": [
+        {
+          "path": "module.body[10].body[56].body[21].value.args[0].value",
+          "before": "public-setup",
+          "after": "public-setup-host"
+        }
+      ]
+    },
+    {
+      "check": "exact source replacement only; no other executable byte change",
+      "passed": true,
+      "oldRunSha256": "62fece656c3ac52e36c3d3e02b6f279524408fd3e1d09e6b89f791fb765674da",
+      "newRunSha256": "2d5983f8070d1a6b3ce240ad01629c91a8f032de73573d8d6632e4321947ee47"
+    },
+    {
+      "check": "declared capture and runtime producers have distinct child components",
+      "passed": true,
+      "capture": "rawRoot/public-setup-host",
+      "runtime": "rawRoot/public-setup",
+      "basis": "run.py command(label) -> retained owned folder; unchanged setup-only root initializer",
+      "executionClaim": false
+    },
+    {
+      "check": "six unchanged carriers exactly equal predecessor",
+      "passed": true,
+      "files": [
+        {
+          "path": "BINDING.template.json",
+          "bytes": 1738,
+          "sha256": "7f06d288952021e96fd86e6e825181559211f6a70a1f0d4106449fe8eaca65eb"
+        },
+        {
+          "path": "INPUTS.json",
+          "bytes": 2039,
+          "sha256": "875c148074b85901534f2d36cb5c3d8f62ac11eca99031478059b1e0cba25625"
+        },
+        {
+          "path": "TOOL_PINS.json",
+          "bytes": 953,
+          "sha256": "001c3e9c64d9cdf56293178057214f4bb4c65b6caee5418e5cebb790aae9f825"
+        },
+        {
+          "path": "npm-global.npmrc",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "npm-user.npmrc",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "setup-only.mjs",
+          "bytes": 8841,
+          "sha256": "6d245ac5ead82bde71cf2206083e1007e847bcff4730130ad3c0957c9c6a0cec"
+        }
+      ]
+    },
+    {
+      "check": "execution disabled; candidate, raw/worksite roots and clock remain unbound",
+      "passed": true
+    },
+    {
+      "check": "JSON parses and manifest covers exact carrier bytes",
+      "passed": true
+    }
+  ],
+  "nodeSyntax": "Prior accepted node --check evidence applies to identical setup-only.mjs bytes; not re-executed",
+  "notExecuted": [
+    "Product imports",
+    "Public setup",
+    "tests",
+    "probes",
+    "provider",
+    "build",
+    "install",
+    "qualification"
+  ],
+  "qualification": false
+}
