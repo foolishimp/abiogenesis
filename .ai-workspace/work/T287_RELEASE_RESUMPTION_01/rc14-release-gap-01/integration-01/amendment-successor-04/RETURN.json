@@ -1,0 +1,39 @@
+{
+  "kind": "external_control_preparation_return",
+  "id": "RC14-AMENDMENT-CUT-INPUT-CUSTODY-PREP-004",
+  "status": "frozen_preparation_for_independent_review",
+  "baseCommit": "74999d972fcd7285dc990d97a9bfb39164559fb7",
+  "predecessor": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+  "manifestSha256": "52f66f58ec8117923fec3d0e75419b100edd73db58fa405d7ed80e6dc9d108b7",
+  "staticChecksSha256": "51529ad17c92388f457595e0a533b84462923ae9b107f56cfbcf13621875cb1b",
+  "exactCustodyDiffSha256": "35190f05d9e7a7335cfc3629e4ed9d892989cd10f0ca918f7c6e5a46d1ed3dff",
+  "changedBehavior": [
+    "run.py input acquisition only",
+    "smoke-custody.py actual-cut source/receipt ownership only"
+  ],
+  "preservedByteIdenticalFiles": 13,
+  "preserved": "Lifecycle PROCESS/ORACLE/consumer/setup/host; original finite owner/credential interval/paired topology/first failure/no retry/cleanup and case assertions",
+  "actualCandidate": null,
+  "candidateBindingComplete": false,
+  "qualificationClaim": false,
+  "priorProofCreditTransferred": false,
+  "helperCheckout": {
+    "path": "/private/tmp/abg-rc14-amendment-controls-823-20261116-01",
+    "commit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+    "provisioned": false,
+    "existingBranchesUntouched": true
+  },
+  "proofLimits": [
+    "Static source/JSON/hash/shape only, once",
+    "No actual RC14 cut exists in this packet; no dynamic custody or installed behavior was exercised",
+    "The eleven smoke files must come from actual C0/recorded refresh, dependencies from cut-consumed inventory, all payload from actual archive/buildRoot",
+    "Root must bind candidate, complete protected input roots, helper checkout, private credential keys and finite original clock after independent review"
+  ],
+  "executionAuthorized": false,
+  "provider": false,
+  "build": false,
+  "test": false,
+  "mainMutation": false,
+  "push": false,
+  "returnTo": "Root; freeze own branch and stop"
+}

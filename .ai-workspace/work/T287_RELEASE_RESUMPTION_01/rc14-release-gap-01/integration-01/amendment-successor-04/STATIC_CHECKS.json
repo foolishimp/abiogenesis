@@ -1,0 +1,55 @@
+{
+  "kind": "static_preparation_checks",
+  "performedUtc": "2026-11-15T13:20:38.431966+00:00",
+  "population": "one static source/JSON/hash/shape pass",
+  "checks": [
+    {
+      "check": "Python AST parse only",
+      "files": [
+        "bounded.py",
+        "command-owner.py",
+        "physical-topology.py",
+        "run.py",
+        "smoke-custody.py"
+      ],
+      "passed": true
+    },
+    {
+      "check": "JSON parsing only",
+      "passed": true
+    },
+    {
+      "check": "Byte-identical lifecycle/oracle/process/bridge/topology files",
+      "count": 13,
+      "passed": true
+    },
+    {
+      "check": "All pre-existing process helpers and exact tool/npm tail preserved",
+      "runHelpers": 7,
+      "custodyHelpers": 4,
+      "passed": true
+    },
+    {
+      "check": "Exact run.py custody-delta reversal restores original bytes; all budgets/credential/topology/failure/cleanup sequencing unchanged",
+      "passed": true
+    },
+    {
+      "check": "Disabled actual-cut/eleven-source packet, original tool/helper pins and unprovisioned fresh exact823 declaration",
+      "passed": true
+    },
+    {
+      "check": "Consumed CUT_RECORD/source/member/dependency inventory fields matched to actual selected owner source; source.subject remains a label",
+      "passed": true
+    }
+  ],
+  "candidateUsed": null,
+  "executed": {
+    "ProductImports": false,
+    "setup": false,
+    "provider": false,
+    "build": false,
+    "test": false,
+    "socketProbe": false,
+    "qualification": false
+  }
+}
