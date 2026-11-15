@@ -1,0 +1,125 @@
+{
+  "id": "RC14-B56-NATIVE-ACTIVATION-01",
+  "recordedUtc": "2026-11-15T19:56:08.665452+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-RECORDS-WRITER-021",
+    "role": "Separate Root B56 records/integration Writer",
+    "authority": "Owner finish RC14/continue; accepted B56 multi-frame re-entry and independent exact control review.",
+    "effects": [
+      "Write this exact control acceptance/native selection and current B56 T287/T293/STATUS records.",
+      "Integrate frozen authored controls7ae1bdd4f048d00f642485b9cd70da9909412e14; checkpoint/push named source/records only.",
+      "Record the actual native attempt, independent source review and separately selected proof disposition; integrate exact bounded native output only after its adjudication."
+    ],
+    "exclusions": [
+      "No Root semantic implementation, out-of-seven-path repair, silent retry, raw Git, candidate/installed/pin alteration, B50 policy, qualification or publication."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "basisManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Fixed5.0 F04/F17/S06 assessment must join exact schema owner and actual admitted Program declaration of use. ABG alone owns runtime admission, events and replay.",
+    "categories": [
+      "Immutable Product/publication/Program/install/lock identity",
+      "Deterministic dependency/assembly construction",
+      "Separately admitted runtime invocation and evidence"
+    ],
+    "triage": "integration-01/S06_SECOND_FAILURE_DISPOSITION_01.json",
+    "selection": "integration-01/B56_NATIVE_CONTROL_SELECTION_01.json",
+    "reentry": "design_reframe under unchanged WHAT",
+    "prohibitions": [
+      "No fake callable, copied schema workaround, arbitrary Catalog permission, removed owner/lock/use checks, second runtime or direct event authorship."
+    ]
+  },
+  "acceptedControls": {
+    "commit": "7ae1bdd4f048d00f642485b9cd70da9909412e14",
+    "tree": "7ad3d04d718dc46dc3560746397f7708efc59bb5",
+    "parent": "86c9caa1c8c46da38410b4b46b6a5004e351d60f",
+    "root": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01",
+    "manifestSha256": "401cce2b6191f4d8d17c1d902fb10b55edbf99cf125c5fbd142c1b9c9e624fee",
+    "manifestMembers": 26,
+    "returnSha256": "d0fe98a207bb5ba148486574cca5b53d23e699bab295e618207e1e4dd9b4aeb3",
+    "sourceTenantTree": "43e8e4fb26a434ecc6b44436ec9c64da368e3bea"
+  },
+  "independentReview": {
+    "actor": "/root/amendment_topology_review",
+    "verdict": "Accept controls for separate native grant; no material counterexample.",
+    "verified": [
+      "Exact commit/tree/clean subject;26 manifest rows,40 source pins,5 method inputs,13 fixture rows and4 unchanged helpers.",
+      "196 native input rows,4576 dependency rows,2326 npm tool rows and5 executable paths independently hash equal.",
+      "Seven W consistent; actual installed RC13 setup/start, exact task/typed completed terminal, resource close and fresh result/closed replay gates retained.",
+      "Proof separately requires actual source postimage/diff, full audit and Root grant. One fresh normal build and early split/coincident tests; disjoint focus/remainder coverage.",
+      "First failure stops; actual candidates retained before assertions, mandatory final custody, original3h/45min native/90min proof/3min reserve preserved."
+    ],
+    "sourceRoutes": [
+      "HOST.mjs:62-76",
+      "HOST.mjs:149-174",
+      "prove.py:139-167",
+      "prove.py:188-230",
+      "prove.py:213-268"
+    ],
+    "limit": "Control readiness, not implemented source, real S06, semantic acceptance or qualification."
+  },
+  "rootAcquisition": {
+    "manifestRows": 26,
+    "sourceRows": 40,
+    "fixtureRows": 13,
+    "executablePins": 5,
+    "mismatches": 0,
+    "cleanFrozenWorktree": true
+  },
+  "operatorActivation": {
+    "id": "RC14-B56-NATIVE-OPERATOR-001",
+    "role": "Separate R14 execution/evidence Writer; semantic source author remains actual installed RC13 native worker",
+    "actor": "/root/rc14_release_proof",
+    "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-01",
+    "sourceBranch": "codex/rc14-assessment-dependency-source-20261116-01",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01",
+    "sourceBinding": "Exact new main checkpoint containing these accepted controls and this activation, after direct origin parity; its tenant tree and all40 source input bytes must equal the accepted controls. Followup identifies its immutable hash before effects.",
+    "effects": [
+      "Create the one isolated sparse source checkout from that pushed hash; materialize the full tenant/specification and selected root/method/control inputs without generated build/dependencies. Verify source input and control conservation.",
+      "Create fresh external raw/host-scratch and distinct empty npm user/global config files. Fill the existing disabled launch template with exact sourceHead/pushedCheckpoint, this root acceptance pin and accepted manifest rows; set dispatchAuthorized true for this one attempt.",
+      "Capture exclusive SOURCE_PREIMAGE through frozen freeze-source.py; invoke frozen operate.py once with the explicit approved launch path. Preserve original clock and all captures outside Git.",
+      "Actual pinned RC13 Public/native author alone edits the exact seven W from accepted Task after required content reads. No author build/test/pack/install/Git mutation.",
+      "Observe exact inner completion, resources and fresh result/replay; audit every native command/read/method before proof. Freeze complete postimage and diff, retain failures and return to Root. Keep native checkout HEAD/index unchanged for the accepted proof guard; do not stage/commit it before proof disposition.",
+      "Authored compact Return may be frozen on a separate records branch after closure; no raw Git."
+    ],
+    "bounds": {
+      "providerCallsAtMost": 1,
+      "providerConcurrencyGlobal": 2,
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "nativeAbsoluteMs": 2700000,
+      "nativeInactivityMs": 300000,
+      "maxTurns": 360,
+      "enclosingMs": 10800000,
+      "exitReserveMs": 180000,
+      "retry": false
+    },
+    "stops": [
+      "Any source/control/method identity mismatch, missing W dependency, actual failure, unsupported terminal, failed physical close or fresh-read mismatch: stop advancement, preserve evidence and return.",
+      "Any method/command deviation remains explicit; no compliant audit disposition may hide it."
+    ],
+    "returnTo": "Root after successful closed native source or first failure. Independent frozen-source review and separate exact proof grant remain mandatory."
+  },
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "dispatchAuthorizedAfterPushedBinding": true,
+  "proofAuthorized": false,
+  "proofBoundary": "Later accepted proof clips90min to this original3h clock with3min exit reserve; no auto-launch or restarted deadline.",
+  "preservation": [
+    "RC13 remains pinned and unqualified.",
+    "Old C0/C1/archive/install, both failed S06 attempts and all three amendment attempts stay exact.",
+    "Accepted amendment07 waits for the same B56 successor candidate.",
+    "B50 qualification route/policy remains separate and unresolved."
+  ],
+  "qualified": false,
+  "rawPublished": false,
+  "newCandidateBuildAuthorized": false
+}
