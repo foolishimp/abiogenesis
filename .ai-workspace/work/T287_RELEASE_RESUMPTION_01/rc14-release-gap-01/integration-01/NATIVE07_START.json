@@ -1,0 +1,53 @@
+{
+  "id": "RC14-NATIVE07-START-001",
+  "recordedUtc": "2026-11-15T12:30:32.795504+00:00",
+  "sourceHead": "b47ee9e72eb2dd6ae247f111fca7fa966f4c9d46",
+  "sourceTree": "5ee51fa8929badfc7b96053ea22020055a453c6f",
+  "mainDirectRemoteParityVerifiedBeforeGrant": true,
+  "controls": "67ea0f74b3cc548fdc82ef2e328209c54463a542",
+  "launch": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/LAUNCH.json",
+    "bytes": 7305,
+    "sha256": "f66541de1d780d69957f68bb7cd8e9af1c0a961fbe2e5b241d802c64938d8bef"
+  },
+  "clock": {
+    "command": [
+      "/opt/homebrew/bin/node",
+      "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/HOST.mjs",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/LAUNCH.json"
+    ],
+    "source": "/private/tmp/abg-rc14-regression-repair-20261115-07",
+    "sourceHead": "b47ee9e72eb2dd6ae247f111fca7fa966f4c9d46",
+    "launchSha256": "f66541de1d780d69957f68bb7cd8e9af1c0a961fbe2e5b241d802c64938d8bef",
+    "launchInputPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/approved-launch/LAUNCH.json",
+    "stagedLaunchPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/LAUNCH.json",
+    "startedUtc": "2026-11-15T12:29:43.176910+00:00",
+    "deadlineUtc": "2026-11-15T14:44:43.176910+00:00",
+    "hostControlDeadlineMs": 8100000,
+    "executionStopDeadlineUtc": "2026-11-15T14:44:28.176910+00:00",
+    "cleanupReserveMs": 15000,
+    "providerCallsAtMost": 1,
+    "proofRetry": false,
+    "oldCampaignClockReused": false
+  },
+  "sourcePreimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/SOURCE_PREIMAGE.json",
+    "bytes": 438543,
+    "sha256": "477f1d3835b24428b5984f0bf2b8f0f66a6ddc5a733a1bc1788876aaf93bcc78"
+  },
+  "sourcePreimageRows": 1427,
+  "preimageCountNote": "Materialized control files differ by successor and two irrelevant P5 records are outside this sparse intake; no Product/test source omission or mutation inferred from total row count.",
+  "hostPidAndGroup": 93613,
+  "observedPhase": "identity-and-topology-bound at2026-11-15T12:29:43.632Z; native actor not yet observed",
+  "native": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "writePaths": 1,
+    "providerCallsAtMost": 1,
+    "absoluteMs": 1200000,
+    "maxTurns": 160
+  },
+  "proofAuthorized": false,
+  "oldClockReused": false,
+  "qualified": false
+}

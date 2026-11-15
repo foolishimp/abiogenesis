@@ -683,7 +683,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T12:26:13.114252+00:00",
+  "updatedUtc": "2026-11-15T12:30:32.795504+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -767,9 +767,9 @@
     "qualification": false
   },
   "regressionRepair07": {
-    "state": "CONTROLS_ACCEPTED_AWAITING_PUSHED_NATIVE_BINDING",
+    "state": "NATIVE_SETUP_RUNNING",
     "triage": "integration-01/NATIVE07_F09_TRIAGE.json",
-    "executionBound": false,
+    "executionBound": true,
     "nativeWritePaths": 1,
     "freshWholeFiles": 10,
     "retainedWholeFilesConditional": 6,
@@ -778,6 +778,12 @@
     "acceptance": "integration-01/NATIVE07_CONTROL_ACCEPTANCE.json",
     "retainedHistoricalPasses": 44,
     "retainedTopLevelCases": 33,
-    "freshTopLevelCases": 38
+    "freshTopLevelCases": 38,
+    "sourceHead": "b47ee9e72eb2dd6ae247f111fca7fa966f4c9d46",
+    "startRecord": "integration-01/NATIVE07_START.json",
+    "originalDeadlineUtc": "2026-11-15T14:44:43.176910+00:00",
+    "nativeModel": "claude-opus-5-5",
+    "nativeEffort": "xhigh",
+    "proofAuthorized": false
   }
 }
