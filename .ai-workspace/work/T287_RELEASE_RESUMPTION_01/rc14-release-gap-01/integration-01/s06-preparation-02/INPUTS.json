@@ -272,7 +272,7 @@
   },
   "toolchain": {
     "path": "/private/tmp/abg-rc14-s06-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/TOOLCHAIN.json",
-    "sha256": "9ea7aa7595c605a5f40f51c5ac9d3440d4ec2dd40788f1aedaead14636df4f93",
+    "sha256": "7fb0213fb32ea8170f0c89fbaabd691400b8c9f613cf7b457bf59d77ff805db3",
     "role": "immutable consumer Tool inputs and external proof, not runtime/application evidence"
   }
 }

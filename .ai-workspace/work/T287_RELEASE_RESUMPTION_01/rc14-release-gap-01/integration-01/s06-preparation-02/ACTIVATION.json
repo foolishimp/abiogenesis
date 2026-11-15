@@ -28,5 +28,14 @@
     "envelope": "one new60s preparation check; no lifecycle/old clock extension",
     "preservedFailure": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-02/canonical-types/stdout.raw",
     "preservedFailureSha256": "e910d23201c348934d21092d78b554cfce464328a8e43e1d38bdc480ab6b9fca"
+  },
+  "profileCorrection": {
+    "grant": "Root separately selected localhost grammar correction after closed4e7c5c0f",
+    "predecessorSubject": "4e7c5c0f45b60a5ac0d787e957d6e77651020db5",
+    "predecessorManifestSha256": "44945991e59327ebb766dd08ded0cfd39c7e4708c5a840a8fe3873bcf4811f22",
+    "scope": "Two SBPL host literals become supported localhost, with honest IPv4/IPv6 scope; owned Unix subtree and all-other-network denial unchanged; IPv6 loopback control positive added",
+    "envelope": "one fresh60s socket discriminator and necessary affected syntax; no Java/SBT/application/provider/runtime",
+    "retainedProof": "4e7c5c0f canonical types/constructor and full frozen input inventories, unchanged computational inputs except valid hash literal substitutions and descriptive text",
+    "preservedFailureSha256": "169125960bf6ce230833a0e6205be4a611e62d0b29c929b7ff13c03294135b57"
   }
 }

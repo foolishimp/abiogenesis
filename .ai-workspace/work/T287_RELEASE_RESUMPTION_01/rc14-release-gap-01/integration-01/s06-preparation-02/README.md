@@ -64,7 +64,8 @@ There is no short symlink alias or reuse of the closed03 state.
 
 The witness child receives only explicit environment values. The selected
 Darwin arm64 profile denies remote network and DNS; it permits pathname-scoped
-owned Unix IPC and IPv4 TCP loopback for local[1] Spark/SBT test communication.
+owned Unix IPC and platform TCP loopback (IPv4/IPv6 under the localhost filter) for local[1]
+Spark/SBT test communication; it is not an IPv4-only permission.
 Read-only source build.sbt15–25 binds loopback driver settings and forked tests.
 Actual Spark behavior under that permission remains unproved. Query mode has
 no network allowance and uses only the frozen JDK and the existing authenticated

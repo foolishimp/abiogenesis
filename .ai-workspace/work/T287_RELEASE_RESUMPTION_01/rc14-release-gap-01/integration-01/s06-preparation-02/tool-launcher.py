@@ -78,8 +78,8 @@ def profile(t, state, cwd, phase, query=False):
         for p in [cwd/'evidence'/phase,*[cwd/'application/scala_spark'/p for p in build]]:
             lines.append('(allow file-write* (subpath '+json.dumps(str(p))+'))')
         lines += ['(allow network-bind network-inbound network-outbound (subpath '+json.dumps(str(state/'ipc'/'.sbt'))+'))',
-            '(allow network-bind network-inbound (local tcp "127.0.0.1:*"))',
-            '(allow network-outbound (remote tcp "127.0.0.1:*"))']
+            '(allow network-bind network-inbound (local tcp "localhost:*"))',
+            '(allow network-outbound (remote tcp "localhost:*"))']
     return '\n'.join(lines)+'\n'
 
 def topology(t, state, receipts, cwd):

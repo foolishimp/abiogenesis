@@ -10,6 +10,7 @@ def exchange(server,address):
 with socket.socket(socket.AF_UNIX,socket.SOCK_STREAM) as server:exchange(server,str(path))
 path.unlink()
 with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as server:exchange(server,('127.0.0.1',0))
+with socket.socket(socket.AF_INET6,socket.SOCK_STREAM) as server:exchange(server,('::1',0))
 denied=[]
 for kind in ['remote','wildcard-bind']:
     with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as sock:
@@ -21,5 +22,5 @@ for kind in ['remote','wildcard-bind']:
             assert e.errno in [errno.EPERM,errno.EACCES],(kind,e.errno)
             denied.append(kind)
         else:raise AssertionError('Unselected network operation allowed: '+kind)
-print(json.dumps({'ownedUnix':True,'ipv4TcpLoopback':True,'denied':denied,'nativeSocketBytesIncludingNul':len(str(path).encode())+1,
+print(json.dumps({'ownedUnix':True,'ipv4TcpLoopback':True,'ipv6TcpLoopback':True,'denied':denied,'nativeSocketBytesIncludingNul':len(str(path).encode())+1,
  'javaOrSparkExecuted':False,'limit':'Permission syntax/loopback discriminator; actual Spark capacity and behavior unproved'}))

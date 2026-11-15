@@ -67,7 +67,7 @@
     "s06Tool": {
       "path": "/private/tmp/abg-rc14-s06-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/tool-launcher.py",
       "bytes": 15213,
-      "sha256": "16d1b6888ec56fa3108f8bfa1875dbe7acb171bd9e3b004c8b2bbb7db65f5b5d"
+      "sha256": "16c83f445c4378f2e465e93662dff5147350d196732eb93b3b87c796714faf05"
     }
   },
   "deadlineUtc": null,
@@ -79,7 +79,7 @@
     "javaHome": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/jdk",
     "commandExecutable": "/private/tmp/abg-rc14-s06-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/tool-launcher.py",
     "toolchainPath": "/private/tmp/abg-rc14-s06-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/TOOLCHAIN.json",
-    "toolchainSha256": "9ea7aa7595c605a5f40f51c5ac9d3440d4ec2dd40788f1aedaead14636df4f93",
+    "toolchainSha256": "7fb0213fb32ea8170f0c89fbaabd691400b8c9f613cf7b457bf59d77ff805db3",
     "path": "/usr/bin:/bin",
     "commandTimeoutMs": 300000,
     "status": "Offline closure proved by S06-03; exact immutable Tool is prospective C2 executable. Application compile/test/Spark and finite capacity remain unproved."

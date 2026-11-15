@@ -4,8 +4,8 @@ import ast,datetime,hashlib,importlib.util,json,os,pathlib,shutil,sys,time
 sys.dont_write_bytecode=True
 from bounded import run,save
 C=pathlib.Path(__file__).resolve().parent
-RAW=pathlib.Path('/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03')
-SHORT=pathlib.Path('/private/tmp/as6p3')
+RAW=pathlib.Path('/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-04')
+SHORT=pathlib.Path('/private/tmp/as6p4')
 def sha(p):return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
 def main():
  assert not RAW.exists() and not SHORT.exists(),'One fresh control check; no retry'
@@ -22,11 +22,9 @@ def main():
   checks.append({'check':'Python AST, JSON and exact control hashes','passed':True})
   def command(label,argv):
    result=run(RAW/label,argv,str(C),env,deadline,45000,8388608);checks.append({'check':label,'result':result})
-  for i,p in enumerate([C/'inputs.mjs',C/'static-input-join.mjs']):command('syntax-'+str(i),[b['configuration']['nodePath'],'--check',str(p)])
-  command('canonical-types',[b['configuration']['nodePath'],'/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc','--project',str(C/'tsconfig.noemit.json')])
-  command('canonical-inputs',[b['configuration']['nodePath'],str(C/'static-input-join.mjs'),str(RAW/'prospective-shape')])
+  command('syntax-inputs',[b['configuration']['nodePath'],'--check',str(C/'inputs.mjs')])
+  checks.append({'check':'Canonical types/constructors and frozen inventories retained','sourceCommit':'4e7c5c0f45b60a5ac0d787e957d6e77651020db5','reexecuted':False})
   spec=importlib.util.spec_from_file_location('s06_static_tool',C/'tool-launcher.py');tool=importlib.util.module_from_spec(spec);spec.loader.exec_module(tool)
-  facts=tool.verify_inputs();save(RAW/'FROZEN_INPUTS.json',facts);checks.append({'check':'Complete frozen Tool inventories','passed':True})
   state=SHORT/'d1-a0b1c2d3';state.mkdir()
   for name in ['home','boot','global','ivy','coursier','tmp','ipc']:(state/name).mkdir()
   profile=RAW/'tool.sb';profile.write_text(tool.profile(t,state,SHORT,'d1',False))

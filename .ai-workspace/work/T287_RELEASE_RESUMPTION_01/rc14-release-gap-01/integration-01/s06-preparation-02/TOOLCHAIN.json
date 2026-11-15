@@ -86,7 +86,7 @@
   "localNetwork": {
     "remoteIp": "deny",
     "dnsDaemon": "deny",
-    "witness": "IPv4 TCP loopback only, plus exact owned Unix IPC subtree",
+    "witness": "Platform TCP loopback (localhost filter covers IPv4/IPv6), plus exact owned Unix IPC subtree; no remote network permission",
     "query": "deny all network",
     "claim": "prospective local Spark/SBT permission; no application execution credit"
   },
