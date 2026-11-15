@@ -1,0 +1,13 @@
+{
+  "decision": "satisfied for execution preparation",
+  "reviewers": [
+    "/root/b30_catalog_triage original semantic/currentness review",
+    "/root/b29_vm_triage bridge/physicalroles narrowrechecks"
+  ],
+  "subject": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+  "manifestSha256": "c9e0588a0775f1548daaac1b056a203a737db4a86b45e2fe98c53430f69fe1d2",
+  "basis": "stdo://releases/v3.0.4/",
+  "executionAuthorized": false,
+  "pending": "Exact candidate/binding/prospectivebounds/topology and separategrant; atmosttwo simultaneous nativeauthors",
+  "recordedUtc": "2026-11-15T07:58:58.482761+00:00"
+}

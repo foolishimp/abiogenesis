@@ -1,0 +1,21 @@
+{
+  "id": "RC14-INSTALLED-BASIC-04-ACCEPTANCE",
+  "decision": "satisfied",
+  "reviewer": "/root/b29_vm_triage",
+  "role": "Root Executive consuming independent closed narrow recheck",
+  "subject": "e1aa852e11181590666028cfdee52c09ca6ee801",
+  "manifestSha256": "94da00677ea7034e403f56f6ca19430d388d534212e6645e809749ddefce2bed",
+  "basis": "stdo://releases/v3.0.4/",
+  "closedFindings": [
+    "Canonical JS control directory",
+    "Separate actual runtime archive from Operator capture container"
+  ],
+  "scope": "Both physical-role layouts share exactW and preserve complete protected union, required after setup and beforedispatch; unchanged observer. Exact saved-coordinate probe satisfies constructor only, no runtimecredit.",
+  "retainedFailures": [
+    "basic01 import failure",
+    "basic02 npm config collision",
+    "basic03 trailing slash",
+    "preflight04 incorrect outercapture-vschildren overlap"
+  ],
+  "recordedUtc": "2026-11-15T07:58:58.482761+00:00"
+}

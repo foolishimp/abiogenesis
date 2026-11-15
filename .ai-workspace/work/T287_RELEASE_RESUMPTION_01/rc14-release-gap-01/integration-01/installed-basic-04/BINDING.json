@@ -1,0 +1,88 @@
+{
+  "executionAuthorized": true,
+  "executionGrant": "RC14-INSTALLED-BASIC-04-ONE-RUN",
+  "controlSourceRoot": "/private/tmp/abg-rc14-installed-prep-20261115-01",
+  "controlSourceCommit": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862",
+  "controlManifestSha256": "94da00677ea7034e403f56f6ca19430d388d534212e6645e809749ddefce2bed",
+  "candidate": {
+    "sourceCommit": "7a2411defd9ef7c1968512703c3b4b1493114453",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/archives/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "archiveSha256": "sha256:9f9812e42c154511541762235f26180c0cf64c762f490ea57ae135a14c8e4225",
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/installed/node_modules/@abiogenesis/typescript-tenant",
+    "manifestSha256": "ace624f1747a2071adcd6035b21d88dc3c459eeddc809e7f3b85627dbae5929a",
+    "packageVersion": "5.0.0-rc.13"
+  },
+  "topologyAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-basic-04/TOPOLOGY_ACCEPTANCE.json",
+    "sha256": "49c5c8cd974f6133a7de261d57736da4c154cc5e6ad56f53fd5aa25fbb232401"
+  },
+  "runId": "rc14-installed-basic-20261115-04",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-04",
+  "worksiteRoot": "/private/tmp/abg-rc14-installed-basic-20261115-04",
+  "protectedRoots": [
+    "/Users/jim/src/apps/abiogenesis",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02",
+    "/private/tmp/abg-rc14-proof-fixture-20261115-02",
+    "/opt/homebrew/lib/node_modules/npm"
+  ],
+  "pythonPath": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+  "deadlineUtc": "2026-11-15T09:28:58.482761+00:00",
+  "exitAuditReserveMs": 120000,
+  "smokeTimeoutMs": 600000,
+  "maxCaptureBytes": 16777216,
+  "setupEnvironment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "C",
+    "TMPDIR": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-04/tmp",
+    "NPM_CONFIG_CACHE": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-04/npm-cache",
+    "NPM_CONFIG_USERCONFIG": "/private/tmp/abg-rc14-installed-successor-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-successor-04/npm-user.npmrc",
+    "NPM_CONFIG_GLOBALCONFIG": "/private/tmp/abg-rc14-installed-successor-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-successor-04/npm-global.npmrc",
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false"
+  },
+  "configuration": {
+    "nodePath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "recursionBound": 12,
+    "processTimeoutMs": 300000,
+    "maxProcessOutputBytes": 16777216,
+    "toolchains": {
+      "node": {
+        "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "versionArgs": [
+          "--version"
+        ]
+      },
+      "npm": {
+        "executable": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+        "versionArgs": [
+          "--version"
+        ]
+      }
+    },
+    "provider": {
+      "enabled": true,
+      "agent": "claude",
+      "command": "/Users/jim/.local/share/claude/versions/2.1.322",
+      "executableSha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+      "versionArgs": [
+        "--version"
+      ],
+      "model": "claude-opus-5-5",
+      "appendArgs": [
+        "--effort",
+        "xhigh"
+      ],
+      "inheritEnvironment": [
+        "CLAUDE_CODE_OAUTH_TOKEN"
+      ],
+      "inactivityTimeoutMs": 300000,
+      "absoluteTimeoutMs": 900000,
+      "maxTurns": 100
+    }
+  },
+  "retainedControlRoot": "/private/tmp/abg-rc14-installed-prep-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01",
+  "smokeSourceRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/subject",
+  "smokeInputsSha256": "1155cd29bce90d2bc139e0b50730624a3ae48bfa89c36139a34166fc9fe5f694"
+}

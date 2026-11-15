@@ -1,0 +1,11 @@
+{
+  "id": "RC14-INSTALLED-BASIC-04-TOPOLOGY",
+  "observedUtc": "2026-11-15T07:58:58.482761+00:00",
+  "result": "separated",
+  "layoutSha256": "23b0da0dcdb9b556c3c34fcb233bd7e80c8c8ebc7e58447783f5e88875e9df44",
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "observationSha256": "9795490f0549a05b4bd0c346deaf8c190cb48354f9e56321ede8ca2a1cf8130b",
+  "processResultSha256": "80b711ab50b1ee7aeb84a9173378b71ac6f3e7031c305d89cb5de234c9b5aeab",
+  "evidenceRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-04-preflight",
+  "requiredAgain": "Fresh actual environment, both operator-custody and runtime-owner layouts aftersetup and immediatelybeforedispatch"
+}

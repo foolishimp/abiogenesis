@@ -1,5 +1,5 @@
 {
-  "status": "RC14_FINISH_NATIVE_FIXTURE_REPAIR_READY",
+  "status": "RC14_FINISH_INSTALLED_BASIC04_READY_NATIVE04_REVIEW",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -28,7 +28,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-14T20:39:07.014701+00:00",
-  "nativeAuthorState": "One RC13-native17path fixture repair accepted; source checkpoint/push and exact preimage precede actual launch.",
+  "nativeAuthorState": "Native03 stopped before provider on missingOperator launchcopy; actualclose/sourceconserved. Native04 automaticstaging successor frozenforindependentreview.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -507,13 +507,19 @@
     "providerCalls": 0
   },
   "installedBasic03": {
-    "state": "EXACT_GRANT_READY_AFTER_INDEPENDENT_REVIEW",
+    "state": "STOPPED_AFTER_SMOKE_BEFORE_NATIVE",
     "activation": "integration-01/installed-basic-03/ACTIVATION.json",
     "deadlineUtc": "2026-11-15T09:00:34.114480+00:00",
-    "candidateArchive": "sha256:9f9812e42c154511541762235f26180c0cf64c762f490ea57ae135a14c8e4225"
+    "candidateArchive": "sha256:9f9812e42c154511541762235f26180c0cf64c762f490ea57ae135a14c8e4225",
+    "result": {
+      "installedLanguagePass": 1,
+      "basicFailure": "Noncanonical trailing-slash controlroot; subsequentboundedtriage exposed wrongoutercapture archive role",
+      "inputConserved": true,
+      "providerCalls": 0
+    }
   },
   "regressionRepair03": {
-    "state": "EXACT_EXECUTION_ACCEPTED",
+    "state": "STOPPED_PRE_PROVIDER_OPERATOR_LAUNCH_STAGING_OMISSION",
     "controlSubject": "c240e67af21acb74332d3206d68dca0be5ecd284",
     "sourceHead": "da57781815b410583ed72e08ef63b2ac29b01e85",
     "manifestSha256": "42a340e37d7b4931705a85dda823f0fb621a93812bb1217617c9a2b0f051bb64",
@@ -523,6 +529,27 @@
     "nativeMinutes": 60,
     "maxTurns": 240,
     "wholeProofFiles": 16,
-    "freshEnclosingMinutes": 180
+    "freshEnclosingMinutes": 180,
+    "failure": {
+      "sourceConservedRows": 1422,
+      "addedPath": ".abiogenesis/workspace-manifest.json",
+      "setupOwnedBytes": 1924,
+      "setupOwnedSha256": "f96cdcfe184c450b9c6db6cec4faed0e8c1ad4765cdf2b9ff21c47e1516022bb",
+      "providerCalls": 0,
+      "actualResourceClose": true,
+      "hostGroupAbsent": true,
+      "hostCaptureBytes": 2821,
+      "originalDeadlineUtc": "2026-11-15T10:39:12.551632+00:00",
+      "cause": "Approvedmainlaunch passedtoHOST but missing raw/LAUNCH.json requiredbycustody; noProductdefect"
+    }
+  },
+  "installedBasic04": {
+    "state": "EXACT_EXECUTION_READY",
+    "activation": "integration-01/installed-basic-04/ACTIVATION.json",
+    "deadlineUtc": "2026-11-15T09:28:58.482761+00:00"
+  },
+  "amendmentControls": {
+    "state": "INDEPENDENT_REVIEW_SATISFIED_EXECUTION_UNBOUND",
+    "subject": "71daeb0582dc33a4550ac14fe9217055d2d628cd"
   }
 }
