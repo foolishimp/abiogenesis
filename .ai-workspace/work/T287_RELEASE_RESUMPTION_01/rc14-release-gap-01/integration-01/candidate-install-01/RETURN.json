@@ -1,0 +1,236 @@
+{
+  "id": "RC14-CANDIDATE-INSTALL-PUBLIC-SETUP-RETURN-001",
+  "operator": "/root/b30_catalog_triage",
+  "recordedUtc": "2026-11-15T15:31:35.853059+00:00",
+  "activationId": "RC14-CANDIDATE-INSTALL-PUBLIC-SETUP-OPERATOR-001",
+  "activationSourceCommit": "e7088e3820cb1fa617f6851e08abaa1c3cceb879",
+  "disposition": "mechanical_install_passed_public_setup_stopped_first_failure",
+  "productFrame": "Fixed ABIogenesis5.0/T287/RC14; derived Operator installation/setup evidence, no qualification or publication authority.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "candidate": {
+    "sourceCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "compileInputTree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
+    "archive": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+      "bytes": 10814430,
+      "sha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03"
+    },
+    "members": 5302,
+    "payloadBytes": 69284648,
+    "manifestFileSha256": "2bfb3663bb394f1b735703670cdbbe93c608117ad0527a550ea15e8971555c0d",
+    "canonicalManifestDigest": "sha256:80ca2ae2e4152cfa84a8e811fdeb163acb8a1abb96a22c99f3aa6849406501d1",
+    "cutRecord": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/CUT_RECORD.json",
+      "bytes": 11044,
+      "sha256": "3700aac9426d375e414a5f3928013fefcd30e4302e8705a939ede5ba0a3a9902"
+    }
+  },
+  "mechanical": {
+    "status": "passed",
+    "startedUtc": "2026-11-15T15:26:08.156795+00:00",
+    "deadlineUtc": "2026-11-15T15:41:08.156795+00:00",
+    "completedUtc": "2026-11-15T15:26:34.602530+00:00",
+    "elapsedMs": 26446,
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.14/7646989ad108d1f4cfb8075909c9a26208f5f605b23b590e264c25544ba3332a/0657e3111a0c31651b2443da00dc2d0a98abb82eb169560f44418bc80988cf54",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14/node_modules/@abiogenesis/typescript-tenant",
+    "installedCli": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "sameArchiveMemberSetAndBytes": true,
+    "bootstrapAlsoEqual": true,
+    "ownerResults": {
+      "imported": "archive bootstrap extraction",
+      "verification": "verified",
+      "lock": "resolved_product_lock",
+      "installation": "materialized",
+      "installCandidateInLock": true,
+      "installedContentMatches": true
+    },
+    "start": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/MECHANICAL_START.json",
+      "bytes": 3334,
+      "sha256": "9df3f22b48850c061127768fc9b33f24ca5db67a4031ef8b9bbf624cc28d52a5"
+    },
+    "return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/MECHANICAL_RETURN.json",
+      "bytes": 1796,
+      "sha256": "91329a0a43dee37e5a1677bf56751642d6ddb6202b6d1cc1393e46f954b6c85a"
+    },
+    "installRecord": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/INSTALL_RECORD.json",
+      "bytes": 6778,
+      "sha256": "16f294953676d261871622e0d88825fb0190352d22a241eed749969c8b5e5b1d"
+    },
+    "independentCorrespondence": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/INDEPENDENT_CORRESPONDENCE.json",
+      "bytes": 1057,
+      "sha256": "be78686bd76b33a9acb5b88de78678259aa7db547a0162fe9b2fa7fa595061ed"
+    },
+    "inputsEntry": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/INPUTS_ENTRY.json",
+      "bytes": 451561,
+      "sha256": "703f2922e4b8ec0221c802f4707f9198ab7b56872a1d857df51388ad3146e6a3"
+    },
+    "inputsExit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/INPUTS_EXIT.json",
+      "bytes": 451561,
+      "sha256": "703f2922e4b8ec0221c802f4707f9198ab7b56872a1d857df51388ad3146e6a3"
+    },
+    "pinnedFiles": 44,
+    "npmTreeRows": 2326,
+    "inputConserved": true,
+    "withinOriginalDeadline": true
+  },
+  "publicSetup": {
+    "status": "stopped_first_failure",
+    "startedUtc": "2026-11-15T15:28:22.579356+00:00",
+    "deadlineUtc": "2026-11-15T15:43:22.579356+00:00",
+    "completedUtc": "2026-11-15T15:28:25.598167+00:00",
+    "elapsedMs": 3019,
+    "binding": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/PUBLIC_SETUP_BINDING.json",
+      "bytes": 4821,
+      "sha256": "e7f61ebd0e91cf80a84aa574a48bc289240c361017f4ce951826f95fd9e8701d"
+    },
+    "start": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/PUBLIC_STAGE_START.json",
+      "bytes": 1222,
+      "sha256": "6c79d1482bc76ec9000f2b0aa9a41f3ff5217f1a29146361e171780a8b4cc8c2"
+    },
+    "controllerEntry": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-01/ENTRY.json",
+      "bytes": 268,
+      "sha256": "d47a84755c2ff5a06f7dee544b7a17b09158c0585d0f8d24082c74032de37348"
+    },
+    "outerReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/PUBLIC_STAGE_RETURN.json",
+      "bytes": 3502,
+      "sha256": "fe53c131b437b9576741e87c27abbc5c450969c08222ca61eb2ba3ce3da4eefa"
+    },
+    "return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-01/RETURN.json",
+      "bytes": 582,
+      "sha256": "c0d2afc13e4e327e9f95a52695b55dd66bf6f2d76022fc6b0b69d8bce21cf67d"
+    },
+    "firstFailure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-01/FIRST_FAILURE.json",
+      "bytes": 204,
+      "sha256": "77886ca538a7a2308ca8d53f3b7f6ac51718cf90b6f6295842a1244a27060da0"
+    },
+    "hostProcessReceipt": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-01/public-setup/result.json",
+      "bytes": 598,
+      "sha256": "32a5bb6d576acc5b1800d997ec3debcff067ea6681283523222b1153529ac3c4"
+    },
+    "hostStderr": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-01/public-setup/stderr.raw",
+      "bytes": 683,
+      "sha256": "15c8f3f666ac0e74a18516e3dcb44a9155c89d0847d792b39db24f7a74f96767"
+    },
+    "cause": "EEXIST at setup-only.mjs:14:43: run.py command capture owner creates rawRoot/public-setup; the setup host then attempts exclusive mkdir of that same pathname. The host stops before Public installation/setup or a genuine identity/close handoff.",
+    "causalCoordinates": {
+      "controller": "/private/tmp/abg-rc14-public-setup-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/cut-public-setup-01/run.py",
+      "captureLabel": "public-setup",
+      "host": "/private/tmp/abg-rc14-public-setup-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/cut-public-setup-01/setup-only.mjs:14",
+      "collidingPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-01/public-setup"
+    },
+    "actualPublicInstalledPackageRoot": null,
+    "identityProduced": false,
+    "setupCloseProduced": false,
+    "worksiteCreated": false,
+    "inputConserved": true,
+    "globalMechanicalInstallConserved": true,
+    "outerInputsEntry": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/PUBLIC_INPUTS_ENTRY.json",
+      "bytes": 1240053,
+      "sha256": "757885f05a928e8c5a8e777e9dd06e2bc88e78680209e59fe1bd046b35d792c1"
+    },
+    "outerInputsExit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/PUBLIC_INPUTS_EXIT.json",
+      "bytes": 1240053,
+      "sha256": "757885f05a928e8c5a8e777e9dd06e2bc88e78680209e59fe1bd046b35d792c1"
+    },
+    "publicInputsEntry": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-01/INPUTS_ENTRY.json",
+      "bytes": 1101108,
+      "sha256": "bbb22e0fc1922bb4974e2fdae43e08e078be859810526094d6c8145904982951"
+    },
+    "publicInputsExit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-01/INPUTS_EXIT.json",
+      "bytes": 1101108,
+      "sha256": "bbb22e0fc1922bb4974e2fdae43e08e078be859810526094d6c8145904982951"
+    },
+    "withinOriginalDeadline": true,
+    "limit": "The failed Return generic scope string mentions setup/close; its status is failed, handoff is null, and no successful Public setup/close is claimed here."
+  },
+  "closure": {
+    "recordedProcessGroups": [
+      {
+        "stage": "mechanical",
+        "processGroup": 14843,
+        "absent": true
+      },
+      {
+        "stage": "mechanical",
+        "processGroup": 14860,
+        "absent": true
+      },
+      {
+        "stage": "public",
+        "processGroup": 16319,
+        "absent": true
+      },
+      {
+        "stage": "public",
+        "processGroup": 16322,
+        "absent": true
+      },
+      {
+        "stage": "public",
+        "processGroup": 16320,
+        "absent": true
+      },
+      {
+        "stage": "public",
+        "processGroup": 16351,
+        "absent": true
+      },
+      {
+        "stage": "public",
+        "processGroup": 16350,
+        "absent": true
+      },
+      {
+        "stage": "public",
+        "processGroup": 16324,
+        "absent": true
+      },
+      {
+        "stage": "public",
+        "processGroup": 16348,
+        "absent": true
+      }
+    ],
+    "allRecordedGroupsAbsent": true,
+    "mechanicalAndPublicClocksDistinct": true,
+    "eachEnclosingSeconds": 900,
+    "eachCleanupReserveSeconds": 30,
+    "firstFailurePreserved": true,
+    "retry": false,
+    "repairPerformed": false
+  },
+  "exclusions": {
+    "sourceOrTestChanges": false,
+    "buildOrRepack": false,
+    "providerCalls": 0,
+    "lifecycleCalls": 0,
+    "C1Finalization": false,
+    "selectorOrPinChanged": false,
+    "tagOrImmutablePublication": false,
+    "qualification": false,
+    "humanAcceptance": false,
+    "rawPublished": false
+  },
+  "next": "Return exact control-path collision to Root for independent ownership/design triage. Mechanical install remains valid. Public setup and C1 are incomplete; no automatic repair, retry, rebuild or Product change."
+}
