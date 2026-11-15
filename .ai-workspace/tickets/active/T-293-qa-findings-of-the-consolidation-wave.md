@@ -109,7 +109,7 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | When | Items |
 |---|---|
-| Current | RC13 remains pinned; original RC14 C0/C1/archive/install exact/unqualified. Native03 closed and rejected for proof after two independent reviews; seven recovered inputs remain unproved. One-test completion04 control preparation selected with coherent code/src R. Zero active provider calls; candidate02/amendment07/S06 pending B56 proof and B50 unresolved. |
+| Current | RC13 remains pinned; original RC14 candidate exact/unqualified. Independent completion04 control reviews satisfied; one source-only RC13/Opus5.5 xhigh pass selected after push. One W/coherent source R, genuine canonical author-assessor path and both capture preservation edges. No B56 proof yet; candidate02/amendment07/S06 await proof and B50 unresolved. |
 | Dependency-ready sequence | Owner selects finish RC14: B44 control correction and first installed workflow; RC13-native repair/reproof of16 peer-red files B36-B42/B45; reconcile peer coverage; bounded B21 support statement, installed amendment/S06, exact qualification and RC14/S07. Expired attempts stay closed; no duplicate broad campaign |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |
