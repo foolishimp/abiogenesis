@@ -47,7 +47,7 @@
     "Actual installed pinnedRC13 native author with five method content reads",
     "Actual terminal/resource close/fresh reads and complete command/read audit",
     "Independent source review and separate Root proof disposition",
-    "010wholefile then011-016 once; nine retained causal relations and original finally conservation"
+    "Only010wholefile after15retained relations; Root accepts/pushes final controls and separately grants native and proof"
   ],
   "executionAuthorized": false,
   "rootRecordsWriter": {
@@ -56,5 +56,22 @@
     "bytes": 1313,
     "sha256": "b1b6d72d44894e46ee69f14af9e409389a8eec115f869ddcb6bafd88807383b0"
   },
-  "sourceReviewBoundary": "Firstcase plus necessary preassert helper only; actual diff must preserve every other case and all Product/source/support inputs."
+  "sourceReviewBoundary": "Firstcase plus necessary preassert helper only; actual diff must preserve every other case and all Product/source/support inputs.",
+  "proofPartitionWriterActivation": {
+    "receivedFrom": "/root",
+    "recordedUtc": "2026-11-15T13:56:16.465826+00:00",
+    "predecessorControlCommit": "cebc89dd5b2e9079fbfac176982a3a33df250ab9",
+    "rootClosureCommit": "8eb4d79f2",
+    "scope": "External input/retained-proof cardinality/source-custody adaptation only; same nativefirstcase W/limits/method; no tenant/runtime/provider effect",
+    "permitted": "Prepare interim partition and exact8row input; wait for actual012-016 diagnostic before final freeze/one commit",
+    "excluded": "No source/setup/provider/test/build/import/main/push; no duplicated011; no wholefile credit for partial012",
+    "executionAuthorized": false,
+    "finalClosedInputs": {
+      "sourceCommit": "70eb55135",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/REMAINING_FIVE_PROOF_CLOSURE_02.json",
+      "bytes": 3157,
+      "sha256": "cabf81f75ac66891fb68a7342deed88c6af909825ffaa1296d01058ef698e9b2"
+    },
+    "finalPartition": "fresh010 only;15retained wholefiles83passes/1skip/64observedtop,62named minimum; current8inputs/24finally comparisons"
+  }
 }

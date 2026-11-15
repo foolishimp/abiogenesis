@@ -1,7 +1,7 @@
 {
   "kind": "native08_preparation_return",
   "status": "prepared_frozen_pending_independent_review_and_root_execution_grant",
-  "recordedUtc": "2026-11-15T13:23:39.619731+00:00",
+  "recordedUtc": "2026-11-15T14:11:31.162103+00:00",
   "role": "External-controls Writer; no native tenant authoring",
   "basis": {
     "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
@@ -19,8 +19,8 @@
   "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08",
   "controlManifest": {
     "path": "CONTROL_MANIFEST.json",
-    "bytes": 4025,
-    "sha256": "70b57fe65b4b04b9897ab62ecb5f0113c222a19c4a58d420640d75fa6faeba6b"
+    "bytes": 4026,
+    "sha256": "a292f252469b18261cfb33080f830f4d1e5a8480ef9ed1372d47e55943f93a3f"
   },
   "controlFiles": 26,
   "preparationSourcePreimage": {
@@ -30,8 +30,8 @@
   },
   "static": {
     "path": "STATIC.json",
-    "bytes": 7736,
-    "sha256": "4671a2c12e6b483e819cacf59d749cb11df3f288b7e9a9d44107d571ac32d819"
+    "bytes": 13333,
+    "sha256": "3b036443e0ed28c2261e87476ef930a4731db30a03ede20d685d5f66620fb0bd"
   },
   "nativeWriteScope": [
     "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
@@ -48,18 +48,12 @@
     "freeze-source.py"
   ],
   "hostAndOperateChange": "mechanical08 coordinates only",
-  "proofChange": "Nine historical groups joined through original05/06 late observations and07 actual finally; seven fresh010-016; mandatory governance candidate. Original process/custody/topology/full22finally checks/primary-secondary failure/deadline behavior unchanged.",
+  "proofChange": "Five exact historical groups including two diagnostics;15wholefiles retained with pass/skip separation and seven/eight-input historical ownership; only010fresh. Current8input/24finally guard; original process/custody/topology/finally placement/primary-secondary/deadline mechanics conserved.",
   "proofPopulation": {
     "freshFiles": [
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16
+      10
     ],
-    "freshTopLevel": 35,
+    "freshNamedMinimumTopLevel": 9,
     "retainedFiles": [
       1,
       2,
@@ -69,11 +63,20 @@
       6,
       7,
       8,
-      9
+      9,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
     ],
-    "retainedActualPasses": 52,
-    "retainedTopLevel": 36,
-    "overallOriginalTopLevel": 71,
+    "retainedActualPasses": 83,
+    "retainedDeclaredSkips": 1,
+    "retainedObservedTopLevel": 64,
+    "retainedNamedMinimumTopLevel": 62,
+    "overallOriginalNamedMinimumTopLevel": 71,
+    "observedMinimumDistinction": "Existing016 emitted4top against2named minimum; actual retained64top differs from62minimum. No minimum/title changed. Fresh010actual counts remain unobserved.",
     "optionalGates": [
       {
         "file": "t287-governance-covered-source-use.test.mjs",
@@ -86,12 +89,12 @@
         "reason": "ABI5_STEEL03_RETAINED_START_CALL_PATH"
       }
     ],
-    "wholeFile010RetainedAsGreen": false
+    "failed010orInitial012RetainedAsWholeFileGreen": false
   },
   "retainedProofPreparationObservation": {
-    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/preparation/RETAINED_RELATION_CHECK.json",
-    "bytes": 4854,
-    "sha256": "ea15c59b86ebe6bf18fa1ed8aa6aed7992f0485192efc94aa8ee2c57705c8fe7"
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/preparation/FINAL_PARTITION_RETENTION_CHECK.json",
+    "bytes": 9282,
+    "sha256": "0c9dca290384960cf917a08c69ccc992753b748aaac5354d55011a52a24a8059"
   },
   "inputChecks": {
     "sourcePreconditions": 16,
@@ -100,8 +103,8 @@
     "buildFiles": 782,
     "buildPayloadBytes": 26015425,
     "dependencyInventorySha256": "dc55a042e47b4119487c1ef1b1288b0de607a9687b6a60e4efbb0443f9584aff",
-    "requiredRetainedFiles": 7,
-    "requiredRetainedBytes": 669118059,
+    "requiredRetainedFiles": 8,
+    "requiredRetainedBytes": 670101772,
     "inputCopiesMade": 0
   },
   "proposedClocks": "Fresh135min enclosing started only by futureoperate;20min native; separately granted90min proof clipped to originalenclosing;15s cleanup inside. Earlier clocks remain closed.",
@@ -116,11 +119,10 @@
     "standing": "Preserved ad-hoc read-only checker namespace error; corrected globals/locals only. No control/source/input change or Product/test/provider execution."
   },
   "remainingBindings": [
-    "Root independent review of frozen controls",
-    "Root final pushed source checkpoint and separate native execution grant; no final HEAD invented",
-    "Actual startup topology/allbindingroots/setupcustody and source preimage freshly observed at future boundary",
-    "Actual native completion/group close/fresh reads/audit, independent source review and separate proof grant",
-    "Root may narrow fresh proof only after separately authorized unchanged-source011-016 diagnostic closes with admitted retained relations; current seven-file plan is preserved, no duplicate execution started"
+    "Root independent review of modified retention/input/cardinality controls",
+    "Root final pushed source checkpoint and separate actual RC13 native execution grant; no final HEAD invented",
+    "Actual startup topology/allbindingroots/setupcustody and fresh source preimage",
+    "Actual native completion/groupclose/fresh reads/audit; independent source review and separate one-file proof grant within original future08clock"
   ],
   "limits": [
     "Static/read-only causal relations do not prove the future native repair or runtime execution.",
@@ -128,7 +130,7 @@
     "Prior stopped campaigns/deviations and05/06 late-conservation limits remain exact; historical passes are not one green campaign.",
     "No main/push/raw publication, version/cut/globalpin/qualification/acceptance effect."
   ],
-  "returnTo": "Root; stop editing after this one worker-branch controls commit",
+  "returnTo": "Root for independent retention-delta review; stop after one worker-branch successor commit",
   "narrowRequirementCorrection": {
     "predecessorCommit": "c90bb9c562aadb7e69b5fa0805369c2d20625e10",
     "predecessorTask": {
@@ -169,5 +171,41 @@
     "providerCalls": 0,
     "clockStarted": false,
     "standing": "Independent applicable-requirement omission corrected; predecessor subject/review retained, no retroactive acquisition claim."
+  },
+  "proofPartitionSuccessor": {
+    "predecessorControlCommit": "cebc89dd5b2e9079fbfac176982a3a33df250ab9",
+    "rootGrant": "Separate external-controls Writer adaptation after closed Root/R14/B29 input triage; no tenant/runtime/provider scope change",
+    "rootDiagnosticClosure": {
+      "sourceCommit": "70eb55135",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/REMAINING_FIVE_PROOF_CLOSURE_02.json",
+      "bytes": 3157,
+      "sha256": "cabf81f75ac66891fb68a7342deed88c6af909825ffaa1296d01058ef698e9b2"
+    },
+    "selectedClosedDiagnosticReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/RETURN.json",
+      "bytes": 16313,
+      "sha256": "b144fa1552f3048e34abc5ff9fbccf8c4ae16f09769e037de5fb11ccb8971b28"
+    },
+    "currentTask": {
+      "path": "TASK.json",
+      "bytes": 12237,
+      "sha256": "bed7d62317d822a3f5cd2ceb7fd5d5693512e8e51e05fbcdad37596878ba82b5"
+    },
+    "retainedGroups": 5,
+    "diagnosticCustody": "Exact controls/BINDING, source entryexit and original07 setup, mirror source entryexit, actual per-file command/raw/count records and original final22/24comparisons verified",
+    "historicalInputOwnership": "Earlier seven-row packets stay exact; current8rows add only authentic bridge. No retroactive input or success claim.",
+    "currentFinalizerComparisons": 24,
+    "previousHistoricalComparisons": 22,
+    "passSkipSeparation": "011 contributes1pass+1skip, not2passes",
+    "readOnlyStaticChecks": "All current source/build/dependency/eight-input identities and15whole-file receipt relations passed; method/Task except proof sentence/fivehelpers/HOST/operate byte-conserved",
+    "externalCheckerDiagnostic": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/preparation/FINAL_STATIC_FAILURE_01.json",
+      "bytes": 548,
+      "sha256": "01a148c778b0f39fd1b17f4a2527855fc27c4209a7ee1fecfeae52e32343904a",
+      "standing": "External copied checker expected pre-control5d6 HEAD; corrected to acceptedcebc controlHEAD. No source drift; later checks passed."
+    },
+    "execution": false,
+    "providerCalls": 0,
+    "clockStarted": false
   }
 }

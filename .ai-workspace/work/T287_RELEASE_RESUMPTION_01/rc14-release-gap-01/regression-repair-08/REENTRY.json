@@ -28,5 +28,47 @@
     "full original finally conservation/process owner/custody/topology/deadline owners",
     "all71originaltop-level titles and2optional gates"
   ],
-  "preparationOnly": true
+  "preparationOnly": true,
+  "proofPartitionSuccessor": {
+    "predecessorControlCommit": "cebc89dd5b2e9079fbfac176982a3a33df250ab9",
+    "rootClosedInputs": {
+      "sourceCommit": "70eb55135",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/REMAINING_FIVE_PROOF_CLOSURE_02.json",
+      "bytes": 3157,
+      "sha256": "cabf81f75ac66891fb68a7342deed88c6af909825ffaa1296d01058ef698e9b2"
+    },
+    "fresh": [
+      10
+    ],
+    "retained": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "retainedPasses": 83,
+    "retainedSkips": 1,
+    "retainedObservedTop": 64,
+    "retainedNamedMinimumTop": 62,
+    "freshNamedMinimumTop": 9,
+    "originalOverallNamedMinimumTop": 71,
+    "changedExecutableControls": [
+      "prove.py retained diagnostic/source/input ownership and pass/skip join",
+      "prove.py current8rows/24comparisons guard; old historical22 remains",
+      "prove.py fresh population010 only"
+    ],
+    "unchanged": "Five maintained helpers/HOST/operate/native W/author limits/method instructions; TASK changes only proof sentence",
+    "executed": false
+  }
 }
