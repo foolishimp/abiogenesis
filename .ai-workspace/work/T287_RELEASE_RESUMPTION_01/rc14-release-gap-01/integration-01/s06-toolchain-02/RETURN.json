@@ -1,0 +1,165 @@
+{
+  "activationId": "RC14-S06-TOOLCHAIN-OFFLINE-PREFLIGHT-002",
+  "disposition": "offline_resolution_stopped_signal_5",
+  "controlCommit": "38424d94aca20c28571ec995ecad5c9a23c6ac7e",
+  "controlTree": "84ea9caf5d74cc72c2bd6c234205c74a7cc8c1b3",
+  "manifest": {
+    "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-toolchain-02/CONTROL_MANIFEST.json",
+    "bytes": 973,
+    "sha256": "862e3767c8957312988ac16f8779a111723fb290566410c0baf19559f6a8f25d"
+  },
+  "completedUtc": "2026-11-15T09:31:07.565742+00:00",
+  "deadlineUtc": "2026-11-15T09:45:57.515522+00:00",
+  "withinDeadline": true,
+  "externalEvidence": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/PREFLIGHT_CONTROL_BINDING.json",
+      "bytes": 2373,
+      "sha256": "6ce666e0dc6a7f1bc0c1f420d3d95011d095b2f20cb30b7d3d90487a92c0dc8d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/SOURCE_FREEZE.json",
+      "bytes": 278,
+      "sha256": "76599e31369efdd820f75c277a76ce7c27b24200e7c7465cbc46e56397021459"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/CONTROL_START.json",
+      "bytes": 350,
+      "sha256": "535bafe9901ebabcbc5f2ad649664ef808866d423f356b0d276053d93fdb0592"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/EXECUTION.json",
+      "bytes": 6385,
+      "sha256": "911b5acc61bc9920c4acb78f9718f7d0af1dd1ffa9435715cdcd8d7d12ffc327"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/offline.sb",
+      "bytes": 933,
+      "sha256": "534f01b83768fce88cc5d7b38a00311edd10abaa16ac9eba50bf6191a563d504"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/FIRST_FAILURE.json",
+      "bytes": 616,
+      "sha256": "0f472046c16785509f03f77cd44010dbfec3106a4c19b2a216b8b31a108b103e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/RETURN.json",
+      "bytes": 2850,
+      "sha256": "4692d92eb1105b60a2ba044c4b8bb995587f3870a478154af2f3afb780ebc138"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/001-java-version/START.json",
+      "bytes": 2347,
+      "sha256": "c56e407a877e830c773c2166e2efec6c367e75103383707fe851b4d8b1012ed2"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/001-java-version/PID.json",
+      "bytes": 44,
+      "sha256": "d3d83a81d3aef0f2a061f0b7992791179de2e54ea883b0f7cdc4246dad1161e6"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/001-java-version/RETURN.json",
+      "bytes": 458,
+      "sha256": "de819323ade894510f0dd9115fb45cd2d1aeabac4972fe3beb6f208513384485"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/001-java-version/stdout.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/001-java-version/stderr.raw",
+      "bytes": 156,
+      "sha256": "5c684109f8106a8ec7c40ff4fa4e0acfa3a49dfb37941018fce48c276ad931f3"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/002-sbt-resolution/START.json",
+      "bytes": 2768,
+      "sha256": "1d5d04bded597e90c82d41f0d9e492d2e514e51caff8b59cbf8cef2c5363cd79"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/002-sbt-resolution/PID.json",
+      "bytes": 44,
+      "sha256": "b298f6904a405ad6fc4c4749f49714733034f5472b38d175c1763125daab7d0c"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/002-sbt-resolution/RETURN.json",
+      "bytes": 457,
+      "sha256": "f78c07dfcc37b9d14283df7c9101629ad87ed6cc28e3143eef3064c850aa1dc5"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/002-sbt-resolution/stdout.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/002-sbt-resolution/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "actualCommands": [
+    {
+      "name": "001-java-version",
+      "exitCode": 0,
+      "elapsedMs": 2492,
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 156,
+        "sha256": "5c684109f8106a8ec7c40ff4fa4e0acfa3a49dfb37941018fce48c276ad931f3"
+      },
+      "processGroupAbsent": true
+    },
+    {
+      "name": "002-sbt-resolution",
+      "exitCode": -5,
+      "elapsedMs": 2597,
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "processGroupAbsent": true
+    }
+  ],
+  "causalResult": {
+    "orderingDefectCorrected": true,
+    "actualJdkVersion": "11.0.28",
+    "sbtTerminatedBySignal": 5,
+    "sbtStdoutBytes": 0,
+    "sbtStderrBytes": 0,
+    "originatingJvmOrSandboxCause": "unknown; signal alone does not establish cause",
+    "existingDiagnosticSearch": "No matching java/sandbox/sbt report in immediate user/system DiagnosticReports directories; no JVM crash/log report under owned02 work area. No broader host absence claim.",
+    "dependencyCoordinatesMissing": null,
+    "missingMeaning": "Unknown: no resolver diagnostics or owner graph produced",
+    "selectedDependencyClosureKnown": false
+  },
+  "conservation": {
+    "originalAndFrozenInputsConserved": true,
+    "controlsMatchManifest": true,
+    "old01ControlsAndEvidenceUnchanged": true,
+    "applicationSourceBuildDefinitionUnchanged": true
+  },
+  "effects": {
+    "actualApplicationCompileTestRun": false,
+    "providerOrABG": false,
+    "attemptsInThisSuccessor": 1,
+    "retryAfterFailure": false,
+    "mainOrPush": false,
+    "rawPublished": false
+  },
+  "scopeLimits": [
+    "Java version/startup is proved only for the exact copied JDK invocation",
+    "SBT dependency resolution and compiler-bridge closure remain unproved",
+    "Network acquisition is denied by selected sandbox and file-only repository controls; this failure produces no observed network or missing-coordinate diagnosis",
+    "Process-group absence, not universal descendant absence",
+    "No S06 lifecycle acceptance or release qualification"
+  ],
+  "smallestNextReentry": "Root triangulates exact SBT launcher/JVM/OS-sandbox signal5 before selecting any next diagnostic; no automatic retry or dependency download"
+}
