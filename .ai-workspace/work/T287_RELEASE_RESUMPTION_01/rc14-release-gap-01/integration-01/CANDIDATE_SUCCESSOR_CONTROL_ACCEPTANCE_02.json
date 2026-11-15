@@ -1,0 +1,37 @@
+{
+  "id": "RC14-CANDIDATE-SUCCESSOR-CONTROL-ACCEPTANCE-02",
+  "recordedUtc": "2026-11-15T20:21:42.826756+00:00",
+  "role": "Root independent review/conjunction recorded by separate Records Writer022",
+  "writerGrant": "integration-01/CANDIDATE_SUCCESSOR_CONTROL_SELECTION_02.json#writerActivation",
+  "productFrame": "Fixed5.0 S07. Existing deterministic packaging/metadata and actual Public setup remain separate; prospective mutable RC14 preparation is not an immutable qualified cut. Preserve original C0/C1/archive/install and RC13 pin.",
+  "basis": "stdo://releases/v3.0.4/",
+  "subject": {
+    "commit": "b8f77c2cf9e75ff744000fa91e7f90dd0686c1a7",
+    "tree": "79811f135dc650a0e008c2211bf32064b3ff5f88",
+    "mainMerge": "b9ea4998601ef9ceaecc17c2a9f38b1f39326090",
+    "carrier": "integration-01/candidate-successor-02",
+    "manifestSha256": "784761c97b16980176fc9f6a03bc27491e1d9a99e8ba6e8010c3f4d13f0369f3",
+    "returnSha256": "c1f17bcd9a9a4fcba8ac2b9cc0898affe984ae1be50cda82bd1646fdadf61a15"
+  },
+  "review": {
+    "ProductIdentity": "C0, build, mechanical install, actual Public identity.install and derived C1 remain distinct with no inherited old evidence. Distinct fresh install host leaves global RC14 install untouched.",
+    "DesignIntegration": "Recipe uses unchanged accepted stamp/prepare/install/stage/freeze/Public setup owners; already-RC14 state is supported. No copied helper/new runner. Canonical install receipt remains distinct from actual Public identity; metadata source uses current full tenant and exact new build outputs.",
+    "ProofEffect": "All execution/clock/qualification fields remain disabled/unbound. Original entry/exit includes both consumed external process/dependency helpers plus ordinary cut/metadata inputs. The setup-order failure and one-time same-commit correction are retained, within the original preparation deadline.",
+    "rootChecks": {
+      "newManifestMembers": 6,
+      "absoluteReferencePins": 21,
+      "reusedCutManifestMembers": 15,
+      "reusedPublicManifestMembers": 10,
+      "mismatches": 0,
+      "cleanFrozenBranch": true,
+      "newFiles": 8,
+      "executableChanges": 0
+    }
+  },
+  "accepted": "Disabled external preparation only. Source/claim/physical layout and exact stage grants remain prerequisites.",
+  "B56": "Current native handoff is incomplete and under independent Product/Design and Proof review; these controls do not accept it.",
+  "executionAuthorized": false,
+  "newCandidateBuilt": false,
+  "qualified": false,
+  "rawPublished": false
+}

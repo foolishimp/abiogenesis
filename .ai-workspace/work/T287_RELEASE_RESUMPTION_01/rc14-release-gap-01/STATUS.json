@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_NATIVE_AUTHOR_RUNNING_B57_ACCEPTED_SUCCESSOR_CONTROLS_PREPARING",
+  "status": "RC14_B56_NATIVE_HANDOFF_INCOMPLETE_UNDER_REVIEW_SUCCESSOR_CONTROLS_ACCEPTED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -719,7 +719,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T20:08:08.659662+00:00",
+  "updatedUtc": "2026-11-15T20:21:42.826756+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1076,7 +1076,7 @@
     "executionAuthorized": false
   },
   "b56Repair": {
-    "state": "ACTUAL_NATIVE_AUTHOR_RUNNING",
+    "state": "NATIVE_CLOSED_SUCCESSFULLY_SOURCE_HANDOFF_INCOMPLETE_UNDER_REVIEW",
     "controlCommit": "7ae1bdd4f048d00f642485b9cd70da9909412e14",
     "activation": "integration-01/B56_NATIVE_ACTIVATION_01.json",
     "sourceTree": "43e8e4fb26a434ecc6b44436ec9c64da368e3bea",
@@ -1094,12 +1094,36 @@
     "actorStartedUtc": "2026-11-15T19:58:16.061Z",
     "actualProtocolModel": "claude-opus-5-5",
     "configuredEffort": "xhigh",
-    "methodAcquisition": "All five installed inputs/eight section reads observed before edits; full final audit remains pending."
+    "methodAcquisition": "All five installed inputs/eight section reads observed before edits; full final audit remains pending.",
+    "actorClosed": true,
+    "actualResourceClose": true,
+    "freshResultAndReplay": true,
+    "turns": 102,
+    "sdkWallMs": 930190,
+    "sourcePostimageSha256": "9b8b0a263a103c5a473df1cae22190960ccf18241b6ef49c0e4ebd538a9ddcb6",
+    "sourceDiffSha256": "ad087ba92f97f3a7764fd93cdf09f1e7eadcd28b97f902c1137566a23d37d6fa",
+    "sourceRows": 1426,
+    "sourceWritePaths": 7,
+    "nativeAuthorReportSha256": "6c40051bf0ef640ea45efe9b0863042c442371de6f69958de397d91593e9ed1a",
+    "auditSha256": "f84e882f1c95302c2493ba07fd74ce565295735d2b623864cc5814f583c676c2",
+    "methodDeviations": [
+      "B56-METHOD-01",
+      "B56-METHOD-02"
+    ],
+    "sourceAccepted": false,
+    "proofStarted": false,
+    "blockers": [
+      "Required installed split-owner test absent; no split candidate capture.",
+      "Other author-reported fixture/capture/caller gaps are under independent review; claimed extra write scope is not yet accepted.",
+      "Two Python source edits via Bash violated Task method restrictions; exact scoped writes retained, no retroactive compliant audit."
+    ]
   },
   "candidateSuccessorPreparation": {
-    "state": "EXTERNAL_DISABLED_CONTROLS_SELECTED",
+    "state": "ACCEPTED_DISABLED_CONTROLS_WAITING_FOR_B56_SOURCE_PROOF",
     "selection": "integration-01/CANDIDATE_SUCCESSOR_CONTROL_SELECTION_02.json",
     "executionAuthorized": false,
-    "sourceBinding": null
+    "sourceBinding": null,
+    "controlCommit": "b8f77c2cf9e75ff744000fa91e7f90dd0686c1a7",
+    "acceptance": "integration-01/CANDIDATE_SUCCESSOR_CONTROL_ACCEPTANCE_02.json"
   }
 }
