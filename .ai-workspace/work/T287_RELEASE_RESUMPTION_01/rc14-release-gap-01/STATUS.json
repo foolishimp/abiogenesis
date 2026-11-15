@@ -1,5 +1,5 @@
 {
-  "status": "RC14_NATIVE06_HOST_STARTED",
+  "status": "RC14_NATIVE06_PROOF_ENTRY_ACCEPTED_PENDING_LAUNCH",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -7,7 +7,7 @@
   },
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
-  "providerCalls": 7,
+  "providerCalls": 9,
   "triage": "Native05 five-file source checkpointed; two whole files13cases passed, third14pass/3fail has two stale P5 expectations plus recorder cascade. Native06 one-file controls preparing;13 other files unrun. Peer diagnostics closed18/18, offline S06 dependency closure passed; C2 Tool join source review satisfied with bounded network claim pending records. Qualification policy remains unanswered.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
@@ -28,7 +28,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-15T09:34:25.866288+00:00",
-  "nativeAuthorState": "Native06 host setup started; actual actor not yet observed. Original enclosing deadline13:12:34.310925Z. No proof grant yet.",
+  "nativeAuthorState": "Native06 completed82turns/883341ms; actual actor/resource close and fresh result/replay. Source review satisfied; disclosed omitted method references require truthful bounded proof entry. No provider/proof active.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -49,7 +49,7 @@
     "commit": "c11db33ddedae51c3edde1961b15f3f7280f003e",
     "rootAcceptance": "integration-01/B12_PREPARATION_ACCEPTANCE.json"
   },
-  "providerCallsMeaning": "Observed native author sessions B31,B12,initialB21,B21owner repair,qualification preparation,corrected fixture repair,native04. Not provider API requests; installed basic04 six native actor sessions are counted separately.",
+  "providerCallsMeaning": "Observed source-author sessions B31,B12,initialB21,B21owner repair,qualification preparation,corrected fixture repair,native04,native05,native06; not provider API requests. Installed basic04 six actors remain separate.",
   "b12Native": {
     "sourceHead": "df4d2cbca9e075c8c8017f07d37e7a02687f926a",
     "startedUtc": "2026-11-14T16:19:44.332Z",
@@ -683,7 +683,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T11:00:00.402102+00:00",
+  "updatedUtc": "2026-11-15T11:28:39.894192+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -722,7 +722,7 @@
     "closure": "integration-01/NATIVE05_PROOF_CLOSURE.json"
   },
   "regressionRepair06": {
-    "state": "HOST_SETUP_STARTED",
+    "state": "PROOF_ENTRY_ACCEPTED_PENDING_PUSH_AND_LAUNCH",
     "triage": "integration-01/NATIVE06_TWO_CASE_TRIAGE.json",
     "executionBound": true,
     "sourceHead": "512f936499b4e7264ddcf953e962c1374136504c",
@@ -735,7 +735,14 @@
     "originalDeadlineUtc": "2026-11-15T13:12:34.310925+00:00",
     "startRecord": "integration-01/NATIVE06_START.json",
     "model": "claude-opus-5-5",
-    "effort": "xhigh"
+    "effort": "xhigh",
+    "sourceReview": "integration-01/NATIVE06_SOURCE_REVIEW.json",
+    "methodDisposition": "integration-01/NATIVE06_METHOD_DISPOSITION.json",
+    "nativeTurns": 82,
+    "nativeMs": 883341,
+    "actualCloseAndFreshReplay": true,
+    "proofStarted": false,
+    "proofEntry": "integration-01/NATIVE06_PROOF_REENTRY_ACCEPTANCE.json"
   },
   "peerFinal228": {
     "record": "integration-01/PEER_FINAL_228_RECONCILIATION.json",

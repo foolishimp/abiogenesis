@@ -1,0 +1,35 @@
+{
+  "id": "RC14-NATIVE06-SOURCE-REVIEW-01",
+  "recordedUtc": "2026-11-15T11:25:54.719576+00:00",
+  "disposition": "accepted_for_bounded_proof",
+  "productFrame": "Fixed5.0 GOAL035/T287/P5 retirement; one derived test repair. ABG admission/calculus, F_H authority and qualification remain unchanged.",
+  "reviewer": "/root/rc14_release_proof distinct from actual Claude source author",
+  "sourceHead": "512f936499b4e7264ddcf953e962c1374136504c",
+  "testPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+  "testBytes": 133997,
+  "testSha256": "86eaf470644456bc3fc1d325ac5589b406b296bedebffcab965bfe20066f19fb",
+  "sourceDiffSha256": "76e30382cb6054c7bf301a235692ce994fefbec81529064f541cebc9b362e589",
+  "sourcePostimageSha256": "2a20f8fe556d6e6f143639c6e67cb3610313eda757555c7af03c076b05de62d8",
+  "reviewedRelations": [
+    "Case3 requires retired-index absence, complete current generic buckets, orphan/mixed envelope keys and nonpublic exclusion",
+    "Case7 F_H-only prefix folds and produces exact pairing refusal; retired prefixes use actual same-prefix calculus and precise lifecycle TypeError, outer ArtifactTruth refusal and independent sorted F_H set",
+    "Both actual installed histories, warm/copied/cold equality, historical baselines, unrelated growth, mixed-arm byte/prefix conservation remain",
+    "Both complete candidate writes awaited through existing exclusive writer before new behavioral assertions; setup prerequisites remain distinct",
+    "Other11 top-level cases/imports/strict final recorder unchanged;13 file/71 overall title declaration and mappings conserved"
+  ],
+  "findings": [],
+  "methodReacquisition": "Reviewer independently read necessary installed method references and verified selected STDO3.0.4; no retrospective author compliance claim.",
+  "rootReacquisition": {
+    "sourceRowsRehashed": 1429,
+    "closurePinsRehashed": 6,
+    "hostAndActorGroupsAbsent": [
+      26979,
+      30241
+    ],
+    "actualCompletedFreshResultAndReplay": true
+  },
+  "proofExecuted": false,
+  "qualification": false,
+  "remaining": "Actual candidate-file retention and all14 new whole-file assertions; retained001/002 equivalence through original06 controls; proof entry must retain exact disclosed method residual.",
+  "scope": "Bounded technical source readiness only; no method-compliance or qualification claim."
+}

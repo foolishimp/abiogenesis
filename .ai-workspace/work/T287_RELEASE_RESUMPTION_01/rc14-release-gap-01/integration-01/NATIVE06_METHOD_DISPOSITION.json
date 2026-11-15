@@ -1,0 +1,33 @@
+{
+  "id": "RC14-NATIVE06-METHOD-DISPOSITION-01",
+  "recordedUtc": "2026-11-15T11:25:54.719576+00:00",
+  "auditObservationSha256": "e95642c41b6c8b2826312f03139dc00ac1224c7c8e699c8fcf3fc2538fe14a00",
+  "authorReportSha256": "7bb527c148dd554e0c9a995409099237e315867bcbd270e0ab7ddfc9e8242b02",
+  "sourceDiffSha256": "76e30382cb6054c7bf301a235692ce994fefbec81529064f541cebc9b362e589",
+  "launchSha256": "7ce099d1b5a960bac6fb262bf0390d30b826951858f4c8acaf8672458d59b915",
+  "observed": {
+    "tools": 81,
+    "Read": 49,
+    "Grep": 23,
+    "Bash": 4,
+    "Edit": 4,
+    "StructuredOutput": 1,
+    "firstInstalledSkillReadStreamLine": 22,
+    "successfulResultStreamLine": 38,
+    "firstEditStreamLine": 3471,
+    "all13ReadFirstBeforeEdit": true,
+    "sourceAndCommandScopeSatisfied": true
+  },
+  "methodReferencesOmitted": [
+    "COORDINATED_HANDOFF.md#receive",
+    "PRODUCT_BASIS.md",
+    "ACTIVATION.md"
+  ],
+  "authorMethodCompliance": "Not established; explicit noncompliance retained. The root instruction to use installed methodology is not erased by the narrower successful readFirst checks.",
+  "readOnlyInspectionError": "wc glob included Operator-created ignored __pycache__ directory and exited1 before edits. All other text/hash/node--check commands were permitted; no Product/test/build/import/provider/Git execution by author. Preserve the failure, not a behavioral proof result.",
+  "classification": "Process/reference acquisition failure; no changed Product meaning or out-of-scope source effect. Review independently reacquired omitted owners and judged exact source.",
+  "rootDisposition": "Admit only bounded technical proof of the reviewed exact snapshot through a truthful separate entry gate. Do not fabricate deviations:[], claim method compliance, alter prior failure records, waive Product law, extend clocks or grant qualification.",
+  "reentry": "Exact Root authority must bind disclosed residual audit, this disposition, independent source review and unchanged native06 guards. Actual proof stays held until that entry is reviewed/checkpointed/pushed.",
+  "sourceReview": "NATIVE06_SOURCE_REVIEW.json",
+  "qualification": false
+}

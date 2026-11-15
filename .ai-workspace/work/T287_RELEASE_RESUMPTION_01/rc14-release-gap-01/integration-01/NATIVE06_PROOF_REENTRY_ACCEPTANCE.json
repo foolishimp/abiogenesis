@@ -1,0 +1,21 @@
+{
+  "id": "RC14-NATIVE06-PROOF-REENTRY-ACCEPTANCE-01",
+  "recordedUtc": "2026-11-15T11:28:39.894192+00:00",
+  "subject": "2415ed1698db112a561b5c3798922e98299f6cde",
+  "tree": "79e7c91adc30ccbacc7d2b84aa347e4bc81e349f",
+  "manifestSha256": "a8693b56c508d5989cc491caf1410d1fc93a27efd37b5073ba9d091141a0fd21",
+  "runnerSha256": "175bbd6b1235f3467606ff74d07ff7f87a722cd2c1d19a5567f5153038365f96",
+  "returnSha256": "2fa490cca0488e3727fce4292b80969b05aa36e06b292ad411162ea2b911778a",
+  "auditSha256": "46c71aea7368514965aeb8af9d30145c38b5cf65bf17a5dcbba9f35a01fbbf5e",
+  "writer": "/root/b29_vm_triage",
+  "reviewer": "Root independent control review; source review independently closed by /root/rc14_release_proof",
+  "controlReview": "All manifest members and exact unified delta independently verified. Nine original helper ASTs identical. Original typed completion, source/build/dependency/input/custody/topology, retained001/002,14 fresh files,71 cases, candidate capture, deadline and cleanup checks unchanged. Only audit admission/HERE/additional Root authority and entry receipt differ.",
+  "methodDisposition": "NATIVE06_METHOD_DISPOSITION.json",
+  "sourceReview": "NATIVE06_SOURCE_REVIEW.json",
+  "decision": "Admit this exact entry for one bounded technical proof after push/direct parity and actual Root authority. Preserve all three historical noncompliance rows and wc inspection error; no fabricated empty deviations or qualification.",
+  "originalHostDeadlineUtc": "2026-11-15T13:12:34.310925+00:00",
+  "proofMaxMs": 5400000,
+  "retry": false,
+  "executed": false,
+  "qualification": false
+}
