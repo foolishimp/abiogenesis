@@ -1,0 +1,180 @@
+{
+  "id": "RC14-B56-RECOVERED-PROOF-OPERATOR-RETURN-001",
+  "operator": "/root/rc14_release_proof",
+  "role": "Separate proof execution/evidence Writer",
+  "closedUtc": "2026-11-15T23:47:37.654325+00:00",
+  "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+  "sourceRoot": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04",
+  "proofSubject": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-04",
+  "proofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01",
+  "controls": {
+    "commit": "39117a22f127dff3515f2bba6e57507e1fa3135b",
+    "manifest": {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-01/CONTROL_MANIFEST.json",
+      "bytes": 3609,
+      "sha256": "51236392bdaeb0f064cb11db8f19c9b227b2fb079358bf2adb47d5bca498ed7c"
+    },
+    "nativeControlsRemainOriginal": true,
+    "nativeMembers": 35,
+    "proofMembers": 21
+  },
+  "authority": {
+    "activation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_RECOVERED_PROOF_ACTIVATION_01.json",
+      "bytes": 7629,
+      "sha256": "0853d29c3893a874d8cb5bea9afd64b9d6a094a7f13b56a749a629c41be03283"
+    },
+    "preflightDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_PROOF_PREFLIGHT_DISPOSITION_01.json",
+      "bytes": 2827,
+      "sha256": "de991b71144e7c5362f44f4befa29bb25a1dfe946955c5f180f18e8bc340f456"
+    },
+    "pushedCheckpoint": "6872a113efa8fa431334b3b4aa53c63ba86dcdae"
+  },
+  "execution": {
+    "proofLaunch": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_LAUNCH_01.json",
+      "bytes": 2345,
+      "sha256": "58476bfb047033de9afb21de716c3f043c272f045b94106c9ced8ac68772438d"
+    },
+    "start": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/START.json",
+      "bytes": 522,
+      "sha256": "57f067f37bc40d5f7b36df67b788ad215bc93e4bf0dac697792e71764df5f507"
+    },
+    "startedUtc": "2026-11-15T23:45:36.678788+00:00",
+    "proofDeadlineUtc": "2026-11-16T01:15:36.678788+00:00",
+    "executionStopUtc": "2026-11-16T01:12:36.678788+00:00",
+    "originalEnclosingDeadlineUtc": "2026-11-16T01:47:31.946547+00:00",
+    "completedUtc": "2026-11-15T23:46:06.122384+00:00",
+    "expired": false,
+    "elapsedMs": 29444,
+    "driverElapsedMs": 29867,
+    "actualProofInvocations": 1,
+    "actualBuilds": 1,
+    "testSelectionsAttempted": 0,
+    "providerCalls": 0,
+    "automaticRetry": false,
+    "clockReset": false
+  },
+  "outcome": {
+    "status": "stopped_first_failure",
+    "physicalTopology": {
+      "exitCode": 0,
+      "elapsedMs": 112
+    },
+    "freshBuild": {
+      "exitCode": 0,
+      "elapsedMs": 25188
+    },
+    "firstFailure": {
+      "name": "AssertionError",
+      "message": "build changed non-generated source"
+    },
+    "firstFailureReceipt": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/FIRST_FAILURE.json",
+      "bytes": 82,
+      "sha256": "53235de0e131dfed883a6922e30e55c5d5426e04ffadf292f1637f1785d88fd4"
+    },
+    "actualProofReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/RETURN.json",
+      "bytes": 2950,
+      "sha256": "4118a6aaa8223938da199d6c196ea394da8b82f26dd26e130ab5361c065e5d9f"
+    },
+    "driverReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_DRIVER_01/RETURN.json",
+      "bytes": 459,
+      "sha256": "fc155b38ab041edc7211b24094a03341fff573237c7fdcd52166d98795fa27be"
+    },
+    "buildMirrorObservation": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/BUILD_MIRROR_DIFFERENCES.json",
+      "bytes": 3854,
+      "sha256": "546f2ffa4e281e577c1286b38be8ab10cc7ce5754b49f2aecbef9a584230a1e2"
+    },
+    "mirrorChangedRows": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "before": {
+          "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+          "bytes": 150703,
+          "sha256": "81b3acbaefed2d191c53ab68c94ae64ba8f6c99ed450c4b7d33707dde8237a30",
+          "executable": false
+        },
+        "after": {
+          "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+          "bytes": 150703,
+          "sha256": "926eaeaa2fb5cf60f635d8478e0b96868b3db61346836d99b91a8391216608a2",
+          "executable": false
+        }
+      }
+    ],
+    "classification": "Build completed; post-build mirror conservation refused advancement. Actual one-row difference retained without an allowlist/source repair or causal Product disposition."
+  },
+  "unexecuted": {
+    "testCommands": 6,
+    "testFiles": 5,
+    "topLevelObligations": 43,
+    "semanticPositivePartition": "1+9",
+    "candidateEvidenceLeaves": 10,
+    "proofPassing": false,
+    "candidateRebuild": false,
+    "installedWitnesses": false,
+    "qualification": false
+  },
+  "preservedMethodStanding": {
+    "nativeAuthorshipCompliant": false,
+    "methodResiduals": [
+      "M04-01",
+      "M04-02",
+      "M04-03"
+    ],
+    "sourceStanding": "Independent exact source recovery only. No retrospective native acquisition compliance."
+  },
+  "sourceOrControlsRepaired": false,
+  "mainChanged": false,
+  "pushed": false,
+  "rawPublished": false,
+  "returnTo": "Root for independent first-failure integration/design/proof triage. No retry or downstream execution selected.",
+  "externalOperatorReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/OPERATOR_PROOF_RETURN_01.json",
+    "bytes": 15000,
+    "sha256": "17a9bba6e04bc6cf16e8fa6b7acbb642670e119bfb3d90b81c8597477b7f6875"
+  },
+  "preflight": {
+    "failedFirstAcquisition": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_PREFLIGHT_FAILURE_01.json",
+      "bytes": 2466,
+      "sha256": "be21ce27a288623432d5c441499af513bb09cd77f1613a8dbdad04a59d2d3d0d"
+    },
+    "completedAcquisition": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_PREFLIGHT_01.json",
+      "bytes": 1769,
+      "sha256": "8fb891b7b3c2583671b958a6169f27e33d4eb62f443077de91db6834841af00f"
+    },
+    "disposition": "Only inline native196-row predicate corrected to accepted is_file and exact digest; strict source/control/evidence checks unchanged. Zero actual proof calls before disposition."
+  },
+  "custody": {
+    "passedChecks": 10,
+    "totalChecks": 11,
+    "failedCheck": "non_generated_mirror_source",
+    "sourceRows": 1572,
+    "sourceEntryEqualsExit": true,
+    "originalSourceHeadIndexAndSetupConserved": true,
+    "groupsAbsent": [
+      46403,
+      46414,
+      46442
+    ],
+    "sourceEntry": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/SOURCE_ENTRY.json",
+      "bytes": 397116,
+      "sha256": "6303ce99fba4580a035fc65713274c4db7c593d290650a897dc00d31ed19b8ec"
+    },
+    "sourceExit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/SOURCE_EXIT.json",
+      "bytes": 397116,
+      "sha256": "6303ce99fba4580a035fc65713274c4db7c593d290650a897dc00d31ed19b8ec"
+    },
+    "fullChecksAndRawCapturePins": "Exact external Operator Return above. Original controls/inputs/native files/fixtures/dependencies conserved; only observed mirror row differs."
+  }
+}
