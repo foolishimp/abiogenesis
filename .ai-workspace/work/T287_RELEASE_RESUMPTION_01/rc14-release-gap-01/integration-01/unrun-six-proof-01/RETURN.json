@@ -1,0 +1,52 @@
+{
+  "status": "prepared_execution_disabled",
+  "preparationBase": "5d6fb24e051e0d84595d28985faef5ff90df1610",
+  "sourceCommit": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+  "sourceRows": 1428,
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 1152,
+    "sha256": "8c2f3f40b5620e02484f7412a65fff7334434e8689e2a879a0ff2c5cc48aa915"
+  },
+  "runner": {
+    "path": "run.py",
+    "bytes": 15432,
+    "sha256": "4bf7f01af064485f3e55344a7d071d33e956667df24699b8dec2807b3de43f89"
+  },
+  "sourceRoute": "Original07 checkout remains readonly at committed99; exact frozen1428 rows and b47 historical setup custody reverified separately. Fresh copied proof subject and output roots.",
+  "reuse": "Original accepted07 command, topology, population, dependency and22 final input-conservation functions imported from pinned original controls; no new native gate.",
+  "population": {
+    "originalOrdinals": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "wholeFiles": 6,
+    "namedTopLevelCases": 26,
+    "optionalHistoricalGateCount": 1,
+    "previouslyUnrun": true,
+    "excluded": 10
+  },
+  "limits": {
+    "enclosingMs": 3600000,
+    "perFileMs": 1800000,
+    "cleanupReserveMs": 15000,
+    "outputBytesPerCommand": 33554432,
+    "firstFailureStop": true,
+    "retry": false
+  },
+  "staticChecks": "STATIC_CHECKS.json; successful Python AST/JSON/source and retained hash checks; no execution",
+  "unresolved": [
+    "Independent Root control review",
+    "One-shot Operator execution grant, actual binding/manifest digest and fresh deadline",
+    "Actual proof outcomes; future retention requires actual native08 one-test diff and causal input conservation"
+  ],
+  "qualified": false,
+  "providerCalls": 0,
+  "testsRun": 0,
+  "builds": 0,
+  "rawPublished": false
+}
