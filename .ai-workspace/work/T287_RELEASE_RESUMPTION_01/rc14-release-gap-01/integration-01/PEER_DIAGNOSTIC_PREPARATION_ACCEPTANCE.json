@@ -1,0 +1,16 @@
+{
+  "recordedUtc": "2026-11-15T09:17:51.106264+00:00",
+  "subject": "b53c0182b7064d4f2694e68a845642d888adb999",
+  "manifestSha256": "7c8b8d10082e64b871ce6ff92ebb1d5a26ea7a3149a93d1e2914a51f09c1821e",
+  "returnSha256": "31ceebd507b20d6c6641d9e8ca0c0c5c6f5aedea4a9e411804a5e0c6851f6a39",
+  "reviewer": "/root/rc14_release_proof",
+  "disposition": "accepted_preparation",
+  "closures": [
+    "Raw archive disjoint from worksite",
+    "subject/scratch strict child destinations",
+    "Both original deadlines checked after conservation before complete/exit0"
+  ],
+  "conserved": "All seven sources/case+child limits, sidecar, observer, dependencies and build identities",
+  "executionAuthorized": false,
+  "limits": "Peer campaign now ended08:42:26Z; exact repeated/outcome reconciliation pending. No broad or diagnostic execution from this record."
+}

@@ -1,0 +1,23 @@
+{
+  "id": "RC14-NATIVE05-CONTROL-ACCEPTANCE",
+  "recordedUtc": "2026-11-15T09:17:51.106264+00:00",
+  "productFrame": "Fixed 5.0 T287 RC14; derived fixture/proof tools preserve ABG admission, typed Result and replay authority. RC13 is immutable builder; preparation is not execution or qualification.",
+  "subject": "def9a97ed3ab9d15d69d1221ee0a84160d87d773",
+  "tree": "e29abbe45bd1ac4a2615fbcb2acc251a3fe3b3a5",
+  "manifestSha256": "8286931b320e655b39159b569c60025b58a9e54288f6a4a7565949ff6b103a7a",
+  "returnSha256": "52d8b7ffcc8460d63f2d95d0c41d0af98558f6a923a68a4c4243835fbdc12641",
+  "reviewer": "Root distinct from control Writer /root/b29_vm_triage",
+  "reacquired": [
+    "All22 manifest rows",
+    "Diff of host/operator/proof/freeze controls from native04",
+    "Actual canonical readback source and previous successful native observation shape",
+    "Five write paths;13 bound partial inputs/11 immutable;17 reuse exceptions",
+    "16 whole files/71 named cases/three prior accepted title transitions/two optional historical gates",
+    "Strict-child proof layout preflight and static installed-owner type evidence"
+  ],
+  "disposition": "accepted_preparation",
+  "completionGate": "Actual completed disposition, owner typed/task-matching terminal, actual close, fresh result and closed replay; outer result or host0 alone insufficient",
+  "limits": "45min native/360turns/5min inactivity; prospective3h enclosing; proof90min clipped to enclosing; no retries",
+  "executionAuthorized": false,
+  "qualification": false
+}

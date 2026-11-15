@@ -1,5 +1,5 @@
 {
-  "status": "RC14_INSTALLED_BASIC_ACCEPTED_NATIVE_FIXTURE_REPAIR_RUNNING",
+  "status": "RC14_PARTIAL_FIXTURES_SAVED_FRESH_REENTRY_PREPARATION_ACCEPTED",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -8,7 +8,7 @@
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
   "providerCalls": 7,
-  "triage": "B31/B12/B21/B32 technical changes retain exact bounded proof. First installed basic composition accepted after independent evidence review. RC13-native04 authors16 fixture files; additional capture/deadline findings have bounded external diagnostic preparation. Amendment/S06 and exact RC14 qualification remain open.",
+  "triage": "Installed basic04 composition accepted; actual6native actor sessions and2real app tests, fresh replay matching. Native04 partial fixture source conserved after max-turn failure; native05 completes3fixtures+2capture repairs. S06/diagnostic controls accepted as preparation; final candidate/qualification open.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
   "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T08:33:10.535713+00:00",
-  "nativeAuthorState": "Actual RC13-native04 fixture author running since2026-11-15T08:13:45.036Z; Opus5.5 actual init, xhigh configured. Whole-file proof and source review remain pending.",
+  "recordedUtc": "2026-11-15T09:17:51.106264+00:00",
+  "nativeAuthorState": "Native04 failed at241turns after13 fixture/helper changes; exact partial commit85a23d71 preserved. No successful author return/proof. Native05 controls accepted for5-file fresh re-entry; exact pushed launch binding pending.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -559,7 +559,7 @@
     "nextCandidate": "Bind final prospectiveRC14-stamped candidate after repaired source freeze; not current RC13-labelled development payload."
   },
   "regressionRepair04": {
-    "state": "ACTUAL_NATIVE_AUTHOR_RUNNING",
+    "state": "CLOSED_NATIVE_MAX_TURNS_PARTIAL_SOURCE_SAVED",
     "controlSubject": "fd7ecfa64f70cff6228b2a21e7e82335a18b1d6f",
     "sourceHead": "06084febb15a78eda3feab657bd012d0e84217f1",
     "launch": "regression-repair-execution-04/LAUNCH.json",
@@ -572,7 +572,15 @@
     "prior03Closed": true,
     "actorStartedUtc": "2026-11-15T08:13:45.036Z",
     "originalEnclosingDeadlineUtc": "2026-11-15T11:06:00.637434+00:00",
-    "nativeProofExecuted": false
+    "nativeProofExecuted": false,
+    "nativeDisposition": "runtime_failed",
+    "nativeTerminalResult": null,
+    "nativeTurns": 241,
+    "partialSourceCommit": "85a23d71cbc7298d1ec438fa06ed1c46754cc0c9",
+    "partialSourcePaths": 13,
+    "proofExecuted": false,
+    "triage": "integration-01/NATIVE04_PARTIAL_SOURCE_TRIAGE.json",
+    "originalClockClosed": true
   },
   "rc14CutPreparation": {
     "state": "ACCEPTED_PREPARATION_ONLY",
@@ -582,7 +590,7 @@
     "qualificationOrder": "C0 compiles; C1 binds complete inventory; prospectiveRC14 bytes fixed before qualification; formal publication copies qualified archive unchanged"
   },
   "s06Preparation": {
-    "state": "EXTERNAL_CONTROL_REPAIR_ACTIVE",
+    "state": "ACCEPTED_PREPARATION_TOOLCHAIN_AND_CANDIDATE_PENDING",
     "rejectedSubject": "6af06d60ea84ba15f1222479070b5950ca887267",
     "writer": "/root/b29_vm_triage",
     "reviewer": "/root/rc14_release_proof",
@@ -595,7 +603,9 @@
     ],
     "ProductChangeSelected": false,
     "executionBound": false,
-    "sourceScope": "integration-01/s06-preparation-01"
+    "sourceScope": "integration-01/s06-preparation-01",
+    "subject": "60cd47319b360048f2176f97d0d2cb8703df1397",
+    "acceptance": "integration-01/S06_PREPARATION_ACCEPTANCE_02.json"
   },
   "peerLatencyIntake": {
     "state": "CLOSED_TRIAGE_DIAGNOSTIC_PREPARATION_ONLY",
@@ -611,5 +621,26 @@
     "originalCaseAndChildDeadlinesChanged": false,
     "executionBound": false,
     "native04ScopeExpanded": false
+  },
+  "regressionRepair05": {
+    "state": "ACCEPTED_PREPARATION_PENDING_PUSH_AND_LAUNCH",
+    "controls": "def9a97ed3ab9d15d69d1221ee0a84160d87d773",
+    "acceptance": "integration-01/NATIVE05_CONTROL_ACCEPTANCE.json",
+    "writePaths": 5,
+    "immutablePriorPaths": 11,
+    "proofWholeFiles": 16,
+    "namedCases": 71,
+    "nativeAbsoluteMs": 2700000,
+    "nativeMaxTurns": 360,
+    "hostMs": 10800000,
+    "proofMs": 5400000,
+    "executionBound": false
+  },
+  "peerLatencyDiagnostic": {
+    "state": "ACCEPTED_PREPARATION_PEER_RECONCILIATION_PENDING",
+    "subject": "b53c0182b7064d4f2694e68a845642d888adb999",
+    "acceptance": "integration-01/PEER_DIAGNOSTIC_PREPARATION_ACCEPTANCE.json",
+    "wholeFiles": 7,
+    "executionBound": false
   }
 }

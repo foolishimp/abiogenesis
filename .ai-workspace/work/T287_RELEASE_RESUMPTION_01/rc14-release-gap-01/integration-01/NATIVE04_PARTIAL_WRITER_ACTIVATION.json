@@ -1,0 +1,26 @@
+{
+  "id": "RC14-NATIVE04-PARTIAL-SOURCE-CUSTODY-01",
+  "role": "Separate Root custody/records Writer; no source implementation",
+  "basis": "Owner finishRC14 and source-main-push instruction; STDO3.0.4; closed native04 failure and independent source review",
+  "subject": {
+    "worktree": "/private/tmp/abg-rc14-regression-repair-20261115-04",
+    "head": "06084febb15a78eda3feab657bd012d0e84217f1",
+    "nativeDiffSha256": "83cb2bf4ce1386a3a4a1fb2f6cd19ad9386a0168ba6e79245aa4afefe83fd9e0",
+    "canonicalPostimageSha256": "be6de197391c5327945bf1b333702f3c13e4f063faddbf919e4fbdea75190245",
+    "changedPaths": 13
+  },
+  "permittedEffects": [
+    "Retain the exact audited postimage and actual failure identities in the existing external raw root",
+    "Commit exactly the13 native-authored fixture/test paths, with actual native authorship and explicit incomplete/unproved status; do not stage setup-owned workspace manifest",
+    "Ordinarily merge this exact partial-source checkpoint and accepted S06 control60cd47319 into main",
+    "Write compact failure, title-map, preparation and successor-selection records under this integration carrier; update STATUS.json and T293",
+    "Commit/push only authored source/control/compact records to refs/heads/main; no raw logs, archives or LFS uploads"
+  ],
+  "selection": {
+    "native04": "Failed at241turns; no terminal Result and no proof credit; original clock remains closed",
+    "native05": "Fresh five-file native re-entry: governance current-use, steel recorded/strict distinction, native-runtime current positive, ST1 and P3 full pre-assert candidate capture",
+    "bounds": "45minutes/360turns/five-minute inactivity; fresh3h enclosing and90minute proof clipped to original new enclosing deadline",
+    "conservation": "Other11 partial paths immutable, all16 whole test files and71 declared top-level cases retained, only three supported retired-title transitions"
+  },
+  "limits": "This preserves unproved source, not successful native04 completion, technical acceptance, qualification or release. Exact native05 controls/source/launch and push remain prerequisites. Root must not edit implementation bytes."
+}

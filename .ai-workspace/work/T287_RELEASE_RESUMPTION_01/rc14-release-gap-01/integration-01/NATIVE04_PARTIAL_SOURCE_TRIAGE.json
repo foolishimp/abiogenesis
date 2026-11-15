@@ -1,0 +1,163 @@
+{
+  "recordedUtc": "2026-11-15T09:06:03.759522+00:00",
+  "disposition": "incomplete_native_pass_scope_audited_not_author_completion",
+  "failure": {
+    "providerSubtype": "error_max_turns",
+    "turns": 241,
+    "nativeDurationMs": 1867230,
+    "actualRunDisposition": "runtime_failed",
+    "terminalResult": null,
+    "freshRunResult": "refusal",
+    "freshReplay": "failed",
+    "hostExit": 0,
+    "actualResourceClose": true,
+    "hostGroupAbsent": true,
+    "proofExecuted": false
+  },
+  "sourceHead": "06084febb15a78eda3feab657bd012d0e84217f1",
+  "sourceDiffSha256": "83cb2bf4ce1386a3a4a1fb2f6cd19ad9386a0168ba6e79245aa4afefe83fd9e0",
+  "canonicalPostimageSha256": "be6de197391c5327945bf1b333702f3c13e4f063faddbf919e4fbdea75190245",
+  "sourceRows": 1424,
+  "nativeChangedRows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+      "bytes": 132023,
+      "sha256": "0a18f44bf62c05fd116c8ce991bee9094979e14f5ca93312f3604d6a93bf1cc4",
+      "executable": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+      "bytes": 12559,
+      "sha256": "eb64595dae0c092d5983fccefcf70b9157606d7b142a985b8a5a4cb8ec08cad8",
+      "executable": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "bytes": 131579,
+      "sha256": "9ecfc631462746f5564af4ddb6bdf2a19b34d33f11d2dff7cd4e6ed906d183bb",
+      "executable": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "bytes": 30644,
+      "sha256": "e3e13250283c3d9970c3bff6295ebd913682f3d6d32ad8ff67c3f1fadbace1e7",
+      "executable": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-readable-stops-foldback.test.mjs",
+      "bytes": 18243,
+      "sha256": "9c95ea6be052b65e698f5ab5ec140cd0c089516412ed03fa4d9baa8b30c3f14e",
+      "executable": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "bytes": 65042,
+      "sha256": "d9cec1695f0704ef296a44f8d4cb587f17a7b9d0c9acfdca26822c472df5db85",
+      "executable": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+      "bytes": 48128,
+      "sha256": "9f15e18104db0b0cd3b5ad7693ba5ecc371551f89e67e9f085dc7c8e91b16b0e",
+      "executable": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "bytes": 122252,
+      "sha256": "99d923d17a43e2c68d6b197b2d2e0d468f26a554a2b9bbaefaf9d2e3e7de501f",
+      "executable": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "bytes": 85392,
+      "sha256": "24dc7c8fa3a92d87555147b53d87e1960d24d2d16ae1085729f819beccd464b6",
+      "executable": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p3-continuation-refused.test.mjs",
+      "bytes": 10010,
+      "sha256": "4c0fa3ee01d2481062e5b3ccc387f8d818e14b95f382bca4ab691020f707a6e8",
+      "executable": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p6-language-retired.test.mjs",
+      "bytes": 7973,
+      "sha256": "c8bd3d8887efe0e87ec6fbb0314bf6daf779f0d5543ea726c9d3320fbc2fea65",
+      "executable": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td36r-admitted-binding-owner.test.mjs",
+      "bytes": 6639,
+      "sha256": "eb4a9eb78985cb788752181fbbf4e660fae4acfec4704fd91364996efdcd49e1",
+      "executable": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td36r-bind-door-strings.test.mjs",
+      "bytes": 10975,
+      "sha256": "932ef4218fcf85573e1d744bc94e3261492a942413f23b9be60d9ae269fda886",
+      "executable": false
+    }
+  ],
+  "setupOwnedChanges": [
+    {
+      "path": ".abiogenesis/workspace-manifest.json",
+      "bytes": 1924,
+      "sha256": "98c9a14c42e956e1de2a723134a3209cf9eb372569cba3cf170fa4024bd967a3",
+      "canonicalValueDigest": "sha256:d6b1a3909d3b0541c321ee678a286a2538df95a47b1bf1b4302ea3bb2f74d9e7",
+      "attribution": "existing imported-create setup owner; no native write grant",
+      "createInvocationRef": "invocation://abiogenesis/28bba0ec7eccc517fdde420f03b8a1edfa226f11f25dc577a7f86cd1d7462482",
+      "preDispatchSetupPhaseUtc": "2026-11-15T08:13:24.206Z",
+      "capturedUtc": "2026-11-15T08:13:24.358997+00:00",
+      "verified": true,
+      "custodyRecordSha256": "30906306ccfd6436519bf72d7378e18c182e46c679438c3b561d6f7d0c1f08b6",
+      "dispatchPhaseUtc": "2026-11-15T08:13:41.222Z",
+      "actorStartedUtc": "2026-11-15T08:13:45.036Z",
+      "actorStartedEventId": "event://abiogenesis/c95de3d32fb18771e01651f457e1aa0f5311a241a943e87584d4504df5b45be2",
+      "actorStartedRawLineSha256": "2e2b50b0ae48a55061c4c2e113397ab119e04d62d009ec9aea59ac6be8a9047e"
+    }
+  ],
+  "allOtherSourceBytesAndModesConserved": true,
+  "independentSourceReview": "13 partial paths support exact unproved donor preservation;71 static cases conserved; ST1 capture defect plus Root same-cone P3 capture finding remain",
+  "commandAudit": {
+    "Bash": 242,
+    "Edit": 12,
+    "Grep": 7,
+    "nodeCheckCommands": 10,
+    "distinctSyntaxCheckedFiles": 8,
+    "GitProviderBuildTestProductEvaluationObserved": false,
+    "methodDeviations": [
+      "Nine required authority/HOW sources size-counted rather than independently content-read",
+      "Ten Python replacement commands wrote inside W despite shell-read-only instruction"
+    ],
+    "completedAuthorReturn": false
+  },
+  "proofControlGaps": [
+    "Outer ownerOutput result does not establish inner terminal success; successor must check actual disposition and fresh outcomes",
+    "Proof writePaths equal worksite contradict strict-child observer contract; correct actual producer destinations before any proof"
+  ],
+  "successor": "Five-file native05 under separate exact controls/source/launch; other11partial paths immutable, all16 whole files required",
+  "qualification": false,
+  "rawEvidencePublished": false,
+  "failureEvidence": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/HOST_RETURN.json",
+      "bytes": 625,
+      "sha256": "7ab252d4eda66028b4015c1a454c5867390769ee9bdf77b3d82255a0f52e89ff"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/runtime/NATIVE_RETURN.json",
+      "bytes": 328051,
+      "sha256": "f74ac278a37af0760522d105b3c09f26899201b8e74b63ff1a4992dcb4211698"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/runtime/FINAL.json",
+      "bytes": 867,
+      "sha256": "fbfdb1590b9cc99cdf4652531adafbd89d8cfe68c21b178f466612ae26015214"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/runtime/FRESH_READBACKS.json",
+      "bytes": 748,
+      "sha256": "81f939d503505a56ddbd4a9cf4770726b589c6f96798819307124a5b74dd267f"
+    }
+  ]
+}

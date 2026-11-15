@@ -1,0 +1,20 @@
+{
+  "id": "RC14-S06-PREPARATION-ACCEPTANCE-02",
+  "recordedUtc": "2026-11-15T09:17:51.106264+00:00",
+  "subject": "60cd47319b360048f2176f97d0d2cb8703df1397",
+  "tree": "b5531914d70f90032960a780cab0fbf262a6b40f",
+  "manifestSha256": "cc48ceebad92f8d425912b81dea6ac37c49b396a92240bd2ae7e97c0ddb7780a",
+  "returnSha256": "9cbd18f4bed1233b74781519c5702d26f92726e19c0c1b9d3d5cb8906aec45d2",
+  "reviewer": "/root/rc14_release_proof",
+  "disposition": "accepted_preparation",
+  "closures": [
+    "Five original external input/physical/C2/oracle findings",
+    "D1 joins exact canonical evidence.executionResultRef/executionResultDigest, allowing legitimate parent forwarding"
+  ],
+  "limits": [
+    "Offline toolchain closure pending",
+    "Final prospectiveRC14 candidate binding and original finite grant pending",
+    "No actual S06 execution or qualification claim"
+  ],
+  "originalFailedPreflightsRetained": true
+}
