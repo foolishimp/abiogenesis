@@ -1,0 +1,160 @@
+{
+  "kind": "bounded_external_proof_admission_static_checks",
+  "recordedUtc": "2026-11-15T23:31:39.456953+00:00",
+  "elapsedMs": 889,
+  "scope": "External Python admission comparisons and readonly filesystem/Git custody only; no main(), process owner run, Product import, build, behavioral test, provider or proof. Negative cases are in-memory copies, never changed raw artifacts.",
+  "checks": [
+    {
+      "name": "exact Root recovery with unchanged noncompliant audit",
+      "passed": true
+    },
+    {
+      "name": "all1572 physical rows and original setup custody",
+      "passed": true
+    },
+    {
+      "name": "changed recovery decision",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "compliant-authorship relabel",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "removed method residual",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "changed native source HEAD",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "changed audit binding",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "changed frozen diff",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "changed recovery binding",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "changed launch native manifest",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "postimage wrong source coordinate",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "postimage wrong preimage binding",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "postimage index changed",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "postimage wrong setup attribution",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "postimage extra changed W",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "postimage changed row relation",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "unsupported frozen mode even with recomputed row digest",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "duplicate frozen path even with recomputed row digest",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "missing frozen row",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "extra frozen row",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "actual physical byte delta",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "actual executable delta",
+      "rejected": true,
+      "errorType": "AssertionError"
+    },
+    {
+      "name": "actual one-W source diff matches freeze",
+      "passed": true
+    },
+    {
+      "name": "14 inherited owners/input files byte equal",
+      "passed": true
+    },
+    {
+      "name": "unchanged function AST outside controls/main and3added admissions",
+      "passed": true
+    },
+    {
+      "name": "Python AST and JSON syntax",
+      "passed": true
+    },
+    {
+      "name": "execution disabled and original future proof roots absent",
+      "passed": true
+    },
+    {
+      "name": "entire finally AST unchanged",
+      "passed": true
+    },
+    {
+      "name": "owned-command nested run AST unchanged",
+      "passed": true
+    },
+    {
+      "name": "test selection loop and capture AST unchanged",
+      "passed": true
+    }
+  ],
+  "positiveRows": 1572,
+  "negativeCases": 20,
+  "recoveryDecisionSha256": "444c331c57494e6667d870ce6c71de1484c2c9c3fad50949251d093bc4564ac6",
+  "originalAuditSha256": "08afaaf3bc30693007b65b5734a606b3196400014569e35a60e4fafa552cb3e0",
+  "originalNativeControlManifestSha256": "7063325b879e1d6c12d3d7dcab2dff423a16cfe237b094722c0589a2cf15d452",
+  "sourcePostimageSha256": "d4226a0532c199bf732f3b613bec196b24fd0e427d1e0aa3a12dccdb573f1d1c",
+  "sourceDiffSha256": "da01b388dd22d51b9069eb845d6ad2428af71bc875dbc56144622ed67f51bdf1",
+  "originalNativeSourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+  "recoveredMainCommit": "33872a37b606aac942674f7c1d56608a176707df",
+  "methodCompliance": false,
+  "proofExecuted": false,
+  "finalControlManifestChecks": "Will run once manifest is frozen and be recorded in excluded PREPARATION_RETURN; no self-referential manifest hash."
+}

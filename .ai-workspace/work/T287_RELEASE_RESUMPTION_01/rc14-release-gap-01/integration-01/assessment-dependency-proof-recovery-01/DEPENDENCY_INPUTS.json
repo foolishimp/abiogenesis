@@ -1,0 +1,13 @@
+{
+  "kind": "operator_read_only_dependency_input",
+  "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+  "inventorySha256": "dc55a042e47b4119487c1ef1b1288b0de607a9687b6a60e4efbb0443f9584aff",
+  "filesAndLinks": 4576,
+  "bytes": 58290948,
+  "lockSha256": "d29f536ab176f4767ee8ed94cd90efcce3ac7ecb8f325d7375db865778991302",
+  "rawInventory": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/DEPENDENCY_PREIMAGE.json",
+  "use": "Read-only existing npm tree, checked at preparation and every actual proof boundary; isolated copy only. New compilation required; no install/network.",
+  "freshlyVerifiedUtc": "2026-11-15T20:41:53.773580+00:00",
+  "priorInventoryRecord": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/DEPENDENCY_PREIMAGE.json",
+  "verifiedUtc": "2026-11-15T21:33:51.321010+00:00"
+}

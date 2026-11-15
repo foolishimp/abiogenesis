@@ -1,0 +1,60 @@
+{
+  "nativeControlCommit": "e00aa6668e37f336464aed21079c87b91bb5cf6d",
+  "proofPreparationBase": "33872a37b606aac942674f7c1d56608a176707df",
+  "proofNativeSourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+  "changedExistingFunctions": [
+    "controls",
+    "main"
+  ],
+  "addedFunctions": [
+    "recovery_inputs",
+    "require_frozen_postimage",
+    "require_recovery"
+  ],
+  "unchangedExistingFunctions": [
+    "module",
+    "digest",
+    "bound_json",
+    "require_author_completion",
+    "source_inventory",
+    "pinned",
+    "tree",
+    "native_inputs",
+    "fixtures",
+    "checked_population"
+  ],
+  "byteEqualHelperFiles": [
+    "process-owner.py",
+    "dependency-inputs.py",
+    "setup-custody.py",
+    "physical-topology.py"
+  ],
+  "byteEqualInheritedFiles": [
+    "ACTIVATION.json",
+    "DEPENDENCY_INPUTS.json",
+    "FIXTURE_INPUTS.json",
+    "IMMUTABLE_RECOVERY.json",
+    "LAYOUT.json",
+    "NATIVE_INPUTS.json",
+    "ORIGINAL_CANDIDATE.json",
+    "PROOF_PLAN.json",
+    "SEMANTIC_JOB_POPULATION.json",
+    "TOOL_INPUTS.json",
+    "dependency-inputs.py",
+    "physical-topology.py",
+    "process-owner.py",
+    "setup-custody.py"
+  ],
+  "mainDelta": [
+    "Authenticate original native35 controls separately from successor proof controls.",
+    "Admit only exact Root recovery/audit/effects/residuals/freeze; no compliant audit fiction.",
+    "Adapt complete original frozen postimage fields to unchanged physical source_inventory output; reject unsupported modes/duplicates/missing/extra/changed rows and all metadata mismatches.",
+    "Bind diff through exact freeze/sourceDiff, not missing audit fields.",
+    "Add native/proof controls and exact recovery evidence inputs to unchanged physical observation."
+  ],
+  "buildPopulationClockAndFinallyUnchanged": true,
+  "recoveredMainFileMatchesFrozen": true,
+  "sourceImplementationChanged": false,
+  "proofExecuted": false,
+  "custodyImportCoordinate": "Existing module loader receives original authenticated native-control absolute setup-custody.py path, preserving its exact original HERE/ACTIVATION setup receipt coordinate; helper bytes and predicates unchanged."
+}
