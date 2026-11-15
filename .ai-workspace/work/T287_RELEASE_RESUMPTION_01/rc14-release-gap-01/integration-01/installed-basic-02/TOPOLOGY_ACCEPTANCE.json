@@ -1,0 +1,15 @@
+{
+  "id": "RC14-INSTALLED-BASIC-02-TOPOLOGY",
+  "role": "Root physical preflight Operator",
+  "frame": "Existing accepted bounded Darwin/ASCII layout observation; no global physical separation claim",
+  "observedUtc": "2026-11-15T07:19:18.788768+00:00",
+  "layoutSha256": "deb607b6761d47ceab2181c9df8ddd1bc34d9cfdd5b49a412fd7bd675cf46722",
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "observationSha256": "9c63652a13c3b4784f1e1b3531eeac1e9168fe3d54b69c7ecf37ce3d953752c5",
+  "processResultSha256": "e4e0588b6a27cb709648da0da23df268a6b0dc0e0019f658ca5c3704139aac7a",
+  "result": "separated",
+  "worksite": "/private/tmp/abg-rc14-installed-basic-20261115-02",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-02",
+  "evidenceRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-02-preflight",
+  "requiredAgain": "Runner repeats this planned layout after entry acquisition and exact admitted install/binding roots after setup and before dispatch."
+}

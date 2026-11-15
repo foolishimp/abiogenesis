@@ -1,5 +1,5 @@
 {
-  "status": "RC14_FINISH_ACTIVE_CONTROL_REPAIR_AND_REGRESSION_PREPARATION",
+  "status": "RC14_FINISH_ACTIVE_INSTALLED_BASIC02_READY",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -353,7 +353,18 @@
     },
     "nativeProviderStarted": false,
     "retry": false,
-    "next": "Read-only complete smoke/basic import-closure trace; evaluate separate exact binding to existing conserved compiled proof checkout. No Product/test edit, rebuild, copied alias, dropped proof or clock reset selected."
+    "next": "Read-only complete smoke/basic import-closure trace; evaluate separate exact binding to existing conserved compiled proof checkout. No Product/test edit, rebuild, copied alias, dropped proof or clock reset selected.",
+    "successor02": {
+      "state": "CONTROL_REVIEW_AND_PHYSICAL_PREFLIGHT_PASSED_READY_FOR_ONE_RUN",
+      "controlCommit": "e825092f3c0778553cf07a80abcac876da4ccc58",
+      "controlIntegration": "5ff5862bfe301157b9f5827efdda46a6b2ecb1e4",
+      "grant": "integration-01/installed-basic-02/ACTIVATION.json",
+      "bindingSha256": "c82e6e726c45938bdcf273a8b411d5aadc7cdc34fbada21b2287e619c9c0b8cd",
+      "deadlineUtc": "2026-11-15T08:49:18.790165+00:00",
+      "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-02",
+      "nativeProviderStarted": false,
+      "rule": "Only new exact02 run; failed01 and its expired clock stay closed. Actual launch after this authored checkpoint is pushed."
+    }
   },
   "peerReviewIntake": {
     "path": ".ai-workspace/comments/claude/20261114T194815Z_REVIEW_RC13_AND_RC14_RELEASE_GAP/README.md",

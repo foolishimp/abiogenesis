@@ -1,0 +1,51 @@
+{
+  "id": "RC14-INSTALLED-BASIC-02-ONE-RUN",
+  "role": "Separate Root installed-proof Operator, after independent control review",
+  "ownerInstruction": "i want to move on and finish RC14",
+  "basis": "stdo://releases/v3.0.4/ manifest102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "controlSubject": "e825092f3c0778553cf07a80abcac876da4ccc58",
+  "bindingSha256": "c82e6e726c45938bdcf273a8b411d5aadc7cdc34fbada21b2287e619c9c0b8cd",
+  "reviewSha256": "b2a074a7e0cb601a530f271ae6e90f85ec4950be5f5839ea2c2b581427ecb5eb",
+  "candidate": {
+    "sourceCommit": "7a2411defd9ef7c1968512703c3b4b1493114453",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/archives/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "archiveSha256": "sha256:9f9812e42c154511541762235f26180c0cf64c762f490ea57ae135a14c8e4225",
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/installed/node_modules/@abiogenesis/typescript-tenant",
+    "manifestSha256": "ace624f1747a2071adcd6035b21d88dc3c459eeddc809e7f3b85627dbae5929a",
+    "packageVersion": "5.0.0-rc.13"
+  },
+  "firstFailurePreserved": "rc14-installed-basic-20261115-01; expired old deadline is not reset",
+  "successorReason": "Closed B44 triage and two repaired external acquisition seams; independent static review satisfied; new exact one-shot subject and topology",
+  "startedSelectionUtc": "2026-11-15T07:19:18.790165+00:00",
+  "deadlineUtc": "2026-11-15T08:49:18.790165+00:00",
+  "limits": {
+    "campaignMs": 5400000,
+    "smokeMs": 600000,
+    "providerAbsoluteMs": 900000,
+    "providerInactivityMs": 300000,
+    "providerMaxTurns": 100,
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "recursionBound": 12,
+    "exitAuditReserveMs": 120000,
+    "ownedCleanupReserveSeconds": 15,
+    "captureBytes": 16777216
+  },
+  "effects": [
+    "One complete installed-language smoke, then one ordinary installed Public basic-cli Run through maintained owners",
+    "Fresh external raw/runtime/worksite roots from binding; seven declared basic outputs and ordinary testing write territory only",
+    "Actual close, held/fresh result and replay, independent application oracle, entry/exit input custody",
+    "Private selected provider credential only in native invocation scope"
+  ],
+  "stop": "First unexpected setup/admission/transport/integration failure or finite limit returns with available evidence; no automatic retry. Native typed failure/stop is retained and is not success.",
+  "exclusions": [
+    "No Product/test/source/builder-pin mutation",
+    "No amendment/S06 or release qualification credit",
+    "No raw Git/LFS upload, publication/tag or fabricated human acceptance"
+  ],
+  "entry": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "/private/tmp/abg-rc14-installed-successor-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-successor-02/run.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-basic-02/BINDING.json"
+  ]
+}
