@@ -1,0 +1,82 @@
+{
+  "kind": "rc14_external_cut_preparation_controls",
+  "source": "4c6ad5021e9151c3c1fedcd958ed84bbf3ee4ea1",
+  "executionAuthorized": false,
+  "files": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 1502,
+      "sha256": "93b59205c8f713db06874c8819eb34852fd2dd5536884d1be0d015abf46850eb"
+    },
+    {
+      "path": "BINDING.template.json",
+      "bytes": 1259,
+      "sha256": "e3a41dab6d955a099e03e04b44a3efa2a0db42822cbcdff5267d12f5e9010912"
+    },
+    {
+      "path": "DELIVERY_SEQUENCE.md",
+      "bytes": 5925,
+      "sha256": "e108cf160cd32f40b3a54c12e2f9c0e0b00816893f0d9028b05ea37b92ca5411"
+    },
+    {
+      "path": "METADATA_OWNERS.json",
+      "bytes": 1357,
+      "sha256": "9e714d682327e9aecdb953ed5fb9e1df1dabc775c3b765b35e7180ab781125c9"
+    },
+    {
+      "path": "RC14_RELEASE_CLAIM.draft.md",
+      "bytes": 4591,
+      "sha256": "739ba161548fde31c6f03ad99f397a24f47f2ddfb7ccd2288c1f70b37a7df1eb"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 1797,
+      "sha256": "625462312c92a77c8fe9a49e13d226ec3dfe28b77b193540fcd0478d9f4ec0e5"
+    },
+    {
+      "path": "TOOL_PROVENANCE.json",
+      "bytes": 1956,
+      "sha256": "5f3ebe113401618e534064621b8c31d65df909c2c78cea5e6fd3f624f8dc6cd6"
+    },
+    {
+      "path": "VERSION_CENSUS.json",
+      "bytes": 5861,
+      "sha256": "e7dd1d7cc04322922b10d720ed1ad0fddf878822b5094b58626f2308db8d0f81"
+    },
+    {
+      "path": "tools/cut-common.mjs",
+      "bytes": 10522,
+      "sha256": "42c29b20e613f7bfdc7a470b44093767b1b6eab6ea0cce03bf4c9595a866a645"
+    },
+    {
+      "path": "tools/freeze-candidate-inputs.mjs",
+      "bytes": 4141,
+      "sha256": "5aa91d843924fd4eb5b412530f15881f081d4f41d54a8f4c52d41b960d5eae77"
+    },
+    {
+      "path": "tools/install-candidate-rc14.mjs",
+      "bytes": 10905,
+      "sha256": "6028e74a4b8ce895358051096cea56fddc4bd29ba4d245261345db2d0a323b6e"
+    },
+    {
+      "path": "tools/installed-owner-smoke.mjs",
+      "bytes": 7990,
+      "sha256": "62eb30327c72d6551dd0fdc875a555651d33028f3eb37a35d82a128bb15e4a5b"
+    },
+    {
+      "path": "tools/prepare-candidate-rc14.mjs",
+      "bytes": 19895,
+      "sha256": "1c263ee32cea1cffdff476be409fe1624bb205dd68d1f0375de391ccbe3e9540"
+    },
+    {
+      "path": "tools/stage-qualification-metadata.mjs",
+      "bytes": 3632,
+      "sha256": "fb4aff8248a95c0566963be0b0cb611cb0ed25c9be0fe9865813d2e5529fae97"
+    },
+    {
+      "path": "tools/stamp-rc14.mjs",
+      "bytes": 7916,
+      "sha256": "c010c4c2dbffdb2244da54ee46b1a4cc087e429f854593d25e123b31e2ae8c1d"
+    }
+  ]
+}
