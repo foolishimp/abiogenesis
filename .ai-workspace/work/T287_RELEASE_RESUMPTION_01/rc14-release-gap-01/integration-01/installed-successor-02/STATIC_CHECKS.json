@@ -1,0 +1,57 @@
+{
+  "kind": "static_control_preparation_checks",
+  "atUtc": "2026-11-15T07:10:14.829899+00:00",
+  "pythonSyntax": [
+    "run.py",
+    "smoke-custody.py"
+  ],
+  "nodeSyntax": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "/private/tmp/abg-rc14-installed-successor-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-successor-02/basic-cli.mjs"
+    ],
+    "exitCode": 0,
+    "observation": "Executed once before this receipt; syntax only, no module evaluation"
+  },
+  "retainedControls": 8,
+  "retainedMaintainedInputs": 19,
+  "receiptFiles": 15,
+  "smokeInputs": 11,
+  "tenantSourceRowsExcludingTwoGenerated": 1293,
+  "archiveBootstrapProofPayloadEqualFiles": 5302,
+  "buildFiles": 782,
+  "publicImportDeclarations": [
+    {
+      "name": "product",
+      "target": "./build/code/src/product/index.js",
+      "sha256": "0d2ba1c681a9c361db3ad6f089d46071010f397188426ba75194eb4826c99742"
+    },
+    {
+      "name": "abg",
+      "target": "./build/code/src/abg/index.js",
+      "sha256": "7abcc3b1d5909fee4bf1520797edf1f41c3c9bbbd2df8442df2f6f7dc6e20b8f"
+    },
+    {
+      "name": "gtl",
+      "target": "./build/code/src/gtl/index.js",
+      "sha256": "8adc7a49399d32b25f31aff729dc384cc98d43acd8855e1d89e5717932b18df3"
+    },
+    {
+      "name": "validator",
+      "target": "./build/code/src/validator/index.js",
+      "sha256": "ec554004410b9d01dd7ddd569c6b4d7ece256dd855233b4a0d63e4b2335665e0"
+    },
+    {
+      "name": "public",
+      "target": "./build/code/src/public/index.js",
+      "sha256": "64466232bfbe070bf68b23806104e6023d4b379009a43c64646ecf54cf40a504"
+    }
+  ],
+  "freshRootsAbsent": true,
+  "executionDisabled": true,
+  "clockStarted": false,
+  "ProductImports": 0,
+  "testsBuildsInstallsProviders": 0,
+  "qualification": false
+}

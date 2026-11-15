@@ -1,0 +1,74 @@
+{
+  "id": "RC14-B44-CONTROL-SUCCESSOR-PREP-RETURN-001",
+  "status": "prepared_frozen_pending_Root_review_and_new_grant",
+  "sourceParent": "69f5c035af0e21114104aaaa8354f59bc4d38808",
+  "branch": "codex/rc14-installed-successor-20261115-02",
+  "worktree": "/private/tmp/abg-rc14-installed-successor-20261115-02",
+  "territory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-successor-02",
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 1690,
+    "sha256": "7dfcc694138095e895513e8a67c26241b886b0e351925fbeb6ffe92a48067e18"
+  },
+  "smokeInputs": {
+    "path": "SMOKE_INPUTS.json",
+    "bytes": 8332,
+    "sha256": "1155cd29bce90d2bc139e0b50730624a3ae48bfa89c36139a34166fc9fe5f694"
+  },
+  "staticChecks": {
+    "path": "STATIC_CHECKS.json",
+    "bytes": 1842,
+    "sha256": "1ebc308deb2409b158bb8e6d350b31f0d6a71eb3df9ef527b24f346fa17c1709"
+  },
+  "frozenControl": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862",
+  "candidateSource": "7a2411defd9ef7c1968512703c3b4b1493114453",
+  "candidateArchiveSha256": "9f9812e42c154511541762235f26180c0cf64c762f490ea57ae135a14c8e4225",
+  "scope": [
+    "Existing compiled proof subject bound independently from c168 helper source, with exact entry-exit custody",
+    "Authenticated installed public export import targets replace CommonJS resolution; no private fallback",
+    "Original process owner, observer, credential lifetime, whole smoke population, basic scenario/oracle and first-failure path preserved"
+  ],
+  "readOnlyAcquisition": {
+    "smokeFiles": 11,
+    "tenantSourceRowsExcludingTwoGenerated": 1293,
+    "payloadFiles": 5302,
+    "buildFiles": 782,
+    "dependencyFilesAndLinks": 4576,
+    "dependencyInventorySha256": "dc55a042e47b4119487c1ef1b1288b0de607a9687b6a60e4efbb0443f9584aff",
+    "dependencyReaderSha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed",
+    "npmTree": {
+      "path": "/opt/homebrew/lib/node_modules/npm",
+      "sha256": "8245bad3cbdc99d8720c49c1ea829570d304761633405f0c53cb7d7dabb2c2f9",
+      "count": 2326,
+      "bytes": 13354162
+    },
+    "receiptFiles": 15
+  },
+  "validation": {
+    "python": "ast.parse; no control module execution",
+    "javascript": "node --check basic-cli.mjs; no module evaluation",
+    "jsonAndHashJoins": "passed",
+    "ProductImports": 0,
+    "buildInstallTestsProviders": 0,
+    "newClockStarted": false
+  },
+  "previousFailure": {
+    "root": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01",
+    "preserved": true,
+    "expiredDeadline": "2026-11-14T21:32:27.715375+00:00"
+  },
+  "remaining": [
+    "Root independent control review and exact checkpoint",
+    "Root-owned new execution grant, accepted topology and binding including the control-manifest SHA and a new original deadline",
+    "Actual smoke/setup/owner/refusal/close/fresh-read/oracle evidence remains unperformed"
+  ],
+  "nonClaims": [
+    "No independent source assurance by this Writer",
+    "No amendment, S06, continuation, qualification, release, version or RC13 pin change",
+    "No atomic input snapshot or complete-machine/OS substrate closure",
+    "No global separately-grouped descendant absence"
+  ],
+  "mainWritten": false,
+  "pushed": false,
+  "rawEvidenceStaged": false
+}

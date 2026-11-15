@@ -1,0 +1,34 @@
+{
+  "id": "RC14-B44-CONTROL-SUCCESSOR-PREP-001",
+  "role": "Separate external-control Writer /root/b29_vm_triage; no Reviewer or Executive role",
+  "authority": "Root's explicit 2026-11-15 Writer assignment after owner instruction to finish RC14; the existing B44 causal intake selects these two derived-control corrections",
+  "source": "69f5c035af0e21114104aaaa8354f59bc4d38808",
+  "worktree": "/private/tmp/abg-rc14-installed-successor-20261115-02",
+  "branch": "codex/rc14-installed-successor-20261115-02",
+  "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-successor-02/",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "productFrame": "Fixed5.0 S01/S03 ordinary installed Public start; controls and test acquisition are derived tooling, not runtime authority",
+  "basis": {
+    "definition": "stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "verification": "stdo status --definition /Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json --verify; installed:true, valid:true, failures:[]"
+  },
+  "selectedCorrections": [
+    "Bind the existing compiled proof subject independently from immutable c168 helper/control source, with complete source/generated/build/native/dependency/tool/receipt entry-exit custody",
+    "Resolve authenticated installed public exports.import with confinement rather than CommonJS require resolution"
+  ],
+  "permittedEffects": [
+    "Create this isolated branch/worktree at the exact source and author compact successor controls/records only in writeTerritory",
+    "Perform syntax/static/JSON/hash checks; commit the exact compact successor and return to Root"
+  ],
+  "prohibitedEffects": [
+    "No Product/test/control-predecessor edits; no main write or push",
+    "No Product import, build, install, test, provider or witness execution",
+    "No new execution grant or clock; expired installed-basic01 stays closed",
+    "No Reviewer activation, runtime owner, pin/version or global policy change"
+  ],
+  "executionAuthorized": false,
+  "returnRelation": "Exact frozen source/manifest and bounded static preparation Return to Root; independent review and any future execution remain separately owned"
+}

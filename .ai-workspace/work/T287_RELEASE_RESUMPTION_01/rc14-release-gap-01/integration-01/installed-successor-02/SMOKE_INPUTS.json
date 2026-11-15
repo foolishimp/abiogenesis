@@ -1,0 +1,182 @@
+{
+  "kind": "bounded_existing_smoke_input_binding",
+  "sourceCommit": "7a2411defd9ef7c1968512703c3b4b1493114453",
+  "subjectRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/subject",
+  "tenantRelativePath": "build_tenants/abiogenesis/typescript",
+  "smokeInputs": [
+    {
+      "path": "test_env/tests/installed-language-smoke.test.mjs",
+      "bytes": 1831,
+      "sha256": "ecda0215f8dfb85b22332f199482edbfd1ccf164415caaeb776892581e923e77"
+    },
+    {
+      "path": "test_env/support/installed-language-test.mjs",
+      "bytes": 4878,
+      "sha256": "9099c80e78261f507288c8597bad0495d70628a9b21990f1e3283c536df70c65"
+    },
+    {
+      "path": "test_env/support/root-installed-environment.mjs",
+      "bytes": 50216,
+      "sha256": "3274c5ef23c5fd5b362b42a899bc0d7c9d588f363848e1b033150b968f8a7008"
+    },
+    {
+      "path": "scripts/product-payload.mjs",
+      "bytes": 10554,
+      "sha256": "6436442d7db32d2a2c9a7a42cd50d71c159fe45baeac53f57d47b5bac40c9df4"
+    },
+    {
+      "path": "test_env/support/candidate-basis.mjs",
+      "bytes": 2973,
+      "sha256": "e8053600a769281634b4b48f2def507d23c1f84f257d95398e8085cfbc24baad"
+    },
+    {
+      "path": "test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "path": "test_env/support/registered-graph-selection.mjs",
+      "bytes": 19702,
+      "sha256": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a"
+    },
+    {
+      "path": "test_env/fixtures/language-smoke/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+    },
+    {
+      "path": "test_env/fixtures/language-smoke/leaf.mjs",
+      "bytes": 2656,
+      "sha256": "2b70dfe98899a637c6b9d07e1f3b5daf04e4d8320535e4f434c7a716e343e778"
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/index.mjs",
+      "bytes": 9826,
+      "sha256": "f2080bdb2b262763aaff1ea6f4897c3fb125e94f8e15a641ab74905ce85dbb8f"
+    },
+    {
+      "path": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 517,
+      "sha256": "44a65bf686cbeb1be48b5f62f50e778578a0f8a824926550198a3582950fa4b2"
+    }
+  ],
+  "generatedOutputs": [
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "dependencyReader": {
+    "path": "/private/tmp/abg-rc14-proof-fixture-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/dependency-inputs.py",
+    "bytes": 2786,
+    "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+  },
+  "receipts": {
+    "sourceFreeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/NATIVE_SOURCE_FREEZE.json",
+      "bytes": 2423,
+      "sha256": "701c7bb0e9c558d5c9ef0ab3cfd5336365163b485338d359180961c71fc9dc2e"
+    },
+    "sourcePostimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/SOURCE_POSTIMAGE.json",
+      "bytes": 322629,
+      "sha256": "8e0cf4670ade0b4da389ab66e29f643baf2d23ff7f0748ae93f6ceb5f9d8e0a7"
+    },
+    "sourceBinding": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/SOURCE_BINDING.json",
+      "bytes": 158,
+      "sha256": "dc79526e750306269f35ca98e85f1fe67c3b5dd6e8cf3d6d9341bd932552e898"
+    },
+    "buildStart": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/001-candidate-build/START.json",
+      "bytes": 685,
+      "sha256": "073b8b8bb914ed2e967dd630f67ff676582652cdf53f7c47df34207a13a5fd66"
+    },
+    "buildReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/001-candidate-build/RETURN.json",
+      "bytes": 459,
+      "sha256": "86692826e71128aabd9b4b481c913e652e900fc7576069c578fc2d233b32a795"
+    },
+    "candidate": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/CANDIDATE.json",
+      "bytes": 801,
+      "sha256": "82fb1805aee18b0cd9edc41491884a9d064356e6178d86e4079dc0c9724fb980"
+    },
+    "proofReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/RETURN.json",
+      "bytes": 1862,
+      "sha256": "a13d6c18ed0a37ed5555138be1e524aa545cb638a20e34703e3c3b9289305dff"
+    },
+    "nativeReproduction": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/NATIVE_REPRODUCTION.json",
+      "bytes": 615,
+      "sha256": "b20848b65f5fd6b3747692174b1f09b3c8c7e0c0ad549622da825497abb755d4"
+    },
+    "dependencyBinding": {
+      "path": "/private/tmp/abg-rc14-proof-fixture-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/DEPENDENCY_INPUTS.json",
+      "bytes": 639,
+      "sha256": "c4f5f3ae466ce7cdee3956612013234860f3c39080c700293acc9a3d61c5811d"
+    },
+    "dependencyInventory": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b21-repair-20261115-01/DEPENDENCY_PREIMAGE.json",
+      "bytes": 987915,
+      "sha256": "d5963980b0d8ce53b85847a547f44d308757bf4766aadd0f3dda49dad401a8ef"
+    },
+    "firstFailure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01/FIRST_FAILURE.json",
+      "bytes": 217,
+      "sha256": "90f25cb7403f61db5d854a09c8da29671622aa1647922621c2bfd3b484cf60c9"
+    },
+    "failedReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01/RETURN.json",
+      "bytes": 394,
+      "sha256": "27344b979173834c779d49c6c4f44016757729bf61df6bda7497d6365e8fea0f"
+    },
+    "failedInputConservation": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01/INPUT_CONSERVATION.json",
+      "bytes": 80,
+      "sha256": "36179beb6b12b5c847642eae213744c3f9f0880b1d8b17aade15d6c00dc99eec"
+    },
+    "failedSmoke": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01/004-installed-language/stdout.raw",
+      "bytes": 1836,
+      "sha256": "8edee28b6e8edc2d355a64db0c015872fd9087d3562f4780a114c92251f18e99"
+    },
+    "failedSmokeReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-01/004-installed-language/result.json",
+      "bytes": 625,
+      "sha256": "25bf554068f17bef181dffdb0ee9ccadb2f139de5b2ae96351b641f36ca8829f"
+    }
+  },
+  "tools": [
+    {
+      "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "bytes": 33816,
+      "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa",
+      "bindingField": "pythonPath"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "bindingField": "configuration.nodePath"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "bindingField": "configuration.toolchains.npm.executable"
+    },
+    {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.322",
+      "bytes": 323702464,
+      "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+      "bindingField": "configuration.provider.command"
+    }
+  ],
+  "npmTree": {
+    "path": "/opt/homebrew/lib/node_modules/npm",
+    "sha256": "8245bad3cbdc99d8720c49c1ea829570d304761633405f0c53cb7d7dabb2c2f9",
+    "count": 2326,
+    "bytes": 13354162
+  },
+  "scope": "Read retained source/proof and existing compiled inputs. No rebuild, copy, Product import or old Run authority. OS/Node/Python system execution substrate is not a complete-machine closure."
+}
