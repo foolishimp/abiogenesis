@@ -64,5 +64,10 @@ result={'exitCode':code,'stopReason':reason,'elapsedMs':round((time.monotonic()-
         'cleanupScope':'Host process group only; installed actor owner retains its own descendant/process facts. No global process absence claim.'}
 for name in ['host.stdout.raw','host.stderr.raw']:
     data=(RAW/name).read_bytes();result[name]={'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}
+final_bytes=sum(result[name]['bytes'] for name in ['host.stdout.raw','host.stderr.raw'])
+result['finalCapture']={'bytes':final_bytes,'limit':MAX_BYTES,'withinLimit':final_bytes<=MAX_BYTES}
+if final_bytes>MAX_BYTES: reason=reason or 'host_output_limit_at_exit'
+if time.monotonic()-started>=LIMIT: reason=reason or 'original_host_deadline_at_exit'
+result['stopReason']=reason
 write('HOST_RETURN.json',result);print(json.dumps(result),flush=True)
 sys.exit(0 if code==0 and reason is None and cleanup['hostProcessGroupAbsent'] else 1)

@@ -146,7 +146,13 @@ def main():
    conservation={'sourceUnchangedThroughProof':postimage is not None,'setupCustodyReverified':postimage is not None}
   except BaseException as error:
    conservation={'sourceUnchangedThroughProof':False,'error':str(error)};failure=failure or {'name':type(error).__name__,'message':str(error)}
+  completed=time.monotonic();completed_utc=datetime.datetime.now(datetime.timezone.utc)
+  expired=completed>=start+(end-now).total_seconds() or completed_utc>=end
+  if expired:
+   failure=failure or {'name':'TimeoutError','message':'Original minimum host/proof deadline expired during finalization'}
+   if not (proof/'FIRST_FAILURE.json').exists():write(proof/'FIRST_FAILURE.json',failure)
   result={'status':'passed' if failure is None else 'stopped_first_failure','sourceHead':head,'elapsedMs':round((time.monotonic()-start)*1000),'commands':commands,'failure':failure,'conservation':conservation,'originalHostDeadlineUtc':enclosing.isoformat(),'proofDeadlineUtc':end.isoformat(),'qualified':False,'retry':False}
+  result['finalDeadlineCheck']={'completedUtc':completed_utc.isoformat(),'expired':expired,'wallAndMonotonic':True}
   write(proof/'RETURN.json',result);print(json.dumps({'phase':'proof-return','status':result['status'],'commands':len(commands),'failure':failure}),flush=True)
  return 0 if failure is None else 1
 if __name__=='__main__':sys.exit(main())

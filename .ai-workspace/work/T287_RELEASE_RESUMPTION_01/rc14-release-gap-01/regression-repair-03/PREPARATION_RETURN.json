@@ -6,8 +6,8 @@
   "activationId": "RC14-REGRESSION-REPAIR-NATIVE-003",
   "controlManifest": {
     "path": "CONTROL_MANIFEST.json",
-    "sha256": "d2e1263133e6bd402d989272950cefac4b1f821e8cbcd89df7d50b98854aeef2",
-    "controls": 18
+    "sha256": "42a340e37d7b4931705a85dda823f0fb621a93812bb1217617c9a2b0f051bb64",
+    "controls": 19
   },
   "nativeScope": [
     "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
@@ -89,5 +89,11 @@
     "No Product/provider/setup/test/build/pack/install execution occurred; static Python/JSON/Node syntax and type-only compiler checks only."
   ],
   "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-03",
-  "returnTo": "Root; stop before provider, no main/push"
+  "returnTo": "Root; stop before provider, no main/push",
+  "predecessorControlSubject": "4433107c0e7ee7faa1cba90acdc09df3eb2dac69",
+  "controlFinalizationRepair": {
+    "record": "CONTROL_REPAIR.json",
+    "status": "prepared_for_independent_narrow_recheck",
+    "scope": "external two-script finalization only"
+  }
 }

@@ -13,6 +13,11 @@
       "sha256": "c963c852c1b03a49f910b4b031a0e79e2d7d1a10e4b870e9b8d73832b3af9a69"
     },
     {
+      "path": "CONTROL_REPAIR.json",
+      "bytes": 1070,
+      "sha256": "48264d388d72844452c251a20edac45046881d415797f02a4b76cdc584926eb6"
+    },
+    {
       "path": "DEPENDENCY_INPUTS.json",
       "bytes": 706,
       "sha256": "621d00c5a4f4ee3e2a25be0cbfb4961630b6bfc194c0a4adec8344454c2d01c5"
@@ -69,8 +74,8 @@
     },
     {
       "path": "operate.py",
-      "bytes": 4384,
-      "sha256": "1bd0a073fdb1bff6fc0a8d82540c0b8202e99fbc41d172d4e6beb783459712b6"
+      "bytes": 4758,
+      "sha256": "d3764709c08c8e4ebb3a42ba922f5e9eb1953c575838553bbdc59ebc71b7800f"
     },
     {
       "path": "physical-topology.py",
@@ -84,8 +89,8 @@
     },
     {
       "path": "prove.py",
-      "bytes": 13642,
-      "sha256": "a61fc6513130d116552a74553539cadbe25114f1ea60e1b9827d64e7901e81fc"
+      "bytes": 14148,
+      "sha256": "9fa09302b6fb07d24578bb9f0276c34dd04ec32c43021bf9569f899ea45b7f48"
     },
     {
       "path": "setup-custody.py",
