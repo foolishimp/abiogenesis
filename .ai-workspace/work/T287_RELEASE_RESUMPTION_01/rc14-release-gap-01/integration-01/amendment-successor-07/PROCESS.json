@@ -1,0 +1,328 @@
+{
+  "kind": "amendment_process_definition",
+  "purpose": "Build one amendment to the order desk specification into the existing system. The amendment is the only per-task input. The prospective baseline review requires admitted executable evidence before realization changes; evidence adequacy and application correctness are distinct.",
+  "roles": {
+    "meaning": "A string starting with @ names a role. The joining function resolves it from the amended requirement and the trace.",
+    "@amended.requirement": "the amended requirement file",
+    "@amended.realization": "every file the trace gives the amended requirement under Realized by",
+    "@amended.primary": "the realization file of the amended requirement that no other requirement shares",
+    "@amended.shared": "the realization file the amended requirement shares with another requirement",
+    "@amended.tests": "every file the trace gives the amended requirement under Verified by",
+    "@other.requirements": "every requirement file other than the amended one",
+    "@other.realization": "every realization file traced only to other requirements",
+    "@other.tests": "every test file traced only to other requirements",
+    "@trace": "the file holding the traceability table"
+  },
+  "system": {
+    "requirementsRoot": "specification/requirements",
+    "trace": "specification/PRODUCT.md",
+    "files": [
+      "review/acceptance-rubric.md",
+      "review/assessment-result.schema.json",
+      "review/impact-rubric.md",
+      "review/preservation-rubric.md",
+      "specification/INTENT.md",
+      "specification/PRODUCT.md",
+      "specification/requirements/REQ-ORDER-APPROVAL.md",
+      "specification/requirements/REQ-ORDER-DISCOUNT.md",
+      "src/approval.mjs",
+      "src/discount.mjs",
+      "src/order.mjs",
+      "test/approval.test.mjs",
+      "test/discount.test.mjs",
+      "review/ORACLE.json",
+      "review/amendment-oracle.mjs",
+      "review/baseline-rubric.md"
+    ],
+    "records": [
+      "work/intake-triage.md",
+      "design/impact-assessment.md"
+    ]
+  },
+  "limits": {
+    "maxContextFiles": 64,
+    "maxContextBytes": 131072,
+    "maxPromptBytes": 524288
+  },
+  "task": [
+    "Build the requested change to the order desk specification into the existing system.",
+    "Record intake triage in work/intake-triage.md and the impact assessment in design/impact-assessment.md.",
+    "Change only the realization and tests the trace in specification/PRODUCT.md gives the amended requirement. Every other requirement keeps its behaviour, files and tests.",
+    "The work closes only when acceptance and every required review are satisfied for the current files.",
+    "The protected amendment oracle is part of the declared Testing plan. Its nonzero result on the unchanged threshold5000 seed is actual amendment counterevidence, not a setup failure and not an independent semantic verdict.",
+    "Construction requires current satisfied impact and baseline reviews. Baseline judges adequate current analysis and admitted Testing evidence, not application correctness; unmet application probes can satisfy that evidence question. Missing or unauthenticated Testing evidence remains indeterminate.",
+    "Reuse sufficient unchanged impact analysis and its review. Reassess a review only when its declared material or criterion changes. The Executive chooses among available declared graphs; these prerequisites do not prescribe a total stage sequence."
+  ],
+  "stages": [
+    {
+      "name": "intake-triage",
+      "purpose": "induction",
+      "outcome": "Record the intake triage of the requested specification change in work/intake-triage.md.",
+      "instructions": [
+        "Classify the change with one STDO change class (stdo://releases/v3.0.4/standards/SPEC_METHOD.md#change-classes) and name its re-entry point (stdo://releases/v3.0.4/standards/SPEC_METHOD.md#universal-intake-triage).",
+        "Name the amended requirement, the surfaces the trace gives it, and the surfaces the change must leave unchanged.",
+        "Write these lines: Change class:, Re-entry:, Amended requirement:, Affected surfaces:, Preserved surfaces:, Open questions:.",
+        "Do not change the specification, the review rubrics or any realization file."
+      ],
+      "readFirst": [
+        "specification/INTENT.md",
+        "@trace",
+        "@amended.requirement"
+      ],
+      "writeRoots": [
+        "work/intake-triage.md"
+      ]
+    },
+    {
+      "name": "impact-assessment",
+      "purpose": "design",
+      "outcome": "Assess the design impact of the amended requirement and write it to design/impact-assessment.md.",
+      "instructions": [
+        "Read work/intake-triage.md when it exists.",
+        "Affected surfaces are every file the trace gives the amended requirement. Preserved surfaces are every other requirement file and every file traced only to other requirements. Shared surfaces are realization files traced to the amended requirement and another requirement.",
+        "Write these lines: Change class:, Amended requirement:, Affected surfaces:, Preserved surfaces:, Shared surfaces:, Tests to change:, Design change:.",
+        "Do not change the specification, the review rubrics or any realization file."
+      ],
+      "readFirst": [
+        "@trace",
+        "@amended.requirement",
+        "@amended.realization",
+        "@amended.tests"
+      ],
+      "writeRoots": [
+        "design/impact-assessment.md"
+      ]
+    },
+    {
+      "name": "construction",
+      "purpose": "construction",
+      "outcome": "Change the realization traced to the amended requirement so the system meets the amended text and every example in it, and keep every other requirement's behaviour.",
+      "instructions": [
+        "Read design/impact-assessment.md and work/intake-triage.md when they exist.",
+        "Update the tests the trace gives the amended requirement so they cover the amended rule at its boundary and every example.",
+        "A shared realization file keeps every example of every other requirement true.",
+        "When an admitted review is adverse, correct the criteria it lists as unresolved."
+      ],
+      "readFirst": [
+        "@amended.requirement",
+        "@trace",
+        "@amended.realization",
+        "@amended.tests"
+      ],
+      "writeRoots": [
+        "@amended.realization",
+        "@amended.tests"
+      ]
+    },
+    {
+      "name": "testing",
+      "purpose": "testing",
+      "outcome": "Run the declared test plan on the current files.",
+      "instructions": [
+        "Record every command result, including failures."
+      ],
+      "readFirst": [
+        "@amended.tests",
+        "@other.tests"
+      ],
+      "writeRoots": []
+    },
+    {
+      "name": "uat",
+      "purpose": "uat",
+      "outcome": "Independently assess that the system realizes the whole amended requirement, including every example, on the current files and the current Testing result.",
+      "instructions": [
+        "Return every failed or unevaluable criterion identifier in unresolvedCriteria."
+      ],
+      "readFirst": [
+        "review/acceptance-rubric.md"
+      ],
+      "writeRoots": []
+    }
+  ],
+  "testPlan": {
+    "selectedPaths": [
+      "src/approval.mjs",
+      "src/discount.mjs",
+      "src/order.mjs",
+      "test/approval.test.mjs",
+      "test/discount.test.mjs",
+      "review/ORACLE.json",
+      "review/amendment-oracle.mjs"
+    ],
+    "commands": [
+      {
+        "id": "tests",
+        "executable": "node",
+        "args": [
+          "--test",
+          "test/approval.test.mjs",
+          "test/discount.test.mjs"
+        ],
+        "timeoutMs": 20000,
+        "terminationGraceMs": 2000
+      },
+      {
+        "id": "amendment-oracle",
+        "executable": "node",
+        "args": [
+          "review/amendment-oracle.mjs",
+          ".",
+          "observe"
+        ],
+        "timeoutMs": 20000,
+        "terminationGraceMs": 2000
+      }
+    ],
+    "predicates": [
+      {
+        "id": "tests-exit-zero",
+        "kind": "process_exit",
+        "command": "tests",
+        "equals": 0
+      },
+      {
+        "id": "amendment-oracle-exit-zero",
+        "kind": "process_exit",
+        "command": "amendment-oracle",
+        "equals": 0
+      }
+    ],
+    "writeTerritories": []
+  },
+  "acceptance": {
+    "candidate": "@amended.primary",
+    "rubric": "review/acceptance-rubric.md",
+    "sources": [
+      "@amended.requirement",
+      "@trace",
+      "@amended.shared",
+      "@amended.tests"
+    ],
+    "resultSchema": "review/assessment-result.schema.json"
+  },
+  "reviews": [
+    {
+      "name": "impact",
+      "required": true,
+      "frame": {
+        "family": "Design impact of a requirement change.",
+        "subject": "The impact assessment the impact-assessment stage writes for this Run (design/impact-assessment.md), at its current bytes.",
+        "basis": "The Run's worksite after the amendment: the amended requirement and the traceability table of specification/PRODUCT.md.",
+        "authority": [
+          "the amended requirement text",
+          "stdo://releases/v3.0.4/standards/SPEC_METHOD.md#universal-intake-triage",
+          "stdo://releases/v3.0.4/standards/SPEC_METHOD.md#change-classes",
+          "stdo://releases/v3.0.4/standards/FOUNDATIONS.md#change-impact-and-evidence-reuse",
+          "stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md#1-the-frame-as-the-engagement-unit"
+        ],
+        "evidence": "The assessment text, the amended requirement and the trace, read at their current bytes.",
+        "excluded": "Realization correctness, test results, wording quality and acceptance of the amendment.",
+        "capability": "A read-only assessor that did not write the subject; it edits nothing.",
+        "result": "One closed result under stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md#rf-012-closed-results: satisfied, unmet (falsified) or indeterminate, with every failed or unevaluable criterion identifier.",
+        "return": "Returns to the parent Run. It is a declared prerequisite of construction and a required review for parent completion. It does not accept the amendment."
+      },
+      "outcome": "Assess the impact assessment under the impact frame and the impact rubric.",
+      "instructions": [
+        "Return every failed or unevaluable criterion identifier in unresolvedCriteria."
+      ],
+      "candidate": "design/impact-assessment.md",
+      "rubric": "review/impact-rubric.md",
+      "sources": [
+        "@amended.requirement",
+        "@trace"
+      ],
+      "applicability": {
+        "applies": "always",
+        "notApplicable": "Never for a requirement amendment: a wording-only change still records that no design surface changes."
+      }
+    },
+    {
+      "name": "preservation",
+      "required": true,
+      "frame": {
+        "family": "Preservation of obligations the amendment does not authorize changing.",
+        "subject": "The realization file the amended requirement shares with other requirements, at the bytes the latest construction left.",
+        "basis": "The Run's worksite after the amendment: the requirements the amendment does not change, the files and tests traced only to them, and the trace.",
+        "authority": [
+          "the unchanged requirements and their examples",
+          "stdo://releases/v3.0.4/standards/FOUNDATIONS.md#preservation-through-construction",
+          "stdo://releases/v3.0.4/standards/SPEC_METHOD.md#change-classes",
+          "stdo://releases/v3.0.4/standards/EVALUATION.md#3-independent-assessment",
+          "stdo://releases/v3.0.4/standards/ASSURANCE.md#11-assurance-subject-acquisition-and-evaluation"
+        ],
+        "evidence": "The candidate's current bytes, the unchanged requirements' examples evaluated through the system, and the declared source digests.",
+        "excluded": "Whether the amended rule is met (acceptance owns that), style and test-suite completeness.",
+        "capability": "A read-only assessor that did not write the subject; it edits nothing.",
+        "result": "One closed result under stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md#rf-012-closed-results: satisfied, unmet (falsified) or indeterminate, with every failed or unevaluable criterion identifier.",
+        "return": "Returns to the parent Run. It is a declared prerequisite of UAT and a required review for parent completion. It does not accept the amendment."
+      },
+      "outcome": "Assess the shared realization under the preservation frame and the preservation rubric.",
+      "instructions": [
+        "Return every failed or unevaluable criterion identifier in unresolvedCriteria."
+      ],
+      "candidate": "@amended.shared",
+      "rubric": "review/preservation-rubric.md",
+      "sources": [
+        "@other.requirements",
+        "@other.realization",
+        "@other.tests",
+        "@trace"
+      ],
+      "applicability": {
+        "applies": "examples-changed",
+        "notApplicable": "When the amendment leaves the requirement's examples unchanged it changes only wording: no realization changes, so nothing needs preserving."
+      }
+    },
+    {
+      "name": "baseline",
+      "required": true,
+      "frame": {
+        "family": "Current amendment evidence and impact-plan applicability.",
+        "subject": "The current approval realization, together with every traced amended realization and test dependency.",
+        "basis": "The unchanged original task, the amended requirement, trace, actual intake/impact records and the full authenticated current Testing producer, including the protected amendment oracle.",
+        "authority": [
+          "the amended requirement text",
+          "the original impact and acceptance frames"
+        ],
+        "evidence": "Current declared files and the complete admitted Testing command/predicate observations. A captured report or host assertion is not a Testing producer.",
+        "excluded": "Application acceptance, a prescribed next GraphFunction, invented defects and any requirement that the current application already passes.",
+        "capability": "An independent read-only assessor; no file changes.",
+        "result": "One consumer_outcome_assessment with satisfied, unmet or indeterminate and all unresolved criterion identifiers.",
+        "return": "Returns to the parent Run as a declared construction prerequisite and required completion review. A later material realization/test change invalidates this verdict through its declared dependencies."
+      },
+      "outcome": "Assess whether the current admitted executable evidence and actual intake/impact analysis adequately characterize this amendment and support the retained plan; do not confuse evidence adequacy with application correctness.",
+      "instructions": [
+        "Use the authenticated Testing Result as this assessment producer, with both declared commands and the protected four-case amendment oracle. A native author report or external observation does not satisfy B1.",
+        "Apply every criterion in review/baseline-rubric.md; missing current material is indeterminate. Return every failed or unevaluable criterion identifier.",
+        "Do not require the amendment probes to pass before construction. The initial seed is expected to disagree with three amended examples; report the actual evidence and causal gap without prescribing a graph choice."
+      ],
+      "candidate": "@amended.primary",
+      "rubric": "review/baseline-rubric.md",
+      "sources": [
+        "@amended.requirement",
+        "@trace",
+        "@amended.shared",
+        "@amended.tests",
+        "work/intake-triage.md",
+        "design/impact-assessment.md",
+        "review/ORACLE.json",
+        "review/amendment-oracle.mjs"
+      ],
+      "applicability": {
+        "applies": "always",
+        "notApplicable": "Never for this selected specification amendment: current executable evidence and impact applicability must be assessed."
+      }
+    }
+  ],
+  "prerequisites": {
+    "meaning": "Declared on the consumer Program's executive step: a stage is offered and admitted only while each review it names that the amendment declares required is satisfied and current. A review it names that does not apply to the amendment is declared not applicable with its applicability.notApplicable text as the stated reason.",
+    "construction": [
+      "impact",
+      "baseline"
+    ],
+    "uat": [
+      "preservation"
+    ]
+  }
+}

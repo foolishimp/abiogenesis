@@ -1,0 +1,79 @@
+{
+  "kind": "external_control_preparation_return",
+  "id": "RC14-AMENDMENT-CONTROL-WRITER-007",
+  "status": "frozen_preparation_for_independent_review",
+  "baseCommit": "5b75c3a38114685d66d443ffc4e23733e24457c1",
+  "authorityCommit": "acf3dedcb11f2037e4ce8e157c79af86598f2878",
+  "authoritySha256": "810a0060e9b756335bb9e6d967d9fb836c9ef206a535a8f67ee8f3e18457752f",
+  "territory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-07",
+  "manifestSha256": "a81fbf93e5353569b4aea36ad74b43ecc783cb301f883e93410ceabedf80ee4e",
+  "manifestMembers": 25,
+  "staticChecksSha256": "8b6a1b0cda0da75865006476c6b2b6e459874bcf819928e6e09eb6a16cbca985",
+  "exactSemanticDiffSha256": "25fb83aaf0df29e04f35809873f85988cf476b203abd3aeaada89e087aac080a",
+  "semanticDelta": [
+    {
+      "path": "/limits/maxPromptBytes",
+      "before": 131072,
+      "after": 524288
+    }
+  ],
+  "scopeOfCap": "Run-wide native instruction assembly, including selector, native work and command assembly; not selector-only.",
+  "processAfterSha256": "0c93847e07402055b027c0deee3552142ad94b14a9cbc7f95cf19eb0e23cf7e1",
+  "unchangedFileCount": 18,
+  "executableChanges": [],
+  "allTenExecutableFilesByteIdentical": true,
+  "preserved": "64 context files;131072 context bytes; every source/read/write root, review/frame/prerequisite, step, oracle, acceptance, typed handoff, paired role, explicit install-host/tree join, credential, deadline, first-failure and cleanup mechanism. No host graph choice or context pruning.",
+  "recordChanges": [
+    "Writer activation/authority and disabled successor-local npm paths.",
+    "REUSED_HELPERS PROCESS row preserves historical source pin and states exact successor leaf relation.",
+    "README/manifest/static checks/Return and one exact PROCESS diff; historical patches copied unchanged."
+  ],
+  "checks": {
+    "pythonAstFiles": 5,
+    "javascriptSyntaxFiles": 5,
+    "processJsonLeafDeltas": 1,
+    "processReverseTextEqual": true,
+    "unchangedFiles": 18,
+    "allJsonParsed": true,
+    "manifestRowsVerified": 25,
+    "candidateBindingsUnset": true,
+    "executionDisabled": true
+  },
+  "methodBasis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "skill": "plugins/spec/skills/stdo-work/SKILL.md"
+  },
+  "intakeObservations": [
+    "A read-only display script requested nonexistent local package.json; actual manifest has no such member. Root explicitly classified this as display ENOENT, not a missing dependency or readiness failure; no file/dependency added.",
+    "A second read-only display requested amendment-witness.mjs under test_env/uat; rg --files located the actual unchanged test_env/support owner. No source/runtime effect or verification retry occurred."
+  ],
+  "failedAttemptsPreserved": [
+    "01",
+    "02",
+    "03"
+  ],
+  "oldClocksReopened": false,
+  "executionAuthorized": false,
+  "executionClockStarted": false,
+  "ProductImports": false,
+  "provider": false,
+  "test": false,
+  "smoke": false,
+  "physicalProbe": false,
+  "build": false,
+  "install": false,
+  "candidateMutation": false,
+  "qualificationClaim": false,
+  "mainMutation": false,
+  "push": false,
+  "residuals": [
+    "Larger prompt capacity does not guarantee arbitrary future history fits or that remaining reviews/acceptance succeed.",
+    "Both paid witnesses wait for the same accepted B56 repaired exact candidate. No earlier candidate evidence is relabelled.",
+    "Independent exact source review, Root acceptance and fresh candidate/execution binding remain required."
+  ],
+  "returnTo": "Root; stop after one authored-only freeze. No execution activated."
+}
