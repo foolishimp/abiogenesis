@@ -1,0 +1,256 @@
+{
+  "kind": "closed_installed_amendment_operator_attempt",
+  "recordedUtc": "2026-11-15T18:49:29.057914+00:00",
+  "activation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-02/ACTIVATION.json",
+    "bytes": 11133,
+    "sha256": "f9b256175a974897304ce83a85a0d29b603bafef3419eb0eb3c4b18c2ba9c001"
+  },
+  "controlAcceptance": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-02/CONTROL_ACCEPTANCE.json",
+    "bytes": 1752,
+    "sha256": "e37a71a120e83447df9fb7befea53bdb6c5eefe32ec828383d6b2049ee9df1db"
+  },
+  "binding": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-02/BINDING.json",
+    "bytes": 8361,
+    "sha256": "cef3d8787059ce8d88e71e5cc95d86e770f7a5f1cc7093a3d31ed871e0b3478b"
+  },
+  "smokeInputs": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-02/SMOKE_INPUTS.json",
+    "bytes": 5944,
+    "sha256": "f9c8331550c23f8d91750f6e310bf6c661d700928482d053c8b3d9a567f2bab9"
+  },
+  "operatorStart": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-02/OPERATOR_START.json",
+    "bytes": 2816,
+    "sha256": "8d5149d070253df15d9a1eeaaa7e5848da0f9e1958dd9d727c2b7d8f192ab955"
+  },
+  "startedUtc": "2026-11-15T18:47:20.425957+00:00",
+  "deadlineUtc": "2026-11-15T21:47:20.425957+00:00",
+  "status": "failed_at_installed_language_acquisition",
+  "firstFailure": "First command failure: /Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-02/004-installed-language/result.json",
+  "retry": false,
+  "qualified": false,
+  "physicalReadiness": {
+    "ok": true,
+    "disposition": "separated",
+    "mountCount": 27,
+    "elapsedMs": 23.232,
+    "reason": "every requested relation positively separated"
+  },
+  "physicalRelations": 224,
+  "smokeCalls": 1,
+  "smokePopulation": {
+    "tests": 1,
+    "pass": 0,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "amendmentPublicSetupCalls": 0,
+  "amendmentLifecycleCalls": 0,
+  "providerCalls": 0,
+  "selectiveCurrentness": "unobserved",
+  "actualProviderModel": "No native provider process started; configured Claude Opus5.5 xhigh is not an observed author outcome.",
+  "inputConservation": {
+    "complete": true,
+    "mismatches": [],
+    "errors": [],
+    "conserved": true
+  },
+  "entryRows": 88,
+  "outerOperatorPid": 45834,
+  "outerOperatorAbsent": true,
+  "causalInputs": {
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/bootstrap/package",
+    "derivedSmokeHost": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01",
+    "derivedPackage": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/node_modules/@abiogenesis/typescript-tenant",
+    "derivedPackageExists": false,
+    "actualBootstrapProductExists": true,
+    "smokeHostProducer": "amendment-successor-05/run.py:144 derives package.parents[2]",
+    "smokeHostConsumer": "actual C0 test_env/support/root-installed-environment.mjs:33-53,190,213-225 requires installHost/node_modules/@abiogenesis/typescript-tenant before importing Product",
+    "observedError": "ERR_MODULE_NOT_FOUND",
+    "classification": "External install-host coordinate mismatch; archive/bootstrap member identity and exact input custody passed. The controlled smoke failed before that Product bootstrap import and before amendment host/setup/lifecycle."
+  },
+  "proofLimits": [
+    "Planned role separation passed; actual after-setup and before-dispatch paired roles were not reached.",
+    "No amendment initial Testing, construction, review invalidation/refresh, final Testing/UAT or replay occurred.",
+    "No Product behavior defect or qualification result follows from this module-acquisition failure."
+  ],
+  "controlsChanged": false,
+  "candidateChanged": false,
+  "sourceChanged": false,
+  "productFrame": "Fixed ABI5/T287 F17/S03 installed amendment/selective currentness; derived external controls, actual Public/ABG runtime authority unchanged.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "controls": {
+    "commit": "c1b6468736c6289e5689c22bf8ab54658a50b14d",
+    "manifestSha256": "4de9c1cc8804ac95b8337b41a523b93b240ec38acb7195da06d4094470f06a38",
+    "unchanged": true
+  },
+  "externalClosure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-02/OPERATOR_CLOSURE.json",
+    "bytes": 13858,
+    "sha256": "f52af8cfb5af71cdb39f2efa3b320c056b6f9b7e7136adc18a14a4c3343dc38e"
+  },
+  "receipts": {
+    "PLANNED_LAYOUT.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-02/PLANNED_LAYOUT.json",
+      "bytes": 4025,
+      "sha256": "59e3c2abfc430a517461620e71d0d3ed6f764e900216c9cbaf4a6e4b88eb49c3"
+    },
+    "FIRST_FAILURE.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-02/FIRST_FAILURE.json",
+      "bytes": 219,
+      "sha256": "0d88b2eefc107768d71c101bb3cc3f4f7f5d0b7fe3929a8fcdb44b85f5031b40"
+    },
+    "INPUT_CONSERVATION.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-02/INPUT_CONSERVATION.json",
+      "bytes": 80,
+      "sha256": "36179beb6b12b5c847642eae213744c3f9f0880b1d8b17aade15d6c00dc99eec"
+    },
+    "RETURN.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-02/RETURN.json",
+      "bytes": 396,
+      "sha256": "831997403d84658f9972325c73bfa4503c4db9ca26444b261cdabf490275c6fb"
+    }
+  },
+  "commands": [
+    {
+      "label": "001-ENTRY-source-head",
+      "pid": {
+        "pid": 45874,
+        "processGroup": 45874
+      },
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-02/001-ENTRY-source-head/result.json",
+        "bytes": 625,
+        "sha256": "175cd16e595aec382423faa120438d4a48ef14cf3e250b4753b30a2de6151d5e"
+      },
+      "exitCode": 0,
+      "stopReason": null,
+      "wallMs": 212,
+      "recordedCleanup": {
+        "signals": [],
+        "ownedProcessGroupAbsent": true
+      },
+      "groupAbsentAtLateRead": true
+    },
+    {
+      "label": "002-ENTRY-tenant-check",
+      "pid": {
+        "pid": 45875,
+        "processGroup": 45875
+      },
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-02/002-ENTRY-tenant-check/result.json",
+        "bytes": 626,
+        "sha256": "8741debb65bec90f099336e6de74cf5e0c0f3893eb5a1393266618fe9765ef11"
+      },
+      "exitCode": 0,
+      "stopReason": null,
+      "wallMs": 421,
+      "recordedCleanup": {
+        "signals": [],
+        "ownedProcessGroupAbsent": true
+      },
+      "groupAbsentAtLateRead": true
+    },
+    {
+      "label": "003-planned-topology",
+      "pid": {
+        "pid": 45890,
+        "processGroup": 45890
+      },
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-02/003-planned-topology/result.json",
+        "bytes": 627,
+        "sha256": "2a62b3676e76320a7fa69498e362567701e2baf289dc223e35a14138a3350424"
+      },
+      "exitCode": 0,
+      "stopReason": null,
+      "wallMs": 205,
+      "recordedCleanup": {
+        "signals": [],
+        "ownedProcessGroupAbsent": true
+      },
+      "groupAbsentAtLateRead": true
+    },
+    {
+      "label": "004-installed-language",
+      "pid": {
+        "pid": 45893,
+        "processGroup": 45893
+      },
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-02/004-installed-language/result.json",
+        "bytes": 629,
+        "sha256": "05ed4840d6325dffaa58655dd44b914ac935d8158693635a0b39f285e81f219b"
+      },
+      "exitCode": 1,
+      "stopReason": null,
+      "wallMs": 412,
+      "recordedCleanup": {
+        "signals": [],
+        "ownedProcessGroupAbsent": true
+      },
+      "groupAbsentAtLateRead": true
+    },
+    {
+      "label": "005-EXIT-source-head",
+      "pid": {
+        "pid": 45924,
+        "processGroup": 45924
+      },
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-02/005-EXIT-source-head/result.json",
+        "bytes": 623,
+        "sha256": "f0fff0b5416db8628425dca858e1c246e51908076e0d461447226bc37a85fe7f"
+      },
+      "exitCode": 0,
+      "stopReason": null,
+      "wallMs": 212,
+      "recordedCleanup": {
+        "signals": [],
+        "ownedProcessGroupAbsent": true
+      },
+      "groupAbsentAtLateRead": true
+    },
+    {
+      "label": "006-EXIT-tenant-check",
+      "pid": {
+        "pid": 45925,
+        "processGroup": 45925
+      },
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-02/006-EXIT-tenant-check/result.json",
+        "bytes": 624,
+        "sha256": "ed9ba356d856a65281f25a61f4800125ad766d32a815257c4025aed86bbcccd6"
+      },
+      "exitCode": 0,
+      "stopReason": null,
+      "wallMs": 209,
+      "recordedCleanup": {
+        "signals": [],
+        "ownedProcessGroupAbsent": true
+      },
+      "groupAbsentAtLateRead": true
+    }
+  ],
+  "plannedTopologyStdout": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-02/003-planned-topology/stdout.raw",
+    "bytes": 124928,
+    "sha256": "338103aa6d2e1d19f7b5b3a8e93e53e2010d1d33333ee2f0ff313a69686af9bd"
+  },
+  "failedSmokeStdout": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-02/004-installed-language/stdout.raw",
+    "bytes": 1879,
+    "sha256": "32544e519b56f4a3013dfc33988da068a2e02489802e7e8d3f04be85512b7771"
+  },
+  "predecessor01": "Remains closed at its original failure and original clock; no receipt or evidence changed.",
+  "returnTo": "Root causal intake; no repair or retry."
+}
