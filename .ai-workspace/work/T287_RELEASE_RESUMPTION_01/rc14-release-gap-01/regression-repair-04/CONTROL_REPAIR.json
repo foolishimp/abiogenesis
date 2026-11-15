@@ -1,0 +1,27 @@
+{
+  "id": "RC14-REGRESSION-CONTROL-FINALIZATION-REPAIR",
+  "role": "Separate Root external-control Writer",
+  "authority": "Owner finish RC14; Root acceptance of independent b29 review of4433107c0e7ee7faa1cba90acdc09df3eb2dac69",
+  "basis": "stdo://releases/v3.0.4/",
+  "classification": "Derived execution/evidence tooling, unchanged Product",
+  "findings": [
+    "S4 final host output cap unchecked after child exit",
+    "S4 proof finalization could pass after original minimum deadline"
+  ],
+  "repair": "Final aggregate cap and original host deadline check preserve earlier failure; final proof wall+monotonic expiry after conservation prevents passed result and retains first failure",
+  "scope": [
+    "operate.py",
+    "prove.py",
+    "CONTROL_MANIFEST.json",
+    "PREPARATION_RETURN.json",
+    "CONTROL_REPAIR.json"
+  ],
+  "staticChecks": {
+    "pythonSyntax": "passed",
+    "exactFinalCapCases": 4,
+    "deadlineBoundaryChecks": 3
+  },
+  "noProductOrNativeExecution": true,
+  "executionAuthorized": false,
+  "recordedUtc": "2026-11-15T07:34:29.822056+00:00"
+}

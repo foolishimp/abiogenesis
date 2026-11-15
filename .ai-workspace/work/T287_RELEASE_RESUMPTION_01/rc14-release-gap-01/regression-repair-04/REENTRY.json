@@ -1,0 +1,27 @@
+{
+  "id": "RC14-REGRESSION-REPAIR-004-LAUNCH-CUSTODY-REENTRY",
+  "role": "Separate external-control Writer",
+  "authority": "Root explicitly selected fresh04 after independent closed native03 pre-provider triage",
+  "sourceParent": "feadde9579b3e5e7600c137a9ed27f1d3f202d08",
+  "predecessorControlSubject": "c240e67af21acb74332d3206d68dca0be5ecd284",
+  "originalAttempt": {
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-03",
+    "sourceHead": "da57781815b410583ed72e08ef63b2ac29b01e85",
+    "launchSha256": "6c6b80c5194ac9f3511ba604fefa100379ff9ef3518455231a3dce29a071763c",
+    "firstFailureSha256": "4ccac79509430172bce55a03d64bfeac475e3dd76b0b435d1d5032e5580c5ed2",
+    "finalSha256": "f510c142423b323af3cd15e506c1a1938cc180dc7115ea18554f6bc912298e06",
+    "hostReturnSha256": "8a55344983fc9e50c75ccccd0b1f32201d6e8b1782dec5323ee771af7d347d94",
+    "sourcePreimageSha256": "57c96e0a9168df42d203d1e4a27df6ffa7dd0aed65eea16ed585d99c3789d26e",
+    "missing": "raw/LAUNCH.json",
+    "nativeAuthors": 0,
+    "sourcePreimageRowsConserved": 1422,
+    "setupOwnedManifestSha256": "f96cdcfe184c450b9c6db6cec4faed0e8c1ad4765cdf2b9ff21c47e1516022bb",
+    "preservedUnchanged": true
+  },
+  "repair": "Exclusive approved launch copy plus exact input/staged/CONTROL_START entry equality before HOST/Public setup; accepted ownership and final bounds unchanged",
+  "scope": "Only04 control coordinates/activation and launch staging; no Product/test/falsifier edits",
+  "reuse": "Exact prior input/build/dependency receipts retained; tenant/specification/AGENTS/Definition Git object equality to c240 verified",
+  "executionAuthorized": false,
+  "clockStarted": false,
+  "preparedUtc": "2026-11-15T07:51:28.818326+00:00"
+}

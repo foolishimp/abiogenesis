@@ -1,0 +1,54 @@
+{
+  "status": "prepared_disabled_static_passed",
+  "sourceParent": "feadde9579b3e5e7600c137a9ed27f1d3f202d08",
+  "sourceWorktree": "/private/tmp/abg-rc14-regression-repair-20261115-04",
+  "branch": "codex/rc14-regression-repair-20261115-04",
+  "activationId": "RC14-REGRESSION-REPAIR-NATIVE-004",
+  "predecessorControlSubject": "c240e67af21acb74332d3206d68dca0be5ecd284",
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "sha256": "b2dd739426ba057d459e343de57172f6145a932d805ca6df729600d5208896a8",
+    "controls": 20
+  },
+  "reentryRecord": "REENTRY.json",
+  "changedMeaning": "Only fresh04 coordinates/activation and exclusive approved launch staging/equality guard before HOST; original ownership/close/deadline/output limits preserved",
+  "nativeScopePaths": 17,
+  "wholeProofFiles": 16,
+  "limits": {
+    "nativeMinutes": 60,
+    "maxTurns": 240,
+    "effort": "xhigh",
+    "proofMinutes": 90,
+    "enclosingMinutes": 180,
+    "automaticRetry": false
+  },
+  "static": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/STATIC_RETURN.json",
+    "sha256": "d94af1cec079c11ec631431abe282881f13737925ffd90ddf50c1c335a6f23bc",
+    "taskTypeOnlyPassed": true,
+    "readRoots": 86,
+    "contextBytes": 2518449,
+    "stagingCases": 8,
+    "ProductEvaluated": false
+  },
+  "reuse": {
+    "actualBuildSourceRows": 1295,
+    "buildFiles": 782,
+    "derivedOutputs": 2,
+    "dependencyEntries": 4576,
+    "requiredRetainedFiles": 7,
+    "requiredRetainedBytes": 669118059,
+    "basis": "Prior exact reviewed inventories/receipts; tenant/specification/Definition/AGENTS Git equality confirmed. No repeated large-input hashing during preparation. Existing proof entry/exit hashing remains."
+  },
+  "preservation": "Native03 source/preimage/imported manifest/raw failures and clocks untouched; zero author calls there; no native04 execution yet",
+  "clockStarted": false,
+  "executionAuthorized": false,
+  "remaining": [
+    "Independent frozen control review",
+    "Root exact accepted/pushed launch checkpoint, clean branch advance and freeze-source",
+    "Separate fresh04 launch admission; no Product/runtime work before it"
+  ],
+  "entry": "python3 operate.py /absolute/path/to/approved/LAUNCH.json",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04",
+  "returnTo": "Root; no main/push by Writer"
+}
