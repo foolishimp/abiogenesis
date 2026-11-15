@@ -1,0 +1,41 @@
+{
+  "kind": "external_proof_control_manifest",
+  "activationId": "RC14-UNRUN-SIX-PROOF-001",
+  "files": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 2628,
+      "sha256": "ace8f430881a51c8199f78369b5d6632ae7b0fe3dffddca4cb2b23d79a1285f0"
+    },
+    {
+      "path": "BINDING.template.json",
+      "bytes": 260,
+      "sha256": "2fc086ed173384bcb6bcfdec346824e98603be84571ecbffedc6dd7acef3a6d5"
+    },
+    {
+      "path": "INPUTS.json",
+      "bytes": 11058,
+      "sha256": "c312b74ed8f9c499262087ced616375d0d17acfb13efb44fe98ba3e2d45d3d98"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 6210,
+      "sha256": "2ccacd0bb4574c71a2ae61be0327fd8eb1c11f5b25ce105e0691fe39922fb3f4"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3784,
+      "sha256": "b232127ea28e0b739cc7e05d0a86bf490e87e145dfff4e0d67a17787cf3eff02"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 1233,
+      "sha256": "0b729e9bb46098ed1df7b2d704f455e8a6a50a93610031461af0c15b4fec3ca5"
+    },
+    {
+      "path": "run.py",
+      "bytes": 15432,
+      "sha256": "4bf7f01af064485f3e55344a7d071d33e956667df24699b8dec2807b3de43f89"
+    }
+  ]
+}

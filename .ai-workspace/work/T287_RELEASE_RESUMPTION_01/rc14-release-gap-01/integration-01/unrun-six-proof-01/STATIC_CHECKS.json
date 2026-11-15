@@ -1,0 +1,33 @@
+{
+  "status": "passed_static_only",
+  "pythonSyntax": "ast.parse; no module import/execution",
+  "jsonFiles": "all parse",
+  "sourceHead": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+  "sourceTree": "1efbbd46e99bcef12789559f02e47ed4806db048",
+  "originalAuthorHead": "b47ee9e72eb2dd6ae247f111fca7fa966f4c9d46",
+  "commitTransitionPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs"
+  ],
+  "sourceRows": 1428,
+  "sourceRowsExact": true,
+  "frozenWorkerMatchesCommittedSource": true,
+  "retainedControlsMatchOriginalManifest": true,
+  "setupManifestBytesAndMtimeMatchClosedCustody": true,
+  "fullSetupOwnerVerification": "Deferred exact retained setup-custody verify at actual entry/exit; no new setup or admission",
+  "wholeFiles": 6,
+  "originalOrdinals": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "namedTopLevelCases": 26,
+  "proofPlanRowsByteMeaningEqual": true,
+  "providerCalls": 0,
+  "testsRun": 0,
+  "builds": 0,
+  "proofClockStarted": false,
+  "preparationCorrection": "Local JSON acquisition initially used controls instead of actual files key; stopped before runner generation, corrected to exact observed manifest. No tests/process dispatch or evidence relabel."
+}

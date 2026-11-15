@@ -1,0 +1,200 @@
+{
+  "records": {
+    "postimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/SOURCE_POSTIMAGE.json",
+      "bytes": 357121,
+      "sha256": "65db2d1664509c6731389e259255bd90be2e9ff1289eb61f22cec8ff4391540e"
+    },
+    "sourceDiff": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/SOURCE_DIFF.patch",
+      "bytes": 19320,
+      "sha256": "43cbb39f291e49bb74b6dbfab56883646e76b7243f5f48a4866a833c3f3662a9"
+    },
+    "frozenWorker": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/source-subject/runtime-f09-worker.mjs",
+      "bytes": 146657,
+      "sha256": "3e8fc89527f3bc533bc4a2242059362f33bd946ddc5cfdd083e5a975b81c9cbb"
+    },
+    "proofReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/proof-01/RETURN.json",
+      "bytes": 19134,
+      "sha256": "80bbec7e6b582ed7b506d70a93ae060634855ef25897b4a06861ff1bf4782f4b"
+    },
+    "proofClosure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/PROOF_CLOSURE.json",
+      "bytes": 9642,
+      "sha256": "d45feaa62940bb4c048701747bd59372af51163244274a19b54fb6daa1102a65"
+    },
+    "rootClosure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE07_PROOF_CLOSURE.json",
+      "bytes": 2727,
+      "sha256": "7f108591d7665b1b99e69b92a83c16e65565d23bcb0a757514ac63a72d9c3a96"
+    },
+    "setupCustody": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/SETUP_CUSTODY.json",
+      "bytes": 2549,
+      "sha256": "a5cf808f22f8d6373fb36634bff685812268a0ed33a813d6d4b3c8b84e4f0a2d"
+    }
+  },
+  "retainedControls": [
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/ACTIVATION.json",
+      "bytes": 9616,
+      "sha256": "a4e8fa7091de498d0f02c412f0b2a1c6c2e047eec7009f6fbad13c3d53e81be2"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/BUILD_REUSE.json",
+      "bytes": 4646,
+      "sha256": "c07cf691485b144821e4049b151e7c04fed1b17d0fa6b3ac54950d9546613272"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/CONTROL_MANIFEST.json",
+      "bytes": 4179,
+      "sha256": "5adc37205e14c3dfde7c2558cbd542d534a9b9d83fa70fdad86ba390a169ed71"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/CONTROL_REPAIR.json",
+      "bytes": 1093,
+      "sha256": "6eadae6335867705c06897fe1abd01d8ca39bf4f723f206a7074521074ce74eb"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/DEPENDENCY_INPUTS.json",
+      "bytes": 706,
+      "sha256": "f57ae6dd95a2280fa6ec0e2976fd13b48c9d28858bb324cdf6ff05f2455b5540"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/HOST.mjs",
+      "bytes": 21120,
+      "sha256": "1a65b4d58919e101180c37ee6fce154b7e8e704960dee599a37a461b0820789b"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/LAYOUT.json",
+      "bytes": 1074,
+      "sha256": "f65bcfc66a15f432052fdbbc17afadebb1d7b3245688895fe0db6d2f33454111"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/PRIOR_PARTIAL_SOURCE.json",
+      "bytes": 4471,
+      "sha256": "2319071bf69a423640a8b9af0c33f448c4705a2331d3d2a9b927405dd80969f1"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/PRIOR_TITLE_MAP.json",
+      "bytes": 2379,
+      "sha256": "1bb45ecacff4faef9ea3cf8444d950df232d6d041334ce959cd71a43bfa6b281"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/PROOF_PLAN.json",
+      "bytes": 19424,
+      "sha256": "0e61241a6373dfd4ff7741865b5bfa30ca3845a49c6f7aefb79c46a94cb58d97"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/README.md",
+      "bytes": 2529,
+      "sha256": "6ffd0453991664120bc5dfaa45cd787076d338931137c48e004d267333ac8831"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/REENTRY.json",
+      "bytes": 1942,
+      "sha256": "dfb8c59da6a22fc09b9384272b3c88fef8e748aeb52f9de395a7a27f3f1a8b20"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/RETAINED_INPUTS.json",
+      "bytes": 2617,
+      "sha256": "6b3acd6edd34a09ee213a583ffc743c88c96ecf9ca94757b34270407efbdb74b"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/RETAINED_PROOF.json",
+      "bytes": 20929,
+      "sha256": "27231d2e9937079e5b752575ee5b9aca6dbfd925ed1f0bef02fe84ab2751bb24"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/ROOT_ACTIVATION.json",
+      "bytes": 2296,
+      "sha256": "c0a64d3fe2ae78d48b612e4dc55d9c75f5a6d415ffcabd6d4a6bd494f41952d6"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/ROOT_TRIAGE.json",
+      "bytes": 6017,
+      "sha256": "98d2d7a4bf433d92768556c0f7ce2bce22136341ee6b67841c95e20e1e3ab254"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/SOURCE_BINDING.json",
+      "bytes": 746,
+      "sha256": "8761c691749758a9ae0e25c2fbd1f276f2ab624762f177a4f84bb5aab5bb8f5e"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/STATIC.json",
+      "bytes": 4060,
+      "sha256": "f0b309138eca03f1695bff58e5fb5b28ff197ac9bfc4c4a7b894ac1736a24290"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/TASK.json",
+      "bytes": 11660,
+      "sha256": "bee2b7b9d755f631ab7d45f57c539a528d477e298b9bf5ebc3c807aeffbd2272"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/TITLE_MAP.json",
+      "bytes": 1704,
+      "sha256": "b707f1bb016c5bd772048b8391e2b8483c6b9035f24530b923a43dbe0547d857"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/TRIAGE.md",
+      "bytes": 1514,
+      "sha256": "02ea0161a394aa1c5d3a7964de2d54754e505cbfb03ee2699fb4f75cd4ccbb1b"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/freeze-source.py",
+      "bytes": 3393,
+      "sha256": "7cd9d8d083eefb6e0177c3ac25c55796f3766d36001c64f227c6ddf7b3015331"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/operate.py",
+      "bytes": 6471,
+      "sha256": "58b11d0a1471d41601657bffeea8858c767219b92ccb093942217c27807b03ce"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/prove.py",
+      "bytes": 27559,
+      "sha256": "a10d3f3aa336f5d6b28a110ef0fe63fab673eb2f504b90150f1979632f880465"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ],
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26",
+    "bytes": 5769
+  },
+  "sourceRowCount": 1428,
+  "sourceRowsSha256": "6fa45bbd5eac085f811c066f095b8a577653302c200c4ed28bb4ee9e55be5a18",
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "nodeSelection": "/opt/homebrew/bin/node",
+  "python": {
+    "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "bytes": 33816,
+    "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa"
+  },
+  "sourceSetup": "Verify original setup-custody at its original control path against b47 launch; separately require current99 commit/index and exact1428-row postimage."
+}
