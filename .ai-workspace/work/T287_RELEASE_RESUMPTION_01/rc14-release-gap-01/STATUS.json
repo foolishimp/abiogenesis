@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T22:45:14.639002+00:00",
-  "nativeAuthorState": "Completion04 controls accepted and integrated; one RC13/Opus5.5 xhigh source-only pass selected, awaiting pushed checkpoint and actual launch. No B56 build/proof.",
+  "recordedUtc": "2026-11-15T22:49:42.768623+00:00",
+  "nativeAuthorState": "Actual RC13/Opus5.5 xhigh native04 author active in method/owner acquisition; original fixed clock running. No B56 build/proof.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1224,17 +1224,26 @@
     "reportedListCostUsd": 8.4880592
   },
   "b56Completion04": {
-    "state": "CONTROLS_ACCEPTED_ONE_NATIVE_PASS_AUTHORIZED_AFTER_PUSH",
+    "state": "NATIVE04_ACTIVE",
     "selection": "integration-01/B56_NATIVE03_CONJUNCTION_AND_REENTRY_04.json",
     "nativeWritePaths": [
       "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
     ],
     "newReadTerritory": "build_tenants/abiogenesis/typescript/code/src",
-    "providerStarted": false,
+    "providerStarted": true,
     "proofAuthorized": false,
     "candidateBuildAuthorized": false,
     "controlCommit": "e00aa6668e37f336464aed21079c87b91bb5cf6d",
     "manifestSha256": "7063325b879e1d6c12d3d7dcab2dff423a16cfe237b094722c0589a2cf15d452",
-    "activation": "integration-01/B56_NATIVE_ACTIVATION_04.json"
+    "activation": "integration-01/B56_NATIVE_ACTIVATION_04.json",
+    "launch": "integration-01/B56_NATIVE_LAUNCH_04.json",
+    "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+    "startedUtc": "2026-11-15T22:47:31.946547Z",
+    "originalDeadlineUtc": "2026-11-16T01:47:31.946547Z",
+    "actorPid": 10001,
+    "actorStartedUtc": "2026-11-15T22:48:16.242Z",
+    "modelObserved": "claude-opus-5-5",
+    "effortConfigured": "xhigh",
+    "sourcePreimageRows": 1571
   }
 }

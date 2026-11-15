@@ -1,0 +1,39 @@
+{
+  "id": "RC14-B56-NATIVE-LAUNCH-04",
+  "recordedUtc": "2026-11-15T22:49:42.768623+00:00",
+  "writerActivation": "RC14-ROOT-B56-COMPLETION-RECORDS-WRITER-028",
+  "activation": "integration-01/B56_NATIVE_ACTIVATION_04.json",
+  "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+  "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04",
+  "launch": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/LAUNCH.json",
+    "bytes": 6289,
+    "sha256": "c8e47addcde8e9e79716848d8d2fcf721fb5e019d8d128ff3e23b3a78af9f634"
+  },
+  "sourcePreimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_PREIMAGE.json",
+    "bytes": 486897,
+    "sha256": "60f0e052bc6870037a62983bddd77f073321e0dfd923b01cbd73e8510a26b7de"
+  },
+  "sourcePreimageRows": 1571,
+  "originalStartedUtc": "2026-11-15T22:47:31.946547Z",
+  "originalDeadlineUtc": "2026-11-16T01:47:31.946547Z",
+  "executionStopUtc": "2026-11-16T01:44:31.946547Z",
+  "hostPid": 9470,
+  "actorPid": 10001,
+  "actorStartedUtc": "2026-11-15T22:48:16.242Z",
+  "publicSetupHeldUtc": "2026-11-15T22:48:09.825Z",
+  "dispatchUtc": "2026-11-15T22:48:11.393Z",
+  "runRef": "run://abiogenesis/9ac0e42adf4bd95bbc9c459562fecbc8bd6f61cf9771fdc027523874a2267afd",
+  "actualProtocolModel": "claude-opus-5-5",
+  "configuredEffort": "xhigh",
+  "effortStanding": "Configured and transport-checked, no independent remote effort attestation.",
+  "protocolPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/runtime/resources/archives/fp-db56258a196f27ac-stdout.log",
+  "observed": "Operator confirms actual actor_process_started and protocol init; Task/Root/guide/installed method acquisition underway before any observed edit.",
+  "nativeMethodCompliance": "Pending complete actual command/content/scope audit, not established by control readiness or Root helper check.",
+  "sourceComplete": false,
+  "proofStarted": false,
+  "rawPublished": false,
+  "oldAttempts": "Closed, exact, no clock or evidence credit transfer."
+}
