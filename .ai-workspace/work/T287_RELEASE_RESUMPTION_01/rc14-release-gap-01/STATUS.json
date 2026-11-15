@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T22:49:42.768623+00:00",
-  "nativeAuthorState": "Actual RC13/Opus5.5 xhigh native04 author active in method/owner acquisition; original fixed clock running. No B56 build/proof.",
+  "recordedUtc": "2026-11-15T23:19:22.073779+00:00",
+  "nativeAuthorState": "Native04 closed; both source reviews satisfied. Exact one-file source recovered, method noncompliance retained. Narrow proof-control successor preparing; no B56 build/proof.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1224,7 +1224,7 @@
     "reportedListCostUsd": 8.4880592
   },
   "b56Completion04": {
-    "state": "NATIVE04_ACTIVE",
+    "state": "CLOSED_SOURCE_RECOVERED_METHOD_NONCOMPLIANT",
     "selection": "integration-01/B56_NATIVE03_CONJUNCTION_AND_REENTRY_04.json",
     "nativeWritePaths": [
       "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
@@ -1244,6 +1244,25 @@
     "actorStartedUtc": "2026-11-15T22:48:16.242Z",
     "modelObserved": "claude-opus-5-5",
     "effortConfigured": "xhigh",
-    "sourcePreimageRows": 1571
+    "sourcePreimageRows": 1571,
+    "actorClosed": true,
+    "taskCompleteSourceClaim": true,
+    "sourceRecovery": "integration-01/B56_NATIVE04_SOURCE_RECOVERY_AND_PROOF_REENTRY_01.json",
+    "returnCommit": "362117993be269665ac78c70d25ebba9e4a3a1f3",
+    "sourceSha256": "9fef11e5ac9201f154922d03346e33d06ed8c79531d0ebea3b389afbc738f185",
+    "auditSha256": "08afaaf3bc30693007b65b5734a606b3196400014569e35a60e4fafa552cb3e0",
+    "methodCompliance": false,
+    "proofStarted": false,
+    "actualCloseFreshResultClosedReplay": true,
+    "sdkWallMs": 854124,
+    "turns": 68,
+    "reportedListCostUsd": 6.576858
+  },
+  "b56ProofRecovery": {
+    "state": "CONTROL_PREPARATION_SELECTED",
+    "selection": "integration-01/B56_NATIVE04_SOURCE_RECOVERY_AND_PROOF_REENTRY_01.json",
+    "proofAuthorized": false,
+    "newNativeAuthorized": false,
+    "originalDeadlineUtc": "2026-11-16T01:47:31.946547Z"
   }
 }

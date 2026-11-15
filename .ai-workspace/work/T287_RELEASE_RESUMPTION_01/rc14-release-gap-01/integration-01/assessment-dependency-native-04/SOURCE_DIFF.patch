@@ -1,0 +1,836 @@
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
+index a83679976..be52d8580 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
+@@ -2610,6 +2610,137 @@ test('RC7 fixed admission: a Public direct Testing state Result admits direct UA
+   }
+ });
+ 
++// B56 installed proof retention. Each observation is appended to the exclusive
++// candidate under ABG_REGRESSION_PROOF_ROOT when it is seen, before the check
++// that consumes it; the file stays one valid JSON document after every append.
++// A thrown primary failure is recorded and rethrown unchanged. A capture failure
++// after it is carried through what scripts/node-test-evidence-reporter.mjs
++// retains (name, message, stack, code, failureType and cause, recursively): it
++// is appended at the end of the primary's cause chain, never replacing the
++// primary or its original cause, else to its message; when the proof root is
++// writable a sidecar record also keeps both. No t.diagnostic is relied on.
++const b56Open=fsPromises.open,b56ExecFile=promisify(execFile);let b56SecondaryOrdinal=0;
++function b56ErrorRecord(error,depth=0){
++  if(error===null||error===undefined)return null;
++  if(typeof error!=='object'&&typeof error!=='function')return {name:'NonErrorThrow',message:String(error),stack:null,code:null,failureType:null,cause:null};
++  const text=v=>v===null||v===undefined?null:String(v);let message;
++  try{message=String(error.message??error);}catch{message='[unprintable]';}
++  return {name:text(error.name)??'Error',message,stack:typeof error.stack==='string'?error.stack:null,code:text(error.code),failureType:text(error.failureType),
++    ...(typeof error.operator==='string'?{operator:error.operator}:{}),cause:depth>=16?null:b56ErrorRecord(error.cause,depth+1)};
++}
++function b56Json(value){
++  const ancestors=[];
++  return JSON.stringify(value,function(_key,v){
++    if(typeof v==='bigint'||typeof v==='symbol')return String(v);
++    if(typeof v==='function')return `[function ${v.name||'anonymous'}]`;
++    if(v instanceof Error)return b56ErrorRecord(v);
++    if(typeof v!=='object'||v===null)return v;
++    while(ancestors.length>0&&ancestors.at(-1)!==this)ancestors.pop();
++    if(ancestors.includes(v))return '[circular]';
++    ancestors.push(v);return v;
++  })??'null';
++}
++function b56CarryCaptureFailure(primary,captureError){
++  const carried=new Error('B56 capture failure after the primary failure: '+(b56ErrorRecord(captureError)?.message??'unknown'),{cause:captureError});
++  carried.name='B56CaptureFailure';carried.code='B56_CAPTURE_FAILURE';
++  let link=primary;
++  for(let depth=0;depth<32&&link!==null&&(typeof link==='object'||typeof link==='function');depth++){
++    if(link.cause===undefined||link.cause===null){
++      try{Object.defineProperty(link,'cause',{value:carried,configurable:true,writable:true,enumerable:false});}catch{}
++      if(link.cause===carried)return 'primary_cause_chain_end';
++      break;
++    }
++    link=link.cause;
++  }
++  try{if(primary!==null&&typeof primary==='object'){const suffix=` [${carried.message}]`;primary.message=String(primary.message)+suffix;if(String(primary.message).endsWith(suffix))return 'primary_message';}}catch{}
++  return 'not_carried';
++}
++async function b56SecondaryCapture(path,header,primary,captureError){
++  const carried=b56CarryCaptureFailure(primary,captureError);
++  if(path!==null)try{await writeFile(`${path}.capture-failure.${++b56SecondaryOrdinal}.json`,b56Json({...header,primary:b56ErrorRecord(primary),captureFailure:b56ErrorRecord(captureError),carried})+'\n',{flag:'wx'});}catch{}
++  return carried;
++}
++async function b56Capture(name,title){
++  const root=process.env.ABG_REGRESSION_PROOF_ROOT,path=root===undefined||root===''?null:join(root,name);
++  const header={kind:'b56_installed_regression_candidate',test:title,file:'build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs',
++    startedAt:new Date().toISOString(),pid:process.pid,nodeVersion:process.version};
++  let handle=null,position=0,count=0,state={status:'running',observations:0};
++  const write=async(text,at)=>{const bytes=Buffer.from(text,'utf8');let offset=0;
++    while(offset<bytes.length){const {bytesWritten}=await handle.write(bytes,offset,bytes.length-offset,at+offset);offset+=bytesWritten;}return at+bytes.length;};
++  const seal=async()=>{if(handle===null)return;const end=await write(`\n],"state":${b56Json(state)}}\n`,position);await handle.truncate(end);};
++  if(path!==null){
++    await mkdir(root,{recursive:true});handle=await b56Open(path,'wx');
++    position=await write(b56Json(header).slice(0,-1)+',"observations":[\n',0);await seal();
++  }
++  const seen=async(label,value)=>{
++    const entry=b56Json({ordinal:count,label,observedAt:new Date().toISOString(),value:value===undefined?null:value});
++    if(handle!==null)position=await write((count===0?'':',\n')+entry,position);
++    count++;state={status:'running',observations:count};await seal();return value;};
++  const run=async body=>{
++    let failed=false,primary;
++    try{await body(seen);state={status:'body_returned',observations:count};await seal();}
++    catch(error){failed=true;primary=error;}
++    if(failed){
++      try{state={status:'thrown',observations:count,primary:b56ErrorRecord(primary)};if(path!==null&&handle===null)throw new Error('the candidate handle is unavailable');await seal();}
++      catch(captureError){await b56SecondaryCapture(path,header,primary,captureError);}
++    }
++    try{const open=handle;handle=null;await open?.close();}
++    catch(closeError){if(!failed)throw closeError;await b56SecondaryCapture(path,header,primary,closeError);}
++    if(failed)throw primary;
++  };
++  return {seen,run};
++}
++const B56_ACTOR_KEYS=['ABG_TS_CLAUDE_COMMAND','ABI5_SCRIPTED_ACTOR_LOG','ABI5_SCRIPTED_ACTOR_PHASE'];
++const b56ActorEnvironment=environment=>({keyCount:Object.keys(environment).length,otherKeysOmitted:true,
++  selected:Object.fromEntries(B56_ACTOR_KEYS.map(key=>[key,environment[key]??null]))});
++// The installed Public CLI transport of runInstalledCliRequest
++// (support/registered-graph-selection.mjs): the same request, `--jsonl` argv,
++// cwd, environment and buffer, captured completely (request, exit code,
++// signal, stdout, stderr, parse) before the same declared checks.
++// An expected nonzero exit (expectedExitCode null, or the expected code) is an
++// observation, not a failure. No process exit at all (spawn, signal or buffer
++// failure), or an exit the request did not expect, is a genuine child failure.
++// Once such a child failure, or a known parse error, exists, a later seen/capture
++// throw cannot replace it: the actual primary is rethrown and the capture error
++// is carried as secondary through the reporter-retained cause/message channels.
++async function b56Preserving(primary,capture){
++  try{return await capture();}
++  catch(captureError){
++    if(primary===null||primary===undefined)throw captureError;
++    b56CarryCaptureFailure(primary,captureError);throw primary;
++  }
++}
++async function b56InstalledCli(seen,label,{scratch,installedRoot,identity,acquisition,call,expectedExitCode=0,environment={}}){
++  const requestPath=join(scratch,`st4-${identity}-request.jsonl`),cliPath=join(installedRoot,'build/code/src/public/cli.js');
++  const request={kind:'abg_cli_transport_request',schemaVersion:'5.0.0',acquisition,invocation:call};
++  await seen(label+' CLI request',{identity,argv:[process.execPath,cliPath,'--jsonl',requestPath],cwd:scratch,expectedExitCode,environment:b56ActorEnvironment(environment),requestPath,request});
++  await writeFile(requestPath,`${JSON.stringify(request)}\n`);
++  const started=performance.now();let child,thrown=null;
++  try{child=await b56ExecFile(process.execPath,[cliPath,'--jsonl',requestPath],{cwd:scratch,env:environment,maxBuffer:10*1024*1024});}
++  catch(error){thrown=error;child=error;}
++  const wallMs=performance.now()-started,stdout=typeof child?.stdout==='string'?child.stdout:null,stderr=typeof child?.stderr==='string'?child.stderr:null;
++  const exitCode=thrown===null?0:typeof thrown?.code==='number'?thrown.code:null;
++  const childFailure=thrown!==null&&(exitCode===null||expectedExitCode!==null&&exitCode!==expectedExitCode)?thrown:null;
++  await b56Preserving(childFailure,()=>seen(label+' CLI child',{exitCode,expectedExitCode,genuineChildFailure:childFailure!==null,
++    expectedNonzeroObservation:childFailure===null&&exitCode!==0,
++    spawnErrorCode:thrown===null||typeof thrown?.code==='number'||thrown?.code===undefined||thrown?.code===null?null:String(thrown.code),signal:thrown?.signal??null,killed:thrown?.killed??false,
++    stdout,stderr,error:b56ErrorRecord(thrown),wallMs}));
++  const lines=(stdout??'').trim().split(/\r?\n/u);let output=null,parseError=null;
++  try{if(lines.length===1)output=JSON.parse(lines[0]);}catch(error){parseError=error;}
++  await b56Preserving(childFailure??parseError,()=>seen(label+' CLI output',{lineCount:lines.length,parseError:b56ErrorRecord(parseError),receiptPresent:Boolean(output?.receipt),output}));
++  // The maintained declared checks, in their order, after complete capture.
++  if(childFailure!==null){
++    if(exitCode===null)throw childFailure;
++    try{assert.equal(exitCode,expectedExitCode,`${identity} CLI exit`);}
++    catch(error){if(error!==null&&typeof error==='object'&&(error.cause===undefined||error.cause===null))
++      try{Object.defineProperty(error,'cause',{value:childFailure,configurable:true,writable:true,enumerable:false});}catch{}
++      throw error;}
++  }
++  assert.equal(stderr,'',`${identity} CLI stderr`);
++  assert.equal(lines.length,1,`${identity} one CLI output`);
++  if(parseError!==null)throw parseError;
++  return Object.freeze({wallMs,cliPath,requestPath,output});
++}
+ // RC7 assessment dependency (native HOW, Declared typed assessment): the
+ // canonical assessment's inner consumer response dependency over the existing
+ // installed witness-consumer fixture. One actual Public start dispatches the
+@@ -2618,6 +2749,8 @@ test('RC7 fixed admission: a Public direct Testing state Result admits direct UA
+ // that Run's admitted Catalog, installs, lock and events. Each negative subcase
+ // calls an owner that gates dispatch; none starts an actor.
+ test('RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage',{timeout:280_000},async t=>{
++  const {run}=await b56Capture('b56-installed-coincident.candidate.json','RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage');
++  await run(async seen=>{
+   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
+   const shared=await libraryInstall();selectedEnvironment=shared.selectedEnvironment;
+   const env=await openCaseEnvironment(t,shared.install,{workspaceProductIndex:1,additionalCorePublicationConstructors:constructors});
+@@ -2632,41 +2765,62 @@ test('RC7 assessment dependency: exact admitted consumer selection, refusals and
+   const actor=join(proof,'scripted-actor.mjs'),actorLog=join(proof,'scripted-actor.jsonl');
+   await writeFile(actor,'#!'+process.execPath+'\n'+SCRIPTED_ACTOR);await chmod(actor,0o755);
+   const actorEnvironment={...process.env,ABG_TS_CLAUDE_COMMAND:actor,ABI5_SCRIPTED_ACTOR_LOG:actorLog};
+-  const roles=async()=>(await readFile(actorLog,'utf8').catch(error=>error.code==='ENOENT'?'':Promise.reject(error))).trim().split('\n').filter(Boolean).map(l=>JSON.parse(l).role.split(':')[0]);
++  const actorRows=async()=>(await readFile(actorLog,'utf8').catch(error=>error.code==='ENOENT'?'':Promise.reject(error))).trim().split('\n').filter(Boolean).map(l=>JSON.parse(l));
++  const roles=async()=>(await actorRows()).map(r=>r.role.split(':')[0]);
+   const worksite=W.canonicalRoot??env.workspaceAuthority?.canonicalRoot??join(env.scratch,'workspace');
+   await cp(join(witnessRoot,'seed'),worksite,{recursive:true});
+   const input=await witnessInput({product,selection,seedRoot:worksite});
++  await seen('coincident installed premises and selected input',{consumer:{moduleRef:consumerPublication.moduleRef,owningProductId:consumerId,programRef:consumerProgram.programRef,
++      contracts:consumerPublication.contracts,members:consumerPublication.graphFunctions.map(g=>({name:g.name,rawResultContract:g.declarations['abg.raw_result_contract']??null}))},
++    lock:{lockId:env.lock.lockId,lockDigest:env.lock.lockDigest,rows:env.lock.rows.map(r=>r.productId),dependencyEdges:env.lock.dependencyEdges},
++    input,actorEnvironment:b56ActorEnvironment(actorEnvironment)});
+   env.catalogView=env.product.narrowGraphFunctionCatalog(env.catalog,consumerProgram.callableMembership);assert.equal(env.catalogView.kind,'graph_function_catalog_view');
+   let handoff=env.store.projectReopenAuthorityAndClose();
+   const resource=()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)});
++  // The installed Public CLI transport, captured completely before its declared checks.
+   const cli=async(identity,call)=>{
+-    const execution=await runInstalledCliRequest({scratch:proof,installedRoot:env.installedRoot,identity,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null,environment:actorEnvironment});
+-    const receipt=execution.output?.receipt;assert.ok(receipt,JSON.stringify(execution).slice(0,4000));assert.equal(receipt.failure,null,JSON.stringify(receipt).slice(0,4000));
+-    if(receipt.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;return receipt;};
++    const execution=await b56InstalledCli(seen,identity,{scratch:proof,installedRoot:env.installedRoot,identity,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null,environment:actorEnvironment});
++    await seen(identity+' actor log',await actorRows());
++    const receipt=execution.output?.receipt;
++    if(receipt?.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;
++    assert.ok(receipt,JSON.stringify(execution).slice(0,4000));assert.equal(receipt.failure,null,JSON.stringify(receipt).slice(0,4000));return receipt;};
+   // 1. One actual Public start: the installed consumer's own selection reaches one assessor dispatch.
+   const start=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input,identity:'assessment-dependency',runEnvironmentResourceFactory:selectedEnvironment.resources});
+   const started=await cli('assessment-dependency-start',start.call),value=started.ownerOutput.value;
+-  const events=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix);
+-  assert.ok(started.ownerOutput.outcomeKind==='result'&&value?.disposition==='completed',rc7RefusalRecord('assessment-dependency-start',started,events));
+-  assert.deepEqual(await roles(),['select','native','select','c2','select','assess'],'one actual assessor dispatch');
+-  const prefix=env.abg.selectValidatedRuntimeEventPrefix(events);
+-  const opened=events.filter(e=>e.kind==='c_call_opened'&&e.graphFunctionRef===assessmentRef);assert.equal(opened.length,1);
++  const events=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix),startRoles=await roles();
++  const opened=events.filter(e=>e.kind==='c_call_opened'&&e.graphFunctionRef===assessmentRef);
+   const assessed=events.find(e=>e.kind==='c_call_result_admitted'&&e.graphFunctionRef===assessmentRef);
++  const artifact=opened.length===1?events.find(e=>e.kind==='actor_result_artifact_observed'&&e.parentAggregateId===opened[0].aggregateId):undefined,warm=artifact?.payload.nativeResultAssessment;
++  const binding=artifact===undefined?undefined:events.find(e=>e.kind==='actor_transport_binding_admitted'&&e.aggregateId===artifact.payload.transportBindingRef),stored=binding?.payload.instructionAssembly;
++  const refusal=rc7RefusalRecord('assessment-dependency-start',started,events);
++  await seen('coincident start events',{prefix:handoff.prefix,eventCount:events.length,eventKinds:events.map(e=>[e.admissionOrdinal??null,e.kind,e.graphFunctionRef??null]),refusal,roles:startRoles,
++    outcome:{outcomeKind:started.ownerOutput?.outcomeKind??null,disposition:value?.disposition??null,failure:started.failure??null},
++    refusalEvents:events.filter(e=>RC7_REFUSAL_EVENT_KINDS.includes(e.kind)),opened,assessed:assessed??null,artifact:artifact??null,binding:binding??null,
++    commandResults:events.filter(e=>e.kind==='c_call_result_admitted'&&e.graphFunctionRef===env.product.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef)});
++  assert.ok(started.ownerOutput.outcomeKind==='result'&&value?.disposition==='completed',refusal);
++  assert.deepEqual(startRoles,['select','native','select','c2','select','assess'],'one actual assessor dispatch');
++  const prefix=env.abg.selectValidatedRuntimeEventPrefix(events);
++  assert.equal(opened.length,1);
+   assert.equal(assessed?.payload.resultClass,'success');assert.equal(assessed.payload.value.assessment.kind,assessmentSchema.properties.kind.const);
+-  const artifact=events.find(e=>e.kind==='actor_result_artifact_observed'&&e.parentAggregateId===opened[0].aggregateId),warm=artifact?.payload.nativeResultAssessment;
+   assert.equal(warm?.disposition,'admitted');assert.ok(warm.verification,'the warm raw preimage verification is retained');
+-  const binding=events.find(e=>e.kind==='actor_transport_binding_admitted'&&e.aggregateId===artifact.payload.transportBindingRef),stored=binding?.payload.instructionAssembly;
+   assert.equal(stored?.kind,'native_instruction_assembly');
+-  const childBasis=env.abg.rehydrateExecutionBasisAtPrefix(prefix,opened[0].basisId),task=childBasis.rawInputValue,admitted=task.assessment;
++  const childBasis=env.abg.rehydrateExecutionBasisAtPrefix(prefix,opened[0].basisId),task=childBasis?.rawInputValue,admitted=task?.assessment;
++  await seen('coincident admitted child basis',{basisId:opened[0].basisId,childBasis});
+   assert.equal(admitted.resultContract.contractRef,contractRef);assert.equal(admitted.schemaAsset.productId,consumerId);
+   // Cold owners over the closed Run: its admitted environment, Catalog resolution and leaf port.
+   const environment=env.abg.projectExactPrefixWorkspaceEnvironment(handoff.prefix,{ref:W.bindingId,digest:W.bindingDigest});
+-  assert.equal(environment.kind,'exact_prefix_workspace_environment');
+   const verifyInstallAdmission=install=>env.abg.hasAdmittedProductInstall(environment.artifactTruth,install);
+   const loaded=await env.product.ProductExecutionResolutionPort.resolve({catalog:env.catalog,catalogView:env.catalogView,admittedInstalls:env.admittedInstalls,verifyInstallAdmission,
+     programRef:consumerProgram.programRef,selection:{kind:'start',scope:'program',target:'next',until:'converged',rootMode:'direct'}});
++  // The executing Program coordinate is the loaded resolution's own Program.
++  const executing=loaded.kind!=='loaded_product_execution_resolution'?null:{publication:loaded.programPublication,programRef:loaded.resolution.programRef,programDigest:loaded.resolution.programDigest};
++  await seen('coincident cold environment and execution resolution',{environmentKind:environment.kind,loadedKind:loaded.kind,refusal:executing===null?loaded:null,
++    executing:executing===null?null:{moduleRef:executing.publication.moduleRef,programRef:executing.programRef,programDigest:executing.programDigest,programOwner:loaded.resolution.programOwner,
++      programCanonicalDigest:env.product.sha256Canonical(loaded.program)},catalogBasisDigest:loaded.admittedCatalog?.basisDigest??null});
++  assert.equal(environment.kind,'exact_prefix_workspace_environment');
+   assert.equal(loaded.kind,'loaded_product_execution_resolution',JSON.stringify(loaded).slice(0,2000));
+   assert.equal(loaded.admittedCatalog.basisDigest,env.catalog.basisDigest,'typed carriage of the authenticated Catalog');assert.deepEqual(loaded.admittedInstalls,env.admittedInstalls);
++  assert.deepEqual([executing.publication.moduleRef,executing.programRef],[consumerPublication.moduleRef,consumerProgram.programRef],'the loaded executing Program is the consumer Program');
+   const implementationSet=env.abg.rehydrateAdmittedImplementationSetAtPrefix(prefix,warm.verification.contractCapabilityBasis.implementationSetRef);assert.ok(implementationSet);
+   const port=await env.implementationLeafPort.constructAdmittedLeafInvocationPort({prefix,artifactTruth:environment.artifactTruth,implementationSet,executionResolution:loaded,
+     semanticsProjection:env.product.projectInstalledLeafSemantics(loaded.productSemantics)});
+@@ -2675,114 +2829,560 @@ test('RC7 assessment dependency: exact admitted consumer selection, refusals and
+   const constructorRow=implementationSet.rows.find(r=>r.graphFunctionRef===ids.graphFunctionRef),commandRow=implementationSet.rows.find(r=>r.graphFunctionRef===env.product.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef);
+   assert.ok(constructorRow&&commandRow);
+   const dependencyBasis=over=>({publications:loaded.admittedCatalog.boundPublications,installs:loaded.admittedInstalls,
+-    resolvedLock:loaded.admittedCatalog.readinessBasis.resolvedLock,assessorOwnerProductId:row.graphFunctionOwnerProductId,...over});
++    resolvedLock:loaded.admittedCatalog.readinessBasis.resolvedLock,assessorOwnerProductId:row.graphFunctionOwnerProductId,program:executing,...over});
+   const dependencyOf=(sel,over={})=>relation.resolveNativeWorkspaceAssessmentDependency(sel,dependencyBasis(over));
+   const lock=dependencyBasis({}).resolvedLock,others=dependencyBasis({}).publications.filter(p=>p.moduleRef!==consumerPublication.moduleRef);
+   const withBytes=(sel,bytes)=>({...sel,schemaAsset:{...sel.schemaAsset,bytesBase64:Buffer.from(bytes).toString('base64')}});
+-  const exact=assessor.nativeAssessmentDependency(admitted,row);
++  const exact=assessor.nativeAssessmentDependency(admitted,row),sharedDependency=dependencyOf(admitted);
++  await seen('coincident leaf and shared relation',{row,dependencyBasis:dependencyBasis({}),leaf:exact,shared:sharedDependency,requestSchema:stored.request.responseJsonSchema});
+   assert.ok(exact,'the admitted consumer selection resolves through the leaf port');
+   assert.deepEqual([exact.publication.moduleRef,exact.publication.owningProductId,exact.install.productId],[consumerPublication.moduleRef,consumerId,consumerId]);
++  assert.deepEqual([exact.use.publication.moduleRef,exact.use.install.productId,exact.use.programRef,exact.use.programDigest],
++    [executing.publication.moduleRef,consumerId,executing.programRef,executing.programDigest],'consumer-owned coincident schema owner and executing Program use');
++  assert.ok(exact.use.memberRefs.length>0&&exact.use.memberRefs.every(r=>loaded.program.callableMembership.includes(r)),'members of the executing Program declare use');
+   assert.deepEqual(exact.schema,stored.request.responseJsonSchema,'the dispatched request schema is the relation schema');
+-  assert.deepEqual(dependencyOf(admitted)?.publication,exact.publication,'the port and the shared relation agree over the same carriage');
+-  await subcase('crossed consumer owner refuses before assessment dispatch',()=>{
++  assert.deepEqual(sharedDependency?.publication,exact.publication,'the port and the shared relation agree over the same carriage');
++  const refuse=async(label,sel,over,{leaf=false}={})=>{
++    const output=dependencyOf(sel,over),leafOutput=leaf?assessor.nativeAssessmentDependency(sel,row):undefined;
++    await seen('coincident refusal: '+label,{selection:sel===admitted?'admitted child selection':sel,override:over,output,...(leaf?{leafOutput}:{})});
++    assert.equal(output,null,label);if(leaf)assert.equal(leafOutput,null,label+' (leaf port)');};
++  await subcase('crossed consumer owner refuses before assessment dispatch',async()=>{
+     const crossed={...admitted,schemaAsset:{...admitted.schemaAsset,productId:row.graphFunctionOwnerProductId}};
+     assert.ok(relation.nativeWorkspaceAssessmentSchema(crossed),'the crossed selection is itself well formed');
+-    assert.equal(assessor.nativeAssessmentDependency(crossed,row),null);assert.equal(dependencyOf(crossed),null);
++    await refuse('crossed consumer owner',crossed,{},{leaf:true});
+     const unbound=loaded.admittedInstalls.map(i=>i.productId!==consumerId?i:{...i,contributionManifest:{...i.contributionManifest,publicationBindings:[]}});
+-    assert.equal(dependencyOf(admitted,{installs:unbound}),null,'installation without the exact publication binding grants nothing');
++    await refuse('installation without the exact publication binding grants nothing',admitted,{installs:unbound});
+   });
+-  await subcase('crossed resolved lock refuses before assessment dispatch',()=>{
++  await subcase('crossed resolved lock refuses before assessment dispatch',async()=>{
+     const edge=lock.dependencyEdges.find(e=>e.fromProductId===consumerId&&e.toProductId===row.graphFunctionOwnerProductId);assert.ok(edge,'the consumer requires the assessment owner');
+     const without=lock.dependencyEdges.filter(e=>e!==edge);
+     for(const [name,crossedLock] of [['lock digest',{...lock,lockDigest:zero}],['lock row',{...lock,rows:lock.rows.map(r=>r.productId===consumerId?{...r,manifestDigest:zero}:r)}],
+       ['missing dependency edge',{...lock,dependencyEdges:without}],
+       ['reverse library-to-consumer edge',{...lock,dependencyEdges:[...without,{...edge,fromProductId:edge.toProductId,toProductId:edge.fromProductId}]}]])
+-      assert.equal(dependencyOf(admitted,{resolvedLock:crossedLock}),null,name);
++      await refuse(name,admitted,{resolvedLock:crossedLock});
+   });
+-  await subcase('crossed schema bytes refuse before assessment dispatch',()=>{
++  await subcase('crossed schema bytes refuse before assessment dispatch',async()=>{
+     const reformatted=withBytes(admitted,JSON.stringify(JSON.parse(Buffer.from(admitted.schemaAsset.bytesBase64,'base64')),null,1)+'\n');
+     assert.ok(relation.nativeWorkspaceAssessmentSchema(reformatted),'same schema, different supplied bytes');
+-    assert.equal(assessor.nativeAssessmentDependency(reformatted,row),null);assert.equal(dependencyOf(reformatted),null);
++    await refuse('crossed schema bytes',reformatted,{},{leaf:true});
+   });
+-  await subcase('missing or ambiguous exact consumer declaration refuses before assessment dispatch',()=>{
++  await subcase('missing or ambiguous exact consumer declaration refuses before assessment dispatch',async()=>{
+     const undeclaredRef=witnessRef('contract','undeclared');
+     const undeclared={...withBytes({...admitted,schemaAsset:{...admitted.schemaAsset,contractId:undeclaredRef}},JSON.stringify({...assessmentSchema,$id:undeclaredRef})+'\n'),resultContract:{...admitted.resultContract,contractRef:undeclaredRef}};
+-    assert.ok(relation.nativeWorkspaceAssessmentSchema(undeclared));assert.equal(assessor.nativeAssessmentDependency(undeclared,row),null,'undeclared contract');
+-    assert.equal(dependencyOf(admitted,{publications:others}),null,'no consumer publication');
+-    assert.equal(dependencyOf(admitted,{publications:[...dependencyBasis({}).publications,{...consumerPublication,moduleRef:consumerPublication.moduleRef+'/twin'}]}),null,'two declarations');
++    assert.ok(relation.nativeWorkspaceAssessmentSchema(undeclared));
++    const undeclaredLeaf=assessor.nativeAssessmentDependency(undeclared,row);
++    await seen('coincident refusal: undeclared contract',{selection:undeclared,leafOutput:undeclaredLeaf});assert.equal(undeclaredLeaf,null,'undeclared contract');
++    await refuse('no consumer publication',admitted,{publications:others});
++    await refuse('two declarations',admitted,{publications:[...dependencyBasis({}).publications,{...consumerPublication,moduleRef:consumerPublication.moduleRef+'/twin'}]});
+     const nonMember={...consumerPublication,graphFunctions:consumerPublication.graphFunctions.map(g=>{const {'abg.raw_result_contract':_declared,...declarations}=g.declarations;return {...g,declarations};})};
+-    assert.equal(dependencyOf(admitted,{publications:[...others,nonMember]}),null,'no Program-member consumer callable declares the contract');
++    await refuse('no Program-member consumer callable declares the contract',admitted,{publications:[...others,nonMember],program:{...executing,publication:nonMember}});
++  });
++  await subcase('executing Program use is exact: ref, digest, publication and membership',async()=>{
++    await refuse('missing executing Program',admitted,{program:{...executing,programRef:executing.programRef+'/absent'}});
++    await refuse('wrong executing Program digest',admitted,{program:{...executing,programDigest:zero}});
++    await refuse('executing Program absent from its publication',admitted,{program:{...executing,publication:{...executing.publication,programs:[]}}});
++    const libraryRef=env.product.governanceRef('program','default'),libraryPublication=dependencyBasis({}).publications.find(p=>p.programs.some(pr=>pr.programRef===libraryRef));
++    assert.ok(libraryPublication);const libraryProgram=libraryPublication.programs.find(pr=>pr.programRef===libraryRef);
++    await refuse('another admitted Program is not the executing Program use',admitted,{program:{publication:libraryPublication,programRef:libraryRef,programDigest:env.product.sha256Canonical(libraryProgram)}});
+   });
+   // The persisted assembly basis carries the selected consumer publication; cold assembly is the dispatch gate.
+-  const captured=env.abg.constructNativeInstructionAssemblyBasis(stored.envelope.nativeBasis);assert.ok(captured,'the persisted basis reconstructs cold');
++  const captured=env.abg.constructNativeInstructionAssemblyBasis(stored.envelope.nativeBasis);
++  const coldAssembly=captured?env.abg.constructWorksiteNativeInstructionAssembly(captured,task):null;
++  await seen('coincident persisted basis and cold assembly',{nativeBasis:stored.envelope.nativeBasis,reconstructed:Boolean(captured),
++    carriedAssessmentPublication:captured?.assessmentPublication?.moduleRef??null,basisPublication:captured?.publication?.moduleRef??null,warmRequest:stored.request,coldAssembly});
++  assert.ok(captured,'the persisted basis reconstructs cold');
+   assert.equal(captured.assessmentPublication?.moduleRef,consumerPublication.moduleRef);
+-  const coldAssembly=env.abg.constructWorksiteNativeInstructionAssembly(captured,task);
+   assert.equal(coldAssembly?.kind,'native_instruction_assembly');assert.deepEqual(coldAssembly.request,stored.request,'cold assembly reproduces the dispatched request');
+-  await subcase('stale task input and unrelated callable refuse before assessment dispatch',()=>{
+-    assert.equal(env.abg.constructWorksiteNativeInstructionAssembly(captured,{...task,outcome:task.outcome+' (stale)'}),null,'stale task input');
++  await subcase('stale task input and unrelated callable refuse before assessment dispatch',async()=>{
++    const stale=env.abg.constructWorksiteNativeInstructionAssembly(captured,{...task,outcome:task.outcome+' (stale)'});
+     const {assessmentPublication:_carried,...uncarried}=stored.envelope.nativeBasis,uncarriedBasis=env.abg.constructNativeInstructionAssemblyBasis(uncarried);
+-    assert.ok(uncarriedBasis);assert.equal(env.abg.constructWorksiteNativeInstructionAssembly(uncarriedBasis,task),null,'no carried dependency and no Program-closure fallback');
+-    const libraryPublication=dependencyBasis({}).publications.find(p=>p.programs.some(pr=>pr.programRef===env.product.governanceRef('program','default')));assert.ok(libraryPublication);
+-    const crossedBasis=env.abg.constructNativeInstructionAssemblyBasis({...stored.envelope.nativeBasis,assessmentPublication:libraryPublication});
+-    assert.ok(crossedBasis);assert.equal(env.abg.constructWorksiteNativeInstructionAssembly(crossedBasis,task),null,'an unrelated carried publication');
+-    assert.equal(assessor.nativeAssessmentDependency(admitted,constructorRow),null,'the constructor callable receives no inner selection');
+-    assert.equal(assessor.nativeAssessmentDependency(admitted,commandRow),null,'the command executor receives no inner selection');
++    const uncarriedAssembly=uncarriedBasis?env.abg.constructWorksiteNativeInstructionAssembly(uncarriedBasis,task):null;
++    const libraryPublication=dependencyBasis({}).publications.find(p=>p.programs.some(pr=>pr.programRef===env.product.governanceRef('program','default')));
++    const crossedBasis=libraryPublication?env.abg.constructNativeInstructionAssemblyBasis({...stored.envelope.nativeBasis,assessmentPublication:libraryPublication}):null;
++    const crossedAssembly=crossedBasis?env.abg.constructWorksiteNativeInstructionAssembly(crossedBasis,task):null;
++    const unrelated={constructor:assessor.nativeAssessmentDependency(admitted,constructorRow),command:assessor.nativeAssessmentDependency(admitted,commandRow)};
++    await seen('coincident cold assembly refusals',{staleTask:{...task,outcome:task.outcome+' (stale)'},stale,uncarriedReconstructed:Boolean(uncarriedBasis),uncarriedAssembly,
++      crossedPublication:libraryPublication?.moduleRef??null,crossedReconstructed:Boolean(crossedBasis),crossedAssembly,unrelated});
++    assert.equal(stale,null,'stale task input');
++    assert.ok(uncarriedBasis);assert.equal(uncarriedAssembly,null,'no carried dependency and no Program-closure fallback');
++    assert.ok(libraryPublication);
++    assert.ok(crossedBasis);assert.equal(crossedAssembly,null,'an unrelated carried publication');
++    assert.equal(unrelated.constructor,null,'the constructor callable receives no inner selection');
++    assert.equal(unrelated.command,null,'the command executor receives no inner selection');
+   });
+   await subcase('omitted or mismatched whole-Program F_P role refuses without weakening role/permission guards',async()=>{
+     const libraryRef=env.product.governanceRef('program','default'),libraryProgram=dependencyBasis({}).publications.flatMap(p=>p.programs).find(p=>p.programRef===libraryRef);
+     const libraryView=env.product.narrowGraphFunctionCatalog(env.catalog,[...libraryProgram.callableMembership].sort());
+     const testing=await env.product.ProductExecutionResolutionPort.resolve({catalog:env.catalog,catalogView:libraryView,admittedInstalls:env.admittedInstalls,verifyInstallAdmission,
+       programRef:libraryRef,selection:{kind:'direct',catalogHandle:env.product.governanceRef('graph-function','testing')}});
++    await seen('coincident library testing resolution',{kind:testing.kind,refusal:testing.kind==='loaded_product_execution_resolution'?null:testing});
+     assert.equal(testing.kind,'loaded_product_execution_resolution',JSON.stringify(testing).slice(0,2000));
+     const authority={authorityRef:'authority://abi5-tests/rc7-assessment-dependency',authorityDigest:zero,actorRef:W.authorizedActorRef};
+     const observe=(graphFunctions,over={})=>env.product.observeRunEnvironment({publication:testing.programPublication,program:testing.program,graphFunctions,authority,archiveRoot:W.roots.archiveRoot,...over});
+     const outcome=o=>[o.kind,o.cause??null,o.issuePath??null],whole=testing.programDeclarationClosure.publications.flatMap(p=>p.graphFunctions);
+-    assert.deepEqual(outcome(await observe(whole)),['run_environment_refusal','missing_binding','/runEnvironmentResources'],'whole-Program roles validate; the binding guard remains');
+-    assert.deepEqual(outcome(await observe(testing.declarationPublications.flatMap(p=>p.graphFunctions))),['run_environment_refusal','unsupported_declaration','/program/runEnvironment'],
+-      'the selected callable scope omits Program F_P roles');
+-    assert.deepEqual(outcome(await observe(whole.filter(g=>g.name!==assessmentRef))),['run_environment_refusal','unsupported_declaration','/program/runEnvironment'],'an omitted Program F_P leaf');
+     const declared=testing.program.policies['abg.run_environment'],mismatched={...testing.programPublication,runEnvironments:testing.programPublication.runEnvironments.map(d=>
+       d.declarationRef!==declared?d:{...d,roles:d.roles.map(r=>r.role==='assessor'?{...r,role:'constructor'}:r)})};
+-    assert.deepEqual(outcome(await observe(whole,{publication:mismatched})),['run_environment_refusal','unsupported_declaration','/program/runEnvironment'],'a mismatched role');
+-    const crossedPermission=await observe(whole,{resources:await selectedEnvironment.resources({authority,program:consumerProgram,workspaceBinding:W,product:env.product})});
+-    assert.deepEqual(outcome(crossedPermission).slice(0,2),['run_environment_refusal','access_not_permitted'],'a permission for another Program and declaration');
+-    assert.equal(testing.declarationClosure.contractOwners.some(o=>o.declarationRef===contractRef),false,'the library execution closure declares no consumer contract');
++    const observed={whole:await observe(whole),selectedScope:await observe(testing.declarationPublications.flatMap(p=>p.graphFunctions)),
++      omittedLeaf:await observe(whole.filter(g=>g.name!==assessmentRef)),mismatchedRole:await observe(whole,{publication:mismatched}),
++      crossedPermission:await observe(whole,{resources:await selectedEnvironment.resources({authority,program:consumerProgram,workspaceBinding:W,product:env.product})})};
++    const libraryDeclaresConsumerContract=testing.declarationClosure.contractOwners.some(o=>o.declarationRef===contractRef);
++    await seen('coincident run-environment role guards',{outcomes:Object.fromEntries(Object.entries(observed).map(([k,o])=>[k,outcome(o)])),observed,libraryDeclaresConsumerContract});
++    assert.deepEqual(outcome(observed.whole),['run_environment_refusal','missing_binding','/runEnvironmentResources'],'whole-Program roles validate; the binding guard remains');
++    assert.deepEqual(outcome(observed.selectedScope),['run_environment_refusal','unsupported_declaration','/program/runEnvironment'],
++      'the selected callable scope omits Program F_P roles');
++    assert.deepEqual(outcome(observed.omittedLeaf),['run_environment_refusal','unsupported_declaration','/program/runEnvironment'],'an omitted Program F_P leaf');
++    assert.deepEqual(outcome(observed.mismatchedRole),['run_environment_refusal','unsupported_declaration','/program/runEnvironment'],'a mismatched role');
++    assert.deepEqual(outcome(observed.crossedPermission).slice(0,2),['run_environment_refusal','access_not_permitted'],'a permission for another Program and declaration');
++    assert.equal(libraryDeclaresConsumerContract,false,'the library execution closure declares no consumer contract');
+   });
+   await subcase('ordinary static raw-result contract lookup stays closed',async()=>{
+     const inside=new Set(loaded.declarationClosure.publications.flatMap(p=>p.contracts.map(c=>c.contractRef)));
+     const outside=dependencyBasis({}).publications.flatMap(p=>p.contracts).filter(c=>!inside.has(c.contractRef));
+-    assert.ok(outside.length>0,'the admitted Catalog holds contracts outside the selected closure');
+-    for(const contract of outside){assert.equal(assessor.contractByRef(contract.contractRef),null,contract.contractRef);assert.equal(assessor.contractPublicationByRef(contract.contractRef),null,contract.contractRef);}
++    const lookups=outside.map(c=>({contractRef:c.contractRef,contract:assessor.contractByRef(c.contractRef),publication:assessor.contractPublicationByRef(c.contractRef)}));
+     // The ordinary native constructor's raw result keeps its static contract lookup, warm and cold.
+     const constructorPort=await port.forGraphFunction(ids.graphFunctionRef),built=events.find(e=>e.kind==='c_call_opened'&&e.graphFunctionRef===ids.graphFunctionRef);
+-    assert.ok(constructorPort&&built);
+-    const builtArtifact=events.find(e=>e.kind==='actor_result_artifact_observed'&&e.parentAggregateId===built.aggregateId),builtWarm=builtArtifact?.payload.nativeResultAssessment?.verification;
+-    const builtBasis=env.abg.rehydrateExecutionBasisAtPrefix(prefix,built.basisId);assert.ok(builtWarm&&builtBasis);
++    const builtArtifact=built===undefined?undefined:events.find(e=>e.kind==='actor_result_artifact_observed'&&e.parentAggregateId===built.aggregateId),builtWarm=builtArtifact?.payload.nativeResultAssessment?.verification;
++    const builtBasis=built===undefined?null:env.abg.rehydrateExecutionBasisAtPrefix(prefix,built.basisId);
++    const builtInput=builtWarm&&builtBasis?{resolution:constructorRow,input:builtBasis.rawInputValue,inputDigest:builtBasis.rawInputDigest,
++      instructionContractRef:builtWarm.instructionContractRef,rawResultContractRef:builtWarm.rawResultContractRef,rawResult:JSON.parse(builtArtifact.payload.finalOutput)}:null;
++    const builtCold=builtInput&&constructorPort?constructorPort.verifyProbabilisticResultContractPreimage(builtInput):null;
++    await seen('coincident static lookup',{lookups,constructorContract:builtWarm&&constructorPort?constructorPort.contractByRef(builtWarm.rawResultContractRef):null,constructorWarm:builtWarm??null,constructorCold:builtCold});
++    assert.ok(outside.length>0,'the admitted Catalog holds contracts outside the selected closure');
++    for(const lookup of lookups){assert.equal(lookup.contract,null,lookup.contractRef);assert.equal(lookup.publication,null,lookup.contractRef);}
++    assert.ok(constructorPort&&built);assert.ok(builtWarm&&builtBasis);
+     assert.ok(constructorPort.contractByRef(builtWarm.rawResultContractRef),'the constructor report contract is statically owned');
+-    assert.deepEqual(constructorPort.verifyProbabilisticResultContractPreimage({resolution:constructorRow,input:builtBasis.rawInputValue,inputDigest:builtBasis.rawInputDigest,
+-      instructionContractRef:builtWarm.instructionContractRef,rawResultContractRef:builtWarm.rawResultContractRef,rawResult:JSON.parse(builtArtifact.payload.finalOutput)}),builtWarm);
++    assert.deepEqual(builtCold,builtWarm);
+   });
+   await subcase('warm/cold assessment raw-preimage and complete same-boundary read agreement',async()=>{
+     const contractInput={resolution:row,input:task,inputDigest:childBasis.rawInputDigest,instructionContractRef:stored.request.instructionContractRef,
+       rawResultContractRef:stored.request.resultContractRef,rawResult:JSON.parse(artifact.payload.finalOutput)};
+-    assert.deepEqual(assessor.verifyProbabilisticResultContractPreimage(contractInput),warm.verification,'cold raw preimage equals the warm admitted verification');
+-    assert.deepEqual(assessor.revalidateProbabilisticResultContractPreimage(contractInput,warm.verification),warm.verification);
+-    assert.equal(assessor.verifyProbabilisticResultContractPreimage({...contractInput,inputDigest:zero}).code,'input_contract_refused','a stale input digest');
++    const cold=assessor.verifyProbabilisticResultContractPreimage(contractInput),revalidated=assessor.revalidateProbabilisticResultContractPreimage(contractInput,warm.verification);
++    const stale=assessor.verifyProbabilisticResultContractPreimage({...contractInput,inputDigest:zero});
++    await seen('coincident warm/cold raw preimage',{contractInput,warm:warm.verification,cold,revalidated,staleInputDigest:stale});
++    assert.deepEqual(cold,warm.verification,'cold raw preimage equals the warm admitted verification');
++    assert.deepEqual(revalidated,warm.verification);
++    assert.equal(stale.code,'input_contract_refused','a stale input digest');
+     const reads={};
+     for(const memberKey of ['run_result','run_replay']){
+       const {call}=constructInstalledRunReadCall({environment:env,publicApi,projectReadContracts:readContracts,memberKey,selector:memberKey==='run_result'?{kind:'none'}:{kind:'ordinal_page',fromOrdinal:0,limit:2048},
+         source:started.resources.run,eventResource:resource(),identity:`assessment-dependency-${memberKey}`});
+-      const out=await cli(`assessment-dependency-${memberKey}`,call);assert.equal(out.ownerOutput.outcomeKind,'result');reads[memberKey]=out.ownerOutput.value;
++      const out=await cli(`assessment-dependency-${memberKey}`,call);reads[memberKey]=out.ownerOutput;
+     }
+-    assert.deepEqual(reads.run_result.projection.terminalResult,value.terminalResult,'cold run_result equals the completed start terminal at its close boundary');
+-    assert.deepEqual(reads.run_replay.projection.replay,started.resources.replay,'cold replay equals the completed start replay');
++    await seen('coincident fresh readbacks',{run:started.resources.run,startTerminal:value?.terminalResult??null,startReplay:started.resources.replay??null,reads});
++    assert.equal(reads.run_result.outcomeKind,'result');assert.equal(reads.run_replay.outcomeKind,'result');
++    assert.deepEqual(reads.run_result.value.projection.terminalResult,value.terminalResult,'cold run_result equals the completed start terminal at its close boundary');
++    assert.deepEqual(reads.run_replay.value.projection.replay,started.resources.replay,'cold replay equals the completed start replay');
+   });
+-  assert.deepEqual(await roles(),['select','native','select','c2','select','assess'],'refusals dispatched no assessor');
++  const finalRoles=await roles();await seen('coincident final actor roles',finalRoles);
++  assert.deepEqual(finalRoles,['select','native','select','c2','select','assess'],'refusals dispatched no assessor');
+   const predicates=['crossed consumer owner refuses before assessment dispatch','crossed resolved lock refuses before assessment dispatch','crossed schema bytes refuse before assessment dispatch',
+-    'missing or ambiguous exact consumer declaration refuses before assessment dispatch','stale task input and unrelated callable refuse before assessment dispatch',
++    'missing or ambiguous exact consumer declaration refuses before assessment dispatch','executing Program use is exact: ref, digest, publication and membership',
++    'stale task input and unrelated callable refuse before assessment dispatch',
+     'omitted or mismatched whole-Program F_P role refuses without weakening role/permission guards','ordinary static raw-result contract lookup stays closed',
+     'warm/cold assessment raw-preimage and complete same-boundary read agreement'];
++  await seen('coincident predicates',{subcases,predicates});
+   assert.deepEqual(subcases,predicates,'every selected predicate ran');
+   t.diagnostic(JSON.stringify({subcases,run:value.run?.ref,assessmentResultRef:assessed.payload.resultRef,consumerModuleRef:consumerPublication.moduleRef,
+     proofLimit:'Actual installed witness-consumer fixture, one Public start with the scripted stand-in actor, cold ABG/Product/leaf owners over its events; not a live provider or the maintained sandbox caller.'}));
++  });
++});
++
++// S06 assessment dependency (native HOW, Declared typed assessment; common HOW
++// installed split proof obligation), through the canonical native semantic-stage
++// author-to-assessor path. The core semantic-stage publication is the unique
++// owner of `semantic-stage/native-assessment` and the core install holds its
++// schema asset. A case-local consumer Product owns no contract: its one-stage
++// SemanticJobLifecycle Program is semantic intake -> the first GraphFunction of
++// constructNativeSemanticStageGraphFunctions(stage, stageClose, assessmentClose)
++// -> canonical envelope_output, closed by the ordinary lifecyclePredicateRef.
++// Its members built by that constructor (and its local root) declare use. The
++// stage has no application_assessment capability, so no C2 evidence, default
++// governance, Construction or UAT fold is involved. The native work leaf runs as
++// the canonical constructor role and the assessment leaf as the assessor role
++// of the generic default-library run environment, restricted to this Program.
++// The scripted stand-in reads only its delivered prompt: the author writes the
++// declared candidate path, the assessor answers the core criteria/pressure
++// schema; the native semantic-stage owner folds its criteria into the stage
++// disposition. It proves mechanics only, not a live provider or S06 credit.
++// The producer identity is never supplied by script or host: it is read from the
++// same Run's admitted events. Every observation is captured before its check.
++const S06_SEMANTIC_ACTOR=`
++import {readFileSync,writeFileSync,appendFileSync} from 'node:fs';
++const args=process.argv.slice(2),at=args.indexOf('--json-schema'),prompt=readFileSync(0,'utf8'),log=process.env.ABI5_SCRIPTED_ACTOR_LOG;
++const fail=m=>{process.stderr.write('s06 scripted actor: '+m+'\\n');process.exit(1);};
++// One delivered JSON value after its label, either raw or JSON-string escaped.
++const valueAt=s=>{const open=prompt[s],close=open==='{'?'}':open==='['?']':null;if(close===null)return undefined;
++ let depth=0;for(let k=s;k<prompt.length;k++){const ch=prompt[k];if(ch===open)depth++;else if(ch===close&&--depth===0){const raw=prompt.slice(s,k+1);
++  try{return JSON.parse(raw);}catch{try{return JSON.parse(JSON.parse('"'+raw+'"'));}catch{return undefined;}}}}return undefined;};
++const after=label=>{for(let i=prompt.indexOf(label);i>=0;i=prompt.indexOf(label,i+1)){const value=valueAt(i+label.length);if(value!==undefined)return value;}return undefined;};
++const schema=at>=0?JSON.parse(args[at+1]):{},props=schema.properties??{},author='summary' in props&&'gaps' in props;
++const members=after('Source identities and roles: ');
++const member=Array.isArray(members)?members.find(m=>m&&typeof m.memberRef==='string'&&typeof m.path==='string'):undefined;
++let quote=null;if(member!==undefined)try{const line=readFileSync(member.path,'utf8').split('\\n').map(l=>l.trim()).find(l=>l.length>0);if(line!==undefined)quote={memberRef:member.memberRef,quote:line};}catch{}
++const rubric=after('Rubric: ');
++const pick=(s,name)=>{
++ if(s===undefined||s===null||typeof s!=='object')return null;
++ if('const' in s)return s.const;
++ if(Array.isArray(s.enum))return name==='disposition'&&s.enum.includes('satisfied')?'satisfied':s.enum[0];
++ if(Array.isArray(s.anyOf))return pick(s.anyOf.find(x=>x&&x.type==='null')??s.anyOf[0],name);
++ const type=Array.isArray(s.type)?(s.type.includes('null')?'null':s.type[0]):s.type;
++ if(type==='null')return null;
++ if(type==='object'){const o={};for(const key of s.required??Object.keys(s.properties??{}))o[key]=field(key,(s.properties??{})[key]);return o;}
++ if(type==='array')return (s.minItems??0)>0?[pick(s.items,name)]:[];
++ if(type==='string')return 'Scripted mechanical stand-in '+name+'.';
++ if(type==='integer'||type==='number')return s.minimum??0;
++ if(type==='boolean')return false;
++ return null;};
++const field=(key,s)=>key==='sourceQuotes'?(quote===null?[]:[quote])
++ :key==='criteria'&&Array.isArray(rubric)?rubric.map(c=>({...pick(s?.items,'criterion'),criterionRef:c.criterionRef}))
++ :pick(s,key);
++let role,output,extra={};
++if(author){
++ const m=/Write only ([^ ,]+), as one JSON candidate/.exec(prompt),asset=after('any accumulated envelope: ');
++ if(m===null||asset===undefined)fail('the delivered author task names no candidate path and schema');
++ if(quote===null)fail('the delivered author task names no readable source member');
++ writeFileSync(m[1],JSON.stringify(pick(asset,'asset'))+'\\n');
++ role='author';extra={path:m[1]};output={...pick(schema,'report'),summary:'Scripted author wrote the declared candidate path.',gaps:[]};
++}else{
++ const declared=at>=0?schema:after('Exact declared response JSON Schema: ');
++ if(declared===undefined||!Array.isArray(rubric))fail('the delivered assessment task names no response schema and rubric');
++ role='assess';output=pick(declared,'assessment');extra={kind:output?.kind??null,criteria:(output?.criteria??[]).map(c=>c.criterionRef)};
++}
++appendFileSync(log,JSON.stringify({role,pid:process.pid,...extra})+'\\n');
++console.log(JSON.stringify({type:'system',subtype:'init'}));
++console.log(JSON.stringify({type:'result',subtype:'success',is_error:false,result:JSON.stringify(output),structured_output:output}));
++`;
++const s06Ref=(kind,name)=>`${kind}://s06-split-assessment.example/${name}@5`;
++// The test-local one-stage lifecycle consumer: real semantic-stage, native-work
++// and closure constructors; the canonical generic run environment restricted to
++// this Program's members (constructor and assessor).
++function s06LifecycleConsumerDeclaration(g,{artifact,semanticPublication,environmentTemplate}){
++  const n=g.SEMANTIC_STAGE_IDS,work=g.NATIVE_WORKSPACE_WORK_IDS;
++  const c2=g.constructWorksiteCommandExecutionModulePublication(artifact);
++  const stage={declarationRef:s06Ref('stage','intent'),graphFunctionRef:s06Ref('graph-function','intent'),
++    authorLocusRef:s06Ref('locus','intent-author'),assessorLocusRef:s06Ref('locus','intent-assessor'),predecessorStageRefs:[],
++    assetSurface:{kind:'IntentAsset',requiredContexts:[n.jobSourceContextRoleRef],standardsRefs:[],outputContractRefs:[n.workerContractRef],
++      constructorRef:n.constructorRef,rendererRef:n.rendererRef,proofObligationRefs:[],authoritySlots:[]},
++    purpose:'Derive and independently assess source-grounded intent from the complete ordinary source.',
++    requiredContent:['Source-grounded intent and unresolved pressure; no caller-solved Requirements or Design.'],
++    rubric:[{criterionRef:s06Ref('criterion','source-faithfulness'),instruction:'Compare every material statement with the complete source; expose lost or weakened meaning.'}],
++    bodyCapabilities:[],
++    assembly:{ruleRef:s06Ref('assembly','intent'),graphFunctionRef:s06Ref('graph-function','intent'),
++      sectionOrder:['role','source','obligations','predecessors','worksite','evidence','task','response'],
++      contentPolicy:'role_scoped_worksite',worksiteContentByRole:{author:'not_required',assessor:'not_required'},
++      proportionalityPolicy:'declared_semantic_assessment',maxPromptBytes:1048576}};
++  const lifecycle=g.constructSemanticJobLifecycleDeclaration({kind:'semantic_job_lifecycle_declaration',schemaVersion:'5.0.0',
++    declarationRef:s06Ref('declaration','lifecycle'),intakeGraphFunctionRef:s06Ref('graph-function','intake'),sourceRoleRef:n.jobSourceContextRoleRef,
++    bounds:{maxSourceMembers:8,maxSourceBytes:1048576,maxContextFiles:64,maxContextBytes:1048576,maxTargets:8,maxCommands:4},
++    proofTemplates:[{templateRef:s06Ref('proof-template','behavior'),realizationContractRef:work.observationContractRef,
++      proofContractRef:c2.contracts.find(c=>c.valueKind==='worksite_command_execution_observation').contractRef,
++      requiredEvidenceRoles:['realization','verifier_artifact','verifier_execution','semantic_assessment'],sharedBasis:[],requiredContent:[]}],
++    stages:[stage]});
++  const closures=[],close=(name,predicateRef,resultContractRef=n.envelopeContractRef,closureScope='graph_call')=>{
++    const closureContractRef=s06Ref('contract',name+'-close');
++    closures.push(g.constructSemanticClosureContract({closureContractRef,predicateRef,resultContractRef,closureScope}));return closureContractRef;};
++  const intake=g.constructSemanticJobGraphFunction({graphFunctionRef:lifecycle.intakeGraphFunctionRef,nodeRef:lifecycle.intakeGraphFunctionRef+'/node',
++    lifecycleRef:lifecycle.declarationRef,operation:'intake',closureContractRef:close('intake',n.jobIntakePredicateRef)});
++  const pair=g.constructNativeSemanticStageGraphFunctions(stage,close('stage',n.nativeStagePredicateRef),close('assessment',n.nativeStagePredicateRef));
++  const terminal=g.constructSemanticBridgeGraphFunction({graphFunctionRef:s06Ref('graph-function','envelope-output'),nodeRef:s06Ref('graph-function','envelope-output')+'/node',
++    operation:'envelope_output',closureContractRef:close('envelope-output',n.terminalPredicateRef,n.outputContractRef)});
++  const rootRef=s06Ref('graph-function','root'),chain=[intake,pair[0],terminal];
++  const nodes=chain.map((graph,i)=>({nodeRef:`${rootRef}/step-${i}`,nodeKind:'c_locus',
++    term:g.workflow.C(g.cGraphFunctionRef({graphFunctionRef:graph.name,input:g.cCarrier(graph.inputs[0]),output:g.cCarrier(graph.outputs[0])}))}));
++  const rootClose=close('root',n.lifecyclePredicateRef,n.outputContractRef,'run');
++  const root={kind:'graph_function',name:rootRef,version:'5.0.0',
++    environment:{requires:[n.jobInputContractRef],provides:[n.outputContractRef],carries:[n.envelopeContractRef]},
++    inputs:[n.jobInputContractRef],outputs:[n.outputContractRef],effects:[work.effectUri],tags:['s06-split-assessment','native-semantic-stage'],
++    declarations:{'abg.compute_regime':'mixed','abg.closure_contract':rootClose,'abg.evidence_contract':n.evidenceContractRef,
++      'abg.judgment_contract':n.judgmentContractRef,'abg.judgment_predicate':n.lifecycleStepPredicateRef,'abg.transition_contract':n.transitionContractRef,
++      'abg.raw_result_contract':semanticPublication.contracts.find(c=>c.valueKind==='semantic_stage_assessment_candidate').contractRef},
++    template:{kind:'inline_graph',graphRef:rootRef+'/graph',startNodeRef:nodes[0].nodeRef,terminalNodeRefs:[nodes.at(-1).nodeRef],nodes,applications:[],
++      edges:nodes.slice(1).map((node,i)=>g.graphEdge({fromNodeRef:nodes[i].nodeRef,toNodeRef:node.nodeRef}))}};
++  const graphs=[root,intake,...pair,terminal],programRef=s06Ref('program','split'),startRef=s06Ref('start','split');
++  const callableMembership=[...graphs.map(graph=>graph.name),work.graphFunctionRef,work.assessmentGraphFunctionRef];
++  const runEnvironment=g.constructRunEnvironmentDeclaration({...structuredClone(environmentTemplate),declarationRef:s06Ref('environment','split'),
++    roles:environmentTemplate.roles.filter(r=>callableMembership.includes(r.graphFunctionRef))});
++  const program={kind:'gtl_program',programRef,version:'5.0.0',moduleRef:s06Ref('module','split'),starts:[{startRef,graphFunctionRef:rootRef}],
++    callableMembership,closureContractRef:rootClose,policies:{'abg.root_mode':'direct','abg.compute_regime':'mixed','abg.default_start_ref':startRef,
++      'abg.semantic_lifecycle':lifecycle.declarationRef,'abg.run_environment':runEnvironment.declarationRef}};
++  const template=semanticPublication.contracts.find(c=>c.contractRef===n.closureContractRef);
++  const productId=s06Ref('product','consumer');
++  return {runEnvironment,stage,lifecycle,publicationData:{moduleRef:program.moduleRef,owningProductId:productId,descriptorRef:s06Ref('descriptor','consumer'),
++    contributionManifestRef:s06Ref('contribution-manifest','consumer'),productSemanticsBinding:structuredClone(semanticPublication.productSemanticsBinding),
++    semanticJobLifecycle:lifecycle,runEnvironments:[runEnvironment],contracts:closures.map(c=>({...template,contractRef:c.closureContractRef})),closureContracts:closures,
++    implementationBindings:[],evaluators:[],rules:[],graphFunctions:graphs,programs:[program],
++    contributions:graphs.map(graph=>({handle:graph.name,kind:'graph_function',declarationOrContractRef:graph.name,owningProductId:productId,
++      programMembershipRefs:[programRef],readinessPrerequisiteRefs:[programRef],compatibilityRefs:['compatibility://abiogenesis/major/5']}))}};
++}
++test('S06 assessment dependency: split schema owner and admitted Program use survive assembly and cold preimage',{timeout:900_000},async t=>{
++  const {run}=await b56Capture('b56-installed-split.candidate.json','S06 assessment dependency: split schema owner and admitted Program use survive assembly and cold preimage');
++  await run(async seen=>{
++  const prepared={};
++  // 0. Case-local install: the packed tenant and one consumer Product owning no contract; the shared libraryInstall is untouched.
++  const install=await installTenantOnce(packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',
++    prepareAdditionalProducts:async setup=>{
++      const artifact={...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion};
++      const environmentTemplate=structuredClone(setup.gtl.defaultLibraryRunEnvironment());
++      assert.equal(environmentTemplate.dependencies.length,1,'packaged source subset has one declared inventory');
++      const recordPath=await realpath(join(setup.bootstrapPackage,setup.gtl.DEFAULT_LIBRARY_CONTEXT_INVENTORY.path)),recordBytes=await readFile(recordPath);
++      assert.equal(setup.product.sha256Bytes(recordBytes),environmentTemplate.dependencies[0].recordDigest,'selected package inventory matches its declaration');
++      prepared.dependency={dependencyRef:environmentTemplate.dependencies[0].dependencyRef,root:dirname(recordPath),recordPath};
++      const semanticPublication=setup.gtl.constructSemanticStageModulePublication(artifact);
++      return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:setup.abiPackageArchivePath,fixtureFiles:[],schemaAssets:[],
++        declarationFactory:g=>{const built=s06LifecycleConsumerDeclaration(g,{artifact,semanticPublication,environmentTemplate});
++          prepared.runEnvironment=built.runEnvironment;prepared.stage=built.stage;prepared.lifecycle=built.lifecycle;return built.publicationData;}})];
++    }});
++  t.after(()=>install.dispose());
++  const env=await openCaseEnvironment(t,install,{workspaceProductIndex:1,additionalCorePublicationConstructors:
++    ['constructSemanticStageModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication']});
++  const subcases=[],subcase=async(name,body)=>{try{await body();}catch(error){error.message=name+': '+error.message;throw error;}subcases.push(name);};
++  const load=async path=>import(pathToFileURL(join(env.installedRoot,`build/code/src/${path}.js`)).href);
++  const publicApi=await load('public/index'),readContracts=await load('abg/project_read_operation_contracts'),storeOwner=await load('abg/event_store');
++  const relation=await load('product/native_workspace_assessment');
++  const ids=env.product.NATIVE_WORKSPACE_WORK_IDS,assessmentRef=ids.assessmentGraphFunctionRef,zero='sha256:'+'0'.repeat(64),W=env.workspaceBinding;
++  const stageIds=env.gtl.SEMANTIC_STAGE_IDS,coreId=env.admittedInstalls[0].productId;
++  const consumerPublication=env.additionalPublications[0],consumerId=consumerPublication.owningProductId,consumerProgram=consumerPublication.programs[0];
++  const owners=env.publications.filter(p=>p.contracts.some(c=>c.valueKind==='semantic_stage_assessment_candidate')),schemaOwner=owners[0];
++  const coreContract=schemaOwner?.contracts.find(c=>c.valueKind==='semantic_stage_assessment_candidate'),contractRef=coreContract?.contractRef;
++  const schemaRows=env.admittedInstalls.flatMap((i,index)=>i.publicContracts.filter(r=>r.contractKind==='schema_asset'&&r.contractId===contractRef).map(row=>({index,install:i,row})));
++  const schemaBytes=schemaRows.length===1?await readFile(join(env.installedRoots[schemaRows[0].index],schemaRows[0].row.assetLocator.path)):null;
++  const coreSchema=schemaBytes===null?null:JSON.parse(schemaBytes.toString('utf8'));
++  const startMember=consumerProgram.starts.find(s=>s.startRef===consumerProgram.policies['abg.default_start_ref'])?.graphFunctionRef??null;
++  const useMembers=consumerPublication.graphFunctions.filter(g=>consumerProgram.callableMembership.includes(g.name)&&g.declarations['abg.raw_result_contract']===contractRef).map(g=>g.name);
++  const pairNames=[prepared.stage.graphFunctionRef,prepared.stage.graphFunctionRef+'/native-assessment'];
++  await seen('split installed premises',{coreProductId:coreId,consumerProductId:consumerId,
++    schemaOwners:owners.map(p=>({moduleRef:p.moduleRef,owningProductId:p.owningProductId,programs:p.programs.map(pr=>({programRef:pr.programRef,callableMembership:pr.callableMembership})),
++      members:p.graphFunctions.map(g=>({name:g.name,rawResultContract:g.declarations['abg.raw_result_contract']??null}))})),coreContract:coreContract??null,
++    consumer:{moduleRef:consumerPublication.moduleRef,programRef:consumerProgram.programRef,starts:consumerProgram.starts,startMember,callableMembership:consumerProgram.callableMembership,
++      policies:consumerProgram.policies,contracts:consumerPublication.contracts.map(c=>c.contractRef),useMembers,semanticJobLifecycle:consumerPublication.semanticJobLifecycle,
++      runEnvironments:consumerPublication.runEnvironments,
++      localMembers:consumerPublication.graphFunctions.map(g=>({name:g.name,startNodeRef:g.template.startNodeRef,rawResultContract:g.declarations['abg.raw_result_contract']??null,
++        nativeStage:g.declarations['abg.semantic_native_stage']??null}))},
++    preparedFixtureIds:env.additionalProducts[0].ids,schemaRows:schemaRows.map(({index,install:i,row})=>({index,productId:i.productId,installId:i.installId,row})),
++    schemaBytesBase64:schemaBytes?.toString('base64')??null,lock:{lockId:env.lock.lockId,lockDigest:env.lock.lockDigest,rows:env.lock.rows.map(r=>r.productId),dependencyEdges:env.lock.dependencyEdges}});
++  assert.equal(owners.length,1,'one Catalog publication declares the core native-assessment contract');
++  assert.deepEqual([schemaOwner.moduleRef,schemaOwner.owningProductId],[stageIds.moduleRef,coreId],'the core semantic-stage publication owns the contract');
++  assert.equal(consumerPublication.graphFunctions.find(g=>g.name===pairNames[0])?.declarations['abg.raw_result_contract'],contractRef,
++    'the canonical native stage constructor declares use of exactly the owned contract');
++  assert.deepEqual(schemaOwner.graphFunctions.map(g=>g.declarations['abg.raw_result_contract']??null),[stageIds.workerContractRef],'its sole author member keeps the worker-result contract');
++  assert.equal(consumerPublication.contracts.some(c=>c.contractRef===contractRef),false,'the executing consumer owns no assessment contract');
++  assert.equal(startMember,env.additionalProducts[0].ids.graphFunctionRef,'the Program starts its own local member');
++  assert.ok(pairNames.every(name=>useMembers.includes(name))&&useMembers.includes(startMember),'the constructed native stage pair and the local root declare use');
++  assert.ok(pairNames.every(name=>consumerPublication.graphFunctions.find(g=>g.name===name)?.declarations['abg.semantic_native_stage']===prepared.stage.declarationRef),
++    'the stage pair is the canonical native construction for the declared stage');
++  assert.equal(env.gtl.validSemanticJobLifecyclePublication(consumerPublication),true,'the installed one-stage lifecycle publication is valid under its owner');
++  assert.equal(consumerPublication.semanticJobLifecycle.stages.some(s=>s.bodyCapabilities.includes('application_assessment')),false,'no application_assessment stage, so no C2 evidence is required');
++  assert.equal(schemaRows.length,1,'exactly one admitted install publishes the schema asset');assert.equal(schemaRows[0].install.productId,coreId,'the schema owner install');
++  assert.ok(env.lock.dependencyEdges.some(e=>e.kind==='requires'&&e.fromProductId===consumerId&&e.toProductId===coreId),'the consumer forward-requires the core Product');
++  // 1. The ordinary job: one source member, the declared rubric and the absent declared candidate path.
++  const proof=join(env.scratch,'split-assessment-dependency');await mkdir(proof);
++  const actor=join(proof,'scripted-actor.mjs'),actorLog=join(proof,'scripted-actor.jsonl');
++  await writeFile(actor,'#!'+process.execPath+'\n'+S06_SEMANTIC_ACTOR);await chmod(actor,0o755);
++  const actorEnvironment={...process.env,ABG_TS_CLAUDE_COMMAND:actor,ABI5_SCRIPTED_ACTOR_LOG:actorLog};
++  delete actorEnvironment.ABI5_SCRIPTED_ACTOR_PHASE;
++  const actorRows=async()=>(await readFile(actorLog,'utf8').catch(error=>error.code==='ENOENT'?'':Promise.reject(error))).trim().split('\n').filter(Boolean).map(l=>JSON.parse(l));
++  const roles=async()=>(await actorRows()).map(r=>r.role);
++  const worksite=W.canonicalRoot??env.workspaceAuthority?.canonicalRoot??join(env.scratch,'workspace');
++  const sourceText='Greet the named user with one short, polite sentence and keep the stated name unchanged.\n';
++  const paths={source:'source/request.txt',rubric:'source/lifecycle.json',asset:'semantic/intent.json'};
++  await mkdir(join(worksite,'source'),{recursive:true});await mkdir(join(worksite,'semantic'),{recursive:true});
++  await writeFile(join(worksite,paths.source),sourceText);
++  await writeFile(join(worksite,paths.rubric),env.product.canonicalJson(consumerPublication.semanticJobLifecycle)+'\n');
++  const input=env.product.constructSemanticJobInput({kind:'semantic_job_input',schemaVersion:'5.0.0',lifecycleRef:consumerPublication.semanticJobLifecycle.declarationRef,
++    sourceRoleRef:stageIds.jobSourceContextRoleRef,members:[{memberRef:s06Ref('member','request'),path:paths.source,sourceLocator:'input://s06-split-assessment/ordinary-request',
++      base64:Buffer.from(sourceText).toString('base64')}],
++    taskData:{nativeLifecycle:{assets:[{stageRef:prepared.stage.declarationRef,path:paths.asset}],rubricPath:paths.rubric}},evaluationData:{},
++    worksiteScope:{readRoots:['semantic','source'],writeRoots:['semantic'],parentWriteRoots:['semantic'],evidenceWriteRoots:['proof'],
++      executableCapabilities:[{executable:process.execPath,relativeCwdRoots:['.'],environment:{},maxTimeoutMs:5000,maxTerminationGraceMs:1000}]}});
++  const resources=async({authority,program,workspaceBinding,product:resourceProduct=env.product})=>{
++    const path=join(workspaceBinding.roots.archiveRoot,'s06-split-context');await mkdir(path,{recursive:true});
++    const coordinates={dependencies:[prepared.dependency],pythonPath:null,temporaryRoot:await realpath(path)};
++    return resourceProduct.constructRunEnvironmentResources({kind:'run_environment_resources',schemaVersion:'5.0.0',...coordinates,
++      permission:{authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,actorRef:authority.actorRef,programRef:program.programRef,
++        environmentRef:prepared.runEnvironment.declarationRef,environmentDigest:resourceProduct.sha256Canonical(prepared.runEnvironment),operations:['read_context'],...coordinates}});};
++  await seen('split selected job input and worksite',{input,paths,sourceText,rubricBytes:env.product.canonicalJson(consumerPublication.semanticJobLifecycle)+'\n',
++    worksite,runEnvironment:prepared.runEnvironment,dependency:prepared.dependency,actorEnvironment:b56ActorEnvironment(actorEnvironment)});
++  env.catalogView=env.product.narrowGraphFunctionCatalog(env.catalog,consumerProgram.callableMembership);assert.equal(env.catalogView.kind,'graph_function_catalog_view');
++  let handoff=env.store.projectReopenAuthorityAndClose();
++  const resource=()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)});
++  const cli=async(identity,call)=>{
++    const execution=await b56InstalledCli(seen,identity,{scratch:proof,installedRoot:env.installedRoot,identity,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null,environment:actorEnvironment});
++    await seen(identity+' actor log',await actorRows());
++    const receipt=execution.output?.receipt;
++    if(receipt?.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;
++    assert.ok(receipt,JSON.stringify(execution).slice(0,4000));assert.equal(receipt.failure,null,JSON.stringify(receipt).slice(0,4000));return receipt;};
++  // 2. One actual Public start: semantic intake, the native author, the native assessor and envelope output.
++  const start=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input,identity:'s06-split-assessment',runEnvironmentResourceFactory:resources});
++  const started=await cli('s06-split-start',start.call),value=started.ownerOutput?.value;
++  const events=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix),startRoles=await roles();
++  const opened=events.filter(e=>e.kind==='c_call_opened'&&e.graphFunctionRef===assessmentRef);
++  const assessed=events.find(e=>e.kind==='c_call_result_admitted'&&e.graphFunctionRef===assessmentRef);
++  const authored=events.filter(e=>e.kind==='c_call_opened'&&e.graphFunctionRef===ids.graphFunctionRef);
++  const authorResult=events.find(e=>e.kind==='c_call_result_admitted'&&e.graphFunctionRef===ids.graphFunctionRef);
++  const artifact=opened.length===1?events.find(e=>e.kind==='actor_result_artifact_observed'&&e.parentAggregateId===opened[0].aggregateId):undefined,warm=artifact?.payload.nativeResultAssessment;
++  const binding=artifact===undefined?undefined:events.find(e=>e.kind==='actor_transport_binding_admitted'&&e.aggregateId===artifact.payload.transportBindingRef),stored=binding?.payload.instructionAssembly;
++  const refusal=rc7RefusalRecord('s06-split-start',started,events);
++  await seen('split start events',{prefix:handoff.prefix,eventCount:events.length,eventKinds:events.map(e=>[e.admissionOrdinal??null,e.kind,e.graphFunctionRef??null]),refusal,roles:startRoles,
++    outcome:{outcomeKind:started.ownerOutput?.outcomeKind??null,disposition:value?.disposition??null,failure:started.failure??null,terminalResult:value?.terminalResult??null},
++    refusalEvents:events.filter(e=>RC7_REFUSAL_EVENT_KINDS.includes(e.kind)),authored,authorResult:authorResult??null,opened,assessed:assessed??null,artifact:artifact??null,binding:binding??null});
++  assert.ok(started.ownerOutput.outcomeKind==='result'&&value?.disposition==='completed',refusal);
++  assert.deepEqual(startRoles,['author','assess'],'one actual native author and one actual native assessor');
++  const prefix=env.abg.selectValidatedRuntimeEventPrefix(events);
++  assert.equal(authored.length,1);assert.equal(opened.length,1);
++  assert.equal(authorResult?.payload.resultClass,'success');assert.equal(assessed?.payload.resultClass,'success');
++  assert.equal(assessed.payload.value.assessment.kind,coreSchema.properties.kind.const,'the admitted assessment has the core schema kind');
++  assert.equal(warm?.disposition,'admitted');assert.ok(warm.verification,'the warm raw preimage verification is retained');
++  assert.equal(stored?.kind,'native_instruction_assembly');
++  const childBasis=env.abg.rehydrateExecutionBasisAtPrefix(prefix,opened[0].basisId),task=childBasis?.rawInputValue,admitted=task?.assessment;
++  const authorObservation=authorResult.payload.value,authoredAsset=authorObservation?.after?.entries?.find(e=>e.relativePath===paths.asset)??null;
++  await seen('split admitted child basis and same-Run producer',{basisId:opened[0].basisId,childBasis,authorObservation:{observationRef:authorObservation?.observationRef??null,
++    observationDigest:authorObservation?.observationDigest??null,provenance:authorObservation?.provenance??null,authoredAsset},producer:admitted?.producer??null,candidate:admitted?.candidate??null});
++  assert.equal(admitted.resultContract.contractRef,contractRef);assert.equal(admitted.schemaAsset.productId,coreId,'the selection names the core schema owner, not the consumer');
++  assert.deepEqual([admitted.producer.resultRef,admitted.producer.resultDigest,admitted.producer.cCallRef,admitted.producer.actorInvocationRef],
++    [authorObservation.observationRef,authorObservation.observationDigest,authorObservation.provenance.cCallRef,authorObservation.provenance.actorInvocationRef],
++    'the assessor consumes the same Run’s admitted native author result');
++  assert.deepEqual([admitted.candidate.path,admitted.candidate.digest],[paths.asset,authoredAsset?.digest],'the assessed candidate is the declared path the author wrote');
++  // 3. Cold owners over the closed Run: its admitted environment, Catalog resolution and leaf port.
++  const environment=env.abg.projectExactPrefixWorkspaceEnvironment(handoff.prefix,{ref:W.bindingId,digest:W.bindingDigest});
++  const verifyInstallAdmission=i=>env.abg.hasAdmittedProductInstall(environment.artifactTruth,i);
++  const loaded=await env.product.ProductExecutionResolutionPort.resolve({catalog:env.catalog,catalogView:env.catalogView,admittedInstalls:env.admittedInstalls,verifyInstallAdmission,
++    programRef:consumerProgram.programRef,selection:{kind:'start',scope:'program',target:'next',until:'converged',rootMode:'direct'}});
++  const executing=loaded.kind!=='loaded_product_execution_resolution'?null:{publication:loaded.programPublication,programRef:loaded.resolution.programRef,programDigest:loaded.resolution.programDigest};
++  await seen('split cold environment and execution resolution',{environmentKind:environment.kind,loadedKind:loaded.kind,refusal:executing===null?loaded:null,
++    executing:executing===null?null:{moduleRef:executing.publication.moduleRef,programRef:executing.programRef,programDigest:executing.programDigest,programCanonicalDigest:env.product.sha256Canonical(loaded.program)},
++    catalogBasisDigest:loaded.admittedCatalog?.basisDigest??null});
++  assert.equal(environment.kind,'exact_prefix_workspace_environment');
++  assert.equal(loaded.kind,'loaded_product_execution_resolution',JSON.stringify(loaded).slice(0,2000));
++  assert.equal(loaded.admittedCatalog.basisDigest,env.catalog.basisDigest,'typed carriage of the authenticated Catalog');assert.deepEqual(loaded.admittedInstalls,env.admittedInstalls);
++  assert.deepEqual([executing.publication.moduleRef,executing.programRef],[consumerPublication.moduleRef,consumerProgram.programRef],'the loaded executing Program is the consumer Program');
++  const implementationSet=env.abg.rehydrateAdmittedImplementationSetAtPrefix(prefix,warm.verification.contractCapabilityBasis.implementationSetRef);assert.ok(implementationSet);
++  const port=await env.implementationLeafPort.constructAdmittedLeafInvocationPort({prefix,artifactTruth:environment.artifactTruth,implementationSet,executionResolution:loaded,
++    semanticsProjection:env.product.projectInstalledLeafSemantics(loaded.productSemantics)});
++  const assessor=await port.forGraphFunction(assessmentRef);assert.ok(assessor,'the assessment callable port');
++  const row=implementationSet.rows.find(r=>r.graphFunctionRef===assessmentRef&&r.implementationRef===ids.implementationRef);assert.ok(row);
++  const constructorRow=implementationSet.rows.find(r=>r.graphFunctionRef===ids.graphFunctionRef);assert.ok(constructorRow);
++  const dependencyBasis=over=>({publications:loaded.admittedCatalog.boundPublications,installs:loaded.admittedInstalls,
++    resolvedLock:loaded.admittedCatalog.readinessBasis.resolvedLock,assessorOwnerProductId:row.graphFunctionOwnerProductId,program:executing,...over});
++  const dependencyOf=(sel,over={})=>relation.resolveNativeWorkspaceAssessmentDependency(sel,dependencyBasis(over));
++  const lock=dependencyBasis({}).resolvedLock,publications=dependencyBasis({}).publications;
++  const withBytes=(sel,bytes)=>({...sel,schemaAsset:{...sel.schemaAsset,bytesBase64:Buffer.from(bytes).toString('base64')}});
++  const exact=assessor.nativeAssessmentDependency(admitted,row),sharedDependency=dependencyOf(admitted);
++  await seen('split leaf and shared relation',{row,dependencyBasis:dependencyBasis({}),leaf:exact,shared:sharedDependency,requestSchema:stored.request.responseJsonSchema});
++  assert.ok(exact,'the admitted core selection resolves through the leaf port');
++  assert.deepEqual([exact.publication.moduleRef,exact.publication.owningProductId,exact.install.productId],[stageIds.moduleRef,coreId,coreId],'the schema owner is the core semantic-stage publication and install');
++  assert.deepEqual([exact.use.publication.moduleRef,exact.use.install.productId,exact.use.programRef,exact.use.programDigest],
++    [consumerPublication.moduleRef,consumerId,executing.programRef,executing.programDigest],'the use owner is the executing consumer Program');
++  assert.deepEqual([...exact.use.memberRefs].sort(),[...useMembers].sort(),'exactly the declaring members of the executing Program');
++  assert.deepEqual(exact.schema,stored.request.responseJsonSchema,'the dispatched request schema is the relation schema');
++  assert.deepEqual(exact.schema,coreSchema,'the installed core schema bytes');
++  assert.deepEqual(sharedDependency?.publication,exact.publication,'the port and the shared relation agree over the same carriage');
++  assert.deepEqual(sharedDependency?.use.memberRefs,exact.use.memberRefs);
++  const refuse=async(label,sel,over,{leaf=false}={})=>{
++    const output=dependencyOf(sel,over),leafOutput=leaf?assessor.nativeAssessmentDependency(sel,row):undefined;
++    await seen('split refusal: '+label,{selection:sel===admitted?'admitted child selection':sel,override:over,output,...(leaf?{leafOutput}:{})});
++    assert.equal(output,null,label);if(leaf)assert.equal(leafOutput,null,label+' (leaf port)');};
++  await subcase('split schema owner is the unique core declaration and its own install',async()=>{
++    const crossed={...admitted,schemaAsset:{...admitted.schemaAsset,productId:consumerId}};
++    assert.ok(relation.nativeWorkspaceAssessmentSchema(crossed),'the crossed selection is itself well formed');
++    await refuse('schema owner crossed to the executing consumer',crossed,{},{leaf:true});
++    await refuse('no schema-owner publication',admitted,{publications:publications.filter(p=>p.moduleRef!==schemaOwner.moduleRef)});
++    await refuse('two declarations',admitted,{publications:[...publications,{...schemaOwner,moduleRef:schemaOwner.moduleRef+'/twin'}]});
++    const unbound=loaded.admittedInstalls.map(i=>i.productId!==coreId?i:{...i,contributionManifest:{...i.contributionManifest,
++      publicationBindings:i.contributionManifest.publicationBindings.filter(b=>b.moduleRef!==schemaOwner.moduleRef)}});
++    await refuse('core installation without the schema-owner publication binding grants nothing',admitted,{installs:unbound});
++    const reformatted=withBytes(admitted,JSON.stringify(JSON.parse(Buffer.from(admitted.schemaAsset.bytesBase64,'base64')),null,1)+'\n');
++    assert.ok(relation.nativeWorkspaceAssessmentSchema(reformatted),'same schema, different supplied bytes');
++    await refuse('crossed schema bytes',reformatted,{},{leaf:true});
++  });
++  await subcase('split executing Program use is exact: ref, digest, publication and membership',async()=>{
++    await refuse('missing executing Program',admitted,{program:{...executing,programRef:executing.programRef+'/absent'}});
++    await refuse('wrong executing Program digest',admitted,{program:{...executing,programDigest:zero}});
++    await refuse('executing Program absent from its publication',admitted,{program:{...executing,publication:{...executing.publication,programs:[]}}});
++    const ownerProgram=schemaOwner.programs[0];
++    await refuse('the schema owner’s own Program declares no use',admitted,{program:{publication:schemaOwner,programRef:ownerProgram.programRef,programDigest:env.product.sha256Canonical(ownerProgram)}});
++    const undeclared={...consumerPublication,graphFunctions:consumerPublication.graphFunctions.map(g=>{const {'abg.raw_result_contract':_declared,...declarations}=g.declarations;return {...g,declarations};})};
++    await refuse('no executing-Program member declares the contract',admitted,{publications:[...publications.filter(p=>p.moduleRef!==consumerPublication.moduleRef),undeclared],program:{...executing,publication:undeclared}});
++    const narrowed={...consumerProgram,callableMembership:consumerProgram.callableMembership.filter(r=>!useMembers.includes(r))};
++    await refuse('declaring callables outside the executing Program membership grant nothing',admitted,
++      {program:{publication:{...consumerPublication,programs:[narrowed]},programRef:narrowed.programRef,programDigest:env.product.sha256Canonical(narrowed)}});
++    const unbound=loaded.admittedInstalls.map(i=>i.productId!==consumerId?i:{...i,contributionManifest:{...i.contributionManifest,publicationBindings:[]}});
++    await refuse('consumer installation without the exact publication binding grants nothing',admitted,{installs:unbound});
++  });
++  await subcase('split resolved lock forward edges are exact',async()=>{
++    const edge=lock.dependencyEdges.find(e=>e.kind==='requires'&&e.fromProductId===consumerId&&e.toProductId===coreId);assert.ok(edge,'the consumer requires the core Product');
++    const without=lock.dependencyEdges.filter(e=>e!==edge);
++    for(const [name,crossedLock] of [['lock digest',{...lock,lockDigest:zero}],['consumer lock row',{...lock,rows:lock.rows.map(r=>r.productId===consumerId?{...r,manifestDigest:zero}:r)}],
++      ['missing consumer-to-core edge',{...lock,dependencyEdges:without}],
++      ['reverse core-to-consumer edge',{...lock,dependencyEdges:[...without,{...edge,fromProductId:edge.toProductId,toProductId:edge.fromProductId}]}]])
++      await refuse(name,admitted,{resolvedLock:crossedLock});
++  });
++  // The persisted assembly basis carries only the schema-owner publication; its basis publication is the executing Program's.
++  const captured=env.abg.constructNativeInstructionAssemblyBasis(stored.envelope.nativeBasis);
++  const coldAssembly=captured?env.abg.constructWorksiteNativeInstructionAssembly(captured,task):null;
++  await seen('split persisted basis and cold assembly',{nativeBasis:stored.envelope.nativeBasis,reconstructed:Boolean(captured),
++    carriedAssessmentPublication:captured?.assessmentPublication?.moduleRef??null,basisPublication:captured?.publication?.moduleRef??null,warmRequest:stored.request,coldAssembly});
++  assert.ok(captured,'the persisted basis reconstructs cold');
++  assert.equal(captured.assessmentPublication?.moduleRef,stageIds.moduleRef,'the carried publication is the schema owner only');
++  assert.equal(captured.publication?.moduleRef,consumerPublication.moduleRef,'the authenticated basis publication is the executing Program publication');
++  assert.equal(coldAssembly?.kind,'native_instruction_assembly');assert.deepEqual(coldAssembly.request,stored.request,'cold assembly reproduces the dispatched request');
++  await subcase('split cold assembly refuses stale, uncarried and crossed carriage; the ordinary constructor gets no selection',async()=>{
++    const stale=env.abg.constructWorksiteNativeInstructionAssembly(captured,{...task,outcome:task.outcome+' (stale)'});
++    const {assessmentPublication:_carried,...uncarried}=stored.envelope.nativeBasis,uncarriedBasis=env.abg.constructNativeInstructionAssemblyBasis(uncarried);
++    const uncarriedAssembly=uncarriedBasis?env.abg.constructWorksiteNativeInstructionAssembly(uncarriedBasis,task):null;
++    const crossedBasis=env.abg.constructNativeInstructionAssemblyBasis({...stored.envelope.nativeBasis,assessmentPublication:consumerPublication});
++    const crossedAssembly=crossedBasis?env.abg.constructWorksiteNativeInstructionAssembly(crossedBasis,task):null;
++    const constructorSelection=assessor.nativeAssessmentDependency(admitted,constructorRow);
++    await seen('split cold assembly refusals',{staleTask:{...task,outcome:task.outcome+' (stale)'},stale,uncarriedReconstructed:Boolean(uncarriedBasis),uncarriedAssembly,
++      crossedPublication:consumerPublication.moduleRef,crossedReconstructed:Boolean(crossedBasis),crossedAssembly,constructorSelection});
++    assert.equal(stale,null,'stale task input');
++    assert.ok(uncarriedBasis);assert.equal(uncarriedAssembly,null,'no carried dependency and no Program-closure fallback');
++    assert.ok(crossedBasis);assert.equal(crossedAssembly,null,'the executing consumer carried as schema owner declares no contract');
++    assert.equal(constructorSelection,null,'the native constructor callable receives no inner selection');
++  });
++  await subcase('split ordinary static raw-result lookup and the native author result stay closure-scoped',async()=>{
++    const inside=new Set(loaded.declarationClosure.publications.flatMap(p=>p.contracts.map(c=>c.contractRef)));
++    const outside=publications.flatMap(p=>p.contracts).filter(c=>!inside.has(c.contractRef));
++    const lookups=outside.map(c=>({contractRef:c.contractRef,contract:assessor.contractByRef(c.contractRef),publication:assessor.contractPublicationByRef(c.contractRef)}));
++    const constructorPort=await port.forGraphFunction(ids.graphFunctionRef),built=authored[0];
++    const builtArtifact=events.find(e=>e.kind==='actor_result_artifact_observed'&&e.parentAggregateId===built.aggregateId),builtWarm=builtArtifact?.payload.nativeResultAssessment?.verification;
++    const builtBasis=env.abg.rehydrateExecutionBasisAtPrefix(prefix,built.basisId);
++    const builtInput=builtWarm&&builtBasis?{resolution:constructorRow,input:builtBasis.rawInputValue,inputDigest:builtBasis.rawInputDigest,
++      instructionContractRef:builtWarm.instructionContractRef,rawResultContractRef:builtWarm.rawResultContractRef,rawResult:JSON.parse(builtArtifact.payload.finalOutput)}:null;
++    const builtCold=builtInput&&constructorPort?constructorPort.verifyProbabilisticResultContractPreimage(builtInput):null;
++    await seen('split static lookup and native author preimage',{lookups,constructorContract:builtWarm&&constructorPort?constructorPort.contractByRef(builtWarm.rawResultContractRef):null,
++      constructorWarm:builtWarm??null,constructorCold:builtCold,authorTaskAssessment:builtBasis?.rawInputValue?.assessment??null});
++    for(const lookup of lookups){assert.equal(lookup.contract,null,lookup.contractRef);assert.equal(lookup.publication,null,lookup.contractRef);}
++    assert.ok(constructorPort&&builtWarm&&builtBasis);
++    assert.equal(builtBasis.rawInputValue.assessment,undefined,'the native author task carries no assessment selection');
++    assert.ok(constructorPort.contractByRef(builtWarm.rawResultContractRef),'the native author report contract is statically owned');
++    assert.deepEqual(builtCold,builtWarm);
++  });
++  await subcase('split warm/cold raw preimage and same-Run fresh result/replay',async()=>{
++    const contractInput={resolution:row,input:task,inputDigest:childBasis.rawInputDigest,instructionContractRef:stored.request.instructionContractRef,
++      rawResultContractRef:stored.request.resultContractRef,rawResult:JSON.parse(artifact.payload.finalOutput)};
++    const cold=assessor.verifyProbabilisticResultContractPreimage(contractInput),revalidated=assessor.revalidateProbabilisticResultContractPreimage(contractInput,warm.verification);
++    const stale=assessor.verifyProbabilisticResultContractPreimage({...contractInput,inputDigest:zero});
++    await seen('split warm/cold raw preimage',{contractInput,warm:warm.verification,cold,revalidated,staleInputDigest:stale});
++    assert.deepEqual(cold,warm.verification,'cold raw preimage equals the warm admitted verification');
++    assert.deepEqual(revalidated,warm.verification);
++    assert.equal(stale.code,'input_contract_refused','a stale input digest');
++    const reads={};
++    for(const memberKey of ['run_result','run_replay']){
++      const {call}=constructInstalledRunReadCall({environment:env,publicApi,projectReadContracts:readContracts,memberKey,selector:memberKey==='run_result'?{kind:'none'}:{kind:'ordinal_page',fromOrdinal:0,limit:2048},
++        source:started.resources.run,eventResource:resource(),identity:`s06-split-${memberKey}`});
++      const out=await cli(`s06-split-${memberKey}`,call);reads[memberKey]=out.ownerOutput;
++    }
++    await seen('split fresh readbacks',{run:started.resources.run,startTerminal:value?.terminalResult??null,startReplay:started.resources.replay??null,reads});
++    assert.equal(reads.run_result.outcomeKind,'result');assert.equal(reads.run_replay.outcomeKind,'result');
++    assert.deepEqual(reads.run_result.value.projection.terminalResult,value.terminalResult,'fresh run_result equals the completed start terminal of the same Run');
++    assert.deepEqual(reads.run_replay.value.projection.replay,started.resources.replay,'fresh closed replay equals the completed start replay of the same Run');
++  });
++  const finalRoles=await roles();await seen('split final actor roles',finalRoles);
++  assert.deepEqual(finalRoles,['author','assess'],'refusals and readbacks dispatched no actor');
++  const predicates=['split schema owner is the unique core declaration and its own install','split executing Program use is exact: ref, digest, publication and membership',
++    'split resolved lock forward edges are exact','split cold assembly refuses stale, uncarried and crossed carriage; the ordinary constructor gets no selection',
++    'split ordinary static raw-result lookup and the native author result stay closure-scoped','split warm/cold raw preimage and same-Run fresh result/replay'];
++  await seen('split predicates',{subcases,predicates});
++  assert.deepEqual(subcases,predicates,'every selected predicate ran');
++  });
+ });
