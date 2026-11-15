@@ -1,0 +1,16 @@
+{
+  "declaration": {
+    "path": "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+    "bytes": 51233,
+    "sha256": "f0073d316c1c2ca67c7d7672830162633b3067001dbcb4df0370b6718694cad7"
+  },
+  "inputCount": 196,
+  "inputRowsSha256": "31cddc493fb30f9271f4d457467a411bc7f3ed9a2e4931d047114fe31a442e14",
+  "nativeSource": {
+    "path": "code/native/abg_physical_path.c",
+    "sha256": "d5698d57e9b5602091ffc3621f704720f7477f9921b5d9432db4d3c0c5d3f519"
+  },
+  "mode": "One ordinary build-native host closure; complete196 actual host files verified at entry and exit; no compilation/download during preparation.",
+  "verifiedAtPreparation": true,
+  "verifiedUtc": "2026-11-15T21:35:08.010488+00:00"
+}
