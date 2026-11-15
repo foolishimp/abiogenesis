@@ -27,7 +27,7 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T13:23:49.707422+00:00",
+  "recordedUtc": "2026-11-15T13:29:52.897368+00:00",
   "nativeAuthorState": "No active provider/proof. Native07 one-file source checkpointed after whole F09 passed; proof stopped at stale governance physical-open expectation. Native08 one-case repair selected after independent Product/Design/source triage.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
@@ -823,10 +823,11 @@
     "state": "ACCEPTED_PENDING_ACTUAL_RC14_CUT_BINDING",
     "commit": "580c6eb0e37a3e5c3dbf59c2fb2e162f685e86dc",
     "acceptance": "integration-01/AMENDMENT_CONTROL_ACCEPTANCE_04.json",
-    "executionStarted": false
+    "executionStarted": false,
+    "helperProvision": "integration-01/AMENDMENT_HELPER_PROVISION_01.json"
   },
   "unrunSix": {
-    "state": "CONTROL_PREPARATION_RUNNING",
+    "state": "ACCEPTED_PENDING_PUSH_AND_ONE_SHOT_GRANT",
     "selection": "integration-01/UNRUN_SIX_PREPARATION_SELECTION.json",
     "ordinals": [
       11,
@@ -836,6 +837,7 @@
       15,
       16
     ],
-    "executionStarted": false
+    "executionStarted": false,
+    "acceptance": "integration-01/UNRUN_SIX_CONTROL_ACCEPTANCE_01.json"
   }
 }

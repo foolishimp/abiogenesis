@@ -1,0 +1,19 @@
+{
+  "id": "RC14-AMENDMENT-RETAINED-HELPER-PROVISION-01",
+  "recordedUtc": "2026-11-15T13:26:57.746804+00:00",
+  "root": "/private/tmp/abg-rc14-amendment-controls-823-20261116-01",
+  "head": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+  "detached": true,
+  "controlManifestSha256": "d595c6bba5daec4a26267c0147fd5f28566784146217c360522e7ffb31db4d8b",
+  "controlsVerified": 14,
+  "inputsVerified": 37,
+  "tenantEqualToPreparationSource": "484f4b721d8efafdcf6aa5ddabc69b06bed58756",
+  "existingB865QualificationBranchUntouched": true,
+  "checkoutOnly": true,
+  "ProductImports": false,
+  "setup": false,
+  "provider": false,
+  "build": false,
+  "test": false,
+  "rawPublished": false
+}

@@ -1,0 +1,39 @@
+{
+  "productFrame": "Fixed ABI5/T287/RC14. Derived component test evidence only; original events/admission/runtime owners unchanged. No qualification credit. STDO3.0.4 unchanged.",
+  "id": "RC14-UNRUN-SIX-CONTROL-ACCEPTANCE-01",
+  "reviewer": "Root independent of R14 controls Writer",
+  "recordedUtc": "2026-11-15T13:29:52.897368+00:00",
+  "subjectCommit": "0fcb38edc81c4a8a4c51270c8640545bfe90ccb5",
+  "subjectTree": "97dc406542ec89d0d88fc8e9526a6f4b4eb82946",
+  "mainMerge": "27ee0360a0ad23334205dc8fd3e937576dbb43b7",
+  "manifestSha256": "8c2f3f40b5620e02484f7412a65fff7334434e8689e2a879a0ff2c5cc48aa915",
+  "returnSha256": "d6a463377173502a59f069f866460f5d1c4e9faa5ddd456263d7093eab4f7595",
+  "disposition": "accepted_for_one_bounded_execution_after_checkpoint_push_and_actual_grant",
+  "findings": [],
+  "rootVerification": {
+    "manifestMembers": 7,
+    "retainedAndAuthorityPins": 39,
+    "sourceRowsMatched": 1428,
+    "sourceCommit": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+    "sourceTree": "1efbbd46e99bcef12789559f02e47ed4806db048",
+    "originalPlanRowsExact": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "topLevelCases": 26,
+    "optionalGate": "original steel gate unchanged",
+    "ownership": "hash-pinned original07 command/topology/population/final22 helpers; own committed-source inventory explicitly joins original1428postimage and b47-to99 one-file post-closure commit",
+    "finalization": "source and proof-mirror conservation, all22 initialized input comparisons, separate secondary errors, original wall+monotonic cutoff and group owner unchanged",
+    "excluded": "no dirty-native precondition/completion fiction, no file010 retry, no build/provider"
+  },
+  "executionStarted": false,
+  "enclosingMaximumMs": 3600000,
+  "cleanupReserveMs": 15000,
+  "firstFailureStop": true,
+  "qualified": false,
+  "rawPublished": false
+}
