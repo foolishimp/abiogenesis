@@ -1,0 +1,437 @@
+{
+  "id": "RC14-INSTALLED-AMENDMENT-OPERATOR-003-RETURN",
+  "recordedUtc": "2026-11-15T19:36:35.877510+00:00",
+  "status": "failed_closed",
+  "claim": "One granted actual installed amendment attempt completed its bounded failure/close path; no retry, acceptance, qualification or release claim.",
+  "productFrame": "Fixed5.0 S03/F17 amendment and selective currentness, real installed Public owner. Actual admitted Testing/correction/review/acceptance and replay are required; application success alone does not satisfy missing currentness coverage.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "role": "Separate external Operator under the pushed grant; this Return is an observational handoff, not independent source review.",
+  "authority": {
+    "commit": "50fbcd098b48392332f10e9cfaa5742a16627ec9",
+    "activation": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-03/ACTIVATION.json",
+      "bytes": 12255,
+      "sha256": "3480b2a50fd81ba9cafca7be6aa933ea97716fe9d4c8cdceb79209b15be9e94f"
+    },
+    "acceptance": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-03/CONTROL_ACCEPTANCE.json",
+      "bytes": 1908,
+      "sha256": "f36ee2427b1fa3b1d838b76aa15f86352c1ba960f82b62dc6332808ca44f392d"
+    },
+    "remoteParity": "Root verified direct origin/main parity before activation."
+  },
+  "controls": {
+    "root": "/private/tmp/abg-rc14-amendment-successor-20261116-06/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-06",
+    "commit": "5b75c3a38114685d66d443ffc4e23733e24457c1",
+    "manifestSha256": "15a3bba1eadb7e723305ebd9ef880c9c13b3713b834301613ebc839356a92cdb",
+    "returnSha256": "98231cbfcf72f344f9cd3d491fb8e6b08c1b1d63108380a297a35d4120571eb2"
+  },
+  "maintainedHelpers": {
+    "sourceRoot": "/private/tmp/abg-rc14-amendment-controls-823-20261116-01",
+    "sourceCommit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+    "manifestSha256": "d595c6bba5daec4a26267c0147fd5f28566784146217c360522e7ffb31db4d8b",
+    "alreadyProvisioned": true
+  },
+  "candidate": {
+    "sourceCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "sourceTree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
+    "compileInputTree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "archiveSha256": "sha256:5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/bootstrap/package",
+    "manifestSha256": "2bfb3663bb394f1b735703670cdbbe93c608117ad0527a550ea15e8971555c0d",
+    "packageVersion": "5.0.0-rc.14",
+    "cutRecordPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/CUT_RECORD.json",
+    "cutRecordSha256": "3700aac9426d375e414a5f3928013fefcd30e4302e8705a939ede5ba0a3a9902",
+    "archiveMembersPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/ARCHIVE_MEMBERS.json",
+    "archiveMembersSha256": "bc426b70235cde976c632d478fde3750d54cfc62a41db8220525c113c80597a4",
+    "installRecordPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/INSTALL_RECORD.json",
+    "installRecordSha256": "16f294953676d261871622e0d88825fb0190352d22a241eed749969c8b5e5b1d",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "C1": {
+    "C1Commit": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+    "C1Tree": "db27ed1be8ba16a25888ab785ba26263f730f811",
+    "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-01",
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-01/FREEZE.json",
+      "bytes": 4776,
+      "sha256": "4db84a20a83e020206e4161fbd4ca50284fd9b929a702d346645e78cc21bd012"
+    }
+  },
+  "binding": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-03/BINDING.json",
+    "bytes": 9102,
+    "sha256": "e5db0ae857d2fbf69de92cb402406731c771c3703a548bcc231f867ec5a77f54"
+  },
+  "smokeInputs": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-03/SMOKE_INPUTS.json",
+    "bytes": 6423,
+    "sha256": "2785bac4d5b9f1988785877dbf1119cc144ea18e7c024c280fc013c60dd06751"
+  },
+  "startReceipt": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-03/OPERATOR_START.json",
+    "bytes": 3034,
+    "sha256": "aefd93b2759c523bef62a2f781b5a60d3e23ee2dd2811c2f285cedd5f4589b01"
+  },
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-03",
+  "worksiteRoot": "/private/tmp/abg-rc14-amendment-witness-20261116-03",
+  "clock": {
+    "startedUtc": "2026-11-15T19:12:36.707704+00:00",
+    "deadlineUtc": "2026-11-15T22:12:36.707704+00:00",
+    "exitAuditReserveMs": 180000,
+    "executionDeadlineUtc": "2026-11-15T22:09:36.707704+00:00",
+    "sealedUtc": "2026-11-15T19:32:00.515Z",
+    "inputExitCompletedUtc": "2026-11-15T19:32:05.227119+00:00",
+    "oldClocksReopened": false,
+    "retry": false
+  },
+  "execution": {
+    "canonicalEntry": [
+      "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "/private/tmp/abg-rc14-amendment-successor-20261116-06/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-06/run.py",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-03/BINDING.json"
+    ],
+    "sessionId": 51458,
+    "observedOuterExitCode": 1,
+    "installedSmoke": {
+      "wholeFileCases": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "wallMs": 36555
+    },
+    "plannedPhysicalRole": "passed",
+    "actualPairedRoles": {
+      "afterSetup": [
+        "operator-custody: separated",
+        "runtime-owner: separated"
+      ],
+      "immediatelyBeforeDispatch": [
+        "operator-custody: separated",
+        "runtime-owner: separated"
+      ]
+    },
+    "physicalLimits": "Accepted controlled same-host layout only; observer unchanged. Historical git/tar remain exact byte-custody inputs, not recursive protected roots.",
+    "selectedMechanicalInstall": "Fourth INSTALL_RECORD receipt joined exact host/package to archive and bootstrap separately; the smoke used the checked explicit installHost.",
+    "actualDispatchUtc": "2026-11-15T19:14:06.025Z",
+    "selectedGraphs": [
+      {
+        "ordinal": 95,
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/induction@5"
+      },
+      {
+        "ordinal": 374,
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5"
+      },
+      {
+        "ordinal": 643,
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5"
+      },
+      {
+        "ordinal": 870,
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/review@5"
+      },
+      {
+        "ordinal": 1117,
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/review@5"
+      },
+      {
+        "ordinal": 1386,
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5"
+      }
+    ]
+  },
+  "runtimeOutcome": {
+    "transportReceiptExitCode": 0,
+    "outerOwnerOutputKind": "result",
+    "innerDisposition": "runtime_failed",
+    "result": null,
+    "terminalResult": null,
+    "failureEventOrdinal": 1625,
+    "failureEventTime": "2026-11-15T19:31:49.500Z",
+    "diagnosticClassRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+    "errorClass": "TypeError",
+    "decodedRefusal": {
+      "kind": "native_instruction_assembly_refusal",
+      "cause": "declared_bound_overflow",
+      "policy": null,
+      "role": "selector",
+      "unresolvedRefs": [
+        "result://abiogenesis/ab0d196a9797c3dc8ba8b983797e413d7d0dbc420f10d3ff039f906dde586bd8"
+      ]
+    },
+    "failureRef": "runtime-failure://abiogenesis/2fac8ebcc587ef6071b85433d12da41a315a222f5ff61aff09c5fd535d20a804",
+    "stopStatement": "Run failed before a terminal Result: implementation_exception in executive-step preparation; timeout class not admitted. Full exact stopStatement retained in lifecycle-start.outcome.json.",
+    "hostAssertion": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- 'governance_work_state'\n",
+    "outerFirstFailure": "First command failure: /Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-03/005-amendment/result.json",
+    "timeout": false,
+    "repairSelectedByOperator": false
+  },
+  "observedWitness": {
+    "initialTesting": {
+      "provenance": "admitted C2 Testing",
+      "ordinal": 724,
+      "resultRef": "result://abiogenesis/39af90f6396ccfc8ebca43f15412a5e0cce2b15608b9f66bbb4d4a0c9df94e34",
+      "mismatches": [
+        "7500",
+        "10000",
+        "bulk-discount"
+      ],
+      "testExit": 0,
+      "amendmentOracleExit": 1
+    },
+    "analysisResults": [
+      "result://abiogenesis/59c9d8ad0dfe7bd31cfbc78850936227645ad6cd5a2d291505598b383ad16d79",
+      "result://abiogenesis/15a89f56ec1b508f21ed91911025536bb267cb4ecbce7040d3ab9289a6c329fa"
+    ],
+    "constructionResults": [
+      "result://abiogenesis/7191c113a7b13598bc23ab2b457e0adeba41231d709495c3168d86b5db1bb105"
+    ],
+    "finalExternalApplicationObservation": {
+      "cases": 4,
+      "met": 4,
+      "mismatches": [],
+      "scope": "Fixed external domain observation; not a replacement for final admitted Testing/UAT."
+    },
+    "coverageStatus": "unobserved",
+    "coverageGaps": [
+      "Baseline became stale and refreshed from Testing while impact review retained exact current identity: not observed",
+      "Native acceptance over fresh passed Testing after last construction not observed",
+      "Current satisfied terminal parent not observed"
+    ],
+    "refresh": [],
+    "acceptanceResultRef": null,
+    "newRunReuse": false,
+    "sameRunContinuation": false
+  },
+  "readsAndClose": {
+    "heldFreshOutcomeDigestsEqual": true,
+    "freshRunResult": "refusal:not_found",
+    "freshRunReplay": "result:failed; terminalResult=null",
+    "sessionCloseActual": true,
+    "finalCloseHandoffActual": true,
+    "eventLog": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-03/amendment/resources/events/runtime.events.jsonl",
+      "bytes": 14441885,
+      "sha256": "de8c7bff497cfc699662c4abc8784740828196837aa41ad2207aa5c4772e899d"
+    },
+    "eventLogMatchesClosedPrefix": true,
+    "boundedOwnerGroupCount": 18,
+    "boundedOwnerGroupsAbsent": true,
+    "nativeProcessCount": 12,
+    "nativeProcessExitsZero": 12,
+    "nativePidsAndSamePgidsAbsentAtLateObservation": true,
+    "noCleanupSignals": true,
+    "closureObservation": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-03/OPERATOR_CLOSURE.json",
+      "bytes": 40998,
+      "sha256": "df6178902a33251c921af88ed2b4be60fafec12dc6690670284f070a47b6b277"
+    },
+    "cleanupLimit": "Listed owned groups and native PID/same-PGID observations only; no machine-wide or unowned-process claim."
+  },
+  "conservation": {
+    "inputRows": 89,
+    "complete": true,
+    "errors": [],
+    "mismatches": [],
+    "conserved": true,
+    "actualImportedTreeAgainstArchive": {
+      "files": 5302,
+      "bytes": 69284648,
+      "entryAndExit": "complete exact inventory equality under accepted smoke-custody owner"
+    },
+    "worksite": {
+      "changes": [
+        "design/impact-assessment.md",
+        "src/approval.mjs",
+        "test/approval.test.mjs",
+        "work/intake-triage.md"
+      ],
+      "writes": [
+        {
+          "pathKind": "file",
+          "relativePath": "work/intake-triage.md"
+        },
+        {
+          "pathKind": "file",
+          "relativePath": "design/impact-assessment.md"
+        },
+        {
+          "pathKind": "file",
+          "relativePath": "src/approval.mjs"
+        },
+        {
+          "pathKind": "file",
+          "relativePath": "src/order.mjs"
+        },
+        {
+          "pathKind": "file",
+          "relativePath": "test/approval.test.mjs"
+        }
+      ],
+      "archive": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-03/amendment/resources/archives",
+      "forbidden": [],
+      "measured": "Regular-file bytes and symbolic-link targets, including entry additions/removals; directory metadata, modes, ownership and timestamps are not compared."
+    }
+  },
+  "provider": {
+    "command": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "executableSha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "requestedModel": "claude-opus-5-5",
+    "reportedModels": [
+      "claude-opus-5-5"
+    ],
+    "effort": "xhigh",
+    "maxTurns": 120,
+    "absoluteTimeoutMs": 1200000,
+    "inactivityTimeoutMs": 600000,
+    "actualActorCalls": 12,
+    "maximumConcurrentInThisLane": 1,
+    "reportedCostUsd": 7.0634404,
+    "phaseCosts": {
+      "graph-function://default-library-witness/executive-step@5": {
+        "calls": 6,
+        "intervalMs": 460435,
+        "reportedCostUsd": 3.2438076000000002
+      },
+      "graph-function://abiogenesis/worksite/native-work@5": {
+        "calls": 3,
+        "intervalMs": 367082,
+        "reportedCostUsd": 2.150042
+      },
+      "graph-function://abiogenesis/worksite/command-execution@5": {
+        "calls": 1,
+        "intervalMs": 14400,
+        "reportedCostUsd": 0.38487980000000005
+      },
+      "graph-function://abiogenesis/worksite/native-work/assessment@5": {
+        "calls": 2,
+        "intervalMs": 142251,
+        "reportedCostUsd": 1.284711
+      }
+    },
+    "credentialKeyNamesOnly": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ],
+    "credentialValuesPersistedByOperator": false
+  },
+  "receiptPinsRelativeToRawRoot": [
+    {
+      "path": "FIRST_FAILURE.json",
+      "bytes": 210,
+      "sha256": "580143d7efd6b5891c0d4d0a8d4b28c87352773eccc7c30a8496aa54b75e1990"
+    },
+    {
+      "path": "RETURN.json",
+      "bytes": 387,
+      "sha256": "85f49205fd3cc5a4484e0298187247b54ba22597586d9ad1043199fe002d1ca2"
+    },
+    {
+      "path": "INPUT_CONSERVATION.json",
+      "bytes": 80,
+      "sha256": "36179beb6b12b5c847642eae213744c3f9f0880b1d8b17aade15d6c00dc99eec"
+    },
+    {
+      "path": "004-installed-language/result.json",
+      "bytes": 630,
+      "sha256": "06ae1476c44516b7feb25688a29f69fd6ad59ef89ddaf5a6429dfa9465292892"
+    },
+    {
+      "path": "004-installed-language/stdout.raw",
+      "bytes": 390,
+      "sha256": "da5b94a6118857c84fcb6325ca6fdbf38b0037ce45e1bb417495db4458d6f44e"
+    },
+    {
+      "path": "005-amendment/result.json",
+      "bytes": 614,
+      "sha256": "a2afbfe65bd1bda62d374b0286ebf81b0be905e09dbce4561b0040d49fd0c753"
+    },
+    {
+      "path": "amendment/calls/lifecycle-start.outcome.json",
+      "bytes": 377344,
+      "sha256": "51eb935706526096e6acb14ce15a230f3eaf1f451ca5c90f7447d6a2ea5f8570"
+    },
+    {
+      "path": "amendment/calls/run_result.outcome.json",
+      "bytes": 3324,
+      "sha256": "ef9c753a2160796fa39682594bbd021f88b4356f6b08ecfd77a759b20990256f"
+    },
+    {
+      "path": "amendment/calls/run_replay.outcome.json",
+      "bytes": 4485,
+      "sha256": "03139cfdd40e1c59cf42e6d14d2efecda1a0b7f918dfc956a250adc046902052"
+    },
+    {
+      "path": "amendment/held-readback.json",
+      "bytes": 758,
+      "sha256": "4a44b81ea6c7f2a03b0274511543fc635d9fc8869d6f3302af04403dcfacf187"
+    },
+    {
+      "path": "amendment/fresh-readback.json",
+      "bytes": 748,
+      "sha256": "bfbfef6c45dc570cb921809dc24e31d08d60b1adb7fd6b868bcd83eebff9ba40"
+    },
+    {
+      "path": "amendment/session-close.json",
+      "bytes": 2278,
+      "sha256": "f01626667b8958900165962ad8e207ee9d12b6bb84d04833067fe5f0924c8ab3"
+    },
+    {
+      "path": "amendment/final-close-handoff.json",
+      "bytes": 1338,
+      "sha256": "8d4bd49edb1c6c864a4ac4e65092998ea0f0c14ddfe4d81cb17c3a17e19c14a8"
+    },
+    {
+      "path": "amendment/amendment-coverage.json",
+      "bytes": 376314,
+      "sha256": "0c804665c874e4ed6c8880df9d65c1b9583534518288a501f2e170fb0ca4742b"
+    },
+    {
+      "path": "amendment/initial-counterevidence.json",
+      "bytes": 3835,
+      "sha256": "55b02a49bafc388ea759395cd28b2b88c9d59695ea3bec3592c0ee1d82ab504e"
+    },
+    {
+      "path": "amendment/final-application-observation.json",
+      "bytes": 1313,
+      "sha256": "440b6146e244c8277acb6106ac0225379f2191bccddf9c584998b9b24c26bfab"
+    },
+    {
+      "path": "amendment/actor-calls.json",
+      "bytes": 14978,
+      "sha256": "93a1e0bcbbf16bb07a0cdfff2caa06fe8fa7bb8545f431baf61ef9534b12f336"
+    },
+    {
+      "path": "amendment/SEALED.json",
+      "bytes": 323,
+      "sha256": "6944bc301bba8bc691d767ce1d976721db9d313d6e5fce7a32105847edb11808"
+    },
+    {
+      "path": "amendment/worksite-file-link-conservation.json",
+      "bytes": 913,
+      "sha256": "2d9b2ac6d35e0f547aece959b812441a939491d9bedc3d1ea908346480397157"
+    }
+  ],
+  "retainedFailures": {
+    "amendment01ReturnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
+    "amendment02ReturnCommit": "b33eec0fd85ed71a4528300cd6e4db1f8a8b2b92",
+    "unchanged": true,
+    "clocksReopened": false
+  },
+  "operatorMethodNotes": [
+    "One read-only progress projection initially assumed every log row carried aggregateId directly; KeyError ended only that metadata read. Later progress views selected event envelopes and were not substituted for owner replay.",
+    "One tool-output truncation required read-only receipt reacquisition; the running host was neither restarted nor altered.",
+    "Runtime failure diagnosis is retained evidence for Root triage; no causal repair or re-entry selected by Operator."
+  ],
+  "unperformed": [
+    "Final admitted Testing after construction, native acceptance and current satisfied terminal parent.",
+    "Affected review refresh plus exact unchanged review currentness conjunction.",
+    "Formal qualification, release acceptance, candidate rebuild/repin and S06 witness."
+  ],
+  "nextOwner": "Root causal intake over exact retained runtime failure. No retry or repair authorized by this Return."
+}
