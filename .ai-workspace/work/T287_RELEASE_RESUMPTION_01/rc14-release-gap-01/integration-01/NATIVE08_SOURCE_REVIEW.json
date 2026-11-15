@@ -1,0 +1,37 @@
+{
+  "id": "RC14-NATIVE08-SOURCE-REVIEW",
+  "productFrame": "Fixed ABI5/T287 RC14 under STDO3.0.4; one derived Proof case, no Product/runtime authority change.",
+  "reviewers": [
+    "R14 independent exact source review",
+    "Root independent diff and owner-interface review"
+  ],
+  "sourceHead": "324ec312fa6ae4ab0f4d88a443d607fcd13c3c77",
+  "source": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+    "bytes": 70764,
+    "sha256": "fda1551579558998d509525258312fe0d21acce41c574af9dd96a0f9bd3c5e98"
+  },
+  "postimage": {
+    "bytes": 356887,
+    "sha256": "8e4ae03d4b8e4522be0a65fd41b439aed15e51afef4db57e69592f08eeb7dc39"
+  },
+  "diff": {
+    "bytes": 20953,
+    "sha256": "86b0e5c9f6e25d31fc65d3907f94ea099b4e2512e5b6e55e4b933028716bb1a9"
+  },
+  "freeze": {
+    "bytes": 4822,
+    "sha256": "4fc87606b0116253fb037850cdc451145abb217574eff33703d9e50353bb44c5"
+  },
+  "disposition": "bounded_source_relation_satisfied",
+  "findings": [],
+  "verified": [
+    "Actual owner phase counters distinguish one cold history decode/authentication and one selected-body read; two physical opens join those stages. Explicit fresh remains its separate whole-prefix reader.",
+    "Established held snapshot retains strict reference identity, meaning and digest with zero extra history/body/physical work; initial held-descriptor body acquisition is outside that after-establishment delta.",
+    "Portable versus nominal capture, closed-resource refusal, wrong inode, all three tamper paths, require-current length and byte restoration remain.",
+    "Synchronous candidate capture precedes behavioral assertions, includes actual compared results/coordinates/counters/bytes, preserves thrown outcomes and failure record before cleanup.",
+    "Module prefix and other eight cases byte-identical; no Product/API/helper/export changes."
+  ],
+  "evidenceLimits": "Syntax passed; no behavioral proof executed. Complete method/command compliance is a separate actual audit; this review does not certify it.",
+  "qualified": false
+}

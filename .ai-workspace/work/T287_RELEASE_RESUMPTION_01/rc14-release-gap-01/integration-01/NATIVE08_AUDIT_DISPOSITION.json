@@ -1,0 +1,68 @@
+{
+  "id": "RC14-NATIVE08-AUDIT-DISPOSITION",
+  "role": "Root Executive adjudication recorded by separate Writer14",
+  "recordedUtc": "2026-11-15T14:43:37.299618+00:00",
+  "productFrame": "Fixed ABI5/T287 RC14; source and component Proof only. No runtime authority, qualification waiver or future read-scope expansion.",
+  "disposition": "admitted_for_bounded_component_proof",
+  "sourceHead": "324ec312fa6ae4ab0f4d88a443d607fcd13c3c77",
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE08_SOURCE_REVIEW.json",
+    "bytes": 2078,
+    "sha256": "2000d6c3971930f4f5103aa5150e88dd42319bf7c72e8ad46ca14107902cf147"
+  },
+  "audit": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/AUTHOR_AUDIT.json",
+    "bytes": 8251,
+    "sha256": "55aa22cdf562830e69bf47591c6210d803eb062ab7b912c03cc162b7876d0225"
+  },
+  "observation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/AUTHOR_AUDIT_OBSERVATION.json",
+    "bytes": 141980,
+    "sha256": "c6b226195b98d81b7ff6ee03f044d2489f1ce30dc870ad5b5bd4f36882c488d1"
+  },
+  "authorReport": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/AUTHOR_REPORT.json",
+    "bytes": 8902,
+    "sha256": "47a8360560f8533efcb78489373b8e05d6b10c0e0df81ed3594b564ce7187f88"
+  },
+  "sourcePostimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/SOURCE_POSTIMAGE.json",
+    "bytes": 356887,
+    "sha256": "8e4ae03d4b8e4522be0a65fd41b439aed15e51afef4db57e69592f08eeb7dc39"
+  },
+  "sourceDiffSha256": "86b0e5c9f6e25d31fc65d3907f94ea099b4e2512e5b6e55e4b933028716bb1a9",
+  "launchSha256": "0c71f54110369c7be6110a33a453ddf3624f955ff835e5137f6a19025c28e5da",
+  "acceptedDeviationIds": [
+    "native08-readonly-metadata-outside-declared-files",
+    "native08-directory-grep-query-scope"
+  ],
+  "auditDeviationsPreserved": true,
+  "fullLiteralCompliance": false,
+  "selectedMethodContentVerified": true,
+  "sourceWriteScopeConserved": true,
+  "rootProofPermission": true,
+  "triage": {
+    "origin": "Author wildcard line-count command and directory-wide Grep scopes exceeded exact declared file list.",
+    "wcPrecision": "wc reads file bytes to count lines. Ten out-of-scope sibling control files were therefore accessed; only counts and names were returned to the author. Audit phrase no content acquired is read as no body content returned, not no physical file read.",
+    "grepPrecision": "Two queries scanned the abg directory; actual returned matches were from declared event_store.ts. No undeclared direct Read result was returned.",
+    "closedEffect": "One permitted test edit; no Git, test, Product import/build, extra provider/subagent or unrelated mutation. Actual terminal, resource close, fresh result/replay and process-group absence closed.",
+    "conjunction": "Required method/requirement content acquired before edit; independent exact source review finds no counterexample. The observed read variance does not invalidate the selected code behavior, but literal native scope compliance remains false.",
+    "minimumReentry": "Separate external proof entry consumes this exact disposition and unchanged nonzero audit. Preserve all original source/retention/input/process/deadline checks; no audit rewriting, repeated author or clock reset."
+  },
+  "proof": {
+    "freshOrdinals": [
+      10
+    ],
+    "retainedFiles": 15,
+    "originalHostDeadlineUtc": "2026-11-15T16:37:49.211017+00:00",
+    "maximumMs": 5400000,
+    "clipToOriginalHostDeadline": true,
+    "cleanupReserveMs": 15000,
+    "finalInputComparisons": 24,
+    "firstFailureStop": true,
+    "retry": false,
+    "actualExecutionRequiresReviewedEntryAndGrant": true
+  },
+  "qualified": false,
+  "rawPublished": false
+}

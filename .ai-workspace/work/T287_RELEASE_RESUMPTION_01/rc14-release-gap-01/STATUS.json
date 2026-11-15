@@ -1,5 +1,5 @@
 {
-  "status": "RC14_NATIVE08_FINAL_GOVERNANCE_AUTHOR_RUNNING",
+  "status": "RC14_NATIVE08_SOURCE_REVIEWED_BOUNDED_PROOF_ENTRY_PREPARING",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T14:24:59.937255+00:00",
-  "nativeAuthorState": "Actual RC13-native08 actor running, one governance first-case write scope. Fifteen prior wholefile results retained; separate source review and one-file proof follow.",
+  "recordedUtc": "2026-11-15T14:44:01.608130+00:00",
+  "nativeAuthorState": "Native08 completed60turns/826910ms. Actual closure/replay and source review satisfied; two read-scope variances preserved. Separate one-file proof entry preparing; no active provider.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -815,7 +815,7 @@
     "qualified": false
   },
   "native08": {
-    "state": "ACTUAL_NATIVE_AUTHOR_RUNNING",
+    "state": "SOURCE_REVIEWED_AUDIT_DISPOSED_PROOF_ENTRY_PREPARING",
     "triage": "integration-01/NATIVE08_GOVERNANCE_TRIAGE.json",
     "sourceAuthorStarted": true,
     "acceptedCommit": "cebc89dd5b2e9079fbfac176982a3a33df250ab9",
@@ -830,7 +830,14 @@
     "actorPid": 71138,
     "hostPid": 70557,
     "originalDeadlineUtc": "2026-11-15T16:37:49.211017+00:00",
-    "proofAuthorized": false
+    "proofAuthorized": false,
+    "nativeTurns": 60,
+    "nativeMs": 826910,
+    "sourceReview": "integration-01/NATIVE08_SOURCE_REVIEW.json",
+    "auditDisposition": "integration-01/NATIVE08_AUDIT_DISPOSITION.json",
+    "actualCloseAndFreshReplay": true,
+    "fullLiteralCompliance": false,
+    "readScopeVariances": 2
   },
   "amendmentFinalCandidateControls": {
     "state": "ACCEPTED_PENDING_ACTUAL_RC14_CUT_BINDING",
