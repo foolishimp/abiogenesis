@@ -1,0 +1,51 @@
+{
+  "id": "RC14-PEER-FINAL-228-RECONCILIATION-01",
+  "recordedUtc": "2026-11-15T10:48:11.807407+00:00",
+  "source": "Peer-authored final record; preserves every attempt rather than replacing original b/c/d failures",
+  "subject": "main 669704c15",
+  "record": {
+    "path": ".ai-workspace/comments/claude/20261114T194815Z_REVIEW_RC13_AND_RC14_RELEASE_GAP/evidence/results-669704c15.json",
+    "bytes": 79259,
+    "sha256": "e0c0fc78c8aebade23d34a7d70112b704711fa91f533d90dde386f6227a93aa6"
+  },
+  "verifiedArithmetic": {
+    "uniqueFiles": 228,
+    "lastAttemptOutcomes": {
+      "assertion_failure": 16,
+      "pass": 212
+    },
+    "lastAttemptCases": {
+      "tests": 1523,
+      "pass": 1451,
+      "fail": 21,
+      "skipped": 51,
+      "cancelled": 0
+    },
+    "attempts": 256
+  },
+  "failingFiles": [
+    "t287-f09-frontier-handoff.test.mjs",
+    "t287-governance-covered-source-use.test.mjs",
+    "t287-native-runtime-gate.test.mjs",
+    "t287-native-work-currentness-consumers.test.mjs",
+    "t287-observed-worksite-command.test.mjs",
+    "t287-readable-stops-foldback.test.mjs",
+    "t287-recursive-registered-selection.test.mjs",
+    "t287-required-operation-bindings.test.mjs",
+    "t287-single-address-space-consolidation.test.mjs",
+    "t287-st1-installed-cross-owner-hello.test.mjs",
+    "t292-td26-p3-continuation-refused.test.mjs",
+    "t292-td26-p6-language-retired.test.mjs",
+    "t292-td36r-admitted-binding-owner.test.mjs",
+    "t292-td36r-bind-door-strings.test.mjs",
+    "w2-steel-single-start-closure.test.mjs",
+    "t287-c0-correction-regressions.test.mjs"
+  ],
+  "claimLimits": [
+    "Reviewer ran five passes;212 is last-attempt passing files, not an all-green single uninterrupted run.",
+    "Source match to669704c15 is previously reconciled; exact build-at-execution conservation remains unestablished.",
+    "Final peer result does not close source repairs, candidate/installed lifecycle, qualification or human acceptance.",
+    "Root three-file18/18 diagnostic remains separate evidence, not added to these1523 cases.",
+    "Peer commentary remains untracked and unmodified; only this compact authored reconciliation is committed."
+  ]
+}

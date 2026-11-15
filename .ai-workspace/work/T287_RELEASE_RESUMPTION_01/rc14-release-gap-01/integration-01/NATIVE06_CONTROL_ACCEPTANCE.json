@@ -1,0 +1,34 @@
+{
+  "id": "RC14-NATIVE06-CONTROL-ACCEPTANCE-01",
+  "recordedUtc": "2026-11-15T10:50:01.368326+00:00",
+  "subject": "6d9175739eda6072e41cf9c1d3b1f4762f68ded5",
+  "tree": "17ad2ba3e469050ce1eec0fb7e943d85cf54a9c2",
+  "manifestSha256": "e5d035b375d23a74bf1beb6979c2dd8bbba96db9428bd09b5cca32276373088d",
+  "returnSha256": "c5f78e29e5fcc994deab73aba9a7c20b9714a2bf8d126edc287b95a72f03bf25",
+  "productFrame": "Fixed5.0 RC14 test-only P5 retirement correction. ABG alone admits runtime truth; controls are evidence tooling. Source causal triage NATIVE06_TWO_CASE_TRIAGE.json fixes one test, no Product/HOW change.",
+  "writer": "/root/rc14_release_proof external controls",
+  "reviewer": "/root/b29_vm_triage independent read-only review",
+  "rootAcquisition": "Root read exact TASK/PROOF_PLAN/RETAINED_PROOF/PREPARATION_RETURN and independently verified26 manifest members; consumed closed reviewer result.",
+  "acceptedRelations": [
+    "Canonical inner completed task/Run/terminal plus actual resource close and fresh matching result/closed replay",
+    "Explicit hash-bound installed stdo-work content read before Edit; one test W versus17 build-reuse exceptions",
+    "Original001/002 retained only after unchanged complete common tenant/source/support/load inputs and authenticated receipts/build/dependency/input relation",
+    "Fourteen fresh whole files;71 overall named top-level cases; exact title maps and two historical gates retained",
+    "Full case3/case7 candidate records, source audit of preassert ordering required",
+    "Exclusive launch staging, source/setup custody, process groups, original finite wall/monotonic bounds and first-failure stops"
+  ],
+  "limits": {
+    "nativeMs": 1200000,
+    "nativeMaxTurns": 160,
+    "inactivityMs": 300000,
+    "freshHostMs": 8100000,
+    "proofMs": 5400000,
+    "retry": false
+  },
+  "disposition": "Controls accepted. After this source/control checkpoint is pushed and remote parity verified, Root may issue exact separate Operator launch on that HEAD. This record does not start a clock or source author.",
+  "remaining": [
+    "Exact clean source advance and source preimage",
+    "Actual native method/command/source audit and independent source review",
+    "Separate proof acceptance; no qualification or human release acceptance"
+  ]
+}

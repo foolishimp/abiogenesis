@@ -1,5 +1,5 @@
 {
-  "status": "RC14_NATIVE05_PROOF_STOPPED_ONE_FILE_NATIVE06_PREPARATION",
+  "status": "RC14_NATIVE06_CONTROLS_ACCEPTED_PENDING_EXACT_LAUNCH",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -590,7 +590,7 @@
     "qualificationOrder": "C0 compiles; C1 binds complete inventory; prospectiveRC14 bytes fixed before qualification; formal publication copies qualified archive unchanged"
   },
   "s06Preparation": {
-    "state": "TOOL_C2_JOIN_REVIEW_SATISFIED_CANDIDATE_UNBOUND",
+    "state": "TOOL_C2_PREPARATION_ACCEPTED_CANDIDATE_UNBOUND",
     "rejectedSubject": "6af06d60ea84ba15f1222479070b5950ca887267",
     "writer": "/root/b29_vm_triage",
     "reviewer": "/root/rc14_release_proof",
@@ -605,11 +605,11 @@
     "executionBound": false,
     "sourceScope": "integration-01/s06-preparation-01",
     "subject": "60cd47319b360048f2176f97d0d2cb8703df1397",
-    "acceptance": "integration-01/S06_PREPARATION_ACCEPTANCE_02.json",
+    "acceptance": "integration-01/S06_PREPARATION_ACCEPTANCE_03.json",
     "toolJoinSubject": "62b148155eb087e6fc4d19e6fceb9d2eea4dd9ad",
     "toolJoinWriter": "/root/b30_catalog_triage",
     "toolJoinReviewer": "/root/b29_vm_triage",
-    "networkLimit": "Measured Unix/v4/v6 loopback exchange and denied remote connect; wildcard bind allowed, remote ingress unmeasured. Root applicability disposition pending durable acceptance."
+    "networkLimit": "Wildcard-bind expectation inapplicable under exact trusted-desktop contract; measured red retained. Remote ingress unmeasured and not claimed."
   },
   "peerLatencyIntake": {
     "state": "CLOSED_TRIAGE_AND_BOUNDED_DIAGNOSTIC",
@@ -683,7 +683,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T10:41:36.720345+00:00",
+  "updatedUtc": "2026-11-15T10:50:01.368326+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -722,12 +722,25 @@
     "closure": "integration-01/NATIVE05_PROOF_CLOSURE.json"
   },
   "regressionRepair06": {
-    "state": "ONE_FILE_TWO_CASE_PREPARATION_ONLY",
+    "state": "CONTROLS_ACCEPTED_PENDING_PUSHED_HEAD_AND_LAUNCH",
     "triage": "integration-01/NATIVE06_TWO_CASE_TRIAGE.json",
     "executionBound": false,
     "sourceHead": null,
     "writePaths": 1,
     "freshWholeFiles": 14,
-    "retainedWholeFilesConditional": 2
+    "retainedWholeFilesConditional": 2,
+    "controls": "6d9175739eda6072e41cf9c1d3b1f4762f68ded5",
+    "acceptance": "integration-01/NATIVE06_CONTROL_ACCEPTANCE.json"
+  },
+  "peerFinal228": {
+    "record": "integration-01/PEER_FINAL_228_RECONCILIATION.json",
+    "uniqueFiles": 228,
+    "lastAttemptPassFiles": 212,
+    "lastAttemptFailFiles": 16,
+    "lastAttemptPassCases": 1451,
+    "lastAttemptFailEntries": 21,
+    "lastAttemptSkips": 51,
+    "cancelled": 0,
+    "qualification": false
   }
 }

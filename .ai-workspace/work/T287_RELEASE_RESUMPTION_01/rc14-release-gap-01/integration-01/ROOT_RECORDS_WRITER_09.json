@@ -1,0 +1,19 @@
+{
+  "id": "RC14-ROOT-RECORDS-WRITER-009",
+  "role": "Separate Root integration/records Writer",
+  "startedUtc": "2026-11-15T10:44:36.397515+00:00",
+  "authority": "Owner finishRC14 and existing T293; consume closed independent S06 review and prospective native06 control review",
+  "permittedEffects": [
+    "Integrate exact frozen external S06 and native06 control branches without tenant-source edits",
+    "Record S06 trusted-desktop network applicability and bounded preparation acceptance",
+    "After independent review, record native06 control acceptance and update existing STATUS/T293",
+    "Commit exact authored controls/records and push main only; direct remote parity before native source work"
+  ],
+  "exclusions": [
+    "No raw/event/archive/LFS push or unrelated peer review staging",
+    "No Product or policy change, qualified release or human acceptance",
+    "No execution until separate exact Operator grant"
+  ],
+  "gitHookDisposition": "Standard inspected post-commit/post-merge/pre-push hooks invoke only git-lfs. Per-command core.hooksPath=/dev/null may omit these for source/authored-control-only mutations; no persistent config change, LFS/raw publication or ignored broader hook failure.",
+  "additionalRecordedEvidence": "Final peer228-file arithmetic and last-attempt status conjoined for existing T293 B46/B47; original retries, source/build limits and unrelated peer files preserved."
+}

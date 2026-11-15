@@ -1,0 +1,37 @@
+{
+  "id": "RC14-S06-TOOL-C2-JOIN-ACCEPTANCE-03",
+  "recordedUtc": "2026-11-15T10:44:36.398795+00:00",
+  "productFrame": "Fixed5.0 GOAL035/T287 F17/S06 lifecycle and consequential revision through installed Public owners. Consumer Tool state and observations carry no ABG semantic authority; C2 owns command execution/admission/evidence. Trusted desktop owner commands may use toolchains/caches under exact C2 HOW648-652.",
+  "subject": "62b148155eb087e6fc4d19e6fceb9d2eea4dd9ad",
+  "tree": "3826981d201c9cc1dd43d4a892de6e4a2182d18d",
+  "manifestSha256": "a7f70b26c391929b03fa1e09c8683d3258f1c5134fa2bd916794504444a352e7",
+  "returnSha256": "88f364b87c663b74a7942ffdbcafa9fb18a6ce699a5f16d1a078933281a873a1",
+  "reviewer": "/root/b29_vm_triage distinct read-only reviewer",
+  "independentReview": "No additional actionable Tool/C2, custody, lifetime or query-classpath counterexample. All25 manifest members verified. Original source/calculus unchanged.",
+  "rootSourceAcquisition": [
+    "C2 HOW648-652 trusted-developer-desktop boundary",
+    "Exact Tool launcher profile/environment/lifetime/cleanup lines28-210",
+    "Exact final binding/return and closed failure identities"
+  ],
+  "networkDisposition": {
+    "control": "wildcard-bind negative",
+    "measured": "Profile parsed; owned Unix and IPv4/IPv6 loopback exchanges completed; remote192.0.2.1 connect denied; bind0.0.0.0 succeeded.",
+    "origin": "External control demanded universal bind refusal beyond selected trusted-desktop application contract. A bind does not establish remote ingress.",
+    "selectedContract": "Owner-authored application uses Spark local[1], driver host/bind127.0.0.1; offline frozen inputs and no remote dependency acquisition. C2 does not claim hostile-code containment.",
+    "decision": "Stronger wildcard-bind expectation is inapplicable to the selected lawful witness. Preserve failed control/receipt; do not relabel it passed, widen launcher policy, change Product or add another probe.",
+    "limits": "Remote ingress and universal network isolation unmeasured, neither claimed nor a selected5.0 Product obligation for this witness. Re-enter if actual witness needs remote acquisition, uses nonloopback service binding or an existing Product prohibition is demonstrated."
+  },
+  "acceptedEvidence": [
+    "Exact canonical types/input/capability/command/environment join",
+    "Frozen tool inventories and prior offline SBT dependency resolution",
+    "Measured local socket exchanges and remote-connect denial; original wildcard negative preserved",
+    "Actual C2 process-group preservation and capture/Result-coordinate join by source review",
+    "Frozen-JDK reader-only oracle and copy-first bounded cleanup"
+  ],
+  "stillOpen": [
+    "Actual application compilation/ScalaTest/Spark and300s command capacity",
+    "Exact prospective RC14 candidate and enclosing deadline binding",
+    "Full installed S06 and separate qualification"
+  ],
+  "disposition": "Preparation accepted for later candidate-bound one-pass execution. No application, provider, installed lifecycle or qualification execution admitted by this record."
+}
