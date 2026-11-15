@@ -1,0 +1,12 @@
+{
+  "preparedUtc": "2026-11-15T07:51:28.818326+00:00",
+  "actualParent": "feadde9579b3e5e7600c137a9ed27f1d3f202d08",
+  "source": "/private/tmp/abg-rc14-regression-repair-20261115-04",
+  "branch": "codex/rc14-regression-repair-20261115-04",
+  "priorProvedTenantSource": "7a2411defd9ef7c1968512703c3b4b1493114453",
+  "tenantSpecificationDefinitionAgentequal": true,
+  "finalLaunchBinding": "Root supplies exact pushed head after control acceptance; advance clean branch only to that head and freeze-source before separate launch.",
+  "clock": "Fresh prospective3h, not yet started; prior attempts remain closed.",
+  "finalPushedLaunchHeadRequired": true,
+  "predecessorControlSubject": "c240e67af21acb74332d3206d68dca0be5ecd284"
+}
