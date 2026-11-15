@@ -71,54 +71,143 @@ test('normal close preserves the owned ArtifactTruth snapshot while copies and f
   fs.mkdirSync(proofRoot,{recursive:true});const scratch=fs.mkdtempSync(path.join(proofRoot,'closed-owner-'));
   t.after(()=>fs.rmSync(scratch,{recursive:true,force:true}));
   const eventLogPath=path.join(scratch,'events.jsonl'),resourceOwner=await load('abg/definition_event_resource'),artifact=await load('abg/artifact_truth');
-  const opened=eventOwner.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath});assert.ok(opened.store);
-  let handoff;
+  // The complete accumulated actual candidate is retained by retainCandidate before
+  // every behavioral assertion below, and again with any failure before fixture
+  // restoration and scratch cleanup. Each owner call runs once: a thrown owner
+  // error is recorded, then rethrown unchanged or matched exactly as before. With
+  // ABG_REGRESSION_PROOF_ROOT unset nothing is written and retainedAt stays null.
+  const candidateName='closed-owner-artifact-snapshot',record={kind:'closed_owner_artifact_snapshot_candidate',
+    case:'normal close preserves the owned ArtifactTruth snapshot while copies and fresh reads validate bytes',eventLogPath,
+    retainedAt:regressionRoot?path.join(regressionRoot,'t287-governance-covered-source-use',candidateName+'.json'):null,status:'running',steps:[]};
+  const retain=(step,value)=>{record.steps.push({step,...value});retainCandidate(candidateName,record);};
+  const thrown=error=>({name:error?.name,constructor:error?.constructor?.name,code:error?.code,message:String(error?.message??error),stack:String(error?.stack??'')});
+  const fail=error=>{if(record.failure===undefined){record.status='failed';record.failure=thrown(error);retainCandidate(candidateName,record);}};
+  const attempt=call=>{try{return {kind:'returned',value:call()};}catch(error){return {kind:'thrown',error};}};
+  const shown=(result,present=value=>value)=>result.kind==='returned'?{kind:'returned',value:present(result.value)}:{kind:'thrown',...thrown(result.error)};
+  const rethrow=result=>{if(result.kind==='thrown')throw result.error;return result.value;};
+  const bytesOf=value=>({byteLength:value.length,sha256:p.sha256Bytes(value),base64:value.toString('base64')});
+  const withoutStore=value=>value!==null&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,item])=>
+    [key,key==='store'?{serialized:false,constructor:item?.constructor?.name??typeof item}:item])):value;
   try {
-    const basisRef='basis://finite/owned-snapshot-fixture';
-    eventOwner.admitRuntimeEvent(opened.store,{kind:'basis_admitted',eventTime:'2026-09-23T00:00:00.000Z',aggregateType:'workspace',aggregateId:'workspace://owned-snapshot-fixture',
-      parentAggregateId:null,causationEventRefs:[],correlationId:'correlation://finite/owned-snapshot',workflowVersion:'5.0.0',scopeClass:'workspace',basisId:basisRef,
-      payload:{basisRef,basisDigest:hash('finite owned snapshot'),basisClass:'root',rawInputValue:{kind:'component-premise'}}});
-    handoff=opened.store.projectReopenAuthorityAndClose();
-  } finally {opened.store.closeDurableLog();}
-  const acquired=resourceOwner.acquireAbgEventResource({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:hash(handoff)});
-  assert.equal(acquired.kind,'acquired_abg_event_resource');
-  const nominal=acquired.resource.entryPrefix,bytes=fs.readFileSync(eventLogPath);
-  let physicalOpens=0,closed=false;const originalOpen=fs.openSync;
-  fs.openSync=function(file,...args){if(String(file)===eventLogPath)physicalOpens++;return originalOpen.call(fs,file,...args);};syncBuiltinESMExports();
-  try {
-    const before=artifact.projectOwnedPrefixArtifactTruth(nominal);assert.equal(before.kind,'exact_prefix_artifact_truth_projection');
-    const meaning=JSON.stringify(before),digest=before.projectionDigest;
-    const receipt=resourceOwner.closeAbgEventResource(acquired.resource,nominal);closed=true;assert.deepEqual(receipt.closeHandoff.prefix,nominal);
-    assert.notStrictEqual(receipt.closeHandoff.prefix,nominal,'portable close metadata is detached from the retained owner prefix');
-    assert.strictEqual(eventOwner.captureDurablePrefixCoordinate(nominal),nominal);
-    assert.notStrictEqual(eventOwner.captureDurablePrefixCoordinate(receipt.closeHandoff.prefix),receipt.closeHandoff.prefix,
-      'portable close metadata has no nominal runtime-history association');
-    assert.throws(()=>resourceOwner.selectAcquiredAbgEventResource(acquired.resource,nominal),TypeError,'closed owner grants no acquired selection');
-    const after=artifact.projectOwnedPrefixArtifactTruth(nominal);
-    assert.strictEqual(after,before,'the closed append lease leaves the actual snapshot-local receipt intact');
-    assert.equal(JSON.stringify(after),meaning);assert.equal(after.projectionDigest,digest);
-    assert.equal(physicalOpens,0,'owned internal projection performs no second physical acquisition after close');
-    const portable=artifact.projectOwnedPrefixArtifactTruth(receipt.closeHandoff.prefix);assert.deepEqual(portable,before);
-    const portableOpens=physicalOpens;assert.equal(portableOpens,1,'portable close metadata undergoes ordinary cold validation');
-    const fresh=artifact.projectExactPrefixArtifactTruth(nominal);assert.equal(fresh.kind,'exact_prefix_artifact_truth_projection');assert.deepEqual(fresh,before);
-    const freshOpens=physicalOpens-portableOpens;assert.equal(freshOpens,1,'explicit fresh API still validates physical bytes');
-    const copied=artifact.projectOwnedPrefixArtifactTruth(structuredClone(nominal));assert.equal(copied.kind,'exact_prefix_artifact_truth_projection');assert.deepEqual(copied,before);
-    const copiedOpens=physicalOpens-portableOpens-freshOpens;assert.equal(copiedOpens,1,'a raw copy has no nominal receipt');
-    const resign=coordinate=>{const {coordinateDigest,...body}=coordinate;return {...body,coordinateDigest:hash(body)};};
-    const foreign=structuredClone(nominal);foreign.storeIdentity.inode+=1;
-    assert.equal(artifact.projectOwnedPrefixArtifactTruth(resign(foreign)).code,'file_identity_mismatch');
-    const changed=Buffer.from(bytes);changed[0]^=1;fs.writeFileSync(eventLogPath,changed);
-    assert.equal(artifact.projectExactPrefixArtifactTruth(nominal).code,'prefix_digest_mismatch');
-    assert.equal(artifact.projectOwnedPrefixArtifactTruth(receipt.closeHandoff.prefix).code,'prefix_digest_mismatch');
-    assert.equal(artifact.projectOwnedPrefixArtifactTruth(structuredClone(nominal)).code,'prefix_digest_mismatch');
-    fs.writeFileSync(eventLogPath,Buffer.concat([bytes,Buffer.from(' ')]));
-    assert.throws(()=>eventOwner.readRuntimeEventsAtDurablePrefix(nominal,{requireCurrent:true}),e=>e.code==='prefix_length_mismatch');
-    fs.writeFileSync(eventLogPath,bytes);assert.deepEqual(fs.readFileSync(eventLogPath),bytes);
-    console.log(JSON.stringify({kind:'closed_owner_artifact_snapshot',ownedAdditionalPhysicalOpens:0,portableHandoffPhysicalOpens:portableOpens,freshPhysicalOpens:freshOpens,copiedPhysicalOpens:copiedOpens,
-      projectionDigest:digest,prefixLength:nominal.prefixLength,scope:'one real contract-admitted fixture event/resource/ArtifactTruth; no installed environment, covered-source admission, campaign capacity or UAT credit'}));
-  } finally {
-    fs.openSync=originalOpen;syncBuiltinESMExports();if(!closed)resourceOwner.closeAbgEventResource(acquired.resource,nominal);fs.writeFileSync(eventLogPath,bytes);
-  }
+    const openedResult=attempt(()=>eventOwner.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath}));
+    retain('create-new-empty-append-sink',{result:shown(openedResult,withoutStore)});
+    const opened=rethrow(openedResult);assert.ok(opened.store);
+    let handoff;
+    try {
+      const basisRef='basis://finite/owned-snapshot-fixture';
+      const admitted=attempt(()=>eventOwner.admitRuntimeEvent(opened.store,{kind:'basis_admitted',eventTime:'2026-09-23T00:00:00.000Z',aggregateType:'workspace',aggregateId:'workspace://owned-snapshot-fixture',
+        parentAggregateId:null,causationEventRefs:[],correlationId:'correlation://finite/owned-snapshot',workflowVersion:'5.0.0',scopeClass:'workspace',basisId:basisRef,
+        payload:{basisRef,basisDigest:hash('finite owned snapshot'),basisClass:'root',rawInputValue:{kind:'component-premise'}}}));
+      retain('admit-basis-event',{result:shown(admitted)});rethrow(admitted);
+      const closing=attempt(()=>opened.store.projectReopenAuthorityAndClose());
+      retain('project-reopen-authority-and-close',{result:shown(closing)});handoff=rethrow(closing);
+    } finally {opened.store.closeDurableLog();}
+    const reopen={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:hash(handoff)};
+    const acquiredResult=attempt(()=>resourceOwner.acquireAbgEventResource(reopen));
+    retain('acquire-reopened-resource',{request:reopen,result:shown(acquiredResult,value=>({...value,resource:withoutStore(value?.resource)})),work:eventOwner.observeRuntimeHistoryWork()});
+    const acquired=rethrow(acquiredResult);assert.equal(acquired.kind,'acquired_abg_event_resource');
+    const nominal=acquired.resource.entryPrefix,bytes=fs.readFileSync(eventLogPath);
+    let physicalOpens=0,closed=false,phase='unobserved';const originalOpen=fs.openSync,opens=[];
+    const work=()=>({physicalOpens,...eventOwner.observeRuntimeHistoryWork()}),delta=(from,to)=>Object.fromEntries(Object.keys(to).map(key=>[key,to[key]-from[key]]));
+    // One owner step under its own phase baseline: its complete result, the work
+    // counters and physical opens before/after, and each open of the exact log
+    // with the counters at that instant relative to the phase start.
+    const observe=(name,call,present)=>{phase=name;const start=work(),result=attempt(call),end=work();
+      return {result,observation:{phase:name,result:shown(result,present),work:{start,end,delta:delta(start,end)},
+        opens:opens.filter(row=>row.phase===name).map(row=>({...row,sincePhaseStart:delta(start,row.work)}))}};};
+    // A cold owned-prefix projection first decodes and authenticates its whole
+    // selected history once (the owner counts that cold read before it opens),
+    // then acquires its one selected basis body (which opens before it counts).
+    // These are two distinct acquisitions, never a duplicate history validation.
+    const assertColdHistoryThenBody=(observation,subject)=>{const d=observation.work.delta;
+      assert.equal(d.coldHistoryReads,1,subject+' undergoes ordinary cold validation');
+      assert.equal(d.historyDecodes,1,subject+' decodes and authenticates its history once');
+      assert.equal(d.historyBytesRead,nominal.prefixLength,subject+' reads its selected history extent once');
+      assert.equal(d.bodyReads,1,subject+' then acquires its one selected basis body');
+      assert.ok(d.bodyBytesRead>0&&d.bodyBytesRead<=nominal.prefixLength,subject+' reads one selected row, not a second history');
+      assert.deepEqual(observation.opens.map(row=>[row.sincePhaseStart.coldHistoryReads,row.sincePhaseStart.historyDecodes,row.sincePhaseStart.bodyReads]),[[1,0,0],[1,1,0]],
+        subject+' opens once for its cold history read and once, after that decode, for its selected body');
+    };
+    retain('nominal-coordinate-and-original-bytes',{nominal,originalBytes:bytesOf(bytes),work:work()});
+    fs.openSync=function(file,...args){if(String(file)===eventLogPath){physicalOpens++;opens.push({ordinal:physicalOpens,phase,flags:args[0]??null,work:eventOwner.observeRuntimeHistoryWork()});}
+      return originalOpen.call(fs,file,...args);};syncBuiltinESMExports();
+    try {
+      // Initial materialization may acquire its basis body through the held
+      // descriptor with no open. It is the baseline, not extra owned work.
+      const initial=observe('owned-initial',()=>artifact.projectOwnedPrefixArtifactTruth(nominal));
+      retain('owned-initial-projection',{coordinate:nominal,...initial.observation});
+      const before=rethrow(initial.result);assert.equal(before.kind,'exact_prefix_artifact_truth_projection');
+      const meaning=JSON.stringify(before),digest=before.projectionDigest;
+      const closing=observe('close',()=>resourceOwner.closeAbgEventResource(acquired.resource,nominal));
+      retain('close-owned-resource',closing.observation);
+      const receipt=rethrow(closing.result);closed=true;const portablePrefix=receipt.closeHandoff.prefix;
+      retain('portable-close-metadata',{compared:{portablePrefix,nominal,strictlyIdentical:portablePrefix===nominal}});
+      assert.deepEqual(receipt.closeHandoff.prefix,nominal);
+      assert.notStrictEqual(receipt.closeHandoff.prefix,nominal,'portable close metadata is detached from the retained owner prefix');
+      const nominalCapture=observe('capture-nominal',()=>eventOwner.captureDurablePrefixCoordinate(nominal));
+      retain('capture-nominal',{...nominalCapture.observation,compared:{captured:nominalCapture.result.value,nominal,strictlyIdentical:nominalCapture.result.value===nominal}});
+      assert.strictEqual(rethrow(nominalCapture.result),nominal);
+      const portableCapture=observe('capture-portable',()=>eventOwner.captureDurablePrefixCoordinate(receipt.closeHandoff.prefix));
+      retain('capture-portable',{...portableCapture.observation,compared:{captured:portableCapture.result.value,portablePrefix,strictlyIdentical:portableCapture.result.value===portablePrefix}});
+      assert.notStrictEqual(rethrow(portableCapture.result),receipt.closeHandoff.prefix,
+        'portable close metadata has no nominal runtime-history association');
+      const closedSelection=observe('closed-owner-selection',()=>resourceOwner.selectAcquiredAbgEventResource(acquired.resource,nominal));
+      retain('closed-owner-selection-refusal',closedSelection.observation);
+      assert.throws(()=>rethrow(closedSelection.result),TypeError,'closed owner grants no acquired selection');
+      const reuse=observe('owned-after-close',()=>artifact.projectOwnedPrefixArtifactTruth(nominal)),after=reuse.result.value;
+      const ownedAfterInitialOpens=physicalOpens-initial.observation.work.end.physicalOpens;
+      retain('owned-after-close-reuse',{coordinate:nominal,...reuse.observation,ownedAfterInitialOpens,compared:{before,after,strictlyIdentical:after===before,
+        beforeMeaning:meaning,afterMeaning:after===undefined?null:JSON.stringify(after),beforeDigest:digest,afterDigest:after?.projectionDigest??null}});
+      rethrow(reuse.result);
+      assert.strictEqual(after,before,'the closed append lease leaves the actual snapshot-local receipt intact');
+      assert.equal(JSON.stringify(after),meaning);assert.equal(after.projectionDigest,digest);
+      assert.equal(ownedAfterInitialOpens,0,'owned internal projection performs no second physical acquisition after close');
+      assert.deepEqual(reuse.observation.work.delta,Object.fromEntries(Object.keys(reuse.observation.work.delta).map(key=>[key,0])),
+        'the established snapshot is reused with no extra history, body or physical acquisition');
+      const portablePhase=observe('portable-cold',()=>artifact.projectOwnedPrefixArtifactTruth(receipt.closeHandoff.prefix)),portable=portablePhase.result.value;
+      retain('portable-cold-projection',{coordinate:portablePrefix,...portablePhase.observation,compared:{before,portable,strictlyIdentical:portable===before}});
+      rethrow(portablePhase.result);assert.deepEqual(portable,before);
+      assertColdHistoryThenBody(portablePhase.observation,'portable close metadata');
+      const freshPhase=observe('explicit-fresh',()=>artifact.projectExactPrefixArtifactTruth(nominal)),fresh=freshPhase.result.value;
+      retain('explicit-fresh-projection',{coordinate:nominal,...freshPhase.observation,compared:{before,fresh,strictlyIdentical:fresh===before}});
+      rethrow(freshPhase.result);assert.equal(fresh.kind,'exact_prefix_artifact_truth_projection');assert.deepEqual(fresh,before);
+      const freshWork=freshPhase.observation.work.delta;assert.equal(freshWork.physicalOpens,1,'explicit fresh API still validates physical bytes');
+      assert.deepEqual([freshWork.coldHistoryReads,freshWork.historyDecodes,freshWork.bodyReads],[0,0,0],
+        'explicit fresh uses its separate whole-prefix array reader, not the owned cold history or selected-body reader');
+      const copy=structuredClone(nominal),copiedPhase=observe('raw-copy-cold',()=>artifact.projectOwnedPrefixArtifactTruth(copy)),copied=copiedPhase.result.value;
+      retain('raw-copy-cold-projection',{coordinate:copy,coordinateIsNominal:copy===nominal,...copiedPhase.observation,compared:{before,copied,strictlyIdentical:copied===before}});
+      rethrow(copiedPhase.result);assert.equal(copied.kind,'exact_prefix_artifact_truth_projection');assert.deepEqual(copied,before);
+      assertColdHistoryThenBody(copiedPhase.observation,'a raw copy with no nominal receipt');
+      const resign=coordinate=>{const {coordinateDigest,...body}=coordinate;return {...body,coordinateDigest:hash(body)};};
+      const foreign=structuredClone(nominal);foreign.storeIdentity.inode+=1;const resigned=resign(foreign);
+      const wrongInode=observe('wrong-inode',()=>artifact.projectOwnedPrefixArtifactTruth(resigned));
+      retain('wrong-inode-refusal',{coordinate:resigned,...wrongInode.observation});
+      assert.equal(rethrow(wrongInode.result).code,'file_identity_mismatch');
+      const changed=Buffer.from(bytes);changed[0]^=1;const tamper=observe('tamper-write',()=>fs.writeFileSync(eventLogPath,changed));
+      retain('tamper-first-byte',{...tamper.observation,originalBytes:bytesOf(bytes),tamperedBytes:bytesOf(changed),tamperedOffset:0,originalByte:bytes[0],tamperedByte:changed[0]});
+      rethrow(tamper.result);
+      for(const [name,coordinate,project]of [['tampered-explicit-fresh',nominal,artifact.projectExactPrefixArtifactTruth],
+        ['tampered-portable',receipt.closeHandoff.prefix,artifact.projectOwnedPrefixArtifactTruth],['tampered-raw-copy',structuredClone(nominal),artifact.projectOwnedPrefixArtifactTruth]]){
+        const refused=observe(name,()=>project(coordinate));retain(name+'-refusal',{coordinate,...refused.observation});
+        assert.equal(rethrow(refused.result).code,'prefix_digest_mismatch',name);
+      }
+      const appended=Buffer.concat([bytes,Buffer.from(' ')]),append=observe('append-write',()=>fs.writeFileSync(eventLogPath,appended));
+      retain('append-one-byte',{...append.observation,appendedBytes:bytesOf(appended)});rethrow(append.result);
+      const current=observe('require-current',()=>eventOwner.readRuntimeEventsAtDurablePrefix(nominal,{requireCurrent:true}));
+      retain('require-current-refusal',{coordinate:nominal,options:{requireCurrent:true},...current.observation});
+      assert.throws(()=>rethrow(current.result),e=>e.code==='prefix_length_mismatch');
+      const restore=observe('restore',()=>{fs.writeFileSync(eventLogPath,bytes);return fs.readFileSync(eventLogPath);},bytesOf),restored=restore.result.value;
+      retain('restore-original-bytes',{...restore.observation,originalBytes:bytesOf(bytes),compared:{restoredEqualsOriginal:restored?.equals(bytes)??null}});
+      rethrow(restore.result);assert.deepEqual(restored,bytes);
+      record.status='assertions_completed';retainCandidate(candidateName,record);
+      console.log(JSON.stringify({kind:'closed_owner_artifact_snapshot',ownedAfterInitialOpens,ownedAfterCloseWork:reuse.observation.work.delta,
+        portableHandoffWork:portablePhase.observation.work.delta,freshWork,copiedWork:copiedPhase.observation.work.delta,
+        projectionDigest:digest,prefixLength:nominal.prefixLength,candidate:record.retainedAt,
+        scope:'one real contract-admitted fixture event/resource/ArtifactTruth; no installed environment, covered-source admission, campaign capacity or UAT credit'}));
+    } catch(error) {fail(error);throw error;} finally {
+      fs.openSync=originalOpen;syncBuiltinESMExports();if(!closed)resourceOwner.closeAbgEventResource(acquired.resource,nominal);fs.writeFileSync(eventLogPath,bytes);
+    }
+  } catch(error) {fail(error);throw error;}
 });
 
 test('complete canonical declarations permit only publication identity consequences',()=>{
