@@ -683,7 +683,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T11:49:57.708086+00:00",
+  "updatedUtc": "2026-11-15T11:58:09.291423+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -722,7 +722,7 @@
     "closure": "integration-01/NATIVE05_PROOF_CLOSURE.json"
   },
   "regressionRepair06": {
-    "state": "PROOF_RUNNING",
+    "state": "SOURCE_CHECKPOINTED_PROOF_CLOSED_F09_FAILURE",
     "triage": "integration-01/NATIVE06_TWO_CASE_TRIAGE.json",
     "executionBound": true,
     "sourceHead": "512f936499b4e7264ddcf953e962c1374136504c",
@@ -745,7 +745,15 @@
     "proofEntry": "integration-01/NATIVE06_PROOF_REENTRY_ACCEPTANCE.json",
     "proofStartUtc": "2026-11-15T11:31:22.461323Z",
     "proofDeadlineUtc": "2026-11-15T13:01:22.461323Z",
-    "progress": "integration-01/NATIVE06_PROOF_PROGRESS_01.json"
+    "progress": "integration-01/NATIVE06_PROOF_PROGRESS_01.json",
+    "sourceCommit": "8888155c2",
+    "mainMerge": "3b5041e6427b4ce806d7316e877288807958f191",
+    "closure": "integration-01/NATIVE06_PROOF_CLOSURE.json",
+    "freshGreenFiles": 4,
+    "freshPassCases": 31,
+    "freshFailCases": 1,
+    "unrunFiles": 9,
+    "retainedPriorPassCases": 13
   },
   "peerFinal228": {
     "record": "integration-01/PEER_FINAL_228_RECONCILIATION.json",

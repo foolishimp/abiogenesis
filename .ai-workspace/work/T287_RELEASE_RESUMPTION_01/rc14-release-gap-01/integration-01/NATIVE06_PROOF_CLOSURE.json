@@ -1,0 +1,164 @@
+{
+  "id": "RC14-NATIVE06-PROOF-CLOSURE-001",
+  "recordedUtc": "2026-11-15T11:58:09.291423+00:00",
+  "sourceExecutionHead": "512f936499b4e7264ddcf953e962c1374136504c",
+  "sourceCheckpoint": "8888155c2",
+  "mainMerge": "3b5041e6427b4ce806d7316e877288807958f191",
+  "status": "stopped_first_failure",
+  "proofReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/proof-01/RETURN.json",
+    "bytes": 5803,
+    "sha256": "70dba2402e01cab124ae918b19570d3302f5e6091d7b6ca4681595e7b87fa15b"
+  },
+  "firstFailure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/proof-01/FIRST_FAILURE.json",
+    "bytes": 632,
+    "sha256": "186d48ad15eb41cd1da59b6d864600931439d68cbd62ccbfc1e82f09694440a0"
+  },
+  "failureStdout": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/proof-01/007-t287-f09-frontier-handoff/stdout.raw",
+    "bytes": 11663,
+    "sha256": "9ed5ae3831a1ced8e9bd183a0d0e82d1f2fbeed1f7a7f43144be1e0ddc9499a2"
+  },
+  "failure": "Fixture reacquireCommittedArtifactTruth reads an execution-basis successor selection invalidated by injected rollback; full Product/Proof triage pending separate closed returns",
+  "freshGreenFiles": [
+    {
+      "file": "t287-single-address-space-consolidation.test.mjs",
+      "tests": 17,
+      "failed": 0,
+      "passed": 17,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 13,
+      "suites": 0
+    },
+    {
+      "file": "t287-st1-installed-cross-owner-hello.test.mjs",
+      "tests": 3,
+      "failed": 0,
+      "passed": 3,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 3,
+      "suites": 0
+    },
+    {
+      "file": "t287-recursive-registered-selection.test.mjs",
+      "tests": 7,
+      "failed": 0,
+      "passed": 7,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 7,
+      "suites": 0
+    },
+    {
+      "file": "t292-td26-p3-continuation-refused.test.mjs",
+      "tests": 4,
+      "failed": 0,
+      "passed": 4,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 4,
+      "suites": 0
+    }
+  ],
+  "freshPassCases": 31,
+  "freshFailCases": 1,
+  "freshSkips": 0,
+  "freshCancelled": 0,
+  "unrunFiles": "008 through016; nine whole files",
+  "retainedPriorFiles": [
+    {
+      "file": "t287-required-operation-bindings.test.mjs",
+      "sourceSha256": "9f15e18104db0b0cd3b5ad7693ba5ecc371551f89e67e9f085dc7c8e91b16b0e",
+      "originalReturnSha256": "fae954e9a1788ae9f614c1f42cc09a27d85cad5d6fa39637fb80d60a83f74d96",
+      "cases": 11,
+      "disposition": "retained_original_pass_not_reexecuted"
+    },
+    {
+      "file": "t292-td26-p6-language-retired.test.mjs",
+      "sourceSha256": "c8bd3d8887efe0e87ec6fbb0314bf6daf779f0d5543ea726c9d3320fbc2fea65",
+      "originalReturnSha256": "fb37089f55fd1dc0db7215db89b1e28274e782a4a640be8c153811f3bae6ed75",
+      "cases": 2,
+      "disposition": "retained_original_pass_not_reexecuted"
+    }
+  ],
+  "retainedPriorPassCases": 13,
+  "retentionLimit": "Separate actual executions, not one green campaign; late22comparison observation matched. Original failure remains; late observation is not original finally or continuous conservation.",
+  "commands": [
+    {
+      "name": "syntax-01",
+      "exitCode": 0,
+      "elapsedMs": 110
+    },
+    {
+      "name": "003-t287-single-address-space-consolidation",
+      "exitCode": 0,
+      "elapsedMs": 798808
+    },
+    {
+      "name": "004-t287-st1-installed-cross-owner-hello",
+      "exitCode": 0,
+      "elapsedMs": 253176
+    },
+    {
+      "name": "005-t287-recursive-registered-selection",
+      "exitCode": 0,
+      "elapsedMs": 147955
+    },
+    {
+      "name": "006-t292-td26-p3-continuation-refused",
+      "exitCode": 0,
+      "elapsedMs": 513
+    },
+    {
+      "name": "007-t287-f09-frontier-handoff",
+      "exitCode": 1,
+      "elapsedMs": 165940
+    }
+  ],
+  "conservation": {
+    "sourceUnchangedThroughProof": true,
+    "setupCustodyReverified": true
+  },
+  "finalComparisonLimit": "First-failure branch skipped final build/derived/dependency/retained-input loops. Entry checks and source/setup finally succeeded. No continuous or original-finally claim for a later observation.",
+  "completeCandidateCaptures": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/proof-01/scratch/observations/single-address-space-case3.candidate.json",
+      "bytes": 12287,
+      "sha256": "8fa808f2e9aacb57d3c1df90a31896d888bf4513795729d35aeb00283f81cbef"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/proof-01/scratch/observations/single-address-space-case7.candidate.json",
+      "bytes": 144645,
+      "sha256": "df30e058e710b115cf39fd691f32a4a7c819863ce1627cdd1483bcd98699de84"
+    }
+  ],
+  "clock": {
+    "completedUtc": "2026-11-15T11:54:14.542687+00:00",
+    "expired": false,
+    "wallAndMonotonic": true
+  },
+  "originalHostDeadlineUtc": "2026-11-15T13:12:34.310925+00:00",
+  "proofDeadlineUtc": "2026-11-15T13:01:22.461323+00:00",
+  "nativeClosed": true,
+  "ownedProofGroupsAbsent": true,
+  "retry": false,
+  "qualified": false,
+  "methodResidual": "Three linked method references were omitted by the native author; exact independent source review does not cure author history. See NATIVE06_METHOD_DISPOSITION.json.",
+  "lateConservation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/POST_FAILURE_CONSERVATION.json",
+    "bytes": 14571,
+    "sha256": "988ee3cb319c0ddc4c2504b2349efa8d5913820b7e4c0c24322660ef1933ecd8",
+    "matchedComparisons": 22,
+    "elapsedMs": 2181,
+    "observedStartUtc": "2026-11-15T11:57:41.196409Z",
+    "observedEndUtc": "2026-11-15T11:57:43.377681Z",
+    "scope": "Complete original/copied782-file builds,2derived outputs eachside,4576dependency entries eachside,7retained inputs eachside; original RETURN unchanged"
+  }
+}

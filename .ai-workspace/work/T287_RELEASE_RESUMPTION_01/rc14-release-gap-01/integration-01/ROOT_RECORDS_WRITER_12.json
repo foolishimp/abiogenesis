@@ -1,0 +1,20 @@
+{
+  "id": "RC14-ROOT-RECORDS-WRITER-012",
+  "role": "Separate Root source-preservation and failure-disposition Writer",
+  "startedUtc": "2026-11-15T11:56:33.246299+00:00",
+  "basis": "stdo://releases/v3.0.4/",
+  "authority": "Owner finishRC14 and existing RC13-built regression-repair mandate, root AGENTS role separation; native06 proof now closed stopped_first_failure",
+  "predecessor": "ROOT_RECORDS_WRITER_11.json",
+  "effects": [
+    "Preserve exact independently reviewed actual Claude native06 source as one-file checkpoint after closure, merge into main without unrelated files",
+    "Record native06 proof closure, disclosed late-conservation observation, conjoined F09 triage and selected smallest successor under current Product",
+    "Prepare and accept bounded external successor controls through distinct Writer and Reviewer; source/controls main-only checkpoint and push before any next native author",
+    "Maintain STATUS and ticket records; preserve unrelated untracked peer work"
+  ],
+  "exclusions": [
+    "No direct tenant source authoring by Root or Operator",
+    "No raw logs, events, archives or LFS publication",
+    "No clock reset, blind retry, qualification claim, method-compliance restatement, policy change or release acceptance"
+  ],
+  "return": "Existing integration-01 authored records and exact main/source commits; raw evidence remains external"
+}
