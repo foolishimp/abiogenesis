@@ -1,0 +1,50 @@
+{
+  "executionAuthorized": false,
+  "executionGrant": null,
+  "controlManifestSha256": "8e6d98be2aa88e03d868b64c501341f222bf8ea5a968cffa85f1c402e82ed07d",
+  "controlSourceRoot": "/private/tmp/abg-rc14-installed-prep-20261115-01",
+  "controlSourceCommit": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862",
+  "retainedControlRoot": "/private/tmp/abg-rc14-installed-prep-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01",
+  "runId": null,
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03",
+  "worksiteRoot": "/private/tmp/abg-rc14-public-setup-20261116-03",
+  "protectedRoots": null,
+  "deadlineUtc": null,
+  "candidate": {
+    "sourceCommit": null,
+    "compileInputTree": null,
+    "cutRecordPath": null,
+    "cutRecordSha256": null,
+    "archivePath": null,
+    "archiveSha256": null,
+    "bootstrapPackageRoot": null,
+    "manifestSha256": null,
+    "packageVersion": "5.0.0-rc.14"
+  },
+  "toolchains": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    "npm": {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    "python": {
+      "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa"
+    }
+  },
+  "setupEnvironment": {
+    "HOME": null,
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "C",
+    "TMPDIR": null,
+    "NPM_CONFIG_CACHE": null,
+    "NPM_CONFIG_USERCONFIG": null,
+    "NPM_CONFIG_GLOBALCONFIG": null,
+    "NPM_CONFIG_OFFLINE": "true",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false"
+  }
+}

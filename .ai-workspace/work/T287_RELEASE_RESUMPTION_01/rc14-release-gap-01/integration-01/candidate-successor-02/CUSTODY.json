@@ -1,0 +1,22 @@
+{
+  "kind": "candidate_successor_02_prospective_custody_requirements",
+  "executionAuthorized": false,
+  "comparisonOwner": "Existing cut inventory and process owners; Public setup02 own capture()/finally; native07 process-owner.py and dependency-inputs.py as actually consumed by metadata Operator. No copied helper or new runner.",
+  "bothEntryAndExit": [
+    "Exact selected execution grant/binding and their source/control manifests",
+    "Every consumed cut helper plus cut-common; Public setup02 manifest, INPUTS and TOOL_PINS with transitive retained sources/helpers",
+    "REFERENCES.json metadataExecutionHelpers: process-owner.py and dependency-inputs.py, each at both original entry and original exit",
+    "Exact C0 source commit/tree and source rows, claim, authority mirrors, dependency receipt plus complete actual donor/copy rows, tool/npm trees and all196 native producer inputs",
+    "Each downstream stage consumes new CUT_RECORD/source.tar/buildRoot/archive/ARCHIVE_MEMBERS/generated-output authority and actual input member sets; authenticate both full contents and receipts",
+    "Mechanical INSTALL_RECORD/installation.json, its explicit host/package and bootstrap full archive equality; Public identity.install, actual admitted roots, close and full package/archive equality separately",
+    "During C1, every source path outside the ten declared outputs; all retained candidate/build/install/Public/control/dependency/tool/native inputs, including both imported metadata helpers"
+  ],
+  "stageSpecific": {
+    "build": "Fresh output and scratch. One tenant-only git archive and clean compile/native/manifest/basis/pack. Exact generated/archive/build-member equality; no reused prior build outputs.",
+    "install": "Absent explicit host with existing parent; output/records/bootstrap absent. Host and scratch are distinct siblings; no old global host writes. Verify exact archive inventory and installed tree both directions.",
+    "publicSetup": "Fill the unchanged Public template after actual build/install. Fresh worksite outside raw and complete protected set. Existing planned observation and paired operator/runtime observations use actual binding/install roots; preserve existing declared custody/protection roles; actual Root topology binding remains unresolved. Keep public-setup-host captures distinct from public-setup runtime outputs.",
+    "C1": "Complete tracked tenant and governing root/spec materialization, current source metadata owners, actual Public .install carrier, actual HOME/TMPDIR/LANG/LC_ALL recorded. Metadata scratch absent until tool creates it. After exact ten-path-only diff, commit clean C1, freeze once with actual C1 commit/tree; preserve C0 compiled lineage and do not append Return to frozen C1."
+  },
+  "failureAndExit": "First failure preserves original failure, streams, started/deadline, residue and closure. No retry or clock reset. Original entry/exit comparisons and all owned group absence must finish within the stage bound/reserve; missing exit observations withhold success.",
+  "limits": "Custody hashes do not grant runtime authority or prove continuous isolation. Preparation does not establish fresh-path absence/topology, future B56 equivalence, platform/tool compatibility, qualification or human acceptance."
+}
