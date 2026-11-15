@@ -1,0 +1,56 @@
+{
+  "kind": "exact_reused_setup_owners",
+  "controlSourceCommit": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862",
+  "basicReferenceCommit": "e1aa852e11181590666028cfdee52c09ca6ee801",
+  "files": [
+    {
+      "root": "controlSourceRoot",
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39738,
+      "sha256": "9bb83493f9bd34691dda02bb48f864d04b57f302edbdd39f2964f3857e59ab71"
+    },
+    {
+      "root": "controlSourceRoot",
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "root": "controlSourceRoot",
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    {
+      "root": "controlSourceRoot",
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    },
+    {
+      "root": "retainedControlRoot",
+      "path": "run.py",
+      "bytes": 12098,
+      "sha256": "2db8c8e5e6667b3972bf3e48a6272dc2c1578c35fb1f85f45f91dd41d86226d1"
+    },
+    {
+      "root": "retainedControlRoot",
+      "path": "bounded.py",
+      "bytes": 4206,
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "root": "retainedControlRoot",
+      "path": "command-owner.py",
+      "bytes": 807,
+      "sha256": "c53f52ada945543d32f9eb77ef588c5c7fbb12372eb709a821a81d14b24dfcf6"
+    },
+    {
+      "root": "retainedControlRoot",
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    }
+  ],
+  "scope": "Maintained Public setup/consumer/record functions and unchanged original finite command/physical owners. Source and candidate identities stay separate."
+}

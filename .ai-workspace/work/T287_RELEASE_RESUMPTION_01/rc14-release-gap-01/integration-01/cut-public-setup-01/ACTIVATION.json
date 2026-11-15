@@ -1,0 +1,55 @@
+{
+  "id": "RC14-CUT-PUBLIC-SETUP-PREPARATION-001",
+  "role": "external-control Writer",
+  "parentSource": "9b0757a206fb9ec50afee0c8c57415c475b28dc4",
+  "admission": {
+    "mechanism": "Exact Root Writer instruction under owner finishRC14; accepted RC14_CUT_PREPARATION_ACCEPTANCE_01",
+    "permittedEffects": [
+      "create isolated named worktree/branch",
+      "write this carrier only",
+      "static/syntax/hash checks",
+      "freeze own control commit"
+    ],
+    "executionSelected": false
+  },
+  "productFrame": {
+    "product": "ABIogenesis fixed5.0 T287 RC14 S07",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "outcome": "Prepare one genuine Public installed candidate identity for existing qualification metadata owner; no new Product authority",
+    "sources": [
+      "specification/PRODUCT.md#ABG5-S07",
+      "specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-057C",
+      "rc14-cut-preparation-01/DELIVERY_SEQUENCE.md steps4-5"
+    ],
+    "authoritySplit": "External observation/custody tools; installed Public owners alone perform/admit setup; qualification/release separate"
+  },
+  "method": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "verified": true,
+    "installed": true,
+    "failures": [],
+    "skill": "plugins/spec/skills/stdo-work/SKILL.md",
+    "acquiredReferences": [
+      "plugins/spec/references/PRODUCT_BASIS.md",
+      "plugins/spec/references/COORDINATED_HANDOFF.md#control-intake",
+      "plugins/spec/references/COORDINATED_HANDOFF.md#receive",
+      "standards/ACTIVATION.md#2-context-construction-under-an-envelope",
+      "standards/ACTIVATION.md#7-closed-result-and-reuse"
+    ],
+    "hostBoundary": "Unrestricted local filesystem access; scope is procedural, not OS isolation."
+  },
+  "limits": {
+    "futureTotalMs": 900000,
+    "exitAuditCleanupReserveMs": 30000,
+    "maxCommandMs": 300000,
+    "captureBytes": 16777216,
+    "retry": false
+  },
+  "stops": [
+    "missing exact final candidate/Root binding",
+    "first command/setup/identity/topology/custody failure",
+    "original deadline exhausted"
+  ],
+  "returnTo": "/root; one frozen subject, then stop; independent Reviewer separately activated by Root"
+}
