@@ -1,0 +1,36 @@
+{
+  "id": "RC14-NATIVE06-START-01",
+  "recordedUtc": "2026-11-15T11:00:00.402102+00:00",
+  "sourceHead": "512f936499b4e7264ddcf953e962c1374136504c",
+  "operator": "/root/b30_catalog_triage",
+  "launch": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/LAUNCH.json",
+    "bytes": 7918,
+    "sha256": "7ce099d1b5a960bac6fb262bf0390d30b826951858f4c8acaf8672458d59b915"
+  },
+  "sourcePreimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/SOURCE_PREIMAGE.json",
+    "bytes": 438785,
+    "sha256": "75e1837df0e4bb7e872d42740fbb4abdcf61fe777a505b732e756d02ddb6e413"
+  },
+  "startUtc": "2026-11-15T10:57:34.310925+00:00",
+  "deadlineUtc": "2026-11-15T13:12:34.310925+00:00",
+  "hostProcessGroup": 26979,
+  "state": "setup_started_actor_not_yet_observed",
+  "nativeMs": 1200000,
+  "nativeMaxTurns": 160,
+  "futureProofMs": 5400000,
+  "proofAuthorized": false,
+  "oldClocks": "Preserved closed; no reset",
+  "entryCheckCorrection": {
+    "firstFailure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/ENTRY_VERIFICATION_FAILURE.json",
+      "bytes": 534,
+      "sha256": "a2e5cc1aa020b964f39c22b97fda3b7365be7bf65efbc34897efb7dd4bc9be46"
+    },
+    "cause": "Ad-hoc Operator checker compared JSON file size136484 to inventory aggregate payload bytes26015425. Correct inventory SHA and782 rows were independently verified; no input drift or Product/control source defect.",
+    "selection": "Correct only read-only entry predicate to hash/count/summed bytes; preserve failure. No author/clock/setup had started at failure. Existing prospective one-pass grant remained unspent."
+  },
+  "candidatePreparation": "Closed read-only readiness on512f93649:15 control manifest hashes,11 version-census hashes,196 producer inputs and existing owners unchanged. No stamp/build/install.",
+  "rawPublished": false
+}
