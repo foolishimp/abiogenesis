@@ -1,0 +1,272 @@
+{
+  "id": "RC14-B56-NATIVE-OPERATOR-003-RETURN",
+  "recordedUtc": "2026-11-15T22:10:03.397613+00:00",
+  "role": "Separate native execution/evidence Operator; source authored only by actual pinnedRC13 native Claude actor",
+  "standing": "Native source pass closed; exact output remains unproved and subject to independent review and explicit method/scope disposition. No proof authorization exercised.",
+  "authority": {
+    "rootSourceCommit": "80b651f8197c4f98bc444cca145972aeb03f3974",
+    "rootRecord": "integration-01/B56_NATIVE_ACTIVATION_03.json",
+    "rootRecordSha256": "2d330d59477aba23d55c0085bd4616eb9fd4794c0d6f25366210db898f932029",
+    "selectedSTDO": "stdo://releases/v3.0.4/",
+    "stdoManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "controlsCommit": "d8389e40038fcb91c27989fb8770e7354c56f6b8",
+    "controlManifestSha256": "706f2d649808af1f516c9a751177f60c7759313215b8be921a81368b5fe23ad8",
+    "controlMembers": 32
+  },
+  "source": {
+    "root": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-03",
+    "head": "80b651f8197c4f98bc444cca145972aeb03f3974",
+    "tenantTreeAtEntry": "e4d2c3f2f3ee0b2a4a0b9b525b526c7d7348d620",
+    "preimageRows": 1564,
+    "postimageRows": 1565,
+    "authoredFiles": [
+      {
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 412987,
+        "sha256": "9d5fdd296c39f28470a63928668b7eaf2f37b740b5a81d8db9239b512f4eff4c"
+      }
+    ],
+    "diff": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/SOURCE_DIFF.patch",
+      "bytes": 79968,
+      "sha256": "c6b932cd05760836196a5e7221df39ab888ddb7a5b441f757c941a476d2f8295"
+    },
+    "numstat": {
+      "added": 528,
+      "deleted": 61
+    },
+    "headAndIndexUnchanged": true,
+    "sevenRecoveredInputsUnchanged": true,
+    "onlyOtherDelta": "Authenticated setup-owned .abiogenesis/workspace-manifest.json2013B SHA78171894d24a0f0bb2f18a7e79808eb55f2fc5688d4d2bf7fd6be6ed389b52d4; canonical setup/create join precedes actual actor start.",
+    "sourceAccepted": false
+  },
+  "clock": {
+    "startedUtc": "2026-11-15T21:42:02.325963+00:00",
+    "deadlineUtc": "2026-11-16T00:42:02.325963+00:00",
+    "executionStopDeadlineUtc": "2026-11-16T00:39:02.325963+00:00",
+    "originalAuthorAbsoluteMs": 2700000,
+    "inactivityMs": 300000,
+    "turnCeiling": 360,
+    "retries": 0,
+    "oldClockReused": false,
+    "laterProofRequiresSeparateRootGrant": true
+  },
+  "custody": {
+    "pin": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/EXIT_CUSTODY.json",
+      "bytes": 1979,
+      "sha256": "9e31fa880cf1838b003635ecb1457b2e128b92831d3d25e9dc398f2a44cd9818"
+    },
+    "allTenGroupsMatched": true,
+    "controls": 32,
+    "methodInputs": 5,
+    "externalEvidence": 17,
+    "toolFiles": 20,
+    "npmFilesAndLinks": 2326,
+    "dependencyFilesAndLinks": 4576,
+    "nativeHostInputs": 196,
+    "fixtureInputs": 13,
+    "recoveredFiles": 7,
+    "scope": "Selected file bytes, source/index identity, setup attribution, approved launch equality, original candidate/builder/authority and recorded PID/PGIDs; no universal host-write or isolation claim."
+  },
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03",
+  "excludedClaims": {
+    "proofExecuted": false,
+    "newBuild": false,
+    "candidateRebuilt": false,
+    "sourceIntegrated": false,
+    "mainMutation": false,
+    "pushed": false,
+    "s06Completed": false,
+    "qualification": false,
+    "publication": false,
+    "prior01or02FindingsCleared": false
+  },
+  "next": "Return exact frozen source/report/audit to Root. Native01/02 stay closed; no retry, proof or candidate work without a new explicit disposition/grant.",
+  "runtime": {
+    "run": {
+      "ref": "run://abiogenesis/8eef2ab699981a1a0c52d18871e103577d79d77a2af5cf4407f65c15cd5500a2",
+      "digest": "sha256:2ee3f36f97ea9ebe1bb2260743b24149795f8bc9b22a1d1814e8c4a6c927f510"
+    },
+    "actualModelObservation": "claude-opus-5-5",
+    "configuredEffort": "xhigh",
+    "effortLimit": "Configured transport evidence; no independent remote effort attestation.",
+    "nativeSession": "f3987d5d-05a2-4ac7-9a2f-30888ec10b45",
+    "hostPid": 65698,
+    "actorPid": 66197,
+    "exactPidAndPgidAbsent": true,
+    "hostExitCode": 0,
+    "stopReason": null,
+    "hostElapsedMs": 1293093,
+    "nativeReportedDurationMs": 1241848,
+    "turns": 99,
+    "listCostUsd": 8.488059199999999,
+    "costLimit": "SDK list cost, not an invoice.",
+    "actualTypedTaskMatchingCompletion": true,
+    "actualResourceClose": true,
+    "freshResultAndClosedReplay": true,
+    "providerCalls": 1,
+    "nestedProviderOrSubagentCallsObserved": 0,
+    "actorStartUtc": "2026-11-15T21:42:45.250Z",
+    "actorExitUtc": "2026-11-15T22:03:28.772Z",
+    "actorEventOrdinals": [
+      18,
+      598
+    ]
+  },
+  "audit": {
+    "pin": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/AUTHOR_AUDIT.json",
+      "bytes": 13791,
+      "sha256": "280eaee63a9af2ac201c6ee19b20a65794e8d0cbd1a61830de800a42dbc1fc8c"
+    },
+    "commands": {
+      "Bash": 90,
+      "Read": 3,
+      "Edit": 3,
+      "StructuredOutput": 1
+    },
+    "actualReadBeforeEditSections": 26,
+    "actualReadBeforeEditControls": 6,
+    "oneProspectivelyAllowedTextOnlyPythonEdit": true,
+    "syntaxOnlyResult": "node --check SYNTAX_OK",
+    "behavioralExecutionObserved": false,
+    "allSelectedWritesInsideW": true,
+    "methodAndScopeCleanClaim": false,
+    "methodResiduals": [
+      {
+        "id": "M03-STATUS-CAPTURE",
+        "line": 261,
+        "resultLine": 282,
+        "finding": "Native piped status --verify to head -60; actual retained prefix shows exact definition,basis,manifest,installed:true,failures:[], but valid:true is not present. Printed exit=0 is pipeline/head status, not independently retained stdo child exit. No full output is reconstructed."
+      },
+      {
+        "id": "M03-FRAME-ROW-CHECK",
+        "line": 510,
+        "resultLine": 514,
+        "finding": "Native read FRAME_INPUTS and printed bootstrap summary with one binds and fifteen routes plus direct frame digest; its verification loop used sources/inputs keys, absent on this entry. Thus no per-bind/route owner or section hash comparison was observed. Six manifest member comparisons at431/435 did match; these do not substitute for the missing selected frame-input-row checks."
+      }
+    ],
+    "earlyReadError": {
+      "toolLine": 132,
+      "resultLine": 136,
+      "message": "(eval):1: ===== not found",
+      "laterAcquisitionToolLine": 183,
+      "requiredContentEventuallyReadBeforeEdit": true
+    },
+    "readScopeDeviations": {
+      "count": 9,
+      "toolLines": [
+        1452,
+        1810,
+        1892,
+        2133,
+        2448,
+        2598,
+        3730,
+        8831,
+        8973
+      ],
+      "summary": "Broad searches over unselected tests/code/fixtures, abg/index.ts export lines and unselected Root activation/control lookup. Read-only; preserved without waiver. Exact commands/results and affected paths are in the pinned external audit."
+    },
+    "operatorParserNote": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/OPERATOR_AUDIT_PARSER_NOTE.json",
+      "bytes": 713,
+      "sha256": "fe6f58e60076015780ae946f5f5139135ae174aa87d0fa36494d7838dd7aa6bf"
+    }
+  },
+  "authorReport": {
+    "pin": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 7073,
+      "sha256": "165ba9d04e8a822390f22c809a9d6cbb528d74c1dee1e04899783a9c5c010e39"
+    },
+    "binding": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/NATIVE_AUTHOR_REPORT_BINDING.json",
+      "bytes": 827,
+      "sha256": "cf03c0fc096edef504b8e1ec1686e029410ad07c229c9c9972bd8a9afaacdd2c"
+    },
+    "claimsSourceComplete": true,
+    "disposition": "Root must distinguish expected unexecuted proof from source/fixture constructability and exact negative-cause gaps; Operator makes no source acceptance ruling.",
+    "gapCount": 6,
+    "gapSummary": [
+      "Expected behavioral proof/candidate capture has not run.",
+      "The author flags governance/core-schema deciding owners outside R and fixture compatibility uncertainty; split source uses a declared actor gap after one UAT selection.",
+      "Some negative labels may be dominated by install/publication identity refusal; exact causal discrimination remains unproved."
+    ]
+  },
+  "rawReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/OPERATOR_RETURN.json",
+    "bytes": 27183,
+    "sha256": "6f3237fac0ff723c6078f950b3f3e34f0a01df8fc5db7bfc4ee603e0af121b4d"
+  },
+  "evidence": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/SOURCE_POSTIMAGE.json",
+      "bytes": 395112,
+      "sha256": "c501d437ffae9dcd6df2e6092f7bfc228f9c66fd88810c4810a424186fffcba0",
+      "relativePath": "SOURCE_POSTIMAGE.json"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/SOURCE_DIFF.patch",
+      "bytes": 79968,
+      "sha256": "c6b932cd05760836196a5e7221df39ab888ddb7a5b441f757c941a476d2f8295",
+      "relativePath": "SOURCE_DIFF.patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/FROZEN_SOURCE.json",
+      "bytes": 2480,
+      "sha256": "b580a9f264c1cc65526cd3a7b7486ce3cddde3c5af6e931cf69894bf98467316",
+      "relativePath": "FROZEN_SOURCE.json"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 7073,
+      "sha256": "165ba9d04e8a822390f22c809a9d6cbb528d74c1dee1e04899783a9c5c010e39",
+      "relativePath": "NATIVE_AUTHOR_REPORT.json"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/AUTHOR_AUDIT.json",
+      "bytes": 13791,
+      "sha256": "280eaee63a9af2ac201c6ee19b20a65794e8d0cbd1a61830de800a42dbc1fc8c",
+      "relativePath": "AUTHOR_AUDIT.json"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/METHOD_CONTENT_ACQUISITION.json",
+      "bytes": 9490,
+      "sha256": "5a39d6d628df799cf03935fbcbeba5d8c56a7f789269995ccf816cfa57e805f9",
+      "relativePath": "METHOD_CONTENT_ACQUISITION.json"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/PROMPT_ACQUISITION_TRACE.json",
+      "bytes": 917,
+      "sha256": "f84b990820025cdb760c4fa37b6eef002c9610701c60a7774be5a5b83551fbe6",
+      "relativePath": "PROMPT_ACQUISITION_TRACE.json"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/EXIT_CUSTODY.json",
+      "bytes": 1979,
+      "sha256": "9e31fa880cf1838b003635ecb1457b2e128b92831d3d25e9dc398f2a44cd9818",
+      "relativePath": "EXIT_CUSTODY.json"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/runtime/AUTHOR_COMPLETION.json",
+      "bytes": 1394,
+      "sha256": "e691cdeecd58de6257fa442ede96fc8eaa6f42d02d31179697179b26862f01e6",
+      "relativePath": "runtime/AUTHOR_COMPLETION.json"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/runtime/resource-close.json",
+      "bytes": 2284,
+      "sha256": "244a4d65e794fe7702ecf4404fe7af1b87fc8e3407e6df2929991374f99af548",
+      "relativePath": "runtime/resource-close.json"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/runtime/FRESH_READBACKS.json",
+      "bytes": 5717,
+      "sha256": "e44b197c8a032cfaadbb764b1f521ac2efeaa844075b2af75c154f25baf3a3cf",
+      "relativePath": "runtime/FRESH_READBACKS.json"
+    }
+  ]
+}
