@@ -1,0 +1,82 @@
+{
+  "id": "RC14-UNRUN-SIX-CLOSURE-AND-INPUT-REENTRY-01",
+  "productFrame": "Fixed ABI5/T287/RC14; derived test observations, not runtime authority. STDO3.0.4. No Product or test-source repair selected by this closure.",
+  "role": "Root Writer13 recording conjoined Root/R14/B29 failure triage and selecting external input successor",
+  "sourceCommit": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+  "priorControlCommit": "0fcb38edc81c4a8a4c51270c8640545bfe90ccb5",
+  "proofReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/RETURN.json",
+    "sha256": "0e007a0e9bffb3a9f5351aec7ace5ff681c68bd344e61eac34dc9eefc80df914"
+  },
+  "originalDeadlineUtc": "2026-11-15T14:30:54.387612+00:00",
+  "closure": {
+    "status": "stopped_first_failure",
+    "elapsedMs": 60889,
+    "expired": false,
+    "sourceUnchanged": true,
+    "mirrorSourceConserved": true,
+    "inputComparisonsMatched": 22,
+    "secondaryErrors": [],
+    "ownedCommandGroupsAbsent": 3,
+    "providerCalls": 0,
+    "builds": 0
+  },
+  "wholeFileGreen": {
+    "ordinal": 11,
+    "file": "w2-steel-single-start-closure.test.mjs",
+    "pass": 1,
+    "skip": 1,
+    "topLevel": 2,
+    "skipReason": "ABI5_STEEL03_RETAINED_START_CALL_PATH unset; requires the retained exact start resource assertion"
+  },
+  "failedWholeFile": {
+    "ordinal": 12,
+    "file": "t287-native-work-currentness-consumers.test.mjs",
+    "pass": 5,
+    "fail": 1,
+    "topLevel": 6,
+    "wholeFileCredit": false,
+    "stdoutSha256": "af94fa51b3fccb5e6517c119bca696dbf8459be9cb75406bdf812cb68af596f5",
+    "partialCompositeCase": "C0 successor, observed C2 provenance and governance dependencies recorded before semantic-fold fixture import failed. Revision intake/evidence branches did not complete.",
+    "candidate": {
+      "path": "proof-01/scratch/currentness/consumer-results.json",
+      "bytes": 3978936,
+      "sha256": "711ddd8783db58bb9bc6a0158091a3d2c5fc10acab13f35a36ac0be83f7555a1"
+    }
+  },
+  "unrunOrdinals": [
+    13,
+    14,
+    15,
+    16
+  ],
+  "triage": {
+    "origin": "External seven-row retained-input census omitted one transitive dependency loaded through semanticFixtureHelpers VM prefix.",
+    "chain": "semanticFixtureHelpers extracts first63/64 lines of t287-native-semantic-revision; its d2-bounded-harness import eagerly reads bridge-input via evidenceInput. Explicit selected evidence root correctly refuses missing bytes.",
+    "authority": "Product/runtime authority unchanged; evidence-input acquisition must conserve authentic selected bytes. No fabricated fixture, weakened assertion or runtime bypass.",
+    "affectedClosure": "012 requires bridge input;014 atomic assessment already selected.013/015/016 add no historical rows. Root, R14 and B29 independently inspected imports/extracted prefixes.",
+    "priorMiss": "Seven-row census did not follow VM-loaded transitive eager import.",
+    "uncertainty": "Remaining files have not passed on current source; this correction does not predict their results."
+  },
+  "additionalInput": {
+    "sourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace",
+    "path": "comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json",
+    "bytes": 983713,
+    "sha256": "6cde4824e5912305cb94de3afdc2eabfd74560e8d8f828cd6be7aa6f64991b16",
+    "acquisition": "Authentic local regular nonsymlink file, independently rehashed; no recovery/fetch/copy into Git. Remains ignored raw data."
+  },
+  "successor": {
+    "carrier": "integration-01/remaining-five-proof-02",
+    "role": "Separate external-controls Writer then independent review then one-shot Operator",
+    "scope": "Unchanged committed native07 source; exact original012-016; same original07 owners; new pinned eight-row input packet preserving previous seven rows.",
+    "changedSubject": "Corrected external input closure only; prior failed attempt stays closed.",
+    "minimumProof": "Five whole files, first failure stop.011 retained separately. No partial012 green credit.",
+    "maxElapsedMs": 3600000,
+    "cleanupReserveMs": 15000,
+    "finalInputComparisons": 24,
+    "executionAuthorized": false,
+    "requires": "Frozen controls independent review; main checkpoint/push; fresh finite binding and explicit one-shot Operator grant."
+  },
+  "rawPublished": false,
+  "qualified": false
+}

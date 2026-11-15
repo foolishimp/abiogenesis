@@ -1,5 +1,5 @@
 {
-  "status": "RC14_NATIVE07_F09_CLOSED_NATIVE08_FIXTURE_REENTRY_SELECTED",
+  "status": "RC14_RETAINED_INPUT_REENTRY_PREPARING_FINAL_NATIVE_FIXTURE_REPAIR",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -8,7 +8,7 @@
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
   "providerCalls": 10,
-  "triage": "F09 and both TD36 whole files add8passes; nine whole files52passes retained separately. Seven files need fresh proof after governance cold-read fixture repair. Amendment controls also require truthful final candidate binding; cut remains pending.",
+  "triage": "Ten whole files now retained:53passes/1declaredskip. Governance first-case repair is selected. Currentness stopped on one omitted authentic transitive input; five-file corrected-input successor selected without source change.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
   "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T13:32:32.452935+00:00",
-  "nativeAuthorState": "No active provider/proof. Native07 one-file source checkpointed after whole F09 passed; proof stopped at stale governance physical-open expectation. Native08 one-case repair selected after independent Product/Design/source triage.",
+  "recordedUtc": "2026-11-15T13:48:10.017520+00:00",
+  "nativeAuthorState": "No active provider/proof. Remaining-five input controls preparing; native08 proof population will retain011 separately before author execution.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -767,7 +767,7 @@
     "qualification": false
   },
   "regressionRepair07": {
-    "state": "SOURCE_REVIEWED_AUDIT_CLOSED_PROOF_ENTRY_PREPARING",
+    "state": "SOURCE_CHECKPOINTED_PROOF_CLOSED_GOVERNANCE_FAILURE",
     "triage": "integration-01/NATIVE07_F09_TRIAGE.json",
     "executionBound": true,
     "nativeWritePaths": 1,
@@ -784,7 +784,7 @@
     "originalDeadlineUtc": "2026-11-15T14:44:43.176910+00:00",
     "nativeModel": "claude-opus-5-5",
     "nativeEffort": "xhigh",
-    "proofAuthorized": false,
+    "proofAuthorized": true,
     "actorStartedUtc": "2026-11-15T12:30:44.500Z",
     "actorPid": 94487,
     "runId": "run://abiogenesis/6c8fe00dd9def440ec08dcded55f21f3b5829b5d3ab28b60ba179f39132d28a3",
@@ -829,7 +829,7 @@
     "helperProvision": "integration-01/AMENDMENT_HELPER_PROVISION_01.json"
   },
   "unrunSix": {
-    "state": "ACCEPTED_PENDING_PUSH_AND_ONE_SHOT_GRANT",
+    "state": "CLOSED_MISSING_TRANSITIVE_RETAINED_INPUT",
     "selection": "integration-01/UNRUN_SIX_PREPARATION_SELECTION.json",
     "ordinals": [
       11,
@@ -839,7 +839,32 @@
       15,
       16
     ],
-    "executionStarted": false,
-    "acceptance": "integration-01/UNRUN_SIX_CONTROL_ACCEPTANCE_01.json"
+    "executionStarted": true,
+    "acceptance": "integration-01/UNRUN_SIX_CONTROL_ACCEPTANCE_01.json",
+    "closure": "integration-01/UNRUN_SIX_CLOSURE_AND_INPUT_REENTRY.json",
+    "wholeFileGreenOrdinals": [
+      11
+    ],
+    "failedOrdinal": 12,
+    "unrunOrdinals": [
+      13,
+      14,
+      15,
+      16
+    ]
+  },
+  "remainingFive": {
+    "state": "CORRECTED_INPUT_CONTROLS_PREPARING",
+    "sourceCommit": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+    "ordinals": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "retainedInputRows": 8,
+    "sourceChangeSelected": false,
+    "executionAuthorized": false
   }
 }
