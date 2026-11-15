@@ -1,0 +1,36 @@
+{
+  "kind": "s06_preparation_return",
+  "status": "prepared_for_independent_review_not_execution",
+  "source": "ebe085acf2812252daf45bc7d86b5dc3f4cb1b5e",
+  "controlManifest": {
+    "path": "/private/tmp/abg-rc14-s06-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-01/CONTROL_MANIFEST.json",
+    "bytes": 4647,
+    "sha256": "37d76870aa532d0988afd694d8451ff08b570936a09c991bbe6b893b3123290c"
+  },
+  "changedTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-01",
+  "controlCount": 19,
+  "maintainedInputCount": 7,
+  "originalSourceMembers": 5,
+  "originalSourceBytes": 135805,
+  "importedApplicationMembers": 22,
+  "importedApplicationBytes": 111575,
+  "historicalRuntimeCredit": false,
+  "nativeProductOrApplicationExecution": false,
+  "testsBuildsPackInstallProviderCalls": 0,
+  "proof": "JavaScript syntax, Python AST, JSON/hash acquisition, and canonical exported input/command types via no-emit; no runtime owner admission evaluated",
+  "rootChoice": "Fixed consumer verifier interface d1/d2 input/run roots; implementation belongs to native D1, genuine mapping/job amendment to native D2; two Programs one consumer binding/history",
+  "unresolvedBeforeExecution": [
+    "Root-selected exact future RC14 artifact/bootstrap and source checkpoint",
+    "separate execution grant, absolute deadline and accepted physical layout",
+    "actual Java/SBT/dependency readiness; only files/identities acquired",
+    "independent immutable control review"
+  ],
+  "retainedLimits": [
+    "S06 application outcome remains unobserved",
+    "actual native-built application/verifier meaning and affected-evidence invalidation require independent source/evidence conjunction",
+    "fresh query excludes the concrete retained transformation/Spark classes; no universal hostile-code guarantee",
+    "outer process owner covers its own group; native actor closure remains its actual owner fact",
+    "SDK starts and fresh CLI reads selected; no extra native-CLI parity claim",
+    "no merge/push/version/pin/qualification/acceptance effects"
+  ]
+}

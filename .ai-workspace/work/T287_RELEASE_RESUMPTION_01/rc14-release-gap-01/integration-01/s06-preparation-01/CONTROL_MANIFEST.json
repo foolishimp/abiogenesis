@@ -1,0 +1,141 @@
+{
+  "kind": "s06_external_preparation_controls",
+  "preparationSource": "ebe085acf2812252daf45bc7d86b5dc3f4cb1b5e",
+  "tenantSourceRelation": "7a2411def conserved per Root; no tenant mutations in this preparation",
+  "controls": [
+    {
+      "path": "BINDING.template.json",
+      "bytes": 5238,
+      "sha256": "c1f61899a3633063face37aecfd676f1ee94937ab2d298f09bc140830da98fba"
+    },
+    {
+      "path": "D2_RUBRIC.md",
+      "bytes": 1095,
+      "sha256": "58c6a122daeb6c14e74b5ef49f7deb7f368b2b56c07c7b4e54153930b240643e"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 20719,
+      "sha256": "8067bb4983511736e0b06ec482415b2fb7fd1a53cbc2afc104b4281bf30c5309"
+    },
+    {
+      "path": "INPUTS.json",
+      "bytes": 17273,
+      "sha256": "f823ca394a51388a6b9c57b14fd36b423d80036a53d785fe8c21336a1add6851"
+    },
+    {
+      "path": "README.md",
+      "bytes": 8330,
+      "sha256": "da246ce4955a6ae8ed486694b54c3f78c934fc1834556495865e78150f999492"
+    },
+    {
+      "path": "SELECTION.md",
+      "bytes": 4404,
+      "sha256": "2ebbce863f958f13f3f0fc41abcdf9a9bf7ebe150706bc47fc71cd4ba5b703a7"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 2950,
+      "sha256": "d9d8420b9250d6f1832977c5a2d6949d15478df1ead24af7547748f6266a2602"
+    },
+    {
+      "path": "bounded.py",
+      "bytes": 4206,
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "path": "command-owner.py",
+      "bytes": 664,
+      "sha256": "ad26e04344dd738384a24d753ed67f67eb572dfda5f5187f5123774ecb0d496a"
+    },
+    {
+      "path": "consumer.mjs",
+      "bytes": 6341,
+      "sha256": "155cd181b290c7ff70c73af09cd8db176c5b51bc1508bd4a63e491185681ac8d"
+    },
+    {
+      "path": "declarations.mjs",
+      "bytes": 2295,
+      "sha256": "e7afc1906e2d45f58d127a02617bf177e2d756050e507583261e5ce2b116083b"
+    },
+    {
+      "path": "inputs.mjs",
+      "bytes": 10292,
+      "sha256": "a7622ac4bc02bc671a4e96def3b908b66e227028735176cdab20041df9e69dca"
+    },
+    {
+      "path": "npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "observe.py",
+      "bytes": 6029,
+      "sha256": "65d139c9c0f72e205a275a4ae954cf6248e7d06e3b642db71ae40193dd73ba08"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "run.py",
+      "bytes": 8216,
+      "sha256": "bc691bbb5f5b25e86497cb1bb68fad4349276eea97e01d67cfffd9607044898f"
+    },
+    {
+      "path": "setup.mjs",
+      "bytes": 21253,
+      "sha256": "1c8735c276cf01b95009664a06cf9ae8375448de3337e42f00d1d7b7be311e21"
+    },
+    {
+      "path": "tsconfig.noemit.json",
+      "bytes": 837,
+      "sha256": "542003f47e5dcbb681dfdb973e7777dd5f3bde3a587f97f32a26e34473aad28b"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39738,
+      "sha256": "9bb83493f9bd34691dda02bb48f864d04b57f302edbdd39f2964f3857e59ab71"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "bytes": 7508,
+      "sha256": "0e046834271851dcb50ce16d7272290b47294a73dc18cd4b394fe5995102a47e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/amendment-witness.mjs",
+      "bytes": 17077,
+      "sha256": "2c3de69d59284b474aa613d941627922b05786aa77f15271653c7c4d1951c99b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product/index.mjs",
+      "bytes": 730,
+      "sha256": "e8cde80b6ca3093f65857eac23fa6969260567f1220f705f9ac5ca316e089c41"
+    }
+  ],
+  "executionAuthorized": false,
+  "scope": "External consumer declarations, ordinary inputs, Public setup/run and read-only witness observation"
+}

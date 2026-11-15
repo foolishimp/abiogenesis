@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": true,
+    "skipLibCheck": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "strict": false,
+    "baseUrl": "/private/tmp/abg-rc14-s06-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-01",
+    "paths": {
+      "@abiogenesis/typescript-tenant/product": [
+        "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/installed/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.d.ts"
+      ]
+    },
+    "typeRoots": [
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/@types"
+    ]
+  },
+  "files": [
+    "inputs.mjs"
+  ]
+}
