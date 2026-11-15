@@ -1,0 +1,16 @@
+{
+  "id": "RC14-REGRESSION-REPAIR-NATIVE-006-CONTROL-DELTA",
+  "predecessor": "regression-repair-05 at a0b0ab5dd",
+  "changes": [
+    "Fresh06 coordinates and original20min160turn/2h15/90min clocks",
+    "One-file/two-case task, exact titles and full candidate-file guards",
+    "14 fresh plus2 exact retained proof conservation; no other prior green credit",
+    "Actual installed skill read-only identity/acquisition obligation"
+  ],
+  "unchanged": [
+    "Pinned RC13 Claude Opus5.5 xhigh route",
+    "process owner, physical observer, setup custody and exclusive launch staging",
+    "Inner typed native completion, actual close and fresh terminal equality gates",
+    "17 build-source exceptions, exact reused build/dependencies/input owners"
+  ]
+}

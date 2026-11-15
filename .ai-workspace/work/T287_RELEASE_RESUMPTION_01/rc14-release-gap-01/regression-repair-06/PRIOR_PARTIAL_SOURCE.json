@@ -1,0 +1,105 @@
+{
+  "acceptedCommit": "97b1fa1ccc7c8e160efcd7208a1c87a4ab4443da",
+  "acceptedTree": "42134a014e1fd0bcd960f84bfa40e99f9b12c14b",
+  "sourceRoot": "/private/tmp/abg-rc14-regression-repair-20261115-05",
+  "rows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+      "bytes": 132023,
+      "sha256": "0a18f44bf62c05fd116c8ce991bee9094979e14f5ca93312f3604d6a93bf1cc4",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+      "bytes": 12559,
+      "sha256": "eb64595dae0c092d5983fccefcf70b9157606d7b142a985b8a5a4cb8ec08cad8",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "bytes": 61316,
+      "sha256": "f1fa284088dbc8aa446ccfa977b009124b3b309324d5a4de50aac950d9c52ed7",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs",
+      "bytes": 20917,
+      "sha256": "dfcea436b3468a3b6fbaa93421cbdd97804c16e9ed45a78ef70a9652dbbd2b0d",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "bytes": 131579,
+      "sha256": "9ecfc631462746f5564af4ddb6bdf2a19b34d33f11d2dff7cd4e6ed906d183bb",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "bytes": 30644,
+      "sha256": "e3e13250283c3d9970c3bff6295ebd913682f3d6d32ad8ff67c3f1fadbace1e7",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-readable-stops-foldback.test.mjs",
+      "bytes": 18243,
+      "sha256": "9c95ea6be052b65e698f5ab5ec140cd0c089516412ed03fa4d9baa8b30c3f14e",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "bytes": 65042,
+      "sha256": "d9cec1695f0704ef296a44f8d4cb587f17a7b9d0c9acfdca26822c472df5db85",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+      "bytes": 48128,
+      "sha256": "9f15e18104db0b0cd3b5ad7693ba5ecc371551f89e67e9f085dc7c8e91b16b0e",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "bytes": 122252,
+      "sha256": "99d923d17a43e2c68d6b197b2d2e0d468f26a554a2b9bbaefaf9d2e3e7de501f",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "bytes": 85924,
+      "sha256": "a9c2fead9c94da09bc92e03c77e950ae44f4e3af051c37f83291d611a338278c",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p3-continuation-refused.test.mjs",
+      "bytes": 10561,
+      "sha256": "54ab4079d05b5ed9218aa841d4058d5711d3b71f5d7ee27305b076ed86170a7f",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p6-language-retired.test.mjs",
+      "bytes": 7973,
+      "sha256": "c8bd3d8887efe0e87ec6fbb0314bf6daf779f0d5543ea726c9d3320fbc2fea65",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td36r-admitted-binding-owner.test.mjs",
+      "bytes": 6639,
+      "sha256": "eb4a9eb78985cb788752181fbbf4e660fae4acfec4704fd91364996efdcd49e1",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td36r-bind-door-strings.test.mjs",
+      "bytes": 10975,
+      "sha256": "932ef4218fcf85573e1d744bc94e3261492a942413f23b9be60d9ae269fda886",
+      "mode": "100644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "bytes": 10004,
+      "sha256": "905babce81193f6e2dab35cc64bfae3925ecfaa2a233d122667a5b44f7ca7c06",
+      "mode": "100644"
+    }
+  ],
+  "status": "All16 preserved source paths are required preimages; only the one declared W may change after native dispatch. Saved source is incomplete, not a passed16-file population.",
+  "rootTriage": "TRIAGE.md"
+}

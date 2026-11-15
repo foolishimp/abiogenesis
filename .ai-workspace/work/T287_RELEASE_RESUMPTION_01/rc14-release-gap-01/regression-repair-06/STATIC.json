@@ -1,0 +1,68 @@
+{
+  "kind": "preparation_static_checks",
+  "observedUtc": "2026-11-15T10:40:39.937953+00:00",
+  "checks": {
+    "pythonSyntax": "passed;compile in memory, no module execution or pyc",
+    "hostSyntax": "passed;node --check only",
+    "jsonSyntax": "passed",
+    "worksiteReadRoots": 36,
+    "singleNativeWriteRoot": true,
+    "freshWholeFiles": 14,
+    "retainedWholeFiles": 2,
+    "minimumTopLevelCases": 71,
+    "retainedRecordHashes": "matched",
+    "lateMatchedConservationChecks": 22,
+    "installedSTDO": {
+      "basis": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "definition": "urn:stdo:product-definition:abiogenesis",
+      "installed": true,
+      "valid": true,
+      "failures": []
+    }
+  },
+  "byteEqualInheritedOwners": [
+    {
+      "path": "process-owner.py",
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "physical-topology.py",
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "setup-custody.py",
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "sha256": "7cd9d8d083eefb6e0177c3ac25c55796f3766d36001c64f227c6ddf7b3015331"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "sha256": "f57ae6dd95a2280fa6ec0e2976fd13b48c9d28858bb324cdf6ff05f2455b5540"
+    },
+    {
+      "path": "RETAINED_INPUTS.json",
+      "sha256": "6b3acd6edd34a09ee213a583ffc743c88c96ecf9ca94757b34270407efbdb74b"
+    },
+    {
+      "path": "PRIOR_TITLE_MAP.json",
+      "sha256": "1bb45ecacff4faef9ea3cf8444d950df232d6d041334ce959cd71a43bfa6b281"
+    }
+  ],
+  "notExecuted": [
+    "Product imports",
+    "native setup or dispatch",
+    "provider",
+    "proof helper or tests",
+    "build or pack or install",
+    "source preimage freeze"
+  ],
+  "sourceHeadUnbound": true,
+  "clockStarted": false
+}

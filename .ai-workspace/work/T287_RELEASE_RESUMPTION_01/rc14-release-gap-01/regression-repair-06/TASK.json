@@ -1,0 +1,86 @@
+{
+  "id": "RC14-REGRESSION-REPAIR-NATIVE-006-TASK",
+  "sourceHead": null,
+  "outcome": "Repair only case3 and case7 retirement expectations in the single-address-space whole file, preserve every retained relation, and retain both complete candidates before assertions. No Product change.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06/ROOT_ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06/TRIAGE.md",
+    "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+    "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    ".ai-workspace/work/T292_CONSOLIDATION_01/TD-26_RETIREMENT_PLAN.md",
+    ".ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P5_RETURN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06/README.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06/PRIOR_PARTIAL_SOURCE.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06/PRIOR_TITLE_MAP.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06/TITLE_MAP.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06/RETAINED_PROOF.json",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/fold.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+    "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs"
+  ],
+  "readFirst": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06/ROOT_ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06/TRIAGE.md",
+    "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+    "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    ".ai-workspace/work/T292_CONSOLIDATION_01/TD-26_RETIREMENT_PLAN.md",
+    ".ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P5_RETURN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs"
+  ],
+  "externalReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "role": "Actual installed method; native author must content-read through Read before first edit; excluded from relative worksite context, not a worksite write grant."
+    }
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs"
+  ],
+  "instructions": [
+    "Product Frame: fixed15-family5.0 RC14. Derived Proof must follow Product and accepted P5 retirement; ABG alone admits events and computes runtime truth. Exact STDO3.0.4 is selected. Before ANY edit, use Read to acquire the actual installed /Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md; Root explicitly grants read-only access to this exact external installed method path and its necessary selected method references. It is not a relative worksite readRoot or writeRoot. Content-read the relevant sections of every readFirst authority. wc/headings/counts or merely hashing are not content acquisition. State exact method and source sections read in return.",
+    "Exactly one source writeRoot. Edit only case3 (current308\u2013352), case7 (current790\u2013909), necessary comments/title mappings and minimal same-file candidate recording glue/imports for those two cases. The other15 saved paths in PRIOR_PARTIAL_SOURCE and all other cases/assertions are immutable. No Product/HOW/schema/dependency/build/version/helper/control or retained-input edit. No Git, tests/build/pack/install, Product import, extracted/new helper behavioral execution, provider/subagent/reviewer. Use Read/Glob/Grep for content acquisition and Edit/Write for allowed source edits. Shell only read-only text acquisition or node --check on this authored file; no Python/sed/perl/shell-based writes. ReadRoots names context observations, not an exclusive prohibition on causal read-only owner acquisition; the explicit external method permission above applies. Return cross-owner defects rather than widening W.",
+    "Case3: the construction-operation private index was intentionally deleted by P5. Assert its absence for retained/synthetic orphan rows; do not restore it. Preserve full historical row/class membership, shared public-operation/public-continuation buckets, exact mixed-arm generic classes, raw/orphan envelope visibility and nonpublic negative. Literal retired labels remain historical input/negative evidence only. Use exact successor title in TITLE_MAP.json. Preserve final recorder strictness.",
+    "Case7: keep the same two actual installed histories. Reorder the EXISTING orphan F_H response first in history A, then retired intent and selected controls. At the F_H-only prefix require valid calculus, outer invocation_pair_invalid with exact response eventRef, and exact direct F_H orphan set. After retired intent/selected, require a direct observation of actual Event Calculus over the SAME prefix that captures the precise TypeError lifecycle cause for the first retired aggregate; require outer artifact_truth_invalid/event_envelope_invalid precedence and the exact direct F_H orphan set independently. A generic artifact refusal alone is insufficient. Baselines must fold successfully and preserve complete current Run pairs; history B retains selected-alone lifecycle refusal and mixed-arm refusal with unchanged bytes/prefix. Keep warm/copied/cold equality, historical baseline answers, unrelated-growth equality, exact eventRefs and cleanup. No extra installed Run. Use exact successor title in TITLE_MAP.json.",
+    "Before the first behavioral assertion over each case3/case7 candidate, persist the FULL candidate with existing exclusiveRecord under process.env.ABG_REGRESSION_PROOF_ROOT, filenames single-address-space-case3.candidate.json and single-address-space-case7.candidate.json. Candidate includes all compared identities/buckets/orphan/mixed observations for case3, and actual admitted control rows or exact relevant rows, prefixes, baseline/current/calculus/direct-FH/outer outcomes for all warm/copied/cold/historical/unrelated controls and mixed-arm byte/prefix comparison for case7. Preserve unexpected outcomes before asserting. Existing t.diagnostic is supplementary: selected reporter discards diagnostics. Operator supplies proof root later; do not execute these writes now. Keep normal non-proof use truthful when root is unset; selected proof requires both files.",
+    "Preserve13 top-level cases in this file, all71 across16 selected files, previous legitimate mappings, meaningful guards and two declared historical optional gates. No test deletion/skip/todo/timeout increase/blanket expected-failure acceptance. No production index/reader/lifecycle restoration and no evidence-based Product claim. One native20min/160turn pass,5min inactivity; return once with exact source paths, assertion/mapping conservation, actual content reads/commands, evidence files authored for later proof, gaps and checks NOT executed. Operator owns14 fresh whole-file proof and two exact retained green-file relations under fresh enclosing2h15m; no native retry."
+  ],
+  "checks": [
+    "Only one W and two case-local causal repairs; all other saved paths and final recorder unchanged",
+    "Actual installed method content read before edit; report source and method reads",
+    "Precise calculus cause plus independent valid-calculus F_H orphan, mixed no-write and all current/historical equality controls",
+    "Full two pre-assert candidates durable under selected proof root; exact title maps and original population conserved",
+    "No execution beyond source syntax check; Root owns acceptance, proof and qualification"
+  ],
+  "maxContextFiles": 256,
+  "maxContextBytes": 12582912
+}

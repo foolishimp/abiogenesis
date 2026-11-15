@@ -1,0 +1,47 @@
+{
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace",
+  "verifiedUtc": "2026-11-15T07:11:45.264328+00:00",
+  "files": [
+    {
+      "path": "work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/2b3dea4f262c179014aac48d5344bc5daf58762f843c02980fe1ff40bb503097/306d3afdae96a036435944bf0a420e059512a2a5bb0a7f30f42328e1ad073643/sandbox/consolidation-inputs/native-02/EXTERNAL_READ_RESOURCES.json",
+      "sha256": "5934e0091ba7a7c0e19c740c4c9d90cbf0ed5c95bece381c5ac7764294cf4eac",
+      "bytes": 1105
+    },
+    {
+      "path": "work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/2b3dea4f262c179014aac48d5344bc5daf58762f843c02980fe1ff40bb503097/306d3afdae96a036435944bf0a420e059512a2a5bb0a7f30f42328e1ad073643/sandbox/consolidation-inputs/native-02/MEASURED_BASELINE.json",
+      "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06",
+      "bytes": 5575
+    },
+    {
+      "path": "work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl",
+      "sha256": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+      "bytes": 586361364
+    },
+    {
+      "path": "comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/d5-a01-case-03/atomic_call-assessment-input.json",
+      "sha256": "72f8c19677beb3f6f3d904b4bd1cd2d96a5803487ce22ba7d631bf19ae624598",
+      "bytes": 23205907
+    },
+    {
+      "path": "comments/codex/20260911_D4_S01_PROGRAM_OWNER/implementation-01/evidence/borrowed-five-call-11.jsonl",
+      "sha256": "3cd8961c3f8a95eaded5b0e9e805b41cef16c58a8098b585166bbe1610eed3dd",
+      "bytes": 19478678
+    },
+    {
+      "path": "work/T287_SANDBOX_UAT_RUN_02/operator/framework-provenance-normalization-repair-179/inputs/actual176-selected-publications.json",
+      "sha256": "fe1cd0342cdfc1682997a9b38709d6a18d3c1d1b67d5861818f2f1eb031b33f4",
+      "bytes": 407665
+    },
+    {
+      "path": "work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/controlled-owner-fixtures.json",
+      "sha256": "ce6acd2de8df3f5cbc08ef008cf57197a547eec37b656beba6b1d5f7a57908b1",
+      "bytes": 39657765
+    }
+  ],
+  "bytes": 669118059,
+  "custody": "Read-only original acquisition; proof makes hash-equal external copies and verifies original/copied bytes after. No old input edits.",
+  "optionalMissing": [
+    "governance-c2-material-selectors",
+    "steel03 retained-start-call (ABI5_STEEL03_RETAINED_START_CALL_PATH)"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "RC14-REGRESSION-REPAIR-NATIVE-006-PREPARATION",
+  "owner": "Root",
+  "source": null,
+  "instruction": "Root accepts closed case3 private-index retirement and case7 explicit calculus-lifecycle cause with independent F_H orphan coverage. Reorder the existing F_H response first; preserve all other current/historical controls. Record both complete candidates before assertions under ABG_REGRESSION_PROOF_ROOT. One exact W; author owns source, Operator owns controls. Final pushed source and separate launch required.",
+  "scope": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs"
+  ],
+  "acceptedLimits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 1200000,
+    "nativeMaxTurns": 160,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 8100000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 15000
+  },
+  "acceptedBuildReuse": "Root explicitly accepts hash-bound reused compiled Product/native/dependencies while build inputs remain exact; test-owned pack/install stays. Stop reuse on production/build drift.",
+  "requiredEvidence": "All7 required retained inputs must exist/hash-match; optional historical input-not-found gates may remain named.",
+  "priorClocks": "Closed; no reset or relabel",
+  "recordedUtc": "2026-11-15T10:34:23.649990+00:00",
+  "predecessorControlSubject": "a0b0ab5dd37322b66f69909d6a1c7ab75e7ee3fa",
+  "reentryAuthority": "Root explicit separate Writer activation and two-case grant in conversation; no execution admission",
+  "preparationBase": "27d971a3641ae016451ac72eb766f22c170f63b3"
+}
