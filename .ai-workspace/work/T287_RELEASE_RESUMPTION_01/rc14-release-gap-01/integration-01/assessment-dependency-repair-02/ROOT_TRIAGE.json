@@ -1,0 +1,110 @@
+{
+  "id": "RC14-S06-SECOND-FAILURE-DISPOSITION-01",
+  "recordedUtc": "2026-11-15T19:25:55.663148+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-RECORDS-WRITER-019",
+    "role": "Separate Root records Writer",
+    "authority": "Owner finish RC14 and continue; existing exact STDO3.0.4 frame; conjoined independent Product/Design/Identity/Integration/Proof triage.",
+    "effects": [
+      "Record this disposition, T287/T293/STATUS and exact later source-control preparation selection.",
+      "Integrate unchanged S06-02 authored Return94d24dc95695956a54e929866c79bc82ac23939a; checkpoint/push only named authored records."
+    ],
+    "exclusions": [
+      "No direct semantic tenant/test implementation, runtime/retry, archive/install/pin alteration, raw Git, qualification-policy change or publication."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "basisManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Fixed5.0 F04/F17 and S06: installed public specification lifecycle, separate real assessment, exact declared response dependency, admitted evidence and replay.",
+    "category": "Immutable Product definition and deterministic dependency construction; ABG alone admits runtime facts.",
+    "prohibitions": [
+      "No external runtime/controller, invented judgment, fake callable, schema-copy workaround or weakened foreign-contract guard."
+    ]
+  },
+  "subject": {
+    "candidateSource": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "C1": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+    "archiveSha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "controls": "6f4c3777cee044a7a9c3de23e18cb7ed3ac4f188",
+    "runRef": "run://abiogenesis/00d38fc2d3605dcec07f8ab01ef460f38bdd3207e95f683040cb709326c98bb1",
+    "returnCommit": "94d24dc95695956a54e929866c79bc82ac23939a",
+    "returnSha256": "9779728e8f0dc54ee7b6b78e325aebaecd26553245292d25bada005b749b301a"
+  },
+  "actualOutcome": {
+    "startUtc": "2026-11-15T19:01:13.395400Z",
+    "originalDeadlineUtc": "2026-11-15T23:01:13.395400Z",
+    "clockClosed": true,
+    "producerExit": 0,
+    "model": "claude-opus-5-5",
+    "effortConfigured": "xhigh",
+    "turns": 19,
+    "sdkWallMs": 656227,
+    "protocolReportedCostUsd": 3.1212436,
+    "assessmentStarted": false,
+    "C2Attempts": 0,
+    "D2Started": false,
+    "stopOrdinal": 377,
+    "stopUtc": "2026-11-15T19:13:23.919Z",
+    "reason": "declared native dispatch requires exact admitted instruction assembly",
+    "freshAndHeld": "Equal result refusals and genuine failed replay; unchanged closed-status assertion then fails.",
+    "eventLogSha256": "2bcb3dc3664abd3e366f1992705504bcdd9633ec5a99c96688d9f6d16174c564",
+    "eventLogBytes": 7550103
+  },
+  "rootAcquisition": {
+    "receiptPinComparisons": 34,
+    "uniqueReceiptPaths": 32,
+    "mismatches": 0,
+    "entryExitBytesEqual": true,
+    "inputRowsConserved": 80,
+    "ownedGroupsIndependentlyAbsent": 16,
+    "nativePid56042Absent": true
+  },
+  "frames": {
+    "ProductRequirements": "F17/S06 require complete actual semantic assessment. Instruction assembly must authenticate declared contracts and context; installed schema presence alone grants no dispatch.",
+    "Design": "T287_NATIVE_WORKSPACE_WORK_DESIGN.md407-463 conflates schema ownership with application declaration of use. Code implements that HOW faithfully, so re-entry is design_reframe under unchanged WHAT.",
+    "IdentityIntegration": "Actual event307 selects ABG-owned semantic-stage/native-assessment. Core semantic-stage publication owns that contract but its sole author member declares worker-result. Actual consumer D1 members declare native-assessment use without owning that contract. No publication satisfies current same-publication conjunction.",
+    "LifecycleEffect": "Leaf dependency returns null, its assessmentPublication is omitted, and assembly has no admitted schema. Dispatch fails before second actor; resource close and cold reads preserve genuine failed truth.",
+    "Proof": "Existing native-semantic-job331-342 checks Schema only, bypassing Dependency membership/lock/assembly; environment readiness never exercised this seam. First missing environment independently blocked and concealed the second relation."
+  },
+  "reviewer": {
+    "actor": "/root/amendment_topology_review",
+    "verdict": "release-blocking Product integration defect; bounded HOW re-entry",
+    "sourceAndArtifactConservation": "Eight inspected owners equal C0; installed/bootstrap compiled pairs byte-equal. Root independently traced the affected producer, resolver and consumers."
+  },
+  "causalLimit": "Source-proven sufficient failure relation, not instrumentation identifying the first executed null branch. Other assembly null branches remain unmeasured. Module crossing is not evidence of a brand failure; callback owns preparation and authentication has cold derivation fallback.",
+  "ownerRoutes": [
+    "specification/PRODUCT.md#complete-50-feature-set",
+    "specification/requirements/product/REQ-P-SCENARIOS.md#-abg5-s06---native-and-downstream-portability",
+    "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts"
+  ],
+  "disposition": {
+    "B53": "Missing generic environment correction is exercised by actual admitted D1 context. It was necessary but did not close complete assessment; prior sole-cause implications are superseded.",
+    "B54": "Actual D1 fresh/held readback relation closed; full D2/lifecycle proof remains unperformed.",
+    "B56": "P1 Product/Design integration blocker before S06 and release. Select smallest complete existing-owner repair.",
+    "amendment03": "Continue its independently selected original finite attempt; no amendment defect established by B56."
+  },
+  "selectedReentry": {
+    "class": "design_reframe",
+    "outcome": "Distinguish unique schema/contract publication from the actual admitted consumer Program declaration of use. Authenticate both exact publication/install/lock coordinates and forward dependencies; coincident consumer-owned case remains valid.",
+    "mechanism": "Use existing Program/execution-basis and dependency owners. Bind the actual Program scope rather than search arbitrary Catalog members. Carry the same relation through preparation, instruction assembly, preimage and cold reconstruction.",
+    "boundaries": [
+      "Preserve original semantic-stage author worker-result.",
+      "No fake Program member, copied built-in schema, arbitrary Catalog permission or removed membership/owner/lock checks.",
+      "No new runtime/registry, transport/lifetime refactor, B50 implementation, profile/policy change or scope reduction."
+    ],
+    "implementation": "Actual pinned RC13 native author only, after exact source/control preparation, independent review, checkpoint/push and separate finite launch. HOW is corrected before dependent implementation in that increment. No author started by this record.",
+    "proof": "Before paid lifecycle re-entry, exercise complete dependency plus assembly/preimage/cold relation over exact installed identities; test absent/ambiguous use, wrong owner, non-member, crossed lock, missing/reverse dependency and altered schema bytes. Then real installed assessor and complete selected lifecycle. No duplicate broad campaign."
+  },
+  "versionDisposition": "No ExactCandidateQualification subject or AF25 cut is bound yet. RC14 remains prospective in the mutable preparation window; a separately frozen successor candidate may retain the prospective ordinal. Preserve C0/C1/archive/install and failed attempts exactly, with no proof transfer. Qualifying subject/immutable-cut changes require a higher RC under SELF-CONFORMANCE008/QUAL070A.",
+  "B50": "Separate prior attribution and eligible-assessor policy/route remains unresolved. No inferred owner response or qualification claim.",
+  "qualified": false,
+  "rawPublished": false,
+  "retrySelected": false
+}

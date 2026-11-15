@@ -1,0 +1,207 @@
+{
+  "id": "RC14-ASSESSMENT-DEPENDENCY-NATIVE-002",
+  "role": "Preparation only; separate Root native and proof grants required",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE01_CONJUNCTION_AND_REENTRY_02.json",
+    "bytes": 15060,
+    "sha256": "e932820fe9ecd1c15c3f42cf0e5887e1811222ab59074c7a44812ce09a6c97b3"
+  },
+  "sourceBase": "486160a463d8742a94b44482d6be9a6ccbaf79ea",
+  "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-02",
+  "sourceBranch": "codex/rc14-assessment-dependency-source-20261116-02",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02",
+  "sourceBinding": null,
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "changeClass": "Bounded realization completion plus one owning-HOW consistency paragraph; recovered runtime/HOW/focused test are immutable.",
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 5769,
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26"
+  },
+  "provider": {
+    "agent": "claude",
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "version": "2.1.322 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "providerCallsAtMost": 1,
+    "protocol": "Use existing actual Claude owner path. No Codex-as-Claude wrapper or new provider feature."
+  },
+  "externalReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Intake/execution-unit/admission, context acquisition and closed-result reuse before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    }
+  ],
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 2700000,
+    "nativeMaxTurns": 360,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 10800000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 180000,
+    "perBuildMs": 600000
+  },
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "clockStarted": false,
+  "proof": "One fresh normal build; focused dependency; installed coincident/split owner; affected whole-file partition without repeated focus; two small assembly regressions. No retained campaign credit.",
+  "returnTo": "Root; freeze controls and stop. Actual source and proof remain disabled.",
+  "preparedUtc": "2026-11-15T20:38:29.167172+00:00",
+  "externalEvidenceInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 366807,
+      "sha256": "f8cfb91bc2c873636370bed12177cda526ba3a07c7984163da11f006a5c1c344",
+      "role": "rejected_native01_source_donor",
+      "relativeSourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 121267,
+      "sha256": "f2bc9b64368294f950714a00c67d3c9701bf67caf8716db372a412254c1d3419",
+      "role": "rejected_native01_source_donor",
+      "relativeSourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 5128,
+      "sha256": "6c40051bf0ef640ea45efe9b0863042c442371de6f69958de397d91593e9ed1a",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/AUTHOR_AUDIT.json",
+      "bytes": 3005,
+      "sha256": "f84e882f1c95302c2493ba07fd74ce565295735d2b623864cc5814f583c676c2",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/SOURCE_DIFF.patch",
+      "bytes": 64786,
+      "sha256": "ad087ba92f97f3a7764fd93cdf09f1e7eadcd28b97f902c1137566a23d37d6fa",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/setup/consumer-source/build/d1.json",
+      "bytes": 347765,
+      "sha256": "474b43cb3cd2399ad8399f6de8244c1e3ae10c21a58924f3f825c34d9634d9e8",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/resources/events/runtime.events.jsonl",
+      "bytes": 7550103,
+      "sha256": "2bcb3dc3664abd3e366f1992705504bcdd9633ec5a99c96688d9f6d16174c564",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/setup/setup-identity.json",
+      "bytes": 9660711,
+      "sha256": "fa05f1ea58b11525bc97c98d567f46ef7b6a3e82a33acab9524fd8606842ad30",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b31-native-01/RETURN.json",
+      "bytes": 39732,
+      "sha256": "c68c2d68ae730d1dcd565a7bfe01e80b42878651d02f2a97f5894131d0bd459f",
+      "role": "prior_B31_positive_population_ruling"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/PROOF_POPULATION_AUDIT.json",
+      "bytes": 2422,
+      "sha256": "930b2c3fae5500c324637977935869f9c70299759fc2afee1b313caa67597549",
+      "role": "prior_B31_actual_population_audit"
+    }
+  ]
+}

@@ -1,0 +1,323 @@
+{
+  "id": "RC14-ASSESSMENT-DEPENDENCY-NATIVE-002-TASK",
+  "sourceHead": null,
+  "outcome": "Complete the bounded B56 fixture/proof handoff: genuine installed split-owner case; coherent component coordinates; complete preassert/thrown-path evidence; one common-capability HOW consistency paragraph. Preserve recovered production owners, native HOW and focused semantic test byte-for-byte.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/ROOT_SELECTION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/ROOT_TRIAGE.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    "specification/requirements/product/REQ-P-CATALOG.md",
+    "specification/requirements/product/REQ-P-SCENARIOS.md",
+    "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_publication.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product",
+    "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/PROOF_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/FIXTURE_INPUTS.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/SOURCE_INPUTS.json",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/IMMUTABLE_RECOVERY.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/READ_ONLY_EVIDENCE.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/D1_COORDINATES.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/PRIOR_ATTEMPT.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/SEMANTIC_JOB_POPULATION.json",
+    "build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/publication.ts"
+  ],
+  "readFirst": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/ROOT_SELECTION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/ROOT_TRIAGE.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    "specification/requirements/product/REQ-P-CATALOG.md",
+    "specification/requirements/product/REQ-P-SCENARIOS.md",
+    "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/PRIOR_ATTEMPT.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02/D1_COORDINATES.json",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+  ],
+  "externalReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Intake/execution-unit/admission, context acquisition and closed-result reuse before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    }
+  ],
+  "externalFixtureReadOnlyInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/README.md",
+      "bytes": 1195,
+      "sha256": "19126c510544b3442d7361131f2709f79494d6608a2c147cf119cc77c5263f2c",
+      "use": "context_only"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/implementation-design.md",
+      "bytes": 639,
+      "sha256": "b96765496fe0c3888365ba72780af33824fa7f34acdb042af45df4d120ba0145",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/test-design.md",
+      "bytes": 684,
+      "sha256": "617dd54841f7128842616ce42a3befb15b30cd454215894c067980e5ede43406",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/generated/hello-world.mjs",
+      "bytes": 29,
+      "sha256": "647697a5fb5d141a2b1163363170a7a845b61a36096ff52f7a369f1736cd4993",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/basic-cli.oracle.json",
+      "bytes": 1112,
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/original-basic-cli.txt",
+      "bytes": 4325,
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/witness-contract.md",
+      "bytes": 1674,
+      "sha256": "29e669318aa0c9dc2fceca23f8caf22b01e475cd3f918070f980c70ac00355b3",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/specification/project-conformance.md",
+      "bytes": 751,
+      "sha256": "9aaa62cadeaa74520e5e45542e699c9a97e55bf4b475b2de7f7347b3fb4cee81",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/component/hello-cli.test.mjs",
+      "bytes": 369,
+      "sha256": "8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/uat/hello-cli.uat.test.mjs",
+      "bytes": 371,
+      "sha256": "5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test-execution-plan.json",
+      "bytes": 268,
+      "sha256": "e3250aae29261ebf20fc942aa31ddce5d152b14d4e9c6262e4eab820be34a350",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json",
+      "bytes": 5835,
+      "sha256": "ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/supplied-work-contract.md",
+      "bytes": 1692,
+      "sha256": "35264dc6830838f7037ea97acf7131b3396342a88604730bd5cf290a350a697d",
+      "use": "context_only"
+    }
+  ],
+  "externalEvidenceReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 366807,
+      "sha256": "f8cfb91bc2c873636370bed12177cda526ba3a07c7984163da11f006a5c1c344",
+      "role": "rejected_native01_source_donor",
+      "relativeSourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 121267,
+      "sha256": "f2bc9b64368294f950714a00c67d3c9701bf67caf8716db372a412254c1d3419",
+      "role": "rejected_native01_source_donor",
+      "relativeSourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 5128,
+      "sha256": "6c40051bf0ef640ea45efe9b0863042c442371de6f69958de397d91593e9ed1a",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/AUTHOR_AUDIT.json",
+      "bytes": 3005,
+      "sha256": "f84e882f1c95302c2493ba07fd74ce565295735d2b623864cc5814f583c676c2",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/SOURCE_DIFF.patch",
+      "bytes": 64786,
+      "sha256": "ad087ba92f97f3a7764fd93cdf09f1e7eadcd28b97f902c1137566a23d37d6fa",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/setup/consumer-source/build/d1.json",
+      "bytes": 347765,
+      "sha256": "474b43cb3cd2399ad8399f6de8244c1e3ae10c21a58924f3f825c34d9634d9e8",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/resources/events/runtime.events.jsonl",
+      "bytes": 7550103,
+      "sha256": "2bcb3dc3664abd3e366f1992705504bcdd9633ec5a99c96688d9f6d16174c564",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/setup/setup-identity.json",
+      "bytes": 9660711,
+      "sha256": "fa05f1ea58b11525bc97c98d567f46ef7b6a3e82a33acab9524fd8606842ad30",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b31-native-01/RETURN.json",
+      "bytes": 39732,
+      "sha256": "c68c2d68ae730d1dcd565a7bfe01e80b42878651d02f2a97f5894131d0bd459f",
+      "role": "prior_B31_positive_population_ruling"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/PROOF_POPULATION_AUDIT.json",
+      "bytes": 2422,
+      "sha256": "930b2c3fae5500c324637977935869f9c70299759fc2afee1b313caa67597549",
+      "role": "prior_B31_actual_population_audit"
+    }
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "maxContextFiles": 1024,
+  "maxContextBytes": 25165824,
+  "instructions": [
+    "Read this TASK and ROOT_SELECTION as your own intake first. Before first source edit, read actual contents of the exact installed stdo-work SKILL and its required Control Intake/Receive, Product Basis, Activation and bootstrap sections listed below; hashes alone do not count. Then acquire selected readFirst Product/requirement/HOW/source content. Record actual method paths/ranges. The exact external method and evidence sources are read-only, never W.",
+    "Fixed5.0 F04/F17/S06. ROOT_SELECTION is the closed conjunction: the three production owners, native HOW and focused semantic-job test were mechanically recovered and are now IMMUTABLE_RECOVERY inputs. Do not change them, restore01 defects, add serialized authority, relax schema/lock/admission guards or edit shared test support. W is exactly the common-capability design and two listed test files. Return a proved missing write dependency before any expansion.",
+    "The01 donor tests are explicitly read-only source references, not accepted fixtures or proof. Reuse useful authored code locally while repairing every listed inconsistency; do not copy either rejected donor wholesale. PRIOR_ATTEMPT preserves both old Bash-method deviations and the closed01 clock. This is one new bounded completion, not an automatic retry or continuation of01.",
+    "Correct only the owning common-capability HOW paragraph currently at852-864. Remove its stale unchanged-relation/schema-owner edge assumption. Explain exact executing Program declaration of use, distinct schema owner, separate authenticated publication/install/lock joins and Program/use-owner forward requirements, and the coherent component/installed fixtures. Keep assessmentPublication as schema-owner carriage and the Program publication as the authenticated executing Program. M03 codec fields are unchanged and outside W.",
+    "Preserve the existing installed case title: RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage. Complete its genuine coincident-owner relation on the recovered API and retain all original positive/negative/static-contract/role/permission/cold/readback assertions. Preserve unrelated cases and the existing shared libraryInstall behavior.",
+    "Add exactly the selected named installed case: S06 assessment dependency: split schema owner and admitted Program use survive assembly and cold preimage. Use a case-local install through existing installTenantOnce(packageRoot,{candidateBasisSource:packed_artifact,prepareAdditionalProducts}), prepareRegisteredSelectionProduct with a test-local declarationFactory and any legitimate fixture assets, then openCaseEnvironment with the real core constructSemanticStageModulePublication among additionalCorePublicationConstructors. Existing exported constructors and helper parameters suffice; do not edit support. Dispose the case-local install through its existing owner.",
+    "The new Program start must name an actual local GraphFunction of that consumer publication because prepareRegisteredSelectionProduct derives its startNodeRef from that exact local member. A lawful local wrapper/declaration that calls the real native assessment member is allowed; it must actually execute through installed Public setup/start and the admitted Program. No fake callable, arbitrary Catalog permission or host graph/verdict fabrication. Do not route this boundary test through an additional default-governance semantic fold; that would enlarge the scenario beyond the selected dependency/assembly proof.",
+    "The split owner uses the real core semantic-stage native-assessment contract/schema asset and a consumer Program that declares its use through real local member declarations. The coincident case keeps its existing consumer-owned contract. Use the existing generic canonical run-environment role/context declarations required by the chosen real path; do not restore retired STDO-specific carriers or bypass instruction assembly. Scripted actor output must be valid for the actual selected schema and is mechanical evidence only.",
+    "Retain the actual full CLI execution/result/receipt/raw output and command captures before checking exit/refusal/result assertions. Retain each actual negative input/output before its assertion and both fresh readback executions/outcomes before their checks. Write b56-installed-coincident.candidate.json and b56-installed-split.candidate.json under ABG_REGRESSION_PROOF_ROOT with actual same-run coordinates and complete producer-to-admission-to-assembly-to-preimage-to-cold/readback observations. A finally-only record is insufficient. If capture itself fails after a primary Product/test error, preserve both facts without replacing the primary error. No manufactured success boolean, diagnostic-only evidence, or exception masking.",
+    "The new installed split case must exercise complete dependency, actual dispatch assembly, carried schema-owner and executing Program coordinates, raw-result preimage, persisted cold basis/reconstruction and fresh result/replay on the same installed Run. Use genuine owner outputs; do not mock the changed dependency, assembly or preimage owners. Keep ordinary constructor static raw-result lookup and fail-closed crossed/missing Program/ref/digest/member/publication/install/lock/schema negatives. Multiple legitimate declaring members are valid, not an arbitrary single-graph rule.",
+    "Fix native-workspace-work only in its affected component fixture/cases and necessary local capture/helper glue. Current source row291/authority314 and assembly336 must refer to coherent case-local publication/Program/ref/digest/implementation-row identities. Derive every dependent coordinate consistently. Preserve real constructLeafExecutionAuthority and native authority checks; the existing mocked outer authentication premise must not hide conflicting row/publication/digest inputs. Keep ordinary constructor behavior and all existing refusal assertions. Label supplied component premises honestly; no installed or ABG admission claim from mocks.",
+    "The exact retained D1 data disproves the earlier external-member uncertainty: its Program digest is6b01ca1fc95ba54d5005af7f416b05e3d968c91525518066e9a6b47fa76ca7ad, invocation admission ordinal5 agrees, and12 local members of that Program declare contract://abiogenesis/semantic-stage/native-assessment@5. READ_ONLY_EVIDENCE and D1_COORDINATES pin the publication, event log and setup identities. Inspect only bounded relevant JSON fields using read-only parsing; do not dump9MB records, reopen the old event resource, import Product code or turn retained data into a new admitted fact. No old live S06 credit transfers.",
+    "B58 concerns only external proof selection and is already repaired prospectively in this02 packet. The semantic-job file is immutable. The Operator will use positive exact-title unions for focused/remainder and exact name-set/disjointness/union checks. Do not edit test titles in that file or claim old01 proof ran. All actual build/test/qualification obligations remain unexecuted.",
+    "Operational tool grant for02: Edit/Write or explicit text-only Bash/Python edits are permitted only to the exact three W paths. Python standard-library text/JSON processing and bounded read-only evidence extraction are allowed; no target Product imports, behavioral probes, builds/tests/pack/install, provider nesting, Git write/stage/commit/main/push, out-of-W or temporary source edits. Read-only status/diff/show/hash/source acquisition and node --check on selected changed mjs files remain allowed. This prospective permission does not erase01 deviations.",
+    "One native pass,45min/360turns/5min inactivity. Preserve all original candidate/archive/install/RC13 pins, existing01 sources/receipts and clocks. Return exact changed paths, actual method/command record and genuine remaining gaps. Source completion and syntax are not acceptance or proof; external Operator proof requires actual close/fresh reads, full audit, independent frozen source review and a separate Root grant."
+  ],
+  "checks": [
+    "Required named genuine installed split case and capture exist",
+    "Coincident/split full actual candidate before relevant assertions; primary failure survives capture failure",
+    "Coherent component publication/Program/row/authority/assembly coordinates with real guards",
+    "Only three W paths; five recovered files byte-conserved",
+    "Actual installed method content acquired before first edit; no behavioral execution or source Git mutation"
+  ]
+}
