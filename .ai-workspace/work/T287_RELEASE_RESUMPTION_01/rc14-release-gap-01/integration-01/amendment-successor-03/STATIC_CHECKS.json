@@ -1,0 +1,80 @@
+{
+  "scope": "Static checks plus one separately authorized bridge probe; no Product imports/tests/build/setup/provider",
+  "staticChecks": [
+    {
+      "kind": "node_syntax_only",
+      "path": "amendment-consumer.mjs"
+    },
+    {
+      "kind": "node_syntax_only",
+      "path": "amendment-setup.mjs"
+    },
+    {
+      "kind": "node_syntax_only",
+      "path": "amendment.mjs"
+    },
+    {
+      "kind": "node_syntax_only",
+      "path": "coverage.mjs"
+    },
+    {
+      "kind": "node_syntax_only",
+      "path": "oracle.mjs"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "bounded.py"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "command-owner.py"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "physical-topology.py"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "run.py"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "smoke-custody.py"
+    },
+    {
+      "kind": "unchanged_selected_scenario_and_owner_inputs",
+      "files": 12
+    },
+    {
+      "kind": "exact_caller_bridge_loader_relation",
+      "caller": "job.retainedControlRoot=b.retainedControlRoot",
+      "bridge": "canonical job coordinate plus manifest bounded.py hash",
+      "loader": "owner(retained)",
+      "otherHostBytesUnchanged": true
+    },
+    {
+      "kind": "distinct_manifest_bound_empty_configs",
+      "paths": [
+        "npm-user.npmrc",
+        "npm-global.npmrc"
+      ]
+    }
+  ],
+  "probe": {
+    "status": "passed_once",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-preflight-20261115-03",
+    "returnSha256": "47f8e2796749ffb1e4c4b701a3eec67953d27bd42bf35b2c3da6bdc1bcc18d81",
+    "requestSha256": "1dc8717da9a0a7ed82d491b0c293c38efd92e5a30e2e8b7e6609cf02a7d73868",
+    "entrySha256": "2c0c6ae1c90849630b6f6be137b9201dbb99bac1314cfb1fceb825f1c9329066",
+    "exitSha256": "2c0c6ae1c90849630b6f6be137b9201dbb99bac1314cfb1fceb825f1c9329066",
+    "probeControlManifestSha256": "e7e846fd1837271a781189e557a7912ae1ddf8b75854bdef86677bd68f582f3e",
+    "executedCode": {
+      "command-owner.py": "16179ed58782c1880118ad4e5c6c2a05d23692d819951b24e2952071fcc9f9f2",
+      "run.py": "969123c015958c8c8b789e6260a5e9477e30bf47742cd88880327fd996788d04",
+      "bounded.py": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2",
+      "amendment.mjs": "a02c0e393064f05226dcb8399960d28494afa5ec8d8022f38b7f7a6a05a7abd0"
+    },
+    "executedCodeUnchangedAtFreeze": true,
+    "claim": "Only exact Node --version through actual bridge and retained finite owner; no Product/setup/test/build/provider execution"
+  }
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "path": "bounded.py",
+    "sourceCommit": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01/bounded.py",
+    "bytes": 4206,
+    "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+  },
+  {
+    "path": "physical-topology.py",
+    "sourceCommit": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01/physical-topology.py",
+    "bytes": 14764,
+    "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+  },
+  {
+    "path": "smoke-custody.py",
+    "sourceCommit": "e825092f3c0778553cf07a80abcac876da4ccc58",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-successor-02/smoke-custody.py",
+    "bytes": 9454,
+    "sha256": "1a668244df0e34e5be4d82c665a591f2a5a1eaa5f42708e9287f74e7252b0bdb"
+  },
+  {
+    "path": "SMOKE_INPUTS.json",
+    "sourceCommit": "e825092f3c0778553cf07a80abcac876da4ccc58",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-successor-02/SMOKE_INPUTS.json",
+    "bytes": 8332,
+    "sha256": "1155cd29bce90d2bc139e0b50730624a3ae48bfa89c36139a34166fc9fe5f694"
+  },
+  {
+    "path": "amendment.mjs",
+    "sourceCommit": "e825092f3c0778553cf07a80abcac876da4ccc58",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-successor-02/basic-cli.mjs",
+    "reuse": "Exact import-only public export selection block; private credential removal/native interval is preserved from original host."
+  },
+  {
+    "path": "run.py",
+    "sourceCommit": "e825092f3c0778553cf07a80abcac876da4ccc58",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-successor-02/run.py",
+    "reuse": "Exact finite owner, retained-source and separate-smoke custody flow; only basic request writes/host selection replaced by amendment process writes/host."
+  },
+  {
+    "path": "command-owner.py",
+    "sourceCommit": "5582dcbf0daa265a7439e65bb15619d8aaf579f7",
+    "reuse": "Adapted bridge only: explicit request retainedControlRoot, canonical coordinate and manifest-bound bounded.py hash, existing owner(retained). No byte-equality claim for this bridge."
+  }
+]

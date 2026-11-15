@@ -1,0 +1,39 @@
+{
+  "status": "prepared_disabled_bridge_probe_passed",
+  "preparationSource": "5582dcbf0daa265a7439e65bb15619d8aaf579f7",
+  "manifestSha256": "f76cf48fd6d2ad52a1625dd2f0a03f52a25f7250e62b1c6c5775ee5808b7cd3b",
+  "controls": 21,
+  "sourceFinding": "B30 S2 local command bridge invoked owner() against owner(retained)",
+  "repair": [
+    "Actual command request carries retainedControlRoot",
+    "Bridge authenticates retained bounded.py by exact manifest-bound unchanged owner digest then calls owner(retained)",
+    "Distinct empty npm user/global files are manifest-bound and exactly selected by disabled template"
+  ],
+  "unchanged": "All scenario/process/review/oracle/coverage/consumer/setup meanings; finite owner, source/candidate split, capture/cleanup, credential interval and original02",
+  "probe": {
+    "status": "passed_once",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-preflight-20261115-03",
+    "returnSha256": "47f8e2796749ffb1e4c4b701a3eec67953d27bd42bf35b2c3da6bdc1bcc18d81",
+    "requestSha256": "1dc8717da9a0a7ed82d491b0c293c38efd92e5a30e2e8b7e6609cf02a7d73868",
+    "entrySha256": "2c0c6ae1c90849630b6f6be137b9201dbb99bac1314cfb1fceb825f1c9329066",
+    "exitSha256": "2c0c6ae1c90849630b6f6be137b9201dbb99bac1314cfb1fceb825f1c9329066",
+    "probeControlManifestSha256": "e7e846fd1837271a781189e557a7912ae1ddf8b75854bdef86677bd68f582f3e",
+    "executedCode": {
+      "command-owner.py": "16179ed58782c1880118ad4e5c6c2a05d23692d819951b24e2952071fcc9f9f2",
+      "run.py": "969123c015958c8c8b789e6260a5e9477e30bf47742cd88880327fd996788d04",
+      "bounded.py": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2",
+      "amendment.mjs": "a02c0e393064f05226dcb8399960d28494afa5ec8d8022f38b7f7a6a05a7abd0"
+    },
+    "executedCodeUnchangedAtFreeze": true,
+    "claim": "Only exact Node --version through actual bridge and retained finite owner; no Product/setup/test/build/provider execution"
+  },
+  "unexecuted": [
+    "Independent exact successor recheck",
+    "Full installed amendment and currentness evidence",
+    "S06 keyed-accounting witness",
+    "Qualification"
+  ],
+  "executionAuthorized": false,
+  "productOrMaintainedSourceChanges": false,
+  "mainOrPush": false
+}
