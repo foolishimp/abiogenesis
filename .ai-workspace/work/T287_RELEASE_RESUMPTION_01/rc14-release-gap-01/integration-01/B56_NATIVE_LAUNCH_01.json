@@ -1,0 +1,47 @@
+{
+  "id": "RC14-B56-NATIVE-LAUNCH-01",
+  "recordedUtc": "2026-11-15T19:58:27.160489+00:00",
+  "writerActivation": "integration-01/B56_NATIVE_ACTIVATION_01.json#writerActivation",
+  "sourceHead": "17e8224bfa4514bcee137d3b11544fe0b52d4cc8",
+  "acceptedControls": "7ae1bdd4f048d00f642485b9cd70da9909412e14",
+  "state": "ACTUAL_HOST_RUNNING_ACTOR_NOT_YET_CONFIRMED",
+  "startedUtc": "2026-11-15T19:57:33.049891+00:00",
+  "originalDeadlineUtc": "2026-11-15T22:57:33.049891+00:00",
+  "executionStopDeadlineUtc": "2026-11-15T22:54:33.049891+00:00",
+  "pins": {
+    "CONTROL_START.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/CONTROL_START.json",
+      "bytes": 1205,
+      "sha256": "bcd7037bb97dfff47563646f0808a5b83350e0af16618e024d61a02c97c086ff"
+    },
+    "LAUNCH_STAGING.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/LAUNCH_STAGING.json",
+      "bytes": 425,
+      "sha256": "1d3f8377a8555b8c6b1f078b3b820b65bc202a2484db08b930d68456bb615234"
+    },
+    "HOST_PID.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/HOST_PID.json",
+      "bytes": 44,
+      "sha256": "70f8ad562aafff8f18a6019c0887f26c7c5675e8c7bd2debcc73d984880c8f1b"
+    },
+    "SOURCE_PREIMAGE.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/SOURCE_PREIMAGE.json",
+      "bytes": 438743,
+      "sha256": "c143675ed2bb725aa22a17cf5b5b36a482ec2764b560148be9fc241b77b800ba"
+    },
+    "LAUNCH.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/LAUNCH.json",
+      "bytes": 4867,
+      "sha256": "690228c67b701bb2e127e7c7040432e98a9fa8253641df0b57de1d256f1ff1c3"
+    }
+  },
+  "preimageRows": 1425,
+  "hostPid": 95298,
+  "hostProcessGroup": 95298,
+  "rootChecks": "Explicit approved/staged launch bytes equal; exact start/preimage pins independently reacquired. Identity and planned physical readiness passed per Operator; actual actor launch remains unobserved by this record.",
+  "providerLimit": 1,
+  "proofAuthorized": false,
+  "oldClockReused": false,
+  "qualified": false,
+  "rawPublished": false
+}

@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_NATIVE_SELECTED_PENDING_PUSHED_LAUNCH_B57_CONTROLS_ACCEPTED",
+  "status": "RC14_B56_NATIVE_HOST_RUNNING_B57_CONTROLS_ACCEPTED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -719,7 +719,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T19:56:08.665452+00:00",
+  "updatedUtc": "2026-11-15T19:58:27.160489+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1076,7 +1076,7 @@
     "executionAuthorized": false
   },
   "b56Repair": {
-    "state": "CONTROLS_ACCEPTED_NATIVE_SELECTED_PENDING_PUSHED_LAUNCH",
+    "state": "ACTUAL_HOST_RUNNING_ACTOR_NOT_YET_CONFIRMED",
     "controlCommit": "7ae1bdd4f048d00f642485b9cd70da9909412e14",
     "activation": "integration-01/B56_NATIVE_ACTIVATION_01.json",
     "sourceTree": "43e8e4fb26a434ecc6b44436ec9c64da368e3bea",
@@ -1084,6 +1084,11 @@
     "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-01",
     "nativeProviderStarted": false,
     "proofAuthorized": false,
-    "candidateBuildAuthorized": false
+    "candidateBuildAuthorized": false,
+    "sourceHead": "17e8224bfa4514bcee137d3b11544fe0b52d4cc8",
+    "launch": "integration-01/B56_NATIVE_LAUNCH_01.json",
+    "startedUtc": "2026-11-15T19:57:33.049891+00:00",
+    "originalDeadlineUtc": "2026-11-15T22:57:33.049891+00:00",
+    "hostPid": 95298
   }
 }
