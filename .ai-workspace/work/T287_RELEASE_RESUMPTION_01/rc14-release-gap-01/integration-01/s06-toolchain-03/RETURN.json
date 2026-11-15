@@ -1,0 +1,203 @@
+{
+  "activationId": "RC14-S06-TOOLCHAIN-OFFLINE-PREFLIGHT-003",
+  "disposition": "prepared_held_for_distinct_review",
+  "sourceBase": "03f6cf858bab67c196270c178e3e002a581caa9b",
+  "sourceBranch": "codex/rc14-s06-toolchain-20261115-03",
+  "manifest": {
+    "path": "/private/tmp/abg-rc14-s06-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-toolchain-03/CONTROL_MANIFEST.json",
+    "bytes": 1669,
+    "sha256": "1cb96d37c1d6db78e64a8bbfcbe44258d7d4bc8539f4ee8ac28d33f4b6b7efab"
+  },
+  "prospectiveWorkRoot": "/private/tmp/abg-s06-03",
+  "prospectivePreflightLimits": {
+    "preflightMs": 900000,
+    "cleanupReserveMs": 120000,
+    "maxCaptureBytesPerCommand": 67108864,
+    "reserveBytes": 8589934592,
+    "resolutionLaunchesAtMost": 1,
+    "javaVersionLaunchesAtMost": 1
+  },
+  "controlEvidence": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/CONTROL_START.json",
+      "bytes": 270,
+      "sha256": "f8acfc993ef844a2566b97e0255e865cfb6701ddf584dc6eb27b9afccc37657e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/CONTROL_PREIMAGE.json",
+      "bytes": 1278,
+      "sha256": "de9be233a1623637d3fd038727ad159066a4af505bc008ea679949dbaeeb3fa7"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/offline.sb",
+      "bytes": 944,
+      "sha256": "421675103e706fc977515c178c06c0aa89f881d7260ea13af29f2fd918899378"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/RETURN.json",
+      "bytes": 1636,
+      "sha256": "8c64ba4b5286cc804141439dcd766286d67b0b057e9231854063c12bd1425252"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/001-syntax/START.json",
+      "bytes": 471,
+      "sha256": "aa0ca0e5601c96ea16f35bdfe3635d6662128a6d3c8c13e110cb84d37b261e16"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/001-syntax/PID.json",
+      "bytes": 44,
+      "sha256": "64078649c83c38b3f5c6db73a328c27fd8bb06677ef595d6f4b77da94c461e7c"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/001-syntax/RETURN.json",
+      "bytes": 455,
+      "sha256": "df84957529b4cf76c1829e801406fe9753abc70dcfab1af8f65a7ed8dd43b6fb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/001-syntax/stdout.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/001-syntax/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/002-unix-ipc/START.json",
+      "bytes": 689,
+      "sha256": "851f546e6f9b1c63eb80dc7684e1c759e160086666c087cc2d23cecbaec15684"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/002-unix-ipc/PID.json",
+      "bytes": 44,
+      "sha256": "6ffa04c2867542d2dff9ee91806993da5d1a85f6a694b374ff11bf6563988a24"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/002-unix-ipc/RETURN.json",
+      "bytes": 459,
+      "sha256": "544ae6eb2a0b8ca1a905380e0b38a18eae075128cf203d228c2790028348d629"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/002-unix-ipc/stdout.raw",
+      "bytes": 561,
+      "sha256": "2f5ad8ba74f11faf45857a732879506acb31d5de926a0e4760a7f2008a90b986"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/002-unix-ipc/stderr.raw",
+      "bytes": 144,
+      "sha256": "8028679c534243b8358c0919609c6292f2857997dd32d1760b34329fc22e37e1"
+    }
+  ],
+  "controlResult": {
+    "disposition": "control_probes_satisfied",
+    "failure": null,
+    "commands": [
+      {
+        "name": "001-syntax",
+        "receipt": {
+          "exitCode": 0,
+          "stopReason": null,
+          "elapsedMs": 108,
+          "cleanup": {
+            "signals": [],
+            "processGroupAbsent": true
+          },
+          "scope": "This command process group only; no global descendant-absence claim.",
+          "stdout.raw": {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "stderr.raw": {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        }
+      },
+      {
+        "name": "002-unix-ipc",
+        "receipt": {
+          "exitCode": 0,
+          "stopReason": null,
+          "elapsedMs": 416,
+          "cleanup": {
+            "signals": [],
+            "processGroupAbsent": true
+          },
+          "scope": "This command process group only; no global descendant-absence claim.",
+          "stdout.raw": {
+            "bytes": 561,
+            "sha256": "2f5ad8ba74f11faf45857a732879506acb31d5de926a0e4760a7f2008a90b986"
+          },
+          "stderr.raw": {
+            "bytes": 144,
+            "sha256": "8028679c534243b8358c0919609c6292f2857997dd32d1760b34329fc22e37e1"
+          }
+        }
+      }
+    ],
+    "withinDeadline": true,
+    "ownedWorkRootRemoved": true,
+    "controlsConserved": true,
+    "completedUtc": "2026-11-15T09:47:25.987100+00:00",
+    "javaOrSbtLaunched": false,
+    "applicationOrProductExecuted": false,
+    "scope": "Only exact owned Unix exchange/path and IP-denial controls; no universal network proof"
+  },
+  "socketChecks": [
+    {
+      "case": "owned_unix_bind_connect_exchange",
+      "outcome": "pass",
+      "path": "/private/tmp/abg-s06-03/ipc/.sbt/control.sock",
+      "pathBytesIncludingNul": 46
+    },
+    {
+      "case": "outside_owned_ipc",
+      "outcome": "denied",
+      "errno": 1,
+      "message": "[Errno 1] Operation not permitted"
+    },
+    {
+      "case": "ipv4_network",
+      "outcome": "denied",
+      "errno": 1,
+      "message": "[Errno 1] Operation not permitted"
+    },
+    {
+      "case": "ipv6_network",
+      "outcome": "denied",
+      "errno": 1,
+      "message": "[Errno 1] Operation not permitted"
+    }
+  ],
+  "toolInputs": {
+    "freezeReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/FREEZE_RETURN.json",
+      "bytes": 2478,
+      "sha256": "2b32fd2378260ba0c6ed19b75789f07967e73942bd7145d7aa16b1968fdf51b6"
+    },
+    "frozenRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen",
+    "oldFailure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/preflight-01/RETURN.json",
+      "bytes": 1037,
+      "sha256": "4089b3f78ce7ddffe99a34a0e9ded1fa7f19392f2760eb74b0f083e9a0ec5881"
+    },
+    "oldControlsCommit": "f8e045b25fa36eb619a3112013dd491624f270ec",
+    "reuse": "Exact frozen01 inputs remain read-only; no acquisition recopy; fresh02 work/cache/commands/clock"
+  },
+  "preparationEffectsOnly": true,
+  "javaOrSbtLaunched": false,
+  "applicationOrProductExecuted": false,
+  "preflightClockStarted": false,
+  "newDeadlineGrantPending": true,
+  "noAutomaticRetry": true,
+  "oldEvidencePreserved": true,
+  "rootMainOrPush": false,
+  "rawPublication": false,
+  "scopeLimits": [
+    "Selected closure remains unknown until exact SBT owner resolves it",
+    "No DNS exception justified by old correlated denial",
+    "Network discrimination is bounded to exact tested paths and socket families; policy remains explicit",
+    "Prepared correction is not S06 lifecycle acceptance or qualification"
+  ]
+}
