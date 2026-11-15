@@ -1,0 +1,44 @@
+{
+  "provedSourceCommit": "7a2411defd9ef7c1968512703c3b4b1493114453",
+  "currentSourceBase": "feadde9579b3e5e7600c137a9ed27f1d3f202d08",
+  "priorProofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01",
+  "buildRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/subject/build_tenants/abiogenesis/typescript/build",
+  "buildInventory": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/BUILD_PREIMAGE.json",
+    "sha256": "4196e9314fec7f7a0569f39e828424ce803a87d8c05cfca9c5f08c8d1ae5cf79",
+    "files": 782,
+    "bytes": 26015425
+  },
+  "derivedPayloadOutputs": [
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "source": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/subject/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 150703,
+      "sha256": "19828fd301e616f8663a493a94c4c6ca8751645c2b15e59bbf2cd57388fcde0e"
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "source": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/subject/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3101102,
+      "sha256": "ace624f1747a2071adcd6035b21d88dc3c459eeddc809e7f3b85627dbae5929a"
+    }
+  ],
+  "priorSourcePostimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/SOURCE_POSTIMAGE.json",
+    "sha256": "8e0cf4670ade0b4da389ab66e29f643baf2d23ff7f0748ae93f6ceb5f9d8e0a7"
+  },
+  "sourceInputs": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/BUILD_SOURCE_INPUTS.json",
+    "sha256": "0d219c348517fef6ccb030d7d6b0860ec91011815fffda61a88bd998113a7b84",
+    "files": 1295
+  },
+  "priorBuildReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/001-candidate-build/RETURN.json",
+    "sha256": "86692826e71128aabd9b4b481c913e652e900fc7576069c578fc2d233b32a795"
+  },
+  "priorCampaignReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-proof-fixture-20261115-02/proof-01/RETURN.json",
+    "sha256": "a13d6c18ed0a37ed5555138be1e524aa545cb638a20e34703e3c3b9289305dff"
+  },
+  "rule": "All materialized tenant bytes equal actual proved input before author. Only native W test/falsifier deltas are admitted afterward. Every remaining row must conserve; copied build set/bytes and donor conserve through proof. No path-only equivalence or new build/qualification claim."
+}
