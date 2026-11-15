@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_NATIVE02_CLOSED_INCOMPLETE_ONE_FILE_COMPLETION_SELECTED",
+  "status": "RC14_B56_COMPLETION03_CONTROLS_ACCEPTED_NATIVE_SELECTED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T21:23:38.422214+00:00",
-  "nativeAuthorState": "No author active. Native02 returned incomplete; two reviewed files recovered as unproved input. One-file completion03 controls preparing with corrected R and acquisition obligations.",
+  "recordedUtc": "2026-11-15T21:40:44.760816+00:00",
+  "nativeAuthorState": "Completion03 controls accepted; one actual RC13 native pass selected after exact pushed binding. No actor active yet.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1183,7 +1183,7 @@
     "actualProofStarted": false
   },
   "b56Completion03": {
-    "state": "DISABLED_CONTROL_PREPARATION_SELECTED",
+    "state": "CONTROLS_ACCEPTED_NATIVE_SELECTED_AFTER_PUSH",
     "selection": "integration-01/B56_NATIVE02_CONJUNCTION_AND_REENTRY_03.json",
     "nativeWritePaths": [
       "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
@@ -1195,6 +1195,10 @@
       "build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs"
     ],
     "providerStarted": false,
-    "proofAuthorized": false
+    "proofAuthorized": false,
+    "controlCommit": "d8389e40038fcb91c27989fb8770e7354c56f6b8",
+    "manifestSha256": "706f2d649808af1f516c9a751177f60c7759313215b8be921a81368b5fe23ad8",
+    "activation": "integration-01/B56_NATIVE_ACTIVATION_03.json",
+    "candidateBuildAuthorized": false
   }
 }
