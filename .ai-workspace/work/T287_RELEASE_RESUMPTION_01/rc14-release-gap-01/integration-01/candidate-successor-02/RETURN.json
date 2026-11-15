@@ -1,0 +1,104 @@
+{
+  "kind": "candidate_successor_02_preparation_return",
+  "status": "frozen_preparation_pending_independent_review",
+  "actor": "/root/b29_vm_triage",
+  "activationId": "RC14-CANDIDATE-SUCCESSOR-CONTROL-WRITER-002",
+  "authority": {
+    "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE_SUCCESSOR_CONTROL_SELECTION_02.json",
+    "bytes": 6605,
+    "sha256": "40be835c9703441a53ec0caa6473d35e65c543456c55b34dd7b47ee86b8009b7"
+  },
+  "setupDisposition": {
+    "commit": "8f963ee7e2e083f980d1253bc4345698b7af954b",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE_SUCCESSOR_PREPARATION_DISPOSITION_02.json",
+    "bytes": 3017,
+    "sha256": "30a8cc6bd370d43147306f612b97780467f00a003076ccb5879803d33fde1e65"
+  },
+  "sourceBase": "3327a8a2eb2aab58ee502d3b8b1e85a3acd283b5",
+  "branch": "codex/rc14-candidate-successor-controls-20261116-02",
+  "worktree": "/private/tmp/abg-rc14-candidate-successor-controls-20261116-02",
+  "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/candidate-successor-02",
+  "preparationStartedUtc": "2026-11-15T20:08:37Z",
+  "preparationDeadlineUtc": "2026-11-15T20:28:37Z",
+  "completedPreparationUtc": "2026-11-15T20:17:12.678154+00:00",
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 1302,
+    "sha256": "784761c97b16980176fc9f6a03bc27491e1d9a99e8ba6e8010c3f4d13f0369f3"
+  },
+  "authoredPaths": [
+    "REFERENCES.json",
+    "STAGE_BINDINGS.template.json",
+    "PUBLIC_SETUP_BINDING.template.json",
+    "CUSTODY.json",
+    "README.md",
+    "STATIC_CHECKS.json",
+    "CONTROL_MANIFEST.json",
+    "RETURN.json"
+  ],
+  "change": "Compact disabled C0/build/install/Public/C1 bindings and direct existing-helper recipe. Existing Public template changes only accepted manifest and prospective raw/worksite paths. No helper/source/claim/generated output changes.",
+  "observedSetupFailure": {
+    "cause": "git status was read after worktree --no-checkout/sparse patterns but before index initialization",
+    "reportedStagedDeletions": 137491,
+    "actualIndexRows": 0,
+    "actualMaterializedFiles": [
+      ".git"
+    ],
+    "actualSourceDeletion": false,
+    "carrierFilesBeforeDisposition": 0,
+    "rootDispositionCommit": "8f963ee7e2e083f980d1253bc4345698b7af954b",
+    "correction": "Reconfirmed exact branch/HEAD, index0, only .git; git -c core.hooksPath=/dev/null read-tree -mu HEAD once; then exact HEAD/branch and clean137491-row index verified",
+    "newRuntimeAttempt": false,
+    "clockReset": false
+  },
+  "staticEvidence": {
+    "path": "STATIC_CHECKS.json",
+    "sha256": "fa22cd3492d6ae398bdcd0c2f66b326b48d6ca27011852f50bf69f5006fd9945",
+    "checks": {
+      "authoredJsonParsed": 4,
+      "publicTemplateKeyShapeUnchanged": true,
+      "publicTemplateOnlyChangedKeys": [
+        "controlManifestSha256",
+        "rawRoot",
+        "worksiteRoot"
+      ],
+      "allCandidateIdentitiesUnbound": true,
+      "allStageExecutionAndClocksDisabled": true,
+      "C1WritePaths": 10,
+      "cutManifestMembers": 15,
+      "publicManifestMembers": 10,
+      "reusedMemberChecks": 25,
+      "metadataExecutionHelperChecks": 2,
+      "buildExecutableByteChecks": 4,
+      "dependencyReceiptByteCheck": true,
+      "authorityRecordsMatchedFrozenCommits": true,
+      "trackedSourceDiffEmpty": true,
+      "indexDiffEmpty": true,
+      "onlyUntrackedFilesInWriteTerritory": true
+    }
+  },
+  "metadataCustodyCorrection": "Both consumed native07 process-owner.py dc16586cc5... and dependency-inputs.py d9833165... are explicit original entry+exit inputs, plus all ordinary cut/stage/freeze helpers. Prior C1 supplemental observation remains unchanged.",
+  "preserved": {
+    "C0": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "C1": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+    "archiveSha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+    "builder": "RC13 remains pinned"
+  },
+  "unresolved": [
+    "Independent control review and later exact pushed stage grants",
+    "Accepted B56 source/proof/claim and new C0 commit/tree",
+    "Actual new archive/CUT_RECORD/buildRoot/generated/member identity",
+    "Fresh explicit mechanical install plus genuine Public .install/close and actual physical layouts",
+    "Actual C1 metadata postimage/commit/tree/FREEZE; no stage clock is active",
+    "B50, formal qualification, AF25/publication and actual human acceptance"
+  ],
+  "executionAuthorized": false,
+  "productOrHelperImports": 0,
+  "buildTestInstallMetadataProviderCalls": 0,
+  "rawPublished": false,
+  "mainMutated": false,
+  "pushed": false,
+  "returnTo": "Root; stop after exact authored-only checkpoint"
+}

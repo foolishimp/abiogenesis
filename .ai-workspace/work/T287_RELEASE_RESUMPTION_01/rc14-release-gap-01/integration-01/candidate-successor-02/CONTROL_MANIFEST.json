@@ -1,0 +1,39 @@
+{
+  "kind": "disabled_candidate_successor_02_preparation_controls",
+  "sourceBase": "3327a8a2eb2aab58ee502d3b8b1e85a3acd283b5",
+  "executionAuthorized": false,
+  "files": [
+    {
+      "path": "REFERENCES.json",
+      "bytes": 12620,
+      "sha256": "ca6d17a6f17568c25b6d6bc5a8548d888bb0779cba9b32a06c265a716f9b54a2"
+    },
+    {
+      "path": "STAGE_BINDINGS.template.json",
+      "bytes": 6515,
+      "sha256": "6e5a69ad39cc5f5f4f0ba67f5d3d2c2b92fde5f38dd4c2e09d65e01e2f93cfb5"
+    },
+    {
+      "path": "PUBLIC_SETUP_BINDING.template.json",
+      "bytes": 1939,
+      "sha256": "80000938f382e6a25ebef24ccba70633b39db2aa2bc7af50ea8383bc1bba2f9a"
+    },
+    {
+      "path": "CUSTODY.json",
+      "bytes": 3293,
+      "sha256": "e2c774f7f9bc59cb00097d30e730f4beafde92340efa62fb835204f690763aeb"
+    },
+    {
+      "path": "README.md",
+      "bytes": 8243,
+      "sha256": "531624def8fb57842d7949f906a547940e2de3c5ecbaf2577213ac4da88de506"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 1070,
+      "sha256": "fa22cd3492d6ae398bdcd0c2f66b326b48d6ca27011852f50bf69f5006fd9945"
+    }
+  ],
+  "scope": "Bindings and recipe only; existing helpers referenced, no copied or new executable",
+  "return": "RETURN.json is a separately hashed authored handoff, outside this self-free manifest"
+}

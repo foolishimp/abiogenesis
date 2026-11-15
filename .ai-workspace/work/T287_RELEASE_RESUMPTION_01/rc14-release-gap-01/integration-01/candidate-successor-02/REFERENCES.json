@@ -1,0 +1,259 @@
+{
+  "kind": "candidate_successor_02_existing_owner_references",
+  "executionAuthorized": false,
+  "selection": {
+    "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE_SUCCESSOR_CONTROL_SELECTION_02.json",
+    "bytes": 6605,
+    "sha256": "40be835c9703441a53ec0caa6473d35e65c543456c55b34dd7b47ee86b8009b7"
+  },
+  "setupDisposition": {
+    "commit": "8f963ee7e2e083f980d1253bc4345698b7af954b",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE_SUCCESSOR_PREPARATION_DISPOSITION_02.json",
+    "bytes": 3017,
+    "sha256": "30a8cc6bd370d43147306f612b97780467f00a003076ccb5879803d33fde1e65"
+  },
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definition": {
+      "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+      "path": "stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "frame": {
+      "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "anchor": "#exact-basis",
+    "verification": "installed true, valid true, failures []; acquired 2026-11-15T20:09Z"
+  },
+  "owners": [
+    {
+      "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+      "path": "specification/PRODUCT.md",
+      "bytes": 104101,
+      "sha256": "ffd5ed220a7add7e688cf435e029d0c6fb0fe3e7f059a0c5ab03bab1bfd02a88"
+    },
+    {
+      "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+      "path": "specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61"
+    },
+    {
+      "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+      "path": "specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35941,
+      "sha256": "ef5bdafa8a4c3b37419396b46963df6df8b382bbd09515f2bb2a1534a7e0dcea"
+    }
+  ],
+  "acceptedHistory": [
+    {
+      "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/RC14_C0_SOURCE_ACCEPTANCE.json",
+      "bytes": 2250,
+      "sha256": "8d284743b3f84a65208d5859d59089edc68751481dfeede8561b7eaa4b7a707a"
+    },
+    {
+      "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/RC14_CANDIDATE_BUILD_ACCEPTANCE.json",
+      "bytes": 2521,
+      "sha256": "b15a9383a3e74c1fdf5f80626ef88c8db6d039fd4165598131d8353dd69bc8c2"
+    },
+    {
+      "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/RC14_PUBLIC_SETUP_ACCEPTANCE_02.json",
+      "bytes": 2830,
+      "sha256": "9365345ceb1f53b0a0ad68008cac668c1fa5ee26803f7867ddc5aa951d5b8e6c"
+    },
+    {
+      "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/RC14_C1_FINALIZATION_ACCEPTANCE.json",
+      "bytes": 3274,
+      "sha256": "2d3ffa89ac139de19e92b5ae9b7949e70782f3a407db15b54030e04e0eaec8ab"
+    }
+  ],
+  "priorStageRecipes": [
+    {
+      "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/candidate-build-01/ACTIVATION.json",
+      "bytes": 4181,
+      "sha256": "b30c8db67d57ca2424a1c51dda8169a9a1b01098b54218f0e5ee7904d70ae37c"
+    },
+    {
+      "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/candidate-install-01/ACTIVATION.json",
+      "bytes": 7498,
+      "sha256": "e67336338bc33c7d1fed16de1f1995a09b223f06550c3f36d1f636b711315707"
+    },
+    {
+      "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/candidate-metadata-01/ACTIVATION.json",
+      "bytes": 6323,
+      "sha256": "d612f27abde00b8b8f12248fe922c001c1210cd9e2281610c48d5fba7f122adb"
+    }
+  ],
+  "cutControls": {
+    "commit": "28983a1e299c707d2f466a4615dc17e195b8c96f",
+    "root": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01",
+    "manifest": {
+      "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/CONTROL_MANIFEST.json",
+      "bytes": 2554,
+      "sha256": "da49f6dc6a36302b106434a7d11ba3f5aab52e94244890849a3600dd05d9380c"
+    },
+    "selectedHelpers": [
+      {
+        "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/cut-common.mjs",
+        "bytes": 10522,
+        "sha256": "42c29b20e613f7bfdc7a470b44093767b1b6eab6ea0cce03bf4c9595a866a645"
+      },
+      {
+        "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/stamp-rc14.mjs",
+        "bytes": 7916,
+        "sha256": "c010c4c2dbffdb2244da54ee46b1a4cc087e429f854593d25e123b31e2ae8c1d"
+      },
+      {
+        "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/prepare-candidate-rc14.mjs",
+        "bytes": 19895,
+        "sha256": "1c263ee32cea1cffdff476be409fe1624bb205dd68d1f0375de391ccbe3e9540"
+      },
+      {
+        "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/install-candidate-rc14.mjs",
+        "bytes": 10905,
+        "sha256": "6028e74a4b8ce895358051096cea56fddc4bd29ba4d245261345db2d0a323b6e"
+      },
+      {
+        "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/installed-owner-smoke.mjs",
+        "bytes": 7990,
+        "sha256": "62eb30327c72d6551dd0fdc875a555651d33028f3eb37a35d82a128bb15e4a5b"
+      },
+      {
+        "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/stage-qualification-metadata.mjs",
+        "bytes": 3632,
+        "sha256": "fb4aff8248a95c0566963be0b0cb611cb0ed25c9be0fe9865813d2e5529fae97"
+      },
+      {
+        "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/freeze-candidate-inputs.mjs",
+        "bytes": 4141,
+        "sha256": "5aa91d843924fd4eb5b412530f15881f081d4f41d54a8f4c52d41b960d5eae77"
+      }
+    ]
+  },
+  "publicSetupControls": {
+    "commit": "d848831e791d704acd6f9e8a0d78180d6ca0afb3",
+    "root": "/private/tmp/abg-rc14-public-setup-successor-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/cut-public-setup-02",
+    "manifest": {
+      "path": "/private/tmp/abg-rc14-public-setup-successor-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/cut-public-setup-02/CONTROL_MANIFEST.json",
+      "bytes": 1870,
+      "sha256": "8e6d98be2aa88e03d868b64c501341f222bf8ea5a968cffa85f1c402e82ed07d"
+    },
+    "inputOwner": {
+      "path": "/private/tmp/abg-rc14-public-setup-successor-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/cut-public-setup-02/INPUTS.json",
+      "bytes": 2039,
+      "sha256": "875c148074b85901534f2d36cb5c3d8f62ac11eca99031478059b1e0cba25625"
+    },
+    "toolOwner": {
+      "path": "/private/tmp/abg-rc14-public-setup-successor-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/cut-public-setup-02/TOOL_PINS.json",
+      "bytes": 953,
+      "sha256": "001c3e9c64d9cdf56293178057214f4bb4c65b6caee5418e5cebb790aae9f825"
+    },
+    "maintainedSourceCommit": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862",
+    "maintainedSourceRoot": "/private/tmp/abg-rc14-installed-prep-20261115-01"
+  },
+  "metadataExecutionHelpers": [
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39",
+      "entryCustody": true,
+      "exitCustody": true,
+      "purpose": "Existing metadata process/inventory owner; consumed external helper, not copied"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed",
+      "entryCustody": true,
+      "exitCustody": true,
+      "purpose": "Existing metadata process/inventory owner; consumed external helper, not copied"
+    }
+  ],
+  "dependencyInput": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/DEPENDENCY_PREIMAGE.json",
+    "bytes": 987915,
+    "sha256": "d5963980b0d8ce53b85847a547f44d308757bf4766aadd0f3dda49dad401a8ef",
+    "rowCount": 4576,
+    "donor": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+    "futureReuseConditionalOnExactRowsAndLock": true
+  },
+  "nativeInputDeclaration": {
+    "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+    "path": "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+    "bytes": 51233,
+    "sha256": "f0073d316c1c2ca67c7d7672830162633b3067001dbcb4df0370b6718694cad7",
+    "rows": 196,
+    "futureC0EqualityAndEveryActualHostInputRequired": true
+  },
+  "buildTools": [
+    {
+      "name": "node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "commandPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "currentExecutionNotPerformed": true
+    },
+    {
+      "name": "npm",
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "commandPath": "/opt/homebrew/Cellar/node/24.7.0/bin/npm",
+      "currentExecutionNotPerformed": true
+    },
+    {
+      "name": "tar",
+      "path": "/usr/bin/bsdtar",
+      "bytes": 274448,
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5",
+      "commandPath": "/usr/bin/tar",
+      "currentExecutionNotPerformed": true
+    },
+    {
+      "name": "git",
+      "path": "/usr/bin/git",
+      "bytes": 118640,
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a",
+      "commandPath": "/usr/bin/git",
+      "currentExecutionNotPerformed": true
+    }
+  ],
+  "publicSetupToolPins": {
+    "executables": {
+      "node": {
+        "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+      },
+      "npm": {
+        "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+        "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+      },
+      "python": {
+        "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+        "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa"
+      }
+    },
+    "npmTree": {
+      "root": "/opt/homebrew/lib/node_modules/npm",
+      "rows": 2326,
+      "sha256": "fb6e09972ed9bc200b97e8c1d87dcb00325128cc6c4398dec1e26f2a276a04b1",
+      "encoding": "sha256 of UTF-8 JSON sorted keys, separators comma/colon, rows in path order; same rows as retained bounded.inventory"
+    },
+    "evidence": "Read-only file hashes during preparation; no executable/version invocation or compatibility claim."
+  },
+  "historyIsNotFutureCandidateEvidence": true
+}

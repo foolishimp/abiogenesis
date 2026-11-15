@@ -1,0 +1,173 @@
+{
+  "kind": "disabled_candidate_successor_02_stage_bindings",
+  "executionAuthorized": false,
+  "rootExecutionGrant": null,
+  "sourceBaseForControls": "3327a8a2eb2aab58ee502d3b8b1e85a3acd283b5",
+  "sourceHead": null,
+  "B56": {
+    "sourceCommit": null,
+    "sourceTree": null,
+    "sourceReview": null,
+    "proof": null,
+    "rootAcceptance": null
+  },
+  "prospectiveIdentity": {
+    "packageName": "@abiogenesis/typescript-tenant",
+    "version": "5.0.0-rc.14",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.14"
+  },
+  "proposedRoots": {
+    "candidateSource": "/private/tmp/abg-rc14-candidate-source-20261116-02",
+    "metadataSource": "/private/tmp/abg-rc14-candidate-metadata-20261116-02",
+    "buildRaw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02",
+    "installRaw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/install-host",
+    "publicSetupRaw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03",
+    "metadataRaw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-02"
+  },
+  "preserved": {
+    "C0": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "C1": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+    "archiveSha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+    "builder": "RC13 remains pinned"
+  },
+  "stages": {
+    "C0": {
+      "executionAuthorized": false,
+      "grant": null,
+      "sourceCommit": null,
+      "sourceTree": null,
+      "sourceInventory": null,
+      "releaseClaim": null,
+      "authorityMirrors": null,
+      "rootAcceptance": null,
+      "alreadyRc14Rule": "stamp-rc14.mjs59 accepts already; no second bump or blind replacement",
+      "startedUtc": null,
+      "deadlineUtc": null
+    },
+    "build": {
+      "executionAuthorized": false,
+      "grant": null,
+      "C0Commit": null,
+      "C0Tree": null,
+      "releaseClaim": null,
+      "dependencyReceipt": "REFERENCES.json#dependencyInput",
+      "nativeInputReceipt": null,
+      "toolReceipt": null,
+      "output": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate",
+      "scratch": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch",
+      "cutRecord": null,
+      "sourceTar": null,
+      "buildRoot": null,
+      "archive": null,
+      "archiveMembers": null,
+      "generatedOutputs": null,
+      "rootAcceptance": null,
+      "proposedBounds": {
+        "enclosingSeconds": 1800,
+        "exitReserveSeconds": 30,
+        "captureBytes": 16777216,
+        "perCommandSeconds": [
+          120,
+          240,
+          600
+        ],
+        "retries": 0
+      },
+      "startedUtc": null,
+      "deadlineUtc": null
+    },
+    "install": {
+      "executionAuthorized": false,
+      "grant": null,
+      "cutRecord": null,
+      "archive": null,
+      "archiveMembers": null,
+      "installHost": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/install-host",
+      "output": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records",
+      "scratch": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/scratch",
+      "installRecord": null,
+      "installation": null,
+      "installedRoot": null,
+      "bootstrap": null,
+      "memberCorrespondence": null,
+      "rootAcceptance": null,
+      "proposedBounds": {
+        "enclosingSeconds": 900,
+        "exitReserveSeconds": 30,
+        "captureBytes": 16777216,
+        "retries": 0
+      },
+      "startedUtc": null,
+      "deadlineUtc": null
+    },
+    "publicSetup": {
+      "executionAuthorized": false,
+      "grant": null,
+      "bindingTemplate": "PUBLIC_SETUP_BINDING.template.json",
+      "binding": null,
+      "topologyAcceptance": null,
+      "plannedAndActualTopology": null,
+      "installIdentity": null,
+      "installedRoot": null,
+      "archiveCorrespondence": null,
+      "actualClose": null,
+      "rootAcceptance": null,
+      "proposedBounds": {
+        "enclosingSeconds": 900,
+        "exitReserveSeconds": 30,
+        "setupHostMs": 300000,
+        "innerDeadlineMs": 285000,
+        "captureBytes": 16777216,
+        "retries": 0
+      },
+      "startedUtc": null,
+      "deadlineUtc": null
+    },
+    "C1": {
+      "executionAuthorized": false,
+      "grant": null,
+      "sourceBaseCommit": null,
+      "C0Commit": null,
+      "C0Tree": null,
+      "cutRecord": null,
+      "actualPublicIdentity": null,
+      "actualPublicPackage": null,
+      "writePaths": [
+        "product-toolchain-manifest.json",
+        "contracts/capabilities/capability-definition-graph.json",
+        "test_env/fixtures/abi5-root-candidate-basis.json",
+        "test_env/qualification/classification.json",
+        "test_env/qualification/recipe/expected-output-inventory.json",
+        "test_env/qualification/recipe/declared-commands.json",
+        "test_env/qualification/recipe/verification-recipe.json",
+        "test_env/qualification/tenant-manifest.json",
+        "test_env/qualification/resources.json",
+        "test_env/qualification/inventory.json"
+      ],
+      "metadataScratch": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-02/metadata",
+      "captureNamespace": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-02/commands/<number>-<name>-host",
+      "actualEnvironment": null,
+      "sourceCommit": null,
+      "sourceTree": null,
+      "metadataPostimage": null,
+      "freeze": null,
+      "rootAcceptance": null,
+      "proposedBounds": {
+        "enclosingSeconds": 1200,
+        "exitReserveSeconds": 30,
+        "metadataChildMs": 600000,
+        "otherChildrenMaximumMs": 300000,
+        "captureBytes": 16777216,
+        "retries": 0
+      },
+      "startedUtc": null,
+      "deadlineUtc": null
+    }
+  },
+  "qualificationAuthorized": false,
+  "immutableCutAuthorized": false,
+  "publicationAuthorized": false,
+  "rawPublished": false
+}
