@@ -1,0 +1,132 @@
+{
+  "activationId": "RC14-S06-TOOLCHAIN-C2-JOIN-PREP-002",
+  "disposition": "profile_grammar_corrected_control_negative_falsified_execution_held",
+  "sourceBase": "27d971a3641ae016451ac72eb766f22c170f63b3",
+  "predecessor": "60cd47319b360048f2176f97d0d2cb8703df1397",
+  "controlManifest": {
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/CONTROL_MANIFEST.json",
+    "bytes": 5689,
+    "sha256": "a7f70b26c391929b03fa1e09c8683d3258f1c5134fa2bd916794504444a352e7"
+  },
+  "controls": 25,
+  "toolExecutable": {
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/tool-launcher.py",
+    "bytes": 15213,
+    "sha256": "16c83f445c4378f2e465e93662dff5147350d196732eb93b3b87c796714faf05"
+  },
+  "toolInput": {
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/TOOLCHAIN.json",
+    "bytes": 4844,
+    "sha256": "7fb0213fb32ea8170f0c89fbaabd691400b8c9f613cf7b457bf59d77ff805db3"
+  },
+  "staticChecks": {
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/STATIC_CHECKS.json",
+    "bytes": 7066,
+    "sha256": "d4521841d97a3121fc0789b3f5da5d2023f9e102d21fa2ecfd0f8df66d52fea9"
+  },
+  "grant": "Root separate Writer and60s pure/static/local socket control grant; no live candidate or execution",
+  "realizedJoin": [
+    "One witnessProtocol supplies exact D1/D2 capability, command and expected environment",
+    "Immutable Tool is actual C2 executable, native owns relative application/verifier",
+    "Frozen input conservation, short state and scoped local network configuration, direct Java/SBT entry",
+    "Tool stdout/stderr and actual C2 observed stream equality plus group absence",
+    "Frozen-JDK reader-only fresh queries",
+    "Copy-first external Tool custody and bounded cleanup; original wall/monotonic completion check"
+  ],
+  "closedEvidence": {
+    "types": true,
+    "canonicalProspectiveSemanticInput": true,
+    "canonicalProspectiveGovernanceInput": true,
+    "exactCapabilityCommandEnvironmentJoin": true,
+    "originalNamedReviewAndRelativeCommandMeaning": true,
+    "completeFrozenToolInventories": true,
+    "changedMjsSyntaxFiles": 2,
+    "retainedUnchangedMjsSyntaxFiles": 5,
+    "allCommandsClosed": true,
+    "withinOriginal60s": true,
+    "elapsedMs": 679,
+    "syntheticShortRootAbsent": true,
+    "profileGrammar": true,
+    "socketSequence": {
+      "basis": "Retained control source executes serially; traceback reaches only final wildcard-bind assertion",
+      "profileParsed": true,
+      "ownedUnixExchange": true,
+      "ipv4LoopbackExchange": true,
+      "ipv6LoopbackExchange": true,
+      "remoteConnectDeniedWithEpermOrEacces": true,
+      "wildcardBindDenied": false,
+      "remoteInboundPermission": "unmeasured; bind alone does not establish it"
+    },
+    "retainedCanonicalAndInventorySource": "4e7c5c0f45b60a5ac0d787e957d6e77651020db5"
+  },
+  "open": [
+    "Wildcard-bind expectation/local policy applicability conjunction",
+    "Independent complete preparation review",
+    "Actual application compilation/ScalaTest/Spark and five-minute C2 capacity",
+    "Prospective RC14 candidate/runtime binding",
+    "Full S06 and qualification"
+  ],
+  "conservation": {
+    "writeTerritory": "only integration-01/s06-preparation-02 plus new external control raw root",
+    "oldCarriersAndEvidence": "unchanged",
+    "ProductHowTenantTests": "unchanged",
+    "mainPushVersionPinQualification": "none",
+    "JavaSbtProviderRuntime": "none"
+  },
+  "returnTo": "Root; stopped with exact prepared source; no automatic correction/retry",
+  "preparationSuccessorOf": "4e7c5c0f45b60a5ac0d787e957d6e77651020db5",
+  "priorTypeStop": {
+    "commit": "b23f87975bff4620477244eed0f3e48b477cd9a5",
+    "preparationReturnSha256": "81a232bb48b9508fd4d828612ddd117c1853dd2ebec2e15b9c7768690e9d1107",
+    "record": {
+      "owner": "external control annotations/input decoding",
+      "diagnostics": [
+        "Public Product namespace does not export source-local SemanticJobExecutionCapability",
+        "Three JSON.parse(readFile(...)) expressions require utf8 for canonical TypeScript checking"
+      ],
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-02/canonical-types/stdout.raw",
+        "bytes": 702,
+        "sha256": "e910d23201c348934d21092d78b554cfce464328a8e43e1d38bdc480ab6b9fca"
+      },
+      "smallestReentry": "One owner-indexed type annotation through exported SemanticJobInput.worksiteScope.executableCapabilities and three utf8 reads; preserve failed check, then separately select remaining canonical/socket discriminator",
+      "repaired": false,
+      "retried": false
+    },
+    "correction": "Canonical public indexed type and three utf8 decodes only; original raw bytes unchanged"
+  },
+  "authoringObservation": "Before the one actual successor check, an exact text-replacement guard found two matching read expressions and refused; only the authorized type annotation had been written. The three JSON parse contexts were then targeted explicitly; no broader read/hash encoding changed and no extra check was run.",
+  "priorParserStop": {
+    "commit": "4e7c5c0f45b60a5ac0d787e957d6e77651020db5",
+    "returnSha256": "68b01a8caf46024b78e6ebedbcef10c91f49742b433ffde4c272b365e186f592",
+    "record": {
+      "owner": "consumer Tool macOS sandbox policy syntax",
+      "reason": "sandbox-exec: host must be * or localhost in network address",
+      "origin": "tool-launcher.py profile(): local/remote tcp numeric127.0.0.1 host literals",
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03/socket-controls/stderr.raw",
+        "bytes": 219,
+        "sha256": "169125960bf6ce230833a0e6205be4a611e62d0b29c929b7ff13c03294135b57"
+      },
+      "childStatus": "sandbox parser exit65, socket Python never started",
+      "smallestReentry": "Use exact supported localhost host filter, describe loopback scope honestly, retain remote denial and original socket assertions; separately select one fresh socket-only discriminator",
+      "repaired": false,
+      "retried": false
+    },
+    "correction": "Two profile numeric host literals replaced by supported localhost; original parser failure/controls preserved"
+  },
+  "firstFailure": {
+    "owner": "External socket control expectation versus macOS localhost-filter behavior",
+    "reason": "Unselected network operation allowed: wildcard-bind",
+    "stderr": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-04/socket-controls/stderr.raw",
+      "bytes": 456,
+      "sha256": "50b240857abe5f65b6672c4d6ff7a62fb1b8dec8b67aec15742f3e07aeff7367"
+    },
+    "basis": "Actual Python control reached final wildcard bind check after three exchanges and denied remote connect",
+    "interpretationLimit": "Binding0.0.0.0 is not proof of remote inbound permission; no external peer/inbound test or packet observation",
+    "smallestReentry": "Root conjoins the selected local Spark/remote-acquisition contract and this stronger negative; do not silently weaken or broaden policy",
+    "repaired": false,
+    "retried": false
+  }
+}

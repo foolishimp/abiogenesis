@@ -1,0 +1,130 @@
+{
+  "disposition": "localhost_profile_parses_wildcard_bind_negative_falsified",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-04",
+  "records": {
+    "CONTROL_START.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-04/CONTROL_START.json",
+      "bytes": 229,
+      "sha256": "4642dbc429e576f64db341fbcec17434a26d2df6fe326d5e6b5a717b50877b0e"
+    },
+    "RETURN.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-04/RETURN.json",
+      "bytes": 1677,
+      "sha256": "581cf3a120982ab6762d8eafc8a621746d6863a265c1a0e0e264ac0457425baa"
+    },
+    "FIRST_FAILURE.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-04/FIRST_FAILURE.json",
+      "bytes": 198,
+      "sha256": "ed7a2281fc60db78e7d3bc672f3e13fb297e994c8b9c2b502914b72a0726e2df"
+    },
+    "syntax-inputs/result.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-04/syntax-inputs/result.json",
+      "bytes": 606,
+      "sha256": "1349625d730b327f7f0839a3590a413993caeb53174c38deb1ca8de3fed1b021"
+    },
+    "socket-controls/request.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-04/socket-controls/request.json",
+      "bytes": 835,
+      "sha256": "6fe049057fb3b96919599a67544becb16b3e24d0d6b3d29cf7b0d695a1eb950b"
+    },
+    "socket-controls/result.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-04/socket-controls/result.json",
+      "bytes": 612,
+      "sha256": "47a9cde07cfa0864281da0d1edb2d162a2dcf8a184e810d3c5d3c6eb3da424e3"
+    },
+    "socket-controls/stdout.raw": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-04/socket-controls/stdout.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "socket-controls/stderr.raw": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-04/socket-controls/stderr.raw",
+      "bytes": 456,
+      "sha256": "50b240857abe5f65b6672c4d6ff7a62fb1b8dec8b67aec15742f3e07aeff7367"
+    },
+    "tool.sb": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-04/tool.sb",
+      "bytes": 1902,
+      "sha256": "d968f0862c901940b39b9e983e40723cce91601d827af01f4db9e919c5b91130"
+    }
+  },
+  "elapsedMs": 679,
+  "withinDeadline": true,
+  "syntaxAndControlHashes": true,
+  "socketSequence": {
+    "basis": "Retained control source executes serially; traceback reaches only final wildcard-bind assertion",
+    "profileParsed": true,
+    "ownedUnixExchange": true,
+    "ipv4LoopbackExchange": true,
+    "ipv6LoopbackExchange": true,
+    "remoteConnectDeniedWithEpermOrEacces": true,
+    "wildcardBindDenied": false,
+    "remoteInboundPermission": "unmeasured; bind alone does not establish it"
+  },
+  "retainedProof": {
+    "sourceCommit": "4e7c5c0f45b60a5ac0d787e957d6e77651020db5",
+    "staticChecksSha256": "7192330f32a95a39ba28a77314d06068e68bfc90d2f9b572ceecffd9e615d997",
+    "canonicalTypesConstructorsAndInventory": {
+      "CONTROL_START.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03/CONTROL_START.json",
+        "bytes": 229,
+        "sha256": "7216a41f5ba5a0aa9fee7d682e69f6897da160a083694223a9814e82a8a6c8df"
+      },
+      "RETURN.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03/RETURN.json",
+        "bytes": 3855,
+        "sha256": "268cfdd601594fa58e5bfcf5c79a616cec0b9c4b4fc772874bdf100f6d8e70e2"
+      },
+      "FIRST_FAILURE.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03/FIRST_FAILURE.json",
+        "bytes": 198,
+        "sha256": "a19914e32d1ce2a6f2553cb40cfd58468f17336ad722a9967ffc266d1e03fbbe"
+      },
+      "FROZEN_INPUTS.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03/FROZEN_INPUTS.json",
+        "bytes": 1214,
+        "sha256": "db54986e5e193ca292be9d73b5d0b7d6019d9a694acc692b3046cd47f2713967"
+      },
+      "canonical-types/result.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03/canonical-types/result.json",
+        "bytes": 610,
+        "sha256": "98e9ca5b5f3a3384f890388a2e32cc9d5f7a985e8c04a36db09c3dee01025c42"
+      },
+      "canonical-inputs/result.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03/canonical-inputs/result.json",
+        "bytes": 614,
+        "sha256": "00ce2abbd2cc0b1194c3856add4417832a65144a3faf1c3de6ff73ea9787a421"
+      },
+      "canonical-inputs/stdout.raw": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03/canonical-inputs/stdout.raw",
+        "bytes": 372,
+        "sha256": "129ddaba9acaa5cfdbf3f60232124785d47006dc22ea25a4e40e38dc16104d9c"
+      },
+      "socket-controls/request.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03/socket-controls/request.json",
+        "bytes": 835,
+        "sha256": "73b977e428330240ff177c06525b517977f57330841bc88450571252aa4c8858"
+      },
+      "socket-controls/result.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03/socket-controls/result.json",
+        "bytes": 613,
+        "sha256": "ee5851a99ec04dd6f858218d0fce10668cc20fef949128c5dcf2a76384aa3ee6"
+      },
+      "socket-controls/stderr.raw": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03/socket-controls/stderr.raw",
+        "bytes": 219,
+        "sha256": "169125960bf6ce230833a0e6205be4a611e62d0b29c929b7ff13c03294135b57"
+      },
+      "tool.sb": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03/tool.sb",
+        "bytes": 1902,
+        "sha256": "5142ebebc2ecaaaa0d469e95ed09158b55d54a8cca30d2eeb8dce0789fefce98"
+      }
+    },
+    "relation": "Owner/input-protocol computations and frozen material remain unchanged; only profile host grammar, descriptive scope, current valid hash literals and socket probe changed",
+    "reexecuted": false
+  },
+  "allCompletedCommandGroupsAbsent": true,
+  "shortSyntheticStateAbsent": true,
+  "javaSbtApplicationProviderRuntimeAdmission": false
+}

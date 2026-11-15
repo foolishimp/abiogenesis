@@ -1,0 +1,41 @@
+{
+  "id": "RC14-S06-TOOLCHAIN-C2-JOIN-PREP-002",
+  "role": "Writer",
+  "sourceCommit": "27d971a3641ae016451ac72eb766f22c170f63b3",
+  "predecessor": "60cd47319b360048f2176f97d0d2cb8703df1397",
+  "basis": "stdo://releases/v3.0.4/",
+  "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "product": "Fixed 15-family5.0; F17/S06 selected original lifecycle and consequential amendment",
+  "changeClass": "external derived consumer controls only",
+  "permission": "Root separate Writer grant in current conversation; candidate, deadline and runtime execution unbound",
+  "effects": [
+    "new carrier only, own branch commit",
+    "static and canonical pure input joins under one fresh60s check",
+    "small socket controls only if material"
+  ],
+  "forbidden": [
+    "Product/HOW/source/test changes",
+    "Java/SBT/application/build/provider/runtime admission",
+    "main writes or push"
+  ],
+  "toolEffectGrant": "One immutable identity-bound actual C2 launcher owns fresh phase/attempt-specific short JVM cache/tmp/IPC state and external receipts on named disjoint private/tmp roots; inputs read-only; topology/custody and bounded cleanup; no app verdict",
+  "return": "Root exact frozen preparation plus typed joins, proof identities and limits; stop",
+  "controlCorrection": {
+    "grant": "Root separate correction after closed b23f87975",
+    "predecessorSubject": "b23f87975bff4620477244eed0f3e48b477cd9a5",
+    "predecessorManifestSha256": "eb9afcc649ceda5cec6872b0057ea1a53fbd933a5b87ee7d098a2bac408185c5",
+    "scope": "Canonical public indexed capability type; three explicit utf8 reads; fresh control raw/short-root identities and affected static population only",
+    "envelope": "one new60s preparation check; no lifecycle/old clock extension",
+    "preservedFailure": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-02/canonical-types/stdout.raw",
+    "preservedFailureSha256": "e910d23201c348934d21092d78b554cfce464328a8e43e1d38bdc480ab6b9fca"
+  },
+  "profileCorrection": {
+    "grant": "Root separately selected localhost grammar correction after closed4e7c5c0f",
+    "predecessorSubject": "4e7c5c0f45b60a5ac0d787e957d6e77651020db5",
+    "predecessorManifestSha256": "44945991e59327ebb766dd08ded0cfd39c7e4708c5a840a8fe3873bcf4811f22",
+    "scope": "Two SBPL host literals become supported localhost, with honest IPv4/IPv6 scope; owned Unix subtree and all-other-network denial unchanged; IPv6 loopback control positive added",
+    "envelope": "one fresh60s socket discriminator and necessary affected syntax; no Java/SBT/application/provider/runtime",
+    "retainedProof": "4e7c5c0f canonical types/constructor and full frozen input inventories, unchanged computational inputs except valid hash literal substitutions and descriptive text",
+    "preservedFailureSha256": "169125960bf6ce230833a0e6205be4a611e62d0b29c929b7ff13c03294135b57"
+  }
+}
