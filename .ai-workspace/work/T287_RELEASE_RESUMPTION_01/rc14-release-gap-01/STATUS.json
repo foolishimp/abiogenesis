@@ -683,7 +683,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T11:58:09.291423+00:00",
+  "updatedUtc": "2026-11-15T12:02:42.530661+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -765,5 +765,14 @@
     "lastAttemptSkips": 51,
     "cancelled": 0,
     "qualification": false
+  },
+  "regressionRepair07": {
+    "state": "F09_FIXTURE_AND_PROOF_CONTROLS_PREPARING",
+    "triage": "integration-01/NATIVE07_F09_TRIAGE.json",
+    "executionBound": false,
+    "nativeWritePaths": 1,
+    "freshWholeFiles": 10,
+    "retainedWholeFilesConditional": 6,
+    "priorClockClosed": true
   }
 }
