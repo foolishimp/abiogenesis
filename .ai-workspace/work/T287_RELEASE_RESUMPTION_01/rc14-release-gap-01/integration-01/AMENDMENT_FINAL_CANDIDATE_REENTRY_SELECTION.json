@@ -1,0 +1,30 @@
+{
+  "id": "RC14-AMENDMENT-FINAL-CANDIDATE-REENTRY-04",
+  "recordedUtc": "2026-11-15T13:19:40.037408+00:00",
+  "authority": "Owner finishRC14; Root Writer13; separate B29 Writer following B29 and R14 closed independent intake",
+  "frame": "Fixed ABI5/T287/S03 selective-currentness; external custody tooling only",
+  "predecessor": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+  "findings": [
+    "run.py and smoke-custody bind legacy7a2411d successful proof/candidate rather than prospective RC14 CUT_RECORD",
+    "retained helper checkout moved from8233791ae611f1c5f6e2ec2afd5a1738dd700bb6 to unrelated b86550d qualification proposal"
+  ],
+  "selectedRepair": [
+    "Authentic CUT_RECORD/C0+tree/buildRoot/ARCHIVE_MEMBERS/archive/bootstrap joins and eleven actual consumed smoke input pins",
+    "Refreshed candidate basis belongs to actual cut refresh; generated outputs belong to actual archive; retain complete input/dependency/tool/native/build entry and exit conservation",
+    "Fresh exact823 retained-helper checkout; preserve current b865 branch"
+  ],
+  "preserved": [
+    "lifecycle/PROCESS/ORACLE/amendment.mjs",
+    "credential scope",
+    "topology",
+    "cleanup",
+    "all finite budgets/no-retry semantics"
+  ],
+  "forbidden": [
+    "Product or test source changes",
+    "fake old proof transfer or qualification claim",
+    "runtime/provider/build execution before exact controls review and separate candidate grant"
+  ],
+  "executionAuthorized": false,
+  "qualified": false
+}

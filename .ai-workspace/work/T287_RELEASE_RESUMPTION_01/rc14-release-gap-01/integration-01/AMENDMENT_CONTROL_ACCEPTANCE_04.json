@@ -1,0 +1,33 @@
+{
+  "productFrame": "Fixed ABI5/T287/S03 amendment and selective currentness. External input-custody tooling, not runtime authority; actual Public admission, events and fresh replay remain owners. Exact STDO3.0.4 unchanged.",
+  "id": "RC14-AMENDMENT-CANDIDATE-CONTROLS-ACCEPTANCE-04",
+  "reviewer": "Root, independent of B29 controls Writer",
+  "recordedUtc": "2026-11-15T13:23:49.707422+00:00",
+  "subjectCommit": "580c6eb0e37a3e5c3dbf59c2fb2e162f685e86dc",
+  "subjectTree": "a064f89eb226507b701ffa8672fa10a80559e5f6",
+  "mainMerge": "c7dca9c048e83dc6fcc1b9ee40079dafd007be37",
+  "manifestSha256": "52f66f58ec8117923fec3d0e75419b100edd73db58fa405d7ed80e6dc9d108b7",
+  "returnSha256": "7e81ea403d4e2de50263279515f5d884c7fa7bf664f45c67f3a3b1eb8914119d",
+  "disposition": "satisfied_bounded_control_readiness",
+  "findings": [],
+  "verified": {
+    "manifestMembers": 22,
+    "byteIdenticalLifecycleAndSafetyFiles": 13,
+    "runHelpersUnchanged": 7,
+    "custodyHelpersUnchanged": 4,
+    "ownerShape": "CUT_RECORD/sourceArchive/C0/tree/buildRoot/recorded basis refresh/generated outputs/archive member count+bytes+digests/toolchain and ordered donor inventory joined against accepted prepare-candidate/cut-common producer source",
+    "fullCandidateChecks": "All C0 source rows except exact generated/basis owner outputs, eleven actual smoke inputs, whole payload and native addon, full build/deps plus source/npm/tool custody remeasured at entry and exit",
+    "runDelta": "Only external actual smoke-packet acquisition/protected inputs and explicit candidate binding; lifecycle/credentials/topology/budgets/firstfailure/cleanup unchanged"
+  },
+  "requirementsBeforeExecution": [
+    "Fresh exact8233791ae611f1c5f6e2ec2afd5a1738dd700bb6 helper checkout at declared path; preserve b865 qualification branch",
+    "Root-bound actual RC14 candidate packet with no nulls and source/refresh owner pins",
+    "Exact protected roots, private selected credential keys, one fresh finite grant and immutable original clock"
+  ],
+  "executionStarted": false,
+  "dynamicCandidateCustodyExercised": false,
+  "providerCalls": 0,
+  "qualified": false,
+  "priorProofCreditTransferred": false,
+  "rawPublished": false
+}
