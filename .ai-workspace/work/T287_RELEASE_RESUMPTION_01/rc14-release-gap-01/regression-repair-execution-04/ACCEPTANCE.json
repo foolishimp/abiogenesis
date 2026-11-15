@@ -1,0 +1,13 @@
+{
+  "id": "RC14-REGRESSION-NATIVE-04-PREPARATION-ACCEPTANCE",
+  "decision": "satisfied for bounded execution",
+  "reviewer": "/root/rc14_release_proof",
+  "author": "/root/b29_vm_triage",
+  "basis": "stdo://releases/v3.0.4/",
+  "reviewedSubject": "fd7ecfa64f70cff6228b2a21e7e82335a18b1d6f",
+  "manifestSha256": "b2dd739426ba057d459e343de57172f6145a932d805ca6df729600d5208896a8",
+  "closedFinding": "Exactapproved launch stagedexclusively and regular/nonsymlink/sourcehash joins verified beforeHOST; HOST andcustody consumethe same stagedpath",
+  "inheritedRelations": "Same17writepaths, TASKsemantics,16proofpopulations, build/inputprovenance and60min240turn90minproof3hlimits; original03preserved. Reused inventories not newmeasurements.",
+  "qualification": false,
+  "recordedUtc": "2026-11-15T08:02:31.441734+00:00"
+}

@@ -1,0 +1,116 @@
+{
+  "activationId": "RC14-REGRESSION-REPAIR-NATIVE-004",
+  "dispatchAuthorized": true,
+  "sourceHead": "06084febb15a78eda3feab657bd012d0e84217f1",
+  "sourceTree": "4836ef7cf24e881627df52277d8b0bf476ea6fab",
+  "reviewedControlSubject": "fd7ecfa64f70cff6228b2a21e7e82335a18b1d6f",
+  "controlManifestSha256": "b2dd739426ba057d459e343de57172f6145a932d805ca6df729600d5208896a8",
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "controls": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 6030,
+      "sha256": "755668a1ff75d02b0b778e5ff6f7f21dd4b49afe4467744b1def1d9f56640335"
+    },
+    {
+      "path": "BUILD_REUSE.json",
+      "bytes": 2894,
+      "sha256": "d46bde7c404d49124219f68452aee32b9b904492af46d2ca6a401c64b521811d"
+    },
+    {
+      "path": "CONTROL_REPAIR.json",
+      "bytes": 1070,
+      "sha256": "48264d388d72844452c251a20edac45046881d415797f02a4b76cdc584926eb6"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 706,
+      "sha256": "f57ae6dd95a2280fa6ec0e2976fd13b48c9d28858bb324cdf6ff05f2455b5540"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 17199,
+      "sha256": "9365391c397d70cdaeadbec1ee5e20dba6ab1463f542f2ce7bba5a2752631173"
+    },
+    {
+      "path": "LAYOUT.json",
+      "bytes": 3513,
+      "sha256": "1672b12c095c31fa11bb08219e50e673bd08e66f8b468aa55eeb6a8262e7217a"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 17484,
+      "sha256": "248d4e9cbc6b223f47829e567f11ce330c3ef9bab7a6e4c8e7809d5c96a8556d"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4001,
+      "sha256": "41abdeba48aa00e44d0ea8da9b8df604fb4458d2a431d9b049be211992c2a25a"
+    },
+    {
+      "path": "REENTRY.json",
+      "bytes": 1779,
+      "sha256": "790b1635154256e28b39ddb51ec45a3f19a60fadb65ef19543a3045f2f8f4ee1"
+    },
+    {
+      "path": "RETAINED_INPUTS.json",
+      "bytes": 2617,
+      "sha256": "6b3acd6edd34a09ee213a583ffc743c88c96ecf9ca94757b34270407efbdb74b"
+    },
+    {
+      "path": "ROOT_ACTIVATION.json",
+      "bytes": 3269,
+      "sha256": "4ba22961d6a6e37606a2607e54439644c19de22549234b2fce32b5adf8cad544"
+    },
+    {
+      "path": "SOURCE_BINDING.json",
+      "bytes": 729,
+      "sha256": "49894e370ae649e8b9450523d4a1efa0d4f4c8d98e6c79eb56df3604db3439d3"
+    },
+    {
+      "path": "TASK.json",
+      "bytes": 16805,
+      "sha256": "8d462620c4aac7a9d14a453fffe41702c498b2a6b7afbdc2f9a86a0487aed3f3"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 2403,
+      "sha256": "7b26df18d1507f674385cbe80080116645501dec975468d41e1e9e6fe438a81e"
+    },
+    {
+      "path": "operate.py",
+      "bytes": 6471,
+      "sha256": "fca787839b4b0f8f4c9405c899bbf5aeaa29470cae0f9f8ec4a1f6303a14ff0c"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 14148,
+      "sha256": "9fa09302b6fb07d24578bb9f0276c34dd04ec32c43021bf9569f899ea45b7f48"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ],
+  "rootAcceptanceSha256": "e0ce0797e6a23d3368c83e26722378a92b8811a8a488518a774e1f5f9b540127",
+  "ownerInstruction": "i want to move on and finish RC14",
+  "recordedUtc": "2026-11-15T08:02:31.441734+00:00",
+  "clockRule": "Fresh04 one3hclock inoperate, native60min240turnsxhigh, proof90min clippedtooriginal04deadline. Native03closed; no oldclockreset.",
+  "requiredBeforeEntry": "Pushed source, cleanpreimage and explicitlauncher staging/equality beforeHOST. Actualtopology/custody repeated beforedispatch."
+}

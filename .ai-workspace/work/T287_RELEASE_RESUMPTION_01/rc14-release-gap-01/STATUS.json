@@ -1,5 +1,5 @@
 {
-  "status": "RC14_FINISH_INSTALLED_BASIC04_READY_NATIVE04_REVIEW",
+  "status": "RC14_FINISH_INSTALLED04_RUNNING_NATIVE04_READY",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -28,7 +28,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-14T20:39:07.014701+00:00",
-  "nativeAuthorState": "Native03 stopped before provider on missingOperator launchcopy; actualclose/sourceconserved. Native04 automaticstaging successor frozenforindependentreview.",
+  "nativeAuthorState": "Fresh04exactgrant accepted afterindependentstagingreview; Rootpreimage/pushedsource precede launch.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -544,12 +544,25 @@
     }
   },
   "installedBasic04": {
-    "state": "EXACT_EXECUTION_READY",
+    "state": "RUNNING",
     "activation": "integration-01/installed-basic-04/ACTIVATION.json",
     "deadlineUtc": "2026-11-15T09:28:58.482761+00:00"
   },
   "amendmentControls": {
     "state": "INDEPENDENT_REVIEW_SATISFIED_EXECUTION_UNBOUND",
     "subject": "71daeb0582dc33a4550ac14fe9217055d2d628cd"
+  },
+  "regressionRepair04": {
+    "state": "EXECUTION_ADMITTED",
+    "controlSubject": "fd7ecfa64f70cff6228b2a21e7e82335a18b1d6f",
+    "sourceHead": "06084febb15a78eda3feab657bd012d0e84217f1",
+    "launch": "regression-repair-execution-04/LAUNCH.json",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "nativeMinutes": 60,
+    "maxTurns": 240,
+    "proofMinutes": 90,
+    "freshEnclosingMinutes": 180,
+    "prior03Closed": true
   }
 }
