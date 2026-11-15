@@ -1,0 +1,14 @@
+{
+  "recordedUtc": "2026-11-15T07:28:07.066170+00:00",
+  "pythonAst": "passed",
+  "nodeSyntax": "passed",
+  "unchangedFromE825": {
+    "run.py": "d19e087859ded07942fbea1730d53b77f87b0aa16c9d611297eedce9fc0283db",
+    "basic-cli.mjs": "98062a72c8c9f619c6872d1eb6bc6a551c44ac569cbce5433c817faff5d95b87",
+    "smoke-custody.py": "1a668244df0e34e5be4d82c665a591f2a5a1eaa5f42708e9287f74e7252b0bdb",
+    "SMOKE_INPUTS.json": "1155cd29bce90d2bc139e0b50730624a3ae48bfa89c36139a34166fc9fe5f694"
+  },
+  "distinctEmptyConfigPaths": true,
+  "configBytes": 0,
+  "execution": "Not performed"
+}

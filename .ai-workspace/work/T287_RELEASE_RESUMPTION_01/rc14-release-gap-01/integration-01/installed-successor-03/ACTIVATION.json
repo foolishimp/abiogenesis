@@ -1,0 +1,23 @@
+{
+  "id": "RC14-INSTALLED-NPM-CONFIG-CONTROL-SUCCESSOR-003",
+  "role": "Separate Root external-control Writer",
+  "ownerInstruction": "i want to move on and finish RC14",
+  "basis": "stdo://releases/v3.0.4/",
+  "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "sourceCommit": "e825092f3c0778553cf07a80abcac876da4ccc58",
+  "scope": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-successor-03",
+  "classification": "Derived external launch/evidence tooling; no Product or semantic authority",
+  "change": "Two distinct immutable empty npm configuration controls, selected explicitly by template; unchanged runner and Product",
+  "admission": "Existing owner finish-RC14 instruction; Root accepted closed independent multi-frame config triage, no changed Product outcome",
+  "executionAuthorized": false,
+  "deadlineUtc": null,
+  "effects": [
+    "Create this successor control directory, syntax/hash checks and own-branch authored commit",
+    "Preserve failed01/02, frozen02controls and exact Product/archive"
+  ],
+  "exclusions": [
+    "No Product/test/import/build/provider execution, main/push, retry or qualification"
+  ],
+  "returnTo": "Independent exact control review then Root separate finite grant",
+  "recordedUtc": "2026-11-15T07:28:07.066170+00:00"
+}
