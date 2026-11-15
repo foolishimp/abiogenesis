@@ -1,0 +1,7 @@
+# S06 offline toolchain successor 02
+
+Root selected one bounded external-control correction after the preserved zero-child attempt at f8e045b25. Product F17/S06 and exact STDO 3.0.4 bootstrap remain unchanged. This is dependency acquisition proof; it gives no lifecycle/runtime authority, application acceptance or qualification.
+
+Only inventory order equality changes: both recorded and observed row arrays are normalized by their exact relative-path string, and duplicate paths refuse. Full row equality still conserves paths, kinds, modes, lengths, digests and symlink targets. The exact frozen01 JDK, launcher, boot jars, Maven acquisition superset and 22 application inputs are reused read-only by their original hashes; no 2.4 GB recopy or replacement coordinate is selected. The old controls, failure, input bytes and clocks remain unchanged.
+
+The retained input manifest feeds a fresh02 work/home/boot/global/Ivy/Coursier/temp, then the same direct pinned Java and SBT queries under file-only repository routing and network-denying OS sandbox. One fresh 15-minute phase reserves two minutes for cleanup. No application compile/test/run, Spark, ABG or provider is selected. First failure is retained before assertions and returns without automatic retry. Exact controls and static ordering checks are frozen before launch; child captures, owner graph/classpath and conservation decide the returned evidence claim.

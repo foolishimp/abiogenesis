@@ -1,0 +1,12 @@
+{
+  "pythonAst": "pass",
+  "exactMavenRows": 4179,
+  "uniqueMavenPaths": 4179,
+  "orderingNormalization": "pass",
+  "duplicateRefusal": "pass",
+  "pathKindModeBytesShaSymlinkChangesRemainUnequal": "pass",
+  "noProductImportOrExecution": true,
+  "unchangedOwnerSha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39",
+  "unchangedFreezeHelperSha256": "27237334d39c7580477119a00e70f842d901c0f8e56cfe839a5eaab947440424",
+  "helperMainNotSelected": "freeze.py is imported only; prior acquisition routine is not called"
+}
