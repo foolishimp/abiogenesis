@@ -1,0 +1,78 @@
+{
+  "id": "RC14-NATIVE08-PROOF-AND-SOURCE-CLOSURE",
+  "recordedUtc": "2026-11-15T14:55:26.864465+00:00",
+  "productFrame": "Fixed ABI5/T287 RC14; selected sixteen-file fixture conjunction only, not Product qualification.",
+  "proofReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/proof-01/RETURN.json",
+    "bytes": 24044,
+    "sha256": "d489a2f90811a35f91cb77ed5e31d6389b3b520c32e858841216774912396f8e"
+  },
+  "operatorClosure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/PROOF_CLOSURE.json",
+    "bytes": 6867,
+    "sha256": "331b9c9494141b678529021fe0480889763a269dd5c2239a1da6b18946388c86"
+  },
+  "sourceCommit": "e977214ff0489451087e8969aa97eb2f8c5ebe24",
+  "sourceTree": "d48f96558fd7cc6b82aa84c03ab030479d60cad2",
+  "mainMerge": "01bb9f3fdef89ea71c0cba4d4bb09feac5820a01",
+  "actualExecutionSourceHead": "324ec312fa6ae4ab0f4d88a443d607fcd13c3c77",
+  "sourceCheckpointAfterProofClosed": true,
+  "sourceSha256": "fda1551579558998d509525258312fe0d21acce41c574af9dd96a0f9bd3c5e98",
+  "status": "passed",
+  "elapsedMs": 63044,
+  "fresh": {
+    "files": 1,
+    "ordinal": 10,
+    "pass": 8,
+    "fail": 0,
+    "skip": "ABG_GOVERNANCE_COVERED_C2_MATERIAL_SELECTORS unset; existing actual C2 material fixture gate",
+    "topLevel": 9
+  },
+  "retained": {
+    "files": 15,
+    "pass": 83,
+    "skip": 1,
+    "observedTopLevel": 64,
+    "namedMinimum": 62
+  },
+  "conjunction": {
+    "files": 16,
+    "pass": 91,
+    "fail": 0,
+    "skip": 2,
+    "observedTopLevel": 73,
+    "originalNamedMinimum": 71,
+    "notOneExecution": true,
+    "historicalFailuresRemainFailed": true
+  },
+  "candidate": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/proof-01/scratch/observations/t287-governance-covered-source-use/closed-owner-artifact-snapshot.json",
+    "bytes": 63999,
+    "sha256": "14f2f0593830192eb0b76343d882b9cfb403a819e75d3d606152378d6b8f9528"
+  },
+  "candidateObservation": "23 retained steps; owned after-close work all zero. Cold portable/copy each one history decode and one body read/two opens. Explicit fresh uses separate one-open reader. All original strict negatives and restoration passed.",
+  "conservation": {
+    "sourceUnchangedThroughProof": true,
+    "setupCustodyReverified": true,
+    "finalInputComparisons": 24,
+    "matched": 24,
+    "secondaryErrors": [],
+    "rootObservedGroupsAbsent": [
+      89640,
+      89657,
+      70557,
+      71138
+    ]
+  },
+  "originalHostDeadlineUtc": "2026-11-15T16:37:49.211017+00:00",
+  "effectiveProofDeadlineUtc": "2026-11-15T16:21:25.419848+00:00",
+  "completedUtc": "2026-11-15T14:52:28.463333+00:00",
+  "expired": false,
+  "fullLiteralCompliance": false,
+  "auditDisposition": "NATIVE08_AUDIT_DISPOSITION.json",
+  "providerCallsDuringProof": 0,
+  "buildsDuringProof": 0,
+  "retry": false,
+  "qualified": false,
+  "rawPublished": false
+}
