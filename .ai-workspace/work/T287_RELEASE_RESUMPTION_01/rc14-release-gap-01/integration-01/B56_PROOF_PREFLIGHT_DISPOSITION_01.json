@@ -1,0 +1,48 @@
+{
+  "id": "RC14-B56-PROOF-PREFLIGHT-DISPOSITION-01",
+  "recordedUtc": "2026-11-15T23:44:11.612505+00:00",
+  "writerActivation": "RC14-ROOT-B56-PROOF-RECORDS-WRITER-030",
+  "governingGrant": "integration-01/B56_RECOVERED_PROOF_ACTIVATION_01.json",
+  "failure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_PREFLIGHT_FAILURE_01.json",
+    "bytes": 2466,
+    "sha256": "be21ce27a288623432d5c441499af513bb09cd77f1613a8dbdad04a59d2d3d0d"
+  },
+  "productFrame": "Fixed5.0 B56/F04/F17/S06; declared native SDK Tool input is distinct from source/control/evidence Data. No Product policy or runtime change.",
+  "rootCause": "Inline Operator preflight applied its generic is_file and not is_symlink predicate to the196 native host inputs; the accepted native_inputs owner requires is_file and exact declared digest. Source/control pinned owner intentionally has the stricter predicate.",
+  "rootAcquisition": {
+    "declaredPath": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libSystem.tbd",
+    "isFile": true,
+    "isSymlink": true,
+    "linkTarget": "libSystem.B.tbd",
+    "sha256": "751d8c480f42e3bdba59b7d279fb6c8e812367de366d426b117a01ab55be2284",
+    "exactDeclarationRows": 1
+  },
+  "closedReviews": [
+    {
+      "actor": "/root/b29_vm_triage",
+      "frame": "Proof/Effect",
+      "verdict": "Operator mismatch confirmed; restore accepted native-input predicate only. Strict source/control/evidence checks and all digest/custody checks remain."
+    },
+    {
+      "actor": "/root/amendment_topology_review",
+      "frame": "Product/Design/Identity",
+      "verdict": "SDK Tool classification and separate pin owners confirmed. Same bounded unperformed path may continue with only caller predicate correction; no frozen-control/source/policy change."
+    }
+  ],
+  "disposition": "Continue the previously unperformed proof path under the exact existing grant after this record is pushed. Correct only the inline Operator196-row native-input preflight to accepted is_file()+declared digest semantics; do not modify39117a22 controls, any source, declaration or audit.",
+  "preservation": {
+    "failureRetained": true,
+    "proofInvocationsBeforeDisposition": 0,
+    "builds": 0,
+    "providers": 0,
+    "helperImports": 0,
+    "futureProofRootsAbsent": true,
+    "native35AndProof21Unchanged": true,
+    "originalDeadlineUtc": "2026-11-16T01:47:31.946547Z",
+    "clockReset": false,
+    "automaticRetry": false,
+    "qualification": false
+  },
+  "operatorActivation": "RC14-B56-RECOVERED-PROOF-OPERATOR-001 continuation; original proof grant/effect territory/bounds and first-failure stop remain. Record this disposition pin in external launch/Return; no new native or candidate work."
+}
