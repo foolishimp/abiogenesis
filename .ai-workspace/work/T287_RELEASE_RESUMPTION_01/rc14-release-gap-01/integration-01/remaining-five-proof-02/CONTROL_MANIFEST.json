@@ -24,8 +24,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3512,
-      "sha256": "766ba37a8d4f02f118039e091fd8e4e53f036c2dd19441ede0ab8e5248b4c0c5"
+      "bytes": 4368,
+      "sha256": "d609dda826d61586d5bf3c49b8f22c4d071ea4d1b8d8564951fe7faeb6559501"
     },
     {
       "path": "RETAINED_INPUTS.json",
@@ -34,13 +34,13 @@
     },
     {
       "path": "STATIC_CHECKS.json",
-      "bytes": 2354,
-      "sha256": "4c1cb3948863870f449beb2bc975f19fcaf97db3253da4a2db68bf740fbb608a"
+      "bytes": 4126,
+      "sha256": "4b920d41da6e6837559377070b41a206e18fb6e9198eac2d5b1e062c35929d17"
     },
     {
       "path": "run.py",
-      "bytes": 15732,
-      "sha256": "36c7ea5b3530a5056e3aa31056674643e7ac50785393bcacfc8f875c0ce983f4"
+      "bytes": 17991,
+      "sha256": "2334198eb64e79ff9b66cb6b9d15cc8c89cae091f12cba42785137ffb7c60c6d"
     }
   ]
 }

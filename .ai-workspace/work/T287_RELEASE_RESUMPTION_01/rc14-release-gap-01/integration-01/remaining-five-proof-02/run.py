@@ -44,6 +44,31 @@ def main():
  raw.mkdir();proof=raw/'proof-01';proof.mkdir();write(raw/'BINDING.json',b)
  write(raw/'CONTROL_START.json',{'startedUtc':now.isoformat(),'deadlineUtc':end.isoformat(),'maximumMs':a['limits']['enclosingMs'],'cleanupReserveMs':a['limits']['cleanupReserveMs'],'oldCampaignClockReused':False})
  base=load(retained_control/'prove.py');owner=base.owner;deps=base.deps
+ verify_inventory=base.verify_inventory;digest=base.digest
+ def final_input_conservation(reuse,build,dependency,retained,tenant,evidence,end_monotonic,end_utc):
+  # Same original comparisons, now reached from finally for initialized fixtures.
+  # Each retained result is separate; the primary proof error is never replaced.
+  checks=[];errors=[]
+  def check(kind,path,expected,observe):
+   row={'kind':kind,'path':str(path),'expected':expected}
+   try:
+    assert time.monotonic()<end_monotonic and datetime.datetime.now(datetime.timezone.utc)<end_utc,'original proof deadline reached before final input observation'
+    actual=observe();row.update({'actual':actual,'matched':actual==expected});assert row['matched'],'final input conservation mismatch '+str(path)
+   except BaseException as error:
+    row.update({'matched':False,'error':{'name':type(error).__name__,'message':str(error)}});errors.append(row['error'])
+   checks.append(row)
+  def build_observation(root):
+   verify_inventory(root,build['rows']);return {'files':len(build['rows']),'bytes':sum(r['bytes'] for r in build['rows']),'inventorySha256':reuse['buildInventory']['sha256']}
+  expected={'files':len(build['rows']),'bytes':sum(r['bytes'] for r in build['rows']),'inventorySha256':reuse['buildInventory']['sha256']}
+  for root in [Path(reuse['buildRoot']),tenant/'build']:check('build',root,expected,lambda root=root:build_observation(root))
+  for row in reuse['derivedPayloadOutputs']:
+   for path in [Path(row['source']),tenant/row['path']]:check('derived',path,row['sha256'],lambda path=path:digest(path))
+  for root in [Path(dependency['path']),tenant/'node_modules']:check('dependencies',root,dependency['inventorySha256'],lambda root=root:deps.inventory(root)['sha256'])
+  for row in retained['files']:
+   for path in [Path(retained['sourceRoot'])/row['path'],evidence/row['path']]:check('retained_input',path,row['sha256'].removeprefix('sha256:'),lambda path=path:digest(path))
+  assert len(checks)==24
+  return {'status':'matched' if not errors else 'failed','checks':checks,'secondaryErrors':errors,'observedUtc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'withinOriginalDeadline':time.monotonic()<end_monotonic and datetime.datetime.now(datetime.timezone.utc)<end_utc}
+
  assert base.SOURCE==source and base.RAW==old_raw
  prior=read(inputs['records']['postimage']['path']);closure=read(inputs['records']['rootClosure']['path'])
  assert prior['head']==a['originalAuthorHead'] and closure['sourceCommit']==a['sourceCommit']
@@ -159,7 +184,7 @@ def main():
  finally:
   if initialized:
    try:
-    conservation=base.final_input_conservation(reuse,build,dependency,retained,tenant,evidence,final_deadline,end)
+    conservation=final_input_conservation(reuse,build,dependency,retained,tenant,evidence,final_deadline,end)
     secondary.extend(conservation['secondaryErrors'])
    except BaseException as error:
     secondary.append({'stage':'final_input_conservation','name':type(error).__name__,'message':str(error)})

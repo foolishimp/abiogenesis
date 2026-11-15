@@ -3,7 +3,7 @@
   "observedUtc": "2026-11-15T13:46:25.249772+00:00",
   "pythonAst": "passed; no import or execution",
   "jsonParse": "all current authored JSON passed",
-  "runnerDelta": "Five mechanical hunks from accepted0fcb: docstring, local retained packet, five-file population+unchanged first7 guard, prior closed raw root added to protected inputs, truthful final population labels. All process/observer/deadline/source/capture/finalization owner code otherwise identical.",
+  "runnerDelta": "Original five bounded hunks retained. Successor repair adds literal finalizer, exact owner aliases and local call only; AST cardinality22\u219224 is sole helper semantic delta.",
   "population": {
     "originalOrdinals": [
       12,
@@ -50,6 +50,36 @@
     "bytes": 4401,
     "sha256": "a4099349019ec538f43e99905f8a654ba79dc5a802660b54684f0829504ea674"
   },
-  "finalAstAfterProtectedInputAddition": "passed; source parse only",
-  "worktreePreparation": "Fresh --no-checkout worktree index was initialized with read-tree -mu HEAD after sparse selection; no source deletions or unrelated edits remain."
+  "worktreePreparation": "Fresh --no-checkout worktree index was initialized with read-tree -mu HEAD after sparse selection; no source deletions or unrelated edits remain.",
+  "preflightCorrection": {
+    "rejectedCommit": "8c9f4b6140ed520ee1525ee7f8b33853ca680a6d",
+    "finding": "Original07 final_input_conservation asserts exactly22 comparisons; eight retained inputs create24 and throw before returning the comparison list. Prior claim that the unchanged helper accepts24 is withdrawn. Rejected before execution.",
+    "authority": "Root separate external-controls Writer repair instruction; existing selected eight-row/24-comparison disposition, unchanged Product.",
+    "repair": "Literal successor-local nested final_input_conservation copy; sole function AST delta is expected count22 to24. Existing verify_inventory and digest are lexical aliases to authenticated base owners; deps already comes from that base. Local call replaces base call; original07 unchanged.",
+    "originalHelperSource": {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/prove.py",
+      "bytes": 27559,
+      "sha256": "a10d3f3aa336f5d6b28a110ef0fe63fab673eb2f504b90150f1979632f880465"
+    },
+    "originalFunction": {
+      "startLine": 151,
+      "endLine": 173,
+      "bytes": 2181,
+      "sha256": "055e809eb089eeb46ee5df66e5e2fcf46458982e92ae0a9eaf9cc7eefbe5c23a",
+      "astSha256": "cecb988ddec20e5e9e22ca3940f4e53b5634db972deaeb346844192a29cd26a9"
+    },
+    "successorFunction": {
+      "startLine": 48,
+      "endLine": 70,
+      "astSha256": "8280999c2faee68124a6485fad4012b37770a170fed51debb215ded89317405e"
+    },
+    "staticRelation": {
+      "soleFunctionAstDelta": "assert len(checks)==22 -> assert len(checks)==24",
+      "normalizedAstEqual": true,
+      "runnerOutsideInsertionAndCallEqualToRejectedSubject": true,
+      "authenticOwnerAliases": true
+    },
+    "execution": false
+  },
+  "finalPythonAst": "passed; local helper AST exact modulo sole cardinality constant and full runner outside insertion/call unchanged"
 }
