@@ -1,0 +1,137 @@
+{
+  "scope": "Syntax/JSON/source-byte/static relation checks only; no imports, setup, provider, tests or builds.",
+  "checks": [
+    {
+      "kind": "node_syntax_only",
+      "path": "amendment-consumer.mjs",
+      "exitCode": 0
+    },
+    {
+      "kind": "node_syntax_only",
+      "path": "amendment-setup.mjs",
+      "exitCode": 0
+    },
+    {
+      "kind": "node_syntax_only",
+      "path": "amendment.mjs",
+      "exitCode": 0
+    },
+    {
+      "kind": "node_syntax_only",
+      "path": "coverage.mjs",
+      "exitCode": 0
+    },
+    {
+      "kind": "node_syntax_only",
+      "path": "oracle.mjs",
+      "exitCode": 0
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "bounded.py"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "command-owner.py"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "physical-topology.py"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "run.py"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "smoke-custody.py"
+    },
+    {
+      "kind": "json_parse",
+      "path": "ACTIVATION.json"
+    },
+    {
+      "kind": "json_parse",
+      "path": "BINDING.template.json"
+    },
+    {
+      "kind": "json_parse",
+      "path": "ORACLE.json"
+    },
+    {
+      "kind": "json_parse",
+      "path": "PROCESS.json"
+    },
+    {
+      "kind": "json_parse",
+      "path": "REUSED_HELPERS.json"
+    },
+    {
+      "kind": "json_parse",
+      "path": "SMOKE_INPUTS.json"
+    },
+    {
+      "kind": "static_declaration_relations",
+      "originalReviewsStagesAcceptancePreserved": true,
+      "newReview": "baseline",
+      "constructionPrerequisites": [
+        "impact",
+        "baseline"
+      ],
+      "protectedOracleInputs": true,
+      "testingWrites": []
+    },
+    {
+      "kind": "exact_original_reuse",
+      "path": "bounded.py",
+      "commit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6"
+    },
+    {
+      "kind": "exact_original_reuse",
+      "path": "command-owner.py",
+      "commit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6"
+    },
+    {
+      "kind": "exact_original_reuse",
+      "path": "physical-topology.py",
+      "commit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6"
+    },
+    {
+      "kind": "exact_original_reuse",
+      "path": "amendment-consumer.mjs",
+      "commit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6"
+    },
+    {
+      "kind": "exact_original_reuse",
+      "path": "amendment-setup.mjs",
+      "commit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6"
+    },
+    {
+      "kind": "exact_b44_reuse",
+      "path": "smoke-custody.py",
+      "commit": "e825092f3c0778553cf07a80abcac876da4ccc58"
+    },
+    {
+      "kind": "exact_b44_reuse",
+      "path": "SMOKE_INPUTS.json",
+      "commit": "e825092f3c0778553cf07a80abcac876da4ccc58"
+    },
+    {
+      "kind": "exact_b44_export_block_and_initial_c2_only",
+      "blockSha256": "dc68b5607ced703516d45bf627386fc0abc26ca62fb344f144a051824ac4c0d0"
+    },
+    {
+      "kind": "b44_run_reuse",
+      "differences": [
+        "scenario write-path declaration",
+        "scenario host command"
+      ]
+    },
+    {
+      "kind": "retained_maintained_api_equivalence",
+      "old": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+      "new": "df4b39d3121ef9aeefef78ef7f5dfceafced0560",
+      "files": 4
+    }
+  ]
+}

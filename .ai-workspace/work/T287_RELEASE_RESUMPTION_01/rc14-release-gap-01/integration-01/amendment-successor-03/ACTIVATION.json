@@ -1,0 +1,60 @@
+{
+  "kind": "disabled_external_amendment_bridge_successor",
+  "preparationSource": "5582dcbf0daa265a7439e65bb15619d8aaf579f7",
+  "originalControlCommit": "5582dcbf0daa265a7439e65bb15619d8aaf579f7",
+  "b44ControlCommit": "e825092f3c0778553cf07a80abcac876da4ccc58",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "product": "Fixed 5.0; S03 specification amendment with selective currentness. S06 remains a separate keyed-accounting witness.",
+  "method": {
+    "release": "3.0.4",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "authority": [
+    "Root separate external-controls Writer activation after closed B30 review of 5582dcbf0",
+    "B30 finding: command-owner.py owner() mismatches run.py owner(retained)",
+    "Root accepted distinct npm config mechanism at e79770398575e8ade182656ece59e8c05d3f1de6"
+  ],
+  "permittedEffects": [
+    "Create only this successor carrier on own branch; preserve predecessor02",
+    "Static syntax/JSON/hash/call relation checks",
+    "One exact Node --version through the real bridge and owned process; 30 s command plus 15 s cleanup",
+    "Retain raw probe under named external root; compact hashes only in Git",
+    "Freeze and commit own controls; return Root"
+  ],
+  "forbiddenEffects": [
+    "Product or maintained helper/test edits",
+    "Product imports or execution",
+    "Setup, provider, build, tests or install",
+    "Main mutation or push",
+    "Reviewer activation"
+  ],
+  "executionAuthorized": false,
+  "executionGrant": null,
+  "probe": {
+    "root": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-preflight-20261115-03",
+    "command": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--version"
+    ],
+    "capMs": 30000,
+    "cleanupMs": 15000
+  },
+  "successorRepair": {
+    "source": "b66663e43280836878a5f491e2a7c0d93f6f5524",
+    "cause": "URL directory pathname retains trailing slash; unchanged observer requires lexical canonical form",
+    "grant": "Root separate Writer reactivation; exactly dirname import and control assignment plus compact metadata",
+    "probeRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-preflight-20261115-04",
+    "effects": "Exact-source initializer under controlled import.meta.url, Python normpath comparison and one read-only unchanged physical observer command; 30 s command plus 15 s cleanup"
+  },
+  "pairedLayoutReentry": {
+    "source": "b66663e43280836878a5f491e2a7c0d93f6f5524 plus retained failed04 two-line preparation",
+    "authority": "Root accepted closed B29 Product/Integration/Identity/Effect/Proof disposition",
+    "scope": "Actual host one-refresh two-role layouts, same exact W, protected-set union preservation; unchanged observer/bridge",
+    "probeRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-preflight-20261115-05",
+    "enclosingMs": 75000,
+    "eachObserverCapMs": 30000,
+    "ownerCleanupMs": 15000,
+    "input": "Root-selected external read-only field projection: event ordinal3 binding artifact joined to workspace-bind.outcome and setup-identity admitted installs; not current runtime admission",
+    "priorFailures": "Original lexical refusal and04 seven-overlap result preserved; no old clock reset"
+  }
+}

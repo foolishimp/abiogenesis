@@ -1,0 +1,32 @@
+{
+  "kind": "disabled_external_amendment_successor",
+  "preparationSource": "df4b39d3121ef9aeefef78ef7f5dfceafced0560",
+  "originalControlCommit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+  "b44ControlCommit": "e825092f3c0778553cf07a80abcac876da4ccc58",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "product": "Fixed 5.0; S03 specification amendment with selective currentness. S06 remains a separate keyed-accounting witness.",
+  "method": {
+    "release": "3.0.4",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "authority": [
+    "Root separate Writer activation in thread; external-control successor only",
+    "integration-01/INSTALLED_COMPOSITION_CONTROL_FINDINGS.md",
+    "integration-01/AMENDMENT_CONTROL_PREPARATION_ACTIVATION.json"
+  ],
+  "permittedEffects": [
+    "Write only this control carrier on own named branch",
+    "Read exact owners and frozen controls",
+    "Static syntax/JSON/hash checks",
+    "Commit frozen controls on own branch"
+  ],
+  "forbiddenEffects": [
+    "Product or maintained helper/test edits",
+    "Product imports or execution",
+    "Setup, provider, build, tests or install",
+    "Main mutation or push",
+    "Reviewer activation"
+  ],
+  "executionAuthorized": false,
+  "executionGrant": null
+}

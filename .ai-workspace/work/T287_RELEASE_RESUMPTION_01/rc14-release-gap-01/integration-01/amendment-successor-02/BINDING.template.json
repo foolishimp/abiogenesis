@@ -1,0 +1,68 @@
+{
+  "executionAuthorized": false,
+  "executionGrant": null,
+  "controlSourceRoot": null,
+  "controlSourceCommit": null,
+  "controlManifestSha256": null,
+  "candidate": {
+    "sourceCommit": null,
+    "archivePath": null,
+    "archiveSha256": null,
+    "bootstrapPackageRoot": null,
+    "manifestSha256": null,
+    "packageVersion": null
+  },
+  "topologyAcceptance": {
+    "path": null,
+    "sha256": null
+  },
+  "runId": null,
+  "rawRoot": null,
+  "worksiteRoot": null,
+  "protectedRoots": null,
+  "pythonPath": null,
+  "deadlineUtc": null,
+  "exitAuditReserveMs": null,
+  "smokeTimeoutMs": null,
+  "maxCaptureBytes": null,
+  "setupEnvironment": null,
+  "configuration": {
+    "nodePath": null,
+    "recursionBound": null,
+    "processTimeoutMs": null,
+    "maxProcessOutputBytes": null,
+    "toolchains": {
+      "node": {
+        "executable": null,
+        "versionArgs": [
+          "--version"
+        ]
+      },
+      "npm": {
+        "executable": null,
+        "versionArgs": [
+          "--version"
+        ]
+      }
+    },
+    "provider": {
+      "enabled": false,
+      "agent": "claude",
+      "command": null,
+      "executableSha256": null,
+      "versionArgs": [
+        "--version"
+      ],
+      "model": null,
+      "appendArgs": [],
+      "inheritEnvironment": [],
+      "inactivityTimeoutMs": null,
+      "absoluteTimeoutMs": null,
+      "maxTurns": null
+    }
+  },
+  "preparationStatus": "disabled; exact retained amendment helpers and frozen B44 smoke subject are distinct from this successor and candidate; Root review and execution grant required",
+  "retainedControlRoot": null,
+  "smokeSourceRoot": null,
+  "smokeInputsSha256": null
+}

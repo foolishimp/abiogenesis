@@ -1,0 +1,144 @@
+{
+  "scope": "Static checks plus one separately authorized bridge probe; no Product imports/tests/build/setup/provider",
+  "staticChecks": [
+    {
+      "kind": "node_syntax_only",
+      "path": "amendment-consumer.mjs"
+    },
+    {
+      "kind": "node_syntax_only",
+      "path": "amendment-setup.mjs"
+    },
+    {
+      "kind": "node_syntax_only",
+      "path": "amendment.mjs"
+    },
+    {
+      "kind": "node_syntax_only",
+      "path": "coverage.mjs"
+    },
+    {
+      "kind": "node_syntax_only",
+      "path": "oracle.mjs"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "bounded.py"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "command-owner.py"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "physical-topology.py"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "run.py"
+    },
+    {
+      "kind": "python_ast_only",
+      "path": "smoke-custody.py"
+    },
+    {
+      "kind": "unchanged_selected_scenario_and_owner_inputs",
+      "files": 12
+    },
+    {
+      "kind": "exact_caller_bridge_loader_relation",
+      "caller": "job.retainedControlRoot=b.retainedControlRoot",
+      "bridge": "canonical job coordinate plus manifest bounded.py hash",
+      "loader": "owner(retained)",
+      "otherHostBytesUnchanged": false,
+      "subsequentHostDelta": "dirname import/initializer and role-based paired topology construction; bridge request/call relation unchanged"
+    },
+    {
+      "kind": "distinct_manifest_bound_empty_configs",
+      "paths": [
+        "npm-user.npmrc",
+        "npm-global.npmrc"
+      ]
+    },
+    {
+      "kind": "role_construction_scope",
+      "oneRefreshPerPhase": true,
+      "sameWAndProtectedUnionAsserted": true,
+      "allBindingAndInstallRootsRetained": true,
+      "partitionByDeclaredRole": true,
+      "bridgeObserverScenarioInputsEqualB666": true
+    }
+  ],
+  "retainedBridgeProbe": {
+    "status": "passed_once",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-preflight-20261115-03",
+    "returnSha256": "47f8e2796749ffb1e4c4b701a3eec67953d27bd42bf35b2c3da6bdc1bcc18d81",
+    "requestSha256": "1dc8717da9a0a7ed82d491b0c293c38efd92e5a30e2e8b7e6609cf02a7d73868",
+    "entrySha256": "2c0c6ae1c90849630b6f6be137b9201dbb99bac1314cfb1fceb825f1c9329066",
+    "exitSha256": "2c0c6ae1c90849630b6f6be137b9201dbb99bac1314cfb1fceb825f1c9329066",
+    "probeControlManifestSha256": "e7e846fd1837271a781189e557a7912ae1ddf8b75854bdef86677bd68f582f3e",
+    "executedCode": {
+      "command-owner.py": "16179ed58782c1880118ad4e5c6c2a05d23692d819951b24e2952071fcc9f9f2",
+      "run.py": "969123c015958c8c8b789e6260a5e9477e30bf47742cd88880327fd996788d04",
+      "bounded.py": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2",
+      "amendment.mjs": "a02c0e393064f05226dcb8399960d28494afa5ec8d8022f38b7f7a6a05a7abd0"
+    },
+    "executedCodeUnchangedAtFreeze": true,
+    "claim": "Only exact Node --version through actual bridge and retained finite owner; no Product/setup/test/build/provider execution",
+    "frozenSubject": "b66663e43280836878a5f491e2a7c0d93f6f5524",
+    "currentReuse": {
+      "unchangedExecutedFiles": [
+        "command-owner.py",
+        "run.py",
+        "bounded.py"
+      ],
+      "hostInputDelta": "Only dirname import and control initializer; current initializer proved separately"
+    }
+  },
+  "controlDirectoryProbe": {
+    "status": "initializer_passed_observer_failed",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-preflight-20261115-04",
+    "returnSha256": "52d1a71c531bbb3ae98b9005e7b20844fcaee83ae7df17f063ab4530dfe63da6",
+    "initializerResultSha256": "d0fa61fd44998cec54ae9b455532ba1f3af9959068d9f7a19f17f988f4b7d63a",
+    "observerStdoutSha256": "d90716111722db2890972fd3088de8e1fb637845d315ff0ccad3b467cf17451f",
+    "freshObserverCommands": 1,
+    "disposition": "overlap",
+    "nonseparatedRelations": 7,
+    "inputConservation": true,
+    "ownedGroupsAbsent": true,
+    "retry": false,
+    "freeze": "Held by Root; no topology closure claim"
+  },
+  "pairedTopologyProof": {
+    "status": "passed_once",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-preflight-20261115-05",
+    "returnSha256": "ba750b30a07d8a3cec2385b49896d52a4a766a7792a2be1aea41e9afa8984475",
+    "provenanceSha256": "59a6935f5a074e610fe1024a253b8d52c3232e486cb458c03aeda465395800ce",
+    "inputConservationSha256": "42ff024759d52de2fdbbf7f42a9d8245d0966b31275e0e0bd5a1123eb7fbe611",
+    "currentHostSha256": "384587ede17eba18134867ac1a7affc3ac2d40cb74b865a4bdf04ebe1c706c27",
+    "producerFunctionSha256": "04e4f84d92382f548db0d633cd57c2dacdc8e54eb1014740b1e5a8bac415b7f7",
+    "producerProgramSha256": "38f16e85b553303dd94bac6652c9901a1d83eae4ecc4296a4433c8d6bec02af9",
+    "eventOrdinal": 3,
+    "sameW": true,
+    "protectedUnionConserved": true,
+    "roles": {
+      "operator-custody": {
+        "disposition": "separated",
+        "stdoutSha256": "c46f705e01b10f8b784bc632d013c4dbbfb8263ce95f15cca9328d3d89f24a22",
+        "resultSha256": "63c9ab3bc8f66addf62863983217188f2a2c116767ed3337bb543d7ba740edad",
+        "layoutSha256": "8393da236b670041ea94dd72be1a5caa51d7516a65ce8a71f2377e8ed649ca45"
+      },
+      "runtime-owner": {
+        "disposition": "separated",
+        "stdoutSha256": "e0806f3073ced38b686b943646b955ac3d56ced681c51eb2547a5e50411e3233",
+        "resultSha256": "11abe3537a4a6c7544d33d35bea162f7e40a14b430b9337709d2b7e86cf8843a",
+        "layoutSha256": "d2eaa329c366a13510c8cec956d7b25903e8d13797fb477fcd103a46de55e4bb"
+      }
+    },
+    "ownedGroupsAbsent": true,
+    "enclosingMs": 75000,
+    "eachObserverCapMs": 30000,
+    "old04RedPreserved": true,
+    "claim": "Exact actual host construction on Root-selected retained owner field projection; two unchanged physical observer calls, not runtime admission or full amendment evidence"
+  }
+}
