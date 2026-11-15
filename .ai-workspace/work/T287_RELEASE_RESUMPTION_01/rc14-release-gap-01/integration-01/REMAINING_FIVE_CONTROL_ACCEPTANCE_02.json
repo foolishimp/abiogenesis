@@ -1,0 +1,38 @@
+{
+  "id": "RC14-REMAINING-FIVE-CONTROL-ACCEPTANCE-02",
+  "productFrame": "Fixed ABI5/T287 RC14; derived test evidence under STDO3.0.4. No runtime authority or qualification credit.",
+  "reviewer": "Root independent of controls Writer R14; conjoined B29 frozen review and one-delta correction review",
+  "subjectCommit": "f5fbd46c0632c579c8970c4cf2313360acbea6dd",
+  "subjectTree": "8abdb4a93bc090f537a22bf7581888a16d6f9428",
+  "manifestSha256": "0778520d45dc178a211c48bfc7e119a4eb2fd10689e2d3e5c9ec2764a470b3b3",
+  "returnSha256": "bd7eb14f2afd5afba69ed5cc0a936d681318f022a75b27b3208f058d6e766203",
+  "disposition": "accepted_for_one_bounded_execution_after_checkpoint_push_and_actual_grant",
+  "findings": [],
+  "originalRejectedSubject": "8c9f4b6140ed520ee1525ee7f8b33853ca680a6d",
+  "correction": "Before any execution B29 found original07 finalizer hardcodes22. Successor-local helper is AST identical except22to24, uses authenticated original inventory/digest/dependency owners and is called in original finally. Old07 and failed static subject remain immutable.",
+  "verification": {
+    "manifestMembers": 8,
+    "externalPins": 44,
+    "originalOrdinals": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "topLevelCases": 24,
+    "retainedInputRows": 8,
+    "finalInputComparisons": 24,
+    "sourceCommit": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+    "sourceRows": 1428,
+    "unchanged": "Source/build/dependencies, same command/capture/topology/population/primary-error/deadline owners and source/mirror checks",
+    "excluded": "No011 repetition, file010 execution, Product/test edit, build or provider"
+  },
+  "enclosingMaximumMs": 3600000,
+  "cleanupReserveMs": 15000,
+  "firstFailureStop": true,
+  "automaticRetry": false,
+  "executionStarted": false,
+  "qualified": false,
+  "rawPublished": false
+}
