@@ -1,0 +1,163 @@
+{
+  "recordedUtc": "2026-11-15T19:06:00.741008+00:00",
+  "authority": "Owner finish RC14 and continue; closed B52/B55 triage and exact independently reviewed successor06. Execute only after this grant, controls and acceptance are pushed. Failed01/02 and their original clocks remain closed.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "candidate": {
+    "sourceCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "sourceTree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
+    "compileInputTree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "archiveSha256": "sha256:5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/bootstrap/package",
+    "manifestSha256": "2bfb3663bb394f1b735703670cdbbe93c608117ad0527a550ea15e8971555c0d",
+    "packageVersion": "5.0.0-rc.14",
+    "cutRecordPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/CUT_RECORD.json",
+    "cutRecordSha256": "3700aac9426d375e414a5f3928013fefcd30e4302e8705a939ede5ba0a3a9902",
+    "archiveMembersPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/ARCHIVE_MEMBERS.json",
+    "archiveMembersSha256": "bc426b70235cde976c632d478fde3750d54cfc62a41db8220525c113c80597a4",
+    "installRecordPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/INSTALL_RECORD.json",
+    "installRecordSha256": "16f294953676d261871622e0d88825fb0190352d22a241eed749969c8b5e5b1d",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "sourceFinalization": {
+    "C1Commit": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+    "C1Tree": "db27ed1be8ba16a25888ab785ba26263f730f811",
+    "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-01",
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-01/FREEZE.json",
+      "bytes": 4776,
+      "sha256": "4db84a20a83e020206e4161fbd4ca50284fd9b929a702d346645e78cc21bd012"
+    }
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "executableSha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "versionArgs": [
+      "--version"
+    ],
+    "model": "claude-opus-5-5",
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ],
+    "inactivityTimeoutMs": 600000,
+    "absoluteTimeoutMs": 1200000,
+    "maxTurns": 120
+  },
+  "concurrency": "At most two actual provider executions globally: one amendment lane and one S06 lane. Each lane follows its admitted sequential owner path; monitor actual actor starts/closes and do not launch another lane.",
+  "credentialRule": "Only named private credential keys may reach the native invocation interval; values remain in memory and are never written into binding, setup, command logs, Git or commentary.",
+  "limitsCommon": {
+    "processTimeoutMs": 300000,
+    "maxProcessOutputBytes": 67108864,
+    "recursionBound": 16,
+    "exitAuditReserveMs": 180000,
+    "captureBytes": 67108864,
+    "firstFailureStops": true,
+    "retries": 0
+  },
+  "exclusions": [
+    "No ABG Product/source/test/control repair, rebuild or repack; no change to source or pinned RC13 builder.",
+    "No manufactured results, forced adverse verdict, caller-owned semantic ordering, dropped assertion, weaker acceptance, automatic repair/retry or old-candidate proof transfer.",
+    "No broad duplicate suite, formal qualification/B50 campaign, AF25/tag/publication/selector/human acceptance.",
+    "No main writes/push, raw Git, deletion of retained evidence, or writes outside declared fresh witness/raw/binding/owned Tool territories."
+  ],
+  "stops": [
+    "Changed input/pin, occupied fresh roots, topology refusal, first failure/typed block/unobserved required coverage, budget/inactivity/capture limit, missing process absence or final conservation. Preserve full first-failure candidate and return to Root without retry."
+  ],
+  "return": "Actual provider/model and task observations, admitted results/currentness/replay, output and input conservation, original deadlines, costs by phase, complete group closure; precise bounded outcome only. Compact authored Return on own isolated records branch after closure, no main/push.",
+  "id": "RC14-INSTALLED-AMENDMENT-OPERATOR-003",
+  "role": "Separate installed amendment Operator",
+  "productFrame": "Fixed5.0 S03/F17 amendment and selective currentness, real installed Public owner. Actual admitted Testing/correction/review/acceptance and replay are required; application success alone does not satisfy missing currentness coverage.",
+  "controls": {
+    "root": "/private/tmp/abg-rc14-amendment-successor-20261116-06/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-06",
+    "commit": "5b75c3a38114685d66d443ffc4e23733e24457c1",
+    "manifestSha256": "15a3bba1eadb7e723305ebd9ef880c9c13b3713b834301613ebc839356a92cdb",
+    "returnSha256": "98231cbfcf72f344f9cd3d491fb8e6b08c1b1d63108380a297a35d4120571eb2"
+  },
+  "maintainedHelpers": {
+    "sourceRoot": "/private/tmp/abg-rc14-amendment-controls-823-20261116-01",
+    "sourceCommit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+    "manifestSha256": "d595c6bba5daec4a26267c0147fd5f28566784146217c360522e7ffb31db4d8b",
+    "alreadyProvisioned": true
+  },
+  "runId": "rc14-amendment-witness-20261116-03",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-03",
+  "worksiteRoot": "/private/tmp/abg-rc14-amendment-witness-20261116-03",
+  "bindingRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-03",
+  "bindingPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-03/BINDING.json",
+  "smokeInputsPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-03/SMOKE_INPUTS.json",
+  "smokeSourceRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/source",
+  "smokeTimeoutMs": 300000,
+  "enclosingMs": 10800000,
+  "entry": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "/private/tmp/abg-rc14-amendment-successor-20261116-06/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-06/run.py",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-03/BINDING.json"
+  ],
+  "bindingRule": "Fill accepted successor06 runtime templates with actual C0/cut/source.tar/build/archive/generated/dependency pins and the original selected mechanical INSTALL_RECORD as fourth receipt. Bind the record-owned installHost/installedRoot as separate candidate fields and protect receipt/host/package in both roles; keep bootstrapPackageRoot unchanged. Recompute SMOKE_INPUTS hash. Use fresh03 raw/worksite/binding, successor06 npm files and one actual3h clock. Preserve all11 smoke files, every tool hash and B52 historical OS-tool split. No old-binding/path inference, retry or clock reset.",
+  "protectedRoots": [
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/source.tar",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/INSTALL_RECORD.json",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-02",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/DEPENDENCY_PREIMAGE.json",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14/node_modules/@abiogenesis/typescript-tenant",
+    "/Users/jim/Library/Application Support/STDO/releases/v3.0.4",
+    "/Users/jim/src/apps/abiogenesis",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+    "/opt/homebrew/lib/node_modules/npm",
+    "/private/tmp/abg-rc14-amendment-controls-823-20261116-01",
+    "/private/tmp/abg-rc14-amendment-successor-20261116-06/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-06",
+    "/private/tmp/abg-rc14-candidate-metadata-20261116-01",
+    "/private/tmp/abg-rc14-proof-fixture-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/dependency-inputs.py"
+  ],
+  "protectedInputsRule": "Protect binding, SMOKE_INPUTS, all receipt/dependencyReader/npmTree paths, candidate/source/archive/donor/control/runtime/install inputs, and selected Node/npm/Python/native provider coordinates in both roles. Historical cut git/tar coordinates are custody-only unless independently selected as governed roots; keep all cut tool path/digest entry/exit checks unchanged.",
+  "effects": [
+    "Fresh external binding/raw/worksite only; one physical readiness observation, one installed-language smoke and one actual admitted amendment witness through unchanged accepted controls.",
+    "Private credential only for real native work; explicit nonsecret setup environment with distinct controlled npm files; exact source/control/dependency/tool/archive/package custody before and after.",
+    "Record admitted initial Testing, intervening construction, stale/fresh affected review, preserved unaffected review, final Testing/native acceptance and held/fresh replay/closure. Missing evidence remains unobserved."
+  ],
+  "controlAcceptance": "AMENDMENT_CONTROL_ACCEPTANCE_06.json",
+  "predecessorFailure": {
+    "returnCommit": "b33eec0fd85ed71a4528300cd6e4db1f8a8b2b92",
+    "originalDeadlineUtc": "2026-11-15T21:47:20.425957+00:00",
+    "closed": true,
+    "reopened": false,
+    "providerCalls": 0
+  },
+  "topologyAcceptanceSelection": "Use this exact pushed activation byte-copy as topology recipe acceptance; actual planned/after-setup/pre-dispatch observations remain required and are not supplied by this record.",
+  "custodyOnlyHistoricalCutTools": {
+    "git": {
+      "name": "git",
+      "path": "/usr/bin/git",
+      "realPath": "/usr/bin/git",
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    },
+    "tar": {
+      "name": "tar",
+      "path": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    }
+  },
+  "selectedInstallationRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/INSTALL_RECORD.json",
+    "bytes": 6778,
+    "sha256": "16f294953676d261871622e0d88825fb0190352d22a241eed749969c8b5e5b1d"
+  },
+  "earlierFailureReturn": "64d1ab6d36821fd4e09db9c631b83999f52ddc16"
+}

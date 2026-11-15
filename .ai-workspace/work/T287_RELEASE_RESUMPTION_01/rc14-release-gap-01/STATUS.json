@@ -1,5 +1,5 @@
 {
-  "status": "RC14_S06_SUCCESSOR_READY_AMENDMENT_INSTALL_JOIN_WRITER",
+  "status": "RC14_S06_SECOND_RUN_ACTIVE_AMENDMENT_THIRD_RUN_SELECTED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T19:00:10.803393+00:00",
-  "nativeAuthorState": "No active provider at this checkpoint. S06 successor03 independently accepted; fresh02 execution selected after push. Amendment06 install-join Writer active; no amendment03 run selected yet.",
+  "recordedUtc": "2026-11-15T19:06:00.741008+00:00",
+  "nativeAuthorState": "S06-02 actual D1 actor started with admitted role context. Amendment06 exact correction accepted; fresh03 grant selected after checkpoint push. At most two native provider lanes.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -997,10 +997,26 @@
     "retry": false
   },
   "s06Witness02": {
-    "state": "SELECTED_AFTER_REVIEW_AND_CHECKPOINT",
+    "state": "D1_NATIVE_RUNNING_WITH_ADMITTED_ROLE_CONTEXT",
     "controlCommit": "6f4c3777cee044a7a9c3de23e18cb7ed3ac4f188",
     "controlAcceptance": "integration-01/S06_CONTROL_ACCEPTANCE_04.json",
     "activation": "integration-01/s06-witness-02/ACTIVATION.json",
+    "providerStarted": true,
+    "qualified": false,
+    "startedUtc": "2026-11-15T19:01:13.395400Z",
+    "originalDeadlineUtc": "2026-11-15T23:01:13.395400Z",
+    "bindingSha256": "2df94245d14dae65856cde1bdcdc726b7c961d75bbea10b772140c27bee79688",
+    "actorStartedUtc": "2026-11-15T19:02:14.144Z",
+    "actorPid": 56042,
+    "modelObserved": "claude-opus-5-5",
+    "effortConfigured": "xhigh",
+    "roleEnvironmentAdmitted": true
+  },
+  "amendmentWitness03": {
+    "state": "SELECTED_AFTER_REVIEW_AND_CHECKPOINT",
+    "controlCommit": "5b75c3a38114685d66d443ffc4e23733e24457c1",
+    "controlAcceptance": "integration-01/AMENDMENT_CONTROL_ACCEPTANCE_06.json",
+    "activation": "integration-01/amendment-witness-03/ACTIVATION.json",
     "providerStarted": false,
     "qualified": false
   }

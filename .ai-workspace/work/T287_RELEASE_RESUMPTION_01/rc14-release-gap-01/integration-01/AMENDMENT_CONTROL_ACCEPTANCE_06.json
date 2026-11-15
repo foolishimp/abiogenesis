@@ -1,0 +1,29 @@
+{
+  "id": "RC14-AMENDMENT-CONTROL-ACCEPTANCE-06",
+  "recordedUtc": "2026-11-15T19:06:00.741008+00:00",
+  "productFrame": "Fixed5.0 S01/S03/F17 installed smoke and amendment/currentness; explicit existing installation joins to actual candidate, no external semantic authority.",
+  "basis": "stdo://releases/v3.0.4/",
+  "subjectCommit": "5b75c3a38114685d66d443ffc4e23733e24457c1",
+  "subjectTree": "6c76152243c25714473b94964956f7dafee27c36",
+  "mainMerge": "a74f3c7ad020e1294fe5a50be147a8206e9fe470",
+  "manifestSha256": "15a3bba1eadb7e723305ebd9ef880c9c13b3713b834301613ebc839356a92cdb",
+  "returnSha256": "98231cbfcf72f344f9cd3d491fb8e6b08c1b1d63108380a297a35d4120571eb2",
+  "reviewer": "/root/amendment_topology_review separate read-only source/receipt review",
+  "sourceVerdict": "satisfied, no actionable counterexample",
+  "rootAcquisition": {
+    "manifestMembers": 24,
+    "externalReceiptPins": 13,
+    "mismatches": 0,
+    "twoExecutableDiffsRead": true
+  },
+  "verified": [
+    "Existing fourth INSTALL_RECORD joins exact cut/archive/C0/Product identity and canonical npm host/package coordinates, both protected. Bootstrap role remains separate.",
+    "Complete current installed tree matches archive members at entry and exit; run.py consumes the checked host, not bootstrap ancestry.",
+    "Sixteen unaffected controls byte-identical. All lifecycle/observer/budget/credential/cleanup and B52 role/hash checks conserved.",
+    "One retained3785ms read-only custody acquisition reports5302files/69284648bytes equal to archive. It is not smoke or lifecycle proof."
+  ],
+  "disposition": "Accept bounded B55 source correction. B52 planned topology passed in02; all actual paired/lifecycle/currentness roles and B55 smoke remain open until new separately granted execution.",
+  "priorFailures": "01/02 remain failed with original clocks and evidence.",
+  "qualified": false,
+  "rawPublished": false
+}
