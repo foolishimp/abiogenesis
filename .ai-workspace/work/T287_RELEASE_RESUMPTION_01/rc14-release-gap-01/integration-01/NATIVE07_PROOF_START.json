@@ -1,0 +1,30 @@
+{
+  "id": "RC14-NATIVE07-PROOF-START",
+  "recordedUtc": "2026-11-15T13:04:16.137058+00:00",
+  "actualStart": {
+    "sourceHead": "b47ee9e72eb2dd6ae247f111fca7fa966f4c9d46",
+    "startedUtc": "2026-11-15T13:03:21.992652+00:00",
+    "originalHostDeadlineUtc": "2026-11-15T14:44:43.176910+00:00",
+    "requestedProofDeadlineUtc": "2026-11-15T14:33:21.992652+00:00",
+    "deadlineUtc": "2026-11-15T14:33:21.992652+00:00",
+    "executionStopDeadlineUtc": "2026-11-15T14:33:06.992652+00:00",
+    "cleanupReserveMs": 15000,
+    "noRetry": true,
+    "qualified": false
+  },
+  "rawStart": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/proof-01/START.json",
+    "bytes": 436,
+    "sha256": "b4ab6350079b4154426bf69d988f173b78592b80da3f6756a82a0d4b4029d01d"
+  },
+  "rootAuthority": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/ROOT_PROOF_AUTHORITY.json",
+    "sha256": "e0a4827ec4dd1a7cb4a2d0b483780f862a2bb04622320a2c4ffee25fe7e1b253"
+  },
+  "mainAtGrant": "74999d972fcd7285dc990d97a9bfb39164559fb7",
+  "sourceHeadUnchanged": "b47ee9e72eb2dd6ae247f111fca7fa966f4c9d46",
+  "state": "syntax_passed_F09_running",
+  "providerCalls": 0,
+  "retry": false,
+  "qualified": false
+}

@@ -1,5 +1,5 @@
 {
-  "status": "RC14_NATIVE07_SOURCE_ACCEPTED_PROOF_ENTRY_CHECKPOINTING",
+  "status": "RC14_NATIVE07_F09_CLOSED_NATIVE08_FIXTURE_REENTRY_SELECTED",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -8,7 +8,7 @@
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
   "providerCalls": 10,
-  "triage": "F09 stale held-history selection repaired through existing Event Store reidentification owner. Six prior whole files retain44 actual passes; ten fresh files pending. Candidate cut, installed amendment/S06 and separate qualification remain.",
+  "triage": "F09 and both TD36 whole files add8passes; nine whole files52passes retained separately. Seven files need fresh proof after governance cold-read fixture repair. Amendment controls also require truthful final candidate binding; cut remains pending.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
   "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T13:00:59.282600+00:00",
-  "nativeAuthorState": "Native07 closed successfully, independent source review satisfied, actual audit retains one admitted node-version metadata variance. No active provider. Ten-file proof entry accepted, not yet run.",
+  "recordedUtc": "2026-11-15T13:13:15.261416+00:00",
+  "nativeAuthorState": "No active provider/proof. Native07 one-file source checkpointed after whole F09 passed; proof stopped at stale governance physical-open expectation. Native08 one-case repair selected after independent Product/Design/source triage.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -802,9 +802,21 @@
     "executionAuthorized": false
   },
   "native07ProofReentry": {
-    "state": "ACCEPTED_PENDING_PUSH_AND_SEPARATE_OPERATOR_GRANT",
+    "state": "CLOSED_FIRST_FAILURE_GOVERNANCE_PHYSICAL_OPEN_COUNT",
     "record": "integration-01/NATIVE07_PROOF_REENTRY_ACCEPTANCE.json",
-    "proofStarted": false,
-    "originalHostDeadlineUtc": "2026-11-15T14:44:43.176910+00:00"
+    "proofStarted": true,
+    "originalHostDeadlineUtc": "2026-11-15T14:44:43.176910+00:00",
+    "startRecord": "integration-01/NATIVE07_PROOF_START.json",
+    "effectiveProofDeadlineUtc": "2026-11-15T14:33:21.992652+00:00"
+  },
+  "native07ProofClosure": {
+    "record": "integration-01/NATIVE07_PROOF_CLOSURE.json",
+    "sourceCommit": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+    "qualified": false
+  },
+  "native08": {
+    "state": "SELECTED_CONTROL_PREPARATION_PENDING",
+    "triage": "integration-01/NATIVE08_GOVERNANCE_TRIAGE.json",
+    "sourceAuthorStarted": false
   }
 }

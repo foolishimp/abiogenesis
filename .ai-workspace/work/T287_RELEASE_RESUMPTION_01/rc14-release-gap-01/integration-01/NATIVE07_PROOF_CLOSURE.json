@@ -1,0 +1,91 @@
+{
+  "id": "RC14-NATIVE07-PROOF-CLOSURE",
+  "recordedUtc": "2026-11-15T13:13:15.261416+00:00",
+  "proofReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/proof-01/RETURN.json",
+    "bytes": 19134,
+    "sha256": "80bbec7e6b582ed7b506d70a93ae060634855ef25897b4a06861ff1bf4782f4b"
+  },
+  "operatorClosure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/PROOF_CLOSURE.json",
+    "bytes": 9642,
+    "sha256": "d45feaa62940bb4c048701747bd59372af51163244274a19b54fb6daa1102a65"
+  },
+  "sourceCommit": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+  "mainMerge": "6cc35e881d6757bd6d4810d95462735c783aba3b",
+  "status": "stopped_first_failure",
+  "freshExecutedFiles": 4,
+  "freshCounts": {
+    "pass": 15,
+    "fail": 1,
+    "skip": 1,
+    "topLevel": 12
+  },
+  "fullyPassingFreshFiles": {
+    "ordinals": [
+      7,
+      8,
+      9
+    ],
+    "actualPasses": 8,
+    "topLevel": 3
+  },
+  "separatelyRetainedEarlierFiles": {
+    "files": 6,
+    "actualPasses": 44,
+    "topLevel": 33
+  },
+  "unrunOriginalOrdinals": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "firstFailure": {
+    "file": "t287-governance-covered-source-use.test.mjs",
+    "case": "normal close preserves the owned ArtifactTruth snapshot while copies and fresh reads validate bytes",
+    "physicalOpensActual": 2,
+    "physicalOpensExpected": 1,
+    "assertionLine": 102,
+    "commandExitCode": 1,
+    "timeout": false,
+    "stdout": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/proof-01/010-t287-governance-covered-source-use/stdout.raw",
+      "bytes": 4170,
+      "sha256": "2d5105d16dc2323d3450014d74be6cc50d5807e192bfb3e8c5d851d1de5b6eef"
+    }
+  },
+  "f09Candidate": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/proof-01/scratch/observations/f09-reacquisition.candidate.json",
+    "bytes": 34950398,
+    "sha256": "6dd49adced0e9a21fef2b1e633d47d8691649bb61a21c47c578ce63725f3e541"
+  },
+  "conservation": {
+    "originalFinallyComparisons": 22,
+    "matched": 22,
+    "secondaryErrors": [],
+    "sourceRows": 1428,
+    "sourceUnchangedThroughProof": true,
+    "setupCustodyReverified": true
+  },
+  "rootObservedGroupsAbsent": [
+    17255,
+    17256,
+    18438,
+    18830,
+    19606,
+    93613,
+    94487
+  ],
+  "finalDeadlineCheck": {
+    "completedUtc": "2026-11-15T13:07:34.209549+00:00",
+    "expired": false,
+    "wallAndMonotonic": true
+  },
+  "retry": false,
+  "sourceCheckpointAfterProofClosed": true,
+  "qualified": false,
+  "rawPublished": false
+}

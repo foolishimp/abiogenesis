@@ -1,0 +1,67 @@
+{
+  "id": "RC14-NATIVE08-GOVERNANCE-COLD-READ-TRIAGE",
+  "recordedUtc": "2026-11-15T13:13:15.261416+00:00",
+  "frame": "Fixed ABI5/T287 RC14; Product cold versus owned evidence projection; fixture-only prospective repair",
+  "failure": {
+    "file": "t287-governance-covered-source-use.test.mjs",
+    "case": "normal close preserves the owned ArtifactTruth snapshot while copies and fresh reads validate bytes",
+    "physicalOpensActual": 2,
+    "physicalOpensExpected": 1,
+    "assertionLine": 102,
+    "commandExitCode": 1,
+    "timeout": false,
+    "stdout": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/proof-01/010-t287-governance-covered-source-use/stdout.raw",
+      "bytes": 4170,
+      "sha256": "2d5105d16dc2323d3450014d74be6cc50d5807e192bfb3e8c5d851d1de5b6eef"
+    }
+  },
+  "observedPremise": "Physical fs.openSync calls on the exact event-log path, not validation/admission count",
+  "productDesign": "Pending Consumer Continuation design266-274 requires zero extra owned projection and real cold/fresh validation; no one-open law",
+  "causalChain": [
+    "artifact_truth946-960 calls event_prefix82 projectOwnedRuntimeHistory",
+    "event_store3694/3720 cold decode authenticates index and closes descriptor3748",
+    "Event Calculus basis effect selects one body through event_prefix219/constructRuntimeHistory3792",
+    "readRuntimeHistoryRowBytes3755 reopens the log after decode descriptor closes"
+  ],
+  "jointConclusion": "Observed2 is one cold history decode plus one selected body acquisition; stale fixture expectation, no supported Product regression established",
+  "independentReview": "R14 Product/Design/Identity trace; Root exact source/compiled and failed receipt trace; B30 actual Proof closure",
+  "whyMissed": "Exact-one-open assertions unchanged since67c333799. Native05 repaired later current Catalog cases, but native05 and native06 proofs stopped before this whole file. Native07 is the first current repair proof to reach the enabled first case. Its later current-governance positives passed.",
+  "selectedRepair": {
+    "writeScope": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
+    ],
+    "withinFile": "first case and necessary preassert capture helper only",
+    "outcome": "Observe cold decode/body work separately; preserve exact zero-owned identity/meaning and closed-owner, wrong-inode, tamper and current-length refusals; explicit fresh remains its distinct reader; retain per-step actual outcomes before assertion",
+    "forbidden": "No blanket count-to2 change, Product/runtime edits, other-case expectation changes, weakening evidence gates or replacing live owners"
+  },
+  "proof": {
+    "freshWholeFiles": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "retainedWholeFiles": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "retainedActualPasses": 52,
+    "retainedTopLevel": 36,
+    "freshTopLevel": 35,
+    "historicalOptionalGates": 2,
+    "newGrantRequired": true,
+    "previousCampaignClosed": true
+  },
+  "qualified": false
+}
