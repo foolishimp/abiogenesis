@@ -1,0 +1,167 @@
+{
+  "kind": "rc14_prospective_c0_writer_return",
+  "status": "mechanical_source_prepared_for_root_review",
+  "role": "separate_C0_Writer_under_FINALIZATION_WRITER_14",
+  "productFrame": "Fixed ABIogenesis5.0 T287 RC14 S07 / REQ-P-QUAL-057C; prospective unqualified compile-input source, no release or qualification authority",
+  "baseCommit": "4afd24d12b9e7a92b7767c04a7fb51e29175fbab",
+  "branch": "codex/rc14-candidate-source-20261116-01",
+  "sourceRoot": "/private/tmp/abg-rc14-candidate-source-20261116-01",
+  "cutControlsCommit": "28983a1e299c707d2f466a4615dc17e195b8c96f",
+  "cutManifestSha256": "da49f6dc6a36302b106434a7d11ba3f5aab52e94244890849a3600dd05d9380c",
+  "method": {
+    "definition": "stdo_abiogenesis.json",
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "verified": true
+  },
+  "startedUtc": "2026-11-15T15:03:11.502291+00:00",
+  "originalDeadlineUtc": "2026-11-15T15:23:11.502291+00:00",
+  "sourceEffectsClosedUtc": "2026-11-15T15:06:39.533468+00:00",
+  "changedSourceRows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "mode": "100644",
+      "bytes": 13082,
+      "sha256": "dee9de00c607127a6740de5f03d5bf57666d063c90efcfa849757baaf7712e8c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+      "mode": "100644",
+      "bytes": 7944,
+      "sha256": "d29f536ab176f4767ee8ed94cd90efcce3ac7ecb8f325d7375db865778991302"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "mode": "100644",
+      "bytes": 9787,
+      "sha256": "abb8c625c1c501a1d3c21da8747c0198f372b0156c9b6b36da41f046cd40c7ee"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/release-claim.md",
+      "mode": "100644",
+      "bytes": 4591,
+      "sha256": "739ba161548fde31c6f03ad99f397a24f47f2ddfb7ccd2288c1f70b37a7df1eb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md",
+      "mode": "100644",
+      "bytes": 5524,
+      "sha256": "8e23f698e25f845db17f087df6d9040ff4f34dd6b8598321f265a67ab38fc032"
+    }
+  ],
+  "sourceRows": 1398,
+  "allOtherSourceRowsAndModesConserved": true,
+  "historicalRc13FixtureConserved": true,
+  "authorityGeneration": {
+    "sourceCount": 94,
+    "declaredOutputs": 99,
+    "changedFiles": 0,
+    "currentSourceGenerator": {
+      "path": "/private/tmp/abg-rc14-candidate-source-20261116-01/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "sha256": "5358de7301e2686fba4d72d7d4c5fc07765a256c6f2e5ae64190c816f54fdaec"
+    },
+    "elapsedMs": 210,
+    "meaning": "Derived definitions only; no semantic fidelity, applicability or qualification judgment"
+  },
+  "retainedImports": {
+    "use": "Existing compiled imports only for current-source authority generator before stamp; never claimed as rebuilt C0 bytes",
+    "buildFiles": 782,
+    "buildInventorySha256": "4196e9314fec7f7a0569f39e828424ce803a87d8c05cfca9c5f08c8d1ae5cf79",
+    "dependencyRows": 4576,
+    "dependencyInventorySha256": "d5963980b0d8ce53b85847a547f44d308757bf4766aadd0f3dda49dad401a8ef",
+    "donorAndCopiedInputsConserved": true
+  },
+  "releaseClaimSha256": "739ba161548fde31c6f03ad99f397a24f47f2ddfb7ccd2288c1f70b37a7df1eb",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-staging-20261116-01",
+  "evidence": [
+    {
+      "path": "START.json",
+      "bytes": 1469,
+      "sha256": "18e3017f2ce62ff8fd43a1dc7b9a21860407876ace355b3b162455ed01990ed5"
+    },
+    {
+      "path": "PROVISION.json",
+      "bytes": 3586,
+      "sha256": "6faf2f6fd609b4170722110db703b485c1e1ccee2c8ed61dc8b9a3eaf28bfa0b"
+    },
+    {
+      "path": "SOURCE_PREIMAGE.json",
+      "bytes": 343749,
+      "sha256": "c057eac5b405343efc812207e54a5b908a600835e34306a0600f44119b3de447"
+    },
+    {
+      "path": "AUTHORITY_INPUTS_ENTRY.json",
+      "bytes": 30558,
+      "sha256": "a1e92982aded799f0826a1af8cb4eb0b604bb42f3533fc1cf4f8e7a1768642fb"
+    },
+    {
+      "path": "AUTHORITY_STAGING.json",
+      "bytes": 20204,
+      "sha256": "2dbdce634aeedceee338f0da2c9bf1a8fda37096ce471beb3e46012f5e04a25b"
+    },
+    {
+      "path": "004-stage-authorities/RETURN.json",
+      "bytes": 458,
+      "sha256": "29a47d2b86719f592610dca45fc2b4d2c71a984187c90b18845e92c458bb7b33"
+    },
+    {
+      "path": "005-stamp-rc14/RETURN.json",
+      "bytes": 458,
+      "sha256": "1b6fd71ce4294e75813db8ae743ec753254d4f39226c060e49a7eca52fbc11f7"
+    },
+    {
+      "path": "CLAIM_COPY.json",
+      "bytes": 529,
+      "sha256": "fb1402070b67325f1399d489ee14bc4ed82fbfaf97add544e26ee4b0b1eda057"
+    },
+    {
+      "path": "SOURCE_POSTIMAGE.json",
+      "bytes": 344111,
+      "sha256": "1c33c6ce5b5ab23db01fac6ee5358652428543297d65944b5c21fc03240a65a1"
+    },
+    {
+      "path": "SOURCE_DIFF.patch",
+      "bytes": 11277,
+      "sha256": "01d17dfc8f0cba440cd7598510734c2cd6b1b25a4160d233dc9b8011cab3029d"
+    },
+    {
+      "path": "MECHANICAL_DIFF.json",
+      "bytes": 1926,
+      "sha256": "97489204c0770a7c76c17dc96d4b9eebf381b692208c9b12d4b4b5a6bee55281"
+    },
+    {
+      "path": "INPUTS_EXIT.json",
+      "bytes": 7318,
+      "sha256": "11b1f6320a48abaf147210a9cf23c4618e8ded7320542db4aab99a3bf42e6f07"
+    },
+    {
+      "path": "SOURCE_EFFECTS_CLOSED.json",
+      "bytes": 1775,
+      "sha256": "26e6b9d95e60b052cdd9e24b233ce03180722c8616dbd57ffb061d90777c49f4"
+    }
+  ],
+  "limits": {
+    "enclosingSeconds": 1200,
+    "cleanupReserveSeconds": 15,
+    "eachChildMaximumSeconds": 300,
+    "commandCaptureBytes": 16777216,
+    "retry": false
+  },
+  "notPerformed": [
+    "new_compile",
+    "native_build",
+    "pack",
+    "install",
+    "provider_call",
+    "test_execution",
+    "qualification",
+    "tag",
+    "publication",
+    "selector_change",
+    "main_merge",
+    "push"
+  ],
+  "qualification": false,
+  "nextOwner": "Root independent mechanical review and integration/push, then separate candidate-build grant"
+}
