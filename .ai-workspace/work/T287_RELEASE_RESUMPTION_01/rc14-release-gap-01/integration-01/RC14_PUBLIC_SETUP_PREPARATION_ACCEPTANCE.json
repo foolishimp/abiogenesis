@@ -1,0 +1,41 @@
+{
+  "id": "RC14-PUBLIC-SETUP-PREPARATION-ACCEPTANCE-001",
+  "recordedUtc": "2026-11-15T12:35:39.080978+00:00",
+  "owner": "Root, recorded under separate Writer12",
+  "subject": "bc597e0d055094755dc3d29d6cf1b3c7ac30bd62",
+  "tree": "a539f1bdfd4b685149c5786e3ec374f6795751ce",
+  "mainMerge": "6c8fee65f06ffc4cdc13ad4bdcd80f0ebdb33f72",
+  "carrier": "integration-01/cut-public-setup-01",
+  "manifestSha256": "6f79ede133cbc844a565f042f654dad0610e3180b34202c98588d9bec446e4af",
+  "returnSha256": "12f0255fee46dde3ca91e2158172fd94a6d1694ee0b9df5f3382c6a4d22ef099",
+  "ProductFrame": "Fixed 5.0 S07/REQ-P-QUAL-057C prospective candidate preparation. The genuine admitted Public installation feeds the existing metadata owner. This entry does not confer qualification or publication authority.",
+  "writer": "/root/rc14_release_proof",
+  "reviewer": "/root/b29_vm_triage",
+  "reviewResult": "Satisfied bounded control review; no blocking source counterexample. All 12 carrier files,10 manifest control members and eight reused input pins verified.",
+  "rootVerification": "Exact manifest/Return pins, all10 actual controls members,12-path-only commit and clean frozen branch. Initial read-only lookup used files/members and returned zero; that supplied no member verification. Correct controls-key lookup verified all10 before acceptance.",
+  "acceptedPath": "Existing verifyArtifact -> confined package exports loader -> publicCaller -> populateSandbox({retain:false,program:consumer}) -> actual Public identity and setup close -> exact package/archive correspondence. No provider or lifecycle dispatch.",
+  "packageBinding": "Read actual identity.install.installedRoot; require R/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant. The target host R/sandbox/installed/abg alone is not the package root.",
+  "effectAndEvidence": "Paired operator/runtime topology, setup-owned workspace manifest only, explicit credential-free environment, two separate empty npm configs, entry/exit input conservation, actual resource close and owned-group cleanup. First failure retains primary evidence.",
+  "limits": {
+    "enclosingMs": 900000,
+    "exitReserveMs": 30000,
+    "setupHostMs": 300000,
+    "innerDeadlineMs": 285000,
+    "captureBytes": 16777216,
+    "retry": false
+  },
+  "disposition": "accepted_preparation_only",
+  "remainingBindings": [
+    "Final C0 commit/tree and cut record",
+    "Actual RC14 archive/bootstrap/manifest and complete member inventory",
+    "Fresh raw/worksite roots, protected roots and exact operator grant/deadline"
+  ],
+  "executionAuthorized": false,
+  "claims": {
+    "setupExecuted": false,
+    "installed": false,
+    "qualified": false,
+    "published": false,
+    "humanAccepted": false
+  }
+}

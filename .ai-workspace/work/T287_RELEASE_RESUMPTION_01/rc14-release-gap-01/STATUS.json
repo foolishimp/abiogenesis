@@ -683,7 +683,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T12:30:32.795504+00:00",
+  "updatedUtc": "2026-11-15T12:35:39.080978+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -767,7 +767,7 @@
     "qualification": false
   },
   "regressionRepair07": {
-    "state": "NATIVE_SETUP_RUNNING",
+    "state": "NATIVE_AUTHOR_RUNNING",
     "triage": "integration-01/NATIVE07_F09_TRIAGE.json",
     "executionBound": true,
     "nativeWritePaths": 1,
@@ -784,6 +784,16 @@
     "originalDeadlineUtc": "2026-11-15T14:44:43.176910+00:00",
     "nativeModel": "claude-opus-5-5",
     "nativeEffort": "xhigh",
-    "proofAuthorized": false
+    "proofAuthorized": false,
+    "actorStartedUtc": "2026-11-15T12:30:44.500Z",
+    "actorPid": 94487,
+    "runId": "run://abiogenesis/6c8fe00dd9def440ec08dcded55f21f3b5829b5d3ab28b60ba179f39132d28a3",
+    "actorStartObservationSha256": "d69903ffe8ba82eab849b9d6b18a86c6797b126c171c83ebf0fa845242dc1f73"
+  },
+  "rc14PublicSetupPreparation": {
+    "state": "ACCEPTED_PREPARATION_CANDIDATE_UNBOUND",
+    "subject": "bc597e0d055094755dc3d29d6cf1b3c7ac30bd62",
+    "acceptance": "integration-01/RC14_PUBLIC_SETUP_PREPARATION_ACCEPTANCE.json",
+    "executionAuthorized": false
   }
 }
