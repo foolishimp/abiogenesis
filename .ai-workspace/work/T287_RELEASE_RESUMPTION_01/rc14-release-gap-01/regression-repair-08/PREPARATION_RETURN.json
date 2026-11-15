@@ -20,7 +20,7 @@
   "controlManifest": {
     "path": "CONTROL_MANIFEST.json",
     "bytes": 4025,
-    "sha256": "128f67c7f94980aa4aeb8183ab89e9ce6d65c45816e5d4bb17093fc84066e981"
+    "sha256": "70b57fe65b4b04b9897ab62ecb5f0113c222a19c4a58d420640d75fa6faeba6b"
   },
   "controlFiles": 26,
   "preparationSourcePreimage": {
@@ -128,5 +128,46 @@
     "Prior stopped campaigns/deviations and05/06 late-conservation limits remain exact; historical passes are not one green campaign.",
     "No main/push/raw publication, version/cut/globalpin/qualification/acceptance effect."
   ],
-  "returnTo": "Root; stop editing after this one worker-branch controls commit"
+  "returnTo": "Root; stop editing after this one worker-branch controls commit",
+  "narrowRequirementCorrection": {
+    "predecessorCommit": "c90bb9c562aadb7e69b5fa0805369c2d20625e10",
+    "predecessorTask": {
+      "path": "TASK.json",
+      "bytes": 11866,
+      "sha256": "f2c380c3f03eed5f23921432bdf7bbb993cdf606c2ce7a91eab458132f2865ec"
+    },
+    "predecessorManifest": {
+      "path": "CONTROL_MANIFEST.json",
+      "bytes": 4025,
+      "sha256": "128f67c7f94980aa4aeb8183ab89e9ce6d65c45816e5d4bb17093fc84066e981"
+    },
+    "rootGrant": "Separate narrow correction after B29 independent review: route exact PROJECTION requirement \u00a7002 and require actual content beforeEdit; no other changes/execution.",
+    "changedTaskFields": [
+      "readRoots: one path insertion",
+      "readFirst: one path insertion",
+      "instructions[1]: explicit \u00a7002 actual-content read beforeEdit"
+    ],
+    "selectedRequirement": {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "bytes": 9835,
+      "sha256": "fd67606ff91d6874c5a887a7368d3a61e675aa5775673f9dd0214cfacda4438f",
+      "criterion": "REQ-R-ABG3-PROJECTION-002"
+    },
+    "successorTask": {
+      "path": "TASK.json",
+      "bytes": 12111,
+      "sha256": "dc4082ed2d034493a16063ff000007428ed6fe518fbf93973c16a16a7e69fb80"
+    },
+    "checkedUtc": "2026-11-15T13:29:43.276200+00:00",
+    "checks": [
+      "Exact path physically exists and selected criterion present",
+      "TASK JSON parses; all task data except two path insertions and one instruction-clause addition are identical",
+      "All25 other manifest-member bytes unchanged; only the TASK pin replaced in the26-control manifest",
+      "Host/proof/helpers/population/budgets/source remain unchanged; original STATIC applies to its unchanged claims, new path/readFirst addition checked here"
+    ],
+    "execution": false,
+    "providerCalls": 0,
+    "clockStarted": false,
+    "standing": "Independent applicable-requirement omission corrected; predecessor subject/review retained, no retroactive acquisition claim."
+  }
 }
