@@ -1,0 +1,12 @@
+{
+  "preparationBase": "5d6fb24e051e0d84595d28985faef5ff90df1610",
+  "source": "/private/tmp/abg-rc14-regression-repair-20261115-08",
+  "branch": "codex/rc14-regression-repair-20261115-08",
+  "finalLaunchHead": null,
+  "acceptedPartialSource": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+  "priorPartial": "PRIOR_PARTIAL_SOURCE.json",
+  "priorProvedTenantSource": "7a2411defd9ef7c1968512703c3b4b1493114453",
+  "finalLaunchBinding": "Root integrates reviewed08 controls and pushes then supplies exact final source HEAD. Advance clean named branch once and freeze exclusive SOURCE_PREIMAGE. All16 saved rows and1295 build-input relations remain exact; only governance firstcase becomes native W.",
+  "executionAuthorized": false,
+  "clockStarted": false
+}

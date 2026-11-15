@@ -1,0 +1,5 @@
+# Native08 bounded re-entry
+
+ROOT_TRIAGE is the exact main5d6fb24e Root/R14/B30 conjunction. File010 firstcase expected one physical open; the actual cold history acquisition closes its descriptor, then the Event Calculus basis body acquisition opens the selected row. Two opens do not mean two whole-history validations. Explicit fresh uses a distinct array reader. Initial retained projection and after-close reference reuse passed; no single-open Product law or supported Product regression was established.
+
+The old assertion predates the current wave (67c3337999). Native05 and06 stopped before010; native07 reached the enabled firstcase. The firstcase lacked preassert evidence: its console record was after the failing assertion and cleanup removed the log. The selected repair is phase observations and actual candidate capture, preserving all semantic and negative checks. Original failure/closure/audit records remain immutable. Nine prior green files are conditionally retained, not a repaired whole-campaign claim.

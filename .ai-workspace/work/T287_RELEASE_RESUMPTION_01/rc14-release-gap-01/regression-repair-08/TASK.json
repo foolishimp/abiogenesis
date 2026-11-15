@@ -1,0 +1,145 @@
+{
+  "id": "RC14-REGRESSION-REPAIR-NATIVE-008-TASK",
+  "sourceHead": null,
+  "outcome": "Repair only governance firstcase to distinguish cold history decoding from selected-body acquisition and retain complete actual per-step observations before assertions; preserve original owner identity and all strict negative checks.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/ROOT_ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/ROOT_TRIAGE.json",
+    "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+    "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/README.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/PRIOR_PARTIAL_SOURCE.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/RETAINED_PROOF.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/TITLE_MAP.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/PRIOR_TITLE_MAP.json",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/definition_event_resource.ts"
+  ],
+  "readFirst": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/ROOT_ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/ROOT_TRIAGE.json",
+    "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+    "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
+  ],
+  "externalReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Intake/execution-unit/admission, context acquisition and closed-result reuse before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    }
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
+  ],
+  "instructions": [
+    "Product Frame: fixed15-family5.0 RC14, T293 B38, derived Proof only. ROOT_TRIAGE is closed Root/independent conjunction, not new Product law. Before ANY edit content-read using Read: /Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md lines 1-230; /Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md lines 16-48,133-168; /Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md lines 1-74; /Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md lines 353-438,693-901,1681-1749; /Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md lines 1-145. These exact external paths are expressly read-only granted. Do not claim section acquisition from hashes, wc, headings, or an unexpanded link. State actual reads/line ranges in return.",
+    "Read selected readFirst content before Edit: AGENTS/Definition/ROOT_ACTIVATION/TASK/ROOT_TRIAGE and EVENTS requirement; actual content of specification/requirements/abg/REQ-R-ABG3-PROJECTION.md \u00a7REQ-R-ABG3-PROJECTION-002 before Edit; Product Live State, Recovery And Valid Reuse and S03; Goals current selection; project frame authority and F-END-TO-END-INTERFACE-INTEGRATION; Pending Consumer Continuation design266-274; the complete first test and its imports/capture helper. Follow relevant existing owner source to understand actual counter phases. Report actual read paths/ranges, not claimed acquisition from names or hashes.",
+    "Exactly one writeRoot; ONLY first case 'normal close preserves the owned ArtifactTruth snapshot while copies and fresh reads validate bytes' and necessary same-file preassert capture helper. Every other test case/meaning/timeout/gate/title remains byte-preserved where possible; no change outside necessary helper plus firstcase. No Product/HOW/schema/dependency/build/version/control/input edits or new exports. Use Read/Glob/Grep and Edit/Write. Bash only read-only text acquisition, node --check on this exact authored file, and node --version. No Git commands, tests/build/pack/install, Product imports, extracted/new-helper behavioral execution, provider/subagent/reviewer or shell/Python/sed/perl writes. Return owner conflicts without expanding W.",
+    "Replace stale aggregate-open assumptions with phase observations using existing eventOwner.observeRuntimeHistoryWork. A cold owned-prefix projection first decodes/authenticates history then acquires its selected basis body; these are distinct, not duplicate whole-history validation. Explicit fresh uses its separate array reader. Preserve phase-local physical-open observations alongside historyDecodes/coldHistoryReads/bodyReads/body-byte counters as applicable; do not blanket change 1 to2. Initial before projection may acquire a body through a held descriptor with zero opens. Zero-owned means no EXTRA acquisition for an already established snapshot, particularly the after-close reuse: take phase baselines so initial materialization is not mistaken for a violation.",
+    "Preserve full nominal/portable coordinate meaning, before/after strict reference identity and projection digest, detached portable metadata, capture identity distinctions, closed-resource selection refusal, real cold/fresh/copied physical validation, wrong-inode refusal, byte-tamper refusals for all three paths, current-length refusal and original byte restoration/cleanup. Do not remove negative branches, swallow owner errors, use recorded mode/clone escape, weaken gates, or replace live owners with stubs. Only the independently supported cold/body observation expectation changes.",
+    "Before each behavioral assertion in this firstcase retain the complete accumulated actual candidate at process.env.ABG_REGRESSION_PROOF_ROOT/t287-governance-covered-source-use/closed-owner-artifact-snapshot.json. Use necessary small helper with existing evidence pattern, not a new framework. Include actual full projections/coordinates/receipts/returned refusals or thrown diagnostics, phase counter snapshots/deltas and physical-open observations, original/tampered/restored byte material or exact retained byte identity, and identity comparison results alongside actual compared values. Preserve a failing partial record before throwing and before fixture cleanup; do not rely on the existing console line after assertions. No success booleans as a substitute for full owner results. Keep unset-root behavior truthful. Do not execute capture or test now.",
+    "Keep all71 named top-level cases and prior title mappings. No deletion/skip/todo/timeout changes or generic expected-failure acceptance. Return once with exact edit scope, owner/requirement join, actual installed-method and source reads, EVERY command, syntax result, evidence contract and unresolved limitations. Native20min/160turn/5min inactivity; no retry. Operator separately owns seven fresh wholefiles010-016 and nine historical green relations52passes;90min proof clipped to fresh135min enclosing deadline. Author performs no proof/qualification."
+  ],
+  "checks": [
+    "Cold history and selected-body acquisitions distinguished through existing owner counters",
+    "Zero extra owned after-close acquisition, exact identity/meaning and all foreign/tamper/currentness negatives preserved",
+    "Complete actual per-step candidate persisted before assertions, including first refusal",
+    "All5 installed method inputs/selected sections and readFirst selected contents read before Edit; full audit",
+    "Only firstcase/necessary same-file capture helper changes; no native behavioral execution"
+  ],
+  "maxContextFiles": 256,
+  "maxContextBytes": 12582912
+}

@@ -1,0 +1,173 @@
+{
+  "kind": "native08_preparation_return",
+  "status": "prepared_frozen_pending_independent_review_and_root_execution_grant",
+  "recordedUtc": "2026-11-15T13:23:39.619731+00:00",
+  "role": "External-controls Writer; no native tenant authoring",
+  "basis": {
+    "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": []
+  },
+  "sourceBase": "5d6fb24e051e0d84595d28985faef5ff90df1610",
+  "sourceTree": "fdddf72e5714b1466510875fdcccf58458d3afef",
+  "workerBranch": "codex/rc14-regression-repair-20261115-08",
+  "sourceWorktree": "/private/tmp/abg-rc14-regression-repair-20261115-08",
+  "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08",
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 4025,
+    "sha256": "70b57fe65b4b04b9897ab62ecb5f0113c222a19c4a58d420640d75fa6faeba6b"
+  },
+  "controlFiles": 26,
+  "preparationSourcePreimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/SOURCE_PREIMAGE_PREPARATION.json",
+    "bytes": 431963,
+    "sha256": "fdd766b70e5898fc6ef3086a889a65fe602fd3c1750b1bf9d667d6a2d51d24ee"
+  },
+  "static": {
+    "path": "STATIC.json",
+    "bytes": 7736,
+    "sha256": "4671a2c12e6b483e819cacf59d749cb11df3f288b7e9a9d44107d571ac32d819"
+  },
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
+  ],
+  "withinFile": "firstcase plus necessary preassert capture helper only; other cases remain unchanged",
+  "rootSelection": "ROOT_RECORDS_WRITER_13 and NATIVE08_GOVERNANCE_TRIAGE under current T287/T293 finishRC14; exact pins in ROOT_ACTIVATION/ROOT_TRIAGE",
+  "selectedRepair": "Existing history/body work observations and complete actual per-step preassert capture, preserving zero EXTRA owned acquisition, identity/meaning and all cold/current/foreign/tamper/close refusals. Explicit fresh path remains distinct; initial held-descriptor body materialization is not prohibited.",
+  "nativeMethod": "Actual pinned RC13 ClaudeOpus5.5/xhigh;20min/160turn/5min inactivity; content-read all5exact installed inputs/selectedsections and selected readFirst beforeEdit. node --version now explicitly allowed; prior07 literal variance remains historical.",
+  "maintainedHelpersUnchanged": [
+    "dependency-inputs.py",
+    "process-owner.py",
+    "setup-custody.py",
+    "physical-topology.py",
+    "freeze-source.py"
+  ],
+  "hostAndOperateChange": "mechanical08 coordinates only",
+  "proofChange": "Nine historical groups joined through original05/06 late observations and07 actual finally; seven fresh010-016; mandatory governance candidate. Original process/custody/topology/full22finally checks/primary-secondary failure/deadline behavior unchanged.",
+  "proofPopulation": {
+    "freshFiles": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "freshTopLevel": 35,
+    "retainedFiles": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "retainedActualPasses": 52,
+    "retainedTopLevel": 36,
+    "overallOriginalTopLevel": 71,
+    "optionalGates": [
+      {
+        "file": "t287-governance-covered-source-use.test.mjs",
+        "case": "actual installed C2 material correspondence preserves consumed content and strict refusals",
+        "reason": "ABG_GOVERNANCE_COVERED_C2_MATERIAL_SELECTORS"
+      },
+      {
+        "file": "w2-steel-single-start-closure.test.mjs",
+        "case": "run resources preserve the accepted retention carrier and reject wrong kind or extra fields",
+        "reason": "ABI5_STEEL03_RETAINED_START_CALL_PATH"
+      }
+    ],
+    "wholeFile010RetainedAsGreen": false
+  },
+  "retainedProofPreparationObservation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/preparation/RETAINED_RELATION_CHECK.json",
+    "bytes": 4854,
+    "sha256": "ea15c59b86ebe6bf18fa1ed8aa6aed7992f0485192efc94aa8ee2c57705c8fe7"
+  },
+  "inputChecks": {
+    "sourcePreconditions": 16,
+    "buildSourceRows": 1295,
+    "buildExceptions": 17,
+    "buildFiles": 782,
+    "buildPayloadBytes": 26015425,
+    "dependencyInventorySha256": "dc55a042e47b4119487c1ef1b1288b0de607a9687b6a60e4efbb0443f9584aff",
+    "requiredRetainedFiles": 7,
+    "requiredRetainedBytes": 669118059,
+    "inputCopiesMade": 0
+  },
+  "proposedClocks": "Fresh135min enclosing started only by futureoperate;20min native; separately granted90min proof clipped to originalenclosing;15s cleanup inside. Earlier clocks remain closed.",
+  "executionAuthorized": false,
+  "providerCalls": 0,
+  "ProductTestBuildSetupExecution": false,
+  "clockStarted": false,
+  "preparationDiagnostic": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/preparation/STATIC_CHECK_FAILURE_01.json",
+    "bytes": 541,
+    "sha256": "93b8b7bd84ccc5224de287d0dc582e337d16054dc3fd5e6e940ec6be994e3ab1",
+    "standing": "Preserved ad-hoc read-only checker namespace error; corrected globals/locals only. No control/source/input change or Product/test/provider execution."
+  },
+  "remainingBindings": [
+    "Root independent review of frozen controls",
+    "Root final pushed source checkpoint and separate native execution grant; no final HEAD invented",
+    "Actual startup topology/allbindingroots/setupcustody and source preimage freshly observed at future boundary",
+    "Actual native completion/group close/fresh reads/audit, independent source review and separate proof grant",
+    "Root may narrow fresh proof only after separately authorized unchanged-source011-016 diagnostic closes with admitted retained relations; current seven-file plan is preserved, no duplicate execution started"
+  ],
+  "limits": [
+    "Static/read-only causal relations do not prove the future native repair or runtime execution.",
+    "No new Product authority, owner export or runtime change selected.",
+    "Prior stopped campaigns/deviations and05/06 late-conservation limits remain exact; historical passes are not one green campaign.",
+    "No main/push/raw publication, version/cut/globalpin/qualification/acceptance effect."
+  ],
+  "returnTo": "Root; stop editing after this one worker-branch controls commit",
+  "narrowRequirementCorrection": {
+    "predecessorCommit": "c90bb9c562aadb7e69b5fa0805369c2d20625e10",
+    "predecessorTask": {
+      "path": "TASK.json",
+      "bytes": 11866,
+      "sha256": "f2c380c3f03eed5f23921432bdf7bbb993cdf606c2ce7a91eab458132f2865ec"
+    },
+    "predecessorManifest": {
+      "path": "CONTROL_MANIFEST.json",
+      "bytes": 4025,
+      "sha256": "128f67c7f94980aa4aeb8183ab89e9ce6d65c45816e5d4bb17093fc84066e981"
+    },
+    "rootGrant": "Separate narrow correction after B29 independent review: route exact PROJECTION requirement \u00a7002 and require actual content beforeEdit; no other changes/execution.",
+    "changedTaskFields": [
+      "readRoots: one path insertion",
+      "readFirst: one path insertion",
+      "instructions[1]: explicit \u00a7002 actual-content read beforeEdit"
+    ],
+    "selectedRequirement": {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "bytes": 9835,
+      "sha256": "fd67606ff91d6874c5a887a7368d3a61e675aa5775673f9dd0214cfacda4438f",
+      "criterion": "REQ-R-ABG3-PROJECTION-002"
+    },
+    "successorTask": {
+      "path": "TASK.json",
+      "bytes": 12111,
+      "sha256": "dc4082ed2d034493a16063ff000007428ed6fe518fbf93973c16a16a7e69fb80"
+    },
+    "checkedUtc": "2026-11-15T13:29:43.276200+00:00",
+    "checks": [
+      "Exact path physically exists and selected criterion present",
+      "TASK JSON parses; all task data except two path insertions and one instruction-clause addition are identical",
+      "All25 other manifest-member bytes unchanged; only the TASK pin replaced in the26-control manifest",
+      "Host/proof/helpers/population/budgets/source remain unchanged; original STATIC applies to its unchanged claims, new path/readFirst addition checked here"
+    ],
+    "execution": false,
+    "providerCalls": 0,
+    "clockStarted": false,
+    "standing": "Independent applicable-requirement omission corrected; predecessor subject/review retained, no retroactive acquisition claim."
+  }
+}

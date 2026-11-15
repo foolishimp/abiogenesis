@@ -1,0 +1,136 @@
+{
+  "kind": "operator_control_manifest",
+  "activationId": "RC14-REGRESSION-REPAIR-NATIVE-008",
+  "files": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 9650,
+      "sha256": "2ed44e66414cf8e2bb8437c071703041cb216637b3acc593b29964decc15ab3f"
+    },
+    {
+      "path": "BUILD_REUSE.json",
+      "bytes": 4649,
+      "sha256": "d90f6045a112f0b60d6361d88212aeabfa883e3b59d954e10b3e311c25d412d5"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 706,
+      "sha256": "f57ae6dd95a2280fa6ec0e2976fd13b48c9d28858bb324cdf6ff05f2455b5540"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 21120,
+      "sha256": "f13c4eea495df8587fe482bbfca2c1053edda09af8beaee5899e1bfffd109d48"
+    },
+    {
+      "path": "LAYOUT.json",
+      "bytes": 1090,
+      "sha256": "fe5e23134db2940668e7b0e38549437073f9e92c0cd46cf0521962433c6b886a"
+    },
+    {
+      "path": "PRIOR_PARTIAL_SOURCE.json",
+      "bytes": 4479,
+      "sha256": "ba2ef4af80126d2d7bd16f5ca82d9f98b990d9743d7747ec6997db1d3b94ce06"
+    },
+    {
+      "path": "PRIOR_TITLE_MAP.json",
+      "bytes": 2379,
+      "sha256": "1bb45ecacff4faef9ea3cf8444d950df232d6d041334ce959cd71a43bfa6b281"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 19536,
+      "sha256": "f008f3dc44d41b4f37450d2d0fe2f6d6e3e98ee539f6ade1c4ede27a14607ffb"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3336,
+      "sha256": "c61cc6f1f67920e78ba0fdb9cba81658f1278e7e0d4d6afe0d158032e5227565"
+    },
+    {
+      "path": "REENTRY.json",
+      "bytes": 1291,
+      "sha256": "cb4f7caa79f63838f7864f0ff06cb4caf145c45af604e06e7a101a77c9e4ce13"
+    },
+    {
+      "path": "RETAINED_INPUTS.json",
+      "bytes": 2617,
+      "sha256": "6b3acd6edd34a09ee213a583ffc743c88c96ecf9ca94757b34270407efbdb74b"
+    },
+    {
+      "path": "RETAINED_PROOF.json",
+      "bytes": 30874,
+      "sha256": "ee751e49bdae70b1be794553990843b427cb0f88c81f9b6c7f7030078c691ecc"
+    },
+    {
+      "path": "ROOT_ACTIVATION.json",
+      "bytes": 2913,
+      "sha256": "e4db55f7373bc794c1c072f9129c605bec8c7b984817a2bae62a6f1d153db1da"
+    },
+    {
+      "path": "ROOT_TRIAGE.json",
+      "bytes": 3198,
+      "sha256": "c3a5b63a1454039777008d910aff15f6e1bba1bb2c5dc82cec59842664af4ff7"
+    },
+    {
+      "path": "SOURCE_BINDING.json",
+      "bytes": 754,
+      "sha256": "ca267d03ef0af0f8ab80056e7863d7ce48a5a89fe83d0d4f86b19007d4c0bdc6"
+    },
+    {
+      "path": "STATIC.json",
+      "bytes": 7736,
+      "sha256": "4671a2c12e6b483e819cacf59d749cb11df3f288b7e9a9d44107d571ac32d819"
+    },
+    {
+      "path": "TASK.json",
+      "bytes": 12111,
+      "sha256": "dc4082ed2d034493a16063ff000007428ed6fe518fbf93973c16a16a7e69fb80"
+    },
+    {
+      "path": "TITLE_MAP.json",
+      "bytes": 1704,
+      "sha256": "b707f1bb016c5bd772048b8391e2b8483c6b9035f24530b923a43dbe0547d857"
+    },
+    {
+      "path": "TRIAGE.md",
+      "bytes": 1027,
+      "sha256": "3f59c6ec300a89f515a21d9704b104805971d0318a3144517d862d2aaa334155"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 3393,
+      "sha256": "7cd9d8d083eefb6e0177c3ac25c55796f3766d36001c64f227c6ddf7b3015331"
+    },
+    {
+      "path": "operate.py",
+      "bytes": 6471,
+      "sha256": "65420db0ec5515d9c111457433087664c940c4d900a2e9dad7b1b8b31dcfcc4f"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 28575,
+      "sha256": "ff8473a7b36ba0d9a072f2d5e6fa7a16a1c14ca013978179f75372631d94120b"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "kind": "root_external_controls_preparation_grant",
+  "activationId": "RC14-REGRESSION-REPAIR-NATIVE-008",
+  "sourceBase": "5d6fb24e051e0d84595d28985faef5ff90df1610",
+  "receivedFrom": "/root",
+  "operator": "/root/b30_catalog_triage",
+  "productFrame": "Fixed15-family5.0; T287/T293 B38 RC14 first-case derived Proof repair. ABG owns event admission/currentness; retained immutable evidence and cold physical acquisition remain distinct. Controls and observations create no runtime authority.",
+  "triage": {
+    "sourceCommit": "5d6fb24e051e0d84595d28985faef5ff90df1610",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE08_GOVERNANCE_TRIAGE.json",
+    "bytes": 3198,
+    "sha256": "c3a5b63a1454039777008d910aff15f6e1bba1bb2c5dc82cec59842664af4ff7",
+    "localExactCopy": "ROOT_TRIAGE.json"
+  },
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
+  ],
+  "permittedNow": [
+    "Isolated sparse08 branch: external control preparation only",
+    "Read-only exact source/input acquisition and static syntax/JSON/hash/canonical shape checks",
+    "One compact frozen control commit; return to Root and stop before execution"
+  ],
+  "prohibitedNow": [
+    "Tenant source edits",
+    "Product imports/setup/provider/build/test/pack/install",
+    "Main mutation/push",
+    "Starting launch or proof clock"
+  ],
+  "futureDispatch": "Root separately accepts controls and supplies pushed exact source/launch grant; preparation is not dispatch",
+  "prospectiveBounds": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 1200000,
+    "nativeMaxTurns": 160,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 8100000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 15000
+  },
+  "prospectiveSequence": [
+    "Actual installed pinnedRC13 native author with five method content reads",
+    "Actual terminal/resource close/fresh reads and complete command/read audit",
+    "Independent source review and separate Root proof disposition",
+    "010wholefile then011-016 once; nine retained causal relations and original finally conservation"
+  ],
+  "executionAuthorized": false,
+  "rootRecordsWriter": {
+    "sourceCommit": "5d6fb24e051e0d84595d28985faef5ff90df1610",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/ROOT_RECORDS_WRITER_13.json",
+    "bytes": 1313,
+    "sha256": "b1b6d72d44894e46ee69f14af9e409389a8eec115f869ddcb6bafd88807383b0"
+  },
+  "sourceReviewBoundary": "Firstcase plus necessary preassert helper only; actual diff must preserve every other case and all Product/source/support inputs."
+}

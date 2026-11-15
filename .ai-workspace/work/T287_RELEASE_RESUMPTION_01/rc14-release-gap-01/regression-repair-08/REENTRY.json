@@ -1,0 +1,32 @@
+{
+  "kind": "native08_external_control_successor",
+  "predecessorControlCommit": "67ea0f74b3cc548fdc82ef2e328209c54463a542",
+  "rootTriage": {
+    "sourceCommit": "5d6fb24e051e0d84595d28985faef5ff90df1610",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE08_GOVERNANCE_TRIAGE.json",
+    "bytes": 3198,
+    "sha256": "c3a5b63a1454039777008d910aff15f6e1bba1bb2c5dc82cec59842664af4ff7",
+    "localExactCopy": "ROOT_TRIAGE.json"
+  },
+  "sourceBase": "5d6fb24e051e0d84595d28985faef5ff90df1610",
+  "sourceCheckpoint": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+  "fiveHelpersUnchanged": [
+    "dependency-inputs.py",
+    "process-owner.py",
+    "setup-custody.py",
+    "physical-topology.py",
+    "freeze-source.py"
+  ],
+  "hostOperateDelta": "mechanical08 coordinates only",
+  "proofDelta": [
+    "retained proof joining supports existing05/06 late observations plus07 original finally",
+    "7fresh010-016;9retained52passes/36top",
+    "mandatory firstcase candidate path"
+  ],
+  "preserved": [
+    "original failed07 campaign and literal node --version variance",
+    "full original finally conservation/process owner/custody/topology/deadline owners",
+    "all71originaltop-level titles and2optional gates"
+  ],
+  "preparationOnly": true
+}
