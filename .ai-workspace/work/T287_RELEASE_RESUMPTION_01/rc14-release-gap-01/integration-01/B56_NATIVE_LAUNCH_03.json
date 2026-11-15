@@ -1,0 +1,70 @@
+{
+  "id": "RC14-B56-NATIVE-LAUNCH-03",
+  "writerActivation": "RC14-ROOT-B56-COMPLETION-RECORDS-WRITER-026",
+  "recordedUtc": "2026-11-15T21:46:32.279741+00:00",
+  "activation": "integration-01/B56_NATIVE_ACTIVATION_03.json",
+  "sourceHead": "80b651f8197c4f98bc444cca145972aeb03f3974",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03",
+  "startedUtc": "2026-11-15T21:42:02.325963+00:00",
+  "originalDeadlineUtc": "2026-11-16T00:42:02.325963+00:00",
+  "executionStopDeadlineUtc": "2026-11-16T00:39:02.325963+00:00",
+  "hostPid": 65698,
+  "actor": {
+    "pid": 66197,
+    "startedUtc": "2026-11-15T21:42:45.250Z",
+    "eventOrdinal": 18,
+    "runRef": "run://abiogenesis/8eef2ab699981a1a0c52d18871e103577d79d77a2af5cf4407f65c15cd5500a2",
+    "protocolModel": "claude-opus-5-5",
+    "effortConfigured": "xhigh",
+    "remoteEffortAttested": false,
+    "observationSource": "Operator actual event18 and protocol init; full closed protocol audit follows."
+  },
+  "preimageRows": 1564,
+  "preimageSourceBytes": 40346527,
+  "sourceInitiallyClean": true,
+  "publicSetupPassed": true,
+  "preDispatchTopologyPassed": true,
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "taskDigest": "sha256:f59c85f5f4ddeda620e2ca3771a09be8598715df1c8830a8c66ea23cf922408f",
+  "contextEntries": 127,
+  "contextBytes": 3388575,
+  "providerCalls": 1,
+  "methodAcquisition": "In progress; no completed compliance claim before full audit.",
+  "proofStarted": false,
+  "qualified": false,
+  "rawPublished": false,
+  "evidencePins": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/CONTROL_START.json",
+      "bytes": 1207,
+      "sha256": "f477076eefcfcb9bbcfb0ab8e9180b5d97c18311d46efb15df54dd9c8dbc0479"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/LAUNCH_STAGING.json",
+      "bytes": 425,
+      "sha256": "ef9a3c145fabb83970134632e1428aa8564caba9b2ba9ed4d6f95ba1e9c51848"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/LAUNCH.json",
+      "bytes": 5849,
+      "sha256": "8a98e195f24dc28df5bc83e89832d7ca6f658fdceb805a28d031411f746bbf53"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/SOURCE_PREIMAGE.json",
+      "bytes": 484487,
+      "sha256": "718e58c66ea13c515012ded2f79daca587c8debd8178bae55d1031bf08e899bb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/HOST_PID.json",
+      "bytes": 44,
+      "sha256": "8767f11c2bd8905f16723e2972497551e26f9a3805ea7d677ac3c5d7609d9384"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/runtime/PREPARED.json",
+      "bytes": 1172,
+      "sha256": "b9b75bbc561cc9dbc067bff8dd104887984160af168edd1cc7c4020652fc4673"
+    }
+  ]
+}

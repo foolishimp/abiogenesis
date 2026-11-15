@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_COMPLETION03_CONTROLS_ACCEPTED_NATIVE_SELECTED",
+  "status": "RC14_B56_COMPLETION_NATIVE03_ACTIVE",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T21:40:44.760816+00:00",
-  "nativeAuthorState": "Completion03 controls accepted; one actual RC13 native pass selected after exact pushed binding. No actor active yet.",
+  "recordedUtc": "2026-11-15T21:46:32.279741+00:00",
+  "nativeAuthorState": "Actual RC13/Opus5.5 xhigh native03 author active in acquisition before source edits; original fixed clock running. No proof/build.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1183,7 +1183,7 @@
     "actualProofStarted": false
   },
   "b56Completion03": {
-    "state": "CONTROLS_ACCEPTED_NATIVE_SELECTED_AFTER_PUSH",
+    "state": "NATIVE03_ACTIVE",
     "selection": "integration-01/B56_NATIVE02_CONJUNCTION_AND_REENTRY_03.json",
     "nativeWritePaths": [
       "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
@@ -1194,11 +1194,20 @@
       "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
       "build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs"
     ],
-    "providerStarted": false,
+    "providerStarted": true,
     "proofAuthorized": false,
     "controlCommit": "d8389e40038fcb91c27989fb8770e7354c56f6b8",
     "manifestSha256": "706f2d649808af1f516c9a751177f60c7759313215b8be921a81368b5fe23ad8",
     "activation": "integration-01/B56_NATIVE_ACTIVATION_03.json",
-    "candidateBuildAuthorized": false
+    "candidateBuildAuthorized": false,
+    "launch": "integration-01/B56_NATIVE_LAUNCH_03.json",
+    "sourceHead": "80b651f8197c4f98bc444cca145972aeb03f3974",
+    "startedUtc": "2026-11-15T21:42:02.325963+00:00",
+    "originalDeadlineUtc": "2026-11-16T00:42:02.325963+00:00",
+    "actorPid": 66197,
+    "actorStartedUtc": "2026-11-15T21:42:45.250Z",
+    "modelObserved": "claude-opus-5-5",
+    "effortConfigured": "xhigh",
+    "sourcePreimageRows": 1564
   }
 }
