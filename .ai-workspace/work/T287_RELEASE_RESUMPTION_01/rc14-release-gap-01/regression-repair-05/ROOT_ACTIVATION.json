@@ -1,0 +1,36 @@
+{
+  "id": "RC14-REGRESSION-REPAIR-NATIVE-005-PREPARATION",
+  "owner": "Root",
+  "source": null,
+  "instruction": "Root selected native05: three untouched B38/B41 fixtures plus ST1/P3 complete pre-assert candidate retention only, preserving11other partial paths. Partial commit85a23d71 remains incomplete/unproved. Operator authors controls only; actual RC13 native author owns source. Prospective45min/360turns,5min inactivity,3h enclosing and90min proof; no old clock change. Exact final pushed source and separate launch remain required.",
+  "scope": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-closure.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p3-continuation-refused.test.mjs"
+  ],
+  "acceptedLimits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 2700000,
+    "nativeMaxTurns": 360,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 10800000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 15000
+  },
+  "acceptedBuildReuse": "Root explicitly accepts hash-bound reused compiled Product/native/dependencies while build inputs remain exact; test-owned pack/install stays. Stop reuse on production/build drift.",
+  "requiredEvidence": "All7 required retained inputs must exist/hash-match; optional historical input-not-found gates may remain named.",
+  "priorClocks": "Closed; no reset or relabel",
+  "recordedUtc": "2026-11-15T08:58:33.004100+00:00",
+  "predecessorControlSubject": "fd7ecfa64f70cff6228b2a21e7e82335a18b1d6f",
+  "reentryAuthority": "Root separate Writer activation in conversation; preparation only, not retry or reset of native04",
+  "preparationBase": "f4b33e49e25515a99cf57aad3f647974016f354c"
+}

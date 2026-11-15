@@ -1,0 +1,82 @@
+{
+  "status": "prepared_disabled_static_passed",
+  "sourcePreparationBase": "f4b33e49e25515a99cf57aad3f647974016f354c",
+  "sourceWorktree": "/private/tmp/abg-rc14-regression-repair-20261115-05",
+  "branch": "codex/rc14-regression-repair-20261115-05",
+  "activationId": "RC14-REGRESSION-REPAIR-NATIVE-005",
+  "predecessorControlSubject": "fd7ecfa64f70cff6228b2a21e7e82335a18b1d6f",
+  "acceptedPartialSource": "85a23d71cbc7298d1ec438fa06ed1c46754cc0c9",
+  "acceptedPartialTree": "75b4acfb745f5682b470974b7a39770aad2cc4b3",
+  "partialDiffSha256": "83cb2bf4ce1386a3a4a1fb2f6cd19ad9386a0168ba6e79245aa4afefe83fd9e0",
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "sha256": "8286931b320e655b39159b569c60025b58a9e54288f6a4a7565949ff6b103a7a",
+    "controls": 22
+  },
+  "scope": {
+    "nativeWritePaths": 5,
+    "substantiveFixtureRepairs": 3,
+    "retentionOnlyCorrections": [
+      "t287-st1-installed-cross-owner-hello.test.mjs",
+      "t292-td26-p3-continuation-refused.test.mjs"
+    ],
+    "priorPartialRows": 13,
+    "immutablePriorRows": 11,
+    "buildReuseExceptions": 17,
+    "wholeProofFiles": 16,
+    "originalNamedCases": 71,
+    "acceptedTitleMappings": 3,
+    "optionalHistoricalSkips": 2
+  },
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 2700000,
+    "nativeMaxTurns": 360,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 10800000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 15000
+  },
+  "static": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/STATIC_RETURN_FINAL.json",
+    "sha256": "4295c05f3356b1a19f1b0382dbac417f8788d30f064f65e95f84a49f0b601824",
+    "typeOnlyPassed": true,
+    "syntaxPassed": true,
+    "readRoots": 57,
+    "contextBytes": 1984055,
+    "physicalProducerProbe": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/physical-preflight-01/RETURN.json",
+      "sha256": "8a8bb8508ebcad592e70c9016da01ddc20e3edeb4486bf122cd7887b923c0bca",
+      "functionSha256": "5976ac283fddad3a02ced9868556d8c7e3bb160c69ae3c5d86021ba73882c057"
+    }
+  },
+  "reuse": {
+    "actualBuildSourceRows": 1295,
+    "buildFiles": 782,
+    "derivedOutputs": 2,
+    "dependencyEntries": 4576,
+    "requiredRetainedFiles": 7,
+    "requiredRetainedBytes": 669118059,
+    "largeInputRehashDuringPreparation": false,
+    "entryAndExitReuseChecksRetained": true
+  },
+  "completionGate": "Actual inner completed/result/owner-typed terminal and task-bound native observation; actual close; fresh run_result result plus closed replay with same source/terminal; exact raw receipts retained and independently joined by prove.py",
+  "preservation": "Native04 failed Run, partial13, setup-owned manifest, receipts, method deviations and original clock retained. No04 proof selected.",
+  "remaining": [
+    "Independent frozen control review",
+    "Root integration/push and direct remote parity for final exact execution subject",
+    "Clean branch advancement, exact freeze-source preimage and separate Root launch"
+  ],
+  "finalExecutionSource": null,
+  "executionAuthorized": false,
+  "clockStarted": false,
+  "entry": "python3 operate.py /absolute/path/to/approved/LAUNCH.json",
+  "returnTo": "Root; no main/push or Reviewer activation by Writer"
+}

@@ -1,0 +1,14 @@
+{
+  "preparedUtc": "2026-11-15T08:58:33.004100+00:00",
+  "preparationBase": "f4b33e49e25515a99cf57aad3f647974016f354c",
+  "source": "/private/tmp/abg-rc14-regression-repair-20261115-05",
+  "branch": "codex/rc14-regression-repair-20261115-05",
+  "finalLaunchHead": null,
+  "priorPartial": "PRIOR_PARTIAL_SOURCE.json",
+  "priorProvedTenantSource": "7a2411defd9ef7c1968512703c3b4b1493114453",
+  "finalLaunchBinding": "Root supplies exact accepted partial-source and pushed control/source HEAD. Advance clean named branch and capture real SOURCE_PREIMAGE only then. Every prior13 row and all non-exception build source rows must match.",
+  "executionAuthorized": false,
+  "clockStarted": false,
+  "acceptedPartialSource": "85a23d71cbc7298d1ec438fa06ed1c46754cc0c9",
+  "acceptedPartialTree": "75b4acfb745f5682b470974b7a39770aad2cc4b3"
+}

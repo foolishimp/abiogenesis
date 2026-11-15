@@ -1,0 +1,54 @@
+{
+  "kind": "bounded_external_control_reentry",
+  "activation": "RC14-REGRESSION-REPAIR-NATIVE-005",
+  "recordedUtc": "2026-11-15T08:58:33.004100+00:00",
+  "productFrame": "Fixed5.0 F04/F10/F11; derived fixture/evidence tooling cannot convert host success into admitted native completion. Runtime owns disposition, typed terminal, result and replay. RC13 remains builder; no qualification or RC14 cut.",
+  "cause": "Native04 exhausted240-turn ceiling (reported241) after partial source edits. Actual inner runtime_failed with null result/terminal and fresh run_result refusal; old outer-only control gate incorrectly returned host0.",
+  "historicalReceipts": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/CONTROL_START.json",
+      "bytes": 1170,
+      "sha256": "9255855709f10aa01ae6b5640d1a2e51d686d8fac42f1ca69a03b7a9b2843631"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/HOST_RETURN.json",
+      "bytes": 625,
+      "sha256": "7ab252d4eda66028b4015c1a454c5867390769ee9bdf77b3d82255a0f52e89ff"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/runtime/NATIVE_RETURN.json",
+      "bytes": 328051,
+      "sha256": "f74ac278a37af0760522d105b3c09f26899201b8e74b63ff1a4992dcb4211698"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/runtime/FINAL.json",
+      "bytes": 867,
+      "sha256": "fbfdb1590b9cc99cdf4652531adafbd89d8cfe68c21b178f466612ae26015214"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/runtime/FRESH_READBACKS.json",
+      "bytes": 748,
+      "sha256": "81f939d503505a56ddbd4a9cf4770726b589c6f96798819307124a5b74dd267f"
+    }
+  ],
+  "partialSource": "PRIOR_PARTIAL_SOURCE.json",
+  "selectedCorrection": "Five-test scope: three remaining fixtures plus ST1/P3 full pre-assert retention only. Strict inner completion/fresh readbacks;13 prior input rows,11 immutable;17 build-reuse exceptions and all16 whole-file proof. Prospective45min/360turns; no04 extension.",
+  "unresolved": [
+    "Final pushed integrated source/control HEAD and direct remote parity",
+    "Independent frozen control review and separate exact native05 launch"
+  ],
+  "executionAuthorized": false,
+  "clockStarted": false,
+  "priorReadDeviation": "Native04 used wc on nine required authority/HOW files; counts do not satisfy content reading. Preserved as process deviation, not relabeled compliant. Native05 must content-read relevant governing sections.",
+  "rootPartialSource": "85a23d71cbc7298d1ec438fa06ed1c46754cc0c9",
+  "rootTitleMap": {
+    "path": "PRIOR_TITLE_MAP.json",
+    "sha256": "1bb45ecacff4faef9ea3cf8444d950df232d6d041334ce959cd71a43bfa6b281",
+    "sourceCommit": "85a23d71cbc7298d1ec438fa06ed1c46754cc0c9",
+    "rule": "Three exact Root-selected successor titles are now required; predecessor controls had excluded the retired prior titles from preservedTitles pending author/Root mapping. All71 minimum cases and other titles unchanged. No further title change selected."
+  },
+  "priorMethodDeviations": [
+    "Nine required authority/HOW sources size-counted rather than independently content-read",
+    "Ten Python replacement commands wrote inside W despite shell-read-only instruction"
+  ]
+}
