@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { readFile, realpath, writeFile } from "node:fs/promises";
+import { mkdir, readFile, realpath, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
@@ -2032,6 +2032,19 @@ test("ST-1 executes an independently authored minimal GTL test through installed
       resources: { ...retiredGapsBase.call.resources },
     },
   );
+  // The complete retired-member outcome is retained, one file for this case,
+  // under ABG_REGRESSION_PROOF_ROOT before its assertions.
+  if (process.env.ABG_REGRESSION_PROOF_ROOT) {
+    const retainedDirectory = join(
+      process.env.ABG_REGRESSION_PROOF_ROOT,
+      "t287-st1-installed-cross-owner-hello",
+    );
+    await mkdir(retainedDirectory, { recursive: true });
+    await writeFile(
+      join(retainedDirectory, "st1-run-gaps-retired-outcome.json"),
+      `${JSON.stringify(retiredGapsOutcome)}\n`,
+    );
+  }
   assert.equal(
     `${retiredGapsOutcome.kind}:${retiredGapsOutcome.code}`,
     "installed_definition_call_transport_refusal:unknown_definition",

@@ -2,6 +2,7 @@
 // explicit assumptions, not an installed Run, case-adequacy or qualification claim.
 import test from 'node:test';
 import fs from 'node:fs';
+import { join } from 'node:path';
 import {performance} from 'node:perf_hooks';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -9,10 +10,27 @@ import { nativeJoinFixture, inputFixture, coverage, ids, hash, identity, publica
 import { constructLanguageTestInput } from '../support/language-test-gtl.mjs';
 import { evidenceGate } from '../support/evidence-root.mjs';
 import { render as renderLanguageTest } from '../fixtures/language-smoke/leaf.mjs';
+import { setupInstalledRootCatalog } from '../support/root-installed-environment.mjs';
 import { isNativeRuntimeAssessmentInput, evaluateMalformedGtlAssessment, parseQualificationCatalogs } from '../../build/code/src/validator/qualification.js';
+import { admitGraphFunctionCatalog } from '../../build/code/src/product/index.js';
+import { reconstructHistoricalDeclarationCatalog } from '../../build/code/src/product/declaration_closure.js';
+import { isAbgHistoricalDeclarationProof } from '../../build/code/src/abg/terminal_result_contracts.js';
+const packageRoot = new URL('../..', import.meta.url).pathname;
+// Each complete candidate is retained under ABG_REGRESSION_PROOF_ROOT, one file
+// per case, before its assertions run. Retained evidence is only read.
+const regressionRoot = process.env.ABG_REGRESSION_PROOF_ROOT;
+async function retainCandidate(name, value) {
+  if (!regressionRoot) return;
+  const directory = join(regressionRoot, 't287-native-runtime-gate');
+  await fs.promises.mkdir(directory, { recursive: true });
+  await fs.promises.writeFile(join(directory, name + '.json'), JSON.stringify(value) + '\n');
+}
 const catalogs = parseQualificationCatalogs(fs.readFileSync(new URL('../../contracts/qualification/coverage.json', import.meta.url)),
   fs.readFileSync(new URL('../../contracts/qualification/rule-catalog.json', import.meta.url)));
 const plain = x => JSON.parse(JSON.stringify(x));
+// The complete returned value, or the complete thrown failure, of one owner call.
+const outcome = call => { try { return { kind: 'returned', value: call() }; }
+  catch (error) { return { kind: 'thrown', name: error?.name, message: String(error?.message ?? error) }; } };
 const reidentify = basis => { const { basisRef, basisDigest, ...body } = basis; return identity(body, 'basisRef', 'basisDigest', 'qualification-basis://abiogenesis/'); };
 async function witnessFixture(options = {}) {
   const f = await nativeJoinFixture({ runtime: true, ...options });
@@ -100,9 +118,57 @@ const ownedDeclaration=evidenceGate('owned-proof-declaration');
 test('material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction',
   {skip:ownedDeclaration.kind==='absent'&&ownedDeclaration.reason}, async t => {
   const donor=JSON.parse(ownedDeclaration.inputs.declaration.bytes.toString('utf8'));
-  const declarationProof=donor.proof.declarations[0],begin=performance.now();
+  // The retained dev286 declaration (16 capabilities, including the retired
+  // Consensus capability) is recorded history. Offered as new work it asks the
+  // strict question and the current 15-capability register refuses it: by the
+  // Catalog owner, by the declaration reconstruction owner and by the native
+  // assessment owner. It is never rewritten or reused as a current positive.
+  const donorProof=donor.proof.declarations[0];
+  const donorStrictAdmission=outcome(()=>admitGraphFunctionCatalog(donorProof.catalog.readinessBasis));
+  const donorStrictReconstruction=outcome(()=>reconstructHistoricalDeclarationCatalog(donorProof,donorProof.catalog.readinessBasis));
+  let donorAssessment;
+  try { const donorFixture=await witnessFixture({declarationProof:donorProof});
+    donorAssessment={kind:'returned',value:assess(donorFixture,'donor-new-work').candidate}; }
+  catch(error){ donorAssessment={kind:'thrown',name:error?.name,message:String(error?.message??error)}; }
+  // Retention never copies the retained declaration: a refused or failed
+  // outcome is kept whole, an unexpected success only by its disposition.
+  const donorAssessmentRetained=donorAssessment.kind==='returned'&&donorAssessment.value?.disposition==='success'
+    ?{kind:'returned',value:{disposition:'success'}}:donorAssessment;
+  await retainCandidate('material-native-proof-donor-new-work',{donorProofIdentity:{
+    catalogBasisDigest:donorProof.catalog?.basisDigest??null,catalogViewDigest:donorProof.catalogView?.viewDigest??null},
+    donorStrictAdmission:donorStrictAdmission.kind==='returned'&&donorStrictAdmission.value?.kind==='graph_function_catalog'
+      ?{kind:'returned',value:{kind:'graph_function_catalog',basisDigest:donorStrictAdmission.value.basisDigest}}:donorStrictAdmission,
+    donorStrictReconstruction:donorStrictReconstruction.kind==='returned'?{kind:'returned'}:donorStrictReconstruction,
+    donorAssessment:donorAssessmentRetained});
+  // The current positive: an actual current-register Catalog and CatalogView,
+  // built by the installed Product owners of the maintained fixture API over
+  // its own verified artifacts, lock, workspace binding and installs. Its
+  // declaration proof is the plain JSON carrier the proof schema requires; the
+  // real owner reconstructs it under the strict question.
+  const current=await setupInstalledRootCatalog(t,packageRoot);
+  const declarationProof=plain({kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',
+    catalog:current.catalog,catalogView:current.catalogView});
+  const currentStrictReconstruction=outcome(()=>reconstructHistoricalDeclarationCatalog(declarationProof,declarationProof.catalog.readinessBasis));
+  const begin=performance.now();
   const f=await witnessFixture({declarationProof}),a=assess(f);
-  assert.equal(a.candidate.disposition,'success');const value=a.candidate.resultCandidate;
+  await retainCandidate('material-native-proof-survives-result-clone',{
+    currentProofIdentity:{catalogBasisDigest:declarationProof.catalog.basisDigest,catalogViewDigest:declarationProof.catalogView.viewDigest},
+    currentStrictReconstruction:currentStrictReconstruction.kind==='returned'?{kind:'returned',
+      catalogBasisDigest:currentStrictReconstruction.value.catalog.basisDigest,
+      catalogViewDigest:currentStrictReconstruction.value.catalogView.viewDigest}:currentStrictReconstruction,
+    candidate:a.candidate,counts:{...f.counts}});
+  assert.equal(donorStrictAdmission.kind,'returned',JSON.stringify(donorStrictAdmission).slice(0,4000));
+  assert.equal(donorStrictAdmission.value.kind,'catalog_construction_refusal',JSON.stringify(donorStrictAdmission).slice(0,4000));
+  assert.equal(donorStrictAdmission.value.disposition,'refused',JSON.stringify(donorStrictAdmission).slice(0,4000));
+  assert.equal(donorStrictReconstruction.kind,'thrown',JSON.stringify(donorStrictReconstruction).slice(0,4000));
+  assert.equal(donorStrictReconstruction.name,'TypeError',JSON.stringify(donorStrictReconstruction).slice(0,4000));
+  assert.ok(donorAssessment.kind==='thrown'||donorAssessment.value.disposition!=='success',JSON.stringify(donorAssessment).slice(0,4000));
+  assert.equal(isAbgHistoricalDeclarationProof(declarationProof),true);
+  assert.notEqual(declarationProof.catalog.basisDigest,donorProof.catalog.basisDigest,'the current positive is not the retained donor');
+  assert.equal(currentStrictReconstruction.kind,'returned',JSON.stringify(currentStrictReconstruction).slice(0,4000));
+  assert.equal(currentStrictReconstruction.value.catalog.basisDigest,declarationProof.catalog.basisDigest);
+  assert.equal(currentStrictReconstruction.value.catalogView.viewDigest,declarationProof.catalogView.viewDigest);
+  assert.equal(a.candidate.disposition,'success',JSON.stringify(a.candidate).slice(0,4000));const value=a.candidate.resultCandidate;
   const initial={...f.counts}; assert.equal(initial.catalog,1);assert.equal(initial.assessment,1);
   f.complete(a.opened,plain(value));
   for(let i=0;i<80;i++)f.event('c_call_opened','c-call://irrelevant/'+i,{callClass:'workflow',programLocusRef:'locus://unrelated'}, {runId:'run://other'});
@@ -121,7 +187,8 @@ test('material native proof survives Result clone, successor foldback and next c
   assert.equal(f.semantics.qualificationResultRelation(ids.runtimeAssessPredicate,f.input,changed,f.proof().prefix),false);
   t.diagnostic(JSON.stringify({inputBytes:Buffer.byteLength(JSON.stringify(f.input)),assessmentBytes:Buffer.byteLength(JSON.stringify(value)),
     initial,warm,cold,final:f.counts,elapsedMs:performance.now()-begin,peakRSS:process.resourceUsage().maxRSS,
-    premises:'Complete retained Catalog reconstructed by real owner once per derivation scope; native lower admission/closure/environment mappings assumed. No installed qualification.'}));
+    donorStrictRefusal:donorStrictAdmission.value?.code??null,
+    premises:'Complete current-register installed Catalog reconstructed by real strict owner once per derivation scope; retained dev286 declaration refused as new work; native lower admission/closure/environment mappings assumed. No installed qualification.'}));
 });
 
 test('different installed module URLs retain the invoking proof owner through realization, cloned judgment and owning continuation',async t=>{

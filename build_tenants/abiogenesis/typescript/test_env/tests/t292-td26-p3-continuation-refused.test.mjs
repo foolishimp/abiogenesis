@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import test from 'node:test';
 import * as api from '../../build/code/src/public/index.js';
 import * as product from '../../build/code/src/product/index.js';
@@ -70,6 +72,13 @@ test('selected_action is retired from the published continue family and the inst
   // the retired member selects no installed owner contract source.
   const current = construct('current_intent', PENDING_CURSOR);
   const control = await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, current);
+  // The complete current-owner control is retained, one file for this case,
+  // under ABG_REGRESSION_PROOF_ROOT before its assertions.
+  if (process.env.ABG_REGRESSION_PROOF_ROOT) {
+    const directory = join(process.env.ABG_REGRESSION_PROOF_ROOT, 't292-td26-p3-continuation-refused');
+    await mkdir(directory, {recursive: true});
+    await writeFile(join(directory, 'selected-action-retired-current-intent-control.json'), JSON.stringify(control) + '\n');
+  }
   assert.equal(control.kind, 'installed_definition_call_transport_result', JSON.stringify(control).slice(0, 400));
   const retired = {invocation: {...current.invocation, definitionKey: {...current.invocation.definitionKey, memberKey: 'selected_action'}},
     resources: {...current.resources}};
