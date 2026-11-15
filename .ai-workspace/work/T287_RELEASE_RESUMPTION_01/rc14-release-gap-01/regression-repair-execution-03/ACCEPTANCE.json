@@ -1,0 +1,25 @@
+{
+  "id": "RC14-REGRESSION-NATIVE-03-PREPARATION-ACCEPTANCE",
+  "decision": "satisfied for bounded native execution and affected proof",
+  "reviewer": "/root/b29_vm_triage",
+  "author": "/root/b30_catalog_triage; separate Root Writer two-script finalization repair",
+  "basis": "stdo://releases/v3.0.4/",
+  "reviewedSubject": "c240e67af21acb74332d3206d68dca0be5ecd284",
+  "manifestSha256": "42a340e37d7b4931705a85dda823f0fb621a93812bb1217617c9a2b0f051bb64",
+  "retainedClosedRelations": {
+    "inputs": 7,
+    "inputBytes": 669118059,
+    "prebuildSourceRows": 1295,
+    "buildFiles": 782,
+    "derivedOutputs": 2,
+    "taskWritePaths": 17,
+    "wholeProofFiles": 16
+  },
+  "findingsClosed": [
+    "final aggregate output cap after exit",
+    "original minimum host/proof deadline enforced after final custody"
+  ],
+  "earlierFailureNotReset": true,
+  "qualification": false,
+  "recordedUtc": "2026-11-15T07:38:42.913172+00:00"
+}

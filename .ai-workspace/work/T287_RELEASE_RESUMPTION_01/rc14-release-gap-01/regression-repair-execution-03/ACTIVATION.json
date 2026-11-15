@@ -1,0 +1,38 @@
+{
+  "id": "RC14-REGRESSION-NATIVE-03-ROOT-EXECUTION",
+  "role": "Separate Root native Operator and later proof Operator",
+  "authority": "Owner RC13-built RC14 mandate, finish instruction, closed independent review; existing exact TASK/ACT/PROOF_PLAN accepted",
+  "sourceHead": "da57781815b410583ed72e08ef63b2ac29b01e85",
+  "launchSha256": "6c6b80c5194ac9f3511ba604fefa100379ff9ef3518455231a3dce29a071763c",
+  "execution": "One actual installed RC13 author over17paths then actual close/readback; source/audit must satisfy before one serial16file proof. B37 supported Product failure returns toRoot; no widening.",
+  "effects": [
+    "Integrate authored controls into main and push only authored compact records",
+    "Fast-forward selected worker branch to exact pushed source; freeze materialized source bytes",
+    "Create external scratch/config/preimage and invoke fixed operate.py once",
+    "Read actual author outcome, inspect complete changed scope/native commands and evidence",
+    "Only if source/audit/return satisfies, invoke fixed prove.py once under original clock",
+    "Checkpoint reviewed source and compact return through separately accepted integration; raw logs stayexternal"
+  ],
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 3600000,
+    "nativeMaxTurns": 240,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 10800000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 15000
+  },
+  "exclusions": [
+    "No Product/runtime edits by Operator",
+    "No duplicate broad, retry, pin/tag/publication/human acceptance",
+    "No raw Git/LFS upload"
+  ],
+  "recordedUtc": "2026-11-15T07:38:42.913172+00:00"
+}
