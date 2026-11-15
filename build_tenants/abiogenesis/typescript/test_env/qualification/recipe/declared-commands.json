@@ -226,7 +226,7 @@
       "predicateKind": "stdout_exact",
       "declaration": {
         "validationCommandId": "command://abiogenesis/qualification/compare",
-        "equals": "candidate pack reproduced: 5293 files\n"
+        "equals": "candidate pack reproduced: 5302 files\n"
       }
     }
   ],
