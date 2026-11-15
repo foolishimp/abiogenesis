@@ -1,5 +1,5 @@
 {
-  "status": "RC14_CANDIDATE_BUILT_INSTALL_AND_PUBLIC_SETUP_SELECTED",
+  "status": "RC14_LOCALLY_INSTALLED_PUBLIC_SETUP_CONTROL_REPAIR_SELECTED",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T15:22:03.597932+00:00",
-  "nativeAuthorState": "No active provider/build. Actual RC14 candidate build passed; same-archive installation and Public setup selected after checkpoint push.",
+  "recordedUtc": "2026-11-15T17:54:14.403460+00:00",
+  "nativeAuthorState": "No active provider or runtime. Mechanical RC14 install passed; Public setup01 failed before candidate Product evaluation on external capture/runtime directory collision. Narrow control successor selected.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -897,7 +897,7 @@
     "namedTopLevelMinimum": 24
   },
   "candidatePreparation": {
-    "state": "BUILD_CLOSED_INSTALL_SELECTED_NOT_STARTED",
+    "state": "MECHANICAL_INSTALL_PASSED_PUBLIC_SETUP01_FAILED",
     "compileInputCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
     "compileInputTree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
     "acceptance": "integration-01/RC14_C0_SOURCE_ACCEPTANCE.json",
@@ -913,6 +913,12 @@
     "buildReturn": "integration-01/candidate-build-01/RETURN.json",
     "buildAcceptance": "integration-01/RC14_CANDIDATE_BUILD_ACCEPTANCE.json",
     "members": 5302,
-    "installGrant": "integration-01/candidate-install-01/ACTIVATION.json"
+    "installGrant": "integration-01/candidate-install-01/ACTIVATION.json",
+    "installReturn": "integration-01/candidate-install-01/RETURN.json",
+    "disposition": "integration-01/INSTALL_AND_PUBLIC_SETUP_DISPOSITION.json",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14/node_modules/@abiogenesis/typescript-tenant",
+    "publicSetupIdentity": null,
+    "controlFinding": "T293 B51",
+    "qualified": false
   }
 }

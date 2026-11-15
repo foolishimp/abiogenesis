@@ -1,0 +1,80 @@
+{
+  "id": "RC14-INSTALL-PUBLIC-SETUP-DISPOSITION-001",
+  "recordedUtc": "2026-11-15T17:54:14.403460+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-RECORDS-WRITER-015",
+    "role": "Separate Root records Writer",
+    "authority": "Owner finish RC14 and latest continue; closed independent source/receipt/design triage. Preserve actual returns and record the selected narrow external-control successor.",
+    "writeTerritory": [
+      "this disposition",
+      "T287 and T293",
+      "rc14-release-gap-01/STATUS.json",
+      "unchanged recovered candidate-install-01/RETURN.json"
+    ],
+    "effects": "Exact authored records, recovery commit/main integration and main-only push; no Product or driver implementation by this records role."
+  },
+  "productFrame": "Fixed ABIogenesis5.0 T287 RC14 S07; external drivers own evidence/capture, installed Public/ABG own admitted runtime truth. Prospective package/install correspondence does not establish qualification.",
+  "recovery": {
+    "operator": "/root/b30_catalog_triage",
+    "condition": "Usage limit after all actual groups closed and compact Return saved, before its commit.",
+    "fileSha256": "588b6e2e8cc85495f3a1500b1bc8127e1fa4681b0f36126ad49fd210be51ca67",
+    "RootAction": "Read unchanged complete saved Return, verify20 external pins and nine groups absent, then checkpoint unchanged file.",
+    "commit": "5404f8dbe",
+    "mainMerge": "b257e0b9711bb893bc2c35bb84a49229058aaa8d"
+  },
+  "mechanicalInstall": {
+    "disposition": "Accepted within unqualified candidate scope",
+    "returnSha256": "91329a0a43dee37e5a1677bf56751642d6ddb6202b6d1cc1393e46f954b6c85a",
+    "installRecordSha256": "16f294953676d261871622e0d88825fb0190352d22a241eed749969c8b5e5b1d",
+    "archiveSha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "elapsedMs": 26446,
+    "installedFiles": 5302,
+    "RootIndependentCheck": "Complete installed file set and bytes match actual archive-member inventory; RC13 builder pin unchanged.",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "publicSetup01": {
+    "status": "Failed, preserved",
+    "returnSha256": "c0d2afc13e4e327e9f95a52695b55dd66bf6f2d76022fc6b0b69d8bce21cf67d",
+    "outerReturnSha256": "fe53c131b437b9576741e87c27abbc5c450969c08222ca61eb2ba3ce3da4eefa",
+    "stderrSha256": "15c8f3f666ac0e74a18516e3dcb44a9155c89d0847d792b39db24f7a74f96767",
+    "hostWallMs": 204,
+    "enclosingWallMs": 3019,
+    "originalStartUtc": "2026-11-15T15:28:22.579356Z",
+    "originalDeadlineUtc": "2026-11-15T15:43:22.579356Z",
+    "inputConserved": true,
+    "groupsAbsent": true,
+    "ProductEvaluationReached": false,
+    "PublicIdentityProduced": false,
+    "setupCloseProduced": false
+  },
+  "conjoinedTriage": {
+    "frames": [
+      "External process/capture ownership and Proof: b29_vm_triage",
+      "Design/integration and identity consumer: rc14_release_proof",
+      "Actual receipt and archive/install correspondence: Root"
+    ],
+    "origin": "Frozen run.py command(public-setup) passes raw/public-setup to bounded.py, which exclusively creates capture storage before spawn. setup-only.mjs14 then exclusively creates the identical runtime directory and fails EEXIST.",
+    "effectsReached": "Four maintained Node/tooling modules imported; candidate Product exports and verifyArtifact/publicCaller/populateSandbox were not reached.",
+    "whyPriorChecksMissed": "Syntax, hashes and installed-path suffixes did not compare the two exclusive directory creation owners.",
+    "affectedCone": "External Public setup driver and its readiness claim only; unchanged archive and successful global install retain their evidence.",
+    "reentry": "realization_refactor of external evidence controls, no Product/requirement/design outcome change"
+  },
+  "selectedRepair": {
+    "writer": "rc14_release_proof, separate external-controls Writer",
+    "territory": "integration-01/cut-public-setup-02",
+    "soleExecutableDelta": "run.py host command capture label public-setup -> public-setup-host",
+    "preserved": "Runtime raw/public-setup, identity/HANDOFF/cleanup joins, setup-only body, exclusive mkdir, all owner paths, paired topology, bounds and custody.",
+    "assurance": "Independent exact-delta review before a fresh same-archive Public setup; no global reinstall, rebuild or broader suite.",
+    "executionAuthorizedByThisRecord": false
+  },
+  "open": [
+    "Corrected driver acceptance and genuine Public setup",
+    "C1 derived metadata/freeze",
+    "Installed amendment and S06",
+    "B50 qualification route/policy and S07 qualification/human/publication"
+  ],
+  "qualified": false,
+  "published": false,
+  "builderPinChanged": false,
+  "rawEvidencePublished": false
+}
