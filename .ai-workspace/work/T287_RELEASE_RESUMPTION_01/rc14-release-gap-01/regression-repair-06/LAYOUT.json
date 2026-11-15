@@ -1,0 +1,12 @@
+{
+  "source": "/private/tmp/abg-rc14-regression-repair-20261115-06",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06",
+  "proofSubject": "/private/tmp/abg-rc14-regression-proof-20261115-06",
+  "writePaths": [
+    "/private/tmp/abg-rc14-regression-repair-20261115-06/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs"
+  ],
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "plannedProtected": "HOST includes installed ABI container/package, consumer package, all4resource roots, pinned install/release; reacquires full actual binding/install roots after setup and immediately before dispatch.",
+  "setupCustody": "Exact successful imported-create receipt/readback and canonical bytes, captured before actor, verified entry/end. All other .abiogenesis deltas forbidden.",
+  "status": "Prospective only; fresh runtime observations mandatory. Root accepted observer for controlled ASCII layout only, not arbitrary Unicode/atomic races."
+}

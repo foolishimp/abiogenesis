@@ -1,0 +1,112 @@
+{
+  "kind": "retained_two_file_proof_relation",
+  "sourceCommitAtRun": "a0b0ab5dd37322b66f69909d6a1c7ab75e7ee3fa",
+  "acceptedSourceCheckpoint": "97b1fa1ccc7c8e160efcd7208a1c87a4ab4443da",
+  "sourcePostimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/SOURCE_POSTIMAGE.json",
+    "bytes": 356461,
+    "sha256": "74d933c1e71beeb517f28520aeb8f8f4b46b397542520205d89221b14ac23de7"
+  },
+  "proofReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/RETURN.json",
+    "bytes": 5752,
+    "sha256": "4ec14319c6ee1d168958723241dda8b738fdcec9a7a25acfe1eb326e9c8561a7"
+  },
+  "postFailureConservation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/POST_FAILURE_CONSERVATION.json",
+    "bytes": 11115,
+    "sha256": "c1be49dad10385372571240ecea511ad1c2abb42afde83bc1feec9a83370c78b"
+  },
+  "reuseInputs": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/REUSE_AND_INPUTS_VERIFIED.json",
+    "bytes": 3370,
+    "sha256": "fdce1c6444325fb43e640dfe7f3ef9716d0c26907fa63210f5bbe3b00f325ccc"
+  },
+  "originalProofRunner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-05/prove.py",
+    "bytes": 17439,
+    "sha256": "26baaa481b4ddf9c8bc4437c02736f09dc78f56f758782fce706b484255728f3"
+  },
+  "excludedChangedPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+  "rows": [
+    {
+      "file": "t287-required-operation-bindings.test.mjs",
+      "originalOrdinal": 1,
+      "records": {
+        "START.json": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/001-t287-required-operation-bindings/START.json",
+          "bytes": 985,
+          "sha256": "b1a691db8ae6146df8033e11ac74718356c413052a3d13a3226beee848eafeb0"
+        },
+        "RETURN.json": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/001-t287-required-operation-bindings/RETURN.json",
+          "bytes": 461,
+          "sha256": "fae954e9a1788ae9f614c1f42cc09a27d85cad5d6fa39637fb80d60a83f74d96"
+        },
+        "COUNTS.json": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/001-t287-required-operation-bindings/COUNTS.json",
+          "bytes": 4764,
+          "sha256": "0f718a50a7632f48e56b926f06affcbbe891aa644a08b31f459a0809d1ec81fc"
+        },
+        "OBSERVED_CASES.json": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/001-t287-required-operation-bindings/OBSERVED_CASES.json",
+          "bytes": 5362,
+          "sha256": "147f2764200b99fef4a48f43ac8ffaca6ccf00c4a9995e566f82baeaa828e014"
+        },
+        "stdout.raw": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/001-t287-required-operation-bindings/stdout.raw",
+          "bytes": 3809,
+          "sha256": "d3c325e2522ea7bdc4d0c7762e9d811dfa9320f9ba7e6efb080cd3a92e7aa5ce"
+        },
+        "stderr.raw": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/001-t287-required-operation-bindings/stderr.raw",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "file": "t292-td26-p6-language-retired.test.mjs",
+      "originalOrdinal": 2,
+      "records": {
+        "START.json": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/002-t292-td26-p6-language-retired/START.json",
+          "bytes": 982,
+          "sha256": "b37a01bbb5c8ecc1802ae8594f08561ccfa85e7d0ad4f3239381e68138a2664a"
+        },
+        "RETURN.json": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/002-t292-td26-p6-language-retired/RETURN.json",
+          "bytes": 458,
+          "sha256": "fb37089f55fd1dc0db7215db89b1e28274e782a4a640be8c153811f3bae6ed75"
+        },
+        "COUNTS.json": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/002-t292-td26-p6-language-retired/COUNTS.json",
+          "bytes": 1185,
+          "sha256": "068f35167abd222cff9e32bc6268ff03c0edd69475c42d7a7c100879499af015"
+        },
+        "OBSERVED_CASES.json": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/002-t292-td26-p6-language-retired/OBSERVED_CASES.json",
+          "bytes": 1772,
+          "sha256": "0d7574875ef9da4af3423f7e5421b5a06a35e61137e67cfaa82c32d1ee4b70ee"
+        },
+        "stdout.raw": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/002-t292-td26-p6-language-retired/stdout.raw",
+          "bytes": 1104,
+          "sha256": "093b7e86f8b00ef22fd61bfe00ec48ae92cfe60e5658a1b18058e61771f70cb4"
+        },
+        "stderr.raw": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/002-t292-td26-p6-language-retired/stderr.raw",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    }
+  ],
+  "relation": "All tenant source/support/fixtures/contracts/package inputs outside sole W must equal the actual05 postimage; W is a separate unimported test and excluded from Product payload by exact package files entries. Complete compiled/native inventory, dependency inventory, two generated outputs and seven retained inputs remain bound by BUILD_REUSE/DEPENDENCY_INPUTS/RETAINED_INPUTS and22 matched late checks. Original receipts remain historical pass evidence, not a new06 execution.",
+  "limits": [
+    "Original overall05 campaign failed003; it is not relabelled passed.",
+    "Late22-check conservation is explicitly later read-only observation, not original finally evidence.",
+    "Node24.7.0 is observed in original reporter begin; original START binds exact command path/arguments/environment key set. No retroactive executable-byte attestation is invented.",
+    "If any causal input or population relation differs, stop and return to Root; do not silently rerun or broaden."
+  ]
+}

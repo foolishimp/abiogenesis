@@ -1,0 +1,31 @@
+{
+  "kind": "closed_external_control_preparation",
+  "activationId": "RC14-REGRESSION-REPAIR-NATIVE-006",
+  "status": "prepared_execution_disabled",
+  "sourcePreparationBase": "27d971a3641ae016451ac72eb766f22c170f63b3",
+  "sourceWorktree": "/private/tmp/abg-rc14-regression-repair-20261115-06",
+  "branch": "codex/rc14-regression-repair-20261115-06",
+  "controlCarrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06",
+  "controlManifestSha256": "e5d035b375d23a74bf1beb6979c2dd8bbba96db9428bd09b5cca32276373088d",
+  "controlFiles": 26,
+  "taskSha256": "9cc9445fb24bd40224ce770f6c21306da7c5fd4a8b87671c214ac4340967aede",
+  "proofPlanSha256": "41c7f140cf4090c25bd807834b0166df928845ad30b32c4cc5f01d2ffa684a55",
+  "retainedProofSha256": "04a4bc630f4efb06fd7d91fba3bd309070d68a19cc2e9dee9a328921bf88aaa9",
+  "staticSha256": "420220f0c7844a0a991a0b35a29a353d70bae7c4d093cd9edd6e8021713b1364",
+  "sourcePrecondition": "Exact16 saved paths at97b1fa1ccc7c8e160efcd7208a1c87a4ab4443da; actual final pushed source/control HEAD remains unbound. Freeze-source enforces them before native dispatch.",
+  "scope": "One test file,case3/case7 only and necessary candidate capture/title comments; other15 saved source paths immutable. No Product or maintained-helper change.",
+  "proof": "14 fresh whole files original003\u2013016 plus2 source/input-conserved retained green files original001/002;71 original top-level case identities,13 retained executed cases; two optional historical gates. First failure stop; no retry.",
+  "bounds": "Native20min/160turns/5min inactivity; fresh06 host2h15; proof90min clipped;15s cleanup inside original deadlines. No clock started.",
+  "preserved": "Exact RC13 Claude Opus5.5 xhigh, actual typed completion, resource close/fresh reads, finite process groups, topology, launch staging and setup-manifest custody. Eight inherited code/input records byte-equal.",
+  "effectsObserved": "Created isolated sparse branch/worktree, external empty raw06 territory, authored this carrier; read-only method/source/receipt/hash checks, syntax/JSON checks only. No source edits, setup/provider/test/build/import/install/main/push.",
+  "remaining": [
+    "Root independent control review and final source/control checkpoint pushed",
+    "Actual clean branch advance and exclusive source preimage; source/input/topology/launch joins",
+    "Actual installed method content-read before author edit, native return/audit/source assurance",
+    "One accepted bounded proof and exit conservation; no qualification credit"
+  ],
+  "executionAuthorized": false,
+  "clockStarted": false,
+  "rawPublished": false,
+  "returnTo": "Root; stop before execution"
+}

@@ -1,0 +1,109 @@
+{
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26",
+    "bytes": 5769
+  },
+  "provider": {
+    "agent": "claude",
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "version": "2.1.322 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "providerCallsAtMost": 1,
+    "protocol": "Use existing actual Claude owner path. No Codex-as-Claude wrapper or new provider feature."
+  },
+  "id": "RC14-REGRESSION-REPAIR-NATIVE-006",
+  "operator": "/root/rc14_release_proof",
+  "decisionOwner": "Root under owner instruction finish RC14",
+  "role": "Preparation only; exact Root launch and pushed source required before any execution",
+  "sourceWorktree": "/private/tmp/abg-rc14-regression-repair-20261115-06",
+  "sourceBranch": "codex/rc14-regression-repair-20261115-06",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06",
+  "sourceBinding": null,
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs"
+  ],
+  "changeClass": "Derived Proof repair of two stale retirement expectations plus full pre-assert candidate retention; no Product change",
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 1200000,
+    "nativeMaxTurns": 160,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 8100000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 15000
+  },
+  "clockRule": "No clock in preparation. One native20min/160turns/inactivity5min; fresh06 enclosing2h15m; proof min(original06 enclosing deadline, proof start+90min), with15s cleanup reserve inside. No retry.",
+  "proof": "14 fresh whole files (original003\u2013016), serial first failure stop, plus exactly001/002 retained only under RETAINED_PROOF.json causal conservation. Overall16 files/71 named top-level cases; two declared optional historical gates. No build/broad/retry.",
+  "preparationEffects": [
+    "Isolated sparse worktree and branch; authored controls and compact records only",
+    "Read-only exact source/input/build identity acquisition; static/JSON/syntax/type/hash checks",
+    "No native setup/provider/Product import/build/test/pack/install or production/test edits",
+    "Commit this control directory only on named worker branch; no main/push/raw publication"
+  ],
+  "returnTo": "Root: exact controls, static evidence and unresolved premises; stop before provider",
+  "preparedUtc": "2026-11-15T10:34:23.649990+00:00",
+  "selectedFrames": [
+    {
+      "uri": "stdo://releases/v3.0.4/standards/ASSURANCE.md",
+      "purpose": "Bounded Operator/Proof controls and exact retained evidence reuse"
+    },
+    {
+      "uri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+      "purpose": "Current declaration/installed/helper integration premises, with Product and strict-new-work authority conserved"
+    }
+  ],
+  "operatorWriteTerritory": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-06",
+    "/private/tmp/abg-rc14-regression-repair-20261115-06",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06",
+    "/private/tmp/abg-rc14-regression-proof-20261115-06",
+    "named branch/worktree Git registration only"
+  ],
+  "predecessorControlSubject": "a0b0ab5dd37322b66f69909d6a1c7ab75e7ee3fa",
+  "reentry": "Root selected closed native05 two-cause triage; preparation only. Original03/04/05 evidence and clocks remain unchanged.",
+  "preparationBase": "27d971a3641ae016451ac72eb766f22c170f63b3",
+  "buildReuseExceptionPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p6-language-retired.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p3-continuation-refused.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t292-td36r-admitted-binding-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t292-td36r-bind-door-strings.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-closure.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-readable-stops-foldback.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs"
+  ],
+  "externalReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "role": "Actual installed method; native author must content-read through Read before first edit; excluded from relative worksite context, not a worksite write grant."
+    }
+  ],
+  "executionAuthorized": false
+}

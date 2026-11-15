@@ -1,0 +1,30 @@
+{
+  "kind": "root_selected_two_case_proof_reentry",
+  "activation": "RC14-REGRESSION-REPAIR-NATIVE-006",
+  "productFrame": "Fixed5.0; P5 retired realizations fail closed; envelopes and generic classification remain readable. Proof is derived.",
+  "sourceSubject": "97b1fa1ccc7c8e160efcd7208a1c87a4ab4443da",
+  "cause": "Case3 expected deleted private index. Case7 expected F_H pairing despite earlier intentional calculus lifecycle refusal. Final recorder is case3 cascade. Reporter drops diagnostics, leaving claimed preassert retention unavailable.",
+  "evidence": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/RETURN.json",
+    "bytes": 5752,
+    "sha256": "4ec14319c6ee1d168958723241dda8b738fdcec9a7a25acfe1eb326e9c8561a7"
+  },
+  "failedFile": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01/003-t287-single-address-space-consolidation/stdout.raw",
+    "bytes": 11806,
+    "sha256": "d61cdc1a87650600f738618c6998a1dcdd5562c59b2cf9c1626e714ffae589bc"
+  },
+  "originalOutcomes": {
+    "file001": "passed",
+    "file002": "passed",
+    "file003": "17 cases:14 pass/3 fail, third cascading recorder",
+    "file004Through016": "unexecuted"
+  },
+  "selectedCorrection": "TRIAGE.md and TASK.json; unchanged Product, one source W",
+  "unresolved": [
+    "Final pushed exact source/control head and Root execution grant",
+    "Actual native return/source assurance and bounded proof"
+  ],
+  "executionAuthorized": false,
+  "clockStarted": false
+}
