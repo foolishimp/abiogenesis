@@ -1,0 +1,47 @@
+{
+  "id": "RC14-B56-RECOVERED-PROOF-LAUNCH-01",
+  "recordedUtc": "2026-11-15T23:46:44.978702+00:00",
+  "writerActivation": "RC14-ROOT-B56-PROOF-RECORDS-WRITER-030",
+  "activation": "integration-01/B56_RECOVERED_PROOF_ACTIVATION_01.json",
+  "preflightDisposition": "integration-01/B56_PROOF_PREFLIGHT_DISPOSITION_01.json",
+  "pushedLaunchCheckpoint": "6872a113efa8fa431334b3b4aa53c63ba86dcdae",
+  "nativeSourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+  "sourceRecoveryCheckpoint": "33872a37b606aac942674f7c1d56608a176707df",
+  "proofStart": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/START.json",
+    "bytes": 522,
+    "sha256": "57f067f37bc40d5f7b36df67b788ad215bc93e4bf0dac697792e71764df5f507"
+  },
+  "proofGrant": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_LAUNCH_01.json",
+    "bytes": 2345,
+    "sha256": "58476bfb047033de9afb21de716c3f043c272f045b94106c9ced8ac68772438d"
+  },
+  "preflight": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_PREFLIGHT_01.json",
+    "bytes": 1769,
+    "sha256": "8fb891b7b3c2583671b958a6169f27e33d4eb62f443077de91db6834841af00f"
+  },
+  "actualClock": {
+    "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+    "startedUtc": "2026-11-15T23:45:36.678788+00:00",
+    "originalHostDeadlineUtc": "2026-11-16T01:47:31.946547+00:00",
+    "requestedProofDeadlineUtc": "2026-11-16T01:15:36.678788+00:00",
+    "deadlineUtc": "2026-11-16T01:15:36.678788+00:00",
+    "executionStopDeadlineUtc": "2026-11-16T01:12:36.678788+00:00",
+    "cleanupReserveMs": 180000,
+    "noRetry": true,
+    "qualified": false,
+    "grantSha256": "58476bfb047033de9afb21de716c3f043c272f045b94106c9ced8ac68772438d"
+  },
+  "driverPid": 46403,
+  "driverPgid": 46403,
+  "actualProofInvocations": 1,
+  "providerCalls": 0,
+  "physicalTopology": "Operator observed positive pre-build topology in112ms; no Product result inferred.",
+  "state": "ACTIVE_SOURCE_MIRROR_AND_FRESH_BUILD",
+  "methodCompliance": false,
+  "proofPassed": false,
+  "qualified": false,
+  "rawPublished": false
+}

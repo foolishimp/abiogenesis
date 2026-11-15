@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T23:44:11.612505+00:00",
-  "nativeAuthorState": "B56 proof unstarted; preliminary Operator native-input predicate mismatch triaged. Same accepted controls/path selected after exact caller-only correction, failure preserved and original deadline unchanged.",
+  "recordedUtc": "2026-11-15T23:46:44.978702+00:00",
+  "nativeAuthorState": "First B56 proof active under original enclosure; actual topology passed and source mirror/fresh build next. Native04 is closed/recovered with method residuals retained.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1259,7 +1259,7 @@
     "reportedListCostUsd": 6.576858
   },
   "b56ProofRecovery": {
-    "state": "PREFLIGHT_CALLER_CORRECTION_SELECTED_PROOF_UNSTARTED",
+    "state": "PROOF_ACTIVE",
     "selection": "integration-01/B56_NATIVE04_SOURCE_RECOVERY_AND_PROOF_REENTRY_01.json",
     "proofAuthorized": true,
     "newNativeAuthorized": false,
@@ -1267,7 +1267,13 @@
     "controlCommit": "39117a22f127dff3515f2bba6e57507e1fa3135b",
     "manifestSha256": "51236392bdaeb0f064cb11db8f19c9b227b2fb079358bf2adb47d5bca498ed7c",
     "activation": "integration-01/B56_RECOVERED_PROOF_ACTIVATION_01.json",
-    "proofStarted": false,
-    "preflightDisposition": "integration-01/B56_PROOF_PREFLIGHT_DISPOSITION_01.json"
+    "proofStarted": true,
+    "preflightDisposition": "integration-01/B56_PROOF_PREFLIGHT_DISPOSITION_01.json",
+    "launch": "integration-01/B56_RECOVERED_PROOF_LAUNCH_01.json",
+    "actualStartedUtc": "2026-11-15T23:45:36.678788+00:00",
+    "proofDeadlineUtc": "2026-11-16T01:15:36.678788+00:00",
+    "proofExecutionStopUtc": "2026-11-16T01:12:36.678788+00:00",
+    "driverPid": 46403,
+    "providerCalls": 0
   }
 }
