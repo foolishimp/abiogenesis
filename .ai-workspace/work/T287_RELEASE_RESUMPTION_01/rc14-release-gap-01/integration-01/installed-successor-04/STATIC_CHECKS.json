@@ -1,0 +1,18 @@
+{
+  "nodeSyntax": "passed",
+  "pythonSyntax": "passed",
+  "exactInitializerProbe": "passed under preflight04; combined observer red retained",
+  "pairedActualConstructor": "passed once on admitted saved-coordinate field projection",
+  "observations": {
+    "operator-custody": {
+      "disposition": "separated",
+      "resultSha256": "53da74cf0af7ff8a3933d4d0fa08a379f8df41a951ad9435132a7ef9a26b0941"
+    },
+    "runtime-owner": {
+      "disposition": "separated",
+      "resultSha256": "64017a41e56fa2f7c3731c3a6b070549036994c6d5d19c79132328448282e9b5"
+    }
+  },
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-basic-control-preflight-20261115-05",
+  "qualified": false
+}

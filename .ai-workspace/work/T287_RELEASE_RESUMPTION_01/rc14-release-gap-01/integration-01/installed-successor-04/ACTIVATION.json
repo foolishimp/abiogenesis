@@ -1,0 +1,27 @@
+{
+  "id": "RC14-INSTALLED-CANONICAL-CONTROL-PATH-004",
+  "role": "Separate Root external-control Writer",
+  "ownerInstruction": "i want to move on and finish RC14",
+  "basis": "stdo://releases/v3.0.4/",
+  "predecessor": "e79770398575e8ade182656ece59e8c05d3f1de6",
+  "scope": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-successor-04",
+  "admission": "Root accepts closed independent Product/Integration/Identity/Proof triage from rc14_release_proof; observed sole noncanonical actual coordinate is this derived control path",
+  "change": "Canonical local control directory from dirname(fileURLToPath(import.meta.url)); no physical observer or Product change",
+  "effects": [
+    "Create fresh04controls and compact metadata, ownbranchcommit",
+    "One exact producer Node-only probe, then one read-only retained physical observer over the corrected actual-layout input, finite75s enclosing capture; externalraw only"
+  ],
+  "executionAuthorized": false,
+  "deadlineUtc": null,
+  "exclusions": [
+    "No Product import/build/test/setup/provider/main/push or full basic retry"
+  ],
+  "returnTo": "Root after independent narrow review",
+  "recordedUtc": "2026-11-15T07:38:58.899625+00:00",
+  "layoutReentry": {
+    "decision": "Root accepts b29 closed two-layout Product/Identity/Effect/Proof triage",
+    "cause": "Outer evidence container was wrongly compared to its own runtime/install children as though it were actual C2 archive",
+    "delta": "Explicit operator-custody and runtime-owner layouts, same W; complete protected-set union; actual runtime archive from admitted binding",
+    "effects": "One new75s paired physical discriminator over actual saved-coordinate projection; oldfirst-red retained"
+  }
+}
