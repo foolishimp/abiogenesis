@@ -79,5 +79,32 @@
   "providerCalls": 0,
   "clockStarted": false,
   "provisionalReadRootCorrections": "Unfrozen draft leaf_invocation_port path corrected to actual code/src/implementation before final existence check",
-  "limits": "Static/hash/source relations only; no native author, runtime topology/setup, synthetic proof behavior or Product/test execution. Fresh boundary checks remain mandatory."
+  "limits": "Static/hash/source relations only; no native author, runtime topology/setup, synthetic proof behavior or Product/test execution. Fresh boundary checks remain mandatory.",
+  "boundedOwnerReferenceCorrection": {
+    "predecessorCommit": "cb850a67032877e85f993600477b422d980b7fc3",
+    "review": "Root closed B29 control review: remaining controls satisfied; one nonexported abg barrel reference in TASK selected for correction.",
+    "correctedReference": {
+      "from": "abg.reidentifyHistoricalDurablePrefixCoordinate",
+      "to": "environment.eventStoreOwner.reidentifyHistoricalDurablePrefixCoordinate",
+      "occurrences": 1
+    },
+    "ownerRoute": "Existing worker eventStoreOwner imports installed build/code/src/abg/event_store.js at1088-1091 and retains it at1165; existing owner exports the function at event_store.ts1960. No export/source/scope change.",
+    "checkedUtc": "2026-11-15T12:24:49.538877+00:00",
+    "predecessorTask": {
+      "path": "TASK.json",
+      "bytes": 11636,
+      "sha256": "f2fb2370d21cbc06d3d7c655fcff49e3ec4e889558d004b823cc5e4fb57e10bf"
+    },
+    "successorTask": {
+      "path": "TASK.json",
+      "bytes": 11660,
+      "sha256": "bee2b7b9d755f631ab7d45f57c539a528d477e298b9bf5ebc3c807aeffbd2272"
+    },
+    "checks": [
+      "TASK bytes differ only by the single selected reference substitution",
+      "TASK JSON parses and all remaining task values/text are unchanged",
+      "No executable control or tenant source changed; prior successful unchanged static/input checks retained"
+    ],
+    "execution": false
+  }
 }

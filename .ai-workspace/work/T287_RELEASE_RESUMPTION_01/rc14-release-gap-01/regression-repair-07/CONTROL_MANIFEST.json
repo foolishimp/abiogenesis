@@ -84,13 +84,13 @@
     },
     {
       "path": "STATIC.json",
-      "bytes": 2667,
-      "sha256": "25850990b8a483c1674d98ee6e22e53df612bc9cfb8a459158e163032d7aaae6"
+      "bytes": 4060,
+      "sha256": "f0b309138eca03f1695bff58e5fb5b28ff197ac9bfc4c4a7b894ac1736a24290"
     },
     {
       "path": "TASK.json",
-      "bytes": 11636,
-      "sha256": "f2fb2370d21cbc06d3d7c655fcff49e3ec4e889558d004b823cc5e4fb57e10bf"
+      "bytes": 11660,
+      "sha256": "bee2b7b9d755f631ab7d45f57c539a528d477e298b9bf5ebc3c807aeffbd2272"
     },
     {
       "path": "TITLE_MAP.json",
