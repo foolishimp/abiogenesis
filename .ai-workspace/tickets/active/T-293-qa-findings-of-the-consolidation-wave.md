@@ -87,11 +87,13 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | B-44 | Installed deterministic smoke imports an unrepresented compiled Product dependency from the frozen control checkout | Exact installed-basic01 first failure, stdout8edee28b and Return27344b97 | S4 | P1 control intake | registered-selection-product imports absent build/code/src/product/index.js before named case; no basic setup/provider ran. Topology positive; all input custody conserved; no timeout/signals and owned group absent. Trace complete transitive smoke/basic closure and separately bind existing conserved proof build if lawful; no retry/rebuild/omission selected. Original21:32:27Z deadline retained. `rc14-release-gap-01/STATUS.json` |
 
+| B-45 | C0 correction test extracts a retired private helper name after B21 split metadata inspection from file reading | Owner-forwarded partial peer run on669704c15; Root exact source/history and conserved compiled-text check | S4 | P1 before final proof | b529fdbe1 removes inspectTargetPath; test21 slices from -1, yields an empty body and fails before owner execution. The read/close block is byte-identical to its predecessor. Preserve all four read/close combinations, one close attempt, primary error and secondary diagnostic assertions while testing the current reader. No Product repair justified; test repair and whole-file proof pending. `rc14-release-gap-01/STATUS.json` partialReview20261115 |
+
 ## Schedule
 
 | When | Items |
 |---|---|
-| Current | RC13 pinned unqualified. B31/B12 technical repairs and B13 wording closed. B21/B32 and two-test fixture proof now green:65pass/0fail/5declared skips, no author active. Frozen source/Return integrated 8c77c2968; first installed composition stopped before provider on missing compiled test dependency B44; causal intake active. Additional peer-red source triage closed; fixture repair/reproof pending; wider lifecycle/qualification remain open |
+| Current | RC13 pinned unqualified. B31/B12 technical repairs and B13 wording closed. B21/B32 and two-test fixture proof now green:65pass/0fail/5declared skips, no author active. Frozen source/Return integrated 8c77c2968; first installed composition stopped before provider on missing compiled test dependency B44; causal intake active. Peer partial rerun reports the same15 failing files plus new stale C0 extraction B45 (16 total); fixture repair/reproof pending. Setup errors and six timeouts remain separate and peer final counts are pending. B21 platform/support disposition and wider lifecycle/qualification remain open |
 | Dependency-ready sequence | B21 sufficient HOW and repair; bounded B12/B13 repair; new exact-subject regression and installed lifecycle evidence; qualification and S07. The expired RC13 campaign is not resumed or reset |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |

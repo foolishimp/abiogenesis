@@ -376,6 +376,75 @@
       "nativeRuntime": "Gate donor23205907B SHA72f8c19677beb3f6f3d904b4bd1cd2d96a5803487ce22ba7d631bf19ae624598 has16dev286 capability rows including retired Consensus; current register15. Strict reconstruction necessarily refuses. Current admissible owner-produced positive needed; preserve old strict refusal, not a recorded-native bypass.",
       "observedWorksite": "Isolated test copies only build/code/src JavaScript; package-relative observer requires omitted build/native/abg_physical_path.node. Carry exact native payload and preserve readonly/unauthorized-write component assertions; no Product fallback."
     },
-    "proofLimits": "Peer20failures include cascading parents on older514aac439. No counts are added to current65passes; diagnoses do not prove repairs. Each affected whole file, actual prerequisite gates and complete first-failure candidates remain required."
+    "proofLimits": "Peer20failures include cascading parents on older514aac439. No counts are added to current65passes; diagnoses do not prove repairs. Each affected whole file, actual prerequisite gates and complete first-failure candidates remain required.",
+    "partialReview20261115": {
+      "recordedUtc": "2026-11-15T05:49:18.172437+00:00",
+      "standing": "Root intake of owner-forwarded partial peer report, plus exact source/history and compiled-text inspection. No suite or test was rerun by Root. Peer final file manifest and rerun receipts are pending.",
+      "writerActivation": {
+        "id": "RC14-PARTIAL-PEER-REVIEW-INTAKE-20261115",
+        "role": "Separate Root records Writer; exact report evaluation and T-293 bookkeeping only",
+        "authority": "Owner-approved RC14 continuation; T-293 Purpose and Rules require new findings to be appended; owner-forwarded partial review selects this intake. No additional implementation or execution grant is inferred.",
+        "basis": "stdo://releases/v3.0.4/",
+        "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+        "sourceHead": "f1e369c3b81a971cb2a9a3902ce4db9964108e1a",
+        "effects": [
+          "Change only T-293 and this STATUS record; commit and main-only push of compact authored records"
+        ],
+        "exclusions": [
+          "No Product, requirement, design, implementation, test or peer-review-file edits",
+          "No provider, build, test campaign, retry, version bump, pin change or qualification claim",
+          "No raw evidence or other-ref publication"
+        ]
+      },
+      "productFrame": "Fixed 5.0 scope, GOAL-035/T-287 RC14 release gap; RC13 remains the pinned unqualified builder. C0 owns physical observation and cleanup, GTL owns effect meaning, ABG alone admits runtime truth, and replay projects it. Proof code is derived evidence, not Product authority. S07 requires exact-subject qualification and actual human acceptance; partial peer results cannot supply either.",
+      "reportedSubject": "669704c158d4ceb69459fd994e0ffc887e7586c0; relevant Product/test bytes equal current f1e369c3b after index-only raw-log cleanup",
+      "reportedPopulation": {
+        "plannedFiles": 228,
+        "completedOrAttemptedFiles": 89,
+        "knownFailingFilesRepeated": 15,
+        "previouslyUncoveredFilesReported": 68,
+        "previouslyUncoveredCleanFilesReported": 59,
+        "newStaleTestFiles": 1,
+        "reviewerSetupErrorFiles": 2,
+        "setupRerunReported": "One of two now passes 7/7 after adding its omitted fixture; second unresolved in this partial report.",
+        "timeoutFiles": 6,
+        "timeoutSplit": "Three exceed the reviewer 20-minute per-file envelope; three cases hit their 60- or 180-second limits. Six normal-priority reruns are reported in progress; no Product failure classification yet.",
+        "otherFilesReportedRemaining": 139,
+        "knownFailingFilesIncludingB45": 16,
+        "accountingLimit": "15 known files plus 68 previously uncovered files accounts for 83, not the reported 89. Six attempted files are not categorized by this message. Await exact distinct-file manifest and original/rerun records; do not infer unique passes or whole-suite coverage.",
+        "peerETA": "About 20:00 as reported by the reviewer, not an RC14 delivery estimate or a verified completion time."
+      },
+      "b45": {
+        "file": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+        "case": "correction: observation finalizes after read and close with primary precedence",
+        "severity": "S4 test defect",
+        "priority": "P1 before final proof",
+        "status": "TRIAGED_TEST_REPAIR_AND_WHOLE_FILE_PROOF_PENDING",
+        "introducedBy": "b529fdbe16315180b4fe83e03bb60e561efe5635",
+        "cause": "B21 split inspectTargetPath into inspectTargetLocation and readTargetFile so protected-root exclusion precedes content acquisition. The test still slices the compiled text from the absent old name to inspectPhysicalDirectory; indexOf returns -1 and slice produces an empty body. Its first assertion fails before Product execution.",
+        "sourceSha256": "eb753eb83208c0a1f6f58f62e1ce3e14d5b6ad74a774d54adfc6b10aa38272bf",
+        "testSha256": "9984ad17a9e184f77054d3d0ee4a4a01764b2449939a21bb4bebbce578e27275",
+        "compiledProofBodySha256": "e9b7936896c90e71f897dfc734fa3af9cd2826ef60c20d591603c9dfd5811d2e",
+        "compiledOldNameOffset": -1,
+        "compiledSliceLength": 0,
+        "readCloseBlockUnchangedFromPreB21": true,
+        "readCloseBlockSha256": "646ba75178cb804a25242afe9de332c88fc47b40d954615b09c078b85330eadc",
+        "frames": {
+          "ProductRequirement": "No requested outcome changed; preserve one close attempt, primary failure precedence and secondary cleanup diagnostics. No supported Product regression demonstrated by this test failure.",
+          "DesignEffect": "B21 intentionally places metadata inspection and physical exclusion before readTargetFile. Restoring the pre-exclusion read or dropping protection would violate that order.",
+          "SourceProof": "The guarded read/close implementation is byte-identical to the predecessor. Only this test references the retired helper name in current canonical code/tests; the selected 65-pass population omitted this file. The affected test cone was incomplete.",
+          "Integration": "Repair the test to exercise the current owner/helper at its declared filesystem seam, preserve all four read/close combinations and original assertions, then run the whole file. Existing B21 boundary checks remain distinct proof; no new passing result is claimed."
+        },
+        "reentry": "Derived test-only realization correction via the selected RC13-built repair route; no Product helper rename, wrapper, public export or runtime change solely for the old test. Preserve close count and read/close failure ordering, including simultaneous failures.",
+        "closure": "Exact repaired test and passing whole-file result on its declared candidate, with no weakened assertions; final composed and installed qualification remain separate."
+      },
+      "disposition": "Record 16 reported/diagnosed failing files, including B45; none is fixed by this intake. Keep setup errors and timeouts separate. Retain the selected 65-pass proof under its exact source/envelope; do not add peer counts or dismiss timeout observations. Reconcile normal-priority outcomes and distinct-file inventory before selecting any performance or Product repair.",
+      "remainingReleaseLimits": [
+        "B21 platform/support disposition remains open; this test-only finding does not select a different foundation or narrow Product support",
+        "B36-B42 fixture corrections and whole-file reproof remain outstanding",
+        "B44 installed control composition remains unproved; first failure stayed before provider",
+        "No completed whole-suite qualification on the post-consolidation candidate; installed lifecycle, S06 and S07 remain open"
+      ]
+    }
   }
 }
