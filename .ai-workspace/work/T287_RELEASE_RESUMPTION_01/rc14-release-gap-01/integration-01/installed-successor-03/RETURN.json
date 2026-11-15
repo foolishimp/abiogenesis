@@ -1,0 +1,15 @@
+{
+  "status": "prepared_no_execution",
+  "subjectDirectory": "/private/tmp/abg-rc14-installed-successor-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-successor-03",
+  "predecessor": "e825092f3c0778553cf07a80abcac876da4ccc58",
+  "manifestSha256": "5c38bccedec9986e760c5389e7d25d0e792a61d27318b735bb493ee568925712",
+  "firstFailure": {
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-02",
+    "stdoutSha256": "f858ea78631fdc56e5775933224de44e1587a800c7b00dc8dabf108f21d029f6",
+    "cause": "Same /dev/null path selected for npm user/global configs",
+    "providerCalls": 0,
+    "inputConservation": true
+  },
+  "changedBehavior": "Distinct empty explicit configs, unchanged execution code",
+  "qualification": false
+}
