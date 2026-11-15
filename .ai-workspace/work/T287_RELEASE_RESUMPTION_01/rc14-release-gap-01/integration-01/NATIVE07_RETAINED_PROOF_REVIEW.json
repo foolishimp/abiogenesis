@@ -1,0 +1,57 @@
+{
+  "id": "RC14-NATIVE07-RETAINED-PROOF-REVIEW-001",
+  "recordedUtc": "2026-11-15T12:08:56.119467+00:00",
+  "reviewer": "/root/rc14_release_proof",
+  "disposition": "satisfied_conditional_reuse",
+  "source": "9b0757a206fb9ec50afee0c8c57415c475b28dc4",
+  "changedFuturePath": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+  "ProductFrame": "Fixed5.0 derived behavioral proof; ABG owns runtime truth. Retained observations confer no release or semantic-acceptance authority.",
+  "retained": [
+    {
+      "execution": "05/001",
+      "file": "t287-required-operation-bindings.test.mjs",
+      "passed": 11
+    },
+    {
+      "execution": "05/002",
+      "file": "t292-td26-p6-language-retired.test.mjs",
+      "passed": 2
+    },
+    {
+      "execution": "06/003",
+      "file": "t287-single-address-space-consolidation.test.mjs",
+      "passed": 17
+    },
+    {
+      "execution": "06/004",
+      "file": "t287-st1-installed-cross-owner-hello.test.mjs",
+      "passed": 3
+    },
+    {
+      "execution": "06/005",
+      "file": "t287-recursive-registered-selection.test.mjs",
+      "passed": 7
+    },
+    {
+      "execution": "06/006",
+      "file": "t292-td26-p3-continuation-refused.test.mjs",
+      "passed": 4
+    }
+  ],
+  "causalFacts": [
+    "None of these six test or selected support/fixture routes executes F09worker; runtime-f09 selects it only for F09handoff and R4ABA wrappers",
+    "The worker is copied to the proof subject, not compiled: tsconfig includes code/src/**/*.ts only",
+    "Package selects build/**,contracts/**,product-toolchain-manifest.json; worker is absent from productRelativeLocators, so its change does not alter packed Product identities used by four installed populations",
+    "Other two populations consume unchanged compiled owners and explicitly selected contracts",
+    "Main9b0757a20tenant byte-equals reviewed8888155c2; all six test hashes match actual original subjects"
+  ],
+  "conditions": [
+    "Authenticate actual native07 one-file diff and complete source inventory",
+    "Conserve every other source/support/fixture,782-file build,dependencies,generatedoutputs,retainedinputs",
+    "Keep original failure/closure and explicitlylate conservation receipts with each relation",
+    "No counting44as newlyexecuted07, no unchangedqualification-subject or greencombined-campaign claim"
+  ],
+  "rootDisposition": "Accept bounded retention with these checked premises; fresh wholeF09 and nineunrun files remain required. No duplicate six-file execution selected.",
+  "qualified": false,
+  "effects": "Read-only reviewer; Root Writer12 records result; no tests/imports/providers"
+}

@@ -1,0 +1,58 @@
+{
+  "id": "RC14-NATIVE07-CONTROL-ACCEPTANCE-001",
+  "recordedUtc": "2026-11-15T12:26:13.114252+00:00",
+  "role": "Root decision recorded under separate Writer12",
+  "basis": "stdo://releases/v3.0.4/",
+  "ProductFrame": "Fixed5.0, derived fixture and external proof controls only. Event Store owns historical-cut authentication and generation invalidation; native author may not change Product guards or exports.",
+  "controlSubject": "67ea0f74b3cc548fdc82ef2e328209c54463a542",
+  "tree": "c11039da8dbe950edab1c96226b286fc84ced148",
+  "integrationMerge": "b38f36b8ea80d0c2daf843a4d9d6671e760705db",
+  "manifestSha256": "5adc37205e14c3dfde7c2558cbd542d534a9b9d83fa70fdad86ba390a169ed71",
+  "taskSha256": "bee2b7b9d755f631ab7d45f57c539a528d477e298b9bf5ebc3c807aeffbd2272",
+  "returnSha256": "98f491a6b1ab068dac4dab977b4dfba2239a54e0672bdf704a8f095552ca9adb",
+  "review": {
+    "actor": "/root/b29_vm_triage",
+    "subject": "cb850a67032877e85f993600477b422d980b7fc3",
+    "result": "One task-binding defect; all remaining bounded controls satisfied",
+    "closedFinding": "TASK names environment.eventStoreOwner.reidentifyHistoricalDurablePrefixCoordinate; no public abg barrel export exists or is selected",
+    "recheck": "Root verified exact one-reference substitution and unchanged remaining task/executable/source bytes, all27 manifest members and updatedReturn; four changed authored control/record paths only",
+    "evidence": "51 retained pins, five unchanged helpers, coordinate-only HOST/operate changes,71top-level cases,22 finally comparisons with primary failure preserved"
+  },
+  "disposition": "accepted_for_one_bounded_native_execution_after_pushed_final_binding",
+  "native": {
+    "writePath": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteMs": 1200000,
+    "maxTurns": 160,
+    "inactivityMs": 300000,
+    "providerCallsAtMost": 1
+  },
+  "proof": {
+    "authorization": "held until actual typed completion, closed resource/fresh readbacks, source freeze, actual command/method audit and independent source review",
+    "freshFiles": 10,
+    "freshTopLevelCases": 38,
+    "retainedFiles": 6,
+    "retainedHistoricalPasses": 44,
+    "retainedTopLevelCases": 33,
+    "fullTopLevelCases": 71,
+    "retentionReview": "NATIVE07_RETAINED_PROOF_REVIEW.json"
+  },
+  "clock": {
+    "start": "Only operate.py starts fresh135min enclosing clock after exact entry checks",
+    "enclosingMs": 8100000,
+    "proofMs": 5400000,
+    "cleanupReserveMs": 15000,
+    "oldClocks": "closed and unchanged",
+    "retry": false
+  },
+  "entry": "Final main commit and tree, direct remote parity, exact source preimage, control/method/input hashes, physical topology, separate runtime/archive custody, actual RC13 pin and one supported native actor; no reset on failure",
+  "sourceAndControlCheck": "Root verified full source/controls before integration; Operator rechecks actual launch subject. Setup manifest is separate authenticated setup-owned effect. PYTHONDONTWRITEBYTECODE=1 for read-only Python imports.",
+  "claims": {
+    "nativeExecuted": false,
+    "proofExecuted": false,
+    "qualified": false,
+    "published": false,
+    "humanAccepted": false
+  }
+}
