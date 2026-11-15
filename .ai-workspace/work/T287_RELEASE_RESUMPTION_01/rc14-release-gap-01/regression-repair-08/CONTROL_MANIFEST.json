@@ -4,8 +4,8 @@
   "files": [
     {
       "path": "ACTIVATION.json",
-      "bytes": 9650,
-      "sha256": "2ed44e66414cf8e2bb8437c071703041cb216637b3acc593b29964decc15ab3f"
+      "bytes": 9670,
+      "sha256": "a202c69c1e18e5e84e1c7a8626b067dd7878da38769cedd426693f9eb838a5d6"
     },
     {
       "path": "BUILD_REUSE.json",
@@ -39,33 +39,33 @@
     },
     {
       "path": "PROOF_PLAN.json",
-      "bytes": 19536,
-      "sha256": "f008f3dc44d41b4f37450d2d0fe2f6d6e3e98ee539f6ade1c4ede27a14607ffb"
+      "bytes": 19796,
+      "sha256": "8f3a4063a540564700b91943af179446a431e03a0ba3306fdeef9fd7bbae059c"
     },
     {
       "path": "README.md",
-      "bytes": 3336,
-      "sha256": "c61cc6f1f67920e78ba0fdb9cba81658f1278e7e0d4d6afe0d158032e5227565"
+      "bytes": 3909,
+      "sha256": "63ddc5399e5c7060dd1f95d81f039e0a78abe6abcac79be81c2d899fc75f8735"
     },
     {
       "path": "REENTRY.json",
-      "bytes": 1291,
-      "sha256": "cb4f7caa79f63838f7864f0ff06cb4caf145c45af604e06e7a101a77c9e4ce13"
+      "bytes": 2492,
+      "sha256": "157d5d774e2f4ff9b7d05e87dfa7d49355786a8c5a8607ccd1766eedf8f48541"
     },
     {
       "path": "RETAINED_INPUTS.json",
-      "bytes": 2617,
-      "sha256": "6b3acd6edd34a09ee213a583ffc743c88c96ecf9ca94757b34270407efbdb74b"
+      "bytes": 3051,
+      "sha256": "4db99353a22c67f76f90597b45e14f414b5b1b5b7ced3f4d23ba0bc4bc688f1e"
     },
     {
       "path": "RETAINED_PROOF.json",
-      "bytes": 30874,
-      "sha256": "ee751e49bdae70b1be794553990843b427cb0f88c81f9b6c7f7030078c691ecc"
+      "bytes": 58975,
+      "sha256": "83aab6bc3bf3aa42525ce527cc690630877331db03e14e86d2989f7915d11d00"
     },
     {
       "path": "ROOT_ACTIVATION.json",
-      "bytes": 2913,
-      "sha256": "e4db55f7373bc794c1c072f9129c605bec8c7b984817a2bae62a6f1d153db1da"
+      "bytes": 4080,
+      "sha256": "e88f53b746c2a4a824d2097b8af4bfe63bae1c5d1a59c83a48146c560269264b"
     },
     {
       "path": "ROOT_TRIAGE.json",
@@ -79,13 +79,13 @@
     },
     {
       "path": "STATIC.json",
-      "bytes": 7736,
-      "sha256": "4671a2c12e6b483e819cacf59d749cb11df3f288b7e9a9d44107d571ac32d819"
+      "bytes": 13333,
+      "sha256": "3b036443e0ed28c2261e87476ef930a4731db30a03ede20d685d5f66620fb0bd"
     },
     {
       "path": "TASK.json",
-      "bytes": 12111,
-      "sha256": "dc4082ed2d034493a16063ff000007428ed6fe518fbf93973c16a16a7e69fb80"
+      "bytes": 12237,
+      "sha256": "bed7d62317d822a3f5cd2ceb7fd5d5693512e8e51e05fbcdad37596878ba82b5"
     },
     {
       "path": "TITLE_MAP.json",
@@ -94,8 +94,8 @@
     },
     {
       "path": "TRIAGE.md",
-      "bytes": 1027,
-      "sha256": "3f59c6ec300a89f515a21d9704b104805971d0318a3144517d862d2aaa334155"
+      "bytes": 1505,
+      "sha256": "7f16e12d8b9168165ab0e361c161afe4219a85b95a0d5f95879328c6dae3c055"
     },
     {
       "path": "dependency-inputs.py",
@@ -124,8 +124,8 @@
     },
     {
       "path": "prove.py",
-      "bytes": 28575,
-      "sha256": "ff8473a7b36ba0d9a072f2d5e6fa7a16a1c14ca013978179f75372631d94120b"
+      "bytes": 33908,
+      "sha256": "98e4d45d4e056953702e9db8a86f2e0d5e4f4162a56f6cfdeeca58d92ed05f8f"
     },
     {
       "path": "setup-custody.py",

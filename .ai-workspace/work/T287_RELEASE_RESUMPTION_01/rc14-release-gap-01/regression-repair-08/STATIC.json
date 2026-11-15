@@ -1,14 +1,14 @@
 {
-  "kind": "native08_static_preparation_checks",
-  "startedUtc": "2026-11-15T13:22:27.103556+00:00",
-  "completedUtc": "2026-11-15T13:22:29.056578+00:00",
-  "elapsedMs": 1953,
-  "sourceBase": "5d6fb24e051e0d84595d28985faef5ff90df1610",
+  "kind": "native08_final_partition_static_preparation_checks",
+  "startedUtc": "2026-11-15T14:10:11.495254+00:00",
+  "completedUtc": "2026-11-15T14:10:13.437338+00:00",
+  "elapsedMs": 1942,
+  "sourceBase": "cebc89dd5b2e9079fbfac176982a3a33df250ab9",
   "sourceUnchanged": true,
   "jsonPythonSyntax": "passed",
   "hostNodeSyntax": "passed",
   "taskCanonicalCarrierShape": "unchanged maintained HOST fields; instructions array; owner names unchanged; no Product import",
-  "taskReadRootsPresent": 23,
+  "taskReadRootsPresent": 24,
   "installedMethodPins": 5,
   "sourcePreconditions": 16,
   "buildInputRows": 1295,
@@ -16,14 +16,15 @@
   "buildPayloadFiles": 782,
   "buildPayloadBytes": 26015425,
   "dependencyInventorySha256": "dc55a042e47b4119487c1ef1b1288b0de607a9687b6a60e4efbb0443f9584aff",
-  "requiredRetainedInputFiles": 7,
-  "requiredRetainedInputBytes": 669118059,
+  "requiredRetainedInputFiles": 8,
+  "requiredRetainedInputBytes": 670101772,
   "retainedGroups": [
     {
       "id": "native05-files001-002",
       "originalSourceHead": "a0b0ab5dd37322b66f69909d6a1c7ab75e7ee3fa",
       "conservationObservation": "late_read_only_observation",
       "conservationSha256": "c1be49dad10385372571240ecea511ad1c2abb42afde83bc1feec9a83370c78b",
+      "historicalInputCount": 7,
       "originalCampaignPassed": false,
       "files": [
         {
@@ -31,16 +32,20 @@
           "sourceSha256": "9f15e18104db0b0cd3b5ad7693ba5ecc371551f89e67e9f085dc7c8e91b16b0e",
           "originalReturnSha256": "fae954e9a1788ae9f614c1f42cc09a27d85cad5d6fa39637fb80d60a83f74d96",
           "cases": 11,
+          "skips": [],
+          "declaredCases": 11,
           "topLevelCases": 4,
-          "disposition": "retained_original_pass_not_reexecuted"
+          "disposition": "retained_original_whole_file_not_reexecuted"
         },
         {
           "file": "t292-td26-p6-language-retired.test.mjs",
           "sourceSha256": "c8bd3d8887efe0e87ec6fbb0314bf6daf779f0d5543ea726c9d3320fbc2fea65",
           "originalReturnSha256": "fb37089f55fd1dc0db7215db89b1e28274e782a4a640be8c153811f3bae6ed75",
           "cases": 2,
+          "skips": [],
+          "declaredCases": 2,
           "topLevelCases": 2,
-          "disposition": "retained_original_pass_not_reexecuted"
+          "disposition": "retained_original_whole_file_not_reexecuted"
         }
       ]
     },
@@ -49,6 +54,7 @@
       "originalSourceHead": "512f936499b4e7264ddcf953e962c1374136504c",
       "conservationObservation": "late_read_only_observation",
       "conservationSha256": "988ee3cb319c0ddc4c2504b2349efa8d5913820b7e4c0c24322660ef1933ecd8",
+      "historicalInputCount": 7,
       "originalCampaignPassed": false,
       "files": [
         {
@@ -56,32 +62,40 @@
           "sourceSha256": "86eaf470644456bc3fc1d325ac5589b406b296bedebffcab965bfe20066f19fb",
           "originalReturnSha256": "670c6a22664d8ac6d25eb8a0f24ea429b5f5ab475f5036a0e4a1cd27287f2b04",
           "cases": 17,
+          "skips": [],
+          "declaredCases": 17,
           "topLevelCases": 13,
-          "disposition": "retained_original_pass_not_reexecuted"
+          "disposition": "retained_original_whole_file_not_reexecuted"
         },
         {
           "file": "t287-st1-installed-cross-owner-hello.test.mjs",
           "sourceSha256": "a9c2fead9c94da09bc92e03c77e950ae44f4e3af051c37f83291d611a338278c",
           "originalReturnSha256": "bd980f60c6575bb15f24866e48109085c7775a68377fcc4a6c22275a6059f71b",
           "cases": 3,
+          "skips": [],
+          "declaredCases": 3,
           "topLevelCases": 3,
-          "disposition": "retained_original_pass_not_reexecuted"
+          "disposition": "retained_original_whole_file_not_reexecuted"
         },
         {
           "file": "t287-recursive-registered-selection.test.mjs",
           "sourceSha256": "d9cec1695f0704ef296a44f8d4cb587f17a7b9d0c9acfdca26822c472df5db85",
           "originalReturnSha256": "51970c56b418789193444c79e091abf770ada1f646ab3b4b564b42f58c1a94ce",
           "cases": 7,
+          "skips": [],
+          "declaredCases": 7,
           "topLevelCases": 7,
-          "disposition": "retained_original_pass_not_reexecuted"
+          "disposition": "retained_original_whole_file_not_reexecuted"
         },
         {
           "file": "t292-td26-p3-continuation-refused.test.mjs",
           "sourceSha256": "54ab4079d05b5ed9218aa841d4058d5711d3b71f5d7ee27305b076ed86170a7f",
           "originalReturnSha256": "6c8d7537417867f17518e4998d97418e3b00e46d03460ac6670e0a5870875151",
           "cases": 4,
+          "skips": [],
+          "declaredCases": 4,
           "topLevelCases": 4,
-          "disposition": "retained_original_pass_not_reexecuted"
+          "disposition": "retained_original_whole_file_not_reexecuted"
         }
       ]
     },
@@ -90,6 +104,7 @@
       "originalSourceHead": "b47ee9e72eb2dd6ae247f111fca7fa966f4c9d46",
       "conservationObservation": "original_finally",
       "conservationSha256": "80bbec7e6b582ed7b506d70a93ae060634855ef25897b4a06861ff1bf4782f4b",
+      "historicalInputCount": 7,
       "originalCampaignPassed": false,
       "files": [
         {
@@ -97,32 +112,125 @@
           "sourceSha256": "14102c36ffa9761598fbd12c7774dff7e06edea05477a25cef15309a3d94d2ba",
           "originalReturnSha256": "e856b2b70f2939be30e6e068e7a5d074511c260038eb1d0a6794829e09bf037d",
           "cases": 1,
+          "skips": [],
+          "declaredCases": 1,
           "topLevelCases": 1,
-          "disposition": "retained_original_pass_not_reexecuted"
+          "disposition": "retained_original_whole_file_not_reexecuted"
         },
         {
           "file": "t292-td36r-admitted-binding-owner.test.mjs",
           "sourceSha256": "eb4a9eb78985cb788752181fbbf4e660fae4acfec4704fd91364996efdcd49e1",
           "originalReturnSha256": "2ecd7e0511acd039079fb91e9afd37d89be1d8003b1a51ab470e357a577636c5",
           "cases": 1,
+          "skips": [],
+          "declaredCases": 1,
           "topLevelCases": 1,
-          "disposition": "retained_original_pass_not_reexecuted"
+          "disposition": "retained_original_whole_file_not_reexecuted"
         },
         {
           "file": "t292-td36r-bind-door-strings.test.mjs",
           "sourceSha256": "932ef4218fcf85573e1d744bc94e3261492a942413f23b9be60d9ae269fda886",
           "originalReturnSha256": "85ceb136ef422da80599b9d77eb9e19ca3aaebf25d2ff0e006852340aa657b56",
           "cases": 6,
+          "skips": [],
+          "declaredCases": 6,
           "topLevelCases": 1,
-          "disposition": "retained_original_pass_not_reexecuted"
+          "disposition": "retained_original_whole_file_not_reexecuted"
+        }
+      ]
+    },
+    {
+      "id": "diagnostic01-file011",
+      "originalSourceHead": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+      "conservationObservation": "diagnostic_original_finally",
+      "conservationSha256": "0e007a0e9bffb3a9f5351aec7ace5ff681c68bd344e61eac34dc9eefc80df914",
+      "historicalInputCount": 7,
+      "originalCampaignPassed": false,
+      "files": [
+        {
+          "file": "w2-steel-single-start-closure.test.mjs",
+          "sourceSha256": "905babce81193f6e2dab35cc64bfae3925ecfaa2a233d122667a5b44f7ca7c06",
+          "originalReturnSha256": "96f40815ee93cfa7340918cc2a9ccdae6db61a5f5911cd033a76a238d515bb08",
+          "cases": 1,
+          "skips": [
+            {
+              "name": "run resources preserve the accepted retention carrier and reject wrong kind or extra fields",
+              "reason": "ABI5_STEEL03_RETAINED_START_CALL_PATH unset; requires the retained exact start resource assertion"
+            }
+          ],
+          "declaredCases": 2,
+          "topLevelCases": 2,
+          "disposition": "retained_original_whole_file_not_reexecuted"
+        }
+      ]
+    },
+    {
+      "id": "diagnostic02-files012-016",
+      "originalSourceHead": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+      "conservationObservation": "diagnostic_original_finally",
+      "conservationSha256": "b144fa1552f3048e34abc5ff9fbccf8c4ae16f09769e037de5fb11ccb8971b28",
+      "historicalInputCount": 8,
+      "originalCampaignPassed": true,
+      "files": [
+        {
+          "file": "t287-native-work-currentness-consumers.test.mjs",
+          "sourceSha256": "9ecfc631462746f5564af4ddb6bdf2a19b34d33f11d2dff7cd4e6ed906d183bb",
+          "originalReturnSha256": "f7ccd99e0398df96bd16b463a1695154728a3afdf3f7e3d37baeaffa2c9c935d",
+          "cases": 6,
+          "skips": [],
+          "declaredCases": 6,
+          "topLevelCases": 6,
+          "disposition": "retained_original_whole_file_not_reexecuted"
+        },
+        {
+          "file": "t287-readable-stops-foldback.test.mjs",
+          "sourceSha256": "9c95ea6be052b65e698f5ab5ec140cd0c089516412ed03fa4d9baa8b30c3f14e",
+          "originalReturnSha256": "8a511471be600e71f9f8ee5c9c3dacf7e1f421d5e1ae7d3c1127122438afc14e",
+          "cases": 5,
+          "skips": [],
+          "declaredCases": 5,
+          "topLevelCases": 1,
+          "disposition": "retained_original_whole_file_not_reexecuted"
+        },
+        {
+          "file": "t287-native-runtime-gate.test.mjs",
+          "sourceSha256": "dfcea436b3468a3b6fbaa93421cbdd97804c16e9ed45a78ef70a9652dbbd2b0d",
+          "originalReturnSha256": "f3c80f6b9f844414b3bf20d5890f3b7dfe86f887e40f2ee6044315b4d052c9d6",
+          "cases": 7,
+          "skips": [],
+          "declaredCases": 7,
+          "topLevelCases": 7,
+          "disposition": "retained_original_whole_file_not_reexecuted"
+        },
+        {
+          "file": "t287-observed-worksite-command.test.mjs",
+          "sourceSha256": "e3e13250283c3d9970c3bff6295ebd913682f3d6d32ad8ff67c3f1fadbace1e7",
+          "originalReturnSha256": "f3e8e8b18732a9ba2bd119e695c95ed80f7791f93c9079eb348038824331bc1c",
+          "cases": 8,
+          "skips": [],
+          "declaredCases": 8,
+          "topLevelCases": 8,
+          "disposition": "retained_original_whole_file_not_reexecuted"
+        },
+        {
+          "file": "t287-c0-correction-regressions.test.mjs",
+          "sourceSha256": "eb64595dae0c092d5983fccefcf70b9157606d7b142a985b8a5a4cb8ec08cad8",
+          "originalReturnSha256": "cb224a6e4f75db5bd915ff6b9a775a96cc3a6ee63d60cea4d08248e04c536604",
+          "cases": 4,
+          "skips": [],
+          "declaredCases": 4,
+          "topLevelCases": 4,
+          "disposition": "retained_original_whole_file_not_reexecuted"
         }
       ]
     }
   ],
-  "retainedPasses": 52,
-  "retainedTopLevelCases": 36,
-  "freshFiles": 7,
-  "freshTopLevelCases": 35,
+  "retainedPasses": 83,
+  "retainedSkips": 1,
+  "retainedTopLevelCases": 64,
+  "retainedNamedMinimumTopLevelCases": 62,
+  "freshFiles": 1,
+  "freshTopLevelCases": 9,
   "overallTopLevelCases": 71,
   "namedOptionalGates": [
     {
@@ -146,9 +254,10 @@
   "hostAndOperateDelta": "coordinates only",
   "proofAstDelta": [
     "retained_proof_relation",
+    "final_input_conservation",
     "main"
   ],
-  "finallyConservationFunctionAndPlacement": "function unchanged; original finally placement preserved",
+  "finallyConservationFunctionAndPlacement": "Only current cardinality guard7rows/22checks becomes8rows/24checks; original body/finally placement/primary-secondary/deadlines conserved",
   "readOnlyControlComparisons": "build/source/dependency/input/retained-receipt hashes and exact current relation; no main/proof execution",
   "basis": {
     "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
@@ -162,11 +271,23 @@
   "providerCalls": 0,
   "clockStarted": false,
   "ProductOrTestExecution": false,
-  "staticPreparationLimits": "No actual runtime topology/setup/author/proof or execution-behavior claim. All fresh boundary gates remain mandatory. Native source and future final launch HEAD remain unbound.",
-  "preparationCheckerDiagnostic": {
+  "preparationPredecessor": "cebc89dd5b2e9079fbfac176982a3a33df250ab9",
+  "staticPreparationLimits": "Historical diagnostic receipts were read, not rerun. No actual native08 runtime topology/setup/author/proof or execution-behavior claim. All fresh boundary gates remain mandatory. Native source and future final launch HEAD remain unbound.",
+  "priorPreparationCheckerDiagnostic": {
     "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/preparation/STATIC_CHECK_FAILURE_01.json",
-    "bytes": 541,
-    "sha256": "93b8b7bd84ccc5224de287d0dc582e337d16054dc3fd5e6e940ec6be994e3ab1",
-    "standing": "Preserved ad-hoc read-only checker namespace error; corrected globals/locals only. No control/source/input change or Product/test/provider execution."
+    "standing": "Original namespace checker error remains retained in predecessor Return; no Product/test effect."
+  },
+  "finalPartitionCheckerDiagnostic": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/preparation/FINAL_STATIC_FAILURE_01.json",
+    "bytes": 548,
+    "sha256": "01a148c778b0f39fd1b17f4a2527855fc27c4209a7ee1fecfeae52e32343904a",
+    "standing": "External copied checker expected pre-control5d6 HEAD; corrected to acceptedcebc controlHEAD. No source drift; later checks passed."
+  },
+  "taskDeltaFromAcceptedCebc": "Exactly final proof sentence; native W/limits/method/requirements/firstcase instructions unchanged",
+  "currentFinalizerDelta": "Only22 assertion becomes exact8rows/24; full remaining function bytes and finally placement unchanged",
+  "historicalDiagnosticRelation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/preparation/FINAL_PARTITION_RETENTION_CHECK.json",
+    "bytes": 9282,
+    "sha256": "0c9dca290384960cf917a08c69ccc992753b748aaac5354d55011a52a24a8059"
   }
 }

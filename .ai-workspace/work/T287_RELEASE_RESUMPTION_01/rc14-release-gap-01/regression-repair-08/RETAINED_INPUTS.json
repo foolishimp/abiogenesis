@@ -1,6 +1,6 @@
 {
   "sourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace",
-  "verifiedUtc": "2026-11-15T07:11:45.264328+00:00",
+  "verifiedUtc": "2026-11-15T13:56:16.465826+00:00",
   "files": [
     {
       "path": "work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/2b3dea4f262c179014aac48d5344bc5daf58762f843c02980fe1ff40bb503097/306d3afdae96a036435944bf0a420e059512a2a5bb0a7f30f42328e1ad073643/sandbox/consolidation-inputs/native-02/EXTERNAL_READ_RESOURCES.json",
@@ -36,12 +36,18 @@
       "path": "work/T287_SANDBOX_UAT_RUN_02/source-repair-governance-covered-source-use-143/controlled-owner-fixtures.json",
       "sha256": "ce6acd2de8df3f5cbc08ef008cf57197a547eec37b656beba6b1d5f7a57908b1",
       "bytes": 39657765
+    },
+    {
+      "path": "comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json",
+      "bytes": 983713,
+      "sha256": "6cde4824e5912305cb94de3afdc2eabfd74560e8d8f828cd6be7aa6f64991b16"
     }
   ],
-  "bytes": 669118059,
+  "bytes": 670101772,
   "custody": "Read-only original acquisition; proof makes hash-equal external copies and verifies original/copied bytes after. No old input edits.",
   "optionalMissing": [
     "governance-c2-material-selectors",
     "steel03 retained-start-call (ABI5_STEEL03_RETAINED_START_CALL_PATH)"
-  ]
+  ],
+  "extension": "Root8eb4d79f2 closed missing transitive VM-loaded D2 bridge. Exact original seven rows unchanged; eighth authentic input only. Original failed diagnostic retained."
 }

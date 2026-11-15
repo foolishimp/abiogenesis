@@ -49,7 +49,7 @@
     "cleanupReserveMs": 15000
   },
   "clockRule": "No clock in preparation. One native20min/160turns/inactivity5min; fresh08 enclosing135min; proof min(original08 enclosing deadline, proof start+90min),15s cleanup reserve inside. No retry or old clock reuse.",
-  "proof": "7 fresh whole files original010-016 serial first-failure stop;9 retained historical whole files52 actual passes/36 top-level conditional on exact causal conservation;71 named top-level cases overall. No build/broad/retry.",
+  "proof": "1fresh wholefile010 once;15retained wholefiles83actual passes+1declaredskip/64observedtop (62named minimum). Fresh010 keeps9named minimum; overall71minimum unchanged. Eightinputs/24currentfinally checks. No duplicate tests/build/broad/retry.",
   "preparationEffects": [
     "Isolated sparse worktree and branch; authored controls and compact records only",
     "Read-only exact source/input/build identity acquisition; static/JSON/syntax/type/hash checks",

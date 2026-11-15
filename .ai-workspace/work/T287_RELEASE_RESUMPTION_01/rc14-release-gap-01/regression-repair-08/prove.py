@@ -93,47 +93,88 @@ def checked_population(events,selection):
 def retained_proof_relation(postimage,reuse,retained,plan):
  relation=json.loads((HERE/'RETAINED_PROOF.json').read_text())
  assert relation['nativeWriteScope']==ACT['nativeWriteScope'] and len(ACT['nativeWriteScope'])==1
- assert len(relation['groups'])==3 and len(plan['retainedFiles'])==9
+ assert len(relation['groups'])==5 and len(plan['retainedFiles'])==15
  package=json.loads((SOURCE/REL/'package.json').read_text());assert package['files']==['build/**','contracts/**','product-toolchain-manifest.json']
  selections={s['originalOrdinal']:s for s in plan['retainedFiles']};observations=[];groups=[]
  def pinned(row):
   p=Path(row['path']);assert p.is_file() and not p.is_symlink() and p.stat().st_size==row['bytes'] and digest(p)==row['sha256'],row['path']
+ def projection(rows,excluded,definitions=False):
+  return {x['path']:(x['bytes'],x['sha256'],x['executable']) for x in rows if x['path'] not in excluded and
+   (x['path'].startswith(str(REL)+'/') or definitions and (x['path'].startswith('specification/') or x['path'] in ['AGENTS.md','CLAUDE.md','stdo_abiogenesis.json']))}
  for group in relation['groups']:
-  for name in ['sourcePostimage','proofReturn','reuseInputs','originalProofRunner']:pinned(group[name])
-  prior=bound_json(group['sourcePostimage']);returned=bound_json(group['proofReturn']);inputs=bound_json(group['reuseInputs'])
+  for name in ['sourcePostimage','proofReturn','reuseInputs','originalProofRunner','historicalInputs']:pinned(group[name])
+  prior=bound_json(group['sourcePostimage']);returned=bound_json(group['proofReturn']);inputs=bound_json(group['reuseInputs']);historical=bound_json(group['historicalInputs'])
+  assert historical['sourceRoot']==retained['sourceRoot'] and len(historical['files']) in [7,8]
+  assert inputs['requiredInputs']==historical['files'],'historical acquisition packet changed'
+  current={r['path']:r for r in retained['files']};old={r['path']:r for r in historical['files']}
+  assert len(current)==len(retained['files'])==8 and len(old)==len(historical['files'])
+  assert all(current.get(k)==v for k,v in old.items()),'historical input bytes replaced'
+  bridge='comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json'
+  assert set(current)-set(old)==({bridge} if len(old)==7 else set()),'undeclared input extension'
   f09='build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs'
-  if group['id']=='native07-files007-009':
+  diagnostic=group['id'] in ['diagnostic01-file011','diagnostic02-files012-016']
+  if diagnostic:
    assert group['excludedChangedPaths']==ACT['nativeWriteScope']
-   pinned(group['proofReentry']);pinned(group['proofClosure'])
-   reentry=bound_json(group['proofReentry']);closure=bound_json(group['proofClosure'])
-   assert reentry['retry'] is False and reentry['qualified'] is False
-   assert closure['return']['sha256']==group['proofReturn']['sha256']
-   final=returned['conservation']['finalInputConservation']
-   assert final['status']=='matched' and len(final['checks'])==22 and all(x['matched'] for x in final['checks'])
+   for name in ['sourceExit','mirrorEntry','mirrorExit','inputExit','controlManifest','controlInputs','diagnosticActivation','binding','controlStart','topologyReturn','topologyObservation','originalSetupCustody','originalSourcePostimage']:pinned(group[name])
+   binding=bound_json(group['binding']);manifest=bound_json(group['controlManifest']);packet=bound_json(group['controlInputs']);activation=bound_json(group['diagnosticActivation'])
+   assert binding['executionAuthorized'] is True and binding['sourceCommit']==activation['sourceCommit']==group['sourceCommitAtRun']
+   assert binding['controlManifestSha256']==group['controlManifest']['sha256'] and binding['oldCampaignClockReused'] is False
+   for row in manifest['files']:pinned({**row,'path':str(Path(group['controlManifest']['path']).parent/row['path'])})
+   for row in [*packet['retainedControls'],*packet['records'].values(),packet['builderPin'],packet['node'],packet['python'],activation['authority']]:pinned(row)
+   assert inputs['controls']==bound_json(group['inputExit']) and inputs['controls']['allPinsMatched'] is True
+   assert inputs['controls']['manifestSha256']==group['controlManifest']['sha256'] and inputs['controls']['bindingSha256']==group['binding']['sha256']
+   assert prior==bound_json(group['sourceExit']) and prior['head']==group['sourceCommitAtRun'] and prior['tree']==group['sourceTreeAtRun']
+   assert prior['rows']==bound_json(group['originalSourcePostimage'])['rows']
+   assert prior['setup']['verified'] is True and prior['setup']['custodyRecordSha256']==group['originalSetupCustody']['sha256']
+   setup=bound_json(group['originalSetupCustody']);assert prior['setup']['bytes']==setup['bytes'] and prior['setup']['sha256']==setup['sha256']
+   assert prior['originalAuthorHead']==activation['originalAuthorHead']==setup['sourceHead']
+   derived={str(REL/r['path']):r for r in reuse['derivedPayloadOutputs']};expected_mirror=[]
+   for row in prior['rows']:
+    name=row['path']
+    if not (name.startswith(str(REL)+'/') or name.startswith('specification/') or name in ['AGENTS.md','CLAUDE.md','stdo_abiogenesis.json']):continue
+    expected_mirror.append({**row,**({k:derived[name][k] for k in ['bytes','sha256']} if name in derived else {})})
+   mirror=bound_json(group['mirrorEntry']);assert mirror==bound_json(group['mirrorExit']) and mirror['rows']==expected_mirror
+   topology=bound_json(group['topologyObservation']);topology_return=bound_json(group['topologyReturn'])
+   assert topology['ok'] is True and topology['disposition']=='separated' and topology_return['exitCode']==0 and topology_return['cleanup']['processGroupAbsent'] is True
+   assert returned['sourceCommit']==group['sourceCommitAtRun'] and returned['sourceUnchanged'] is True and returned['mirrorSourceConserved'] is True
+   assert returned['expired'] is False and returned['secondaryErrors']==[] and returned['providerCalls']==0 and returned['builds']==0
+   assert returned['retry'] is False and returned['qualified'] is False and returned['deadlineUtc']==binding['deadlineUtc']==bound_json(group['controlStart'])['deadlineUtc']
+   final=returned['conservation'];assert final['status']=='matched' and len(final['checks'])==8+2*len(historical['files']) and all(x['matched'] for x in final['checks'])
    assert final['secondaryErrors']==[] and final['withinOriginalDeadline'] is True
-   conservation_kind='original_finally';conservation_sha=group['proofReturn']['sha256']
+   assert inputs['dependencies']==json.loads((HERE/'DEPENDENCY_INPUTS.json').read_text())['inventorySha256'] and inputs['derived']==reuse['derivedPayloadOutputs']
+   conservation_kind='diagnostic_original_finally';conservation_sha=group['proofReturn']['sha256']
   else:
-   pinned(group['postFailureConservation']);pinned(group['comparisonRunner']);late=bound_json(group['postFailureConservation'])
-   if group['id']=='native05-files001-002':
-    assert late['originalControls']['runnerSha256']==group['originalProofRunner']['sha256']
-    assert late['proofReturn']['sha256']==group['proofReturn']['sha256']
-    assert group['excludedChangedPaths']==['build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs',f09,*ACT['nativeWriteScope']]
-   else:
-    assert group['id']=='native06-files003-006' and group['excludedChangedPaths']==[f09,*ACT['nativeWriteScope']]
-    assert late['originalProofReturn']['sha256']==group['proofReturn']['sha256'] and late['originalProofReturn']['unchanged'] is True
-    assert any(r['path']==group['comparisonRunner']['path'] and r['sha256']==group['comparisonRunner']['sha256'] for r in late['pins'])
-    pinned(group['proofReentry']);reentry=bound_json(group['proofReentry'])
+   if group['id']=='native07-files007-009':
+    assert group['excludedChangedPaths']==ACT['nativeWriteScope']
+    pinned(group['proofReentry']);pinned(group['proofClosure'])
+    reentry=bound_json(group['proofReentry']);closure=bound_json(group['proofClosure'])
     assert reentry['retry'] is False and reentry['qualified'] is False
-   assert late['status']=='matched' and late['failure'] is None and len(late['checks'])==22 and all(x['matched'] for x in late['checks'])
-   conservation_kind='late_read_only_observation';conservation_sha=group['postFailureConservation']['sha256']
-  assert returned['status']=='stopped_first_failure' and returned['sourceHead']==group['sourceCommitAtRun']
-  assert returned['conservation']['sourceUnchangedThroughProof'] and returned['conservation']['setupCustodyReverified']
-  assert returned['finalDeadlineCheck']['expired'] is False
+    assert closure['return']['sha256']==group['proofReturn']['sha256']
+    final=returned['conservation']['finalInputConservation']
+    assert final['status']=='matched' and len(final['checks'])==22 and all(x['matched'] for x in final['checks'])
+    assert final['secondaryErrors']==[] and final['withinOriginalDeadline'] is True
+    conservation_kind='original_finally';conservation_sha=group['proofReturn']['sha256']
+   else:
+    pinned(group['postFailureConservation']);pinned(group['comparisonRunner']);late=bound_json(group['postFailureConservation'])
+    if group['id']=='native05-files001-002':
+     assert late['originalControls']['runnerSha256']==group['originalProofRunner']['sha256']
+     assert late['proofReturn']['sha256']==group['proofReturn']['sha256']
+     assert group['excludedChangedPaths']==['build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs',f09,*ACT['nativeWriteScope']]
+    else:
+     assert group['id']=='native06-files003-006' and group['excludedChangedPaths']==[f09,*ACT['nativeWriteScope']]
+     assert late['originalProofReturn']['sha256']==group['proofReturn']['sha256'] and late['originalProofReturn']['unchanged'] is True
+     assert any(r['path']==group['comparisonRunner']['path'] and r['sha256']==group['comparisonRunner']['sha256'] for r in late['pins'])
+     pinned(group['proofReentry']);reentry=bound_json(group['proofReentry'])
+     assert reentry['retry'] is False and reentry['qualified'] is False
+    assert late['status']=='matched' and late['failure'] is None and len(late['checks'])==22 and all(x['matched'] for x in late['checks'])
+    conservation_kind='late_read_only_observation';conservation_sha=group['postFailureConservation']['sha256']
+   assert returned['status']=='stopped_first_failure' and returned['sourceHead']==group['sourceCommitAtRun']
+   assert returned['conservation']['sourceUnchangedThroughProof'] and returned['conservation']['setupCustodyReverified']
+   assert returned['finalDeadlineCheck']['expired'] is False and inputs['derivedPayloadOutputs']==reuse['derivedPayloadOutputs']
+  assert returned['status']==group['expectedCampaignStatus']
   assert inputs['buildInventorySha256']==reuse['buildInventory']['sha256'] and inputs['sourceInputsSha256']==reuse['sourceInputs']['sha256']
-  assert inputs['derivedPayloadOutputs']==reuse['derivedPayloadOutputs'] and inputs['requiredInputs']==retained['files']
   excluded=set(group['excludedChangedPaths'])
-  tenant=lambda rows:{x['path']:(x['bytes'],x['sha256'],x['executable']) for x in rows if x['path'].startswith(str(REL)+'/') and x['path'] not in excluded}
-  assert tenant(prior['rows'])==tenant(postimage['rows']),'retained proof causal source/support/input drift '+group['id']
+  assert projection(prior['rows'],excluded,diagnostic)==projection(postimage['rows'],excluded,diagnostic),'retained proof causal source/support/input drift '+group['id']
   group_observations=[]
   for row in group['rows']:
    selection=selections[row['originalOrdinal']];assert row['file']==selection['file']
@@ -147,6 +188,7 @@ def retained_proof_relation(postimage,reuse,retained,plan):
    assert records['OBSERVED_CASES.json']['events']==events
    checked=checked_population(events,selection);assert records['COUNTS.json']==checked
    assert records['START.json']['argv']==[NODE,'--experimental-vm-modules','--test','--test-concurrency=1','--test-timeout=1790000','--test-reporter=./scripts/node-test-evidence-reporter.mjs','test_env/tests/'+selection['file']]
+   if diagnostic:assert records['START.json']['cwd']==group['proofTenant']
    assert next(x for x in events if x['type']=='begin')['nodeVersion']=='v24.7.0'
    if selection.get('requiredCandidateArtifacts'):
     pinned(row['candidateRecords']);candidates=bound_json(row['candidateRecords'])['records']
@@ -154,13 +196,15 @@ def retained_proof_relation(postimage,reuse,retained,plan):
     assert [{k:v for k,v in r.items() if k!='present'} for r in candidates]==row['candidates']
     assert [Path(r['path']).name for r in candidates]==selection['requiredCandidateArtifacts']
     for candidate in row['candidates']:pinned(candidate);assert isinstance(json.loads(Path(candidate['path']).read_text()),dict)
-   group_observations.append({'file':selection['file'],'sourceSha256':selection['preimageSha256'],'originalReturnSha256':row['records']['RETURN.json']['sha256'],'cases':len(checked['cases']),'topLevelCases':sum(c.get('nesting')==0 for c in checked['cases']),'disposition':'retained_original_pass_not_reexecuted'})
+   skips=[{'name':x['name'],'reason':x['skip']} for x in checked['cases'] if x.get('skip')]
+   group_observations.append({'file':selection['file'],'sourceSha256':selection['preimageSha256'],'originalReturnSha256':row['records']['RETURN.json']['sha256'],'cases':sum(not x.get('skip') for x in checked['cases']),'skips':skips,'declaredCases':len(checked['cases']),'topLevelCases':sum(x.get('nesting')==0 for x in checked['cases']),'disposition':'retained_original_whole_file_not_reexecuted'})
   assert sum(x['cases'] for x in group_observations)==group['expectedPasses']
+  assert sum(len(x['skips']) for x in group_observations)==group['expectedSkips']
   assert sum(x['topLevelCases'] for x in group_observations)==group['expectedTopLevelCases']
-  groups.append({'id':group['id'],'originalSourceHead':group['sourceCommitAtRun'],'conservationObservation':conservation_kind,'conservationSha256':conservation_sha,'originalCampaignPassed':False,'files':group_observations})
+  groups.append({'id':group['id'],'originalSourceHead':group['sourceCommitAtRun'],'conservationObservation':conservation_kind,'conservationSha256':conservation_sha,'historicalInputCount':len(historical['files']),'originalCampaignPassed':returned['status']=='passed','files':group_observations})
   observations.extend(group_observations)
- assert len(observations)==9 and sum(x['cases'] for x in observations)==52 and sum(x['topLevelCases'] for x in observations)==36
- return {'sourceOutsideDeclaredHistoricalTransitionsMatched':True,'compiledAndDependencyInputs':'verified by enclosing existing input owners','groups':groups,'retainedHistoricalPasses':52,'originalCampaignsPassed':False,'qualified':False}
+ assert len(observations)==15 and sum(x['cases'] for x in observations)==83 and sum(len(x['skips']) for x in observations)==1 and sum(x['topLevelCases'] for x in observations)==64
+ return {'sourceOutsideDeclaredHistoricalTransitionsMatched':True,'compiledAndDependencyInputs':'verified by enclosing existing input owners','groups':groups,'retainedHistoricalPasses':83,'retainedHistoricalSkips':1,'originalCampaignsAllPassed':all(g['originalCampaignPassed'] for g in groups),'qualified':False}
 
 def final_input_conservation(reuse,build,dependency,retained,tenant,evidence,end_monotonic,end_utc):
  # Same original comparisons, now reached from finally for initialized fixtures.
@@ -183,7 +227,7 @@ def final_input_conservation(reuse,build,dependency,retained,tenant,evidence,end
  for root in [Path(dependency['path']),tenant/'node_modules']:check('dependencies',root,dependency['inventorySha256'],lambda root=root:deps.inventory(root)['sha256'])
  for row in retained['files']:
   for path in [Path(retained['sourceRoot'])/row['path'],evidence/row['path']]:check('retained_input',path,row['sha256'].removeprefix('sha256:'),lambda path=path:digest(path))
- assert len(checks)==22
+ assert len(retained['files'])==8 and len(checks)==24
  return {'status':'matched' if not errors else 'failed','checks':checks,'secondaryErrors':errors,'observedUtc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'withinOriginalDeadline':time.monotonic()<end_monotonic and datetime.datetime.now(datetime.timezone.utc)<end_utc}
 
 def proof_layout(subject,source,dependency_root,prior_proof_root,installed_root,release_root,raw,proof):
@@ -264,7 +308,7 @@ def main():
      result=json.loads(receipt.read_text());commands.append({'name':name,**result});print(json.dumps({'phase':'proof-command-return','name':name,'exitCode':result['exitCode'],'elapsedMs':result['elapsedMs']}),flush=True)
   for i,relative in enumerate(postimage['nativeChangedPaths'],1):run(f'syntax-{i:02d}',[NODE,'--check',str(subject/relative)],ACT['limits']['perStaticMs'])
   plan=json.loads((HERE/'PROOF_PLAN.json').read_text())
-  assert len(plan['files'])==7 and [x['originalOrdinal'] for x in plan['files']]==list(range(10,17))
+  assert len(plan['files'])==1 and [x['originalOrdinal'] for x in plan['files']]==[10]
   for selection in plan['files']:
    i=selection['originalOrdinal'];name=f'{i:03d}-'+selection['file'].removesuffix('.test.mjs');directory=proof/name
    try:run(name,[NODE,'--experimental-vm-modules','--test','--test-concurrency=1','--test-timeout=1790000','--test-reporter=./scripts/node-test-evidence-reporter.mjs','test_env/tests/'+selection['file']],ACT['limits']['perTestFileMs'])
@@ -317,7 +361,7 @@ def main():
   if expired:
    failure=failure or {'name':'TimeoutError','message':'Original minimum host/proof deadline expired during finalization'}
    if not (proof/'FIRST_FAILURE.json').exists():write(proof/'FIRST_FAILURE.json',failure)
-  result={'status':'passed' if failure is None else 'stopped_first_failure','sourceHead':head,'elapsedMs':round((time.monotonic()-start)*1000),'commands':commands,'failure':failure,'conservation':conservation,'originalHostDeadlineUtc':enclosing.isoformat(),'proofDeadlineUtc':end.isoformat(),'qualified':False,'retry':False,'retainedProofRelation':retained_relation,'freshFilePopulation':7,'retainedFilePopulation':9}
+  result={'status':'passed' if failure is None else 'stopped_first_failure','sourceHead':head,'elapsedMs':round((time.monotonic()-start)*1000),'commands':commands,'failure':failure,'conservation':conservation,'originalHostDeadlineUtc':enclosing.isoformat(),'proofDeadlineUtc':end.isoformat(),'qualified':False,'retry':False,'retainedProofRelation':retained_relation,'freshFilePopulation':1,'retainedFilePopulation':15}
   result['finalDeadlineCheck']={'completedUtc':completed_utc.isoformat(),'expired':expired,'wallAndMonotonic':True}
   write(proof/'RETURN.json',result);print(json.dumps({'phase':'proof-return','status':result['status'],'commands':len(commands),'failure':failure}),flush=True)
  return 0 if failure is None else 1

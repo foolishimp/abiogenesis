@@ -1,5 +1,5 @@
 {
-  "kind": "retained_nine_file_proof_relation",
+  "kind": "retained_fifteen_file_proof_relation",
   "groups": [
     {
       "sourceCommitAtRun": "a0b0ab5dd37322b66f69909d6a1c7ab75e7ee3fa",
@@ -115,7 +115,14 @@
         "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
         "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
         "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
-      ]
+      ],
+      "historicalInputs": {
+        "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/RETAINED_INPUTS.json",
+        "bytes": 2617,
+        "sha256": "6b3acd6edd34a09ee213a583ffc743c88c96ecf9ca94757b34270407efbdb74b"
+      },
+      "expectedSkips": 0,
+      "expectedCampaignStatus": "stopped_first_failure"
     },
     {
       "id": "native06-files003-006",
@@ -324,7 +331,14 @@
             }
           }
         }
-      ]
+      ],
+      "historicalInputs": {
+        "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/RETAINED_INPUTS.json",
+        "bytes": 2617,
+        "sha256": "6b3acd6edd34a09ee213a583ffc743c88c96ecf9ca94757b34270407efbdb74b"
+      },
+      "expectedSkips": 0,
+      "expectedCampaignStatus": "stopped_first_failure"
     },
     {
       "id": "native07-files007-009",
@@ -486,22 +500,468 @@
             }
           }
         }
+      ],
+      "historicalInputs": {
+        "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/RETAINED_INPUTS.json",
+        "bytes": 2617,
+        "sha256": "6b3acd6edd34a09ee213a583ffc743c88c96ecf9ca94757b34270407efbdb74b"
+      },
+      "expectedSkips": 0,
+      "expectedCampaignStatus": "stopped_first_failure"
+    },
+    {
+      "id": "diagnostic01-file011",
+      "sourceCommitAtRun": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+      "sourceTreeAtRun": "1efbbd46e99bcef12789559f02e47ed4806db048",
+      "expectedCampaignStatus": "stopped_first_failure",
+      "expectedPasses": 1,
+      "expectedSkips": 1,
+      "expectedTopLevelCases": 2,
+      "excludedChangedPaths": [
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
+      ],
+      "historicalInputs": {
+        "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/RETAINED_INPUTS.json",
+        "bytes": 2617,
+        "sha256": "6b3acd6edd34a09ee213a583ffc743c88c96ecf9ca94757b34270407efbdb74b"
+      },
+      "sourcePostimage": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/SOURCE_ENTRY.json",
+        "bytes": 356919,
+        "sha256": "63e0767b1fb33b8dea15275d8b6c916e279a60924d0e4b353e555d4551bdbdbb"
+      },
+      "sourceExit": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/SOURCE_EXIT.json",
+        "bytes": 356919,
+        "sha256": "63e0767b1fb33b8dea15275d8b6c916e279a60924d0e4b353e555d4551bdbdbb"
+      },
+      "mirrorEntry": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/MIRROR_SOURCE_ENTRY.json",
+        "bytes": 347662,
+        "sha256": "f6eb85e91e8ed2c9aefed26496bd13cd8117a4e24221e285ca9eeb8e2dfa2917"
+      },
+      "mirrorExit": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/MIRROR_SOURCE_EXIT.json",
+        "bytes": 347662,
+        "sha256": "f6eb85e91e8ed2c9aefed26496bd13cd8117a4e24221e285ca9eeb8e2dfa2917"
+      },
+      "proofReturn": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/RETURN.json",
+        "bytes": 14066,
+        "sha256": "0e007a0e9bffb3a9f5351aec7ace5ff681c68bd344e61eac34dc9eefc80df914"
+      },
+      "reuseInputs": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/INPUTS_ENTRY.json",
+        "bytes": 3605,
+        "sha256": "f7a793cfc87cf18d9c06ebb50db9795458757e017ba1c4720435e6242d47c86d"
+      },
+      "inputExit": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/INPUTS_EXIT.json",
+        "bytes": 219,
+        "sha256": "85c4dd5205e0798d5d887b0e3e468e608075e1654c74af8038e292fe499f2881"
+      },
+      "originalProofRunner": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/unrun-six-proof-01/run.py",
+        "bytes": 15432,
+        "sha256": "4bf7f01af064485f3e55344a7d071d33e956667df24699b8dec2807b3de43f89"
+      },
+      "controlManifest": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/unrun-six-proof-01/CONTROL_MANIFEST.json",
+        "bytes": 1152,
+        "sha256": "8c2f3f40b5620e02484f7412a65fff7334434e8689e2a879a0ff2c5cc48aa915"
+      },
+      "controlInputs": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/unrun-six-proof-01/INPUTS.json",
+        "bytes": 11058,
+        "sha256": "c312b74ed8f9c499262087ced616375d0d17acfb13efb44fe98ba3e2d45d3d98"
+      },
+      "diagnosticActivation": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/unrun-six-proof-01/ACTIVATION.json",
+        "bytes": 2628,
+        "sha256": "ace8f430881a51c8199f78369b5d6632ae7b0fe3dffddca4cb2b23d79a1285f0"
+      },
+      "binding": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/BINDING.json",
+        "bytes": 784,
+        "sha256": "6bec7a529789b6212051a566080bd4fcca11ca4d1d01aa6f8eef056c22f24d3c"
+      },
+      "controlStart": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/CONTROL_START.json",
+        "bytes": 196,
+        "sha256": "c2969ae3a651092670c2450217e0531205480cc7d35c338740a4b8c962979656"
+      },
+      "topologyReturn": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/topology/RETURN.json",
+        "bytes": 459,
+        "sha256": "d2c3ac5defc8d3f37c41ac7e8cdc4f457fca3550e40451879e66102f6b58e592"
+      },
+      "topologyObservation": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/topology/stdout.raw",
+        "bytes": 51390,
+        "sha256": "2d75ecc7115f00f62379cb32c5b12c31cda578ba6a42f9c485340772892ffaeb"
+      },
+      "originalSetupCustody": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/SETUP_CUSTODY.json",
+        "bytes": 2549,
+        "sha256": "a5cf808f22f8d6373fb36634bff685812268a0ed33a813d6d4b3c8b84e4f0a2d"
+      },
+      "originalSourcePostimage": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/proof-01/SOURCE_POSTIMAGE.json",
+        "bytes": 357121,
+        "sha256": "65db2d1664509c6731389e259255bd90be2e9ff1289eb61f22cec8ff4391540e"
+      },
+      "proofTenant": "/private/tmp/abg-rc14-unrun-six-subject-20261116-01/build_tenants/abiogenesis/typescript",
+      "rows": [
+        {
+          "file": "w2-steel-single-start-closure.test.mjs",
+          "originalOrdinal": 11,
+          "records": {
+            "START.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/011-w2-steel-single-start-closure/START.json",
+              "bytes": 983,
+              "sha256": "69ba4b65d3f1128b7cdfe6788b45e3f0e03310ff5ff5d59e8dfeade69ed1f757"
+            },
+            "RETURN.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/011-w2-steel-single-start-closure/RETURN.json",
+              "bytes": 458,
+              "sha256": "96f40815ee93cfa7340918cc2a9ccdae6db61a5f5911cd033a76a238d515bb08"
+            },
+            "COUNTS.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/011-w2-steel-single-start-closure/COUNTS.json",
+              "bytes": 1290,
+              "sha256": "0750a70cf5a0ea4c343acf42f3117a2f4283410e9eb6480775b3634cb0edfc25"
+            },
+            "OBSERVED_CASES.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/011-w2-steel-single-start-closure/OBSERVED_CASES.json",
+              "bytes": 1875,
+              "sha256": "2e5312d666f3ab233dfbbe11b488f9fa2a502ffd82fc9ac57e16e5073ccdee77"
+            },
+            "stdout.raw": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/011-w2-steel-single-start-closure/stdout.raw",
+              "bytes": 1207,
+              "sha256": "f828e936d2955a0fb501acb23e5a9fede8c0e84f1340ad24addc6cace4d9ad0a"
+            },
+            "stderr.raw": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/011-w2-steel-single-start-closure/stderr.raw",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        }
       ]
+    },
+    {
+      "id": "diagnostic02-files012-016",
+      "sourceCommitAtRun": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+      "sourceTreeAtRun": "1efbbd46e99bcef12789559f02e47ed4806db048",
+      "expectedCampaignStatus": "passed",
+      "expectedPasses": 30,
+      "expectedSkips": 0,
+      "expectedTopLevelCases": 26,
+      "excludedChangedPaths": [
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
+      ],
+      "historicalInputs": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/remaining-five-proof-02/RETAINED_INPUTS.json",
+        "bytes": 3177,
+        "sha256": "1b23abd969a159f681190be8f34f64e096ce4a9e8e5d3ced502e5d16da6a5809"
+      },
+      "sourcePostimage": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/SOURCE_ENTRY.json",
+        "bytes": 356919,
+        "sha256": "63e0767b1fb33b8dea15275d8b6c916e279a60924d0e4b353e555d4551bdbdbb"
+      },
+      "sourceExit": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/SOURCE_EXIT.json",
+        "bytes": 356919,
+        "sha256": "63e0767b1fb33b8dea15275d8b6c916e279a60924d0e4b353e555d4551bdbdbb"
+      },
+      "mirrorEntry": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/MIRROR_SOURCE_ENTRY.json",
+        "bytes": 347662,
+        "sha256": "f6eb85e91e8ed2c9aefed26496bd13cd8117a4e24221e285ca9eeb8e2dfa2917"
+      },
+      "mirrorExit": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/MIRROR_SOURCE_EXIT.json",
+        "bytes": 347662,
+        "sha256": "f6eb85e91e8ed2c9aefed26496bd13cd8117a4e24221e285ca9eeb8e2dfa2917"
+      },
+      "proofReturn": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/RETURN.json",
+        "bytes": 16313,
+        "sha256": "b144fa1552f3048e34abc5ff9fbccf8c4ae16f09769e037de5fb11ccb8971b28"
+      },
+      "reuseInputs": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/INPUTS_ENTRY.json",
+        "bytes": 3857,
+        "sha256": "762c3bc5743f5c94f08f072281b5a47bf99f92784b3f8e0306db3ce577261cc7"
+      },
+      "inputExit": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/INPUTS_EXIT.json",
+        "bytes": 219,
+        "sha256": "e3004c1d1d062f1568bc69775c8fb8052c619fe2c7dcbd9a6fd7c9f9bebcd549"
+      },
+      "originalProofRunner": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/remaining-five-proof-02/run.py",
+        "bytes": 17991,
+        "sha256": "2334198eb64e79ff9b66cb6b9d15cc8c89cae091f12cba42785137ffb7c60c6d"
+      },
+      "controlManifest": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/remaining-five-proof-02/CONTROL_MANIFEST.json",
+        "bytes": 1312,
+        "sha256": "0778520d45dc178a211c48bfc7e119a4eb2fd10689e2d3e5c9ec2764a470b3b3"
+      },
+      "controlInputs": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/remaining-five-proof-02/INPUTS.json",
+        "bytes": 12561,
+        "sha256": "45a50c5ee76ecfa1844c4fc9ed2b6cf2a9289866b758e17f118863f470075d70"
+      },
+      "diagnosticActivation": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/remaining-five-proof-02/ACTIVATION.json",
+        "bytes": 2989,
+        "sha256": "40352c4db1ce57205a1e57760b955ba982ac3868bdd571dcd7de1ce897fd8cde"
+      },
+      "binding": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/BINDING.json",
+        "bytes": 969,
+        "sha256": "2659a7f8618d0b3787ba545c8aa1b0e44da1e54fe83c0a27eeb3f6edc012bc4e"
+      },
+      "controlStart": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/CONTROL_START.json",
+        "bytes": 196,
+        "sha256": "9129c40e8d1b26e3987869b40f41c5a59ccd082a36dc1bf653b9e7f292329a62"
+      },
+      "topologyReturn": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/topology/RETURN.json",
+        "bytes": 459,
+        "sha256": "b4ae8493b54218e2223bd12657552f5b2afdf74f7dc9e68ef73160a6b20e8bb8"
+      },
+      "topologyObservation": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/topology/stdout.raw",
+        "bytes": 55489,
+        "sha256": "92f8b3ad183c1eb219537a59a356c19beb922cae3f5d84b0771bfaf9f5b1d0e2"
+      },
+      "originalSetupCustody": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/SETUP_CUSTODY.json",
+        "bytes": 2549,
+        "sha256": "a5cf808f22f8d6373fb36634bff685812268a0ed33a813d6d4b3c8b84e4f0a2d"
+      },
+      "originalSourcePostimage": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/proof-01/SOURCE_POSTIMAGE.json",
+        "bytes": 357121,
+        "sha256": "65db2d1664509c6731389e259255bd90be2e9ff1289eb61f22cec8ff4391540e"
+      },
+      "proofTenant": "/private/tmp/abg-rc14-remaining-five-subject-20261116-02/build_tenants/abiogenesis/typescript",
+      "rows": [
+        {
+          "file": "t287-native-work-currentness-consumers.test.mjs",
+          "originalOrdinal": 12,
+          "records": {
+            "START.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/012-t287-native-work-currentness-consumers/START.json",
+              "bytes": 997,
+              "sha256": "63cc47c421f1ca7d16b1c5105401c9533f307295d97314c4346e18c2c8039133"
+            },
+            "RETURN.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/012-t287-native-work-currentness-consumers/RETURN.json",
+              "bytes": 460,
+              "sha256": "f7ccd99e0398df96bd16b463a1695154728a3afdf3f7e3d37baeaffa2c9c935d"
+            },
+            "COUNTS.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/012-t287-native-work-currentness-consumers/COUNTS.json",
+              "bytes": 2811,
+              "sha256": "7e9f7b8f05332cfcc872ec58d110b83b6e3bc6a615e6377a7694ccb0dea40620"
+            },
+            "OBSERVED_CASES.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/012-t287-native-work-currentness-consumers/OBSERVED_CASES.json",
+              "bytes": 3410,
+              "sha256": "7ee20043a9849270c55cc53abc27bdca80c8ccf1f3f54c983d0de75f467210d1"
+            },
+            "stdout.raw": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/012-t287-native-work-currentness-consumers/stdout.raw",
+              "bytes": 2341,
+              "sha256": "f11792af2f91373b72e2d704a214ce915e0d0013633c3c844b5434d5978adab2"
+            },
+            "stderr.raw": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/012-t287-native-work-currentness-consumers/stderr.raw",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        {
+          "file": "t287-readable-stops-foldback.test.mjs",
+          "originalOrdinal": 13,
+          "records": {
+            "START.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/013-t287-readable-stops-foldback/START.json",
+              "bytes": 987,
+              "sha256": "bb9a572b68a1824280db837f2bed5e30dad5481e1ecd7ee3b7db3d67109b3337"
+            },
+            "RETURN.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/013-t287-readable-stops-foldback/RETURN.json",
+              "bytes": 461,
+              "sha256": "8a511471be600e71f9f8ee5c9c3dacf7e1f421d5e1ae7d3c1127122438afc14e"
+            },
+            "COUNTS.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/013-t287-readable-stops-foldback/COUNTS.json",
+              "bytes": 2364,
+              "sha256": "06cc763781b40110205e1a4fccf6e270b51f5fec1f2c71d1f46025d73ebddded"
+            },
+            "OBSERVED_CASES.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/013-t287-readable-stops-foldback/OBSERVED_CASES.json",
+              "bytes": 2954,
+              "sha256": "a20ad2f7360f96d4b232dfde31ee10bb1c969a7f1377877438d6bde9e7a7190e"
+            },
+            "stdout.raw": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/013-t287-readable-stops-foldback/stdout.raw",
+              "bytes": 1993,
+              "sha256": "6463ea10563d452fd6855425da473093bef249f5ea6690ae4ec62d0a1a728775"
+            },
+            "stderr.raw": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/013-t287-readable-stops-foldback/stderr.raw",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        {
+          "file": "t287-native-runtime-gate.test.mjs",
+          "originalOrdinal": 14,
+          "records": {
+            "START.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/014-t287-native-runtime-gate/START.json",
+              "bytes": 983,
+              "sha256": "01dfe743f3c1bb88dfbf27fe072330c98446e9a271bc0134aa39a4f45eb05d8f"
+            },
+            "RETURN.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/014-t287-native-runtime-gate/RETURN.json",
+              "bytes": 460,
+              "sha256": "f3c80f6b9f844414b3bf20d5890f3b7dfe86f887e40f2ee6044315b4d052c9d6"
+            },
+            "COUNTS.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/014-t287-native-runtime-gate/COUNTS.json",
+              "bytes": 3174,
+              "sha256": "c1ef377605114d0bde5eb0c2ef93e53cd2a09e0b048503c0cbb042152072a2fe"
+            },
+            "OBSERVED_CASES.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/014-t287-native-runtime-gate/OBSERVED_CASES.json",
+              "bytes": 3757,
+              "sha256": "7cdafae983f828a4b5f15c978a8d3ab7df0a58e923e3286ad318b93897e25948"
+            },
+            "stdout.raw": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/014-t287-native-runtime-gate/stdout.raw",
+              "bytes": 2604,
+              "sha256": "e68021bf5d7eaa0698f2f7dd066ebd8613d70cbe75343eed914706b258e325e7"
+            },
+            "stderr.raw": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/014-t287-native-runtime-gate/stderr.raw",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        {
+          "file": "t287-observed-worksite-command.test.mjs",
+          "originalOrdinal": 15,
+          "records": {
+            "START.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/015-t287-observed-worksite-command/START.json",
+              "bytes": 989,
+              "sha256": "edaf31bf5bd71185e9605ec54d8c6114cf50086b677bacf71a103f89e109365d"
+            },
+            "RETURN.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/015-t287-observed-worksite-command/RETURN.json",
+              "bytes": 459,
+              "sha256": "f3e8e8b18732a9ba2bd119e695c95ed80f7791f93c9079eb348038824331bc1c"
+            },
+            "COUNTS.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/015-t287-observed-worksite-command/COUNTS.json",
+              "bytes": 3502,
+              "sha256": "a6aff7d4295c20819460f5d3345428b398e5d6bad2718b2c5096b3fc0b986f74"
+            },
+            "OBSERVED_CASES.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/015-t287-observed-worksite-command/OBSERVED_CASES.json",
+              "bytes": 4093,
+              "sha256": "6291b0622f2a8ca675fcb85ffa6a42b7c00e166231a03351b2d850cb75c6637b"
+            },
+            "stdout.raw": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/015-t287-observed-worksite-command/stdout.raw",
+              "bytes": 2836,
+              "sha256": "631c559efe4d068047122a8bb087400581bcbd6f1e7bff4cbe0fb37b897f436b"
+            },
+            "stderr.raw": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/015-t287-observed-worksite-command/stderr.raw",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        {
+          "file": "t287-c0-correction-regressions.test.mjs",
+          "originalOrdinal": 16,
+          "records": {
+            "START.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/016-t287-c0-correction-regressions/START.json",
+              "bytes": 989,
+              "sha256": "4f913f1e801b338663294d6dbf7b42ea17bb9efb2bbaf108d981209d30f959b7"
+            },
+            "RETURN.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/016-t287-c0-correction-regressions/RETURN.json",
+              "bytes": 460,
+              "sha256": "cb224a6e4f75db5bd915ff6b9a775a96cc3a6ee63d60cea4d08248e04c536604"
+            },
+            "COUNTS.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/016-t287-c0-correction-regressions/COUNTS.json",
+              "bytes": 1819,
+              "sha256": "50547e5237d810b07d493f64124437de29dceb183d1fd0bdae78f8ed7d418f26"
+            },
+            "OBSERVED_CASES.json": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/016-t287-c0-correction-regressions/OBSERVED_CASES.json",
+              "bytes": 2410,
+              "sha256": "056b39f3a8d2dc93a1dd8c3b04d6ccc597ca48d4c1a48f9dc6bc2857166f0c1e"
+            },
+            "stdout.raw": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/016-t287-c0-correction-regressions/stdout.raw",
+              "bytes": 1545,
+              "sha256": "480067d808b7bbf425bbb06f95f2a2447eb23db88ca1e7b94ea8ab004fa74ac6"
+            },
+            "stderr.raw": {
+              "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02/proof-01/016-t287-c0-correction-regressions/stderr.raw",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        }
+      ],
+      "namedMinimumTopLevelCases": 24
     }
   ],
   "nativeWriteScope": [
     "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
   ],
-  "relation": "Current tenant equals accepted07 outside prospective governance firstcase/necessary helper. Historical05-to06 consolidation test and06-to07 F09 helper transitions remain explicit exclusions only for groups that do not execute them. No retained file imports governance test; no case/source/support change outside selected W permitted. Governance test is neither compiled by code/src/**/*.ts nor included in package files build/**,contracts/**,manifest. Preserve full source/support/build/dependencies/generated/7input equivalence and original case identities.",
+  "relation": "Current tenant equals accepted07 outside prospective governance firstcase/necessary helper. Historical05-to06 consolidation test and06-to07 F09 helper transitions remain explicit exclusions only for groups that do not execute them. No retained file imports governance test; no case/source/support change outside selected W permitted. Governance test is neither compiled by code/src/**/*.ts nor included in package files build/**,contracts/**,manifest. Preserve full source/support/build/dependencies/generated/7input equivalence and original case identities. Diagnostic011 retains its actual onepass and one declared skip. Source/mirror/oldsetup and input/control bindings authenticate its own run. Historical seven-row packets remain exact; current eighth row is an explicit extension, never retroactively claimed acquired. Corrected-input diagnostic012-016 passed30cases/26observedtop on original native07source with8inputs/24finalchecks. Its observed top-level surplus over24named minima remains explicit; no old minima/titles changed.",
   "limits": [
     "05 and06 campaigns stopped before010;07 stopped010. No original campaign is relabelled passed.",
     "05/06 final22-check observations were later, not their original finally;07 final22 comparisons actually ran in original finally.",
     "07 sole node --version literal variance and all earlier disclosed method deviations remain historical; no full author-compliance claim.",
     "Original Node24.7 version/argv recorded; no retroactive executable-byte attestation.",
-    "Any causal input drift or missing required case stops; no automatic reexecution or broadening."
+    "Any causal input drift or missing required case stops; no automatic reexecution or broadening.",
+    "Diagnostic01 stopped012 on missing input; only011 retains whole-file credit. No failed012 five-pass subtotal treated as whole-file green.",
+    "Remaining-five02 passing diagnostic supplies bounded wholefile evidence only, not qualification. Its original source/setup/input/control/command/clock identities remain distinct from native08."
   ],
-  "retainedPasses": 52,
-  "retainedTopLevelCases": 36,
-  "prospectiveFreshTopLevelCases": 35,
-  "qualification": false
+  "retainedPasses": 83,
+  "retainedTopLevelCases": 64,
+  "prospectiveFreshTopLevelCases": 9,
+  "qualification": false,
+  "retainedSkips": 1,
+  "partitionStatus": "Final exact closed groups selected by Root; native08 proof execution still disabled until separate grant.",
+  "retainedNamedMinimumTopLevelCases": 62,
+  "overallNamedMinimumTopLevelCases": 71,
+  "rootDiagnosticClosure": {
+    "sourceCommit": "70eb55135",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/REMAINING_FIVE_PROOF_CLOSURE_02.json",
+    "bytes": 3157,
+    "sha256": "cabf81f75ac66891fb68a7342deed88c6af909825ffaa1296d01058ef698e9b2"
+  }
 }
