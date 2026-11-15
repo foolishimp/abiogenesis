@@ -1,5 +1,5 @@
 {
-  "status": "RC14_PUBLIC_SETUP_PASSED_C1_METADATA_SELECTED",
+  "status": "RC14_C1_FROZEN_TWO_INSTALLED_WITNESSES_SELECTED",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T18:04:22.339008+00:00",
-  "nativeAuthorState": "No active provider/runtime. Public setup02 passed; one exact C1 metadata/freeze operation selected after checkpoint push.",
+  "recordedUtc": "2026-11-15T18:15:30.434479+00:00",
+  "nativeAuthorState": "No active provider. C1 finalized and frozen; amendment and S06 witness grants selected after checkpoint push, at most two provider executions globally.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -897,7 +897,7 @@
     "namedTopLevelMinimum": 24
   },
   "candidatePreparation": {
-    "state": "PUBLIC_SETUP02_ACCEPTED_C1_METADATA_SELECTED",
+    "state": "C1_FINALIZATION_ACCEPTED_INSTALLED_WITNESSES_SELECTED",
     "compileInputCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
     "compileInputTree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
     "acceptance": "integration-01/RC14_C0_SOURCE_ACCEPTANCE.json",
@@ -923,6 +923,21 @@
     "publicSetupControlAcceptance": "integration-01/RC14_PUBLIC_SETUP_CONTROL_ACCEPTANCE_02.json",
     "publicSetupGrant": "integration-01/public-setup-02/ACTIVATION.json",
     "publicSetupAcceptance": "integration-01/RC14_PUBLIC_SETUP_ACCEPTANCE_02.json",
-    "metadataGrant": "integration-01/candidate-metadata-01/ACTIVATION.json"
+    "metadataGrant": "integration-01/candidate-metadata-01/ACTIVATION.json",
+    "C1Commit": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+    "C1Tree": "db27ed1be8ba16a25888ab785ba26263f730f811",
+    "C1Acceptance": "integration-01/RC14_C1_FINALIZATION_ACCEPTANCE.json",
+    "freezeSha256": "4db84a20a83e020206e4161fbd4ca50284fd9b929a702d346645e78cc21bd012"
+  },
+  "installedWitnesses": {
+    "amendment": {
+      "state": "selected_not_started",
+      "grant": "integration-01/amendment-witness-01/ACTIVATION.json"
+    },
+    "S06": {
+      "state": "selected_not_started",
+      "grant": "integration-01/s06-witness-01/ACTIVATION.json"
+    },
+    "formalQualification": "Not activated; B50 policy/route remains open"
   }
 }

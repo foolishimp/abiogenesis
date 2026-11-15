@@ -1,0 +1,58 @@
+{
+  "id": "RC14-C1-FINALIZATION-ACCEPTANCE-001",
+  "recordedUtc": "2026-11-15T18:15:30.434479+00:00",
+  "role": "Root independent evidence review, recorded by FINALIZATION_WRITER_14",
+  "productFrame": "Fixed5.0 T287 RC14 S07 prospective candidate; C0 is compile provenance, C1 is complete derived inventory, neither supplies a qualification verdict.",
+  "C0": {
+    "commit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "tree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded"
+  },
+  "C1": {
+    "commit": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+    "tree": "db27ed1be8ba16a25888ab785ba26263f730f811",
+    "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-01",
+    "mainMerge": "d3b1ad5930a096149a8d3e49be19071bd156d151"
+  },
+  "freeze": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-01/FREEZE.json",
+    "bytes": 4776,
+    "sha256": "4db84a20a83e020206e4161fbd4ca50284fd9b929a702d346645e78cc21bd012"
+  },
+  "rawReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-01/RETURN.json",
+    "bytes": 15431,
+    "sha256": "7246d6aa6c8d25ec2418e059821b244dcaa7121b84e568051b0a26787ec334f5"
+  },
+  "archive": {
+    "name": "abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "bytes": 10814430,
+    "sha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz"
+  },
+  "disposition": "Accepted exact derived-source finalization and archive/source correspondence for installed witness execution",
+  "rootChecks": [
+    "C1 HEAD/tree and clean worktree independently verified; exact ten-path derived delta matches accepted allowlist.",
+    "Freeze/Return and actual archive/claim/inventory/expected-output pins reacquired; C0 lineage and unchanged archive retained.",
+    "1608 original exit comparisons matched with zero errors; eight original process groups independently absent.",
+    "Two entry-pinned helper checks omitted from original exit list were separately retained at18:10:14.675497Z, matched, and leave original Return/FREEZE unchanged. They are follow-up custody, not added to original1608 or elapsed5.769s."
+  ],
+  "helperFollowup": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-01/HELPER_INPUTS_EXIT.json",
+    "bytes": 1142,
+    "sha256": "15067319331a3e7080bcdadd5cae6aab8e40fdde0a385a93a82f892c25f24a60"
+  },
+  "metadataEnvironment": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-01/METADATA_ENVIRONMENT.json",
+    "bytes": 1036,
+    "sha256": "f09b262012fdba30a7d5f2c6993554b8252c6fccedba9a000ae461c00b9992b1"
+  },
+  "inventoryMembers": 1294,
+  "sourceInputs": 1219,
+  "auxiliaryInputs": 212,
+  "nativeInputs": 196,
+  "scopeCorrespondenceErrors": 0,
+  "qualified": false,
+  "published": false,
+  "builderPinChanged": false,
+  "next": "One selected installed amendment witness and one selected S06 lifecycle witness; formal B50 qualification remains separate and unactivated."
+}
