@@ -1,36 +1,62 @@
 {
   "kind": "s06_preparation_return",
-  "status": "prepared_for_independent_review_not_execution",
-  "source": "ebe085acf2812252daf45bc7d86b5dc3f4cb1b5e",
+  "status": "repaired_frozen_for_independent_review_not_execution",
+  "parentSubject": "6af06d60ea84ba15f1222479070b5950ca887267",
+  "originalPreparationSource": "ebe085acf2812252daf45bc7d86b5dc3f4cb1b5e",
+  "changedTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-01",
   "controlManifest": {
     "path": "/private/tmp/abg-rc14-s06-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-01/CONTROL_MANIFEST.json",
-    "bytes": 4647,
-    "sha256": "37d76870aa532d0988afd694d8451ff08b570936a09c991bbe6b893b3123290c"
+    "bytes": 5109,
+    "sha256": "f861971499735c73a636d554fa5791f317e7c5d1207090fa50412d72973b9c37"
   },
-  "changedTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-01",
-  "controlCount": 19,
+  "controlCount": 21,
   "maintainedInputCount": 7,
-  "originalSourceMembers": 5,
-  "originalSourceBytes": 135805,
-  "importedApplicationMembers": 22,
-  "importedApplicationBytes": 111575,
-  "historicalRuntimeCredit": false,
-  "nativeProductOrApplicationExecution": false,
-  "testsBuildsPackInstallProviderCalls": 0,
-  "proof": "JavaScript syntax, Python AST, JSON/hash acquisition, and canonical exported input/command types via no-emit; no runtime owner admission evaluated",
-  "rootChoice": "Fixed consumer verifier interface d1/d2 input/run roots; implementation belongs to native D1, genuine mapping/job amendment to native D2; two Programs one consumer binding/history",
-  "unresolvedBeforeExecution": [
-    "Root-selected exact future RC14 artifact/bootstrap and source checkpoint",
-    "separate execution grant, absolute deadline and accepted physical layout",
-    "actual Java/SBT/dependency readiness; only files/identities acquired",
-    "independent immutable control review"
+  "externalInputs": {
+    "count": 35,
+    "inventorySha256": "f823ca394a51388a6b9c57b14fd36b423d80036a53d785fe8c21336a1add6851",
+    "originalSourceMembers": 5,
+    "originalSourceBytes": 135805,
+    "retainedApplicationMembers": 22,
+    "retainedApplicationBytes": 111575,
+    "oracleUnchanged": true,
+    "selectionUnchanged": true,
+    "historicalRuntimeCredit": false
+  },
+  "repair": [
+    "Canonical dirname and two complete protected-root roles with shared W; exact observer unchanged",
+    "Remove only retired generic workOrders.review; named review conserved",
+    "Testing sources include actual D2 input and full existing fixed-command dependency set",
+    "Read original admitted C2 sandbox with task/plan/artifact/snapshot/report and observed-file custody; preserve actual D1 evidence/query after D2",
+    "Immutable typed Boolean oracle record; only D2 source_key to record_id rename"
   ],
-  "retainedLimits": [
-    "S06 application outcome remains unobserved",
-    "actual native-built application/verifier meaning and affected-evidence invalidation require independent source/evidence conjunction",
-    "fresh query excludes the concrete retained transformation/Spark classes; no universal hostile-code guarantee",
-    "outer process owner covers its own group; native actor closure remains its actual owner fact",
-    "SDK starts and fresh CLI reads selected; no extra native-CLI parity claim",
-    "no merge/push/version/pin/qualification/acceptance effects"
-  ]
+  "boundedChecks": {
+    "syntaxAndTypes": "passed",
+    "pureCanonicalD2Input": "passed; input-only specimen, no admission",
+    "actualRetainedC2": "closed basic04 Result471, helper/task artifact and10 snapshot files authenticated; no S06 credit",
+    "expectedReportJoin": "source/type checked, not exercised by basic04 report-free example",
+    "physicalRoles": "both separated, shared60second preparation bound,309/303ms, groups absent; retained basic04 binding/install fields and prospective S06 W only",
+    "originalProbeFailure": "Retained external installedProduct-coordinate/installedRoot mismatch; Root-selected projection-only re-entry; no repeated constructor/C2 run"
+  },
+  "externalProofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preflight-20261115-02",
+  "sourceOrRuntimeEffects": {
+    "tenantChanges": false,
+    "PublicInvocations": 0,
+    "runtimeAdmissions": 0,
+    "builds": 0,
+    "packInstall": 0,
+    "applicationTests": 0,
+    "providerCalls": 0,
+    "S06ExecutionClockStarted": false,
+    "mainOrPush": false
+  },
+  "unresolvedBeforeExecution": [
+    "Independent exact successor review and Root acceptance",
+    "Exact future candidate artifact/bootstrap and source checkpoint",
+    "Separate S06 execution grant and finite deadline; fresh complete actual topology after setup and before each dispatch",
+    "Actual Java/JDK/SBT launcher/compiler/bridge/Spark/ScalaTest/transitive library acquisition; pins currently cover named executables/wrapper and Scala runtime only",
+    "Explicit offline/network and read-source authority; isolated writable caches and temporary state inside owned territory; no implicit shared-user/toolchain-cache effects",
+    "Actual Java/SBT startup, compilation/application execution and five-minute-command capacity",
+    "Actual S06 report/output evidence, independent semantic adequacy, real amendment and affected/unaffected evidence relation"
+  ],
+  "qualification": false
 }

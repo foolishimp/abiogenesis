@@ -70,8 +70,8 @@ def main():
     p=pathlib.PurePosixPath(member.name);need(member.isfile() and p.parts[0]=='package' and '..' not in p.parts,'Unsafe archive member');name='/'.join(p.parts[1:]);need(name not in expected,'Duplicate archive member');expected[name]=hashlib.sha256(tar.extractfile(member).read()).hexdigest()
   need(expected==rows['bootstrap'],'Archive/bootstrap exact set and byte mismatch');need(rows['bootstrap']['product-toolchain-manifest.json']==candidate['manifestSha256'],'Manifest mismatch')
   need(json.loads((pathlib.Path(candidate['bootstrapPackageRoot'])/'package.json').read_text())['version']==candidate['packageVersion'],'Candidate version mismatch')
-  layout={'worksite':str(work),'writePaths':[str(work/p) for p in ['application','semantic-assets','evidence']],'protectedRoots':sorted(set([str(source),str(C),str(root),candidate['archivePath'],candidate['bootstrapPackageRoot'],str(root/'witness/sandbox/installed/abg'),str(root/'witness/sandbox/installed/test-consumer'),*b['protectedRoots']])),'archiveRoot':str(root)}
-  save(root/'PLANNED_LAYOUT.json',layout);observation=json.loads(command('planned-topology',[b['pythonPath'],str(C/'physical-topology.py'),str(root/'PLANNED_LAYOUT.json')]))
+  layout={'worksite':str(work),'writePaths':[str(work/p) for p in ['application','semantic-assets','evidence']],'protectedRoots':sorted(set([str(source),str(C),str(root),candidate['archivePath'],candidate['bootstrapPackageRoot'],*b['protectedRoots']])),'archiveRoot':str(root)}
+  save(root/'PLANNED_LAYOUT.json',{'role':'operator-custody','layout':layout});save(root/'PLANNED_OBSERVER_INPUT.json',layout);observation=json.loads(command('planned-topology',[b['pythonPath'],str(C/'physical-topology.py'),str(root/'PLANNED_OBSERVER_INPUT.json')]))
   need(observation.get('ok') is True and observation.get('disposition')=='separated','Prospective topology failed')
   command('witness',[cfg['nodePath'],str(C/'HOST.mjs'),str(root/'BINDING.json')],int((until-dt.datetime.now(dt.timezone.utc)).total_seconds()*1000),{**env,**secrets})
  except Exception as e:failure=str(e);save(root/'FIRST_FAILURE.json',{'reason':failure,'retry':False,'qualified':False})

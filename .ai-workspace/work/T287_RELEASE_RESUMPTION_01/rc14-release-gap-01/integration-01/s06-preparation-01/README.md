@@ -62,12 +62,12 @@ Operator -> Public: start D1 (five original sources, exact task, evaluationData)
 Public -> D1: native Intent → Product → Requirements → Design
 D1 -> D1: native construction → actual C2 → independent Evidence
 Public --> Operator: admitted result, held reads, close, fresh CLI reads
-Operator -> Proof: actual ledger / partitions / audited query-only JVM twice
+Operator -> Proof: admitted C2 sandbox ledger / partitions / query-only JVM twice
 Operator -> Public: fresh D2 start on same current history, real new record_id input
 Public -> D2: choose declared work; required impact review precedes construction
 D2 -> D2: actual mapping/job correction, C2, current review and acceptance
 Public --> Operator: result / close / fresh reads
-Operator -> Proof: D2 values; D1 byte/query preservation
+Operator -> Proof: D2 C2 sandbox; original retained D1 sandbox/query preservation
 @enduml
 ```
 
@@ -75,7 +75,7 @@ The external task interface is:
 `node application/witness.mjs --phase d1|d2 --input source/d1-input.json|source/d2-input.json --run-root evidence/d1/run|evidence/d2/run`.
 Commands are fixed at their respective intake. They are actual C2 commands,
 with ledger, actual ScalaTest/JUnit falsifier report and query-classpath file
-as expected reports. D1 must not pre-create the record_id binding or D2 run.
+as expected reports. The external observer authenticates the actual admitted C2 Result and its retained sandbox; original-worksite lookalikes supply no evidence. D1 must not pre-create the record_id binding or D2 run.
 The new D2 input/rubric and a compact projection of actual D1 admitted coordinates are written only after D1's actual close and fresh reads,
 with an exact custody receipt. This adds incoming task data; it does not edit
 application mapping/job configuration. D2's native author must make the real
@@ -95,7 +95,7 @@ Its bounded ASCII-layout evidence is not a universal topology/race guarantee.
 
 ## Independent observation and limits
 
-The observer checks actual original input keys/field, real output, three exact
+The observer reads the exact admitted C2 sandbox, with each inspected file bound to its source snapshot or helper-observed delta. It checks actual original input keys/field, real output, three exact
 persisted partitions, error original record and parse reason, balanced ledger,
 status, lineage reference, persisted completion order and required falsifier
 cases with no failures/skips. It preserves findings before refusing. The
@@ -131,5 +131,4 @@ Every command uses the retained finite process owner. First failure retains
 streams, result and candidate/worksite evidence, stops without repair/retry,
 and attempts the actual held-resource close. Native actor owners supply their
 separate process closure facts; the outer process-group receipt does not claim
-closure of unrelated groups. No native setup, Product import, build, test,
-pack, install, provider, release, pin, main merge or push occurred here.
+closure of unrelated groups. No Public invocation, runtime admission, native setup, application execution, build, test, pack, install, provider, release, pin, main merge or push occurred in this repair. Pure installed input constructors and read-only C2 validators were used as explicitly granted. See `CONTROL_REPAIR.md` for the five-join re-entry, preserved failed probe, bounded checks and unresolved Java/SBT acquisition.

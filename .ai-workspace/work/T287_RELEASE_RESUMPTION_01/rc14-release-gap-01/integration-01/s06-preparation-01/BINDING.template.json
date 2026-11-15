@@ -71,7 +71,7 @@
     "sbt": "/opt/homebrew/Cellar/sbt/1.11.7/bin/sbt",
     "path": "/opt/homebrew/Cellar/openjdk@11/11.0.28/libexec/openjdk.jdk/Contents/Home/bin:/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/Cellar/sbt/1.11.7/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
     "commandTimeoutMs": 300000,
-    "status": "Exact files observed only; version/launch/build/dependency availability remains prospective preflight"
+    "status": "Unresolved execution premise: only named executable/wrapper files and selected Scala runtime jar are pinned; JDK/SBT/compiler/launcher/Spark/test/transitive dependency acquisition, offline/network authority, isolated writable caches, startup and finite capacity are unproved. No shared-cache or machine-wide verifier effects are granted. See CONTROL_REPAIR.md."
   },
   "setupEnvironment": {
     "HOME": "/Users/jim",

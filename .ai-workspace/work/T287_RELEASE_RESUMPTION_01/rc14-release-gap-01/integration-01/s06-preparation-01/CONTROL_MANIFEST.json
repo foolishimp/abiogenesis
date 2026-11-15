@@ -5,8 +5,13 @@
   "controls": [
     {
       "path": "BINDING.template.json",
-      "bytes": 5238,
-      "sha256": "c1f61899a3633063face37aecfd676f1ee94937ab2d298f09bc140830da98fba"
+      "bytes": 5497,
+      "sha256": "80534748143acf4950f8ff1c556c40da568ce196d3a5ad4efe4adaff38989884"
+    },
+    {
+      "path": "CONTROL_REPAIR.md",
+      "bytes": 7625,
+      "sha256": "4f1413ed01e9ba20c06ebb588cd17bdf6584080acc7d21c3c3e2e4572c428403"
     },
     {
       "path": "D2_RUBRIC.md",
@@ -15,8 +20,8 @@
     },
     {
       "path": "HOST.mjs",
-      "bytes": 20719,
-      "sha256": "8067bb4983511736e0b06ec482415b2fb7fd1a53cbc2afc104b4281bf30c5309"
+      "bytes": 23610,
+      "sha256": "161ebcbe2f902fe3cd82d241dc54851652919b39d73b3d594d3ad07c2c1edbd7"
     },
     {
       "path": "INPUTS.json",
@@ -25,8 +30,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 8330,
-      "sha256": "da246ce4955a6ae8ed486694b54c3f78c934fc1834556495865e78150f999492"
+      "bytes": 8899,
+      "sha256": "af3c1dfad1214cb936346a3a9f51ce19de8df24b6ad089cbdc37f17ca2ad81a8"
     },
     {
       "path": "SELECTION.md",
@@ -35,13 +40,18 @@
     },
     {
       "path": "STATIC_CHECKS.json",
-      "bytes": 2950,
-      "sha256": "d9d8420b9250d6f1832977c5a2d6949d15478df1ead24af7547748f6266a2602"
+      "bytes": 6136,
+      "sha256": "929620d72efe0dea6a274430afe14d468e86bd4651dee486e736ba381611b293"
     },
     {
       "path": "bounded.py",
       "bytes": 4206,
       "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "path": "c2-evidence.mjs",
+      "bytes": 8166,
+      "sha256": "80fc106f935467631632b14f17bd4798fb122e76e4d589adf500ba9b5c0d6ea0"
     },
     {
       "path": "command-owner.py",
@@ -60,8 +70,8 @@
     },
     {
       "path": "inputs.mjs",
-      "bytes": 10292,
-      "sha256": "a7622ac4bc02bc671a4e96def3b908b66e227028735176cdab20041df9e69dca"
+      "bytes": 11021,
+      "sha256": "bcf89a447d2883b2b4ecd5db94b4ba10f3019450141266dbf2f49110b74d4399"
     },
     {
       "path": "npm-global.npmrc",
@@ -75,8 +85,8 @@
     },
     {
       "path": "observe.py",
-      "bytes": 6029,
-      "sha256": "65d139c9c0f72e205a275a4ae954cf6248e7d06e3b642db71ae40193dd73ba08"
+      "bytes": 6318,
+      "sha256": "af9527ab1e00c173aceb009ab4e09eae2e2fdf6181d18b406746ea9535f17f58"
     },
     {
       "path": "physical-topology.py",
@@ -85,8 +95,8 @@
     },
     {
       "path": "run.py",
-      "bytes": 8216,
-      "sha256": "bc691bbb5f5b25e86497cb1bb68fad4349276eea97e01d67cfffd9607044898f"
+      "bytes": 8215,
+      "sha256": "e7349f70fcc28b6ac541fc2f4eb6003cdee244ba8437ce8a18bfb0150eb162dd"
     },
     {
       "path": "setup.mjs",
@@ -95,8 +105,8 @@
     },
     {
       "path": "tsconfig.noemit.json",
-      "bytes": 837,
-      "sha256": "542003f47e5dcbb681dfdb973e7777dd5f3bde3a587f97f32a26e34473aad28b"
+      "bytes": 860,
+      "sha256": "37a9c773657b3195b682e045f5a9f7f7ff6d8cb6346723c35edc8438de34114d"
     }
   ],
   "inputs": [
@@ -137,5 +147,7 @@
     }
   ],
   "executionAuthorized": false,
-  "scope": "External consumer declarations, ordinary inputs, Public setup/run and read-only witness observation"
+  "scope": "External consumer declarations, ordinary inputs, Public setup/run and read-only witness observation",
+  "repairBase": "6af06d60ea84ba15f1222479070b5950ca887267",
+  "repairScope": "S06-01..05 external input, physical roles and admitted C2 evidence custody only"
 }

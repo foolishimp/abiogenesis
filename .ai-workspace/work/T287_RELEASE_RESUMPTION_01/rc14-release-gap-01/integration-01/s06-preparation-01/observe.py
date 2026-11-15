@@ -25,7 +25,9 @@ try:
  need(data['processed']==[{'outputIdentity':'src-101','sourceKeys':['src-101']}],'processed identity')
  need(data['filtered']==[{'sourceKey':'src-102','conditionId':'include-true'}],'filter identity/reason')
  need(len(data['error'])==1 and data['error'][0]['sourceKey']=='src-103','error identity')
- err=data['error'][0];need(dict(err['originalRecord'])=={field:'src-103','amount':'not-an-integer','include':'true'},'exact original error record')
+ expected_original=dict(oracle['expectedBackwardRelations']['error:src-103']['originalRecord'])
+ if phase=='d2':expected_original={'record_id' if k=='source_key' else k:v for k,v in expected_original.items()}
+ err=data['error'][0];need(json.dumps(err['originalRecord'],sort_keys=True,separators=(',',':'))==json.dumps(expected_original,sort_keys=True,separators=(',',':')),'exact typed oracle original error record; D2 key rename only')
  need(err['failedConstraint']=='cast:integer' and err['offendingValue']=='not-an-integer' and err['reason'],'parse diagnostic')
  need(all(r['count']==1 for r in parts.values()) and ledger['verdict']['balanced'] is True,'partition counts and verdict')
  events=[json.loads(s) for s in read('evidence/'+phase+'/run/events.jsonl').decode().splitlines() if s]
