@@ -1,0 +1,73 @@
+{
+  "kind": "external_control_preparation_return",
+  "activationId": "RC14-ASSESSMENT-DEPENDENCY-NATIVE-001",
+  "writer": "/root/rc14_release_proof",
+  "recordedUtc": "2026-11-15T19:49:16.461726+00:00",
+  "sourceBase": "86c9caa1c8c46da38410b4b46b6a5004e351d60f",
+  "sourceTree": "43e8e4fb26a434ecc6b44436ec9c64da368e3bea",
+  "rootGrantSha256": "379ed80bc19d41ab0cb698b56dcc9d9e4c210538b31baac8a772d4800c701850",
+  "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01",
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 4120,
+    "sha256": "401cce2b6191f4d8d17c1d902fb10b55edbf99cf125c5fbd142c1b9c9e624fee",
+    "members": 26
+  },
+  "staticChecks": {
+    "path": "STATIC_CHECKS.json",
+    "sha256": "f275d6692a91ab5ad35340fca1983781501e9d9ae8244b9646e2b22291b77983",
+    "checks": 40
+  },
+  "disposition": "frozen_preparation_for_independent_review_not_execution",
+  "selectedSourceWritePaths": 7,
+  "native": {
+    "builder": "pinned actual RC13",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteMs": 2700000,
+    "inactivityMs": 300000,
+    "maxTurns": 360
+  },
+  "proof": {
+    "oneFreshBuild": true,
+    "retainedCompiledPayload": false,
+    "retainedCampaignCredit": false,
+    "distinctTestFiles": 5,
+    "testCommands": 6,
+    "preservedTopLevelObligations": 43,
+    "buildBudgetMs": 600000,
+    "proofMaximumMs": 5400000,
+    "enclosingMs": 10800000,
+    "exitReserveMs": 180000,
+    "firstFailureStops": true,
+    "retry": false
+  },
+  "verifiedPreparationInputs": {
+    "sourceSelectedRows": 40,
+    "npmDependencyRows": 4576,
+    "nativeHostRows": 196,
+    "witnessExecutionRows": 11,
+    "witnessContextOnlyRows": 2,
+    "npmToolRows": 2326
+  },
+  "necessaryNewControls": "Fresh-build mirror/input conservation and focused/remainder partition replace only the old fixture-only compiled reuse and16-file retention. Existing process/topology/setup-custody owners remain exact. Full source scope/typed completion/actual close/fresh reads remain required.",
+  "unbound": [
+    "exact pushed execution source HEAD and exclusive preimage",
+    "native dispatch and original enclosing start/deadline",
+    "actual completed native postimage/diff and method/command audit",
+    "independent frozen source review and separate proof grant"
+  ],
+  "unresolvedScopedDependencies": [],
+  "genuineLimits": [
+    "No tenant source or owning HOW implementation yet.",
+    "No Product import/setup/native/build/test/physical probe or proof run.",
+    "Scripted actor proof will not establish live semantic acceptance, full installed S06 or qualification.",
+    "Original RC14 C0/C1/archive/install remain frozen; later successor candidate is separate."
+  ],
+  "mainChanged": false,
+  "pushed": false,
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "clockStarted": false,
+  "returnTo": "Root and stop; independent exact control review next."
+}

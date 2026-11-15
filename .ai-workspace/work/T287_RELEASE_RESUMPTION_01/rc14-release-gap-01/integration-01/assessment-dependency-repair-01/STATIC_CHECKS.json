@@ -1,0 +1,352 @@
+{
+  "kind": "static_preparation_checks",
+  "recordedUtc": "2026-11-15T19:49:16.460214+00:00",
+  "checks": [
+    {
+      "check": "Python AST parse",
+      "path": "dependency-inputs.py",
+      "passed": true
+    },
+    {
+      "check": "Python AST parse",
+      "path": "freeze-source.py",
+      "passed": true
+    },
+    {
+      "check": "Python AST parse",
+      "path": "operate.py",
+      "passed": true
+    },
+    {
+      "check": "Python AST parse",
+      "path": "physical-topology.py",
+      "passed": true
+    },
+    {
+      "check": "Python AST parse",
+      "path": "process-owner.py",
+      "passed": true
+    },
+    {
+      "check": "Python AST parse",
+      "path": "prove.py",
+      "passed": true
+    },
+    {
+      "check": "Python AST parse",
+      "path": "setup-custody.py",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "ACTIVATION.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "DEPENDENCY_INPUTS.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "FIXTURE_INPUTS.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "LAUNCH.template.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "LAYOUT.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "NATIVE_INPUTS.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "ORIGINAL_CANDIDATE.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "PROOF_LAUNCH.template.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "PROOF_PLAN.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "REUSE.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "ROOT_SELECTION.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "ROOT_TRIAGE.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "SOURCE_BINDING.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "SOURCE_INPUTS.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "TASK.json",
+      "passed": true
+    },
+    {
+      "check": "JSON parse",
+      "path": "TOOL_INPUTS.json",
+      "passed": true
+    },
+    {
+      "check": "Node syntax only",
+      "path": "HOST.mjs",
+      "exitCode": 0
+    },
+    {
+      "check": "Exact native08 helper bytes",
+      "path": "process-owner.py",
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39",
+      "passed": true
+    },
+    {
+      "check": "Exact native08 helper bytes",
+      "path": "dependency-inputs.py",
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed",
+      "passed": true
+    },
+    {
+      "check": "Exact native08 helper bytes",
+      "path": "setup-custody.py",
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1",
+      "passed": true
+    },
+    {
+      "check": "Exact native08 helper bytes",
+      "path": "physical-topology.py",
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+      "passed": true
+    },
+    {
+      "check": "Exact native08 function AST",
+      "function": "module",
+      "passed": true
+    },
+    {
+      "check": "Exact native08 function AST",
+      "function": "digest",
+      "passed": true
+    },
+    {
+      "check": "Exact native08 function AST",
+      "function": "bound_json",
+      "passed": true
+    },
+    {
+      "check": "Exact native08 function AST",
+      "function": "require_author_completion",
+      "passed": true
+    },
+    {
+      "check": "Exact native08 function AST",
+      "function": "source_inventory",
+      "passed": true
+    },
+    {
+      "check": "Exact seven-path W and disabled author/proof",
+      "passed": true
+    },
+    {
+      "check": "Old campaign dependency absent",
+      "name": "BUILD_REUSE.json",
+      "passed": true
+    },
+    {
+      "check": "Old campaign dependency absent",
+      "name": "RETAINED_PROOF.json",
+      "passed": true
+    },
+    {
+      "check": "Old campaign dependency absent",
+      "name": "PRIOR_PARTIAL_SOURCE.json",
+      "passed": true
+    },
+    {
+      "check": "Old campaign dependency absent",
+      "name": "RETAINED_INPUTS.json",
+      "passed": true
+    },
+    {
+      "check": "Final affected HOST syntax and prove AST after manifest/conservation binding changes",
+      "passed": true
+    },
+    {
+      "check": "No whitespace error from final prove no-index diff --check",
+      "passed": true,
+      "exit1Means": "new file has differences; no diagnostic was emitted"
+    }
+  ],
+  "inputAcquisition": {
+    "dependencyRows": 4576,
+    "nativeHostRows": 196,
+    "fixtureRows": 13,
+    "npmToolRows": 2326,
+    "actualReadHashOnly": true
+  },
+  "notRun": [
+    "Product import",
+    "runtime setup",
+    "provider",
+    "physical observer",
+    "build",
+    "tests",
+    "qualification"
+  ],
+  "limitations": "Static control readiness only; no runtime proof or source acceptance. Final source/native/proof coordinates remain unbound.",
+  "verifiedSourceFiles": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 6501,
+      "sha256": "ea99108bcf45ac83c43d620ba9f655540b1b5655eba999ee17a9536de1f2b63a"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 895,
+      "sha256": "2de0b14967eb409e8d8dec21ea0c3b750efcf0edd2c88640841c977cb07b82b5"
+    },
+    {
+      "path": "FIXTURE_INPUTS.json",
+      "bytes": 3781,
+      "sha256": "bbf31f53be16e16bfcfd1fe418206343af896cd61bab482f378564f1c22d7067"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 21308,
+      "sha256": "3522207cd976b0683b8e030ba631696b5d26a639362d7c648fe6e74e204abcde"
+    },
+    {
+      "path": "LAUNCH.template.json",
+      "bytes": 544,
+      "sha256": "eea8e36206df0995e3bd0757e02ead33e11ca98e70b41c0229f3496ada4cbd53"
+    },
+    {
+      "path": "LAYOUT.json",
+      "bytes": 1731,
+      "sha256": "9dd746bab8d94c37d4d00f8dd09d26a4ece73519c287f978e1e346522e9c306e"
+    },
+    {
+      "path": "NATIVE_INPUTS.json",
+      "bytes": 717,
+      "sha256": "8d8c79b881c6662ed733445518170576e722b48e8d01d955f6a57c84da5da312"
+    },
+    {
+      "path": "ORIGINAL_CANDIDATE.json",
+      "bytes": 1907,
+      "sha256": "9db608e54527d2b1c7cf297865336639b180c80bab3dd0db5c88050990322480"
+    },
+    {
+      "path": "PROOF_LAUNCH.template.json",
+      "bytes": 530,
+      "sha256": "c06dfc7f83e833638cf35dce5306240db1e95bacef66f3fa3628d7e17a182f6c"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 7883,
+      "sha256": "af015e2b9964b2516bd48ba5b4d3a08f98d1181a5beff8c20dd8fc8d1862ccf3"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5753,
+      "sha256": "f4604f7ea6b9a1e9ae97782657a4843120d6a0128e2ee97f80fda4097b58056b"
+    },
+    {
+      "path": "REUSE.json",
+      "bytes": 2443,
+      "sha256": "749492a0cba6451aff20e301f0010748375387d063960cb89cb7b97906633b6c"
+    },
+    {
+      "path": "ROOT_SELECTION.json",
+      "bytes": 9589,
+      "sha256": "379ed80bc19d41ab0cb698b56dcc9d9e4c210538b31baac8a772d4800c701850"
+    },
+    {
+      "path": "ROOT_TRIAGE.json",
+      "bytes": 8457,
+      "sha256": "857f2c635f6933b2f99a13ded0f60f2cd91505279285ab6927a5cea2360583ca"
+    },
+    {
+      "path": "SOURCE_BINDING.json",
+      "bytes": 491,
+      "sha256": "ea5f9df57aa8ad4d0e4a7f272fabf78496f52f35c1511db19a5c2b5389f4dec7"
+    },
+    {
+      "path": "SOURCE_INPUTS.json",
+      "bytes": 8556,
+      "sha256": "ddead8cc51a90db74d9afdc4652fcd22f6dd5377862c0c7dfe1eed1ddc9f48b7"
+    },
+    {
+      "path": "TASK.json",
+      "bytes": 18653,
+      "sha256": "f602d678a9a7b73fe03e8ce7cbdea1518f864545167a4300a3c480ad5b021c94"
+    },
+    {
+      "path": "TOOL_INPUTS.json",
+      "bytes": 1492,
+      "sha256": "e228a81cc6014a92f407b6abdaa858c04a244fadac49ca51a2afd0b0ea2fdcbb"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 3060,
+      "sha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8"
+    },
+    {
+      "path": "operate.py",
+      "bytes": 6486,
+      "sha256": "6461384de766f0699801c2741eee5d54b2975dedc4a6276b9715f8f2b844f9be"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 22175,
+      "sha256": "a770e1ff5f2bbaf7de351b78149f12ce95b732c22fc9be39768158a517ff0726"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "id": "RC14-ASSESSMENT-DEPENDENCY-NATIVE-001-TASK",
+  "sourceHead": null,
+  "outcome": "Repair B56: exact declared native assessment dependency supports separate schema owner and admitted executing Program use through preparation, assembly, raw preimage and cold reconstruction, preserving all owner/lock/schema guards.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01/ROOT_SELECTION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01/ROOT_TRIAGE.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    "specification/requirements/product/REQ-P-CATALOG.md",
+    "specification/requirements/product/REQ-P-SCENARIOS.md",
+    "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_publication.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product",
+    "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01/PROOF_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01/FIXTURE_INPUTS.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01/SOURCE_INPUTS.json"
+  ],
+  "readFirst": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01/ROOT_SELECTION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01/ROOT_TRIAGE.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    "specification/requirements/product/REQ-P-CATALOG.md",
+    "specification/requirements/product/REQ-P-SCENARIOS.md",
+    "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md"
+  ],
+  "externalReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Intake/execution-unit/admission, context acquisition and closed-result reuse before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    }
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "instructions": [
+    "Read this TASK/ROOT_SELECTION/ROOT_TRIAGE as your own intake first. Before Edit, read actual contents of the five exact installed STDO inputs and selected sections below (including SKILL relative Control Intake/Receive/Product Basis/ACTIVATION/bootstrap), then readFirst source sections. Record actual paths/ranges; hashes/names do not substitute for content. External method source is explicitly permitted read-only and is never W.",
+    "Product frame is fixed5.0 F04/F17/S06. Root selected design_reframe, not a new feature. Correct T287_NATIVE_WORKSPACE_WORK_DESIGN.md Declared typed assessment407\u2013463 first, then implement its same relation in the three selected existing owners. Use existing canonical ProductExecutionResolution/LoadedProductExecutionResolution and NativeInstructionAssemblyBasis owners; do not redeclare a competing runtime, owner or serialized basis.",
+    "Correct the owning HOW before dependent implementation within the coherent native increment. Distinguish the unique schema/contract owner from exact admitted executing Program declaration of use.",
+    "Use existing loaded Program coordinate/publication at leaf preparation/raw preimage, and already authenticated basis.publication plus execution Program coordinate at assembly/cold reconstruction. No new persisted basis or registry is currently required.",
+    "Authenticate exact Program ref/digest/member use, both publication/install/lock joins and required forward dependency directions. Multiple legitimate declaring members of that exact Program are valid; arbitrary Catalog membership grants nothing.",
+    "Preserve unique schema owner, installed bytes, strict schema/I-JSON validation, original semantic-stage author worker-result, consumer-owned coincident case, ordinary static contract lookup and fail-closed negatives.",
+    "Keep assessmentPublication as the schema owner. Shared dependency relation remains canonical for preparation, assembly, raw admission and cold reconstruction.",
+    "W is exactly the seven listed files. Tests may adjust only affected assessment fixtures/cases and necessary same-file capture/helper glue; unrelated assertions and scopes remain. Read-only owner interfaces can be followed transitively inside the source and exact named input roots. Context readRoots are the bounded observation inputs, not an exclusive causal-reading law. A missing write dependency must be returned, not silently expanded.",
+    "Keep the existing focused semantic test title exactly: native typed semantic assessment uses the exact installed schema owner and rejects wrong declarations. Extend it from Schema-only through the complete dependency relation, with actual core semantic assessment contract, executing consumer Program use and admitted-shaped install/lock facts explicitly labelled component premises. Preserve existing schema negatives. Its positive must fail on the pre-repair same-publication restriction for the intended cause, not an unrelated missing fixture premise.",
+    "Preserve the existing installed test title exactly: RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage. Add one bounded installed split-owner test named exactly: S06 assessment dependency: split schema owner and admitted Program use survive assembly and cold preimage. Reuse existing installed setup/Public start/leaf-port/cold-read fixture machinery; use genuine current declaration APIs and exact schema/use owner coordinates. Scripted actor is mechanical evidence only. Do not substitute mocks of the changed dependency/assembly/preimage owners. Do not redesign the broad default-library fixture or restore fake Product callables.",
+    "Prove split and coincident schema/use owners; several legitimate declaring members in the exact Program; missing or wrong Program/ref/digest, use found only in another Program, non-member, ambiguous schema declaration, crossed install/publication/lock, missing/reversed forward dependency, changed schema bytes, and absent/wrong carried schema owner. Preserve ordinary static raw-result lookup and original semantic author worker-result. Actual cold basis/assembly/request, warm/cold preimage and Public readbacks must be conjoined on the same installed subject.",
+    "Before assertions retain complete actual candidate inputs/outputs and owner refusal coordinates under process.env.ABG_REGRESSION_PROOF_ROOT: b56-dependency.candidate.json for the focused case; b56-installed-coincident.candidate.json and b56-installed-split.candidate.json for the two installed cases. Use exclusive per-file captures and preserve thrown paths with actual observations. No fabricated success booleans; t.diagnostic alone is insufficient because the maintained reporter omits diagnostics.",
+    "The13 exact fixture source rows in FIXTURE_INPUTS are explicitly permitted read-only by absolute path, outside W: selection and10 seed files are execution fixture inputs; README and supplied-work-contract are context only. Their contents may be read as needed; no historical execution standing transfers. The Operator copies only these exact bytes into the fresh proof subject before the installed tests.",
+    "No native build/test/pack/install/provider nesting, Git write/stage/commit or main/push. Bash permitted only read-only file/Git status/diff/show/hash/source acquisition, exact stdo status/resolve verification, node --version metadata and node --check on selected changed mjs files. Do not run imports or behavioral probes. External Operator builds/tests after native completion, actual close/fresh reads, full audit and separate proof grant.",
+    "One pass only, max45min/360turns/5min inactivity. Stop on missing authority/owner dependency or inability to close scope. Return actual changed paths, method reads, precise remaining gaps and no qualification claim. Preserve the old C0/C1/archive/install and RC13 pin; do not refresh generated manifests/resources or stamp version."
+  ],
+  "checks": [
+    "Complete shared dependency relation and exact Program/use owner coordinates",
+    "Installed split/coincident assembly/preimage/cold relation; unchanged static lookup",
+    "Actual complete candidate capture before assertions",
+    "Seven-path scope and all method content reads before first Edit",
+    "No native behavioral execution or generated payload change"
+  ],
+  "maxContextFiles": 1024,
+  "maxContextBytes": 25165824,
+  "externalFixtureReadOnlyInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/README.md",
+      "bytes": 1195,
+      "sha256": "19126c510544b3442d7361131f2709f79494d6608a2c147cf119cc77c5263f2c",
+      "use": "context_only"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/implementation-design.md",
+      "bytes": 639,
+      "sha256": "b96765496fe0c3888365ba72780af33824fa7f34acdb042af45df4d120ba0145",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/design/test-design.md",
+      "bytes": 684,
+      "sha256": "617dd54841f7128842616ce42a3befb15b30cd454215894c067980e5ede43406",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/generated/hello-world.mjs",
+      "bytes": 29,
+      "sha256": "647697a5fb5d141a2b1163363170a7a845b61a36096ff52f7a369f1736cd4993",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/basic-cli.oracle.json",
+      "bytes": 1112,
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/original-basic-cli.txt",
+      "bytes": 4325,
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/source/witness-contract.md",
+      "bytes": 1674,
+      "sha256": "29e669318aa0c9dc2fceca23f8caf22b01e475cd3f918070f980c70ac00355b3",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/specification/project-conformance.md",
+      "bytes": 751,
+      "sha256": "9aaa62cadeaa74520e5e45542e699c9a97e55bf4b475b2de7f7347b3fb4cee81",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/component/hello-cli.test.mjs",
+      "bytes": 369,
+      "sha256": "8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test/uat/hello-cli.uat.test.mjs",
+      "bytes": 371,
+      "sha256": "5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed/test-execution-plan.json",
+      "bytes": 268,
+      "sha256": "e3250aae29261ebf20fc942aa31ddce5d152b14d4e9c6262e4eab820be34a350",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json",
+      "bytes": 5835,
+      "sha256": "ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc",
+      "use": "execution_input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/supplied-work-contract.md",
+      "bytes": 1692,
+      "sha256": "35264dc6830838f7037ea97acf7131b3396342a88604730bd5cf290a350a697d",
+      "use": "context_only"
+    }
+  ]
+}

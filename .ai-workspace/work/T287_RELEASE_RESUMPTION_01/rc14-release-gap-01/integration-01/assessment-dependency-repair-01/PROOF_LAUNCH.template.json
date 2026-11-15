@@ -1,0 +1,15 @@
+{
+  "activationId": "RC14-ASSESSMENT-DEPENDENCY-NATIVE-001",
+  "proofAuthorized": false,
+  "sourceHead": null,
+  "sourcePostimage": null,
+  "sourceDiffSha256": null,
+  "authorAuditSha256": null,
+  "nativeLaunchSha256": null,
+  "controlStartSha256": null,
+  "controlManifestSha256": null,
+  "rootAcceptance": null,
+  "pushedCheckpoint": null,
+  "clockStarted": false,
+  "instruction": "Separate Root proof grant after actual native close, audit and frozen-source review. One proof clipped to original native enclosing deadline."
+}
