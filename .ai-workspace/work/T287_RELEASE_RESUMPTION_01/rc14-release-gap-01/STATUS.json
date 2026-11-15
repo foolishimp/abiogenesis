@@ -1,5 +1,5 @@
 {
-  "status": "RC14_S06_RUNNING_AMENDMENT_CONTROL_REPAIR_SELECTED",
+  "status": "RC14_INSTALLED_WITNESS_CONTROL_REPAIRS_SELECTED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -13,7 +13,7 @@
     "next": "Narrow external-control successor, independent source review, then separately selected finite execution. Failed01 stays closed."
   },
   "s06Witness01": {
-    "state": "D1_FIRST_NATIVE_ACTOR_RUNNING",
+    "state": "CLOSED_FIRST_ASSESSMENT_PREPARATION_AND_FRESH_READBACK_FAILURES",
     "bindingSha256": "c3c8d31e3644375a50a944b437b1fa681cc69cf82242d84b76e7fdd86a2cc5a5",
     "startedUtc": "2026-11-15T18:22:45.641111Z",
     "originalDeadlineUtc": "2026-11-15T22:22:45.641111Z",
@@ -21,9 +21,20 @@
     "pid": 28413,
     "modelObserved": "claude-opus-5-5",
     "effortConfigured": "xhigh",
-    "observation": "Planned/actual after-setup/pre-dispatch topology passed. First actor has completed one Write. No C2 application command or terminal result observed yet.",
+    "observation": "One Intent actor succeeded and its result was admitted. Missing generic D1 assessor context is a supported sufficient cause of the next dispatch refusal. Phase-record/readback path mismatch separately blocked cold reads.",
     "D2Started": false,
-    "qualified": false
+    "qualified": false,
+    "returnCommit": "277d82948a20b768a31e1938d1447def97089e62",
+    "record": "integration-01/s06-witness-01/RETURN.json",
+    "triage": "integration-01/S06_FIRST_FAILURE_DISPOSITION_01.json",
+    "nativeTurns": 19,
+    "nativeSdkWallMs": 533695,
+    "protocolReportedCostUsd": 2.6776584000000003,
+    "inputRowsConserved": 80,
+    "commandGroupsAbsent": 15,
+    "actorAbsent": true,
+    "C2Executions": 0,
+    "retry": false
   },
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
@@ -52,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T18:33:14.201802+00:00",
-  "nativeAuthorState": "S06 D1 first actor running under its original bound. Amendment01 closed before smoke/provider; narrow external-control successor selected. At most two actual provider executions globally.",
+  "recordedUtc": "2026-11-15T18:43:47.378459+00:00",
+  "nativeAuthorState": "No active provider. Amendment01 and S06-01 are closed failures; bounded external-control successors selected after independent triage. Candidate and RC13 pin remain unchanged.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",

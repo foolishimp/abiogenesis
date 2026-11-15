@@ -1,0 +1,119 @@
+{
+  "id": "RC14-S06-FIRST-FAILURE-DISPOSITION-01",
+  "recordedUtc": "2026-11-15 18:43:47 UTC",
+  "writerActivation": {
+    "id": "RC14-ROOT-RECORDS-WRITER-017",
+    "role": "Separate Root witness-integration records Writer",
+    "authority": "Owner finish RC14 and continue; ROOT_FINALIZATION_WRITER_14; closed independent Product/Design/Identity/Integration/Proof triage.",
+    "writeTerritory": [
+      "this disposition",
+      "T287",
+      "T293",
+      "rc14-release-gap-01/STATUS.json",
+      "unchanged s06-witness-01/RETURN.json integration",
+      "bounded external witness control acceptance and successor activation records under integration-01"
+    ],
+    "effects": "Preserve compact authored returns, record bounded dispositions/grants and integrate/push accepted authored-only controls. No Product or control implementation by this records role."
+  },
+  "productFrame": "Fixed5.0 F17/S06 complete selected lifecycle, independent assessment, executable evidence and consequential revision. Generic GTL is not required to adopt STDO; a selected native assessment requires declared role/context. External host records remain observations; Public and ABG retain authority.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": []
+  },
+  "subject": {
+    "controls": "62b148155eb087e6fc4d19e6fceb9d2eea4dd9ad",
+    "manifestSha256": "a7f70b26c391929b03fa1e09c8683d3258f1c5134fa2bd916794504444a352e7",
+    "returnCommit": "277d82948a20b768a31e1938d1447def97089e62",
+    "returnSha256": "500536bea2253ad21d10736f8553e6e0e46d73971e58f15a571c2d06ddfb7542",
+    "candidateArchiveSha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "C1": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+    "startUtc": "2026-11-15T18:22:45.641111+00:00",
+    "deadlineUtc": "2026-11-15T22:22:45.641111+00:00"
+  },
+  "actualOutcome": {
+    "status": "failed",
+    "firstNativeActor": {
+      "result": "protocol_success_and_admitted_Intent_result",
+      "turns": 19,
+      "sdkWallMs": 533695,
+      "costUsdReported": 2.6776584000000003,
+      "modelObserved": "claude-opus-5-5",
+      "effortConfigured": "xhigh"
+    },
+    "governedStop": "runtime_failed before the native assessment actor; terminalResult null; original producer result retained",
+    "laterHostFailure": "Fresh run_result CLI request path does not exist; held failure and session close retained, fresh replay not reached",
+    "C2Executions": 0,
+    "D2Executions": 0,
+    "retry": false,
+    "qualified": false
+  },
+  "rootVerification": {
+    "receiptPins": 32,
+    "inputRows": 80,
+    "entryExitByteEqual": true,
+    "mismatches": [],
+    "errors": [],
+    "ownedCommandGroupsAbsent": 15,
+    "nativeActorAbsent": true,
+    "eventLogSha256": "b8fab3be7b7f11061e259bccef5b3eb0e9b31f12ae1c0c0857d1b219f98ca009",
+    "closeHandoffExact": true,
+    "ownedToolRootsAbsent": true
+  },
+  "findings": [
+    {
+      "ticket": "B53",
+      "severity": "S2 external composition",
+      "origin": "declarations.mjs14-16 omits current generic runEnvironment as if the retired STDO specialization had retired role/context altogether.",
+      "relation": "Selected D1 Program/invocation has no abg.run_environment. Assessment task is admitted with assessment present. stdo_environment203-207 returns null; instruction_assembly171-176 permits a constructor with null but refuses assessment with null.",
+      "authority": "PRODUCT685,870-910,943-1000; native-work HOW407-415; generic gtl/stdo_run_environment156-171.",
+      "support": "Independent amendment_topology_review exact source/events and R14 canonical-construction/ownership trace conjoined with Root source/receipt acquisition.",
+      "confidence": "Supported sufficient cause. Exact first internal null branch is not logged; exclusive dynamic localization is not claimed.",
+      "affectedCone": "All selected D1 native assessments and later command executor. Initial constructor success cannot prove these dependencies."
+    },
+    {
+      "ticket": "B54",
+      "severity": "S2 external composition",
+      "origin": "HOST32-33 phase-prefixes all records while maintained reader249-253 computes its request path from caller.root.",
+      "relation": "Written witness/d1/calls/run_result.request.jsonl differs from CLI witness/calls/run_result.request.jsonl. D2 would have the same mismatch; routing both phases into one unprefixed directory would collide.",
+      "affectedCone": "Both held/fresh readback pairs and their phase provenance; earlier stopped result must remain distinct from later transport failure.",
+      "authority": "Product870-910 producer/consumer and live/cold correspondence; sole maintained Public CLI transport and external evidence ownership.",
+      "confidence": "Direct retained request, argv, refusal and source correspondence."
+    }
+  ],
+  "rejectedHypotheses": [
+    "Mixed bootstrap/installed stack alone is not a module-brand defect. The callback boundary is declared and six inspected modules are byte-equal; cold derivation remains available.",
+    "Retired STDO-only schema need not be restored. Current generic role/context declaration supplies the missing retained contract."
+  ],
+  "affectedOtherWork": "Independent source trace finds amendment supplies its current environment and uses one unprefixed record/readback root; these two demonstrated S06 defects do not affect it.",
+  "priorMiss": "Static input join omitted complete consumer-to-assessor role dependency and recorder-to-cold-reader path composition; first-constructor evidence could establish neither.",
+  "disposition": "Both attempts remain failed with original clocks and evidence. Select bounded external S06 successor, then exact independent source review before any newly bound execution.",
+  "successorWriterActivation": {
+    "id": "RC14-S06-CONTROL-WRITER-003",
+    "role": "Separate R14 external-control Writer",
+    "sourceCommit": "62b148155eb087e6fc4d19e6fceb9d2eea4dd9ad",
+    "sourceCarrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02",
+    "worktree": "/private/tmp/abg-rc14-s06-preparation-20261116-03",
+    "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03 only",
+    "elapsedBudgetMs": 1800000,
+    "grant": [
+      "After this selection is pushed, create one isolated worktree/branch and reuse exact predecessor controls.",
+      "Only executable host changes: declarations.mjs and HOST.mjs. Construct a distinct generic D1 environment from the already authenticated packaged default-library declaration, retaining exact dependencies, contexts, source spans, policies/access and only D1's three matching constructor/assessor/command_executor rows. Use canonical current GTL constructors; attach it only to program://s06-witness/d1@5.",
+      "Do not pass the default environment blindly through the helper's runEnvironment parameter: it would bind eleven unselected revision Programs with incomplete role closure. Those Programs stay byte-equivalent and unbound. Actual D2's separate four-role default Executive environment remains unchanged.",
+      "Keep existing physical resource owner and setup code. For readback use a phase-local external caller view whose root matches the current phase recorder, retaining identical runtime/state/owner-method references. Write truthful phase-local run.json provenance. Preserve create-only D1/D2 separation and all original held/fresh assertions.",
+      "Reconcile only necessary control coordinates, README/activation/manifest/compact Return and static readiness. One pure canonical declaration-validation check may use actual public constructors and Program validation without Public invocation, provider, event admission or Product mutation; do not invent a runtime result. Syntax and exact unaffected-byte comparison are allowed.",
+      "Freeze one authored-only exact commit and return to Root. Preserve selected source, specification, application, Tool, oracle, C2, credentials, lifecycle semantics, finite budgets and first-failure mechanics."
+    ],
+    "exclusions": [
+      "No Product/source/test/maintained helper changes; no changes to candidate/archive/install/pin or original failed roots.",
+      "No execution/probe/provider/app compile/test/Spark, credential use, retry, main/push or raw Git.",
+      "No invented role/frame semantic judgment, forced verdict, dropped assertion, changed source/oracle/coverage, historical producer credit or new runtime/schema."
+    ],
+    "stops": [
+      "Changed basis, preserved input, scope or missing canonical construction relation; return without local repair loop."
+    ],
+    "next": "Independent exact source review and Root acceptance/checkpoint precede any separate finite S06 execution grant."
+  },
+  "qualified": false,
+  "rawPublished": false
+}
