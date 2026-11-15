@@ -1,0 +1,159 @@
+{
+  "status": "prepared_for_independent_review_execution_disabled",
+  "role": "separate external-proof-controls Writer; not source Reviewer",
+  "baseCommit": "50bec4106a4765521eaad51b39a5c188d7964733",
+  "authority": "Root explicit separate native08-proof-reentry Writer activation; exact Root disposition and source review bound below",
+  "stdo": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": []
+  },
+  "originalControls": {
+    "path": "/private/tmp/abg-rc14-regression-repair-20261115-08/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08",
+    "manifestSha256": "a292f252469b18261cfb33080f830f4d1e5a8480ef9ed1372d47e55943f93a3f",
+    "runnerSha256": "98e4d45d4e056953702e9db8a86f2e0d5e4f4162a56f6cfdeeca58d92ed05f8f"
+  },
+  "sourceHead": "324ec312fa6ae4ab0f4d88a443d607fcd13c3c77",
+  "sourceDiffSha256": "86b0e5c9f6e25d31fc65d3907f94ea099b4e2512e5b6e55e4b933028716bb1a9",
+  "sourcePostimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/SOURCE_POSTIMAGE.json",
+    "bytes": 356887,
+    "sha256": "8e4ae03d4b8e4522be0a65fd41b439aed15e51afef4db57e69592f08eeb7dc39"
+  },
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE08_SOURCE_REVIEW.json",
+    "bytes": 2078,
+    "sha256": "2000d6c3971930f4f5103aa5150e88dd42319bf7c72e8ad46ca14107902cf147"
+  },
+  "auditDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE08_AUDIT_DISPOSITION.json",
+    "bytes": 3993,
+    "sha256": "e106995e128aefa6dd4929c58f06646ce5db6b919083a9da62c79713d8959d27"
+  },
+  "audit": {
+    "path": "/private/tmp/abg-native08-proof-reentry-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/native08-proof-reentry-01/AUTHOR_AUDIT.json",
+    "bytes": 8251,
+    "sha256": "55aa22cdf562830e69bf47591c6210d803eb062ab7b912c03cc162b7876d0225"
+  },
+  "originalAudit": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/AUTHOR_AUDIT.json",
+    "bytes": 8251,
+    "sha256": "55aa22cdf562830e69bf47591c6210d803eb062ab7b912c03cc162b7876d0225"
+  },
+  "observation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/AUTHOR_AUDIT_OBSERVATION.json",
+    "bytes": 141980,
+    "sha256": "c6b226195b98d81b7ff6ee03f044d2489f1ce30dc870ad5b5bd4f36882c488d1"
+  },
+  "acceptedVarianceIds": [
+    "native08-readonly-metadata-outside-declared-files",
+    "native08-directory-grep-query-scope"
+  ],
+  "fullLiteralCompliance": false,
+  "literalPrecision": "wc read bytes of ten out-of-scope files but returned only counts/names; audit remains unchanged and Root disposition clarifies it. Two broader directory queries returned declared event_store.ts matches.",
+  "originalHostDeadlineUtc": "2026-11-15T16:37:49.211017+00:00",
+  "proof": {
+    "freshFiles": [
+      10
+    ],
+    "retainedFiles": 15,
+    "retainedPasses": 83,
+    "retainedSkips": 1,
+    "retainedActualTopLevel": 64,
+    "retainedNamedMinimum": 62,
+    "freshNamedMinimum": 9,
+    "currentInputComparisons": 24,
+    "requestedMs": 5400000,
+    "cleanupReserveMs": 15000,
+    "clockReset": false,
+    "executed": false,
+    "retry": false,
+    "qualified": false
+  },
+  "static": {
+    "pythonAst": "parsed without import/execution",
+    "json": "all authored JSON parsed",
+    "unchangedOriginalHelpers": [
+      "module",
+      "digest",
+      "bound_json",
+      "require_author_completion",
+      "source_inventory",
+      "verify_inventory",
+      "checked_population",
+      "retained_proof_relation",
+      "final_input_conservation",
+      "proof_layout"
+    ],
+    "helperAstEquality": true,
+    "originalHelperAstSha256": {
+      "module": "ef3c27282723266ccdfe34c940a43d0a86f7fa18e8c10a1394aa1b7affb66e3c",
+      "digest": "aca6e6d80002ff022586eac0380a6fe1863dd55d59020cdf1cef385aad38049c",
+      "bound_json": "e6e093842a15496b4b10a142c3621984a83262aa83fb3964036af69fa2b732ac",
+      "require_author_completion": "6a9c92b1e350fd8b5b9e8fbaea889a32cd32e7001d9f49eef699997bb89bc3d4",
+      "source_inventory": "3d3b88ad4f97987c55845f83755847353af9ddef336b9b99ff383488c9da8c74",
+      "verify_inventory": "8c6caba4f968faf9936d51ae2c78e3e937a7b3537a1d069c64ce180dff094b06",
+      "checked_population": "62a1edcd053d4790b580ea8954b8e7a286ee483fe42f666ebe1de90aad410223",
+      "retained_proof_relation": "12e5e66503a6ade5955f53a66e0431d8bc03a9a713f9e545023217c584c6910e",
+      "final_input_conservation": "62cabbabeaea0f9a6e2a41ed29cb6aa47d4b1fbc6c2f2f9ba6819aaf56cd6ee7",
+      "proof_layout": "188306e961804bc32ce169e86f7719ed04563d83d649365f00bb21a7c84be61d"
+    },
+    "exactDeltaReversal": true,
+    "actualAuditByteEquality": true,
+    "originalRunnerUnchanged": true,
+    "actualInputJoins": {
+      "status": "matched",
+      "observedUtc": "2026-11-15T14:47:17.433503+00:00",
+      "checks": [
+        "exact audit byte copy",
+        "Root disposition and review hashes",
+        "exact two variance IDs and original observation equality",
+        "Root source-review/audit/report/postimage joins",
+        "source row and freeze identities",
+        "eight actual close pins",
+        "original enclosing clock",
+        "execution-disabled template",
+        "fresh original proof root"
+      ],
+      "boundAuditRows": 13,
+      "evaluation": "JSON/bytes/hash/AST inspection only; no runner or Product import/execution"
+    },
+    "formattingCheckHistory": {
+      "initial": "git diff --cached --check reported one trailing-whitespace line in the authored unified diff: an otherwise empty context row contains the mandatory space prefix. No runner/source error or execution.",
+      "correction": "ENTRY_DIFF uses zero context, preserving the same exact entry change while avoiding context-marker whitespace in the authored record. Runner bytes and all ten helper ASTs unchanged."
+    }
+  },
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 1218,
+    "sha256": "3d03e09054955a9563b808694257da6e3197ed9255956b8b6fd174b3ea2fc6a7"
+  },
+  "runner": {
+    "path": "prove.py",
+    "bytes": 41085,
+    "sha256": "ef0d5f11e530487ed373de55252ccf0bf4562c186086352a9b8c961981176233"
+  },
+  "entryDiff": {
+    "path": "ENTRY_DIFF.patch",
+    "bytes": 8081,
+    "sha256": "2ace84aefde37f003d68b0e937f82940d202ad4305dc96c7ef399dece6e8dff7"
+  },
+  "unresolved": [
+    "Independent Root controls review",
+    "Exact main checkpoint/push and actual Root execution authority",
+    "Fresh010 outcome and retained relation observations under original clock"
+  ],
+  "effects": {
+    "nativeSourceEdits": 0,
+    "originalControlEdits": 0,
+    "ProductImports": 0,
+    "tests": 0,
+    "builds": 0,
+    "providerCalls": 0,
+    "proofRuns": 0,
+    "mainWrites": 0,
+    "pushes": 0
+  }
+}
