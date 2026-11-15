@@ -1,5 +1,5 @@
 {
-  "status": "RC14_S06_B56_PRODUCT_REPAIR_PREPARING_AMENDMENT03_RUNNING",
+  "status": "RC14_B56_PRODUCT_REPAIR_PREPARING_B57_EXTERNAL_CAPACITY_PREPARING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -719,7 +719,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T12:52:10.978424+00:00",
+  "updatedUtc": "2026-11-15T19:45:46.938054+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1026,7 +1026,7 @@
     "retry": false
   },
   "amendmentWitness03": {
-    "state": "RUNNING_ACTUAL_ADMITTED_WORKFLOW",
+    "state": "CLOSED_DECLARED_PROMPT_BOUND_OVERFLOW",
     "controlCommit": "5b75c3a38114685d66d443ffc4e23733e24457c1",
     "controlAcceptance": "integration-01/AMENDMENT_CONTROL_ACCEPTANCE_06.json",
     "activation": "integration-01/amendment-witness-03/ACTIVATION.json",
@@ -1038,6 +1038,38 @@
     "smokeInputsSha256": "2785bac4d5b9f1988785877dbf1119cc144ea18e7c024c280fc013c60dd06751",
     "installedSmokePass": 1,
     "installedSmokeFail": 0,
-    "actualPairedReadiness": "All four after-setup/pre-dispatch operator/runtime observations passed"
+    "actualPairedReadiness": "All four after-setup/pre-dispatch operator/runtime observations passed",
+    "returnCommit": "ff2ee54094ddb9cbeeac19957b6289896af967a3",
+    "record": "integration-01/amendment-witness-03/OPERATOR_RETURN.json",
+    "triage": "integration-01/AMENDMENT_PROMPT_BOUND_DISPOSITION_01.json",
+    "closedUtc": "2026-11-15T19:32:00.515Z",
+    "providerCalls": 12,
+    "actorSuccesses": 12,
+    "protocolReportedCostUsd": 7.0634404,
+    "failure": {
+      "ordinal": 1617,
+      "event": "c_call_evidenced",
+      "class": "undispatched_owner_refusal",
+      "cause": [
+        "native_instruction_assembly_refusal",
+        "declared_bound_overflow",
+        "selector"
+      ],
+      "preparationResult": "result://abiogenesis/ab0d196a9797c3dc8ba8b983797e413d7d0dbc420f10d3ff039f906dde586bd8"
+    },
+    "inputRowsConserved": 89,
+    "commandGroupsAbsent": 18,
+    "nativePidsAbsent": 12,
+    "currentness": "Baseline stale and impact current observed; refreshed verdict/final Testing/acceptance unobserved.",
+    "externalApplicationCasesPassed": 4,
+    "retry": false
+  },
+  "amendmentPromptCapacity": {
+    "state": "EXTERNAL_CONTROL_PREPARATION_SELECTED_NO_RUNTIME",
+    "triage": "integration-01/AMENDMENT_PROMPT_BOUND_DISPOSITION_01.json",
+    "successor": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-07",
+    "maxPromptBytes": 524288,
+    "previousMaxPromptBytes": 131072,
+    "next": "Independent frozen-control review; paid installed attempt waits for B56 repaired exact candidate."
   }
 }

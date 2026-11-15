@@ -1,0 +1,190 @@
+{
+  "id": "RC14-AMENDMENT-PROMPT-BOUND-DISPOSITION-01",
+  "recordedUtc": "2026-11-15T19:45:46.938054+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-RECORDS-WRITER-020",
+    "role": "Separate Root records Writer",
+    "authority": "Owner finish RC14 and continue; conjoined independent Product/Design/Integration/Identity/Proof triage.",
+    "effects": [
+      "Write this disposition and exact current T287/T293/STATUS entries.",
+      "Integrate unchanged amendment03 Return ff2ee54094ddb9cbeeac19957b6289896af967a3. Record later exact external-control acceptance and integrate its reviewed authored-only freeze.",
+      "Checkpoint and push named authored records only; verify direct origin main parity."
+    ],
+    "exclusions": [
+      "No semantic Product/Design/test implementation, runtime/provider/retry, candidate/archive/install/pin change, raw Git publication or qualification-policy decision."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "basisManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Fixed5.0 Executive governed amendment: actual admitted Testing, declared prerequisite reviews, worksite construction, current required verdicts, acceptance and fresh replay.",
+    "category": "External immutable task/process declaration and observation of actual runtime evidence; ABG retains all runtime admission and currentness authority.",
+    "prohibitions": [
+      "No host-prescribed successor graph, invented verdict, context pruning, dropped review, weakened oracle or direct event authorship."
+    ]
+  },
+  "subject": {
+    "candidateSource": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "C1": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+    "archiveSha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "controlCommit": "5b75c3a38114685d66d443ffc4e23733e24457c1",
+    "runRef": "run://abiogenesis/d0855149cae833cba97c698cd42e46ae3c149a44696a7952b44179c34255ec56",
+    "returnCommit": "ff2ee54094ddb9cbeeac19957b6289896af967a3",
+    "returnPath": "integration-01/amendment-witness-03/OPERATOR_RETURN.json",
+    "returnBytes": 19014,
+    "returnSha256": "603ebf28255c3a9966b63493a2feaef5c3f2e0d078746e76428c513cc3787aae",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-03"
+  },
+  "actualOutcome": {
+    "startUtc": "2026-11-15T19:12:36.707704Z",
+    "originalDeadlineUtc": "2026-11-15T22:12:36.707704Z",
+    "sealedUtc": "2026-11-15T19:32:00.515Z",
+    "exitCustodyCompletedUtc": "2026-11-15T19:32:05.227119Z",
+    "clockClosed": true,
+    "installedSmoke": {
+      "pass": 1,
+      "fail": 0,
+      "elapsedMs": 36555
+    },
+    "pairedActualRoles": "All four after-setup/pre-dispatch operator/runtime observations passed.",
+    "actualActors": 12,
+    "actorSuccesses": 12,
+    "model": "claude-opus-5-5",
+    "configuredEffort": "xhigh",
+    "protocolReportedCostUsd": 7.0634404,
+    "reportedCostLimit": "Protocol observation, not billing audit.",
+    "earliestFailure": {
+      "ordinal": 1617,
+      "event": "c_call_evidenced",
+      "class": "undispatched_owner_refusal",
+      "cause": [
+        "native_instruction_assembly_refusal",
+        "declared_bound_overflow",
+        "selector"
+      ],
+      "preparationResult": "result://abiogenesis/ab0d196a9797c3dc8ba8b983797e413d7d0dbc420f10d3ff039f906dde586bd8"
+    },
+    "admittedFailureOrdinal": 1619,
+    "runtimeFailureOrdinal": 1625,
+    "runtimeFailureUtc": "2026-11-15T19:31:49.500Z",
+    "nextSelectorActorStarted": false,
+    "terminal": null,
+    "runtimeOutcome": "runtime_failed",
+    "heldAndFresh": "Equal result refusal:not_found and failed replay with terminal null; host terminal assertion is a downstream symptom.",
+    "observed": [
+      "Initial actual admitted Testing supplied genuine three-case counterevidence.",
+      "Construction changed permitted realization/test files.",
+      "Preparation Result1604 retains baseline satisfied/current=false and impact satisfied/current=true.",
+      "External final application oracle passes four of four cases."
+    ],
+    "unobserved": [
+      "Refreshed baseline verdict",
+      "Preservation review",
+      "Final admitted Testing",
+      "Native acceptance",
+      "Satisfied terminal and complete compound currentness witness"
+    ]
+  },
+  "rootVerification": {
+    "returnPinComparisons": 27,
+    "distinctClosurePins": 74,
+    "allPinsEqual": true,
+    "inputRowsConserved": 89,
+    "inputErrors": [],
+    "entryExitFileCaveat": "Rows and errors are equal; complete INPUTS_ENTRY/EXIT files differ in completedUtc. No whole-file byte equality claim.",
+    "commandGroupsIndependentlyAbsent": 18,
+    "nativePidsAndSamePgidIndependentlyAbsent": 12,
+    "cleanupSignals": 0,
+    "installedFilesConserved": 5302,
+    "installedPayloadBytes": 69284648,
+    "archiveMemberCorrespondence": true
+  },
+  "evidence": {
+    "eventLogBytes": 14441885,
+    "eventLogSha256": "de8c7bff497cfc699662c4abc8784740828196837aa41ad2207aa5c4772e899d",
+    "coverageSha256": "0c804665c874e4ed6c8880df9d65c1b9583534518288a501f2e170fb0ca4742b",
+    "lastSuccessfulSelectorPromptSha256": "15a216788643a296fcba1b3f778b606cd4ed94e670d7cef67c8c1ea4082f5a7d",
+    "finalApplicationObservationSha256": "440b6146e244c8277acb6106ac0225379f2191bccddf9c584998b9b24c26bfab",
+    "operatorClosureSha256": "df6178902a33251c921af88ed2b4be60fafec12dc6690670284f070a47b6b277"
+  },
+  "frames": {
+    "ProductRequirements": "Declared task bounds remain enforceable; actual governed completion requires every required current verdict and acceptance. Four passing application probes cannot replace that completion.",
+    "Design": "Owned selector projection retains current original meaning, observations and prior judgment. HOW1355-1377/1380-1417 and1443-1446 explicitly require declared_bound_overflow when the complete projection exceeds its bound. No unbounded prompt promise exists.",
+    "IntegrationIdentity": "Maintained amendment-witness.mjs78-81 carries PROCESS limits into the exact admitted task; both declare maxPromptBytes131072. Assembly398-406 refuses before default_library109-113 can launch the next actor.",
+    "LifecycleEffect": "Failure admitted at1619/1625; held and fresh failed truth agrees, all children/groups absent. No provider crash or lost successful terminal established.",
+    "Proof": "Initial readiness did not establish capacity over this complete frame, three reviews and accumulating native reports/judgments. The actual six selector prompts approach the declared ceiling. No recursive prior Result, accidental full output-body insertion or instruction-origin corruption was found."
+  },
+  "measuredPromptGrowth": {
+    "declaredMaxPromptBytes": 131072,
+    "sixSelectorPromptBytes": [
+      85985,
+      100706,
+      109899,
+      118875,
+      123554,
+      130621
+    ],
+    "lastHeadroomBytes": 451,
+    "fixedRoleChoiceBindingAccessBytes": 50183,
+    "taskSectionFirstBytes": 29857,
+    "taskSectionLastBytes": 71341,
+    "accumulatedObservationPresentationBytes": 28177,
+    "responseDomainGrowthBytes": 3152,
+    "newConstructionReportValueBytes": 5229,
+    "nextPriorJudgmentBytes": 12576,
+    "failedPromptSize": "Not retained; exact overage unmeasured."
+  },
+  "independentReview": {
+    "actor": "/root/amendment_topology_review",
+    "outcome": "Truthful refusal on undersized declared task budget; supports prospective external capacity-only correction, no generic Product defect established.",
+    "scope": "Product frame, owning HOW, actual producer/consumer/events and retained prompt/custody evidence; read-only."
+  },
+  "disposition": {
+    "B52": "Technical control correction closed by actual four paired observations in amendment03; first failure remains preserved.",
+    "B55": "Technical install-host/tree join closed by actual installed smoke and complete entry/exit archive correspondence in amendment03; second failure remains preserved.",
+    "B57": "P1 external prompt-capacity correction before successful amendment witness. Select separately frozen PROCESS.maxPromptBytes524288, preserving every other semantic control.",
+    "B56": "Independent Product/HOW repair remains selected. Prepare amendment07 controls now; defer another paid amendment attempt until the accepted repaired candidate exists, so amendment and S06 evaluate the same exact successor.",
+    "B50": "Separate qualification attribution/assessor route and owner policy questions remain unresolved; continue is not a policy response."
+  },
+  "ownerRoutes": [
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md:1355",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md:1380",
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md:1443",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts:398",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts:109",
+    "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts:340"
+  ],
+  "successorWriterActivation": {
+    "id": "RC14-AMENDMENT-CONTROL-WRITER-007",
+    "role": "Separate B29 external control Writer",
+    "actor": "/root/b29_vm_triage",
+    "sourceCommit": "5b75c3a38114685d66d443ffc4e23733e24457c1",
+    "worktree": "/private/tmp/abg-rc14-amendment-successor-20261116-07",
+    "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-07",
+    "elapsedBudgetMs": 1200000,
+    "reentry": "realization_refactor of external witness configuration, unchanged Product/HOW",
+    "effects": [
+      "After this disposition is pushed, create the isolated worktree and copy exact successor06 controls into the successor07 carrier.",
+      "Change only PROCESS.limits.maxPromptBytes from131072 to524288. It is a Run-wide cap, including selector/native work/command assembly, not selector-only.",
+      "Reconcile necessary successor path/package/template references, manifest, README and compact Return. Keep launch disabled and candidate-dependent bindings unset until separately selected new candidate.",
+      "Perform JSON/syntax and manifest checks without Product imports or execution; show one semantic leaf delta and unaffected-byte conservation.",
+      "Freeze one authored-only commit and return to Root for independent exact review."
+    ],
+    "exclusions": [
+      "No Product/test/maintained-helper or projection change; no source/read/write/context bound, review, prerequisite, step, oracle or acceptance change.",
+      "No runtime/provider/Tool/physical-readiness/smoke/test/build/install execution, old clock continuation, main/push, raw Git or candidate/pin alteration."
+    ],
+    "stops": [
+      "Unexpected preserved-byte drift, missing dependency, scope expansion or first mechanical failure: retain and return, no automatic repair/retry."
+    ],
+    "returnTo": "Root; independent review and future exact candidate binding precede any runtime grant."
+  },
+  "limits": [
+    "Larger prompt capacity is not a guarantee that every future history fits or that remaining reviews accept.",
+    "Old C0/C1/archive/install and all attempts/clocks stay exact. New candidate evidence never transfers backward."
+  ],
+  "executionAuthorized": false,
+  "qualified": false,
+  "rawPublished": false,
+  "retrySelected": false
+}
