@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T21:46:32.279741+00:00",
-  "nativeAuthorState": "Actual RC13/Opus5.5 xhigh native03 author active in acquisition before source edits; original fixed clock running. No proof/build.",
+  "recordedUtc": "2026-11-15T22:20:23.537907+00:00",
+  "nativeAuthorState": "Native03 closed and rejected for proof after independent review; one-test completion04 controls selected, no provider active and no B56 build/proof.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1183,7 +1183,7 @@
     "actualProofStarted": false
   },
   "b56Completion03": {
-    "state": "NATIVE03_ACTIVE",
+    "state": "CLOSED_SOURCE_REJECTED_NO_PROOF",
     "selection": "integration-01/B56_NATIVE02_CONJUNCTION_AND_REENTRY_03.json",
     "nativeWritePaths": [
       "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
@@ -1208,6 +1208,30 @@
     "actorStartedUtc": "2026-11-15T21:42:45.250Z",
     "modelObserved": "claude-opus-5-5",
     "effortConfigured": "xhigh",
-    "sourcePreimageRows": 1564
+    "sourcePreimageRows": 1564,
+    "actorClosed": true,
+    "taskComplete": false,
+    "proofStarted": false,
+    "returnCommit": "54276817e7dcee253f1bc5cfdf0a5b29d2f89fc5",
+    "returnRecord": "integration-01/assessment-dependency-native-03/RETURN.json",
+    "sourceSha256": "9d5fdd296c39f28470a63928668b7eaf2f37b740b5a81d8db9239b512f4eff4c",
+    "auditSha256": "280eaee63a9af2ac201c6ee19b20a65794e8d0cbd1a61830de800a42dbc1fc8c",
+    "methodCompliance": false,
+    "conjunction": "integration-01/B56_NATIVE03_CONJUNCTION_AND_REENTRY_04.json",
+    "actualCloseFreshResultClosedReplay": true,
+    "sdkWallMs": 1241848,
+    "turns": 99,
+    "reportedListCostUsd": 8.4880592
+  },
+  "b56Completion04": {
+    "state": "CONTROL_PREPARATION_SELECTED",
+    "selection": "integration-01/B56_NATIVE03_CONJUNCTION_AND_REENTRY_04.json",
+    "nativeWritePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    ],
+    "newReadTerritory": "build_tenants/abiogenesis/typescript/code/src",
+    "providerStarted": false,
+    "proofAuthorized": false,
+    "candidateBuildAuthorized": false
   }
 }
