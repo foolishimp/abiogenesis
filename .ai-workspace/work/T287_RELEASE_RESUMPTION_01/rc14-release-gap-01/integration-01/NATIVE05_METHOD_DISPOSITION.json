@@ -1,0 +1,36 @@
+{
+  "id": "RC14-NATIVE05-METHOD-DISPOSITION",
+  "decidedUtc": "2026-11-15T10:05:42.887531+00:00",
+  "authority": "Existing owner-approved RC14 finish mandate; Root Executive evaluates returned exact work under selected STDO3.0.4 work/review flow",
+  "sourceDiffSha256": "4974775018b7141208da5e5a5cd493aabad21a8173ed1c21e8a88455e6b16361",
+  "audit": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/native05-proof-reentry-01/AUTHOR_AUDIT.json",
+    "bytes": 10659,
+    "sha256": "28a0ff82724c494d1cfb621ebdebd1cc54706185f21abd553661eb6dc2545a6b"
+  },
+  "decision": "Preserve historical method deviation and admit independently reviewed exact snapshot for one bounded proof",
+  "historicalDeviation": [
+    {
+      "id": "native05-installed-stdo-work-not-acquired",
+      "classification": "historical_method_process_deviation",
+      "observation": "No successful content acquisition of the exact installed stdo-work SKILL.md appears in the retained native tool stream.",
+      "cured": false,
+      "methodComplianceClaim": false
+    }
+  ],
+  "actualFacts": [
+    "All12readFirst paths have successful actualcontentreads before firstEdit",
+    "Exactly5authorized sourcechanges;1421preimagefiles independently rehashed byRoot",
+    "No observed prohibited writes/commands/Product/provider/Git execution; syntaxchecks after final edits",
+    "Contextselection is not exclusive reasoning boundary; actual extra readonlycoordinates remain disclosed"
+  ],
+  "methodComplianceClaim": false,
+  "priorNativeTaskFullyCompliantClaim": false,
+  "reentry": "New explicit proof authority; original deviations-empty gate is not bypassed or falsified. The originalrunner, source, LAUNCH and clock remain unchanged. Successor accepts precisely this disclosed residual and independently verifies all existing completion/source/effect/proof guards.",
+  "invalidators": [
+    "Any changedsource/control/evidence identity",
+    "Any undisposed Product/authority/effect violation",
+    "Originaldeadline expiry or existingproof output path"
+  ],
+  "qualification": false
+}

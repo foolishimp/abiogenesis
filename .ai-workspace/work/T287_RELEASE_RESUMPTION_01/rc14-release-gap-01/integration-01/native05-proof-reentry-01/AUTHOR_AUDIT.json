@@ -1,0 +1,204 @@
+{
+  "id": "RC14-NATIVE05-PROSPECTIVE-PROOF-AUDIT-01",
+  "disposition": "scope_and_commands_observed_with_disclosed_method_residual",
+  "role": "external Operator observations; Root disposition is a separate required input",
+  "sourceHead": "a0b0ab5dd37322b66f69909d6a1c7ab75e7ee3fa",
+  "sourceDiffSha256": "4974775018b7141208da5e5a5cd493aabad21a8173ed1c21e8a88455e6b16361",
+  "launchSha256": "207596ebe68f62bd36f77d89cb48bdde217e644620294166aafc62ae31b50e52",
+  "originalHostDeadlineUtc": "2026-11-15T12:21:55.242224+00:00",
+  "originalControlsManifestSha256": "8286931b320e655b39159b569c60025b58a9e54288f6a4a7565949ff6b103a7a",
+  "originalRunnerSha256": "26baaa481b4ddf9c8bc4437c02736f09dc78f56f758782fce706b484255728f3",
+  "sourcePostimageSha256": "7112bcae6de83be4eabc453745a06bbef94592594984995bdb6619fd61cfbda9",
+  "changedRows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "bytes": 61316,
+      "sha256": "f1fa284088dbc8aa446ccfa977b009124b3b309324d5a4de50aac950d9c52ed7",
+      "executable": false,
+      "beforeSha256": "d7b2496aa8a418a5ba9f6827f9cac2ce4746be2851501ccb08200cee0f659638",
+      "beforeBytes": 54177,
+      "textLinesAdded": 96,
+      "textLinesRemoved": 18,
+      "beforeBytesSource": "/private/tmp/abg-rc14-regression-repair-20261115-04/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs",
+      "bytes": 20917,
+      "sha256": "dfcea436b3468a3b6fbaa93421cbdd97804c16e9ed45a78ef70a9652dbbd2b0d",
+      "executable": false,
+      "beforeSha256": "3807e344a385da916575f8c7faed47dbdb46a001ff2cea96feb5ae33cb4c1894",
+      "beforeBytes": 14998,
+      "textLinesAdded": 70,
+      "textLinesRemoved": 3,
+      "beforeBytesSource": "/private/tmp/abg-rc14-regression-repair-20261115-04/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "bytes": 85924,
+      "sha256": "a9c2fead9c94da09bc92e03c77e950ae44f4e3af051c37f83291d611a338278c",
+      "executable": false,
+      "beforeSha256": "24dc7c8fa3a92d87555147b53d87e1960d24d2d16ae1085729f819beccd464b6",
+      "beforeBytes": 85392,
+      "textLinesAdded": 14,
+      "textLinesRemoved": 1,
+      "beforeBytesSource": "/private/tmp/abg-rc14-regression-repair-20261115-04/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p3-continuation-refused.test.mjs",
+      "bytes": 10561,
+      "sha256": "54ab4079d05b5ed9218aa841d4058d5711d3b71f5d7ee27305b076ed86170a7f",
+      "executable": false,
+      "beforeSha256": "4c0fa3ee01d2481062e5b3ccc387f8d818e14b95f382bca4ab691020f707a6e8",
+      "beforeBytes": 10010,
+      "textLinesAdded": 9,
+      "textLinesRemoved": 0,
+      "beforeBytesSource": "/private/tmp/abg-rc14-regression-repair-20261115-04/build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p3-continuation-refused.test.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "bytes": 10004,
+      "sha256": "905babce81193f6e2dab35cc64bfae3925ecfaa2a233d122667a5b44f7ca7c06",
+      "executable": false,
+      "beforeSha256": "9dc5458c9257711f1f0a5401fc0325635541c8056bdf128e0a1cea6c75cfd5dd",
+      "beforeBytes": 7795,
+      "textLinesAdded": 35,
+      "textLinesRemoved": 3,
+      "beforeBytesSource": "/private/tmp/abg-rc14-regression-repair-20261115-04/build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-closure.test.mjs"
+    }
+  ],
+  "sourceRowCount": 1422,
+  "setupOwnedManifest": {
+    "attribution": "existing imported-create setup owner; no native write grant",
+    "bytes": 1924,
+    "canonicalValueDigest": "sha256:5d6127abf5b1ec283cb412f76c4858eb4e869f91f6f41a893c60a19cf5d32d1f",
+    "capturedUtc": "2026-11-15T09:22:35.648979+00:00",
+    "createInvocationRef": "invocation://abiogenesis/6c498b1301d9829e618617a609068bafafe7a128206b04872ca822b80297c54f",
+    "custodyRecordSha256": "d4c48b01294236bc8bebdf52511cd2e0ee5a962cb441e92a6ace2d58e25b77d1",
+    "path": ".abiogenesis/workspace-manifest.json",
+    "preDispatchSetupPhaseUtc": "2026-11-15T09:22:35.610Z",
+    "sha256": "6afdecd54c28c0116149d5f9e8818dd9f30e5abaf9ef61d06020b2bdbc93fa8e",
+    "verified": true
+  },
+  "deviations": [
+    {
+      "id": "native05-installed-stdo-work-not-acquired",
+      "classification": "historical_method_process_deviation",
+      "observation": "No successful content acquisition of the exact installed stdo-work SKILL.md appears in the retained native tool stream.",
+      "cured": false,
+      "methodComplianceClaim": false
+    }
+  ],
+  "rootDisposition": "pending exact separately admitted Root authority at proof entry",
+  "actualCategories": {
+    "Read": 71,
+    "Grep": 44,
+    "Bash": {
+      "calls": 5,
+      "lineCountCommands": 2,
+      "sedReadOnlySnippetCommand": 1,
+      "nodeCheckLoops": 2,
+      "nodeCheckExecutions": 7,
+      "files": 5
+    },
+    "Edit": {
+      "calls": 31,
+      "uniqueFiles": 5,
+      "allWithinW": true
+    },
+    "StructuredOutput": 1,
+    "Write": 0,
+    "Glob": 0
+  },
+  "readFirst": {
+    "paths": 12,
+    "allSuccessfulContentReadsBeforeFirstEdit": true
+  },
+  "prohibitedEffectsObserved": [],
+  "evidenceLimit": "Every Bash command is retained in COMMAND_READ_OBSERVATION: only wc, sed -n and node --check; Edit paths are W only. No observed Git, shell write, tests, build, pack, install, Product evaluation, provider/subagent invocation or out-of-W source modification. This is bounded to retained actual tool/physical evidence.",
+  "readScopeDisposition": "Root stated readRoots selects context and is not exclusive read authority; stdo-work permits causal-cone reads outside narrow write territory. Extra Read/sed/Grep coordinates remain retained.",
+  "authorReportCorrections": [
+    "Actual syntax sequence is one five-file loop plus one two-file loop (seven executions), not two whole-five-file loops; each file has a successful syntax check after its final Edit.",
+    "All12 readFirst content acquisitions are independently present before first Edit despite the author losing its exact section list during compaction.",
+    "No Glob tool call observed; actual categories are recorded above."
+  ],
+  "evidence": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/LAUNCH.json",
+      "bytes": 6957,
+      "sha256": "207596ebe68f62bd36f77d89cb48bdde217e644620294166aafc62ae31b50e52"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/CONTROL_START.json",
+      "bytes": 1160,
+      "sha256": "60d9d11112c4f50ae4ec53ee76b5f1553552ed9788769f49d0cc91019a72909d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/SOURCE_PREIMAGE.json",
+      "bytes": 436706,
+      "sha256": "e363a9aba37f517469291dce0deb2adae977b8857bbef3a8dbcc426470f11467"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/SOURCE_POSTIMAGE_OBSERVATION.json",
+      "bytes": 358732,
+      "sha256": "7112bcae6de83be4eabc453745a06bbef94592594984995bdb6619fd61cfbda9"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/SOURCE_GIT_OBSERVATION.json",
+      "bytes": 1846,
+      "sha256": "2c5b01c6127d1527d24f4282b054286a31f61f2f55f62c279d95f005033012df"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/NATIVE_SOURCE_DIFF.patch",
+      "bytes": 36199,
+      "sha256": "4974775018b7141208da5e5a5cd493aabad21a8173ed1c21e8a88455e6b16361"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/COMMAND_READ_OBSERVATION.json",
+      "bytes": 74150,
+      "sha256": "14b08731816fe92be33602b151a189b0c2fc0903e11c5f7d3c5db9923ace4968"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/COMMAND_CATEGORY_RETURN.json",
+      "bytes": 3865,
+      "sha256": "7ab7ace6e1eedc7cc20a97af9702b641233845427e796045faba7537016fcb6d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/ACTOR_CLOSE_OBSERVATION.json",
+      "bytes": 43899,
+      "sha256": "d0ffc2facf3b5174eb289c4c49c464837235b85f176fc17a41cfbf286f210dfd"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/HOST_RETURN.json",
+      "bytes": 625,
+      "sha256": "deee3dec3472cc44feef50505b60bfabd0b746111d9a331c7b834cc4e320850b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/SETUP_CUSTODY.json",
+      "bytes": 2549,
+      "sha256": "d4c48b01294236bc8bebdf52511cd2e0ee5a962cb441e92a6ace2d58e25b77d1"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 9723,
+      "sha256": "a24ae92861c5feb3f8ac89a02e5f005eafc4f8a6adc21fee70de80fbf4eeb5f3"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/NATIVE_AUTHOR_REPORT_BINDING.json",
+      "bytes": 941,
+      "sha256": "4a9e1cd7d4c778465efe37d031afac2cadc0fd8490a3054b4d844fa74c6d7eea"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/runtime/AUTHOR_COMPLETION.json",
+      "bytes": 1394,
+      "sha256": "7d9335f7f2918cd1f4eb8e253723eb032239a56c5770a78d49e59fbd30d70538"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/runtime/resources/archives/fp-c00ccfe7b1329346-stdout.log",
+      "bytes": 7068312,
+      "sha256": "78e2a57a5dadfa1f6d950687d4204e074357727c4d5f612961bbdaadd6b9cb8d"
+    }
+  ],
+  "sourceAccepted": false,
+  "proofExecuted": false,
+  "qualified": false
+}

@@ -1,0 +1,105 @@
+{
+  "id": "RC14-NATIVE05-SOURCE-REVIEW",
+  "reviewer": "/root/rc14_release_proof",
+  "recordedBy": "Root records Writer from closed distinct non-author Reviewer return",
+  "recordedUtc": "2026-11-15T10:05:42.887531+00:00",
+  "disposition": "accepted_for_bounded_proof",
+  "productFrame": "Fixed5.0/T287 RC14; derived proof fixtures, Product-owned strict Catalog admission and declaration correspondence; historical evidence does not authorize new work",
+  "sourceHead": "a0b0ab5dd37322b66f69909d6a1c7ab75e7ee3fa",
+  "sourceDiffSha256": "4974775018b7141208da5e5a5cd493aabad21a8173ed1c21e8a88455e6b16361",
+  "postimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "bytes": 61316,
+      "sha256": "f1fa284088dbc8aa446ccfa977b009124b3b309324d5a4de50aac950d9c52ed7",
+      "executable": false,
+      "beforeSha256": "d7b2496aa8a418a5ba9f6827f9cac2ce4746be2851501ccb08200cee0f659638",
+      "beforeBytes": 54177,
+      "textLinesAdded": 96,
+      "textLinesRemoved": 18,
+      "beforeBytesSource": "/private/tmp/abg-rc14-regression-repair-20261115-04/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs",
+      "bytes": 20917,
+      "sha256": "dfcea436b3468a3b6fbaa93421cbdd97804c16e9ed45a78ef70a9652dbbd2b0d",
+      "executable": false,
+      "beforeSha256": "3807e344a385da916575f8c7faed47dbdb46a001ff2cea96feb5ae33cb4c1894",
+      "beforeBytes": 14998,
+      "textLinesAdded": 70,
+      "textLinesRemoved": 3,
+      "beforeBytesSource": "/private/tmp/abg-rc14-regression-repair-20261115-04/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "bytes": 85924,
+      "sha256": "a9c2fead9c94da09bc92e03c77e950ae44f4e3af051c37f83291d611a338278c",
+      "executable": false,
+      "beforeSha256": "24dc7c8fa3a92d87555147b53d87e1960d24d2d16ae1085729f819beccd464b6",
+      "beforeBytes": 85392,
+      "textLinesAdded": 14,
+      "textLinesRemoved": 1,
+      "beforeBytesSource": "/private/tmp/abg-rc14-regression-repair-20261115-04/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p3-continuation-refused.test.mjs",
+      "bytes": 10561,
+      "sha256": "54ab4079d05b5ed9218aa841d4058d5711d3b71f5d7ee27305b076ed86170a7f",
+      "executable": false,
+      "beforeSha256": "4c0fa3ee01d2481062e5b3ccc387f8d818e14b95f382bca4ab691020f707a6e8",
+      "beforeBytes": 10010,
+      "textLinesAdded": 9,
+      "textLinesRemoved": 0,
+      "beforeBytesSource": "/private/tmp/abg-rc14-regression-repair-20261115-04/build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p3-continuation-refused.test.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "bytes": 10004,
+      "sha256": "905babce81193f6e2dab35cc64bfae3925ecfaa2a233d122667a5b44f7ca7c06",
+      "executable": false,
+      "beforeSha256": "9dc5458c9257711f1f0a5401fc0325635541c8056bdf128e0a1cea6c75cfd5dd",
+      "beforeBytes": 7795,
+      "textLinesAdded": 35,
+      "textLinesRemoved": 3,
+      "beforeBytesSource": "/private/tmp/abg-rc14-regression-repair-20261115-04/build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-closure.test.mjs"
+    }
+  ],
+  "findings": [
+    {
+      "area": "governance",
+      "decision": "No actionable blocker",
+      "basis": "Current default Program consistently owns invocation, GraphFunction, contracts and declaration coordinates on both sides; captured34 state/value digests unchanged; actual private owner compares explicit coordinates, exact value, complete declarations and cover, not donor Program label."
+    },
+    {
+      "area": "native material gate",
+      "decision": "No actionable blocker",
+      "basis": "Strict historical donor negatives remain; genuine maintained installed Catalog positive; clone/cold/successor/counter/mutation assertions preserved."
+    },
+    {
+      "area": "native cross-install verifyAuthority true",
+      "decision": "Existing bounded assumption; no repair required for this selected Catalog change",
+      "basis": "Entire distinct cross-install owner-handoff case is byte-identical to baseline; test assumes lower authority admission and proves owner identity/handoff, not authority validation."
+    },
+    {
+      "area": "steel",
+      "decision": "No actionable blocker",
+      "basis": "Explicit recorded historical reconstruction plus distinct strict new-work refusal; exact Catalog/View/membership/dependency negatives preserved."
+    },
+    {
+      "area": "ST1/P3",
+      "decision": "No actionable blocker",
+      "basis": "Selected complete outcomes retained before unchanged assertions; no behavior/deadline/case meaning change."
+    }
+  ],
+  "limits": [
+    "All5hashes/diff reacquired at entry and return; no tests/provider/Productimports/sourceedits/Gitmutations by Reviewer",
+    "Successful Catalog retention condensed to identities and some unexpected successes condensed; exceptions name/message; do not claim universal full capture",
+    "Controlled execution/environment premises remain explicit; governance unit is not installed lifecycle proof",
+    "All16wholefiles remain to execute; review is not qualification"
+  ],
+  "authorReport": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/NATIVE_AUTHOR_REPORT.json",
+    "bytes": 9723,
+    "sha256": "a24ae92861c5feb3f8ac89a02e5f005eafc4f8a6adc21fee70de80fbf4eeb5f3"
+  }
+}

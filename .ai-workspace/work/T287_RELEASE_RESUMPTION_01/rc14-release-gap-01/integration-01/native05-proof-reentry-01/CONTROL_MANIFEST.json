@@ -1,0 +1,36 @@
+{
+  "kind": "external-proof-reentry-controls",
+  "id": "RC14-NATIVE05-PROOF-REENTRY-01",
+  "originalControls": {
+    "path": "/private/tmp/abg-rc14-regression-repair-20261115-05/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-05",
+    "manifestSha256": "8286931b320e655b39159b569c60025b58a9e54288f6a4a7565949ff6b103a7a",
+    "runnerSha256": "26baaa481b4ddf9c8bc4437c02736f09dc78f56f758782fce706b484255728f3"
+  },
+  "files": [
+    {
+      "path": "AUTHOR_AUDIT.json",
+      "bytes": 10659,
+      "sha256": "28a0ff82724c494d1cfb621ebdebd1cc54706185f21abd553661eb6dc2545a6b"
+    },
+    {
+      "path": "ENTRY_DIFF.patch",
+      "bytes": 5658,
+      "sha256": "7fe525048320488b9840cb9586f3050d2fb97e416c3d0f58362e6d9e7b372b67"
+    },
+    {
+      "path": "REENTRY.md",
+      "bytes": 5595,
+      "sha256": "3b44a7675dca9a922508575350abb1f157afe3e0f924ce646ef856e7320a598b"
+    },
+    {
+      "path": "ROOT_AUTHORITY.template.json",
+      "bytes": 1496,
+      "sha256": "9149676dca796bad94ad09333e4dbf6425c48bd18b4f1a0da916b913141fe4db"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 20744,
+      "sha256": "8335a0eb409a35fed2c623303fa51b0a268096800d938b17a748ac61b74190d7"
+    }
+  ]
+}

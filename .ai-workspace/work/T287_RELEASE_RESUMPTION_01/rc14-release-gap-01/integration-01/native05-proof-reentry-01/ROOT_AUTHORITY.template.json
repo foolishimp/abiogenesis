@@ -1,0 +1,28 @@
+{
+  "id": "RC14-NATIVE05-PROOF-REENTRY-01",
+  "executionAuthorized": false,
+  "controlManifestSha256": null,
+  "auditSha256": "28a0ff82724c494d1cfb621ebdebd1cc54706185f21abd553661eb6dc2545a6b",
+  "sourceHead": "a0b0ab5dd37322b66f69909d6a1c7ab75e7ee3fa",
+  "sourceDiffSha256": "4974775018b7141208da5e5a5cd493aabad21a8173ed1c21e8a88455e6b16361",
+  "sourcePostimageSha256": "7112bcae6de83be4eabc453745a06bbef94592594984995bdb6619fd61cfbda9",
+  "launchSha256": "207596ebe68f62bd36f77d89cb48bdde217e644620294166aafc62ae31b50e52",
+  "originalHostDeadlineUtc": "2026-11-15T12:21:55.242224+00:00",
+  "acceptedHistoricalMethodResidualIds": [
+    "native05-installed-stdo-work-not-acquired"
+  ],
+  "residualsRemainDisclosed": true,
+  "authorMethodComplianceClaim": false,
+  "methodDisposition": "preserve_actual_deviation_and_admit_exact_snapshot_for_bounded_proof",
+  "sourceReview": {
+    "path": null,
+    "sha256": null,
+    "disposition": "pending",
+    "sourceDiffSha256": "4974775018b7141208da5e5a5cd493aabad21a8173ed1c21e8a88455e6b16361"
+  },
+  "proofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01",
+  "proofSubject": "/private/tmp/abg-rc14-regression-proof-20261115-05",
+  "retry": false,
+  "qualified": false,
+  "note": "Template is not execution authority. Root independently reviews/checkpoints this carrier, binds actual source-review evidence, supplies an exact authorized successor file and selects one invocation."
+}

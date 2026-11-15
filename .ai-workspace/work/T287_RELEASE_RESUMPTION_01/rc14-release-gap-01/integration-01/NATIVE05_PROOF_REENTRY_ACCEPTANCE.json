@@ -1,0 +1,50 @@
+{
+  "id": "RC14-NATIVE05-PROOF-REENTRY-ACCEPTANCE",
+  "reviewedUtc": "2026-11-15T10:05:42.887531+00:00",
+  "reviewer": "Root distinct control Reviewer; prepared by b29 control Writer",
+  "disposition": "accepted_for_one_original_clock_proof_after_pushed_checkpoint",
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/native05-proof-reentry-01/CONTROL_MANIFEST.json",
+    "bytes": 1223,
+    "sha256": "1f8329b614cd10ebe50b483ebc3fe8d6f568907c86f84af59f359b404f7f31a4"
+  },
+  "preparationReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/native05-proof-reentry-01/PREPARATION_RETURN.json",
+    "bytes": 2212,
+    "sha256": "773820e4b330c188e6300bd9debfe6e45d74ba81074d7997d9f0d08b904623d4"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/native05-proof-reentry-01/prove.py",
+    "bytes": 20744,
+    "sha256": "8335a0eb409a35fed2c623303fa51b0a268096800d938b17a748ac61b74190d7"
+  },
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE05_SOURCE_REVIEW.json",
+    "bytes": 5896,
+    "sha256": "487b7c423829f40c5c34d7ebd659f9ef162be66fcfd05aa7362e0623d0b20e09"
+  },
+  "methodDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE05_METHOD_DISPOSITION.json",
+    "bytes": 2132,
+    "sha256": "2c47714384e2d458342a0b434c772324c96782d6a043dbaa681c5ab645349f23"
+  },
+  "checked": [
+    "All5manifestmember byte identities verified",
+    "All originalhelper ASTs identical; textdiff limited to fixedoriginalHERE, explicit audit/reentry gate, extra authorityargument and proof-entry receipt",
+    "Originalactualcompletion/freshreplay, launch22controls, sourceinventory/diff, reusedbuild/input/dependency, topology,16files/71titles,2optional skips, no-retry, cleanup/conservation/deadline guards preserved",
+    "Truthfulaudit retains exactlyone methoddeviation; no eraseddeviation or retroactivecomplianceclaim",
+    "ActualRootauthority will bind exactmanifest/audit/review/source/LAUNCH/originaldeadline and separatewrittenResidualDisposition"
+  ],
+  "originalHostDeadlineUtc": "2026-11-15T12:21:55.242224+00:00",
+  "proofCampaignMs": 5400000,
+  "originalOutputs": {
+    "raw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05/proof-01",
+    "subject": "/private/tmp/abg-rc14-regression-proof-20261115-05"
+  },
+  "preconditions": [
+    "Pushed main controls/review checkpoint",
+    "No source05 or control mutation",
+    "One separately activated Operator with originalLAUNCH and exactRootauthority"
+  ],
+  "qualification": false
+}
