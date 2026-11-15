@@ -1927,7 +1927,6 @@ test("ST-1 executes an independently authored minimal GTL test through installed
       fromOrdinal: 0,
       limit: 1024,
     })],
-    ["run_gaps", invokeRun.ref, Object.freeze({ kind: "none" })],
     ["graph_call_result", invokeGraphCall.ref, Object.freeze({
       kind: "none",
     })],
@@ -1994,6 +1993,50 @@ test("ST-1 executes an independently authored minimal GTL test through installed
     sdkReadOutputs.set(memberKey, output.value.projection);
     sdkHandoff = readOutcome.receipt.resources.eventResource.closeHandoff;
   }
+  // T-293 B36 retirement: the run_gaps (construction-frontier) read is retired
+  // from the fixed 5.0 project.read family. It is no run read member and no
+  // published definition, and a current run read re-keyed to it selects no
+  // installed owner contract source before any acquisition.
+  assert.equal(abg.ABG_RUN_READ_MEMBER_KEYS.includes("run_gaps"), false, "run_gaps is retired");
+  assert.equal(
+    publicApi.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.some((definition) =>
+      definition.definitionKey.operationId === "abg.operation.project.read" &&
+      definition.definitionKey.memberKey === "run_gaps"),
+    false,
+    "run_gaps has no published definition",
+  );
+  const retiredGapsBase = publicApi.constructInstalledRunReadCall({
+    memberKey: "run_status",
+    workspaceBinding: Object.freeze({
+      ref: workspaceBinding.bindingId,
+      digest: workspaceBinding.bindingDigest,
+    }),
+    sourceRef: invokeRun.ref,
+    selector: Object.freeze({ kind: "none" }),
+    eventResource: reopenedReadResource(product, sdkHandoff),
+    envelope: sdkEnvelope("read-run_gaps-retired"),
+  });
+  if (retiredGapsBase.kind !== "installed_run_read_call") {
+    assert.fail(`run_gaps retirement control ${JSON.stringify(retiredGapsBase)}`);
+  }
+  const retiredGapsOutcome = await publicApi.runInstalledDefinitionCallTransport(
+    Object.freeze({ kind: "reopen", closeHandoff: sdkHandoff }),
+    {
+      invocation: {
+        ...retiredGapsBase.call.invocation,
+        definitionKey: {
+          ...retiredGapsBase.call.invocation.definitionKey,
+          memberKey: "run_gaps",
+        },
+      },
+      resources: { ...retiredGapsBase.call.resources },
+    },
+  );
+  assert.equal(
+    `${retiredGapsOutcome.kind}:${retiredGapsOutcome.code}`,
+    "installed_definition_call_transport_refusal:unknown_definition",
+    JSON.stringify(retiredGapsOutcome).slice(0, 4000),
+  );
   assert.equal(
     Buffer.compare(
       await readFile(new URL(sdkHandoff.prefix.eventLogRef)),
@@ -2103,7 +2146,7 @@ test("ST-1 executes an independently authored minimal GTL test through installed
     "an unpublished asset start appends zero bytes",
   );
   context.diagnostic(
-    "SDK: shipped constructors populate 1 direct invoke, 1 graph_function start, 6 run reads and 1 invalid_target asset start, 0 read bytes",
+    "SDK: shipped constructors populate 1 direct invoke, 1 graph_function start, 5 run reads (run_gaps retired: unknown_definition) and 1 invalid_target asset start, 0 read bytes",
   );
 });
 

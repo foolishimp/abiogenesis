@@ -4,9 +4,9 @@ import * as api from '../../build/code/src/public/index.js';
 import * as product from '../../build/code/src/product/index.js';
 import * as v from 'valibot';
 
-// T-292 TD-26 P3: run.continue#selected_action keeps its published definition
-// and has no installed binding, and current_intent admits the pending-execution
-// request only. Each retired call is refused at the door a caller reaches with
+// T-292 TD-26 P3, as retired under T-293 B36: run.continue#selected_action is
+// retired from the published family, and current_intent admits the
+// pending-execution request only. Each retired call is refused at the door a caller reaches with
 // that door's existing refusal; no refusal code is new.
 const operationId = 'abg.operation.run.continue';
 const hash = product.sha256Canonical, ref = label => ({ref: label, digest: hash({label})});
@@ -50,18 +50,31 @@ function construct(memberKey, request) {
     correlationRef: `correlation://td26p3/${memberKey}`, eventTime: '2026-11-13T00:00:00.000Z', provenanceRefs: []});
 }
 
-test('selected_action keeps its published definition and the installed transport refuses it installed_binding_unavailable', async () => {
-  const definition = definitionOf('selected_action');
-  assert.ok(definition, 'the member stays declared');
-  for (const slot of ['request', 'result', 'refusal', 'nonTerminal']) assert.notEqual(definition[`${slot}Contract`], null, slot);
-  const {packageExportPath, namedExport, memberPath} = definition.executionBindingSpecification.callable;
-  assert.deepEqual([packageExportPath, namedExport, ...memberPath], ['./product', 'RUN_DEFINITION_BINDINGS', 'continue', 'selected_action']);
+// T-293 B36 retirement: this case replaces the retired title "selected_action
+// keeps its published definition and the installed transport refuses it
+// installed_binding_unavailable". The fixed 5.0 family no longer publishes the
+// member, so no call to it can be constructed, and a current call re-keyed to
+// it reaches no installed owner contract source.
+test('selected_action is retired from the published continue family and the installed transport refuses a selected_action call unknown_definition', async () => {
+  assert.equal(definitionOf('selected_action'), undefined, 'the retired member has no published definition');
+  assert.ok(definitionOf('current_intent'), 'the retained member stays declared');
+  const projection = api.PUBLIC_OPERATION_CONTRACT_PROJECTIONS.find(row => row.operationId === operationId);
+  assert.deepEqual(projection.definitions.map(row => row.definitionKey.memberKey), ['current_intent']);
   assert.deepEqual(Object.keys(product.RUN_DEFINITION_BINDINGS.continue), ['current_intent']);
   assert.equal(typeof product.RUN_DEFINITION_BINDINGS.continue.current_intent, 'function');
-  const contract = product.RUN_OPERATION_CONTRACTS.continue.selected_action;
-  assert.equal(v.safeParse(contract.requestSchema, SELECTED_ACTION).success, true, 'the published request contract admits the body');
-  const refused = await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, construct('selected_action', SELECTED_ACTION));
-  assert.equal(`${refused.kind}:${refused.code}`, 'installed_definition_call_transport_refusal:installed_binding_unavailable', JSON.stringify(refused));
+  assert.deepEqual(Object.keys(product.RUN_OPERATION_CONTRACTS.continue), ['current_intent']);
+  const {packageExportPath, namedExport, memberPath} = definitionOf('current_intent').executionBindingSpecification.callable;
+  assert.deepEqual([packageExportPath, namedExport, ...memberPath], ['./product', 'RUN_DEFINITION_BINDINGS', 'continue', 'current_intent']);
+  assert.throws(() => construct('selected_action', SELECTED_ACTION), TypeError, 'a retired member constructs no call');
+  // The control: a current call reaches its owner. The same call re-keyed to
+  // the retired member selects no installed owner contract source.
+  const current = construct('current_intent', PENDING_CURSOR);
+  const control = await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, current);
+  assert.equal(control.kind, 'installed_definition_call_transport_result', JSON.stringify(control).slice(0, 400));
+  const retired = {invocation: {...current.invocation, definitionKey: {...current.invocation.definitionKey, memberKey: 'selected_action'}},
+    resources: {...current.resources}};
+  const refused = await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, retired);
+  assert.equal(`${refused.kind}:${refused.code}`, 'installed_definition_call_transport_refusal:unknown_definition', JSON.stringify(refused));
 });
 
 test('current_intent refuses a construction-intent body at request admission and admits the pending cursor', async () => {
@@ -86,12 +99,16 @@ test('continuation population refuses a retired selection kind with missing_cont
   }
 });
 
-test('the published continue refusal contracts keep the selected_action list and give current_intent the five pending codes', () => {
+// T-293 B36 retirement: this case replaces the retired title "the published
+// continue refusal contracts keep the selected_action list and give
+// current_intent the five pending codes". The five pending codes are kept;
+// the selected_action list is retired with its member.
+test('the published continue refusal contracts give current_intent the five pending codes and publish no selected_action list', () => {
   const codes = schema => schema.entries.code.options;
   const continueContracts = product.RUN_OPERATION_CONTRACTS.continue;
   assert.deepEqual(codes(continueContracts.current_intent.refusalSchema),
     ['missing_continuation', 'resolved_continuation', 'response_mismatch', 'replay_mismatch', 'basis_mismatch']);
-  assert.deepEqual(codes(continueContracts.selected_action.refusalSchema),
-    ['missing_continuation', 'resolved_continuation', 'intent_mismatch', 'response_mismatch', 'replay_mismatch', 'basis_mismatch',
-      'stale_action', 'action_mismatch', 'reprice_mismatch']);
+  assert.equal(Object.hasOwn(continueContracts, 'selected_action'), false, 'the selected_action refusal list is retired');
+  for (const code of ['intent_mismatch', 'stale_action', 'action_mismatch', 'reprice_mismatch'])
+    assert.equal(codes(continueContracts.current_intent.refusalSchema).includes(code), false, code);
 });

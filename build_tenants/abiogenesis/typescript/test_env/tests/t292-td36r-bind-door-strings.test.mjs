@@ -13,13 +13,15 @@
 // admitted on both builds. Set ABG_WORKSITE_BUILD_ROOT to run another
 // tenant's build: the artifact is packed from the tenant that holds it.
 import assert from 'node:assert/strict';
+import { execFile } from 'node:child_process';
 import { mkdir, mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { basename, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { promisify } from 'node:util';
 import test from 'node:test';
 import { packProduct } from '../../scripts/product-payload.mjs';
-import { expectedVerificationIdentity, readCandidateBasis } from '../support/candidate-basis.mjs';
+import { candidateBasisSource, expectedCandidateBasis, expectedVerificationIdentity } from '../support/candidate-basis.mjs';
 import { acquireNewEmptyAppendSinkFixture } from '../support/new-empty-append-sink.mjs';
 import { buildRoot } from '../support/t287-generic-job-worksite.mjs';
 
@@ -28,6 +30,7 @@ const load = path => import(pathToFileURL(join(buildRoot, path)).href);
 const product = await load('product/index.js');
 const abg = await load('abg/index.js');
 const environment = await load('product/environment.js');
+const execFileAsync = promisify(execFile);
 
 const REFUSAL = { kind: 'environment_refusal', schemaVersion: '5.0.0', disposition: 'refused', code: 'invalid_declared_root',
   message: 'workspace authority, ProductSet, and every declared root must be exact' };
@@ -62,8 +65,18 @@ async function bindSetup(t) {
   await mkdir(artifacts);
   const [packed] = await packProduct(tenant, artifacts);
   const artifactPath = join(artifacts, packed.filename);
+  // T-293 B38: the expected identity is the maintained candidate-basis
+  // preparation of this fresh pack: by default its own archive digest and the
+  // identity its packed manifest declares; ABI5_CANDIDATE_BASIS_SOURCE=committed
+  // still selects the separately committed basis. The persisted basis of an
+  // older candidate is not the identity of the archive packed here.
+  const bootstrapRoot = join(scratch, 'bootstrap');
+  await mkdir(bootstrapRoot);
+  await execFileAsync('tar', ['-xzf', artifactPath, '-C', bootstrapRoot]);
+  const candidateBasis = await expectedCandidateBasis(tenant, { artifactPath, productRoot: join(bootstrapRoot, 'package'), product });
+  t.diagnostic(`candidate basis source: ${candidateBasisSource()}`);
   const verified = await product.verifyProduct({ artifactPath, artifactRef: basename(artifactPath),
-    ...expectedVerificationIdentity(await readCandidateBasis(tenant)) });
+    ...expectedVerificationIdentity(candidateBasis) });
   assert.equal(verified.disposition, 'verified', JSON.stringify(verified));
   const lock = product.constructResolvedProductLock([verified]);
   assert.equal(lock.kind, 'resolved_product_lock', JSON.stringify(lock));

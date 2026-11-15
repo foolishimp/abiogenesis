@@ -149,7 +149,7 @@ test('declared failure foldbacks read back by cause: the bound is the origin, th
       valueDigest:product.sha256Canonical(last.payload.value),value:last.payload.value,cCallRef:last.aggregateId,resultAdmissionEventRef:last.eventId});
     assert.equal(stop.statement,`The Run stopped as blocked and did not complete. Reason: ${boundExhausted}. `+
       `Originating Result: recursive_selection_state ${last.payload.resultRef} from ${parentRef}. `+
-      `The last admitted Result of the root GraphCall is recursive_selection_state ${last.payload.resultRef} under contract ${last.payload.contractRef}. No next lawful action is admitted.`);
+      `The last admitted Result of the root GraphCall is recursive_selection_state ${last.payload.resultRef} under contract ${last.payload.contractRef}.`);
     // R-5: the start output states the status read, from the same fold.
     assert.equal(run.owner.value.stopStatement,stop.statement);assert.ok(run.line.includes(JSON.stringify(stop.statement)));
     const folds=await assertEndedFrames('always-fail',run,status);assert.equal(folds.length,4);

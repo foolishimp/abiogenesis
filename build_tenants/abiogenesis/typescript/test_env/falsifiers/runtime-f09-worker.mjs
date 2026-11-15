@@ -1318,6 +1318,8 @@ async function advanceRetry(environment, attemptResult) {
   const beforeFailureEvents = originalReadAll.call(store);
   const beforeFailureDigest = store.digest();
   const beforeFailureBytes = await readFile(environment.eventLogPath, "utf8");
+  const beforeFailureBoundary =
+    environment.eventStoreOwner.selectHeldEventStoreDurablePrefix(store);
   // The route admission reads the store once (its frame liveness); that read
   // sees no events, so the route is refused inside its transaction. A durable
   // store answers that read from its owned history, so inside the route the
@@ -1365,6 +1367,23 @@ async function advanceRetry(environment, attemptResult) {
   storePrototype.digest = originalDigest;
   assert.equal(attemptFailure.kind, "projected_retry_resume_refusal");
   assert.equal(attemptFailure.code, "retry_attempt_refused");
+  assert.deepEqual(store.readAll(), beforeFailureEvents);
+  assert.equal(store.digest(), beforeFailureDigest);
+  assert.equal(await readFile(environment.eventLogPath, "utf8"),
+    beforeFailureBytes);
+  // T-293 B37: the two injected refusals above roll their transactions back.
+  // A rollback abandons the store's derivation generation: the held history
+  // is rebound at the same committed prefix under a fresh derivation source,
+  // so owner values derived in the abandoned generation (the setup artifact
+  // truth held by the actor binding, the continuation basis and the leaf
+  // port) no longer authenticate. As Public continuation reacquires truth,
+  // the fixture reacquires through the existing artifact-truth owner at the
+  // authenticated committed boundary before the next continuation or actor.
+  // The committed prefix, bytes and events are those before the faults.
+  const reacquisition = await reacquireCommittedArtifactTruth(
+    environment,
+    beforeFailureBoundary,
+  );
   assert.deepEqual(store.readAll(), beforeFailureEvents);
   assert.equal(store.digest(), beforeFailureDigest);
   assert.equal(await readFile(environment.eventLogPath, "utf8"),
@@ -1520,8 +1539,82 @@ async function advanceRetry(environment, attemptResult) {
       cyclicCarrierMappedToExactDiagnostic: true,
       projectedXorRejectsRawIngress: true,
       unrelatedRunTailSubstitutionRefused: true,
+      artifactTruthReacquiredAtCommittedBoundary: true,
+      setupArtifactTruthAnswerAfterRollback:
+        reacquisition.setupArtifactTruthAnswerAfterRollback,
     },
   };
+}
+
+// T-293 B37: one reacquisition through the existing owners at the store's
+// authenticated committed boundary. The setup artifact truth's answer after
+// the rollback is observed (not asserted) for the evidence record; nothing is
+// cached, bypassed or suppressed, and every consumer receives the new value.
+async function reacquireCommittedArtifactTruth(environment, expectedBoundary) {
+  const { abg, store } = environment;
+  let setupArtifactTruthAnswerAfterRollback;
+  try {
+    setupArtifactTruthAnswerAfterRollback = abg.hasAdmittedWorkspaceBinding(
+      environment.artifactTruth,
+      environment.workspaceBinding,
+    );
+  } catch (error) {
+    setupArtifactTruthAnswerAfterRollback = `threw: ${String(error)}`;
+  }
+  const committedBoundary =
+    environment.eventStoreOwner.selectHeldEventStoreDurablePrefix(store);
+  assert.equal(
+    committedBoundary.coordinateDigest,
+    expectedBoundary.coordinateDigest,
+    "the committed boundary is the authenticated prefix before the faults",
+  );
+  const artifactTruth = abg.projectOwnedPrefixArtifactTruth(committedBoundary);
+  assert.equal(
+    artifactTruth.kind,
+    "exact_prefix_artifact_truth_projection",
+    JSON.stringify(artifactTruth),
+  );
+  assert.equal(
+    artifactTruth.prefix.coordinateDigest,
+    committedBoundary.coordinateDigest,
+  );
+  assert.equal(
+    abg.validateExactPrefixArtifactTruthProjection(artifactTruth, {
+      requireCurrent: true,
+    }),
+    true,
+  );
+  assert.equal(
+    abg.hasAdmittedWorkspaceBinding(artifactTruth, environment.workspaceBinding),
+    true,
+  );
+  assert.equal(
+    abg.hasAdmittedProductInstall(artifactTruth, environment.admittedInstall),
+    true,
+  );
+  const leafPort =
+    await environment.implementationLeafPort.constructAdmittedLeafInvocationPort({
+      prefix: abg.selectValidatedRuntimeEventPrefix(
+        abg.readRuntimeEventsAtDurablePrefix(
+          environment.executionBasisAdmission.successorPrefix,
+        ),
+      ),
+      artifactTruth,
+      implementationSet: environment.implementationSet,
+      executionResolution: environment.executionResolution,
+      semanticsProjection: environment.semanticsProjection,
+    });
+  environment.artifactTruth = artifactTruth;
+  environment.leafPort = leafPort;
+  environment.actorRuntimeBinding = {
+    workspaceBinding: environment.workspaceBinding,
+    artifactTruth,
+  };
+  environment.continuationProductBasis = {
+    ...environment.continuationProductBasis,
+    artifactTruth,
+  };
+  return { artifactTruth, setupArtifactTruthAnswerAfterRollback };
 }
 
 async function advanceOwnerToLocus(

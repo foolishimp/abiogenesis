@@ -12,25 +12,60 @@ const root = resolve(import.meta.dirname, "../..");
 // Product for this file; each opens its own store, workspace and scratch root on it.
 const sharedInstall = installOncePerFile(() => installTenantOnce(root, { candidateBasisSource: "packed_artifact" }));
 const proofRoot = process.env.ABG_C0_PROOF_ROOT;
+const regressionRoot = process.env.ABG_REGRESSION_PROOF_ROOT;
 const eventTime = "2026-09-07T12:00:00.000Z";
 
+// The complete observed candidate of one case is written before its
+// assertions, one distinct file per case, only under the supplied root.
+async function retainCandidate(name, value) {
+  if (!regressionRoot) return;
+  const directory = join(regressionRoot, "t287-c0-correction-regressions");
+  await mkdir(directory, { recursive: true });
+  await writeFile(join(directory, `${name}.json`), JSON.stringify(value, (_key, item) =>
+    item instanceof Uint8Array ? { utf8: Buffer.from(item).toString("utf8"), byteLength: item.byteLength } : item) + "\n");
+}
+
 // Bounded exact-helper probes with stubbed filesystem: no installed runtime claim.
+// T-293 B45: B21 split the retired single inspector into metadata-only
+// `inspectTargetLocation` and `readTargetFile`, so the physical protected-root
+// exclusion precedes any content read. The guarded read/close block is the
+// unchanged body of `readTargetFile`; the probe extracts the current helpers
+// and drives that block at its filesystem seam. Nothing restores a read before
+// the exclusion.
 test("correction: observation finalizes after read and close with primary precedence", async () => {
   const effect = await import(pathToFileURL(join(root, "build/code/src/product/worksite_effect.js")));
   const source = await readFile(join(root, "build/code/src/product/worksite_operations.js"), "utf8");
-  const body = source.slice(source.indexOf("async function inspectTargetPath("), source.indexOf("async function inspectPhysicalDirectory("));
+  const slice = (from, to) => {
+    const start = source.indexOf(from), end = source.indexOf(to);
+    assert.ok(start >= 0 && end > start, `${from} precedes ${to} in the compiled owner`);
+    return source.slice(start, end);
+  };
+  assert.equal(source.includes("async function inspectTargetPath("), false, "the retired combined inspector is absent");
+  const locationBody = slice("async function inspectTargetLocation(", "async function readTargetFile(");
+  const body = slice("async function readTargetFile(", "async function inspectPhysicalDirectory(");
+  assert.ok(locationBody.length > 0);
   assert.ok(body.length > 0);
   const status = { isFile: () => true, isDirectory: () => true, isSymbolicLink: () => false, nlink: 1, dev: 1, ino: 2 };
   for (const [readFails, closeFails] of [[false, false], [true, false], [false, true], [true, true]]) {
-    let closed = 0;
-    const inspect = new Function("lstat", "realpath", "open", "resolve", "constants", "worksiteRefusal", "errnoCode", `${body}; return inspectTargetPath;`)(
+    let closed = 0, opened = 0;
+    const [locate, inspect] = new Function("lstat", "realpath", "open", "resolve", "constants", "worksiteRefusal", "errnoCode",
+      `${locationBody}; ${body}; return [inspectTargetLocation, readTargetFile];`)(
       async () => status, async value => value,
-      async () => ({ stat: async () => status,
+      async () => { opened += 1; return { stat: async () => status,
         readFile: async () => { if (readFails) throw Object.assign(new Error("FIRST_READ_EIO"), { code: "EIO" }); return Buffer.from("observed"); },
         close: async () => { closed += 1; if (closeFails) throw Object.assign(new Error("LATER_CLOSE_EBADF"), { code: "EBADF" }); },
-      }), resolve, constants, effect.worksiteRefusal, error => error.code ?? null,
+      }; }, resolve, constants, effect.worksiteRefusal, error => error.code ?? null,
     );
-    const result = await inspect({ canonicalRoot: "/tmp", targetPath: "/tmp/target" }, { relativePath: "target" });
+    const target = { canonicalRoot: "/tmp", targetPath: "/tmp/target", protectedRoots: [] };
+    const located = await locate(target, { relativePath: "target" });
+    const openedByLocation = opened;
+    const result = await inspect(target);
+    await retainCandidate(`read-${readFails ? "fails" : "succeeds"}-close-${closeFails ? "fails" : "succeeds"}`,
+      { readFails, closeFails, located, openedByLocation, opened, closed, result });
+    // Metadata location opens nothing; the reader opens once and closes once.
+    assert.equal(located, "file");
+    assert.equal(openedByLocation, 0);
+    assert.equal(opened, 1);
     assert.equal(closed, 1);
     if (readFails || closeFails) {
       assert.equal(result.kind, "worksite_effect_refusal");

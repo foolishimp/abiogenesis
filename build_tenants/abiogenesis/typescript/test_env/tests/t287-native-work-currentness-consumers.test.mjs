@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import fs from 'node:fs/promises';
 import { syncBuiltinESMExports } from 'node:module';
-import { dirname, join } from 'node:path';
+import { dirname, join, relative } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { createU1Fixture, product, hash, ids, identity, clone, current, component, traceInvalidator, admittedResult, admitNativeSource, semanticFixtureHelpers, componentNativeAssessment,
   createWorksiteCauseHistory, eventVisitCounter, builtModuleExports } from '../support/t287-native-work-currentness-consumers.mjs';
@@ -425,9 +425,18 @@ async function semanticOwnerHarness(data) {
   const rootAdmissions = key => admittedRoots.filter(b => 'invocation:' + b.invocationRef === key).map(b => ({ kind: 'basis_admitted',
     payload: { basisClass: 'root', basisRef: b.basisRef, invocationAdmissionRef: b.invocationAdmissionRef, implementationSetRef: b.rootImplementationSetRef, rawInputValue: b.rawInputValue } }));
   const pub = helpers.declaredPublication;
+  // T-293 B39: the install premise is the binding's own declared Product root
+  // (the installed-root relation the execution basis owner requires), which
+  // is physically disjoint from the worksite. The former premise
+  // `installedRoot: env.scratch` enclosed `env.scratch/worksite`, so the
+  // protected-root observer correctly refused every worksite subject.
+  const installedRoot = f.workspaceBinding.roots.productRoot;
+  await fs.mkdir(installedRoot, { recursive: true });
+  assert.equal(relative(installedRoot, f.workspaceAuthorityBasis.canonicalRoot).startsWith('..'), true, 'install root does not enclose the worksite');
+  assert.equal(relative(f.workspaceAuthorityBasis.canonicalRoot, installedRoot).startsWith('..'), true, 'worksite does not enclose the install root');
   const environment = { kind: 'exact_prefix_workspace_environment', workspaceAuthorityBasis: f.workspaceAuthorityBasis, workspaceBinding: f.workspaceBinding,
     productInstalls: [{ productId: pub.owningProductId, artifactDigest: pub.artifactDigest, productContentDigest: pub.productContentDigest,
-      manifestDigest: pub.productManifestDigest, installedRoot: env.scratch,
+      manifestDigest: pub.productManifestDigest, installedRoot,
       contributionManifest: { publicationBindings: [{ moduleRef: pub.moduleRef, publicationDigest: p.modulePublicationSemanticDigest(pub) }] } }] };
   let owned;
   const basis = { publication: pub, lifecyclePublication: pub, sourcePublication: pub, declarationGraphFunctions: [], graphFunction: { declarations: {} } };

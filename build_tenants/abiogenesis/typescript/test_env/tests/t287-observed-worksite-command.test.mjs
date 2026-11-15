@@ -157,6 +157,16 @@ test('observed C2 zero write declaration executes readonly helper and refuses re
   fs.mkdirSync(nativeRoot, { recursive: true });
   fs.cpSync(resolve(import.meta.dirname, '../../build/code/src'), join(nativeRoot, 'build/code/src'),
     { recursive: true, filter: path => fs.statSync(path).isDirectory() || path.endsWith('.js') });
+  // T-293 B42: the copied physical-path observer loads its own prebuilt module
+  // from the package-relative `build/native` member (no global fallback), so
+  // the copy carries those exact bytes at that position, as the maintained
+  // isolated compiled copy carries all of `build/`.
+  const nativeMember = 'build/native/abg_physical_path.node';
+  const ownNative = resolve(import.meta.dirname, '../..', nativeMember);
+  fs.mkdirSync(join(nativeRoot, 'build/native'), { recursive: true });
+  fs.copyFileSync(ownNative, join(nativeRoot, nativeMember), fs.constants.COPYFILE_EXCL);
+  assert.equal(p.sha256Bytes(fs.readFileSync(join(nativeRoot, nativeMember))), p.sha256Bytes(fs.readFileSync(ownNative)),
+    'the copied observer module is the exact own build/native member');
   fs.writeFileSync(join(nativeRoot, 'package.json'), JSON.stringify({ type: 'module' }));
   fs.symlinkSync(resolve(import.meta.dirname, '../../node_modules'), join(nativeRoot, 'node_modules'), 'dir');
   fs.mkdirSync(f.workspaceBinding.roots.productRoot);
@@ -180,6 +190,16 @@ test('observed C2 zero write declaration executes readonly helper and refuses re
     const plan = worksiteCommandExecutionHelperPlan(task, `worksite-command-attempt://abiogenesis/${attemptDigest.slice(7)}`);
     const execution = spawnSync(process.execPath, [plan.helperModulePath, '--task', join(dirname(plan.taskManifestPath), 'launch.json')],
       { encoding: 'utf8', timeout: 10_000 });
+    // The complete helper process candidate is retained before any assertion.
+    const regressionRoot = process.env.ABG_REGRESSION_PROOF_ROOT;
+    if (regressionRoot) {
+      const directory = join(regressionRoot, 't287-observed-worksite-command');
+      fs.mkdirSync(directory, { recursive: true });
+      fs.writeFileSync(join(directory, `zero-write-${label}.json`), JSON.stringify({ case: label, taskDigest: task.taskDigest,
+        status: execution.status, signal: execution.signal, error: execution.error === undefined ? null : String(execution.error),
+        stdout: execution.stdout, stderr: execution.stderr,
+        artifact: fs.existsSync(plan.artifactPath) ? fs.readFileSync(plan.artifactPath, 'utf8') : null }) + '\n');
+    }
     assert.equal(execution.status, 0, execution.stderr);
     const artifact = JSON.parse(fs.readFileSync(plan.artifactPath, 'utf8'));
     assert.equal(p.isWorksiteExecutionHelperArtifact(task, artifact), true);
