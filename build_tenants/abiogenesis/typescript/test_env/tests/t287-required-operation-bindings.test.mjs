@@ -6,7 +6,7 @@
 // transport and log, each with its one admitted artifact event, its truth and its files.
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { readFile, readdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { runInstalledLanguageTest } from '../support/installed-language-test.mjs';
@@ -237,10 +237,27 @@ test('T-287 R2-b result.assess through the installed transport: the declared res
   // T-287 R2-c: product.materialize through the same transport and log.
   const truthModule = await import(pathToFileURL(join(c.e.installedRoot, 'build/code/src/abg/artifact_truth.js')).href);
   const materializations = join(c.e.workspaceBinding.roots.projectionRoot, 'product-materializations');
-  const rulingsRows = c.e.admittedInstalls.flatMap(i => i.publicContracts).filter(r => r.contractId === 'abg.schema.review-rulings');
-  assert.equal(rulingsRows.length, 1);
-  const rulings = { ref: rulingsRows[0].contractId, digest: rulingsRows[0].contractDigest };
-  const ruling = [{ rulingRef: 'ruling://t287-r2c/1', rulingKind: 'deferment', findingRefs: [], rationaleRef: 'rationale://t287-r2c/1', payloadRef: 'payload://t287-r2c/1' }];
+  // T-293 B36: the fixed 15-family 5.0 Product retires the Consensus schemas, so
+  // the earlier `abg.schema.review-rulings` fixture is now an explicit
+  // retirement absence. The current fixture is a schema_asset row the installed
+  // Product owner itself publishes and admits: the native semantic-stage
+  // assessment schema. Its installed JSON Schema decides each value.
+  const installedContracts = c.e.admittedInstalls.flatMap(i => i.publicContracts);
+  assert.deepEqual(installedContracts.filter(r => r.contractId === 'abg.schema.review-rulings'), [],
+    'the retired Consensus review-rulings schema is absent from the current installs');
+  const schemaRows = installedContracts.filter(r =>
+    r.contractId === 'contract://abiogenesis/semantic-stage/native-assessment@5' && r.contractKind === 'schema_asset');
+  assert.equal(schemaRows.length, 1, JSON.stringify(schemaRows));
+  assert.equal(schemaRows[0].assetLocator?.mediaType, 'application/schema+json', JSON.stringify(schemaRows[0]));
+  const schemaContract = { ref: schemaRows[0].contractId, digest: schemaRows[0].contractDigest };
+  const schemaValue = { kind: 'semantic_stage_assessment_candidate', schemaVersion: '5.0.0',
+    criteria: [{ criterionRef: 'criterion://t287-r2c/1', disposition: 'indeterminate', explanation: 'explanation://t287-r2c/1',
+      sourceQuotes: [], statementRefs: [] }], pressure: [] };
+  const schemaPending = { kind: 'semantic_stage_assessment_candidate', schemaVersion: '5.0.0',
+    criteria: [{ criterionRef: 'criterion://t287-r2c/2', disposition: 'satisfied', explanation: 'explanation://t287-r2c/2',
+      sourceQuotes: [{ memberRef: 'member://t287-r2c/2', quote: 'quote://t287-r2c/2' }], statementRefs: ['statement://t287-r2c/2'] }],
+    pressure: [{ pressureRef: 'pressure://t287-r2c/2', text: 'pressure://t287-r2c/2/text', requirementRefs: [], disposition: 'pending' }] };
+  const proofRoot = process.env.ABG_REGRESSION_PROOF_ROOT;
   const bindingPair = { ref: c.e.workspaceBinding.bindingId, digest: c.e.workspaceBinding.bindingDigest };
   const runMaterialize = async (identity, memberKey, request) => {
     const made = await authorizedMaterializeCall(c, handoff, memberKey, request, identity);
@@ -250,6 +267,12 @@ test('T-287 R2-b result.assess through the installed transport: the declared res
     const filesBefore = await filesUnder(c.product, materializations);
     const output = (await runInstalledCliRequest({ scratch: c.e.scratch, installedRoot: c.e.installedRoot, identity,
       acquisition: { kind: 'reopen', closeHandoff: handoff }, call: made.call, expectedExitCode: null })).output;
+    // The complete candidate, retained per case before any assertion over it.
+    if (proofRoot) {
+      const retained = join(proofRoot, 't287-required-operation-bindings');
+      await mkdir(retained, { recursive: true });
+      await writeFile(join(retained, `${identity}.json`), `${JSON.stringify(output, null, 2)}\n`);
+    }
     assert.equal(output.kind, 'installed_definition_call_transport_result', JSON.stringify(output));
     const receipt = output.receipt;
     assert.equal(receipt.failure, null, JSON.stringify(receipt));
@@ -336,24 +359,26 @@ test('T-287 R2-b result.assess through the installed transport: the declared res
 
   await t.test('product.materialize#context_bootstrap: the declared result, its one artifact event, its truth and its files', async () => {
     const { owned } = await materialized('materialize-context-positive', 'context_bootstrap', { workspace: workspace(), binding: bindingPair,
-      contextInputs: [{ name: 'review-rulings/deferment', contract: rulings, value: ruling }, { name: 'review-rulings/empty', contract: rulings, value: [] }] });
-    assert.deepEqual(owned.rows.map(r => r.inputRef), ['review-rulings/deferment', 'review-rulings/empty']);
-    assert.deepEqual(owned.rows.map(r => r.inputDigest), [c.product.sha256Canonical(ruling), c.product.sha256Canonical([])]);
+      contextInputs: [{ name: 'native-assessment/indeterminate', contract: schemaContract, value: schemaValue },
+        { name: 'native-assessment/pending', contract: schemaContract, value: schemaPending }] });
+    assert.deepEqual(owned.rows.map(r => r.inputRef), ['native-assessment/indeterminate', 'native-assessment/pending']);
+    assert.deepEqual(owned.rows.map(r => r.inputDigest), [c.product.sha256Canonical(schemaValue), c.product.sha256Canonical(schemaPending)]);
   });
 
   await t.test('product.materialize#context_bootstrap: an owner refusal maps onto the declared reason with its issuePaths', async () => {
     // Two declared inputs with one content: the owner refuses its non-unique content addresses before any write.
     await refused('materialize-context-refusal', 'context_bootstrap', { workspace: workspace(), binding: bindingPair,
-      contextInputs: [{ name: 'review-rulings/a', contract: rulings, value: [] }, { name: 'review-rulings/b', contract: rulings, value: [] }] },
+      contextInputs: [{ name: 'native-assessment/a', contract: schemaContract, value: schemaValue },
+        { name: 'native-assessment/b', contract: schemaContract, value: schemaValue }] },
     { code: 'input_mismatch', issuePaths: ['/contextInputs'], evidenceRefs: [] });
   });
 
   let configured;
   await t.test('product.materialize#configuration: the declared result, its one artifact event, its truth and its files', async () => {
     configured = await materialized('materialize-configuration-positive', 'configuration',
-      { configurationContract: rulings, binding: bindingPair, inputs: ruling });
-    assert.deepEqual(configured.owned.rows.map(r => [r.inputRef, r.inputDigest]), [[rulings.ref, c.product.sha256Canonical(ruling)]]);
-    assert.ok(configured.value.provenance.some(p => p.ref === rulings.ref && p.digest === rulings.digest));
+      { configurationContract: schemaContract, binding: bindingPair, inputs: schemaValue });
+    assert.deepEqual(configured.owned.rows.map(r => [r.inputRef, r.inputDigest]), [[schemaContract.ref, c.product.sha256Canonical(schemaValue)]]);
+    assert.ok(configured.value.provenance.some(p => p.ref === schemaContract.ref && p.digest === schemaContract.digest));
   });
 
   await t.test('product.materialize#configuration: an owner refusal maps onto the declared reason with its issuePaths', async () => {
@@ -361,7 +386,7 @@ test('T-287 R2-b result.assess through the installed transport: the declared res
     const contentPath = configured.owned.content.contentPath;
     await writeFile(contentPath, '{}\n');
     await refused('materialize-configuration-refusal', 'configuration',
-      { configurationContract: rulings, binding: bindingPair, inputs: ruling },
+      { configurationContract: schemaContract, binding: bindingPair, inputs: schemaValue },
       { code: 'authority_mismatch', issuePaths: ['/binding'], evidenceRefs: [] });
     assert.equal(await readFile(contentPath, 'utf8'), '{}\n');
   });

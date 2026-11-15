@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import test from 'node:test';
 import * as gtl from '../support/language-structural-gtl.mjs';
 import * as m02 from '../../build/code/src/gtl/m02.js';
@@ -50,5 +51,24 @@ test('all eight shipped publications omit retired Program members without withdr
  const basis={productId:product.ABI5_PRODUCT_ID,packageName:product.ABI5_PACKAGE_NAME,packageVersion:product.ABI5_PACKAGE_VERSION,artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
  const publications=names.map(name=>gtl[name](basis));
  for(const publication of publications)for(const program of publication.programs)for(const key of ['actionCatalog','constructionComposition'])assert.equal(Object.hasOwn(program,key),false,publication.moduleRef+' '+key);
- assert.equal(product.MANDATORY_SCHEMA_VOCABULARY_CORPUS_IDS.length,42);
+ // T-293 B36: the fixed 15-family 5.0 vocabulary is 33 identities; the nine
+ // Consensus identities are retired to the planned 5.1 Product (A5-F08). The
+ // retired Program members withdraw no GTL corpus identity: the corpus row, its
+ // eleven case IDs and their diagnostic-vocabulary bindings all remain.
+ const mandatory=product.MANDATORY_SCHEMA_VOCABULARY_CORPUS_IDS;
+ assert.equal(mandatory.length,33);
+ assert.deepEqual(mandatory.filter(id=>/consensus|review-(?:findings|rulings|ruling-kind)/u.test(id)),[],'Consensus identities are retired from the current vocabulary');
+ for(const id of ['abg.asset.gtl.language-conformance-corpus','abg.vocabulary.gtl-program-diagnostic-id','abg.schema.gtl-graph-function','abg.schema.gtl-module','abg.schema.gtl-c-program','abg.schema.gtl-program-conformance-input'])assert.ok(mandatory.includes(id),id);
+ const corpus=JSON.parse(readFileSync(new URL('../../contracts/conformance/gtl-language-conformance-corpus.json',import.meta.url),'utf8'));
+ const vocabulary=JSON.parse(readFileSync(new URL('../../contracts/vocabularies/gtl-program-diagnostic-id.json',import.meta.url),'utf8'));
+ assert.equal(corpus.diagnosticVocabularyContractRef,'abg.vocabulary.gtl-program-diagnostic-id');
+ assert.equal('abg.vocabulary.'+vocabulary.vocabularyId,corpus.diagnosticVocabularyContractRef);
+ const mutations=corpus.programs.flatMap(program=>program.mutations);
+ const caseIds=[...corpus.localNegatives,...corpus.programs,...mutations].map(entry=>entry.caseId).sort();
+ assert.deepEqual(caseIds,['broken-identity-carrier','duplicate-membership','foreign-module','missing-binding','missing-callable','missing-contracts',
+  'missing-retry-child','original-source-declarations-program','unknown-recursive-key','unsafe-retry-budget','wrong-edge-role']);
+ assert.deepEqual(mutations.map(mutation=>[mutation.caseId,mutation.expectedDiagnosticIds]),[['foreign-module',['identity_mismatch']],
+  ['duplicate-membership',['duplicate_identity']],['missing-callable',['missing_membership']],['missing-binding',['missing_binding']],['missing-contracts',['missing_contract']]]);
+ for(const program of corpus.programs)assert.deepEqual(program.expectedDiagnosticIds,[],program.caseId);
+ for(const id of mutations.flatMap(mutation=>mutation.expectedDiagnosticIds))assert.ok(vocabulary.values.includes(id),id);
 });

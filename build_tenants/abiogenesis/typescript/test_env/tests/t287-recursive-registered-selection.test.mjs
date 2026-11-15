@@ -24,22 +24,28 @@ function environmentDeclaration(){
     roles:[{graphFunctionRef:ref('graph-function','root'),programLocusRef:ref('node','select'),role:'selector',frameRefs:['frame:executive'],policy:{policyRef:'policy:frame',text,digest},contextPolicy:{policyRef:'policy:context',selectors:['full_source','active_binding_semantics']},accessRefs:[],sourceBindings:[{contextRef:'context:frame',memberRef:contextMember.memberRef,memberDigest:digest,startByte:0,endByte:Buffer.byteLength(text),spanDigest:digest}]}]});
 }
 test('run.continue current-execution request is the pending-execution arm under one closed continuationKind domain',()=>{
-  const c=r=>({ref:r,digest:'sha256:'+'1'.repeat(64)}),current=product.RUN_OPERATION_CONTRACTS.continue.current_intent,selected=product.RUN_OPERATION_CONTRACTS.continue.selected_action;
+  // T-293 B36: the fixed 5.0 family retires run.continue#selected_action, so
+  // its former request/result/domain claims are now explicit retirement
+  // absence: current_intent is the sole continue member and refuses each
+  // selected-action shape.
+  const c=r=>({ref:r,digest:'sha256:'+'1'.repeat(64)}),current=product.RUN_OPERATION_CONTRACTS.continue.current_intent;
+  assert.deepEqual(Object.keys(product.RUN_OPERATION_CONTRACTS.continue),['current_intent'],'selected_action is retired from run.continue');
+  assert.equal(Object.hasOwn(product.RUN_OPERATION_CONTRACTS.continue,'selected_action'),false);
   const base={run:c('run://x'),continuation:c('continuation://x'),continuationInput:c('result://x'),expectedBasis:c('execution-basis://x')},ok=(schema,value)=>v.safeParse(schema,value).success;
   assert.equal(ok(current.requestSchema,{...base,currentIntent:c('intent://x')}),false,'a construction-intent body refuses');
   assert.equal(ok(current.requestSchema,{...base,pendingCursor:c('cursor://x')}),true,'pending-execution arm');
   assert.equal(ok(current.requestSchema,{...base,currentIntent:c('intent://x'),pendingCursor:c('cursor://x')}),false,'mixed arm refuses');
   assert.equal(ok(current.requestSchema,base),false,'no arm refuses');
   assert.equal(ok(current.requestSchema,{...base,pendingCursor:c('cursor://x'),selectedAction:c('action://x')}),false,'no action field on the pending arm');
-  assert.equal(ok(selected.requestSchema,{...base,pendingCursor:c('cursor://x')}),false,'the pending arm is not a selected_action request');
+  assert.equal(ok(current.requestSchema,{...base,selectedAction:c('action://x'),basisRelation:{kind:'same_basis'}}),false,'a retired selected_action request refuses');
   assert.deepEqual(current.metadata.closedDomains.continuationKind,['pending_execution']);
-  assert.deepEqual(selected.metadata.closedDomains.continuationKind,['selected_action']);
+  assert.equal(current.metadata.closedDomains.continuationKind.includes('selected_action'),false,'the closed domain publishes no selected_action kind');
   const result={run:c('run://x'),graphCall:null,admittedIntent:null,successor:c('continuation://x'),disposition:'completed',evidence:[c('evidence://x')],replay:c('replay://x')};
   assert.equal(ok(current.resultSchema,{...result,continuationKind:'pending_execution'}),true);
   assert.equal(ok(current.resultSchema,{...result,continuationKind:'current_intent'}),false,'the retired result kind is unavailable');
   assert.equal(ok(current.resultSchema,{...result,continuationKind:'selected_action'}),false,'selected_action is not a current-execution result');
-  assert.equal(ok(selected.resultSchema,{...result,admittedIntent:c('intent://x'),continuationKind:'selected_action'}),true);
-  assert.equal(ok(selected.resultSchema,{...result,admittedIntent:c('intent://x'),continuationKind:'pending_execution'}),false,'pending_execution is not a selected_action result');
+  assert.equal(ok(current.resultSchema,{...result,admittedIntent:c('intent://x'),continuationKind:'selected_action'}),false,'a retired selected_action result refuses');
+  assert.equal(ok(current.resultSchema,{...result,admittedIntent:c('intent://x'),continuationKind:'pending_execution'}),false,'a pending_execution result admits no intent');
 });
 test('recursive fixture declares a valid bounded Program with one registered F_D selector',()=>{
   const digest='sha256:'+'1'.repeat(64),d=declarations(gtl);

@@ -786,7 +786,17 @@ test('qualification material at a genuine owned cut: an invalidating producer fi
     refusals: {warm: warm2.value, copied: copied2.value, cold: cold2.value}, measurements: rows.map(summary)};
 });
 
-test('complete-pair owners refuse orphan F_H, construction-intent and selected-action operations by stage and admission order, alike warm, copied and cold; a mixed arm is refused at admission; the baseline and unrelated growth keep their values', {timeout: 900_000}, async t => {
+// T-293 B36 retirement: this case replaces the retired title "complete-pair
+// owners refuse orphan F_H, construction-intent and selected-action operations
+// by stage and admission order, alike warm, copied and cold; a mixed arm is
+// refused at admission; the baseline and unrelated growth keep their values".
+// The fixed 5.0 Product retains only the pending_execution realization of
+// run.continue; construction-intent and selected-action continuations are
+// retired and native F_H response is reserved to 5.1. The F_H owner therefore
+// refuses every non-pending run.continue and interaction.respond operation as
+// one orphan set, so a retired construction arm is no longer "not an F_H use"
+// and a later orphan no longer leaves an earlier stage's refusal.
+test('complete-pair owners refuse retired construction-intent and selected-action continuations and orphan F_H operations as one F_H orphan set, alike warm, copied and cold; a mixed arm is refused at admission; the baseline and unrelated growth keep their values', {timeout: 900_000}, async t => {
   // Each history is one actual installed Run; every control row is a
   // contract-valid public operation admitted by the actual Event Store.
   const KEYS = {
@@ -865,31 +875,38 @@ test('complete-pair owners refuse orphan F_H, construction-intent and selected-a
   const intent = label => [label, 'construction_intent', {operationId: 'abg.operation.run.continue', memberKey: 'current_intent', continuationKind: 'construction_intent'}];
   const selected = label => [label, 'selected_action', {operationId: 'abg.operation.run.continue', memberKey: 'selected_action', continuationKind: 'selected_action'}];
   const respond = label => [label, 'fh', {operationId: 'abg.operation.interaction.respond', memberKey: 'respond'}];
-  // History A: an orphan construction intent; a later orphan selected action in
-  // the same stage leaves the first refusal; an orphan F_H use is checked by an
-  // earlier stage and takes over; unrelated growth changes nothing.
+  const orphanSet = refs => ({disposition: 'invalid_history', eventRefs: [...refs].sort()});
+  const record = histories => Object.fromEntries(histories.map(([key, value]) => [key, {admitted: value.admitted, mixedArmRefusal: value.mixedArmRefusal,
+    cuts: value.cuts.map(cut => ({label: cut.label, prefixLength: cut.prefix.prefixLength, truth: cut.warm.truth.map(item => ({disposition: item.disposition,
+      code: item.code ?? null, eventRefs: item.eventRefs ?? null})), fh: cut.warm.fh}))}]));
+  // History A: a retired construction intent, a retired selected action and an
+  // orphan F_H response; each joins the one sorted F_H orphan set that every
+  // effectful owner refuses; unrelated growth changes nothing.
   const a = await history('single-address-space-complete-pair-a', [intent('orphan-intent'), selected('orphan-selected'), respond('orphan-respond')]);
+  // History B: the retired selected action alone is the whole orphan set; a
+  // mixed arm (construction-intent body under the selected-action kind)
+  // matches no contract variant and the Event Store refuses it unwritten.
+  const b = await history('single-address-space-complete-pair-b', [selected('orphan-selected')], {mixedArm: true});
+  // The complete candidate is recorded before any assertion over it.
+  proof.cases.completePairControls = record([['a', a], ['b', b]]);
+  t.diagnostic(JSON.stringify(proof.cases.completePairControls));
   baseline(a);
   const [, orphanCut, selectedCut, respondCut, unrelatedCut] = a.cuts;
-  refusal(orphanCut, [a.admitted['orphan-intent']]);
-  assert.deepEqual(orphanCut.warm.fh, {disposition: 'valid', facts: []}, 'a construction-arm operation is not an F_H use');
-  refusal(selectedCut, [a.admitted['orphan-intent']]);
-  refusal(respondCut, [a.admitted['orphan-respond']]);
-  assert.deepEqual(respondCut.warm.fh, {disposition: 'invalid_history', eventRefs: [a.admitted['orphan-respond']]});
-  refusal(unrelatedCut, [a.admitted['orphan-respond']]);
+  const intentRef = a.admitted['orphan-intent'], selectedRef = a.admitted['orphan-selected'], respondRef = a.admitted['orphan-respond'];
+  refusal(orphanCut, orphanSet([intentRef]).eventRefs);
+  assert.deepEqual(orphanCut.warm.fh, orphanSet([intentRef]), 'a retired construction arm is an F_H-refused orphan');
+  refusal(selectedCut, orphanSet([intentRef, selectedRef]).eventRefs);
+  assert.deepEqual(selectedCut.warm.fh, orphanSet([intentRef, selectedRef]), 'a retired selected action joins the orphan set');
+  refusal(respondCut, orphanSet([intentRef, selectedRef, respondRef]).eventRefs);
+  assert.deepEqual(respondCut.warm.fh, orphanSet([intentRef, selectedRef, respondRef]));
+  refusal(unrelatedCut, orphanSet([intentRef, selectedRef, respondRef]).eventRefs);
   assert.deepEqual(unrelatedCut.warm.fh, respondCut.warm.fh);
-  // History B: the orphan selected action alone is refused by its own arm
-  // owner; a mixed arm (construction-intent body under the selected-action
-  // kind) matches no contract variant and the Event Store refuses it unwritten.
-  const b = await history('single-address-space-complete-pair-b', [selected('orphan-selected')], {mixedArm: true});
   baseline(b);
   refusal(b.cuts[1], [b.admitted['orphan-selected']]);
   refusal(b.cuts[2], [b.admitted['orphan-selected']]);
+  assert.deepEqual(b.cuts[1].warm.fh, orphanSet([b.admitted['orphan-selected']]));
+  assert.deepEqual(b.cuts[2].warm.fh, b.cuts[1].warm.fh);
   assert.match(b.mixedArmRefusal, /matches no admitted event-contract variant/);
-  proof.cases.completePairControls = Object.fromEntries([['a', a], ['b', b]].map(([key, value]) => [key, {admitted: value.admitted,
-    cuts: value.cuts.map(cut => ({label: cut.label, prefixLength: cut.prefix.prefixLength, truth: cut.warm.truth.map(item => ({disposition: item.disposition,
-      code: item.code ?? null, eventRefs: item.eventRefs ?? null})), fh: cut.warm.fh}))}]));
-  t.diagnostic(JSON.stringify(proof.cases.completePairControls));
 });
 
 test('maintained SDK setup holds one acquired resource, borrows every history call, closes once, owns failure cleanup and reopens cold', {timeout: 900_000}, async t => {
