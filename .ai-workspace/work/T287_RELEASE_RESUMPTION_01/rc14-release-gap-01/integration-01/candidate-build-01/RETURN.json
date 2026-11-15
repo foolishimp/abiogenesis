@@ -1,0 +1,293 @@
+{
+  "kind": "rc14_candidate_build_operator_return",
+  "activationId": "RC14-CANDIDATE-BUILD-OPERATOR-001",
+  "grantCheckpoint": "8e5c2a5cc46150f1525a926a6c512f4590c52fcb",
+  "status": "PROSPECTIVE_CANDIDATE_PREPARED_SOURCE_FINALIZATION_REQUIRED",
+  "role": "separate_candidate_build_Operator_after_closed_C0_Writer",
+  "productFrame": "Fixed ABIogenesis5.0 T287 RC14 S07 / REQ-P-QUAL-057C: prospective unqualified candidate preparation only",
+  "subject": {
+    "commit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "tree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
+    "compiledLineageUnchangedByLaterRecords": true
+  },
+  "cutControls": {
+    "commit": "28983a1e299c707d2f466a4615dc17e195b8c96f",
+    "manifestSha256": "da49f6dc6a36302b106434a7d11ba3f5aab52e94244890849a3600dd05d9380c"
+  },
+  "startedUtc": "2026-11-15T15:17:49.620719+00:00",
+  "closedUtc": "2026-11-15T15:19:00.242105+00:00",
+  "originalDeadlineUtc": "2026-11-15T15:47:49.620719+00:00",
+  "elapsedMs": 70621,
+  "withinOriginalDeadline": true,
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01",
+  "archive": {
+    "name": "abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "bytes": 10814430,
+    "sha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz"
+  },
+  "identity": {
+    "artifactDigest": "sha256:5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "productContentDigest": "sha256:7646989ad108d1f4cfb8075909c9a26208f5f605b23b590e264c25544ba3332a",
+    "manifestDigest": "sha256:80ca2ae2e4152cfa84a8e811fdeb163acb8a1abb96a22c99f3aa6849406501d1"
+  },
+  "members": {
+    "count": 5302,
+    "payloadBytes": 69284648,
+    "inventoryDigest": "bfa5e79a6add433436d9e71f69376611c477ae3862e16bd044490de98923a3cc",
+    "file": "ARCHIVE_MEMBERS.json",
+    "builtTreeByteEqual": true,
+    "buildAndContractsFilesAllPresent": 972
+  },
+  "archiveMemberRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/ARCHIVE_MEMBERS.json",
+    "bytes": 1094276,
+    "sha256": "bc426b70235cde976c632d478fde3750d54cfc62a41db8220525c113c80597a4"
+  },
+  "buildRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/source/build_tenants/abiogenesis/typescript",
+  "nativeObserver": {
+    "path": "build/native/abg_physical_path.node",
+    "bytes": 52264,
+    "sha256": "1b6a1d8944275c98d84ba9b2124fda72b7942285fc7e64930ee00578130edb77",
+    "mode": 493
+  },
+  "nativeBuildInputs": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/source/build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+    "bytes": 51233,
+    "sha256": "f0073d316c1c2ca67c7d7672830162633b3067001dbcb4df0370b6718694cad7"
+  },
+  "candidateBasis": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/source/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+    "bytes": 517,
+    "sha256": "0b893884ac7b2e25f0bd94621ebb0502ebc07008fb28e715f07b8771c7f6b7ae",
+    "exactArchiveIdentity": true,
+    "runtimePayload": false
+  },
+  "productVerification": {
+    "owner": "product.verifyProduct imported from the archive",
+    "disposition": "verified",
+    "checkedPayloadFiles": 5300
+  },
+  "generated": {
+    "equal": false,
+    "committed": [
+      {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 3100640,
+        "sha256": "00e0647836f72999ab899375067c4093a79d3cec07b1e063e0fb937f88019410"
+      },
+      {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 150703,
+        "sha256": "4dec56be36f3100d7d340b1c8df975acd09fc137804a387bb1db7da62de2a151"
+      }
+    ],
+    "regenerated": [
+      {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 3101102,
+        "sha256": "2bfb3663bb394f1b735703670cdbbe93c608117ad0527a550ea15e8971555c0d"
+      },
+      {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 150703,
+        "sha256": "81b3acbaefed2d191c53ab68c94ae64ba8f6c99ed450c4b7d33707dde8237a30"
+      }
+    ],
+    "locatorDelta": {
+      "added": [
+        "build/code/src/shared/diagnostic_text.d.ts",
+        "build/code/src/shared/diagnostic_text.js",
+        "build/code/src/shared/physical_path_observation.d.ts",
+        "build/code/src/shared/physical_path_observation.js",
+        "build/code/src/shared/physical_path_relation.d.ts",
+        "build/code/src/shared/physical_path_relation.js",
+        "build/code/src/shared/worksite_command_physical_boundary.d.ts",
+        "build/code/src/shared/worksite_command_physical_boundary.js",
+        "build/native/abg_physical_path.node"
+      ],
+      "removed": [],
+      "committedVersion": "5.0.0-rc.13",
+      "committedContentDigest": "sha256:ab3c4deeb7d7fa8c057a7d3ce49c2b310809dd54cea99b7702de02926c5e4955"
+    }
+  },
+  "derivedSourceFinalizationRequired": true,
+  "environment": {
+    "HOME": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/environment/home",
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "TMPDIR": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_userconfig": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/npm/npm-user.npmrc",
+    "npm_config_globalconfig": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/npm/npm-global.npmrc",
+    "npm_config_cache": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/npm/cache",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false"
+  },
+  "timingsMs": {
+    "compile": 6330,
+    "native": 520,
+    "generate": 17438,
+    "refreshBasis": 4901,
+    "pack": 4416
+  },
+  "commands": [
+    {
+      "label": "archive",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/commands/archive.json",
+      "sha256": "7d2af749a02a5b58a1d26899d0ddca94d6bf4285d212596f3ac8f936bbe1bfdf",
+      "wallMs": 352
+    },
+    {
+      "label": "build-native",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/commands/build-native.json",
+      "sha256": "5eba3f71d265a7f7cfaca085490316a8d4481e0c250cd0862d4e0bfcf662caa5",
+      "wallMs": 520
+    },
+    {
+      "label": "commit",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/commands/commit.json",
+      "sha256": "221a2881e5af82c87911dfcec15f50a2514373e883e2e1bcce874ea39f7cc89c",
+      "wallMs": 210
+    },
+    {
+      "label": "compile",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/commands/compile.json",
+      "sha256": "c2c3491135d77f1501b6ed53e8d9c81aef77861299073a3106b8f6887348eb53",
+      "wallMs": 6330
+    },
+    {
+      "label": "extract-archive",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/commands/extract-archive.json",
+      "sha256": "368a1def348c32fa7f84c00bc4643e298a5378d0986782eb2ed419658c0469cb",
+      "wallMs": 497
+    },
+    {
+      "label": "extract-source",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/commands/extract-source.json",
+      "sha256": "6a17b0f3b53b68745d17df5613b648247e2b2d966197f802ccf78222c3665148",
+      "wallMs": 158
+    },
+    {
+      "label": "generate",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/commands/generate.json",
+      "sha256": "b9b41d62deabff04035d8502d074d52eb1356912b749c4b3871460602c93b4c4",
+      "wallMs": 17438
+    },
+    {
+      "label": "pack",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/commands/pack.json",
+      "sha256": "49ebc6e305e429d99a29bbc7a010de01ea22e1175a84bdf10e2ddc14fcdcd332",
+      "wallMs": 4416
+    },
+    {
+      "label": "refresh-candidate-basis",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/commands/refresh-candidate-basis.json",
+      "sha256": "045e601c6239100d3ed183c26d49eddeaab71cdade3054730ed2e81ed6ec10e2",
+      "wallMs": 4901
+    },
+    {
+      "label": "subject",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/commands/subject.json",
+      "sha256": "c0c47248382af1a9bb8126c85c85d9c71819ed402f86a0a15d9dfe5a173cc533",
+      "wallMs": 12
+    },
+    {
+      "label": "tree",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch/cut-apply-20261115T151749653Z-9506/commands/tree.json",
+      "sha256": "21f7e1f96eb4e8a89cd9d8d398e6a0659f78310628c18b3827a80edcfa8b5ea0",
+      "wallMs": 10
+    }
+  ],
+  "custody": {
+    "sourceRows": 1398,
+    "controlMembers": 15,
+    "dependencyRows": 4576,
+    "nativeProducerInputRows": 196,
+    "exitComparisonsMatched": 221,
+    "errors": [],
+    "ownedProcessGroupAbsent": true,
+    "scope": "the one owned process group; no global host absence claim"
+  },
+  "evidence": [
+    {
+      "path": "START.json",
+      "bytes": 2647,
+      "sha256": "e50f61d971e26303dca3c139ffe0f6e33ef7b7ec8ffa94191b5244b51feccc1c"
+    },
+    {
+      "path": "INPUTS_ENTRY.json",
+      "bytes": 52966,
+      "sha256": "2f84a6857db11b700db5a582b3ce84d6c5c7340b3a4b974af1355a421e85c7cd"
+    },
+    {
+      "path": "001-prepare-candidate/START.json",
+      "bytes": 1318,
+      "sha256": "8b6edc50a436f1b10e90557a601f16022c52a4a7f43b273a6aa8fec8e4080f63"
+    },
+    {
+      "path": "001-prepare-candidate/PID.json",
+      "bytes": 42,
+      "sha256": "c7116bb67e7402083e2e7f8a2ee4a365170128cd1a00e6bc3eccb0b6c5eec560"
+    },
+    {
+      "path": "001-prepare-candidate/RETURN.json",
+      "bytes": 460,
+      "sha256": "9431e23546ee54fec066e3e189e07caef5bcbd86eeba92aa2659fd372e388750"
+    },
+    {
+      "path": "001-prepare-candidate/stdout.raw",
+      "bytes": 1205,
+      "sha256": "3a50b1a034c019f4ddfd0ee7986280a496529b98eed1996a7dcd7991bc7b78d1"
+    },
+    {
+      "path": "001-prepare-candidate/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "INPUTS_EXIT.json",
+      "bytes": 37769,
+      "sha256": "8fb8e956dfc5760dc089a1e68f4081371f348f77d10efd46c62c26320dd2ca43"
+    },
+    {
+      "path": "RETURN.json",
+      "bytes": 4831,
+      "sha256": "5513813fab830c68f86224589a227ac645830be65a38198aa3881959459e611b"
+    },
+    {
+      "path": "candidate/CUT_RECORD.json",
+      "bytes": 11044,
+      "sha256": "3700aac9426d375e414a5f3928013fefcd30e4302e8705a939ede5ba0a3a9902"
+    },
+    {
+      "path": "candidate/ARCHIVE_MEMBERS.json",
+      "bytes": 1094276,
+      "sha256": "bc426b70235cde976c632d478fde3750d54cfc62a41db8220525c113c80597a4"
+    }
+  ],
+  "claims": {
+    "local": true,
+    "unqualified": true,
+    "published": false,
+    "installed": false,
+    "providerCalls": 0,
+    "nativeRuns": 0,
+    "tagsCreated": false,
+    "selectorChanged": false,
+    "pinChanged": false,
+    "qualificationTransferredFromEarlierCandidates": false
+  },
+  "qualification": false,
+  "installed": false,
+  "published": false,
+  "mainMergedOrPushed": false,
+  "nextOwner": "Root verifies the closed candidate, then separately grants same-archive canonical/Public installation and C1 metadata/freeze; no qualification-policy decision inferred."
+}
