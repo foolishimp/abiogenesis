@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T23:19:22.073779+00:00",
-  "nativeAuthorState": "Native04 closed; both source reviews satisfied. Exact one-file source recovered, method noncompliance retained. Narrow proof-control successor preparing; no B56 build/proof.",
+  "recordedUtc": "2026-11-15T23:37:59.616643+00:00",
+  "nativeAuthorState": "Native04 source recovered; truthful method residuals retained. Independently reviewed proof successor integrated; first B56 build/proof authorized after pushed checkpoint.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1259,10 +1259,14 @@
     "reportedListCostUsd": 6.576858
   },
   "b56ProofRecovery": {
-    "state": "CONTROL_PREPARATION_SELECTED",
+    "state": "CONTROLS_ACCEPTED_PROOF_AUTHORIZED_AFTER_PUSH",
     "selection": "integration-01/B56_NATIVE04_SOURCE_RECOVERY_AND_PROOF_REENTRY_01.json",
-    "proofAuthorized": false,
+    "proofAuthorized": true,
     "newNativeAuthorized": false,
-    "originalDeadlineUtc": "2026-11-16T01:47:31.946547Z"
+    "originalDeadlineUtc": "2026-11-16T01:47:31.946547Z",
+    "controlCommit": "39117a22f127dff3515f2bba6e57507e1fa3135b",
+    "manifestSha256": "51236392bdaeb0f064cb11db8f19c9b227b2fb079358bf2adb47d5bca498ed7c",
+    "activation": "integration-01/B56_RECOVERED_PROOF_ACTIVATION_01.json",
+    "proofStarted": false
   }
 }

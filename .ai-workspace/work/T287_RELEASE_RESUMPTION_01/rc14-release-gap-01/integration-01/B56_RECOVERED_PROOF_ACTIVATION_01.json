@@ -1,0 +1,118 @@
+{
+  "id": "RC14-B56-RECOVERED-PROOF-ACTIVATION-01",
+  "recordedUtc": "2026-11-15T23:37:59.616643+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-B56-PROOF-RECORDS-WRITER-030",
+    "role": "Separate Root records/integration Writer",
+    "authority": "Owner continue/finish RC14; exact source recovery33872a37 and closed independent proof-control reviews.",
+    "effects": [
+      "Record accepted proof controls and this finite execution grant, current T287/T293/STATUS; checkpoint/push exact authored records.",
+      "Record actual proof start/result and independently adjudicated closure or first-failure triage; integrate compact authored Returns only."
+    ],
+    "exclusions": [
+      "No semantic source edits, audit rewrite, native retry, raw Git, clock reset, B50/qualification/candidate execution without separate selection."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "outcome": "Fixed5.0 F04/F17/S06 affected mechanical source/installed dependency proof under unchanged runtime authority.",
+    "classification": "External proof execution over independently recovered exact source; not compliant-native-authorship or qualification.",
+    "selection": "integration-01/B56_NATIVE04_SOURCE_RECOVERY_AND_PROOF_REENTRY_01.json"
+  },
+  "acceptedControls": {
+    "commit": "39117a22f127dff3515f2bba6e57507e1fa3135b",
+    "tree": "635bec1782ab091b93afed99d4d06ae9ef1374b3",
+    "root": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-01",
+    "manifestMembers": 21,
+    "manifestSha256": "51236392bdaeb0f064cb11db8f19c9b227b2fb079358bf2adb47d5bca498ed7c",
+    "returnSha256": "40ed59efe94c3e842b206c861887ec7332255c498bb7f9b5a84c787f2268975f",
+    "integratedMain": "8d2844e8ea9180a43c28a5dc01ae3185f7803dd0"
+  },
+  "nativeControls": {
+    "commit": "e00aa6668e37f336464aed21079c87b91bb5cf6d",
+    "members": 35,
+    "manifestSha256": "7063325b879e1d6c12d3d7dcab2dff423a16cfe237b094722c0589a2cf15d452",
+    "identity": "Original native manifest/launch unchanged; never relabeled as successor proof controls."
+  },
+  "independentReviews": {
+    "ProductIdentityMethod": {
+      "actor": "/root/amendment_topology_review",
+      "disposition": "Satisfied exact controls delta;67control/evidence pin checks match; no material counterexample.",
+      "verified": [
+        "Exact noncompliant recovery/audit/residual/effect scope, original native35 versus proof21, no missing audit-field fiction.",
+        "Complete1572unique-row projection plus HEAD/source/preimage/index/oneW/setup/freeze/diff checks.",
+        "Original setup-custody coordinate preserved;14inherited files,10existing functions and entirefinally unchanged; recorded24mismatch checks reviewed.",
+        "All build/population/firstfailure/custody/deadline limits unchanged; no behavioral credit."
+      ]
+    },
+    "ProofEffect": {
+      "actor": "/root/b29_vm_triage",
+      "disposition": "Satisfied bounded proof entry; no actionable delta finding.",
+      "verified": [
+        "All21successor and35native members match; exact original carrier bindings and complete1572-row/source setup relation.",
+        "Recovery retains M04-01/02/03; no default-empty or blanket waiver.",
+        "Byte-equal original custody owner, completefinally/testloop/ownedprocess AST and14inherited files.",
+        "Positive1+9,43top obligations,10candidate evidence leaves, actualcompletion/freshreads, physical protection/exit custody, original clock and90min clipping intact."
+      ]
+    }
+  },
+  "rootChecks": {
+    "successorManifestMembers": 21,
+    "manifestMismatches": 0,
+    "cleanFrozenControlWorktree": true,
+    "reviewedDelta": "controls/main recovery and inventory joins only; original helpers/predicates unchanged.",
+    "futureProofRootAndSubjectAbsent": true
+  },
+  "operatorActivation": {
+    "id": "RC14-B56-RECOVERED-PROOF-OPERATOR-001",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate bounded proof execution/evidence Writer",
+    "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+    "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04",
+    "proofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01",
+    "proofSubject": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-04",
+    "sourceStanding": "Original04frozen postimage, exact reviewed test9fef11e5ac9201f154922d03346e33d06ed8c79531d0ebea3b389afbc738f185; all7earlier source inputs conserved. Main recovery checkpoint separate from unchanged native HEAD/index.",
+    "effects": [
+      "After direct remote parity for this exact grant, verify both full control manifests and consumed tool/recovery/native/source/fixture/dependency pins before importing/executing helpers, including original setup-custody owner coordinate.",
+      "Fill existing PROOF_LAUNCH.template.json externally at rawRoot/PROOF_LAUNCH_01.json with this Root record pin, pushed checkpoint, exact21proof manifest and35native manifest and existing recovery/audit/freeze/source bindings; enable only this proof. Preserve original native LAUNCH/CONTROL_START/audit.",
+      "Invoke exact accepted prove.py once through pinned Python3.11 -B with original native LAUNCH and separate proof grant. Execute one fresh normal build and the six declared test selections only. No new provider or native author call.",
+      "Use existing owner for finite commands/process groups/capture/topology/custody. Record actual start/deadline and per-selection outcomes; preserve first failing command without downstream execution or retry.",
+      "Preserve complete source/control/tool/candidate/archive/install where selected by proof, input/output captures, actual process absence and final conservation. No raw data to Git.",
+      "After execution stops, freeze compact authored Return in separate records branch and return to Root. Do not modify source/Main or start candidate/witness work."
+    ],
+    "limits": {
+      "proofMaximumMs": 5400000,
+      "perBuildMs": 600000,
+      "originalEnclosingDeadlineUtc": "2026-11-16T01:47:31.946547Z",
+      "originalExecutionStopUtc": "2026-11-16T01:44:31.946547Z",
+      "cleanupReserveMs": 180000,
+      "proofEnd": "Earlier of actual proof start+90minutes and unchanged original enclosing deadline.",
+      "providerCalls": 0,
+      "builds": 1,
+      "testCommands": 6,
+      "testFiles": 5,
+      "topLevelObligations": 43,
+      "semanticPartition": "Exact positive1+9 disjoint union10",
+      "automaticRetries": 0
+    },
+    "stops": [
+      "First unsupported scope/dependency, identity/custody/topology mismatch, failed build/test/capture or actual bound stops advancement and returns exact original evidence.",
+      "No test/source/runner repair, timeout extension, failure reclassification or unselected population inside this execution grant.",
+      "Successful proof returns to Root before candidate rebuild/installed witnesses; no qualification claim."
+    ],
+    "returnTo": "Root actual proof conjunction or first-failure multi-frame triage."
+  },
+  "proofAuthorized": true,
+  "newNativeAuthorized": false,
+  "candidateBuildAuthorized": false,
+  "nativeAuthorshipCompliant": false,
+  "preservedResiduals": [
+    "M04-01",
+    "M04-02",
+    "M04-03"
+  ],
+  "qualification": false,
+  "rawPublished": false,
+  "executionStarted": false
+}
