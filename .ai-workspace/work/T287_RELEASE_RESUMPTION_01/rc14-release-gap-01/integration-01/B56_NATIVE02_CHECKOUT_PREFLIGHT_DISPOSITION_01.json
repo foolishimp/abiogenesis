@@ -1,0 +1,84 @@
+{
+  "id": "RC14-B56-NATIVE02-CHECKOUT-PREFLIGHT-DISPOSITION-01",
+  "recordedUtc": "2026-11-15T21:03:49.275233+00:00",
+  "writerActivation": "RC14-ROOT-B56-COMPLETION-RECORDS-WRITER-024",
+  "activation": "integration-01/B56_NATIVE_ACTIVATION_02.json",
+  "source": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-02",
+  "sourceHead": "3d68a8b7c104c9873b12741fdce5b67d3987534f",
+  "observation": "Fresh no-checkout source and index at exact pushed binding; seven selected root files absent as unstaged D. Tenant/specification/control present; index equals HEAD. No raw/preimage/launch/clock/setup/provider/proof exists.",
+  "cause": "read-tree HEAD initialized index only. Cone materialization did not restore these already-indexed root paths. Prior candidate setup correction used read-tree -mu HEAD; current operational instruction retained index initialization but failed to retain complete physical materialization as a concrete command.",
+  "frames": {
+    "ProductDesignIdentity": {
+      "actor": "Root",
+      "finding": "Previously accepted immutable source remains exact in Git; repair materializes seven preexisting source blobs, changes no Product/Design/Task meaning and uses existing checkout grant."
+    },
+    "ProofEffect": {
+      "actor": "/root/b29_vm_triage",
+      "finding": "Independent HEAD/branch/status/index/mode100644/H/physical-absence checks agree. Exact absent-path worktree-only restore, unchanged index and byte correspondence completes preflight; no runtime retry."
+    }
+  },
+  "selectedOperation": {
+    "actor": "/root/rc14_release_proof",
+    "role": "Existing separate native Operator002 setup Writer",
+    "command": [
+      "git",
+      "restore",
+      "--source=3d68a8b7c104c9873b12741fdce5b67d3987534f",
+      "--worktree",
+      "--",
+      ".gitattributes",
+      ".gitignore",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "README.md",
+      "pyproject.toml",
+      "stdo_abiogenesis.json"
+    ],
+    "writeTerritory": [
+      "/private/tmp/abg-rc14-assessment-dependency-source-20261116-02/.gitattributes",
+      "/private/tmp/abg-rc14-assessment-dependency-source-20261116-02/.gitignore",
+      "/private/tmp/abg-rc14-assessment-dependency-source-20261116-02/AGENTS.md",
+      "/private/tmp/abg-rc14-assessment-dependency-source-20261116-02/CLAUDE.md",
+      "/private/tmp/abg-rc14-assessment-dependency-source-20261116-02/README.md",
+      "/private/tmp/abg-rc14-assessment-dependency-source-20261116-02/pyproject.toml",
+      "/private/tmp/abg-rc14-assessment-dependency-source-20261116-02/stdo_abiogenesis.json"
+    ],
+    "precondition": "All seven still absent/non-symlink; HEAD/index/status unchanged. No raw02 or launched activity.",
+    "exit": "Seven regular physical files byte-equal to exact HEAD blobs; HEAD/index unchanged; source status clean. Then complete original43source/31control preflight and existing fresh preimage/native grant.",
+    "scope": "Single checkout completion only; no Root implementation, new candidate/source revision, restarted clock, rerun or automatic expansion."
+  },
+  "sourcePins": [
+    {
+      "path": ".gitattributes",
+      "gitBlob": "f31bedc7fb7ddcf495c3c84f6d81aa5f659481fd"
+    },
+    {
+      "path": ".gitignore",
+      "gitBlob": "6f936759772134620a2939368ffed1d88df6aa62"
+    },
+    {
+      "path": "AGENTS.md",
+      "gitBlob": "6ef0f339bf3a48dc6cc93ef62a27f9765df20996"
+    },
+    {
+      "path": "CLAUDE.md",
+      "gitBlob": "307b536ed9826b1b5577680850d9202fdba1547c"
+    },
+    {
+      "path": "README.md",
+      "gitBlob": "4dc88b98817f010eca9c105cc413339b2713220e"
+    },
+    {
+      "path": "pyproject.toml",
+      "gitBlob": "ef40b608c52b4cbaf7b05f226d8b8cbdd1794216"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "gitBlob": "1febdf3f1318a8da821b2ceea09fc8bff6ea88ec"
+    }
+  ],
+  "previousFailurePreserved": true,
+  "runtimeAttemptStarted": false,
+  "clockStarted": false,
+  "qualified": false
+}
