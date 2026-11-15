@@ -1,0 +1,15 @@
+{
+  "id": "RC14-DIAGNOSTIC-CHECKPOINT-WRITER-05",
+  "role": "Separate Root merge/records Writer",
+  "subject": "f022c572532d668add27ed026384be4d057155bc",
+  "effects": [
+    "Ordinary merge exact3-filediagnosticcontrols into main",
+    "Compact controlreview/launch/statusrecords afterclosedreview",
+    "Mainonlysource/control/recordpush; no raw/LFS"
+  ],
+  "excluded": [
+    "No diagnosticexecution underthisgrant",
+    "NoProduct/testedit",
+    "No pendingqualificationpolicy selection"
+  ]
+}

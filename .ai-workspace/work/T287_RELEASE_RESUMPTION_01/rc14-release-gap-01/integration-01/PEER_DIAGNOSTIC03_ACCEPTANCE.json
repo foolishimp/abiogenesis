@@ -1,0 +1,23 @@
+{
+  "id": "RC14-PEER-THREE-DIAGNOSTIC-03-ACCEPTANCE",
+  "recordedUtc": "2026-11-15T09:42:48.117086+00:00",
+  "subject": "f022c572532d668add27ed026384be4d057155bc",
+  "tree": "6be205dc41d22680ffc9d5e9d74c0032db1e73e4",
+  "manifestSha256": "d677e67e93dd2b14d76c99c33e33b1c84d716893c70c68b79074b7cc00b0164f",
+  "returnSha256": "3fb12a747f2f5a8ad0c33053295f68ced9a277cc70e4b7266f72b4617b32b94a",
+  "reviewer": "/root/b30_catalog_triage distinctfromRootWriter",
+  "disposition": "accepted_for_exact_prospective_launch",
+  "selectedFiles": 3,
+  "excludedLaterPasses": 4,
+  "unchanged": "Product/tests/assertions/originalcase-childceilings/build/dependencies/sidecar/observer/processowner",
+  "limits": {
+    "enclosingMs": 4500000,
+    "perFileMs": 1200000,
+    "cleanupMs": 120000
+  },
+  "metadataResidual": "Unconsumed POPULATION.kind remains seven_file_diagnostic_selection; actualfiles/order/count/completionall3; no functionalclaimdependsonthelabel",
+  "peerDClosed": "2026-11-15T09:33:53.605Z",
+  "sourceMeaning": "Frozenoldertenantbytes for three unchangedtargettests andexactcompiledProduct; no repairedfixture orfinalRC14qualificationcredit",
+  "execution": "Separate exact launchpacket required",
+  "qualified": false
+}

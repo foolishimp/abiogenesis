@@ -643,10 +643,10 @@
     "proofAuthorized": false
   },
   "peerLatencyDiagnostic": {
-    "state": "ACCEPTED_PREPARATION_PEER_RECONCILIATION_PENDING",
-    "subject": "b53c0182b7064d4f2694e68a845642d888adb999",
-    "acceptance": "integration-01/PEER_DIAGNOSTIC_PREPARATION_ACCEPTANCE.json",
-    "wholeFiles": 7,
+    "state": "THREE_FILE_PREPARATION_ACCEPTED_PENDING_EXACT_LAUNCH",
+    "subject": "f022c572532d668add27ed026384be4d057155bc",
+    "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
+    "wholeFiles": 3,
     "executionBound": false
   },
   "peerCompleteBC": {
@@ -655,7 +655,7 @@
     "passFiles": 205,
     "redFiles": 23,
     "additionalFailingFiles": 0,
-    "followupD": "active; rootdiagnosticheld"
+    "followupD": "Closed09:33:53Z; fourdiagnosticfilesnowpass; threepersistentcancelledfilesselectedonce"
   },
   "qualificationRoute": {
     "state": "PRIOR_ATTRIBUTION_HOW_INCOMPLETE_ELIGIBILITY_POLICY_DECISION_PENDING",
