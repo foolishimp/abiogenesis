@@ -1,0 +1,32 @@
+{
+  "pythonAstFiles": [
+    "freeze.py",
+    "preflight.py",
+    "process-owner.py"
+  ],
+  "pythonAst": "pass",
+  "jsonActivation": "parsed",
+  "noRuntimeImport": "No Product or application import; preflight imports only authored Python control modules",
+  "executedControlHashes": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 3651,
+      "sha256": "b6dbc271fbdf7fd7b5158750e94b250cb7adfac0d1231fee8104e4bbfa01a471"
+    },
+    {
+      "path": "freeze.py",
+      "bytes": 6073,
+      "sha256": "27237334d39c7580477119a00e70f842d901c0f8e56cfe839a5eaab947440424"
+    },
+    {
+      "path": "preflight.py",
+      "bytes": 9555,
+      "sha256": "582fac53f478ebfda4634cb7c53a9655b614e6d620e4b1bb663b528818c4b6ce"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    }
+  ]
+}
