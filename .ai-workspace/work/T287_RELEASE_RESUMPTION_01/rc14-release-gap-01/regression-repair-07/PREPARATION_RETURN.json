@@ -1,0 +1,110 @@
+{
+  "kind": "native07_frozen_control_preparation_return",
+  "preparedUtc": "2026-11-15T12:19:27.572664+00:00",
+  "disposition": "prepared_for_Root_control_review_not_execution",
+  "preparationBase": "0234b02d89f01723a9cee26051669bf9e93cf41a",
+  "acceptedTenantCheckpoint": "8888155c2fdd3e13ba75c16934412ee424b19bef",
+  "source": "/private/tmp/abg-rc14-regression-repair-20261115-07",
+  "branch": "codex/rc14-regression-repair-20261115-07",
+  "carrier": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07",
+  "manifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 4179,
+    "sha256": "29d494e8be7929a11dd0493ebd440c875d0ec646adb1d002829e405d0664475b"
+  },
+  "sourcePreimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/SOURCE_PREIMAGE_PREPARATION.json",
+    "bytes": 432074,
+    "sha256": "0846ac23f5231862cc27f68ed2c6c584fd9d9a8b3dffc048c7dac0289788bab4"
+  },
+  "preimageScope": "1398 materialized tracked files/37820335B at preparationBase; then-untracked authored controls separately bound by this manifest. Final clean pushed launch source is exclusively refrozen later.",
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs"
+  ],
+  "nativeScope": "Existing same-historical-cut reidentification in reacquireCommittedArtifactTruth plus minimal same-file full preassert candidate; no test/parent/Product change.",
+  "rootTriage": {
+    "sourceCommit": "9b0757a206fb9ec50afee0c8c57415c475b28dc4",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE07_F09_TRIAGE.json",
+    "bytes": 6017,
+    "sha256": "98d2d7a4bf433d92768556c0f7ce2bce22136341ee6b67841c95e20e1e3ab254",
+    "localExactCopy": "ROOT_TRIAGE.json"
+  },
+  "static": {
+    "path": "STATIC.json",
+    "bytes": 2667,
+    "sha256": "25850990b8a483c1674d98ee6e22e53df612bc9cfb8a459158e163032d7aaae6"
+  },
+  "staticChecks": "JSON/Python parse, HOST Node syntax;25 readRoots present;5 installed method hashes/ranges;16 source preconditions;1295 build-input rows outside17 test exceptions;782 compiled files/26015425B;4576 dependency entries/58290948B;2generated outputs;7required bodies/669118059B; historical receipts/candidates/source correspondence and71 names conserved.",
+  "controlDelta": "HOST and operate only07 coordinates.5 maintained helpers unchanged. Proof adapts existing retained relation to two historical groups/six files and10 prospective files; same final input comparisons now run in finally for fully initialized fixtures, preserve primary failure, report secondary errors and original finite end.",
+  "retainedProof": {
+    "native05Files": [
+      1,
+      2
+    ],
+    "native05ActualPasses": 13,
+    "native06Files": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "native06ActualPasses": 31,
+    "totalActualPasses": 44,
+    "topLevelCases": 33,
+    "limitation": "Two stopped historical campaigns, not new07 executions or a full green campaign;22-input conservation checks were later point observations.06 method residuals remain disclosed, not cured."
+  },
+  "prospectiveProof": {
+    "wholeFiles": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "topLevelCases": 38,
+    "overallTopLevelCases": 71,
+    "firstFile": "t287-f09-frontier-handoff.test.mjs",
+    "requiredCandidate": "f09-reacquisition.candidate.json",
+    "optionalHistoricalGates": [
+      "ABG_GOVERNANCE_COVERED_C2_MATERIAL_SELECTORS",
+      "ABI5_STEEL03_RETAINED_START_CALL_PATH"
+    ],
+    "firstFailureStops": true,
+    "build": "exact compiled/native/dependency reuse; no ordinary build or broad campaign"
+  },
+  "clock": {
+    "started": false,
+    "nativeMs": 1200000,
+    "nativeMaxTurns": 160,
+    "inactivityMs": 300000,
+    "freshEnclosingMs": 8100000,
+    "proofMs": 5400000,
+    "proofRule": "min(original07 enclosing deadline, proofStart+90min)",
+    "cleanupReserveMs": 15000,
+    "retry": false
+  },
+  "unresolved": [
+    "Root independent control review, integration/push and final source/launch identity",
+    "Fresh setup/all-root topology/manifest custody at actual boundary",
+    "Actual pinnedRC13 native source, full command/method audit and close/fresh readbacks",
+    "Separate source assurance and Root proof disposition; then remaining wholefiles once"
+  ],
+  "effectsExecuted": {
+    "provider": 0,
+    "ProductImports": 0,
+    "tests": 0,
+    "builds": 0,
+    "packInstalls": 0,
+    "tenantEdits": 0,
+    "mainWrites": 0,
+    "push": 0,
+    "proofClockStarted": false
+  },
+  "qualification": false,
+  "stop": "One own-branch controls commit and return; do not launch or edit after freeze"
+}

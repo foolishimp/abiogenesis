@@ -1,0 +1,144 @@
+{
+  "id": "RC14-REGRESSION-REPAIR-NATIVE-007-TASK",
+  "sourceHead": null,
+  "outcome": "Repair F09 helper reacquireCommittedArtifactTruth so the original authenticated execution-basis historical cut is reidentified through the current held owner after rollback, preserving all current strict refusals and complete preassert observations.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/ROOT_ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/ROOT_TRIAGE.json",
+    "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+    "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/README.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/PRIOR_PARTIAL_SOURCE.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/RETAINED_PROOF.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/TITLE_MAP.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/PRIOR_TITLE_MAP.json",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs"
+  ],
+  "readFirst": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/ROOT_ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/ROOT_TRIAGE.json",
+    "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+    "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs"
+  ],
+  "externalReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Intake/execution-unit/admission, context acquisition and closed-result reuse before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    }
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs"
+  ],
+  "instructions": [
+    "Product Frame: fixed15-family5.0 RC14, T293 B37. This is derived Proof, not Product/runtime authority. Read all readFirst relevant content before editing; ROOT_TRIAGE.json is the exact Root closed conjunction, not new law. Before ANY edit content-read using Read: /Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md lines 1-230; /Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md lines 16-48,133-168; /Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md lines 1-74; /Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md lines 353-438,693-901,1681-1749; /Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md lines 1-145. These exact external paths are expressly read-only granted. Do not claim section acquisition from hashes, wc, headings, or an unexpanded link. State actual reads/line ranges in return.",
+    "Exactly one source writeRoot. Limit changes to reacquireCommittedArtifactTruth (currently1553 onward), necessary existing-owner import if needed, and minimal same-file evidence glue. All other saved15 sourcepaths, parent runtime-f09.mjs and test file, existing helper branches, strict negatives and all unrelated code stay fixed. No Product/HOW/schema/dependency/build/version/control/input edits. No Git commands, tests/build/pack/install, Product import, extracted/new helper behavioral execution, provider/subagent/reviewer. Use Read/Glob/Grep and Edit/Write. Bash only read-only text acquisition or node --check on this authored file; no shell/Python/sed/perl writes. Return owner conflicts rather than expanding W.",
+    "Current committedBoundary is freshly selected after rollback and already authenticates current artifact truth. The stale object is environment.executionBasisAdmission.successorPrefix at the leaf-port prefix read. Use existing abg.reidentifyHistoricalDurablePrefixCoordinate(currentCommittedBoundary, originalExecutionBasisCut) to authenticate/rebind that SAME historical cut, then read its events for the existing leaf-port construction. Do not replace the old cut with currentCommittedBoundary or current tip. Preserve/observe exact eventLogRef, device/inode/eventContractDigest, prefixLength, prefixDigest, coordinateDigest; verify correspondence of original and rebound historical coordinates. No clone/cold-read escape, new basis admission, guard relaxation, swallowed refusal, resurrected owner or copied authority.",
+    "Keep actual rollback physical bytes/event counts/digest and current artifact-truth owner validation, original binding/install checks, fresh leaf-port and actor/continuation bindings, original failed candidates and strict negatives. Same Run must reach its next retry attempt and restarted consumer through unchanged existing paths; no host-scripted successes. Related retry reads already use committedBoundary, and later completion/cold reads already fresh: do not widen to these paths absent a demonstrated same-source necessity; return any conflict.",
+    "Before first behavioral assertion over helper reacquisition, preserve the complete actual candidate under process.env.ABG_REGRESSION_PROOF_ROOT/f09-reacquisition.candidate.json using the existing exclusive evidence owner/pattern (inspect runner exclusiveRecord; minimal same-file adaptation only). Include original expected/current/historical/rebound coordinates and their actual comparison material, setup artifact-truth answer, actual projection/validation/binding/install outcomes, leaf-port construction outcome and actual reconstructed binding material needed to diagnose the selected failure. Preserve unexpected thrown outcomes and partial observations before the assertion/failure escapes; avoid an assertion before capture. Full values/diagnostics, not success booleans alone. This helper is selected once by the whole F09 handoff. Proof root is supplied later; do not execute evidence writes now. Keep normal unset-root use truthful. Parent producer and restarted-consumer evidence/assertions remain intact.",
+    "All71 named top-level cases and legitimate prior title mappings remain fixed. No deletion/skip/todo/timeout changes or generic expected-failure acceptance. Return once with exact source changes, owner/requirement join, actual method/content reads, every command and syntax check, candidate capture contract, preserved assertions and remaining uncertainty. Native20min/160turn/5min inactivity; no native retry. Operator owns ten fresh wholefiles007-016 and six retained file relations, with90min proof clipped to fresh135min enclosing deadline. No proof or qualification by author."
+  ],
+  "checks": [
+    "Only existing owner reidentifies the SAME original historical cut after rollback",
+    "Complete exact coordinate equality and strict negative/rollback/next-attempt/restarted-consumer premises preserved",
+    "Full actual helper candidate retained before first behavioral assertion and on unexpected refusal",
+    "All5 pinned installed method inputs and explicit sections read before first Edit; full command/read audit",
+    "No test/parent/Product change or native behavioral execution; no new Product authority"
+  ],
+  "maxContextFiles": 256,
+  "maxContextBytes": 12582912
+}

@@ -1,0 +1,304 @@
+{
+  "selection": "Exactly10 fresh wholefiles original007-016 once serially; six historical green wholefiles retained under RETAINED_PROOF causal relation, no broad/rerun/retry.",
+  "files": [
+    {
+      "file": "t287-f09-frontier-handoff.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+      "preimageSha256": "14102c36ffa9761598fbd12c7774dff7e06edea05477a25cef15309a3d94d2ba",
+      "minimumTopLevelCases": 1,
+      "preservedTitles": [
+        "T-287 F09 retry frontier hands off to a restarted consumer"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 7,
+      "requiredCandidateArtifacts": [
+        "f09-reacquisition.candidate.json"
+      ]
+    },
+    {
+      "file": "t292-td36r-admitted-binding-owner.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td36r-admitted-binding-owner.test.mjs",
+      "preimageSha256": "eb4a9eb78985cb788752181fbbf4e660fae4acfec4704fd91364996efdcd49e1",
+      "minimumTopLevelCases": 1,
+      "preservedTitles": [
+        "hasAdmittedWorkspaceBinding refuses an admitted binding with one extra top-level key"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 8
+    },
+    {
+      "file": "t292-td36r-bind-door-strings.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td36r-bind-door-strings.test.mjs",
+      "preimageSha256": "932ef4218fcf85573e1d744bc94e3261492a942413f23b9be60d9ae269fda886",
+      "minimumTopLevelCases": 1,
+      "preservedTitles": [
+        "the workspace bind door applies the admitted binding string rule"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 9
+    },
+    {
+      "file": "t287-governance-covered-source-use.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "preimageSha256": "f1fa284088dbc8aa446ccfa977b009124b3b309324d5a4de50aac950d9c52ed7",
+      "minimumTopLevelCases": 9,
+      "preservedTitles": [
+        "normal close preserves the owned ArtifactTruth snapshot while copies and fresh reads validate bytes",
+        "complete canonical declarations permit only publication identity consequences",
+        "frozen176 selected declarations compare across artifact and manifest hash-order reversal",
+        "only the substituted provenance inventory is ordered and every reference remains material",
+        "actual installed C2 material correspondence preserves consumed content and strict refusals",
+        "covered use binds exact original state, complete canonical Catalog and cold admitted coordinates",
+        "later completed work follows actual admitted covered-source ancestry without root or value guesses",
+        "built-in ingress preserves the whole captured34 state and independent assessment subject",
+        "C-14: the invocation admission check refuses its one admission row by its causation; the owner answer stays null"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {
+        "actual installed C2 material correspondence preserves consumed content and strict refusals": "ABG_GOVERNANCE_COVERED_C2_MATERIAL_SELECTORS"
+      },
+      "originalOrdinal": 10
+    },
+    {
+      "file": "w2-steel-single-start-closure.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "preimageSha256": "905babce81193f6e2dab35cc64bfae3925ecfaa2a233d122667a5b44f7ca7c06",
+      "minimumTopLevelCases": 2,
+      "preservedTitles": [
+        "consumer callable membership resolves exact borrowed owners without contributor membership rewriting",
+        "run resources preserve the accepted retention carrier and reject wrong kind or extra fields"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {
+        "run resources preserve the accepted retention carrier and reject wrong kind or extra fields": "ABI5_STEEL03_RETAINED_START_CALL_PATH"
+      },
+      "originalOrdinal": 11
+    },
+    {
+      "file": "t287-native-work-currentness-consumers.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "preimageSha256": "9ecfc631462746f5564af4ddb6bdf2a19b34d33f11d2dff7cd4e6ed906d183bb",
+      "minimumTopLevelCases": 6,
+      "preservedTitles": [
+        "U1-P5-02 actual C0 successor and every affected currentness consumer",
+        "U1 physical target scope successor across bindings and native Result scopes",
+        "TD-08 (a): basis-admission worksite currentness equals the head reference on every history and dependency list",
+        "TD-08 (b): visits grow with the subject's causes; joins are independent of unrelated causes",
+        "TD-09 (a): the C2 prefix correspondence equals the base comparison at every cut and view pair; a repeated read compares nothing",
+        "C-14: the C0 failure evidence check refuses its one cited row by order; the owner answer stays null"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 12
+    },
+    {
+      "file": "t287-readable-stops-foldback.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-readable-stops-foldback.test.mjs",
+      "preimageSha256": "9c95ea6be052b65e698f5ab5ec140cd0c089516412ed03fa4d9baa8b30c3f14e",
+      "minimumTopLevelCases": 1,
+      "preservedTitles": [
+        "declared failure foldbacks read back by cause: the bound is the origin, the undeclared failure is named, and no ended frame reads live"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 13
+    },
+    {
+      "file": "t287-native-runtime-gate.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs",
+      "preimageSha256": "dfcea436b3468a3b6fbaa93421cbdd97804c16e9ed45a78ef70a9652dbbd2b0d",
+      "minimumTopLevelCases": 7,
+      "preservedTitles": [
+        "ordinary native runtime declaration passes the existing raw/Program owner",
+        "native source joins and cloned judgment retain their actual assessment; no owning adapter",
+        "caller-editable qualification owner views cannot mutate retained input authority; warm and cold agree",
+        "declared wrong value computes red; foreign law, changed installed subject, stale frontier and result substitute refuse",
+        "same-valued duplicate witness after assessment invalidates current consumption; supplied prefix substitution refuses",
+        "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+        "different installed module URLs retain the invoking proof owner through realization, cloned judgment and owning continuation"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 14
+    },
+    {
+      "file": "t287-observed-worksite-command.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "preimageSha256": "e3e13250283c3d9970c3bff6295ebd913682f3d6d32ad8ff67c3f1fadbace1e7",
+      "minimumTopLevelCases": 8,
+      "preservedTitles": [
+        "extended original C2 plan preserves all 26 sources through native and observed owners",
+        "observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol",
+        "observed C2 zero write declaration executes readonly helper and refuses real mirror mutation",
+        "observed C2 refuses foreign, absent, duplicate, mixed and writable source claims",
+        "observed root source gate binds actual input and refuses stale, crossed and child authority",
+        "later admitted failed native residue invalidates observed inputs without requiring physical mismatch",
+        "changed physical observed source refuses before archive creation or command dispatch",
+        "observed C2 result, native acknowledgment and closure bind the same task without turning red execution green"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 15
+    },
+    {
+      "file": "t287-c0-correction-regressions.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+      "preimageSha256": "eb64595dae0c092d5983fccefcf70b9157606d7b142a985b8a5a4cb8ec08cad8",
+      "minimumTopLevelCases": 2,
+      "preservedTitles": [
+        "correction: observation finalizes after read and close with primary precedence",
+        "correction: raw writer retired"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 16
+    }
+  ],
+  "orderRationale": "First original first-red F09 helper path, then previously unrun008-016 in original order.",
+  "layout": "Fresh /private/tmp/abg-rc14-regression-proof-20261115-07, disjoint external raw capture; complete original topology guard.",
+  "build": "Reuse exact BUILD_REUSE payload only after actual native close/audit/scope freeze. No rebuild. Test-owned pack/install is part of its selected whole file.",
+  "requiredInputs": "Seven RETAINED_INPUTS rows, copied externally and pinned; required positives cannot skip",
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 1200000,
+    "nativeMaxTurns": 160,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 8100000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 15000
+  },
+  "caseAccounting": "Original16files/71 named top-level cases: retained05 files001/002=13 actual passes(6 top-level), retained06 files003-006=31 actual passes(27 top-level);10 prospective files007-016 have38 required top-level cases.44 retained executions are historical across two stopped campaigns, never new07 results.",
+  "precondition": "Actual successful native terminal/close/fresh reads and full method/command audit, exact single-falsifier source scope, Root source/proof disposition. All16 preimages exact;15 immutable. Fresh enclosing135min clock, proof90min clipped. Six historical source/input causal relations checked before fresh tests.",
+  "auditGate": "Before proof, Operator writes external AUTHOR_AUDIT.json with disposition scope_and_commands_admitted, exact launchSha256/sourceDiffSha256, deviations=[] and supporting transcript/call identities. Any deviation returns to Root; no automatic local waiver.",
+  "retainedFiles": [
+    {
+      "file": "t287-required-operation-bindings.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+      "preimageSha256": "9f15e18104db0b0cd3b5ad7693ba5ecc371551f89e67e9f085dc7c8e91b16b0e",
+      "minimumTopLevelCases": 4,
+      "preservedTitles": [
+        "T-287 R2-b result.assess through the installed transport: the declared result and an owner refusal",
+        "T-287 R3-b product.materialize lands each schema-asset admission refusal as the contract member",
+        "O1 (A): the materialization artifact relation refuses a context input value outside I-JSON (false)",
+        "O1 (A): the materialization binding refuses an artifact body outside I-JSON before the artifact ingress"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 1
+    },
+    {
+      "file": "t292-td26-p6-language-retired.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p6-language-retired.test.mjs",
+      "preimageSha256": "c8bd3d8887efe0e87ec6fbb0314bf6daf779f0d5543ea726c9d3320fbc2fea65",
+      "minimumTopLevelCases": 2,
+      "preservedTitles": [
+        "retired Program keys refuse at raw, module, publication, Catalog and conformance admission",
+        "all eight shipped publications omit retired Program members without withdrawing corpus IDs"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 2
+    },
+    {
+      "file": "t287-single-address-space-consolidation.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "preimageSha256": "86eaf470644456bc3fc1d325ac5589b406b296bedebffcab965bfe20066f19fb",
+      "minimumTopLevelCases": 13,
+      "preservedTitles": [
+        "retained RC5 history: the owned prefix of the migrated liveness callers preserves the measured context with fewer event-log bytes, no full snapshot and no immutability walk",
+        "liveness candidate validation forks its admitted base: equal decisions and context, isolated siblings, unchanged base, no per-candidate rebuild",
+        "shared public-operation classification preserves retained-history, orphan-envelope and mixed-arm facts without the retired construction-operation index",
+        "global run-invocation pairs stay history-wide on real earlier cuts, and a foreign Run stays distinct from a missing one",
+        "installed producer to consumer: borrowed held history keeps exact values, reuses warm selections as unrelated history grows, refuses stale/copied/foreign/rollback input and reopens cold",
+        "qualification material at a genuine owned cut: an invalidating producer fibre refuses warm, copied and cold alike; the historical cut stays valid and unrelated growth reuses declarations",
+        "maintained SDK setup holds one acquired resource, borrows every history call, closes once, owns failure cleanup and reopens cold",
+        "RAW F_H hold seed: an explicit conditional root grant and one exact basis/Run/pending/hold/open seed hold at their actual gates, the open seed has no F_H response fact, and the owners keep their values over repeated reads, a fresh frozen clone and unrelated growth",
+        "RAW F_H hold seed: a hand-built response, resume, abandonment or F_H supersession on the open hold is refused by the fold and the F_H fact owner, never folded as if absent",
+        "historical revision cuts: the shared before-event owner selects the replaced full-history filter's exact exclusive prefix with no body pass, immutability walk or cold revalidation",
+        "semantic stage authentication borrows the owned prefix: the retired materializing adapter's exact owner facts with no materialization or cold revalidation",
+        "single-address-space proof records every measured case",
+        "complete-pair owners preserve current Run pairs and F_H orphan refusals while retired construction lifecycles fail closed, alike warm, copied and cold; mixed arms are refused unwritten and unrelated growth preserves each answer"
+      ],
+      "retiredTitlesRequireMapping": [
+        "complete-pair owners refuse orphan F_H, construction-intent and selected-action operations by stage and admission order, alike warm, copied and cold; a mixed arm is refused at admission; the baseline and unrelated growth keep their values"
+      ],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 3,
+      "requiredCandidateArtifacts": [
+        "single-address-space-case3.candidate.json",
+        "single-address-space-case7.candidate.json"
+      ]
+    },
+    {
+      "file": "t287-st1-installed-cross-owner-hello.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "preimageSha256": "a9c2fead9c94da09bc92e03c77e950ae44f4e3af051c37f83291d611a338278c",
+      "minimumTopLevelCases": 3,
+      "preservedTitles": [
+        "ST-4 transport refuses inherited selectors and owner traversal",
+        "ST-1 executes an independently authored minimal GTL test through installed Public owners",
+        "ST-1 starts the developer mini Product's graph_function and published asset targets through installed owners"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 4
+    },
+    {
+      "file": "t287-recursive-registered-selection.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "preimageSha256": "d9cec1695f0704ef296a44f8d4cb587f17a7b9d0c9acfdca26822c472df5db85",
+      "minimumTopLevelCases": 7,
+      "preservedTitles": [
+        "run.continue current-execution request is the pending-execution arm under one closed continuationKind domain",
+        "recursive fixture declares a valid bounded Program with one registered F_D selector",
+        "a declared selector role at an F_P registered-selection source is refused at every program door",
+        "receiver counterevidence and unresolved task survive child returns until parent evaluation",
+        "authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth",
+        "interrupted recursive workflow resumes its exact pending execution once in the same Run",
+        "interrupted recursive workflow resumes once through the cold Public run.continue pending_execution arm"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 5
+    },
+    {
+      "file": "t292-td26-p3-continuation-refused.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p3-continuation-refused.test.mjs",
+      "preimageSha256": "54ab4079d05b5ed9218aa841d4058d5711d3b71f5d7ee27305b076ed86170a7f",
+      "minimumTopLevelCases": 4,
+      "preservedTitles": [
+        "current_intent refuses a construction-intent body at request admission and admits the pending cursor",
+        "continuation population refuses a retired selection kind with missing_continuation before any prefix read",
+        "selected_action is retired from the published continue family and the installed transport refuses a selected_action call unknown_definition",
+        "the published continue refusal contracts give current_intent the five pending codes and publish no selected_action list"
+      ],
+      "retiredTitlesRequireMapping": [
+        "selected_action keeps its published definition and the installed transport refuses it installed_binding_unavailable",
+        "the published continue refusal contracts keep the selected_action list and give current_intent the five pending codes"
+      ],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 6
+    }
+  ],
+  "titleMappingInputs": [
+    {
+      "path": "PRIOR_TITLE_MAP.json",
+      "sha256": "1bb45ecacff4faef9ea3cf8444d950df232d6d041334ce959cd71a43bfa6b281"
+    },
+    {
+      "path": "TITLE_MAP.json",
+      "sha256": "b707f1bb016c5bd772048b8391e2b8483c6b9035f24530b923a43dbe0547d857"
+    }
+  ],
+  "finalConservation": "For fully initialized fixtures run original build/dependency/derived/retained-input comparisons in finally on success or first failure. Preserve primary failure; capture secondary conservation errors separately; no deadline extension."
+}

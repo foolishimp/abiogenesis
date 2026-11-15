@@ -1,0 +1,141 @@
+{
+  "kind": "operator_control_manifest",
+  "activationId": "RC14-REGRESSION-REPAIR-NATIVE-007",
+  "files": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 9616,
+      "sha256": "a4e8fa7091de498d0f02c412f0b2a1c6c2e047eec7009f6fbad13c3d53e81be2"
+    },
+    {
+      "path": "BUILD_REUSE.json",
+      "bytes": 4646,
+      "sha256": "c07cf691485b144821e4049b151e7c04fed1b17d0fa6b3ac54950d9546613272"
+    },
+    {
+      "path": "CONTROL_REPAIR.json",
+      "bytes": 1093,
+      "sha256": "6eadae6335867705c06897fe1abd01d8ca39bf4f723f206a7074521074ce74eb"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 706,
+      "sha256": "f57ae6dd95a2280fa6ec0e2976fd13b48c9d28858bb324cdf6ff05f2455b5540"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 21120,
+      "sha256": "1a65b4d58919e101180c37ee6fce154b7e8e704960dee599a37a461b0820789b"
+    },
+    {
+      "path": "LAYOUT.json",
+      "bytes": 1074,
+      "sha256": "f65bcfc66a15f432052fdbbc17afadebb1d7b3245688895fe0db6d2f33454111"
+    },
+    {
+      "path": "PRIOR_PARTIAL_SOURCE.json",
+      "bytes": 4471,
+      "sha256": "2319071bf69a423640a8b9af0c33f448c4705a2331d3d2a9b927405dd80969f1"
+    },
+    {
+      "path": "PRIOR_TITLE_MAP.json",
+      "bytes": 2379,
+      "sha256": "1bb45ecacff4faef9ea3cf8444d950df232d6d041334ce959cd71a43bfa6b281"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 19424,
+      "sha256": "0e61241a6373dfd4ff7741865b5bfa30ca3845a49c6f7aefb79c46a94cb58d97"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2529,
+      "sha256": "6ffd0453991664120bc5dfaa45cd787076d338931137c48e004d267333ac8831"
+    },
+    {
+      "path": "REENTRY.json",
+      "bytes": 1942,
+      "sha256": "dfb8c59da6a22fc09b9384272b3c88fef8e748aeb52f9de395a7a27f3f1a8b20"
+    },
+    {
+      "path": "RETAINED_INPUTS.json",
+      "bytes": 2617,
+      "sha256": "6b3acd6edd34a09ee213a583ffc743c88c96ecf9ca94757b34270407efbdb74b"
+    },
+    {
+      "path": "RETAINED_PROOF.json",
+      "bytes": 20929,
+      "sha256": "27231d2e9937079e5b752575ee5b9aca6dbfd925ed1f0bef02fe84ab2751bb24"
+    },
+    {
+      "path": "ROOT_ACTIVATION.json",
+      "bytes": 2296,
+      "sha256": "c0a64d3fe2ae78d48b612e4dc55d9c75f5a6d415ffcabd6d4a6bd494f41952d6"
+    },
+    {
+      "path": "ROOT_TRIAGE.json",
+      "bytes": 6017,
+      "sha256": "98d2d7a4bf433d92768556c0f7ce2bce22136341ee6b67841c95e20e1e3ab254"
+    },
+    {
+      "path": "SOURCE_BINDING.json",
+      "bytes": 746,
+      "sha256": "8761c691749758a9ae0e25c2fbd1f276f2ab624762f177a4f84bb5aab5bb8f5e"
+    },
+    {
+      "path": "STATIC.json",
+      "bytes": 2667,
+      "sha256": "25850990b8a483c1674d98ee6e22e53df612bc9cfb8a459158e163032d7aaae6"
+    },
+    {
+      "path": "TASK.json",
+      "bytes": 11636,
+      "sha256": "f2fb2370d21cbc06d3d7c655fcff49e3ec4e889558d004b823cc5e4fb57e10bf"
+    },
+    {
+      "path": "TITLE_MAP.json",
+      "bytes": 1704,
+      "sha256": "b707f1bb016c5bd772048b8391e2b8483c6b9035f24530b923a43dbe0547d857"
+    },
+    {
+      "path": "TRIAGE.md",
+      "bytes": 1514,
+      "sha256": "02ea0161a394aa1c5d3a7964de2d54754e505cbfb03ee2699fb4f75cd4ccbb1b"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 3393,
+      "sha256": "7cd9d8d083eefb6e0177c3ac25c55796f3766d36001c64f227c6ddf7b3015331"
+    },
+    {
+      "path": "operate.py",
+      "bytes": 6471,
+      "sha256": "58b11d0a1471d41601657bffeea8858c767219b92ccb093942217c27807b03ce"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 27559,
+      "sha256": "a10d3f3aa336f5d6b28a110ef0fe63fab673eb2f504b90150f1979632f880465"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ]
+}

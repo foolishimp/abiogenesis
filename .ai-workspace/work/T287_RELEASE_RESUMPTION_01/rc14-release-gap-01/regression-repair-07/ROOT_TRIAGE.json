@@ -1,0 +1,75 @@
+{
+  "id": "RC14-NATIVE07-F09-TRIAGE-001",
+  "recordedUtc": "2026-11-15T12:02:42.530661+00:00",
+  "owner": "Root",
+  "basis": "stdo://releases/v3.0.4/",
+  "sourceHead": "0234b02d89f01723a9cee26051669bf9e93cf41a",
+  "ticket": "T293 B37; existing T287 RC13-built regression repair",
+  "ProductFrame": "Fixed5.0 Product, installed continuation/replay proof. Derived test fixture; immutable coordinates and disposable held selections remain distinct. ABG exclusively owns event admission, rollback and current history; no Product behavior change selected.",
+  "failure": {
+    "record": "NATIVE06_PROOF_CLOSURE.json",
+    "file": "t287-f09-frontier-handoff.test.mjs",
+    "stdoutSha256": "9ed5ae3831a1ced8e9bd183a0d0e82d1f2fbeed1f7a7f43144be1e0ddc9499a2",
+    "elapsedMs": 165940,
+    "timeout": false,
+    "groupAbsent": true,
+    "candidateProduced": false
+  },
+  "source": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+    "bytes": 132023,
+    "sha256": "0a18f44bf62c05fd116c8ce991bee9094979e14f5ca93312f3604d6a93bf1cc4",
+    "sameSince": "native04 partial85a23d71; native05 had not reachedF09"
+  },
+  "originatingRelation": "After injected rollback, reidentification must carry every consumed derivation into the current owner generation while retaining the original immutable historical-cut identity. The fixture updates current artifact truth but reads the old execution-basis selection while reconstructing the leaf port.",
+  "frames": {
+    "ProductOwner": "event_store.ts4586\u20134594 abandons derivation and binds fresh current selection. runtime_history.ts473\u2013475 refuses abandoned selections correctly. No supported Public-path Product regression established.",
+    "LifecycleIdentity": "worker1383 invokes reacquisition;1564\u20131593 current boundary and artifact truth are reacquired;1598\u20131600 consumes old executionBasisAdmission.successorPrefix;1607\u20131615 refreshed consumer assignments never occur. Existing event_store1960\u20131970/1912\u20131932 reidentifyHistoricalDurablePrefixCoordinate authenticates the SAME historical cut against current history and returns fresh owner selection.",
+    "FixtureIntegration": "B29 independent closed triage: one advanceRetry caller produceFrontier; ABA action does not reach helper. Preserve committed bytes/events/digest checks, injected route/attempt refusal controls, strict negatives, actual sameRun progression and restarted consumer. Test/parent assertions unchanged.",
+    "Proof": "61-row retained log has first attempt/progress and one actor start only. No producer JSON/restarted consumer. Prior passes were before this path; no complete F09 proof existed. Native06 whole003\u2013006 green and05whole001/002 remain separate; build/deps/input late observation22matched.",
+    "IndependentProductCheck": "R14 closed independent Product/lifecycle review: PRODUCT825 permits discarding derived state and requires reconstruction after invalidation. Current boundary/artifact truth reacquisition succeeds; only old historical execution-basis read is stale. Existing owner reidentification preserves exact earlier cut. Related reads inspected: retry uses rebound committed boundary, later completion coordinates are newly produced or reopened/cold. No second necessary change found; no general low-level-reader certification.",
+    "ControlRecurrence": "Both05 and06 first-failure branches skipped final build/dependency/derived/input comparisons. Existing prove.py230\u2013237 executes only on success; source/custody alone is finally. Separate late comparisons preserve observations but do not cure original finally. Successor control must move equivalent comparisons into guarded finalization and retain primary/secondary failures distinctly."
+  },
+  "selectedReentry": "Test-only realization correction via one actual RC13 native author; external proof controls by separate Writer. No Product/HOW/schema/provider change.",
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs"
+  ],
+  "bounds": {
+    "nativeAbsoluteMs": 1200000,
+    "nativeMaxTurns": 160,
+    "nativeInactivityMs": 300000,
+    "freshEnclosingMs": 8100000,
+    "proofMs": 5400000,
+    "cleanupReserveMs": 15000,
+    "retry": false
+  },
+  "preserved": [
+    "Exact original execution-basis cut identity through existing authenticated owner",
+    "Original test/parent/negative/byte-event-digest assertions",
+    "Full71top-level declared population and existing legitimate title mappings",
+    "Other15savedsourcepaths; all Product/build inputs and RC13 builder pin",
+    "Prior failures/clocks and native method residuals"
+  ],
+  "proofSequence": {
+    "freshWholeFiles": "007F09, then008\u2013016 (10 files total)",
+    "retainedWholeFiles": "001/002from05,003\u2013006from06, conditioned on complete source/build/dependency/input causal relation",
+    "retainedActualPasses": 44,
+    "limits": "Separate receipts, not a previously green campaign; no whole qualification. WholeF09 must establish actual progression/restarted consumer."
+  },
+  "candidateEvidence": "Persist complete material reacquisition outcomes before behavioral assertions via minimal same-file test-owned capture under external proof root; unexpected outcomes retained. No behavioral execution by author.",
+  "authority": "Owner finishRC14 plus existing bounded plan; separate Root Writer12 owns durable disposition; B30 preparation only, independent review and pushed final source/controls before dispatch",
+  "qualified": false,
+  "independentClosedResults": [
+    {
+      "actor": "/root/b29_vm_triage",
+      "frame": "Fixture/Proof integration",
+      "result": "Closed read-only triage, same one-file repair"
+    },
+    {
+      "actor": "/root/rc14_release_proof",
+      "frame": "Product/lifecycle/identity",
+      "result": "Closed read-only triage, same one-file repair",
+      "failedCommandReturnSha256": "e287323576a488179c65d425a2d3d64535e7d68f999571ae94c06dab1f7136d6"
+    }
+  ]
+}
