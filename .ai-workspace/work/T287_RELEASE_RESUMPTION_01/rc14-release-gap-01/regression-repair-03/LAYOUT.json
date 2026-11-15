@@ -1,0 +1,28 @@
+{
+  "source": "/private/tmp/abg-rc14-regression-repair-20261115-03",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-03",
+  "proofSubject": "/private/tmp/abg-rc14-regression-proof-20261115-03",
+  "writePaths": [
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p6-language-retired.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p3-continuation-refused.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-f09-frontier-handoff.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t292-td36r-admitted-binding-owner.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t292-td36r-bind-door-strings.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-closure.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-readable-stops-foldback.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+    "/private/tmp/abg-rc14-regression-repair-20261115-03/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs"
+  ],
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "plannedProtected": "HOST includes installed ABI container/package, consumer package, all4resource roots, pinned install/release; reacquires full actual binding/install roots after setup and immediately before dispatch.",
+  "setupCustody": "Exact successful imported-create receipt/readback and canonical bytes, captured before actor, verified entry/end. All other .abiogenesis deltas forbidden.",
+  "status": "Prospective only; fresh runtime observations mandatory. Root accepted observer for controlled ASCII layout only, not arbitrary Unicode/atomic races."
+}
