@@ -1,0 +1,89 @@
+{
+  "selection": "Exactly original012-016, serial once under a new grant and clock.012 previously failed fixture acquisition;013-016 were unrun.011 is retained separately;010 excluded.",
+  "files": [
+    {
+      "file": "t287-native-work-currentness-consumers.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "preimageSha256": "9ecfc631462746f5564af4ddb6bdf2a19b34d33f11d2dff7cd4e6ed906d183bb",
+      "minimumTopLevelCases": 6,
+      "preservedTitles": [
+        "U1-P5-02 actual C0 successor and every affected currentness consumer",
+        "U1 physical target scope successor across bindings and native Result scopes",
+        "TD-08 (a): basis-admission worksite currentness equals the head reference on every history and dependency list",
+        "TD-08 (b): visits grow with the subject's causes; joins are independent of unrelated causes",
+        "TD-09 (a): the C2 prefix correspondence equals the base comparison at every cut and view pair; a repeated read compares nothing",
+        "C-14: the C0 failure evidence check refuses its one cited row by order; the owner answer stays null"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 12
+    },
+    {
+      "file": "t287-readable-stops-foldback.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-readable-stops-foldback.test.mjs",
+      "preimageSha256": "9c95ea6be052b65e698f5ab5ec140cd0c089516412ed03fa4d9baa8b30c3f14e",
+      "minimumTopLevelCases": 1,
+      "preservedTitles": [
+        "declared failure foldbacks read back by cause: the bound is the origin, the undeclared failure is named, and no ended frame reads live"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 13
+    },
+    {
+      "file": "t287-native-runtime-gate.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-runtime-gate.test.mjs",
+      "preimageSha256": "dfcea436b3468a3b6fbaa93421cbdd97804c16e9ed45a78ef70a9652dbbd2b0d",
+      "minimumTopLevelCases": 7,
+      "preservedTitles": [
+        "ordinary native runtime declaration passes the existing raw/Program owner",
+        "native source joins and cloned judgment retain their actual assessment; no owning adapter",
+        "caller-editable qualification owner views cannot mutate retained input authority; warm and cold agree",
+        "declared wrong value computes red; foreign law, changed installed subject, stale frontier and result substitute refuse",
+        "same-valued duplicate witness after assessment invalidates current consumption; supplied prefix substitution refuses",
+        "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+        "different installed module URLs retain the invoking proof owner through realization, cloned judgment and owning continuation"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 14
+    },
+    {
+      "file": "t287-observed-worksite-command.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "preimageSha256": "e3e13250283c3d9970c3bff6295ebd913682f3d6d32ad8ff67c3f1fadbace1e7",
+      "minimumTopLevelCases": 8,
+      "preservedTitles": [
+        "extended original C2 plan preserves all 26 sources through native and observed owners",
+        "observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol",
+        "observed C2 zero write declaration executes readonly helper and refuses real mirror mutation",
+        "observed C2 refuses foreign, absent, duplicate, mixed and writable source claims",
+        "observed root source gate binds actual input and refuses stale, crossed and child authority",
+        "later admitted failed native residue invalidates observed inputs without requiring physical mismatch",
+        "changed physical observed source refuses before archive creation or command dispatch",
+        "observed C2 result, native acknowledgment and closure bind the same task without turning red execution green"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 15
+    },
+    {
+      "file": "t287-c0-correction-regressions.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+      "preimageSha256": "eb64595dae0c092d5983fccefcf70b9157606d7b142a985b8a5a4cb8ec08cad8",
+      "minimumTopLevelCases": 2,
+      "preservedTitles": [
+        "correction: observation finalizes after read and close with primary precedence",
+        "correction: raw writer retired"
+      ],
+      "retiredTitlesRequireMapping": [],
+      "optionalSkipReasonIncludes": {},
+      "originalOrdinal": 16
+    }
+  ],
+  "topLevelCases": 24,
+  "optionalSkippedCases": 0,
+  "candidateRequirements": "The exact original per-file candidate requirements and preserved titles are retained without modification.",
+  "retention": "Only complete green files may later be retained when the actual native08 delta is solely test010 and source/support/build/dependencies/inputs otherwise agree. Root decides, no automatic credit.",
+  "firstFailureStop": true
+}

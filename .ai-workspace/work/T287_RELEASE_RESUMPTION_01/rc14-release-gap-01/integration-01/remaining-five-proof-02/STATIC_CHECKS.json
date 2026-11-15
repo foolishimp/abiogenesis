@@ -1,0 +1,55 @@
+{
+  "status": "passed_static_preparation_only",
+  "observedUtc": "2026-11-15T13:46:25.249772+00:00",
+  "pythonAst": "passed; no import or execution",
+  "jsonParse": "all current authored JSON passed",
+  "runnerDelta": "Five mechanical hunks from accepted0fcb: docstring, local retained packet, five-file population+unchanged first7 guard, prior closed raw root added to protected inputs, truthful final population labels. All process/observer/deadline/source/capture/finalization owner code otherwise identical.",
+  "population": {
+    "originalOrdinals": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "topLevelCases": 24,
+    "exactOldRows": true,
+    "optionalSkips": 0
+  },
+  "retainedInputs": {
+    "oldSevenExact": true,
+    "rowCount": 8,
+    "bytes": 670101772,
+    "newInput": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json",
+      "bytes": 983713,
+      "sha256": "6cde4824e5912305cb94de3afdc2eabfd74560e8d8f828cd6be7aa6f64991b16"
+    },
+    "regularNonSymlink": true,
+    "expectedConservationComparisons": 24
+  },
+  "previousReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/RETURN.json",
+    "bytes": 14066,
+    "sha256": "0e007a0e9bffb3a9f5351aec7ace5ff681c68bd344e61eac34dc9eefc80df914"
+  },
+  "previous011": {
+    "pass": 1,
+    "skip": 1,
+    "fail": 0,
+    "rerun": false
+  },
+  "reuse": "Original07 owner/control/build/dependency/source pins reused from accepted0fcb; not relabelled as newly measured. Entry and exit remain mandatory in actual run.",
+  "freshRootsAbsent": true,
+  "executionAuthorized": false,
+  "testsRun": 0,
+  "builds": 0,
+  "providerCalls": 0,
+  "authorityPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/UNRUN_SIX_CLOSURE_AND_INPUT_REENTRY.json",
+    "bytes": 4401,
+    "sha256": "a4099349019ec538f43e99905f8a654ba79dc5a802660b54684f0829504ea674"
+  },
+  "finalAstAfterProtectedInputAddition": "passed; source parse only",
+  "worktreePreparation": "Fresh --no-checkout worktree index was initialized with read-tree -mu HEAD after sparse selection; no source deletions or unrelated edits remain."
+}

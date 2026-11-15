@@ -1,0 +1,46 @@
+{
+  "kind": "external_proof_control_manifest",
+  "activationId": "RC14-REMAINING-FIVE-PROOF-002",
+  "files": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 2989,
+      "sha256": "40352c4db1ce57205a1e57760b955ba982ac3868bdd571dcd7de1ce897fd8cde"
+    },
+    {
+      "path": "BINDING.template.json",
+      "bytes": 265,
+      "sha256": "29708aa69ec2d227327a16b1a09677799932a7a223a90522a4cc8625182029a4"
+    },
+    {
+      "path": "INPUTS.json",
+      "bytes": 12561,
+      "sha256": "45a50c5ee76ecfa1844c4fc9ed2b6cf2a9289866b758e17f118863f470075d70"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 5444,
+      "sha256": "f40483a21125c7f927f4e01e8173ad3e1bf95ce350c1b8ee709a1c15e5f96fce"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3512,
+      "sha256": "766ba37a8d4f02f118039e091fd8e4e53f036c2dd19441ede0ab8e5248b4c0c5"
+    },
+    {
+      "path": "RETAINED_INPUTS.json",
+      "bytes": 3177,
+      "sha256": "1b23abd969a159f681190be8f34f64e096ce4a9e8e5d3ced502e5d16da6a5809"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 2354,
+      "sha256": "4c1cb3948863870f449beb2bc975f19fcaf97db3253da4a2db68bf740fbb608a"
+    },
+    {
+      "path": "run.py",
+      "bytes": 15732,
+      "sha256": "36c7ea5b3530a5056e3aa31056674643e7ac50785393bcacfc8f875c0ce983f4"
+    }
+  ]
+}

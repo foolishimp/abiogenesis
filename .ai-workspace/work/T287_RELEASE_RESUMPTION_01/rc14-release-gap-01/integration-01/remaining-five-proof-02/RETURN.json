@@ -1,0 +1,80 @@
+{
+  "status": "prepared_execution_disabled",
+  "preparationBase": "df87de1dbf86c3c373bb856511913ee4d6668a76",
+  "sourceCommit": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+  "sourceRows": 1428,
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/UNRUN_SIX_CLOSURE_AND_INPUT_REENTRY.json",
+    "bytes": 4401,
+    "sha256": "a4099349019ec538f43e99905f8a654ba79dc5a802660b54684f0829504ea674"
+  },
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 1312,
+    "sha256": "270c3999f3df3795aaa79c84c7e8c10f6212b0f5f397a7ec450e49514582c19e"
+  },
+  "runner": {
+    "path": "run.py",
+    "bytes": 15732,
+    "sha256": "36c7ea5b3530a5056e3aa31056674643e7ac50785393bcacfc8f875c0ce983f4"
+  },
+  "previousControlCommit": "0fcb38edc81c4a8a4c51270c8640545bfe90ccb5",
+  "previousProofReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-unrun-six-proof-20261116-01/proof-01/RETURN.json",
+    "bytes": 14066,
+    "sha256": "0e007a0e9bffb3a9f5351aec7ace5ff681c68bd344e61eac34dc9eefc80df914"
+  },
+  "sourceRoute": "Original07 source99, historical b47 setup custody and exact1428-row physical postimage retained; fresh copied subject and output. No new native gate.",
+  "reuse": "Original accepted07 command, physical observer, population, dependency and final input-conservation functions imported unchanged. New local retained packet first7 equals original7; exact bridge is eighth. Final helper consequently checks24 original/copy relations.",
+  "population": {
+    "originalOrdinals": [
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "wholeFiles": 5,
+    "namedTopLevelCases": 24,
+    "optionalHistoricalGateCount": 0,
+    "priorAcquisitionFailureOrdinals": [
+      12
+    ],
+    "previouslyUnrunOrdinals": [
+      13,
+      14,
+      15,
+      16
+    ],
+    "separatelyRetained": {
+      "ordinal": 11,
+      "pass": 1,
+      "skip": 1,
+      "wholeFile": true
+    },
+    "partial012Credit": false,
+    "excluded": [
+      10,
+      11
+    ]
+  },
+  "limits": {
+    "enclosingMs": 3600000,
+    "perFileMs": 1800000,
+    "cleanupReserveMs": 15000,
+    "outputBytesPerCommand": 33554432,
+    "firstFailureStop": true,
+    "automaticRetry": false
+  },
+  "staticChecks": "STATIC_CHECKS.json; affected AST/JSON/diff/hash/new bridge checks only; no execution.",
+  "unresolved": [
+    "Independent Root review of exact frozen controls",
+    "Main checkpoint/push, actual binding/manifest digest and fresh60min deadline with explicit one-shot Operator grant",
+    "Actual outcomes for012-016; no predicted green or qualification"
+  ],
+  "qualified": false,
+  "providerCalls": 0,
+  "testsRun": 0,
+  "builds": 0,
+  "rawPublished": false
+}

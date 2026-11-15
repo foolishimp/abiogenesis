@@ -1,0 +1,45 @@
+{
+  "id": "RC14-REMAINING-FIVE-PROOF-002",
+  "role": "external proof controls Writer; future finite Operator only by Root grant",
+  "preparationBase": "df87de1dbf86c3c373bb856511913ee4d6668a76",
+  "productFrame": "Fixed ABI5/T287 RC14; observation/evidence only. Product S07 and REQ-P-QUAL-057C prohibit qualification or release credit from these component checks. Existing owners alone govern tests.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "stdo": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "verification": "installed:true valid:true failures:[] reacquired in this preparation"
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/UNRUN_SIX_CLOSURE_AND_INPUT_REENTRY.json",
+    "bytes": 4401,
+    "sha256": "a4099349019ec538f43e99905f8a654ba79dc5a802660b54684f0829504ea674"
+  },
+  "sourceWorktree": "/private/tmp/abg-rc14-regression-repair-20261115-07",
+  "sourceCommit": "99d856f1af39e1bde83cf4c543639a1a2f8083ae",
+  "sourceTree": "1efbbd46e99bcef12789559f02e47ed4806db048",
+  "originalAuthorHead": "b47ee9e72eb2dd6ae247f111fca7fa966f4c9d46",
+  "retainedControlRoot": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07",
+  "originalRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-remaining-five-proof-20261116-02",
+  "proofSubject": "/private/tmp/abg-rc14-remaining-five-subject-20261116-02",
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26",
+    "bytes": 5769
+  },
+  "limits": {
+    "enclosingMs": 3600000,
+    "perTestFileMs": 1800000,
+    "outputBytesPerCommand": 33554432,
+    "cleanupReserveMs": 15000,
+    "reserveBytes": 4294967296
+  },
+  "executionAuthorized": false,
+  "providerCalls": 0,
+  "builds": 0,
+  "retries": 0,
+  "qualification": false,
+  "sourceTransition": "Original b47 dirty author subject was conserved through closed07 proof and committed as99. Original1428 physical rows and original setup attribution are retained independently of the new clean Git HEAD. No new author/completion gate.",
+  "previousControlCommit": "0fcb38edc81c4a8a4c51270c8640545bfe90ccb5",
+  "reentry": "External proof-input repair only: add missing exact bridge bytes. File012 receives a fresh complete execution after its acquisition failure;013-016 were unrun. Original011 remains separately retained 1pass/1declared skip. No prior012 partial pass credit."
+}
