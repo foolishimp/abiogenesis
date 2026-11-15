@@ -1,0 +1,47 @@
+{
+  "id": "RC14-AMENDMENT-CUT-INPUT-CUSTODY-PREP-004",
+  "role": "separate external-controls Writer",
+  "authority": "Root selected Writer after closed b29 intake and independent R14 agreement, under owner finishRC14 and fixed ABI5/T287/S03",
+  "baseCommit": "74999d972fcd7285dc990d97a9bfb39164559fb7",
+  "predecessor": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+  "ProductFrame": "S03 amendment and selective currentness. Controls are derived input/evidence custody; installed Public/ABG and declared owners retain runtime truth. No qualification or previous-candidate credit transfers.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#exact-basis",
+    "composition": []
+  },
+  "territory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-04",
+  "sourceOfTruth": [
+    "fixed Product F17/S03 and existing T287/RC14 grant",
+    "accepted amendment-successor-03 lifecycle/control behavior",
+    "rc14-cut-preparation-01 actual prepare/install/freeze owners"
+  ],
+  "changeIntent": "Replace old7a proof receipt/candidate custody with exact prospective RC14 CUT_RECORD/C0/tree/build/archive/bootstrap ownership; preserve every lifecycle and finite effect guard.",
+  "effectsAllowed": [
+    "write new isolated carrier",
+    "declare fresh exact823 helper checkout",
+    "static parsing/hash/shape checks once",
+    "commit own branch and freeze"
+  ],
+  "effectsExcluded": [
+    "Product/test/fixture implementation",
+    "Product imports",
+    "provider",
+    "build",
+    "smoke or lifecycle execution",
+    "socket/setup probes",
+    "main edits or push",
+    "raw capture/archive publication"
+  ],
+  "candidateBound": false,
+  "executionAuthorized": false,
+  "declaredHelperCheckout": {
+    "path": "/private/tmp/abg-rc14-amendment-controls-823-20261116-01",
+    "commit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+    "provisioned": false,
+    "role": "fresh read-only maintained helper source; never move b865 qualification or71da worktrees"
+  },
+  "stop": "Freeze once and return to Root for independent review and later candidate-bound activation."
+}
