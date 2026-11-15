@@ -1,5 +1,5 @@
 {
-  "status": "RC14_S06_SECOND_RUN_ACTIVE_AMENDMENT_THIRD_RUN_SELECTED",
+  "status": "RC14_S06_B56_PRODUCT_REPAIR_PREPARING_AMENDMENT03_RUNNING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T19:06:00.741008+00:00",
-  "nativeAuthorState": "S06-02 actual D1 actor started with admitted role context. Amendment06 exact correction accepted; fresh03 grant selected after checkpoint push. At most two native provider lanes.",
+  "recordedUtc": "2026-11-15T19:25:55.663148+00:00",
+  "nativeAuthorState": "No source author active. S06-02 closed failed at assessment; independent triage selects B56 existing-owner repair preparation. Amendment03 continues actual admitted workflow.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -933,7 +933,7 @@
     "namedTopLevelMinimum": 24
   },
   "candidatePreparation": {
-    "state": "C1_FINALIZATION_ACCEPTED_INSTALLED_WITNESSES_SELECTED",
+    "state": "FROZEN_UNQUALIFIED_CANDIDATE_B56_REPAIR_REQUIRED",
     "compileInputCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
     "compileInputTree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
     "acceptance": "integration-01/RC14_C0_SOURCE_ACCEPTANCE.json",
@@ -967,12 +967,12 @@
   },
   "installedWitnesses": {
     "amendment": {
-      "state": "selected_not_started",
-      "grant": "integration-01/amendment-witness-01/ACTIVATION.json"
+      "state": "running_attempt03",
+      "grant": "integration-01/amendment-witness-03/ACTIVATION.json"
     },
     "S06": {
-      "state": "selected_not_started",
-      "grant": "integration-01/s06-witness-01/ACTIVATION.json"
+      "state": "attempt02_failed_B56_repair_preparing",
+      "grant": "integration-01/s06-witness-02/ACTIVATION.json"
     },
     "formalQualification": "Not activated; B50 policy/route remains open"
   },
@@ -997,7 +997,7 @@
     "retry": false
   },
   "s06Witness02": {
-    "state": "D1_NATIVE_RUNNING_WITH_ADMITTED_ROLE_CONTEXT",
+    "state": "CLOSED_ASSESSMENT_DEPENDENCY_FAILURE",
     "controlCommit": "6f4c3777cee044a7a9c3de23e18cb7ed3ac4f188",
     "controlAcceptance": "integration-01/S06_CONTROL_ACCEPTANCE_04.json",
     "activation": "integration-01/s06-witness-02/ACTIVATION.json",
@@ -1010,14 +1010,34 @@
     "actorPid": 56042,
     "modelObserved": "claude-opus-5-5",
     "effortConfigured": "xhigh",
-    "roleEnvironmentAdmitted": true
+    "roleEnvironmentAdmitted": true,
+    "returnCommit": "94d24dc95695956a54e929866c79bc82ac23939a",
+    "record": "integration-01/s06-witness-02/RETURN.json",
+    "triage": "integration-01/S06_SECOND_FAILURE_DISPOSITION_01.json",
+    "nativeTurns": 19,
+    "nativeSdkWallMs": 656227,
+    "protocolReportedCostUsd": 3.1212436,
+    "freshHeldFailedReadbacksEqual": true,
+    "inputRowsConserved": 80,
+    "commandGroupsAbsent": 16,
+    "actorAbsent": true,
+    "C2Executions": 0,
+    "D2Started": false,
+    "retry": false
   },
   "amendmentWitness03": {
-    "state": "SELECTED_AFTER_REVIEW_AND_CHECKPOINT",
+    "state": "RUNNING_ACTUAL_ADMITTED_WORKFLOW",
     "controlCommit": "5b75c3a38114685d66d443ffc4e23733e24457c1",
     "controlAcceptance": "integration-01/AMENDMENT_CONTROL_ACCEPTANCE_06.json",
     "activation": "integration-01/amendment-witness-03/ACTIVATION.json",
-    "providerStarted": false,
-    "qualified": false
+    "providerStarted": true,
+    "qualified": false,
+    "startedUtc": "2026-11-15T19:12:36.707704Z",
+    "originalDeadlineUtc": "2026-11-15T22:12:36.707704Z",
+    "bindingSha256": "e5db0ae857d2fbf69de92cb402406731c771c3703a548bcc231f867ec5a77f54",
+    "smokeInputsSha256": "2785bac4d5b9f1988785877dbf1119cc144ea18e7c024c280fc013c60dd06751",
+    "installedSmokePass": 1,
+    "installedSmokeFail": 0,
+    "actualPairedReadiness": "All four after-setup/pre-dispatch operator/runtime observations passed"
   }
 }
