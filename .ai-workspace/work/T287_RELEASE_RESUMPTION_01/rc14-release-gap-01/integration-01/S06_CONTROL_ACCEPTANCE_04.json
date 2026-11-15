@@ -1,0 +1,36 @@
+{
+  "id": "RC14-S06-CONTROL-ACCEPTANCE-04",
+  "recordedUtc": "2026-11-15T19:00:10.803393+00:00",
+  "productFrame": "Fixed5.0 F17/S06 actual lifecycle/revision. Generic declared role/context and source-linked readback custody; external host never supplies runtime or semantic acceptance.",
+  "basis": "stdo://releases/v3.0.4/",
+  "subjectCommit": "6f4c3777cee044a7a9c3de23e18cb7ed3ac4f188",
+  "subjectTree": "4bdcc17cdc7bdfaa53bac2c4212c421a8d313565",
+  "mainMerge": "16475c6dd956474424fae66e7518b2aef40ead4c",
+  "manifestSha256": "b753febcd89ec78742117fe3abd20da47df49363766901b908f283b59ab7de61",
+  "returnPath": "s06-preparation-03/PREPARATION_RETURN.json",
+  "returnSha256": "4f02b3f63e998b8a6926b8cbd3d2d258d69355c68f285f2dcc2b70a2d24486ac",
+  "independentReviewer": "/root/amendment_topology_review",
+  "sourceVerdict": "satisfied, no actionable counterexample",
+  "rootAcquisition": {
+    "manifestMembers": 25,
+    "externalReceiptPins": 10,
+    "mismatches": 0,
+    "preparationGroupsAbsent": 3,
+    "twoExecutableDiffsRead": true
+  },
+  "verified": [
+    "Selected D1 canonical generic environment retains exact stock dependency/context/policy/access and three role rows; only selected D1 Program changes. Eleven unselected revision Programs and D2 are conserved.",
+    "Existing resource owner consumes the declaration; no Product/helper/setup owner change.",
+    "Phase-local caller root alone changes; runtime/state/method/installed-root references preserved. Actual phase provenance and writer/reader paths agree; all original assertions remain.",
+    "Twenty copied files, seven maintained inputs,35 external rows and Toolchain pointer conserved under independent review. Tool/oracle/budgets unchanged.",
+    "Actual628ms constructor validation and missing-assessor/extra-selector refusals retained. Phase path specimen is structural only."
+  ],
+  "inheritedWhitespace": "SELECTION.md original EOF blank line is conserved, not a new authored change.",
+  "limits": [
+    "B53/B54 source corrections accepted; full actual D1 assessment/lifecycle and both-phase fresh readback remain unproved.",
+    "Earlier01 remains failed under original clock; no native producer acceptance transfers automatically.",
+    "Formal qualification/B50 and actual human/S07 gates remain separate."
+  ],
+  "qualified": false,
+  "rawPublished": false
+}

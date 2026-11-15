@@ -1,5 +1,5 @@
 {
-  "status": "RC14_AMENDMENT_INSTALL_JOIN_REPAIR_S06_REVIEW_NEXT",
+  "status": "RC14_S06_SUCCESSOR_READY_AMENDMENT_INSTALL_JOIN_WRITER",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T18:54:07.516651+00:00",
-  "nativeAuthorState": "No active provider. Amendment02 closed after planned topology passed and smoke failed; explicit existing-install join selected. S06 control Writer03 has passed pure readiness and is freezing for source review.",
+  "recordedUtc": "2026-11-15T19:00:10.803393+00:00",
+  "nativeAuthorState": "No active provider at this checkpoint. S06 successor03 independently accepted; fresh02 execution selected after push. Amendment06 install-join Writer active; no amendment03 run selected yet.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -995,5 +995,13 @@
     "commandGroupsAbsent": 6,
     "originalDeadlineUtc": "2026-11-15T21:47:20.425957+00:00",
     "retry": false
+  },
+  "s06Witness02": {
+    "state": "SELECTED_AFTER_REVIEW_AND_CHECKPOINT",
+    "controlCommit": "6f4c3777cee044a7a9c3de23e18cb7ed3ac4f188",
+    "controlAcceptance": "integration-01/S06_CONTROL_ACCEPTANCE_04.json",
+    "activation": "integration-01/s06-witness-02/ACTIVATION.json",
+    "providerStarted": false,
+    "qualified": false
   }
 }
