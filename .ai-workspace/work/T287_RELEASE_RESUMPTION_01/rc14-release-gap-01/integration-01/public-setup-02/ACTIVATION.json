@@ -1,0 +1,85 @@
+{
+  "id": "RC14-PUBLIC-SETUP-OPERATOR-002",
+  "recordedUtc": "2026-11-15T17:56:33.426947+00:00",
+  "role": "Separate Public setup Operator under FINALIZATION_WRITER_14",
+  "authority": "Owner finish RC14 and latest continue; closed multi-frame B51 triage and independent exact-delta acceptance. Execute only after this grant and successor controls are committed/pushed to main.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "candidate": {
+    "sourceCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "compileInputTree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
+    "cutRecordPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/CUT_RECORD.json",
+    "cutRecordSha256": "3700aac9426d375e414a5f3928013fefcd30e4302e8705a939ede5ba0a3a9902",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "archiveSha256": "sha256:5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/bootstrap/package",
+    "manifestSha256": "2bfb3663bb394f1b735703670cdbbe93c608117ad0527a550ea15e8971555c0d",
+    "packageVersion": "5.0.0-rc.14"
+  },
+  "controls": {
+    "root": "/private/tmp/abg-rc14-public-setup-successor-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/cut-public-setup-02",
+    "commit": "d848831e791d704acd6f9e8a0d78180d6ca0afb3",
+    "manifestSha256": "8e6d98be2aa88e03d868b64c501341f222bf8ea5a968cffa85f1c402e82ed07d",
+    "maintainedSourceCommit": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862"
+  },
+  "priorAttempt": {
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-01",
+    "status": "failed and closed",
+    "originalDeadlineUtc": "2026-11-15T15:43:22.579356Z",
+    "unchanged": true,
+    "meaning": "This changed-control successor has a separate finite grant; the original clock and failure are never reset or reclassified."
+  },
+  "runId": "rc14-public-setup-20261116-02",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-02",
+  "worksiteRoot": "/private/tmp/abg-rc14-public-setup-20261116-02",
+  "bindingRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-binding-20261116-02",
+  "bindingPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-binding-20261116-02/BINDING.json",
+  "entry": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "/private/tmp/abg-rc14-public-setup-successor-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/cut-public-setup-02/run.py",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-binding-20261116-02/BINDING.json"
+  ],
+  "bindingRule": "Instantiate the existing template exactly from this grant and verified actual same-archive bootstrap. Only fresh raw/worksite, new control manifest, new npm config paths and finite actual deadline differ materially from prior binding. No controller modification.",
+  "limits": {
+    "enclosingSeconds": 900,
+    "exitReserveSeconds": 30,
+    "setupHostMs": 300000,
+    "innerDeadlineMs": 285000,
+    "captureBytes": 16777216,
+    "firstFailureStops": true,
+    "retries": 0
+  },
+  "protectedRoots": [
+    "/Users/jim/src/apps/abiogenesis",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01",
+    "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01",
+    "/private/tmp/abg-rc14-public-setup-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/cut-public-setup-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13",
+    "/Users/jim/Library/Application Support/STDO/releases/v3.0.4",
+    "/opt/homebrew/lib/node_modules/npm",
+    "/private/tmp/abg-rc14-public-setup-successor-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/cut-public-setup-02",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-binding-20261116-02",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-01"
+  ],
+  "environment": "Exact credential-free template keys; HOME/TMPDIR/npm cache under new raw root, two empty npm configs under new controls, preserved pinned PATH/LANG/LC_ALL.",
+  "expectedIdentityPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-02/public-setup/installed/0/identity.json",
+  "expectedPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-02/public-setup/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "effects": [
+    "Create fresh binding and runtime roots; one accepted same-archive Public setup with actual original start/deadline.",
+    "Preserve complete input/archive/bootstrap/global-install/control/npmTree conservation and owned process closure.",
+    "Return actual Public identity, setup close, paired topology and archive/install correspondence; raw evidence external. Compact authored Return only on own isolated records branch after closure."
+  ],
+  "stops": [
+    "Occupied fresh path or mismatched pin/topology; first command failure; deadline/capture limit; missing close/identity; final conservation or group-absence failure. Preserve evidence and return without repair/retry."
+  ],
+  "exclusions": [
+    "No repeat mechanical global install, rebuild, repack or Product/test edit.",
+    "No C1 metadata/freeze, provider/lifecycle run, tests or qualification.",
+    "No main mutation/push, raw Git, selector/pin change, tag/publication or human acceptance."
+  ],
+  "return": "Actual same-archive Public identity and complete bounded custody, or exact first failure; never promote a mechanical install record into a Public identity."
+}

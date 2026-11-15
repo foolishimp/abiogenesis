@@ -1,0 +1,19 @@
+{
+  "id": "RC14-PUBLIC-SETUP-CONTROL-ACCEPTANCE-002",
+  "recordedUtc": "2026-11-15T17:56:33.426947+00:00",
+  "role": "Root independent conjunction under FINALIZATION_WRITER_14",
+  "productFrame": "Fixed5.0 S07 prospective install identity; external custody correction, no Product outcome or qualification change.",
+  "subject": "d848831e791d704acd6f9e8a0d78180d6ca0afb3",
+  "tree": "e56deb903ae253ba1a233e4096357d132f00939d",
+  "mainMerge": "3a4374be31937c9619e1262dd9a95089ef1c47bc",
+  "manifestSha256": "8e6d98be2aa88e03d868b64c501341f222bf8ea5a968cffa85f1c402e82ed07d",
+  "returnSha256": "cecb2787f8230515f609d4890d30d3084d8e70450192643dcec8274cda7a7596",
+  "writer": "rc14_release_proof",
+  "reviewer": "b29_vm_triage",
+  "review": "Satisfied, zero counterexamples; all12paths and10manifest members reacquired.",
+  "rootVerification": "Verified exact pins,12-path carrier,10manifest rows; run.py equals predecessor after exactly one command-label substitution. Setup-only, binding, input, tool and npm config bodies byte-equal.",
+  "delta": "Host capture raw/public-setup-host; runtime keeps raw/public-setup. Identity/HANDOFF/cleanup, exclusive mkdir and all finite bounds conserved.",
+  "priorFailure": "B51 remains historically failed; see INSTALL_AND_PUBLIC_SETUP_DISPOSITION.json. Mechanical global install and archive remain valid.",
+  "disposition": "Accepted for one fresh same-archive Public setup; actual identity/close still unproved",
+  "qualified": false
+}

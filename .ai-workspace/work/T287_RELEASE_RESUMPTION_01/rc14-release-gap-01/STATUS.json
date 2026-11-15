@@ -1,5 +1,5 @@
 {
-  "status": "RC14_LOCALLY_INSTALLED_PUBLIC_SETUP_CONTROL_REPAIR_SELECTED",
+  "status": "RC14_PUBLIC_SETUP_CONTROL_CORRECTED_FRESH_EXECUTION_SELECTED",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T17:54:14.403460+00:00",
-  "nativeAuthorState": "No active provider or runtime. Mechanical RC14 install passed; Public setup01 failed before candidate Product evaluation on external capture/runtime directory collision. Narrow control successor selected.",
+  "recordedUtc": "2026-11-15T17:56:33.426947+00:00",
+  "nativeAuthorState": "No active provider/runtime. B51 one-label external-control correction accepted; one fresh same-archive Public setup selected after checkpoint push.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -897,7 +897,7 @@
     "namedTopLevelMinimum": 24
   },
   "candidatePreparation": {
-    "state": "MECHANICAL_INSTALL_PASSED_PUBLIC_SETUP01_FAILED",
+    "state": "MECHANICAL_INSTALL_PASSED_PUBLIC_SETUP02_SELECTED",
     "compileInputCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
     "compileInputTree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
     "acceptance": "integration-01/RC14_C0_SOURCE_ACCEPTANCE.json",
@@ -919,6 +919,8 @@
     "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14/node_modules/@abiogenesis/typescript-tenant",
     "publicSetupIdentity": null,
     "controlFinding": "T293 B51",
-    "qualified": false
+    "qualified": false,
+    "publicSetupControlAcceptance": "integration-01/RC14_PUBLIC_SETUP_CONTROL_ACCEPTANCE_02.json",
+    "publicSetupGrant": "integration-01/public-setup-02/ACTIVATION.json"
   }
 }
