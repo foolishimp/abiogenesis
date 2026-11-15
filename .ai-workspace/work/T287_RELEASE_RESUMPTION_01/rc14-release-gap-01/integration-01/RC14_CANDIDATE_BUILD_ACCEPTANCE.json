@@ -1,0 +1,49 @@
+{
+  "id": "RC14-CANDIDATE-BUILD-ACCEPTANCE-001",
+  "recordedUtc": "2026-11-15T15:22:03.597932+00:00",
+  "role": "Root independent evidence review, recorded under FINALIZATION_WRITER_14",
+  "productFrame": "Fixed 5.0, T287 RC14 S07 prospective preparation; package correspondence is not scenario acceptance or qualification.",
+  "source": {
+    "commit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "tree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded"
+  },
+  "operatorReturnCommit": "31d3b2404694024397f8bf89f9b31798e1cf0fe5",
+  "returnMainMerge": "8e89c6d7e9ce8854981611a8e951c6103db8bac4",
+  "cutRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/CUT_RECORD.json",
+    "sha256": "3700aac9426d375e414a5f3928013fefcd30e4302e8705a939ede5ba0a3a9902"
+  },
+  "archive": {
+    "name": "abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "bytes": 10814430,
+    "sha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz"
+  },
+  "identity": {
+    "artifactDigest": "sha256:5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "productContentDigest": "sha256:7646989ad108d1f4cfb8075909c9a26208f5f605b23b590e264c25544ba3332a",
+    "manifestDigest": "sha256:80ca2ae2e4152cfa84a8e811fdeb163acb8a1abb96a22c99f3aa6849406501d1"
+  },
+  "disposition": "Accepted prospective candidate for same-archive installation and actual Public setup; C1 finalization required",
+  "rootChecks": [
+    "Exact final Return and CUT_RECORD pins reacquired; actual source C0/tree matched.",
+    "Archive digest/size verified; all 5302 members independently compared with recorded inventory and actual buildRoot bytes.",
+    "All 221 original final custody comparisons conserved; error list empty; command group9506 independently absent.",
+    "Only compact authored Return committed, one path; full logs and archive remain external."
+  ],
+  "execution": {
+    "elapsedMs": 70621,
+    "originalDeadlinePreserved": true,
+    "retries": 0,
+    "providerCalls": 0
+  },
+  "remaining": [
+    "Same-archive mechanical install and actual Public identity",
+    "C1 derived metadata and complete source freeze",
+    "Installed amendment/S06 and exact qualification/B50"
+  ],
+  "qualified": false,
+  "installed": false,
+  "published": false,
+  "builderPinChanged": false
+}

@@ -1,5 +1,5 @@
 {
-  "status": "RC14_C0_ACCEPTED_CANDIDATE_BUILD_SELECTED",
+  "status": "RC14_CANDIDATE_BUILT_INSTALL_AND_PUBLIC_SETUP_SELECTED",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T15:14:31.121403+00:00",
-  "nativeAuthorState": "No active provider. Final source and component proof closed; one prospective C0 build selected after checkpoint push.",
+  "recordedUtc": "2026-11-15T15:22:03.597932+00:00",
+  "nativeAuthorState": "No active provider/build. Actual RC14 candidate build passed; same-archive installation and Public setup selected after checkpoint push.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -897,13 +897,22 @@
     "namedTopLevelMinimum": 24
   },
   "candidatePreparation": {
-    "state": "C0_ACCEPTED_BUILD_SELECTED_NOT_STARTED",
+    "state": "BUILD_CLOSED_INSTALL_SELECTED_NOT_STARTED",
     "compileInputCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
     "compileInputTree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
     "acceptance": "integration-01/RC14_C0_SOURCE_ACCEPTANCE.json",
     "buildGrant": "integration-01/candidate-build-01/ACTIVATION.json",
     "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01",
-    "archive": null,
-    "qualification": false
+    "archive": {
+      "name": "abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+      "bytes": 10814430,
+      "sha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz"
+    },
+    "qualification": false,
+    "buildReturn": "integration-01/candidate-build-01/RETURN.json",
+    "buildAcceptance": "integration-01/RC14_CANDIDATE_BUILD_ACCEPTANCE.json",
+    "members": 5302,
+    "installGrant": "integration-01/candidate-install-01/ACTIVATION.json"
   }
 }
