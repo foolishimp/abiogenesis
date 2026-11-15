@@ -1,5 +1,5 @@
 {
-  "status": "RC14_NATIVE06_PROOF_ENTRY_ACCEPTED_PENDING_LAUNCH",
+  "status": "RC14_NATIVE06_PROOF_RUNNING_FIRST_FRESH_FILE_PASSED",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -28,7 +28,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-15T09:34:25.866288+00:00",
-  "nativeAuthorState": "Native06 completed82turns/883341ms; actual actor/resource close and fresh result/replay. Source review satisfied; disclosed omitted method references require truthful bounded proof entry. No provider/proof active.",
+  "nativeAuthorState": "Native06 source review closed; proof now running, no provider. First fresh whole file003 passes17/17 and retains both candidate captures. Remaining13 fresh files unclosed.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -683,7 +683,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T11:28:39.894192+00:00",
+  "updatedUtc": "2026-11-15T11:49:57.708086+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -722,7 +722,7 @@
     "closure": "integration-01/NATIVE05_PROOF_CLOSURE.json"
   },
   "regressionRepair06": {
-    "state": "PROOF_ENTRY_ACCEPTED_PENDING_PUSH_AND_LAUNCH",
+    "state": "PROOF_RUNNING",
     "triage": "integration-01/NATIVE06_TWO_CASE_TRIAGE.json",
     "executionBound": true,
     "sourceHead": "512f936499b4e7264ddcf953e962c1374136504c",
@@ -741,8 +741,11 @@
     "nativeTurns": 82,
     "nativeMs": 883341,
     "actualCloseAndFreshReplay": true,
-    "proofStarted": false,
-    "proofEntry": "integration-01/NATIVE06_PROOF_REENTRY_ACCEPTANCE.json"
+    "proofStarted": true,
+    "proofEntry": "integration-01/NATIVE06_PROOF_REENTRY_ACCEPTANCE.json",
+    "proofStartUtc": "2026-11-15T11:31:22.461323Z",
+    "proofDeadlineUtc": "2026-11-15T13:01:22.461323Z",
+    "progress": "integration-01/NATIVE06_PROOF_PROGRESS_01.json"
   },
   "peerFinal228": {
     "record": "integration-01/PEER_FINAL_228_RECONCILIATION.json",

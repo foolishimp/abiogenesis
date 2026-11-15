@@ -1,0 +1,41 @@
+{
+  "id": "RC14-NATIVE06-PROOF-PROGRESS-01",
+  "recordedUtc": "2026-11-15T11:49:57.708086+00:00",
+  "standing": "Partial campaign result; original two retained passes remain separate executions",
+  "sourceHead": "512f936499b4e7264ddcf953e962c1374136504c",
+  "testSha256": "86eaf470644456bc3fc1d325ac5589b406b296bedebffcab965bfe20066f19fb",
+  "completedFreshFiles": [
+    {
+      "ordinal": 3,
+      "name": "t287-single-address-space-consolidation.test.mjs",
+      "topLevelCases": 13,
+      "passed": 17,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "elapsedMs": 798808,
+      "processGroupAbsent": true,
+      "stdoutSha256": "c3a4c9361174b46b4a3f687adb7f2289c6da6282edc5e6396a7f5364ea0021d5"
+    }
+  ],
+  "candidateCaptures": [
+    {
+      "name": "single-address-space-case3.candidate.json",
+      "bytes": 12287,
+      "sha256": "8fa808f2e9aacb57d3c1df90a31896d888bf4513795729d35aeb00283f81cbef"
+    },
+    {
+      "name": "single-address-space-case7.candidate.json",
+      "bytes": 144645,
+      "sha256": "df30e058e710b115cf39fd691f32a4a7c819863ce1627cdd1483bcd98699de84"
+    }
+  ],
+  "proofStartedUtc": "2026-11-15T11:31:22.461323Z",
+  "proofDeadlineUtc": "2026-11-15T13:01:22.461323Z",
+  "originalHostDeadlineUtc": "2026-11-15T13:12:34.310925Z",
+  "currentFileAtObservation": 4,
+  "remainingFreshFiles": 13,
+  "campaignComplete": false,
+  "qualified": false,
+  "rawPublished": false
+}
