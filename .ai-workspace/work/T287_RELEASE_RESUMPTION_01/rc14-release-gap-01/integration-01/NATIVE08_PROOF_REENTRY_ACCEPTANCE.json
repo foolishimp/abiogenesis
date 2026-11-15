@@ -1,0 +1,34 @@
+{
+  "id": "RC14-NATIVE08-PROOF-REENTRY-ACCEPTANCE",
+  "reviewer": "Root independent of B29 external-controls Writer",
+  "productFrame": "Fixed ABI5/T287 RC14, bounded source component proof with disclosed actual audit variances.",
+  "subjectCommit": "5f59db08efe482ae612a2acd7fdc17066c79dfa4",
+  "subjectTree": "dfa6c350527b6de84d5855e8e1b423763f0730a2",
+  "manifestSha256": "3d03e09054955a9563b808694257da6e3197ed9255956b8b6fd174b3ea2fc6a7",
+  "returnSha256": "1f769512058a55c95b4e6d927c6c6d630ff2e0fa4c3190d83bd8c3bbe36f30b4",
+  "runnerSha256": "ef0d5f11e530487ed373de55252ccf0bf4562c186086352a9b8c961981176233",
+  "disposition": "accepted_for_one_proof_after_checkpoint_push_and_actual_authority",
+  "findings": [],
+  "rootVerification": {
+    "manifestMembers": 5,
+    "originalHelperASTsUnchanged": 10,
+    "delta": "HERE points to immutable original08 controls; separate exact audit/source-review/disposition admission replaces blanket zero-deviations gate. Original execution body, completion/source/retention/owner/process/deadline/finalizer code conserved.",
+    "auditFrozenJoinsMatched": true,
+    "fullLiteralCompliance": false,
+    "sourceHead": "324ec312fa6ae4ab0f4d88a443d607fcd13c3c77",
+    "sourceSHA256": "fda1551579558998d509525258312fe0d21acce41c574af9dd96a0f9bd3c5e98",
+    "freshOrdinals": [
+      10
+    ],
+    "retainedFiles": 15,
+    "finalInputComparisons": 24
+  },
+  "originalHostDeadlineUtc": "2026-11-15T16:37:49.211017+00:00",
+  "proofMaximumMs": 5400000,
+  "cleanupReserveMs": 15000,
+  "clipToOriginalHostDeadline": true,
+  "retry": false,
+  "executionStarted": false,
+  "qualified": false,
+  "rawPublished": false
+}
