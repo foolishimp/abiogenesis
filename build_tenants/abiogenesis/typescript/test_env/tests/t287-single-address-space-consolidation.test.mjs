@@ -305,7 +305,32 @@ test('liveness candidate validation forks its admitted base: equal decisions and
   t.diagnostic(JSON.stringify(proof.cases.livenessFork.work));
 });
 
-test('shared public-operation classification equals the complete class predicates of the retained history, with orphan and mixed-arm facts kept', {...RETAINED, timeout: 600_000}, async t => {
+// Regression proof custody: case3 and case7 below persist their complete
+// candidate before any behavioral assertion over it, because the selected
+// evidence reporter discards diagnostics (t.diagnostic stays supplementary).
+// The operator selects the proof root with ABG_REGRESSION_PROOF_ROOT and each
+// candidate file is written there once, exclusively. Without the root nothing
+// is written and the case says so; selected proof requires both files.
+const persistCandidate = async (t, name, candidate) => {
+  const root = process.env.ABG_REGRESSION_PROOF_ROOT;
+  if (typeof root !== 'string' || root.length === 0) {
+    t.diagnostic(name + ' not persisted: ABG_REGRESSION_PROOF_ROOT is unset');
+    return null;
+  }
+  return exclusiveRecord(root, name, candidate);
+};
+// An unexpected thrown outcome, kept in the candidate before any assertion.
+const thrownValue = error => ({name: error?.name ?? null, typeError: error instanceof TypeError, message: String(error?.message ?? error),
+  stack: typeof error?.stack === 'string' ? error.stack : null});
+
+// RC14 native06 retirement (TITLE_MAP.json): this case replaces the title
+// "shared public-operation classification equals the complete class predicates
+// of the retained history, with orphan and mixed-arm facts kept". TD-26 P5
+// deleted the private construction-operation selector and kept the generic
+// public-operation and public-continuation classes and every envelope key. The
+// retired key is named here only as historical negative evidence: it keys no
+// retained or synthetic orphan row and is never an expected class.
+test('shared public-operation classification preserves retained-history, orphan-envelope and mixed-arm facts without the retired construction-operation index', {...RETAINED, timeout: 600_000}, async t => {
   const {resources, baseline, eventLogPath, eventLogIdentity} = retained;
   const {eventLogSha256} = resources.value;
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
@@ -314,39 +339,78 @@ test('shared public-operation classification equals the complete class predicate
   assert.deepEqual([bytes.length, identity], [RC5_LOG.bytes, eventLogIdentity], 'the read bytes are the file the gate hashed');
   const body = {kind: 'durable_prefix_coordinate', schemaVersion, eventLogRef: pathToFileURL(eventLogPath).href, prefixLength: bytes.length,
     prefixDigest: 'sha256:' + eventLogSha256, storeIdentity: {device: identity.device, inode: identity.inode, eventContractDigest: retainedProfile(resources, baseline, events)}};
-  const cold = prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix({...body, coordinateDigest: digests.sha256Canonical(body)});
-  // Test oracle: every admitted body of the classified kinds, through the
-  // pre-existing kind index, with each consumer's own class predicate.
-  const bodies = kind => prefixes.indexedRuntimeEventEnvelopes(cold, 'kind:' + kind).map(e => prefixes.runtimeEventAtPrefix(cold, e.eventId));
-  const operations = bodies('public_operation_admitted'), bases = bodies('basis_admitted');
-  const expected = Object.fromEntries([
-    ...PUBLIC_OPERATION_CLASSES.map(id => ['public-operation:' + id, operations.filter(e => e.payload?.operationId === id).map(e => e.eventId)]),
-    ...PUBLIC_CONTINUATION_CLASSES.map(kind => ['public-continuation:' + kind, operations.filter(e => e.payload?.continuationKind === kind).map(e => e.eventId)])]);
-  assert.deepEqual(classBuckets(prefixes, cold), expected, 'each class bucket is exactly its complete-history predicate');
-  // Construction uses are keyed by the referenced operation whether or not that
-  // operation exists or carries a construction arm: orphan and mixed-arm facts
-  // stay visible to the global refusals instead of disappearing from a join.
-  const uses = bases.filter(e => typeof e.payload?.constructionContinuationUse?.operationAdmissionEventRef === 'string');
-  const operationById = new Map(operations.map(e => [e.eventId, e]));
-  for (const use of uses) {
-    const ref = use.payload.constructionContinuationUse.operationAdmissionEventRef;
-    assert.deepEqual(prefixes.indexedRuntimeEvents(cold, 'construction-operation:' + ref).map(e => e.eventId),
-      uses.filter(e => e.payload.constructionContinuationUse.operationAdmissionEventRef === ref).map(e => e.eventId), ref);
+  const RETIRED = 'construction-operation:';
+  // Every compared identity, bucket and orphan/mixed observation is acquired
+  // first; an unexpected thrown outcome is kept as the candidate's failure.
+  const observed = {eventLog: {path: eventLogPath, bytes: bytes.length, sha256: eventLogSha256, identity}, retiredSelectorPrefix: RETIRED, failure: null};
+  try {
+    const cold = prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix({...body, coordinateDigest: digests.sha256Canonical(body)});
+    observed.prefixExtent = prefixes.runtimeEventPrefixExtent(cold);
+    // Test oracle: every admitted body of the classified kinds, through the
+    // pre-existing kind index, with each consumer's own class predicate.
+    const bodies = kind => prefixes.indexedRuntimeEventEnvelopes(cold, 'kind:' + kind).map(e => prefixes.runtimeEventAtPrefix(cold, e.eventId));
+    const operations = bodies('public_operation_admitted'), bases = bodies('basis_admitted');
+    observed.operations = operations.map(e => e.eventId);
+    observed.basisRows = bases.map(e => e.eventId);
+    observed.expected = Object.fromEntries([
+      ...PUBLIC_OPERATION_CLASSES.map(id => ['public-operation:' + id, operations.filter(e => e.payload?.operationId === id).map(e => e.eventId)]),
+      ...PUBLIC_CONTINUATION_CLASSES.map(kind => ['public-continuation:' + kind, operations.filter(e => e.payload?.continuationKind === kind).map(e => e.eventId)])]);
+    observed.buckets = classBuckets(prefixes, cold);
+    const history = await load('abg/runtime_history');
+    const keysOf = event => [...history.runtimeHistorySelectorKeys(event)];
+    const retiredKeysOf = event => keysOf(event).filter(key => key.startsWith(RETIRED));
+    // Historical construction uses keep their raw envelope, whether or not the
+    // referenced operation exists or carries a construction arm; the retired
+    // index keys none of them, so orphan and mixed-arm facts reach the global
+    // refusals through the generic envelope instead of a private join.
+    const operationById = new Map(operations.map(e => [e.eventId, e]));
+    observed.constructionUses = bases.filter(e => typeof e.payload?.constructionContinuationUse?.operationAdmissionEventRef === 'string').map(use => {
+      const ref = use.payload.constructionContinuationUse.operationAdmissionEventRef, operation = operationById.get(ref);
+      return {eventRef: use.eventId, operationAdmissionEventRef: ref, operationPresent: operation !== undefined,
+        operationContinuationKind: operation?.payload?.continuationKind ?? null,
+        retiredBucket: prefixes.indexedRuntimeEvents(cold, RETIRED + ref).map(e => e.eventId),
+        envelope: prefixes.indexedRuntimeEventEnvelopes(cold, 'id:' + use.eventId).map(e => e.eventId), retiredKeys: retiredKeysOf(use)};
+    });
+    observed.orphanUses = observed.constructionUses.filter(row => !row.operationPresent).length;
+    observed.mixedArmUses = observed.constructionUses.filter(row => row.operationPresent && !PUBLIC_CONTINUATION_CLASSES.includes(row.operationContinuationKind)).length;
+    observed.retiredKeyBasisRows = bases.filter(e => retiredKeysOf(e).length > 0).map(e => e.eventId);
+    observed.absentOperationRetiredBucket = prefixes.indexedRuntimeEvents(cold, RETIRED + 'event://abiogenesis/absent').map(e => e.eventId);
+    // This history has no construction uses, so the orphan and mixed-arm rows are
+    // checked on the shared classifier itself with changed copies of admitted rows.
+    const mixedArm = {...operations[0], payload: {...operations[0].payload, operationId: 'abg.operation.run.continue', continuationKind: 'selected_action'}};
+    const orphanUse = {...bases[0], payload: {...bases[0].payload, constructionContinuationUse: {operationAdmissionEventRef: 'event://abiogenesis/absent'}}};
+    const nonpublic = {...operations[0], kind: 'basis_admitted'};
+    observed.synthetic = {
+      mixedArm: {sourceEventRef: operations[0].eventId, operationId: mixedArm.payload.operationId, continuationKind: mixedArm.payload.continuationKind,
+        keys: keysOf(mixedArm)},
+      orphanUse: {sourceEventRef: bases[0].eventId, operationAdmissionEventRef: 'event://abiogenesis/absent', keys: keysOf(orphanUse),
+        sourceKeys: keysOf(bases[0]), sourceEnvelope: prefixes.indexedRuntimeEventEnvelopes(cold, 'id:' + bases[0].eventId).map(e => e.eventId)},
+      nonpublic: {sourceEventRef: operations[0].eventId, keys: keysOf(nonpublic)}};
+  } catch (error) { observed.failure = thrownValue(error); }
+  // The complete candidate is persisted before any assertion over it.
+  await persistCandidate(t, 'single-address-space-case3.candidate.json', {kind: 'single_address_space_regression_candidate', schemaVersion,
+    case: 'case3', title: t.name, recordedUtc: new Date().toISOString(), ...observed});
+  assert.equal(observed.failure, null, JSON.stringify(observed.failure));
+  const {expected, constructionUses, synthetic} = observed;
+  assert.deepEqual(observed.buckets, expected, 'each class bucket is exactly its complete-history predicate');
+  for (const use of constructionUses) {
+    assert.deepEqual([use.retiredBucket, use.retiredKeys], [[], []], use.eventRef + ': the retired construction-operation index keys no retained use');
+    assert.deepEqual(use.envelope, [use.eventRef], use.eventRef + ': the retained use stays visible by its envelope');
   }
-  const orphan = uses.filter(e => !operationById.has(e.payload.constructionContinuationUse.operationAdmissionEventRef)).length;
-  const mixed = uses.filter(e => { const op = operationById.get(e.payload.constructionContinuationUse.operationAdmissionEventRef);
-    return op !== undefined && !PUBLIC_CONTINUATION_CLASSES.includes(op.payload?.continuationKind); }).length;
-  assert.deepEqual(prefixes.indexedRuntimeEvents(cold, 'construction-operation:event://abiogenesis/absent'), [], 'a missing operation has an empty class');
-  // This history has no construction uses, so the orphan and mixed-arm rows are
-  // checked on the shared classifier itself with changed copies of admitted rows.
-  const history = await load('abg/runtime_history');
-  const mixedArm = {...operations[0], payload: {...operations[0].payload, operationId: 'abg.operation.run.continue', continuationKind: 'selected_action'}};
-  assert.ok(['public-operation:abg.operation.run.continue', 'public-continuation:selected_action'].every(key => history.runtimeHistorySelectorKeys(mixedArm).includes(key)),
-    'a mixed-arm operation stays in both of its classes for the global refusals');
-  const orphanUse = {...bases[0], payload: {...bases[0].payload, constructionContinuationUse: {operationAdmissionEventRef: 'event://abiogenesis/absent'}}};
-  assert.ok(history.runtimeHistorySelectorKeys(orphanUse).includes('construction-operation:event://abiogenesis/absent'), 'an orphan use keeps its referenced operation key');
-  assert.ok(!history.runtimeHistorySelectorKeys({...operations[0], kind: 'basis_admitted'}).some(key => key.startsWith('public-')), 'only admitted public operations are classified');
-  proof.cases.publicOperationClassification = {operations: operations.length, constructionUses: uses.length, orphanUses: orphan, mixedArmUses: mixed,
+  assert.deepEqual(observed.retiredKeyBasisRows, [], 'no retained basis row carries a retired construction-operation key');
+  assert.deepEqual(observed.absentOperationRetiredBucket, [], 'a missing operation has no retired construction-operation class');
+  assert.deepEqual(synthetic.mixedArm.keys.filter(key => key.startsWith('public-')),
+    ['public-operation:abg.operation.run.continue', 'public-continuation:selected_action'],
+    'a mixed-arm operation stays in exactly both of its generic classes for the global refusals');
+  assert.deepEqual(synthetic.orphanUse.keys.filter(key => key.startsWith(RETIRED)), [], 'an orphan use carries no retired construction-operation key');
+  assert.deepEqual(synthetic.orphanUse.keys, synthetic.orphanUse.sourceKeys, 'an orphan use keeps exactly the envelope keys of its admitted source row');
+  assert.ok(['id:' + synthetic.orphanUse.sourceEventRef, 'kind:basis_admitted'].every(key => synthetic.orphanUse.keys.includes(key)),
+    'an orphan use stays visible by its envelope');
+  assert.deepEqual(synthetic.orphanUse.sourceEnvelope, [synthetic.orphanUse.sourceEventRef], 'the raw source row is visible in the retained history by its envelope');
+  assert.ok(!synthetic.nonpublic.keys.some(key => key.startsWith('public-')), 'only admitted public operations are classified');
+  proof.cases.publicOperationClassification = {operations: observed.operations.length, constructionUses: constructionUses.length,
+    orphanUses: observed.orphanUses, mixedArmUses: observed.mixedArmUses,
+    retiredConstructionOperationIndex: {basisRows: observed.basisRows.length, keyedRows: observed.retiredKeyBasisRows.length},
     classes: Object.fromEntries(Object.entries(expected).map(([key, refs]) => [key, refs.length]))};
   t.diagnostic(JSON.stringify(proof.cases.publicOperationClassification));
 });
@@ -786,90 +850,152 @@ test('qualification material at a genuine owned cut: an invalidating producer fi
     refusals: {warm: warm2.value, copied: copied2.value, cold: cold2.value}, measurements: rows.map(summary)};
 });
 
-// T-293 B36 retirement: this case replaces the retired title "complete-pair
-// owners refuse orphan F_H, construction-intent and selected-action operations
-// by stage and admission order, alike warm, copied and cold; a mixed arm is
-// refused at admission; the baseline and unrelated growth keep their values".
-// The fixed 5.0 Product retains only the pending_execution realization of
-// run.continue; construction-intent and selected-action continuations are
-// retired and native F_H response is reserved to 5.1. The F_H owner therefore
-// refuses every non-pending run.continue and interaction.respond operation as
-// one orphan set, so a retired construction arm is no longer "not an F_H use"
-// and a later orphan no longer leaves an earlier stage's refusal.
-test('complete-pair owners refuse retired construction-intent and selected-action continuations and orphan F_H operations as one F_H orphan set, alike warm, copied and cold; a mixed arm is refused at admission; the baseline and unrelated growth keep their values', {timeout: 900_000}, async t => {
+// T-293 B36 and RC14 native06 retirement (TITLE_MAP.json): this case replaces
+// the retired titles "complete-pair owners refuse orphan F_H,
+// construction-intent and selected-action operations by stage and admission
+// order, alike warm, copied and cold; a mixed arm is refused at admission; the
+// baseline and unrelated growth keep their values" and "complete-pair owners
+// refuse retired construction-intent and selected-action continuations and
+// orphan F_H operations as one F_H orphan set, alike warm, copied and cold; a
+// mixed arm is refused at admission; the baseline and unrelated growth keep
+// their values". The fixed 5.0 Product retains only the pending_execution
+// realization of run.continue; construction-intent and selected-action
+// continuations are retired (TD-26 P5) and native F_H response is reserved to
+// 5.1. Contract-valid historical operations still decode and are admitted, but
+// Event Calculus explicitly refuses each retired lifecycle ("continuation
+// <aggregate> has an invalid event lifecycle"); artifact truth keeps its
+// generic event_envelope_invalid boundary, so effectful truth answers
+// artifact_truth_invalid before F_H pairing. Read directly, the F_H owner still
+// keeps every non-pending run.continue and interaction.respond operation in one
+// sorted orphan set. History A admits its orphan F_H response first, so the
+// F_H-only prefix keeps a valid fold and the outer F_H pairing refusal.
+test('complete-pair owners preserve current Run pairs and F_H orphan refusals while retired construction lifecycles fail closed, alike warm, copied and cold; mixed arms are refused unwritten and unrelated growth preserves each answer', {timeout: 900_000}, async t => {
   // Each history is one actual installed Run; every control row is a
-  // contract-valid public operation admitted by the actual Event Store.
+  // contract-valid public operation admitted by the actual Event Store. Each
+  // history observes every owner answer first and keeps an unexpected outcome
+  // as its failure; the complete candidate is persisted before any assertion.
   const KEYS = {
     fh: 'actorRef authorityDigest authorityRef capabilityGrantRefs capabilityRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId continuationRef definitionDigest graphFunctionDigest graphFunctionRef invocationDigest invocationPayloadDigest invocationRef memberKey operationId policyDigest policyRef programDigest programRef variant workspaceBindingDigest workspaceBindingId',
     construction_intent: 'actorRef authorityDigest authorityRef capabilityGrant capabilityGrantRefs capabilityRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId continuationKind continuationRef continuationDigest currentIntentRef currentIntentDigest definitionDigest graphFunctionDigest graphFunctionRef invocationDigest invocationPayloadDigest invocationRef memberKey operationId policyDigest policyRef programDigest programRef variant workspaceBindingDigest workspaceBindingId',
     selected_action: 'actorRef authorityDigest authorityRef capabilityGrant capabilityGrantRefs capabilityRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId continuationKind continuationRef continuationDigest currentContinuationRef currentContinuationDigest sourceRunId sourceRunDigest currentRunId selectedActionRef selectedActionDigest currentIntentRef currentIntentDigest executionBasisRef executionBasisDigest basisRelation definitionDigest graphFunctionDigest graphFunctionRef invocationDigest invocationPayloadDigest invocationRef memberKey operationId policyDigest policyRef programDigest programRef variant workspaceBindingDigest workspaceBindingId'};
   const history = async (identity, controls, {mixedArm = false} = {}) => {
-    const run = await runInstalledLanguageTest(t, packageRoot, {
-      prepareFixture: prepareLanguageStructuralFixture, programRef: GRAPH_EDGE_IDS.programRef,
-      catalogHandle: GRAPH_EDGE_IDS.graphFunctionRef, allowlist: [GRAPH_EDGE_IDS.graphFunctionRef],
-      input: constructStructuralInput('  Complete Pair  '), identity});
-    assert.equal(run.receipt.exitCode, 0);
-    const load = name => import(pathToFileURL(join(run.environment.installedRoot, 'build/code/src', name + '.js')).href);
-    const [abg, store, prefixes, effectful, fh, invocations, digests] = await Promise.all(['abg/index', 'abg/event_store', 'abg/event_prefix',
-      'abg/effectful_invocation_truth', 'abg/fh_continuation_projection', 'abg/invocation_execution_truth', 'shared/digests'].map(load));
-    const hash = digests.sha256Canonical;
-    const reopen = closeHandoff => ({kind: 'reopen_abg_event_resource', schemaVersion, closeHandoff, handoffDigest: hash(closeHandoff)});
-    let resource = abg.acquireAbgEventResource(reopen(run.handoff)).resource;
-    t.after(() => { if (resource !== null) abg.abandonAbgEventResource(resource); });
-    let selection = abg.selectAcquiredAbgEventResource(resource, resource.entryPrefix);
-    const invoke = run.events.find(event => event.kind === 'public_operation_admitted' && event.payload.operationId === 'abg.operation.run.invoke');
-    // The Run's own complete pair, as its owner names it.
-    const runFacts = invocations.projectExactRunInvocationFactsAtPrefix(prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(selection.prefix));
-    assert.equal(runFacts.disposition, 'valid');
-    assert.equal(runFacts.facts.length, 1);
-    const refs = [runFacts.facts[0].publicInvocationRef, 'invocation://single-address-space/complete-pair/fresh'];
-    const owners = coordinate => ({truth: refs.map(ref => effectful.projectEffectfulPublicInvocationTruthAtPrefix(coordinate, ref)),
-      fh: fh.projectFhEffectfulPublicInvocationFacts(prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate))});
-    const cuts = [{label: 'baseline', prefix: selection.prefix, warm: owners(selection.prefix)}];
-    // Each control carries exactly its contract variant's keys; shared fields
-    // repeat the admitted Run invocation's values, the rest name the control.
-    const operation = (label, keys, fixed) => ({...unrelatedWorkspaceEvent(hash, label), payload: Object.fromEntries(KEYS[keys].split(' ').map(key =>
-      [key, key in fixed ? fixed[key] : key in invoke.payload ? invoke.payload[key] : key.endsWith('Digest') ? hash([label, key])
-        : key.endsWith('Refs') ? [] : 'ref://single-address-space/complete-pair/' + label + '/' + key]))});
-    const admitted = {};
-    let mixedArmRefusal = null;
-    if (mixedArm) {
-      const eventLogPath = fileURLToPath(selection.prefix.eventLogRef), before = await readFile(eventLogPath);
-      const candidate = operation('mixed-arm', 'construction_intent', {operationId: 'abg.operation.run.continue', memberKey: 'current_intent',
-        continuationKind: 'selected_action', invocationRef: 'invocation://single-address-space/complete-pair/mixed-arm', invocationDigest: hash('mixed-arm')});
-      try { store.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(resource.store, selection.prefix, () => store.admitRuntimeEvent(resource.store, candidate)); }
-      catch (error) { mixedArmRefusal = String(error.message); }
-      assert.deepEqual(await readFile(eventLogPath), before, 'the refused mixed arm writes nothing');
-      assert.deepEqual(abg.selectHeldEventStoreDurablePrefix(resource.store), selection.prefix);
-    }
-    for (const [label, keys, fixed] of [...controls, ['unrelated']]) {
-      const candidate = keys === undefined ? unrelatedWorkspaceEvent(hash, identity + '-unrelated') : operation(label, keys, {
-        invocationRef: 'invocation://single-address-space/complete-pair/' + label, invocationDigest: hash(label), ...fixed});
-      store.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(resource.store, selection.prefix, () => { admitted[label] = store.admitRuntimeEvent(resource.store, candidate); });
-      selection = abg.selectAcquiredAbgEventResource(resource, abg.selectHeldEventStoreDurablePrefix(resource.store));
-      cuts.push({label, prefix: selection.prefix, warm: owners(selection.prefix)});
-    }
-    for (const cut of cuts) assert.deepEqual(owners(structuredClone(cut.prefix)), cut.warm, cut.label + ': a copied coordinate equals the warm owners');
-    const historical = owners(cuts[0].prefix);
-    const closed = abg.closeAbgEventResource(resource, selection.prefix); resource = null;
-    assert.notEqual(abg.acquireAbgEventResource(reopen(run.handoff)).kind, 'acquired_abg_event_resource', 'the pre-control handoff is stale after admitted controls');
-    const fresh = abg.acquireAbgEventResource(reopen(closed.closeHandoff));
-    assert.equal(fresh.kind, 'acquired_abg_event_resource', JSON.stringify(fresh));
-    resource = fresh.resource;
-    for (const cut of cuts) assert.deepEqual(owners(structuredClone(cut.prefix)), cut.warm, cut.label + ': a fresh cold acquisition equals warm');
-    return {invoke, runFact: runFacts.facts[0], refs, cuts, historical, mixedArmRefusal, admitted: Object.fromEntries(Object.entries(admitted).map(([label, event]) => [label, event.eventId]))};
+    const observed = {identity, mixedArm, controls: controls.map(([label, variant, fixed]) => ({label, variant, fixed})), run: null, acquiredKind: null,
+      invoke: null, runFacts: null, runFact: null, refs: null, mixedArmObservation: null, mixedArmRefusal: null, admittedRows: {}, admitted: {},
+      aggregates: {}, cuts: [], historical: null, closedPrefix: null, staleHandoffKind: null, fresh: null, failure: null};
+    try {
+      const run = await runInstalledLanguageTest(t, packageRoot, {
+        prepareFixture: prepareLanguageStructuralFixture, programRef: GRAPH_EDGE_IDS.programRef,
+        catalogHandle: GRAPH_EDGE_IDS.graphFunctionRef, allowlist: [GRAPH_EDGE_IDS.graphFunctionRef],
+        input: constructStructuralInput('  Complete Pair  '), identity});
+      observed.run = {exitCode: run.receipt.exitCode, outcomeKind: run.receipt.ownerOutput?.outcomeKind ?? null, handoffPrefix: run.handoff.prefix,
+        events: run.events.length, lastEventRef: run.events.at(-1)?.eventId ?? null};
+      const load = name => import(pathToFileURL(join(run.environment.installedRoot, 'build/code/src', name + '.js')).href);
+      const [abg, store, prefixes, effectful, fh, invocations, calculus, digests] = await Promise.all(['abg/index', 'abg/event_store', 'abg/event_prefix',
+        'abg/effectful_invocation_truth', 'abg/fh_continuation_projection', 'abg/invocation_execution_truth', 'abg/event_calculus', 'shared/digests'].map(load));
+      const hash = digests.sha256Canonical;
+      const reopen = closeHandoff => ({kind: 'reopen_abg_event_resource', schemaVersion, closeHandoff, handoffDigest: hash(closeHandoff)});
+      const acquired = abg.acquireAbgEventResource(reopen(run.handoff));
+      observed.acquiredKind = acquired.kind;
+      let resource = acquired.resource ?? null;
+      t.after(() => { if (resource !== null) abg.abandonAbgEventResource(resource); });
+      let selection = abg.selectAcquiredAbgEventResource(resource, resource.entryPrefix);
+      const invoke = run.events.find(event => event.kind === 'public_operation_admitted' && event.payload.operationId === 'abg.operation.run.invoke');
+      observed.invoke = invoke;
+      // The Run's own complete pair, as its owner names it.
+      const runFacts = invocations.projectExactRunInvocationFactsAtPrefix(prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(selection.prefix));
+      observed.runFacts = runFacts;
+      observed.runFact = runFacts.facts?.[0] ?? null;
+      const refs = [observed.runFact.publicInvocationRef, 'invocation://single-address-space/complete-pair/fresh'];
+      observed.refs = refs;
+      // Actual Event Calculus over the same owned prefix the F_H owner reads:
+      // a summary of its complete fold, or the exact refusal it throws.
+      const calculusAt = owned => {
+        const events = prefixes.runtimeEventPrefixExtent(owned).count;
+        let projection;
+        try { projection = calculus.deriveRuntimeEventCalculusProjection(owned); } catch (error) {
+          return {outcome: 'refused', events, name: error?.name ?? null, typeError: error instanceof TypeError, message: String(error?.message ?? error)};
+        }
+        return {outcome: 'folded', events, kind: projection.kind, effectRows: projection.effectRows.length,
+          lastEffectEventRef: projection.effectRows.at(-1)?.sourceEvent?.eventId ?? null, holds: projection.holds.length,
+          holdsDigest: hash(projection.holds.map(fluent => fluent.fluentRef))};
+      };
+      const owners = coordinate => {
+        const truth = refs.map(ref => effectful.projectEffectfulPublicInvocationTruthAtPrefix(coordinate, ref));
+        const owned = prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate);
+        return {truth, fh: fh.projectFhEffectfulPublicInvocationFacts(owned), calculus: calculusAt(owned)};
+      };
+      const cuts = observed.cuts;
+      cuts.push({label: 'baseline', prefix: selection.prefix, warm: owners(selection.prefix)});
+      // Each control carries exactly its contract variant's keys; shared fields
+      // repeat the admitted Run invocation's values, the rest name the control.
+      const operation = (label, keys, fixed) => ({...unrelatedWorkspaceEvent(hash, label), payload: Object.fromEntries(KEYS[keys].split(' ').map(key =>
+        [key, key in fixed ? fixed[key] : key in invoke.payload ? invoke.payload[key] : key.endsWith('Digest') ? hash([label, key])
+          : key.endsWith('Refs') ? [] : 'ref://single-address-space/complete-pair/' + label + '/' + key]))});
+      if (mixedArm) {
+        const eventLogPath = fileURLToPath(selection.prefix.eventLogRef), before = await readFile(eventLogPath);
+        const candidate = operation('mixed-arm', 'construction_intent', {operationId: 'abg.operation.run.continue', memberKey: 'current_intent',
+          continuationKind: 'selected_action', invocationRef: 'invocation://single-address-space/complete-pair/mixed-arm', invocationDigest: hash('mixed-arm')});
+        try { store.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(resource.store, selection.prefix, () => store.admitRuntimeEvent(resource.store, candidate)); }
+        catch (error) { observed.mixedArmRefusal = String(error.message); }
+        const after = await readFile(eventLogPath);
+        observed.mixedArmObservation = {candidate, refusal: observed.mixedArmRefusal, prefixBefore: selection.prefix,
+          prefixAfter: abg.selectHeldEventStoreDurablePrefix(resource.store), bytesBefore: {bytes: before.length, sha256: sha256Hex(before)},
+          bytesAfter: {bytes: after.length, sha256: sha256Hex(after)}, bytesEqual: before.equals(after)};
+      }
+      for (const [label, keys, fixed] of [...controls, ['unrelated']]) {
+        const candidate = keys === undefined ? unrelatedWorkspaceEvent(hash, identity + '-unrelated') : operation(label, keys, {
+          invocationRef: 'invocation://single-address-space/complete-pair/' + label, invocationDigest: hash(label), ...fixed});
+        store.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(resource.store, selection.prefix, () => { observed.admittedRows[label] = store.admitRuntimeEvent(resource.store, candidate); });
+        observed.admitted[label] = observed.admittedRows[label].eventId;
+        observed.aggregates[label] = observed.admittedRows[label].aggregateId;
+        selection = abg.selectAcquiredAbgEventResource(resource, abg.selectHeldEventStoreDurablePrefix(resource.store));
+        cuts.push({label, prefix: selection.prefix, warm: owners(selection.prefix)});
+      }
+      for (const cut of cuts) cut.copied = owners(structuredClone(cut.prefix));
+      observed.historical = owners(cuts[0].prefix);
+      const closed = abg.closeAbgEventResource(resource, selection.prefix); resource = null;
+      observed.closedPrefix = closed.closeHandoff.prefix;
+      observed.staleHandoffKind = abg.acquireAbgEventResource(reopen(run.handoff)).kind;
+      const fresh = abg.acquireAbgEventResource(reopen(closed.closeHandoff));
+      observed.fresh = fresh.kind === 'acquired_abg_event_resource' ? {kind: fresh.kind} : fresh;
+      resource = fresh.resource ?? null;
+      for (const cut of cuts) cut.cold = owners(structuredClone(cut.prefix));
+    } catch (error) { observed.failure = thrownValue(error); }
+    return observed;
   };
   const refusal = (cut, eventRefs) => {
     assert.deepEqual(cut.warm.truth.map(value => [value.kind, value.disposition, value.code, value.eventRefs, value.artifactTruthCode]),
       cut.warm.truth.map(() => ['effectful_public_invocation_truth_invalid_history', 'invalid_history', 'invocation_pair_invalid', eventRefs, null]), cut.label);
   };
-  const baseline = ({cuts: [cut], invoke, runFact, refs, historical}) => {
+  // A valid fold: one effect row for every admitted row through the prefix's last event.
+  const folded = (cut, events, lastEventRef) => {
+    const {outcome, events: count, effectRows, lastEffectEventRef} = cut.warm.calculus;
+    assert.deepEqual({outcome, count, effectRows, lastEffectEventRef}, {outcome: 'folded', count: events, effectRows: events, lastEffectEventRef: lastEventRef},
+      cut.label + ': Event Calculus folds every admitted row of the prefix');
+  };
+  // A retired lifecycle: the same-prefix calculus cause names the first retired
+  // aggregate, and the artifact owner's generic refusal precedes F_H pairing.
+  const retired = (cut, aggregate) => {
+    const {outcome, name, typeError, message} = cut.warm.calculus;
+    assert.deepEqual({outcome, name, typeError, message}, {outcome: 'refused', name: 'TypeError', typeError: true,
+      message: 'continuation ' + aggregate + ' has an invalid event lifecycle'}, cut.label + ': Event Calculus refuses the first retired lifecycle');
+    assert.deepEqual(cut.warm.truth.map(value => [value.kind, value.disposition, value.code, value.eventRefs, value.artifactTruthCode]),
+      cut.warm.truth.map(() => ['effectful_public_invocation_truth_invalid_history', 'invalid_history', 'artifact_truth_invalid', [], 'event_envelope_invalid']),
+      cut.label + ': artifact truth refuses before F_H pairing');
+  };
+  // Every owner answer apart from the evaluated prefix binding.
+  const answers = cut => {
+    const {events: _events, ...calculusAnswer} = cut.warm.calculus;
+    return {truth: cut.warm.truth.map(({prefix: _prefix, ...value}) => value), fh: cut.warm.fh, calculus: calculusAnswer};
+  };
+  const baseline = ({cuts: [cut], run, runFact, refs, historical}) => {
     const [duplicate, available] = cut.warm.truth;
     assert.equal(duplicate.disposition, 'duplicate');
     assert.deepEqual(duplicate.priorAdmission, runFact, 'the Run invocation is its own complete prior admission');
     assert.equal(runFact.operationId, 'abg.operation.run.invoke');
     assert.deepEqual([available.disposition, available.invocationRef], ['available', refs[1]]);
     assert.deepEqual(cut.warm.fh, {disposition: 'valid', facts: []}, 'no F_H continuation in the baseline');
+    folded(cut, run.events, run.lastEventRef);
     assert.deepEqual(historical, cut.warm, 'the historical baseline keeps its exact values after the controls');
   };
   const intent = label => [label, 'construction_intent', {operationId: 'abg.operation.run.continue', memberKey: 'current_intent', continuationKind: 'construction_intent'}];
@@ -878,34 +1004,60 @@ test('complete-pair owners refuse retired construction-intent and selected-actio
   const orphanSet = refs => ({disposition: 'invalid_history', eventRefs: [...refs].sort()});
   const record = histories => Object.fromEntries(histories.map(([key, value]) => [key, {admitted: value.admitted, mixedArmRefusal: value.mixedArmRefusal,
     cuts: value.cuts.map(cut => ({label: cut.label, prefixLength: cut.prefix.prefixLength, truth: cut.warm.truth.map(item => ({disposition: item.disposition,
-      code: item.code ?? null, eventRefs: item.eventRefs ?? null})), fh: cut.warm.fh}))}]));
-  // History A: a retired construction intent, a retired selected action and an
-  // orphan F_H response; each joins the one sorted F_H orphan set that every
-  // effectful owner refuses; unrelated growth changes nothing.
-  const a = await history('single-address-space-complete-pair-a', [intent('orphan-intent'), selected('orphan-selected'), respond('orphan-respond')]);
+      code: item.code ?? null, eventRefs: item.eventRefs ?? null, artifactTruthCode: item.artifactTruthCode ?? null})), fh: cut.warm.fh,
+      calculus: cut.warm.calculus}))}]));
+  // History A: the existing orphan F_H response first, at a prefix whose fold is
+  // valid; then a retired construction intent and a retired selected action,
+  // each refused by Event Calculus while the direct F_H owner keeps one sorted
+  // orphan set; unrelated growth changes nothing.
+  const a = await history('single-address-space-complete-pair-a', [respond('orphan-respond'), intent('orphan-intent'), selected('orphan-selected')]);
   // History B: the retired selected action alone is the whole orphan set; a
   // mixed arm (construction-intent body under the selected-action kind)
   // matches no contract variant and the Event Store refuses it unwritten.
   const b = await history('single-address-space-complete-pair-b', [selected('orphan-selected')], {mixedArm: true});
-  // The complete candidate is recorded before any assertion over it.
+  // The complete candidate is persisted before any assertion over it.
+  await persistCandidate(t, 'single-address-space-case7.candidate.json', {kind: 'single_address_space_regression_candidate', schemaVersion,
+    case: 'case7', title: t.name, recordedUtc: new Date().toISOString(), histories: {a, b}});
+  for (const [key, value] of [['a', a], ['b', b]]) {
+    assert.equal(value.failure, null, key + ': ' + JSON.stringify(value.failure));
+    assert.equal(value.run.exitCode, 0);
+    assert.equal(value.runFacts.disposition, 'valid');
+    assert.equal(value.runFacts.facts.length, 1);
+    if (value.mixedArm) {
+      assert.equal(value.mixedArmObservation.bytesEqual, true, 'the refused mixed arm writes nothing');
+      assert.deepEqual(value.mixedArmObservation.bytesAfter, value.mixedArmObservation.bytesBefore);
+      assert.deepEqual(value.mixedArmObservation.prefixAfter, value.mixedArmObservation.prefixBefore);
+    }
+    for (const cut of value.cuts) assert.deepEqual(cut.copied, cut.warm, cut.label + ': a copied coordinate equals the warm owners');
+    assert.notEqual(value.staleHandoffKind, 'acquired_abg_event_resource', 'the pre-control handoff is stale after admitted controls');
+    assert.equal(value.fresh.kind, 'acquired_abg_event_resource', JSON.stringify(value.fresh));
+    for (const cut of value.cuts) assert.deepEqual(cut.cold, cut.warm, cut.label + ': a fresh cold acquisition equals warm');
+  }
   proof.cases.completePairControls = record([['a', a], ['b', b]]);
   t.diagnostic(JSON.stringify(proof.cases.completePairControls));
   baseline(a);
-  const [, orphanCut, selectedCut, respondCut, unrelatedCut] = a.cuts;
-  const intentRef = a.admitted['orphan-intent'], selectedRef = a.admitted['orphan-selected'], respondRef = a.admitted['orphan-respond'];
-  refusal(orphanCut, orphanSet([intentRef]).eventRefs);
-  assert.deepEqual(orphanCut.warm.fh, orphanSet([intentRef]), 'a retired construction arm is an F_H-refused orphan');
-  refusal(selectedCut, orphanSet([intentRef, selectedRef]).eventRefs);
-  assert.deepEqual(selectedCut.warm.fh, orphanSet([intentRef, selectedRef]), 'a retired selected action joins the orphan set');
-  refusal(respondCut, orphanSet([intentRef, selectedRef, respondRef]).eventRefs);
-  assert.deepEqual(respondCut.warm.fh, orphanSet([intentRef, selectedRef, respondRef]));
-  refusal(unrelatedCut, orphanSet([intentRef, selectedRef, respondRef]).eventRefs);
-  assert.deepEqual(unrelatedCut.warm.fh, respondCut.warm.fh);
+  assert.deepEqual(a.cuts.map(cut => cut.label), ['baseline', 'orphan-respond', 'orphan-intent', 'orphan-selected', 'unrelated']);
+  const [, respondCut, intentCut, selectedCut, unrelatedCut] = a.cuts;
+  const respondRef = a.admitted['orphan-respond'], intentRef = a.admitted['orphan-intent'], selectedRef = a.admitted['orphan-selected'];
+  // The F_H-only prefix: a valid fold, the outer F_H pairing refusal with the
+  // exact response eventRef and the direct F_H orphan set.
+  folded(respondCut, a.run.events + 1, respondRef);
+  refusal(respondCut, [respondRef]);
+  assert.deepEqual(respondCut.warm.fh, orphanSet([respondRef]), 'an orphan F_H response is an F_H-refused orphan at a valid-calculus prefix');
+  // The first retired aggregate stays the calculus cause as later rows arrive;
+  // the direct F_H owner refuses each retired arm in the same orphan set.
+  retired(intentCut, a.aggregates['orphan-intent']);
+  assert.deepEqual(intentCut.warm.fh, orphanSet([respondRef, intentRef]), 'a retired construction arm joins the direct F_H orphan set');
+  retired(selectedCut, a.aggregates['orphan-intent']);
+  assert.deepEqual(selectedCut.warm.fh, orphanSet([respondRef, intentRef, selectedRef]), 'a retired selected action joins the direct F_H orphan set');
+  retired(unrelatedCut, a.aggregates['orphan-intent']);
+  assert.deepEqual(answers(unrelatedCut), answers(selectedCut), 'unrelated growth keeps every owner answer');
   baseline(b);
-  refusal(b.cuts[1], [b.admitted['orphan-selected']]);
-  refusal(b.cuts[2], [b.admitted['orphan-selected']]);
-  assert.deepEqual(b.cuts[1].warm.fh, orphanSet([b.admitted['orphan-selected']]));
-  assert.deepEqual(b.cuts[2].warm.fh, b.cuts[1].warm.fh);
+  assert.deepEqual(b.cuts.map(cut => cut.label), ['baseline', 'orphan-selected', 'unrelated']);
+  retired(b.cuts[1], b.aggregates['orphan-selected']);
+  assert.deepEqual(b.cuts[1].warm.fh, orphanSet([b.admitted['orphan-selected']]), 'the retired selected action alone is the whole direct F_H orphan set');
+  retired(b.cuts[2], b.aggregates['orphan-selected']);
+  assert.deepEqual(answers(b.cuts[2]), answers(b.cuts[1]), 'unrelated growth keeps every owner answer');
   assert.match(b.mixedArmRefusal, /matches no admitted event-contract variant/);
 });
 
