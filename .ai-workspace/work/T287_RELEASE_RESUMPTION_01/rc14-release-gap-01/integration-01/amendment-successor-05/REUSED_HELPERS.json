@@ -1,0 +1,106 @@
+[
+  {
+    "path": "ORACLE.json",
+    "sourceCommit": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/ORACLE.json",
+    "bytes": 1357,
+    "sha256": "e7d4616b1a9846318ede859225fa513c3ca032cd5e2bee0ef66d5ceaa2966655",
+    "relation": "byte-identical"
+  },
+  {
+    "path": "PROCESS.json",
+    "sourceCommit": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/PROCESS.json",
+    "bytes": 16404,
+    "sha256": "e7a4ff85512f8e0244b4aaa814229a5568a648ed6c61aa1a4c688f4c80a0ee9e",
+    "relation": "byte-identical"
+  },
+  {
+    "path": "amendment-consumer.mjs",
+    "sourceCommit": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/amendment-consumer.mjs",
+    "bytes": 7211,
+    "sha256": "331d91e9f7c69528ba9220ccccc7876ca47decd74881aa091b323c236def5356",
+    "relation": "byte-identical"
+  },
+  {
+    "path": "amendment-setup.mjs",
+    "sourceCommit": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/amendment-setup.mjs",
+    "bytes": 20680,
+    "sha256": "b1633b2431031875c2174f01769ccf26f0922377165e51d063d0391cf4dc096a",
+    "relation": "byte-identical"
+  },
+  {
+    "path": "amendment.mjs",
+    "sourceCommit": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/amendment.mjs",
+    "bytes": 18069,
+    "sha256": "384587ede17eba18134867ac1a7affc3ac2d40cb74b865a4bdf04ebe1c706c27",
+    "relation": "byte-identical"
+  },
+  {
+    "path": "baseline-rubric.md",
+    "sourceCommit": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/baseline-rubric.md",
+    "bytes": 1628,
+    "sha256": "5c2ed42b1b19c366e9e8a1be62aebd33bbc250e3893ba7924f29393b26326139",
+    "relation": "byte-identical"
+  },
+  {
+    "path": "bounded.py",
+    "sourceCommit": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/bounded.py",
+    "bytes": 4206,
+    "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2",
+    "relation": "byte-identical"
+  },
+  {
+    "path": "command-owner.py",
+    "sourceCommit": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/command-owner.py",
+    "bytes": 1200,
+    "sha256": "16179ed58782c1880118ad4e5c6c2a05d23692d819951b24e2952071fcc9f9f2",
+    "relation": "byte-identical"
+  },
+  {
+    "path": "coverage.mjs",
+    "sourceCommit": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/coverage.mjs",
+    "bytes": 8688,
+    "sha256": "9d2734cf136eb65370fc694eebb6b4d1c4c3a839b6bb6f31e260b41657c7792b",
+    "relation": "byte-identical"
+  },
+  {
+    "path": "npm-global.npmrc",
+    "sourceCommit": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/npm-global.npmrc",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "relation": "byte-identical"
+  },
+  {
+    "path": "npm-user.npmrc",
+    "sourceCommit": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/npm-user.npmrc",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "relation": "byte-identical"
+  },
+  {
+    "path": "oracle.mjs",
+    "sourceCommit": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/oracle.mjs",
+    "bytes": 1178,
+    "sha256": "52830cb62f0178699ccdce58415e2f744466c5bb1b96b1d87935e772009854fc",
+    "relation": "byte-identical"
+  },
+  {
+    "path": "physical-topology.py",
+    "sourceCommit": "71daeb0582dc33a4550ac14fe9217055d2d628cd",
+    "sourcePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-03/physical-topology.py",
+    "bytes": 14764,
+    "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+    "relation": "byte-identical"
+  }
+]

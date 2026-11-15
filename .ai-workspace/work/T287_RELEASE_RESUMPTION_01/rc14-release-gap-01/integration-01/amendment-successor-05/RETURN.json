@@ -1,0 +1,47 @@
+{
+  "kind": "external_control_preparation_return",
+  "id": "RC14-AMENDMENT-CONTROL-WRITER-005",
+  "status": "frozen_preparation_for_independent_review",
+  "baseCommit": "d91cfb4b12c65ad00f75fb604a33ab7eec4dba13",
+  "predecessor": "580c6eb0e37a3e5c3dbf59c2fb2e162f685e86dc",
+  "territory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-05",
+  "manifestSha256": "4de9c1cc8804ac95b8337b41a523b93b240ec38acb7195da06d4094470f06a38",
+  "staticChecksSha256": "99852b3d4490d636e9bd940ac0a6140105f96f70b461fd72a5f1d80821f369b5",
+  "exactExecutableDiffSha256": "34a9f4038879b0d9b7be1ab5df72ff9da2b9dce61c53999c3b8aea1866e50343",
+  "changedBehavior": [
+    "smoke-custody.py no longer requires historical cut tool roles git/tar as recursive protected roots; all tool path/hash observations and entry/exit comparisons remain"
+  ],
+  "coordinateChanges": [
+    "disabled binding npm user/global paths name the successor05 carrier"
+  ],
+  "preservedByteIdenticalFiles": 17,
+  "preserved": "run.py; installed lifecycle PROCESS/ORACLE/host/setup/consumer/coverage; observer, command owner, credential interval, all budgets/first-failure/no-retry/cleanup; exact eleven smoke inputs and all tool/native/dependency custody",
+  "allCutToolHashesPreserved": true,
+  "nodeNpmAndOtherProtectionRequirementsPreserved": true,
+  "helperCheckout": "exact8233791ae611f1c5f6e2ec2afd5a1738dd700bb6 at existing read-only location, unchanged",
+  "failedAttempt": {
+    "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
+    "originalDeadlineUtc": "2026-11-15T21:26:13.842832+00:00",
+    "reopened": false,
+    "clockReset": false
+  },
+  "freshBindingRequirements": [
+    "Separate review/accepted checkpoint/push and explicit fresh witness02 grant",
+    "Bind the unchanged actual RC14 candidate and complete smoke/custody inputs",
+    "Do not copy failed binding roots wholesale: omit only historical git/tar tool role from recursive extra roots; any independent governed root remains protected",
+    "Keep all tool byte hashes and actual planned/paired observations; no old proof transfer"
+  ],
+  "knownSeparateResidual": "S06 assembly-owner identity and host readback filename are under separate Root triage and may affect the unchanged amendment lifecycle; no widening or execution selected here.",
+  "executionAuthorized": false,
+  "clockStarted": false,
+  "ProductImports": false,
+  "provider": false,
+  "build": false,
+  "test": false,
+  "observerProbe": false,
+  "candidateMutation": false,
+  "mainMutation": false,
+  "push": false,
+  "qualificationClaim": false,
+  "returnTo": "Root; separate independent source review; stop"
+}

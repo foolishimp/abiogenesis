@@ -1,0 +1,135 @@
+{
+  "kind": "prospective_cut_smoke_input_binding",
+  "executionBindingComplete": false,
+  "sourceCommit": null,
+  "sourceTree": null,
+  "subjectRoot": null,
+  "tenantRelativePath": "build_tenants/abiogenesis/typescript",
+  "smokeInputs": [
+    {
+      "path": "test_env/tests/installed-language-smoke.test.mjs",
+      "bytes": null,
+      "sha256": null,
+      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+    },
+    {
+      "path": "test_env/support/installed-language-test.mjs",
+      "bytes": null,
+      "sha256": null,
+      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+    },
+    {
+      "path": "test_env/support/root-installed-environment.mjs",
+      "bytes": null,
+      "sha256": null,
+      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+    },
+    {
+      "path": "scripts/product-payload.mjs",
+      "bytes": null,
+      "sha256": null,
+      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+    },
+    {
+      "path": "test_env/support/candidate-basis.mjs",
+      "bytes": null,
+      "sha256": null,
+      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+    },
+    {
+      "path": "test_env/support/language-smoke-fixture.mjs",
+      "bytes": null,
+      "sha256": null,
+      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+    },
+    {
+      "path": "test_env/support/registered-graph-selection.mjs",
+      "bytes": null,
+      "sha256": null,
+      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+    },
+    {
+      "path": "test_env/fixtures/language-smoke/program.mjs",
+      "bytes": null,
+      "sha256": null,
+      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+    },
+    {
+      "path": "test_env/fixtures/language-smoke/leaf.mjs",
+      "bytes": null,
+      "sha256": null,
+      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/index.mjs",
+      "bytes": null,
+      "sha256": null,
+      "authority": "CUT_RECORD.source.sourceArchive at exact C0"
+    },
+    {
+      "path": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": null,
+      "sha256": null,
+      "authority": "CUT_RECORD.source.scratchBasisRefresh.after"
+    }
+  ],
+  "generatedOutputs": [
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "dependencyReader": {
+    "path": "/private/tmp/abg-rc14-proof-fixture-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/dependency-inputs.py",
+    "bytes": 2786,
+    "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+  },
+  "receipts": {
+    "cutRecord": {
+      "path": null,
+      "bytes": null,
+      "sha256": null
+    },
+    "archiveMembers": {
+      "path": null,
+      "bytes": null,
+      "sha256": null
+    },
+    "dependencyInventory": {
+      "path": null,
+      "bytes": null,
+      "sha256": null
+    }
+  },
+  "tools": [
+    {
+      "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "bytes": 33816,
+      "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa",
+      "bindingField": "pythonPath"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "bindingField": "configuration.nodePath"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "bindingField": "configuration.toolchains.npm.executable"
+    },
+    {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.322",
+      "bytes": 323702464,
+      "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+      "bindingField": "configuration.provider.command"
+    }
+  ],
+  "npmTree": {
+    "path": "/opt/homebrew/lib/node_modules/npm",
+    "sha256": "8245bad3cbdc99d8720c49c1ea829570d304761633405f0c53cb7d7dabb2c2f9",
+    "count": 2326,
+    "bytes": 13354162
+  },
+  "scope": "Fill from actual cut and exact C0 only. No old proof/candidate receipt transfer. cut.buildRoot owns subjectRoot/tenant; source.subject is a commit label, not a path. The dependency inventory must match the actual cut donor digest; when cut.dependencies.pinnedInventory is present it must be that exact recorded input."
+}
