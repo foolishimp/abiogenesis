@@ -1,0 +1,30 @@
+{
+  "productFrame": "Fixed ABI5/T287 RC14, T293B38. Derived fixture repair only; actual admitted owners retain all runtime authority. Exact STDO3.0.4 unchanged.",
+  "id": "RC14-NATIVE08-CONTROL-ACCEPTANCE-01",
+  "recordedUtc": "2026-11-15T13:32:32.452935+00:00",
+  "originalReviewedSubject": "c90bb9c562aadb7e69b5fa0805369c2d20625e10",
+  "acceptedSubject": "cebc89dd5b2e9079fbfac176982a3a33df250ab9",
+  "tree": "73e96baa6b908584acd37e81463592d137cf6d51",
+  "mainMerge": "afff3989c4a133ff573fc822a94b65bc1fe4c6c6",
+  "manifestSha256": "70b57fe65b4b04b9897ab62ecb5f0113c222a19c4a58d420640d75fa6faeba6b",
+  "taskSha256": "dc4082ed2d034493a16063ff000007428ed6fe518fbf93973c16a16a7e69fb80",
+  "returnSha256": "54c489e13cb333d39bdd953dfc189a2bac786976ade77794eb2c4e79d1994893",
+  "review": {
+    "independentReviewer": "B29; Root exact delta and member recheck",
+    "originalFinding": "Applicable PROJECTION-002 requirement omitted from Task route/content-read instructions",
+    "closedBy": "Only requirement path added to readRoots/readFirst and actual002 content beforeEdit; matching manifest/Return updated",
+    "rootVerifiedManifestMembers": 26,
+    "unchangedOtherMembers": 25,
+    "changedFilesFromReviewedSubject": 3,
+    "independentlyVerifiedHistoricalPins": 78,
+    "scope": "governance firstcase plus necessary accumulated preassert capture; initial materialization and after-close reuse phase baselines distinguished",
+    "preserved": "actual owner API export, all strict negatives, five helper bytes, credential/topology/typed completion/cleanup/deadlines, final22 comparisons/primary error",
+    "historicalProof": "nine wholefiles52actualpasses/36top; groups05/06 lateconservation remainslate; group07 actualfinally22. Seven remaining files35top and two originaloptional gates conserved"
+  },
+  "disposition": "accepted_controls_only_pending_six_file_diagnostic_disposition_and_fresh_author_grant",
+  "nativeAuthorStarted": false,
+  "proofExecutionAuthorized": false,
+  "diagnosticRelation": "Separate previously-unrun011\u2013016 proof will be reconciled before source dispatch/proof selection; no duplicate passing population",
+  "qualified": false,
+  "rawPublished": false
+}
