@@ -94,7 +94,7 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 | When | Items |
 |---|---|
 | Current | RC13 pinned unqualified. B31/B12 technical repairs and B13 wording closed. B21/B32 and two-test fixture proof now green:65pass/0fail/5declared skips, no author active. Frozen source/Return integrated 8c77c2968; first installed composition stopped before provider on missing compiled test dependency B44; causal intake active. Peer partial rerun reports the same15 failing files plus new stale C0 extraction B45 (16 total); fixture repair/reproof pending. Setup errors and six timeouts remain separate and peer final counts are pending. B21 platform/support disposition and wider lifecycle/qualification remain open |
-| Dependency-ready sequence | B21 sufficient HOW and repair; bounded B12/B13 repair; new exact-subject regression and installed lifecycle evidence; qualification and S07. The expired RC13 campaign is not resumed or reset |
+| Dependency-ready sequence | Owner selects finish RC14: B44 control correction and first installed workflow; RC13-native repair/reproof of16 peer-red files B36-B42/B45; reconcile peer coverage; bounded B21 support statement, installed amendment/S06, exact qualification and RC14/S07. Expired attempts stay closed; no duplicate broad campaign |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |
 | Metadata complete; final dry-cut correspondence positive | B-22; source inventory refreshed after B-30, one changed member of 1,280 |

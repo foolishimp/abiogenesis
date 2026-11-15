@@ -10,6 +10,18 @@ STDO basis: stdo://releases/v3.0.4/, manifest
 Product and existing 15-family/5.0 scope remain unchanged. This is work selection,
 not a new Product authority or an assertion of qualification.
 
+## Active completion sequence — 2026-11-15
+
+The owner now directs finishing RC14. Correct B44 external controls and exercise
+the first installed workflow while RC13-native repairs for the16 peer-red files
+are prepared. Preserve all meaningful assertions and prove each corrected file
+whole. Conjoin the peer campaign only where exact source, setup and completeness
+support reuse; do not start a duplicate broad run. Resolve the bounded B21 support
+statement, then complete installed amendment/S06, exact qualification and the
+RC14 cut. Earlier failed/expired attempts remain closed; successor execution
+requires its own exact changed subject and finite grant. This selects no new
+feature, portable refactor, qualification waiver or human acceptance.
+
 | Order | Deliverable | Closure |
 |---|---|---|
 | 1 | B31: technically closed at aa1856315, integrated through 2c12d65d3 | Five fixture repairs, preserved production guards/installed positives, 82 unique passing cases over 83 executions; both control deviations retained in b31-integration-01 |
