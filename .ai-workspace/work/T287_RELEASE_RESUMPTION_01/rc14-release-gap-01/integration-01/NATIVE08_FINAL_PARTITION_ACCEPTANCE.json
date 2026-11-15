@@ -1,0 +1,56 @@
+{
+  "id": "RC14-NATIVE08-FINAL-PROOF-PARTITION-ACCEPTANCE",
+  "productFrame": "Fixed ABI5/T287 RC14, STDO3.0.4. One governance first-case derived Proof repair; Product/runtime authority unchanged.",
+  "reviewers": [
+    "Root independent of B30 controls Writer",
+    "B29 independent frozen retention review"
+  ],
+  "subjectCommit": "1a3b701c8aa33b0c42281c4370acff2a901fdb11",
+  "subjectTree": "c2d616237536309ef6ddb806fab39574adfd1198",
+  "manifestSha256": "a292f252469b18261cfb33080f830f4d1e5a8480ef9ed1372d47e55943f93a3f",
+  "returnSha256": "56f157d1f35156199f2ccb913e6e1c7704d098c8cb8351248624156018c19175",
+  "disposition": "accepted_for_exact_RC13_native_author_after_checkpoint_push_and_finite_launch_grant",
+  "findings": [],
+  "priorAcceptance": "NATIVE08_CONTROL_ACCEPTANCE.json",
+  "delta": {
+    "controlFiles": 13,
+    "manifestMembers": 26,
+    "tenantChanges": 0,
+    "retainedFiles": 15,
+    "retainedPasses": 83,
+    "retainedSkips": 1,
+    "retainedObservedTopLevel": 64,
+    "retainedNamedMinimum": 62,
+    "freshOrdinals": [
+      10
+    ],
+    "freshNamedMinimum": 9,
+    "originalNamedMinimum": 71,
+    "historicalInputs": 7,
+    "historicalComparisons": 22,
+    "currentInputs": 8,
+    "currentComparisons": 24
+  },
+  "review": "Original historical acquisition packets remain exact; new bridge is an extension, not retroactive acquisition. Diagnostic source/mirror equality, original setup custody, exact control/binding/input/command receipts and original final comparisons join to current source excluding sole governance W. Counts distinguish passes, skips and observed versus required minimum. Five helpers, HOST and operate unchanged. Task only changes proof sentence.",
+  "sourceScope": "t287-governance-covered-source-use.test.mjs first case and necessary preassert capture helper only; exact already accepted method/requirement intake and all identity/cold/tamper/closed/current-length assertions retained.",
+  "native": {
+    "builder": "exact pinnedRC13",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteMs": 1200000,
+    "inactivityMs": 300000,
+    "maxTurns": 160,
+    "hostMs": 8100000
+  },
+  "proof": {
+    "separateAuthorizationRequired": true,
+    "maximumMs": 5400000,
+    "clippedToOriginalHostDeadline": true,
+    "cleanupReserveMs": 15000,
+    "firstFailureStop": true,
+    "automaticRetry": false
+  },
+  "executionStarted": false,
+  "qualified": false,
+  "rawPublished": false
+}
