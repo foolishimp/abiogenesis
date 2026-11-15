@@ -1,0 +1,36 @@
+{
+  "id": "RC14-PUBLIC-SETUP-ACCEPTANCE-002",
+  "recordedUtc": "2026-11-15T18:04:22.339008+00:00",
+  "role": "Root independent evidence Reviewer, recorded under FINALIZATION_WRITER_14",
+  "productFrame": "Fixed5.0 S07 prospective exact installed identity; setup/correspondence do not establish scenario qualification or human acceptance.",
+  "returnCommit": "b865dab95172cedb1035b9df5b5a2c72cee79ec2",
+  "returnMainMerge": "59a74832705280b9c6c12e5bf5a098890c4e6188",
+  "returnSha256": "026c21561742cf69d8c08a2b62fbd70d12a4def19f7e67d004a3ece82acac884",
+  "rawReturnSha256": "fa409ca11569241bb0f25b898d9cea6047b25ccf90c7488d55afe8a64b11d127",
+  "operatorReturnSha256": "a09f338a11ef302c576ec17377b53ee3c455c2e6b0b6031e6e81ae71e54a93a8",
+  "actualIdentity": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-02/public-setup/installed/0/identity.json",
+    "bytes": 4108509,
+    "sha256": "3bb7bde102e8cd9681eaf33191875a35511978a1d07886c2dd287914dbb15b5c",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-02/public-setup/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.14/7646989ad108d1f4cfb8075909c9a26208f5f605b23b590e264c25544ba3332a/d520f53e53e69bf177cbea681f305f3c3065e36d99378bbe24f193b373448a14",
+    "admissionEventRef": "event://abiogenesis/3c0e3971e184d177be810d256b6d2e359d0c2f0e100859305c169c2028a60dca",
+    "artifactDigest": "sha256:5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03"
+  },
+  "scope": "Actual same-archive Public installation, real setup resource close, paired topology and custody accepted.",
+  "rootChecks": [
+    "Eighteen actual compact Return evidence pins matched; actual C0/cut/archive join retained.",
+    "All5302 actual Public package files independently matched complete archive inventory.",
+    "Setup close/identity/HANDOFF and correspondence pins reacquired; accepted runner established actual close and paired topology.",
+    "All32 external custody comparisons and runner custody passed; all10 recorded groups independently absent."
+  ],
+  "elapsedMs": 42576,
+  "originalDeadlinePreserved": true,
+  "B51": "Technical external-control repair closed on this exact setup. Failed01 and original clock remain preserved.",
+  "affectedConeCheck": "B29 checked frozen amendment04 and S06 controllers: numbered capture paths differ from unprefixed runtime roots; this collision does not recur there.",
+  "lookupLimit": "Initial read-only outer-return lookup used RETURN.json; actual OPERATOR_RETURN.json was subsequently reacquired and verified before acceptance.",
+  "qualified": false,
+  "providerCalls": 0,
+  "lifecycleCalls": 0,
+  "C1Complete": false
+}

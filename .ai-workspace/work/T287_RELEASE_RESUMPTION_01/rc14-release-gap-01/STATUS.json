@@ -1,5 +1,5 @@
 {
-  "status": "RC14_PUBLIC_SETUP_CONTROL_CORRECTED_FRESH_EXECUTION_SELECTED",
+  "status": "RC14_PUBLIC_SETUP_PASSED_C1_METADATA_SELECTED",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T17:56:33.426947+00:00",
-  "nativeAuthorState": "No active provider/runtime. B51 one-label external-control correction accepted; one fresh same-archive Public setup selected after checkpoint push.",
+  "recordedUtc": "2026-11-15T18:04:22.339008+00:00",
+  "nativeAuthorState": "No active provider/runtime. Public setup02 passed; one exact C1 metadata/freeze operation selected after checkpoint push.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -897,7 +897,7 @@
     "namedTopLevelMinimum": 24
   },
   "candidatePreparation": {
-    "state": "MECHANICAL_INSTALL_PASSED_PUBLIC_SETUP02_SELECTED",
+    "state": "PUBLIC_SETUP02_ACCEPTED_C1_METADATA_SELECTED",
     "compileInputCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
     "compileInputTree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
     "acceptance": "integration-01/RC14_C0_SOURCE_ACCEPTANCE.json",
@@ -917,10 +917,12 @@
     "installReturn": "integration-01/candidate-install-01/RETURN.json",
     "disposition": "integration-01/INSTALL_AND_PUBLIC_SETUP_DISPOSITION.json",
     "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14/node_modules/@abiogenesis/typescript-tenant",
-    "publicSetupIdentity": null,
-    "controlFinding": "T293 B51",
+    "publicSetupIdentity": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-02/public-setup/installed/0/identity.json",
+    "controlFinding": "B51 closed within selected actual Public setup",
     "qualified": false,
     "publicSetupControlAcceptance": "integration-01/RC14_PUBLIC_SETUP_CONTROL_ACCEPTANCE_02.json",
-    "publicSetupGrant": "integration-01/public-setup-02/ACTIVATION.json"
+    "publicSetupGrant": "integration-01/public-setup-02/ACTIVATION.json",
+    "publicSetupAcceptance": "integration-01/RC14_PUBLIC_SETUP_ACCEPTANCE_02.json",
+    "metadataGrant": "integration-01/candidate-metadata-01/ACTIVATION.json"
   }
 }
