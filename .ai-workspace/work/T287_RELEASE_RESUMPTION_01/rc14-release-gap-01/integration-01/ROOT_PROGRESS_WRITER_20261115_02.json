@@ -1,0 +1,26 @@
+{
+  "id": "RC14-ROOT-PROGRESS-WRITER-20261115-02",
+  "role": "Separate Root Writer activation; not Executive mutation",
+  "basis": "stdo://releases/v3.0.4/; selected project frame and existing RC13-built RC14 completion mandate",
+  "sourceHead": "b92f1bf23b8e79f9f9b8146156b6a613c08afd73",
+  "purpose": "Integrate independently reviewed disabled candidate controls and record actual installed workflow, native execution and newly triaged proof failures",
+  "permittedEffects": [
+    "Ordinary merge of exact reviewed control commit 28983a1e299c707d2f466a4615dc17e195b8c96f into main",
+    "Write compact authored records in this integration carrier, update STATUS.json and T-293 current dispositions",
+    "Stage only those named authored paths, commit and push only HEAD to refs/heads/main without LFS payload uploads"
+  ],
+  "writeTerritory": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/STATUS.json",
+    ".ai-workspace/tickets/active/T-293-qa-findings-of-the-consolidation-wave.md"
+  ],
+  "invariants": [
+    "No Product, test, builder pin, candidate version or runtime-policy edit",
+    "Raw event/process logs, archives and recovery data remain external and untracked",
+    "Preserve unrelated peer review directory and all closed prior subjects",
+    "Preparation acceptance and the RC13-labelled installed development proof do not qualify or publish RC14"
+  ],
+  "return": "Exact integrated commit, staged-path audit, remote-main parity and compact evidence identities",
+  "recordedUtc": "2026-11-15T08:30:07Z"
+}

@@ -1,0 +1,22 @@
+{
+  "disposition": "accepted_preparation_only",
+  "subjectCommit": "28983a1e299c707d2f466a4615dc17e195b8c96f",
+  "subjectTree": "e6933e0557c5774943a5d865db8dbc9ba994c1fd",
+  "manifestSha256": "da49f6dc6a36302b106434a7d11ba3f5aab52e94244890849a3600dd05d9380c",
+  "returnSha256": "d5008572a5215448dd365b9aba488b6ca18047d40d320716d1a893d657514263",
+  "claimDraftSha256": "739ba161548fde31c6f03ad99f397a24f47f2ddfb7ccd2288c1f70b37a7df1eb",
+  "writer": "/root/b29_vm_triage",
+  "independentReviewer": "/root/b30_catalog_triage",
+  "review": "Closed satisfied; zero actionable findings. All15 manifest rows/five provenance hashes,17-file scope, seven syntax checks and exact STDO3.0.4 verified.",
+  "productFrame": "Fixed5.0 T287 RC14 S07 and REQ-P-QUAL057C; external preparation never supplies runtime qualification or human acceptance",
+  "acceptedRelations": [
+    "Prospective identity, inventory and release claim fixed before qualification",
+    "Maintained TypeScript/native/manifest/basis/pack owners and196 native producer inputs",
+    "Existing installed identity and build-resources owners derive qualification resources and inventory last",
+    "C0 remains compilation provenance; C1 supplies complete qualification inventory and publication sourceCommit/sourceTree",
+    "Native green qualification gate and immutable publication copy existing qualified artifact without rebuild"
+  ],
+  "execution": "Unbound: no stamp, build, pack, install, native qualification or publication authorized by this acceptance",
+  "remaining": "Final composed source and actual RC14 candidate; separate finite grants; preserve recipe ambient configuration including TMPDIR; F11/AF22 and all mandatory applicable outcomes; actual human acceptance",
+  "rawEvidencePublished": false
+}

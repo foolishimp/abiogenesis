@@ -1,0 +1,85 @@
+{
+  "disposition": "accepted_bounded_installed_composition",
+  "recordedUtc": "2026-11-15T08:33:10.535713+00:00",
+  "controlSubject": "e1aa852e11181590666028cfdee52c09ca6ee801",
+  "bindingSha256": "20bed8c66c4d1e9f5692b19d29abc735f08cfd2e135b92f3983e3b19c514397c",
+  "sourceCommit": "7a2411defd9ef7c1968512703c3b4b1493114453",
+  "archiveSha256": "9f9812e42c154511541762235f26180c0cf64c762f490ea57ae135a14c8e4225",
+  "candidateLabel": "5.0.0-rc.13 development payload; not final RC14",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-04",
+  "independentReviewer": "/root/rc14_release_proof",
+  "reviewDisposition": "closed_satisfied_zero_counterexamples",
+  "productFrame": "Fixed5.0 ordinary installed Public Executive construction/testing/UAT; ABG alone admits truth; actual return, owner close and fresh projection must join",
+  "verified": {
+    "selectors": [
+      82,
+      379,
+      604
+    ],
+    "admittedProducers": [
+      246,
+      471,
+      746
+    ],
+    "terminalEventOrdinal": 817,
+    "closedEventOrdinal": 831,
+    "terminal": true,
+    "unresolvedSupportRefs": [],
+    "actualActors": 6,
+    "allActorExitCodes": 0,
+    "allSixInvocationCloses": "success",
+    "componentAndUatTests": {
+      "pass": 2,
+      "fail": 0,
+      "skip": 0
+    },
+    "cliStdout": "Hello, world!\n",
+    "cliStdoutBytes": 14,
+    "commandExits": [
+      0,
+      0
+    ],
+    "commandTerminationConfirmed": true,
+    "c2SnapshotMembersRehashed": 10,
+    "declaredChangedFiles": 7,
+    "uatChangedFiles": 0,
+    "heldFreshOwnerOutputsEqual": true,
+    "heldFreshTypedTerminalEqual": true,
+    "freshReplayStatus": "closed",
+    "eventLogBytes": 8798359,
+    "eventLogSha256": "31a6356b5b4f0ff934fba6e07dcc488430fffdb3a68566ca64b2beb6d74847ea",
+    "entryExitInputRowsConserved": 50,
+    "installedContentBeforeAfter": "passed",
+    "topology": "both paired physical roles after setup and before dispatch; shared W and protected unions conserved",
+    "ownedHostGroupAbsent": true,
+    "basicHostWallMs": 1108732
+  },
+  "evidence": [
+    {
+      "path": "RETURN.json",
+      "bytes": 238,
+      "sha256": "b54cb038732f6cecdee73a9dce23e6b8aac3fbb563109e7d7814e4e0e9c63bdd"
+    },
+    {
+      "path": "basic-cli/summary.json",
+      "bytes": 93,
+      "sha256": "8a4112ddbdaae5da74486b20b265009bd8c786ecd6ccc46f99dbd76d8aff9068"
+    },
+    {
+      "path": "basic-cli/SEALED.json",
+      "bytes": 149,
+      "sha256": "ca7d5fac5496e52a3a16dc4c87dc77a57314480f5b3a06abf90eb4149754fb77"
+    },
+    {
+      "path": "basic-cli/fresh-readback.json",
+      "bytes": 5671,
+      "sha256": "4e1bd2f084039fc31247ab5000d3afa93bb81ca15d58ec77ef58d8280a85a7af"
+    }
+  ],
+  "limits": [
+    "Selected basic composition only; no complete S03 correction/blocking or full GTL coverage",
+    "No S06 witness, exact RC14 qualification, publication or human acceptance",
+    "Topology and input conservation retain observational limits; no complete-machine or hostile-host closure"
+  ],
+  "rawEvidencePublished": false
+}
