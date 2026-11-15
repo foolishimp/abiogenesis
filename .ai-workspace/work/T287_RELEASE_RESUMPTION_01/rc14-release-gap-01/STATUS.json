@@ -1,5 +1,5 @@
 {
-  "status": "RC14_REGRESSION_SOURCE_AND_COMPONENT_PROOF_CLOSED_CANDIDATE_NEXT",
+  "status": "RC14_C0_ACCEPTED_CANDIDATE_BUILD_SELECTED",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T14:55:26.865606+00:00",
-  "nativeAuthorState": "No active provider/proof. Native08 source and selected component proof closed; original audit variances preserved.",
+  "recordedUtc": "2026-11-15T15:14:31.121403+00:00",
+  "nativeAuthorState": "No active provider. Final source and component proof closed; one prospective C0 build selected after checkpoint push.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -895,5 +895,15 @@
     "skipCases": 0,
     "observedTopLevel": 26,
     "namedTopLevelMinimum": 24
+  },
+  "candidatePreparation": {
+    "state": "C0_ACCEPTED_BUILD_SELECTED_NOT_STARTED",
+    "compileInputCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "compileInputTree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
+    "acceptance": "integration-01/RC14_C0_SOURCE_ACCEPTANCE.json",
+    "buildGrant": "integration-01/candidate-build-01/ACTIVATION.json",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01",
+    "archive": null,
+    "qualification": false
   }
 }

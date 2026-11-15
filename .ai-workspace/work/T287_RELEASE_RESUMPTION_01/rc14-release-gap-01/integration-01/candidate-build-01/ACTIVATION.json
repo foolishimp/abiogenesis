@@ -1,0 +1,71 @@
+{
+  "id": "RC14-CANDIDATE-BUILD-OPERATOR-001",
+  "recordedUtc": "2026-11-15T15:14:31.121403+00:00",
+  "role": "Separate candidate-build Operator; predecessor C0 Writer has stopped",
+  "authority": "Owner finish RC14; ROOT_FINALIZATION_WRITER_14 and RC14_C0_SOURCE_ACCEPTANCE; accepted cut controls. Execute only after this authored record and C0 are on remote main.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "subject": {
+    "commit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "tree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
+    "compiledLineageUnchangedByLaterRecords": true
+  },
+  "controls": {
+    "root": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01",
+    "commit": "28983a1e299c707d2f466a4615dc17e195b8c96f",
+    "manifestSha256": "da49f6dc6a36302b106434a7d11ba3f5aab52e94244890849a3600dd05d9380c",
+    "entrySha256": "1c263ee32cea1cffdff476be409fe1624bb205dd68d1f0375de391ccbe3e9540"
+  },
+  "dependencyInventory": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/DEPENDENCY_PREIMAGE.json",
+    "sha256": "d5963980b0d8ce53b85847a547f44d308757bf4766aadd0f3dda49dad401a8ef",
+    "rows": 4576
+  },
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/prepare-candidate-rc14.mjs",
+    "--apply",
+    "--repo",
+    "/Users/jim/src/apps/abiogenesis",
+    "--commit",
+    "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "--tree",
+    "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
+    "--deps",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+    "--dependency-inventory",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/DEPENDENCY_PREIMAGE.json",
+    "--output",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate",
+    "--scratch",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/scratch"
+  ],
+  "effects": [
+    "Create this fresh external raw root and its scratch/candidate outputs.",
+    "One actual prospective preparation: exact Git archive, pinned compile/native build, maintained manifest/basis/pack owners, member and Product verification.",
+    "Retain actual start/deadline, streams, status, all command closure and source/control/dependency conservation. Compact Return in own work carrier only after closure."
+  ],
+  "bounds": {
+    "enclosingSeconds": 1800,
+    "cleanupReserveSeconds": 30,
+    "outerCaptureBytes": 16777216,
+    "commandLimits": "Preserve accepted per-command 120s/240s/600s limits; outer deadline bounds the whole execution.",
+    "firstFailureStops": true,
+    "retries": 0,
+    "clock": "One actual start recorded before effects; no resetting or extending."
+  },
+  "environment": "Credential-free explicit environment; use accepted tool childEnvironment and retain its actual HOME/TMPDIR/LANG/LC_ALL for downstream metadata.",
+  "stops": [
+    "Changed source/control/dependency pin; occupied output; missing tools; first command failure or bound; absent-group or final conservation failure. Preserve failed outputs and return without repair/retry."
+  ],
+  "exclusions": [
+    "No install/Public setup/C1 metadata/freeze yet.",
+    "No tests, provider, broad suite or paid qualification.",
+    "No semantic source/test change, extra build, dry-run build, pack rerun or hidden rebuild.",
+    "No tag/publication/selector/pin change, AF25, human acceptance, main writes/push or raw Git staging."
+  ],
+  "return": "Actual CUT_RECORD, archive/member/build-root identities and all receipts; scope remains unqualified prospective candidate requiring source finalization."
+}

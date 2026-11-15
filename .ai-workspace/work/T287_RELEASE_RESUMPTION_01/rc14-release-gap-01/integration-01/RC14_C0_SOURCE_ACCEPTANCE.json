@@ -1,0 +1,45 @@
+{
+  "id": "RC14-C0-SOURCE-ACCEPTANCE-001",
+  "recordedUtc": "2026-11-15T15:14:31.121403+00:00",
+  "role": "Root independent mechanical Reviewer; integration by separately declared FINALIZATION_WRITER_14",
+  "productFrame": "Fixed ABIogenesis5.0, T287 RC14; prospective unqualified compile-input source under accepted S07 preparation, no semantic outcome or qualification-policy change.",
+  "subject": {
+    "commit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "tree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded",
+    "base": "4afd24d12b9e7a92b7767c04a7fb51e29175fbab",
+    "mainMerge": "4135ce78b8ed0bbb5e6abce223c984d3ddfc933b"
+  },
+  "writerReturn": {
+    "path": "candidate-source-01/RETURN.json",
+    "sha256": "a02902d73587253fe250a99f88ea758777373a4d6f5003fffc9a460f890ba6d2"
+  },
+  "rawFinalReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-staging-20261116-01/RETURN.json",
+    "sha256": "dc0d1fd5d0bd5089cf46d8f10643439fd6e45a6374be5f8067f3ab724c65662b"
+  },
+  "disposition": "Accepted for one separately bound prospective candidate build",
+  "independentChecks": [
+    "Exact parent/tree and six-path commit delta; five tenant paths plus compact authored Return.",
+    "All four stamp sites are exact rc.13 to rc.14 identity substitutions, with no dependency changes.",
+    "Release claim byte-equals reviewed draft 739ba161548fde31c6f03ad99f397a24f47f2ddfb7ccd2288c1f70b37a7df1eb.",
+    "Thirteen raw evidence pins reacquired; 24 original final conservation checks matched; all eight command groups independently observed absent.",
+    "Current authority generator produced 99 outputs from 94 sources with zero changes; retained imports are not claimed as a C0 build."
+  ],
+  "bounds": {
+    "originalSeconds": 1200,
+    "elapsedMs": 208391,
+    "closedWithinBound": true
+  },
+  "claims": {
+    "sourcePrepared": true,
+    "archiveBuilt": false,
+    "installed": false,
+    "qualified": false,
+    "builderPinChanged": false
+  },
+  "residuals": [
+    "Actual candidate build/install and C1 metadata/freeze remain.",
+    "Installed amendment/S06 and exact qualification remain.",
+    "B50 policy and eligibility questions remain unanswered; no formal-qualification grant."
+  ]
+}
