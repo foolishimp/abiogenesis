@@ -1546,13 +1546,167 @@ async function advanceRetry(environment, attemptResult) {
   };
 }
 
+// T-293 B37 evidence glue for the one reacquisition below. Each owner outcome
+// is kept as observed (returned value, thrown refusal, or not reached), then
+// retained whole under ABG_REGRESSION_PROOF_ROOT with the existing exclusive
+// record pattern (uat/runner.mjs exclusiveRecord: create, never overwrite)
+// before any assertion. A refusal is rethrown unchanged afterwards.
+const F09_REACQUISITION_CANDIDATE = "f09-reacquisition.candidate.json";
+
+function reacquisitionErrorEvidence(error, depth = 0) {
+  try {
+    if (!(error instanceof Error)) {
+      return { thrownType: typeof error, value: String(error) };
+    }
+    const evidence = {
+      name: error.name,
+      message: error.message,
+      code: typeof error.code === "string" || typeof error.code === "number"
+        ? error.code
+        : null,
+      stack: typeof error.stack === "string" ? error.stack : null,
+    };
+    if (depth < 4 && error.cause !== undefined) {
+      evidence.cause = reacquisitionErrorEvidence(error.cause, depth + 1);
+    }
+    if (depth < 4 && Array.isArray(error.errors)) {
+      evidence.errors = error.errors.map((entry) =>
+        reacquisitionErrorEvidence(entry, depth + 1));
+    }
+    return evidence;
+  } catch {
+    return { thrownType: typeof error, value: "[unrepresentable thrown value]" };
+  }
+}
+
+function reacquisitionEvidenceReplacer(_key, value) {
+  if (typeof value === "bigint") return { bigint: value.toString() };
+  if (typeof value === "function") return `[function ${value.name || "anonymous"}]`;
+  if (typeof value === "symbol") return value.toString();
+  if (value instanceof Error) return reacquisitionErrorEvidence(value);
+  return value;
+}
+
+function reacquisitionEvidence(value) {
+  if (value === undefined) return { valueType: "undefined" };
+  try {
+    return JSON.parse(JSON.stringify(value, reacquisitionEvidenceReplacer));
+  } catch (error) {
+    return { unserializable: reacquisitionErrorEvidence(error) };
+  }
+}
+
+function reacquisitionObservation(action) {
+  try {
+    return reacquisitionEvidence(action());
+  } catch (error) {
+    return { unavailable: reacquisitionErrorEvidence(error) };
+  }
+}
+
+function observeReacquisition(name, prerequisites, action) {
+  const unmet = prerequisites.find((step) => step.outcome !== "returned");
+  if (unmet !== undefined) {
+    return { name, outcome: "not_reached", prerequisite: unmet.name };
+  }
+  try {
+    return { name, outcome: "returned", value: action() };
+  } catch (error) {
+    return { name, outcome: "threw", error };
+  }
+}
+
+async function observeReacquisitionAsync(name, prerequisites, action) {
+  const unmet = prerequisites.find((step) => step.outcome !== "returned");
+  if (unmet !== undefined) {
+    return { name, outcome: "not_reached", prerequisite: unmet.name };
+  }
+  try {
+    return { name, outcome: "returned", value: await action() };
+  } catch (error) {
+    return { name, outcome: "threw", error };
+  }
+}
+
+function reacquisitionStepEvidence(step, project = reacquisitionEvidence) {
+  if (step.outcome === "threw") {
+    return { outcome: "threw", error: reacquisitionErrorEvidence(step.error) };
+  }
+  if (step.outcome === "not_reached") {
+    return { outcome: "not_reached", prerequisite: step.prerequisite };
+  }
+  let value;
+  try {
+    value = reacquisitionEvidence(project(step.value));
+  } catch (error) {
+    value = { unrepresentable: reacquisitionErrorEvidence(error) };
+  }
+  return { outcome: "returned", value };
+}
+
+function requireReacquisition(step) {
+  if (step.outcome === "threw") throw step.error;
+  if (step.outcome !== "returned") {
+    throw new TypeError(`F09 reacquisition step ${step.name} was not reached`);
+  }
+  return step.value;
+}
+
+function durableCoordinateFields(coordinate) {
+  return {
+    kind: coordinate?.kind,
+    schemaVersion: coordinate?.schemaVersion,
+    eventLogRef: coordinate?.eventLogRef,
+    device: coordinate?.storeIdentity?.device,
+    inode: coordinate?.storeIdentity?.inode,
+    eventContractDigest: coordinate?.storeIdentity?.eventContractDigest,
+    prefixLength: coordinate?.prefixLength,
+    prefixDigest: coordinate?.prefixDigest,
+    coordinateDigest: coordinate?.coordinateDigest,
+  };
+}
+
+function durableCoordinateCorrespondence(original, rebound) {
+  const left = durableCoordinateFields(original);
+  const right = durableCoordinateFields(rebound);
+  return Object.fromEntries(Object.keys(left).map((field) => [field, {
+    original: left[field] ?? null,
+    rebound: right[field] ?? null,
+    equal: Object.is(left[field], right[field]),
+  }]));
+}
+
+async function retainF09ReacquisitionCandidate(candidate) {
+  const root = process.env.ABG_REGRESSION_PROOF_ROOT;
+  if (typeof root !== "string" || root.length === 0) {
+    return { persisted: false, reason: "ABG_REGRESSION_PROOF_ROOT is unset" };
+  }
+  const file = resolve(root, F09_REACQUISITION_CANDIDATE);
+  await mkdir(dirname(file), { recursive: true });
+  await writeFile(
+    file,
+    `${JSON.stringify(candidate, reacquisitionEvidenceReplacer, 2)}\n`,
+    { flag: "wx" },
+  );
+  return { persisted: true, file };
+}
+
 // T-293 B37: one reacquisition through the existing owners at the store's
 // authenticated committed boundary. The setup artifact truth's answer after
 // the rollback is observed (not asserted) for the evidence record; nothing is
 // cached, bypassed or suppressed, and every consumer receives the new value.
+// The leaf port keeps reading the original execution-basis cut. The rollback
+// abandoned the derivation generation that held that cut, so the existing
+// Event Store owner reidentifies the same immutable historical coordinate
+// through the current held boundary; the fixture neither substitutes the
+// current boundary nor reads a copy cold. Every outcome is observed first and
+// retained as one candidate; the assertions and any owner refusal follow.
 async function reacquireCommittedArtifactTruth(environment, expectedBoundary) {
-  const { abg, store } = environment;
+  const { abg, store, product } = environment;
+  const owner = environment.eventStoreOwner;
+  const setupArtifactTruth = environment.artifactTruth;
   let setupArtifactTruthAnswerAfterRollback;
+  let setupArtifactTruthError = null;
   try {
     setupArtifactTruthAnswerAfterRollback = abg.hasAdmittedWorkspaceBinding(
       environment.artifactTruth,
@@ -1560,15 +1714,210 @@ async function reacquireCommittedArtifactTruth(environment, expectedBoundary) {
     );
   } catch (error) {
     setupArtifactTruthAnswerAfterRollback = `threw: ${String(error)}`;
+    setupArtifactTruthError = reacquisitionErrorEvidence(error);
   }
-  const committedBoundary =
-    environment.eventStoreOwner.selectHeldEventStoreDurablePrefix(store);
+  const originalExecutionBasisCut =
+    environment.executionBasisAdmission.successorPrefix;
+  const committed = observeReacquisition("committedBoundary", [], () =>
+    owner.selectHeldEventStoreDurablePrefix(store));
+  const projected = observeReacquisition("artifactTruthProjection", [committed],
+    () => abg.projectOwnedPrefixArtifactTruth(committed.value));
+  const validation = observeReacquisition("artifactTruthValidation", [projected],
+    () => abg.validateExactPrefixArtifactTruthProjection(projected.value, {
+      requireCurrent: true,
+    }));
+  const binding = observeReacquisition("workspaceBindingAnswer", [projected],
+    () => abg.hasAdmittedWorkspaceBinding(
+      projected.value,
+      environment.workspaceBinding,
+    ));
+  const install = observeReacquisition("productInstallAnswer", [projected],
+    () => abg.hasAdmittedProductInstall(
+      projected.value,
+      environment.admittedInstall,
+    ));
+  const committedHeld = observeReacquisition("currentHeldHistory", [committed],
+    () => owner.activeRuntimeHistoryAtDurablePrefix(committed.value));
+  // Diagnostic only: the original object's answer after the rollback.
+  const originalHeld = observeReacquisition("historicalHeldHistory", [],
+    () => owner.activeRuntimeHistoryAtDurablePrefix(originalExecutionBasisCut));
+  const reidentified = observeReacquisition("historicalReidentification",
+    [committed],
+    () => owner.reidentifyHistoricalDurablePrefixCoordinate(
+      committed.value,
+      originalExecutionBasisCut,
+    ));
+  const reboundHeld = observeReacquisition("reboundHeldHistory", [reidentified],
+    () => owner.activeRuntimeHistoryAtDurablePrefix(reidentified.value));
+  const historical = observeReacquisition("historicalEvents", [reidentified],
+    () => abg.readRuntimeEventsAtDurablePrefix(reidentified.value));
+  const historicalPrefix = observeReacquisition("historicalValidatedPrefix",
+    [historical], () => abg.selectValidatedRuntimeEventPrefix(historical.value));
+  const leafPortStep = await observeReacquisitionAsync("leafPortConstruction",
+    [projected, historicalPrefix],
+    () => environment.implementationLeafPort.constructAdmittedLeafInvocationPort({
+      prefix: historicalPrefix.value,
+      artifactTruth: projected.value,
+      implementationSet: environment.implementationSet,
+      executionResolution: environment.executionResolution,
+      semanticsProjection: environment.semanticsProjection,
+    }));
+  const pathSteps = [committed, projected, validation, binding, install,
+    committedHeld, reidentified, reboundHeld, historical, historicalPrefix,
+    leafPortStep];
+  let eventLogByteLength;
+  try {
+    eventLogByteLength = (await readFile(environment.eventLogPath)).length;
+  } catch (error) {
+    eventLogByteLength = { unavailable: reacquisitionErrorEvidence(error) };
+  }
+  const heldHistoryEvidence = (history) => ({
+    held: history !== undefined,
+    sameHistoryAsCurrent: history !== undefined &&
+      committedHeld.outcome === "returned" && history === committedHeld.value,
+  });
+  let candidate;
+  try {
+    candidate = {
+      kind: "f09_reacquisition_candidate",
+      schemaVersion: "1",
+      helper: "reacquireCommittedArtifactTruth",
+      workItem: "T-293 B37",
+      processId: process.pid,
+      coordinates: {
+        expected: reacquisitionEvidence(expectedBoundary),
+        current: reacquisitionStepEvidence(committed),
+        historical: reacquisitionEvidence(originalExecutionBasisCut),
+        rebound: reacquisitionStepEvidence(reidentified),
+      },
+      currentBoundaryComparison: reacquisitionObservation(() => ({
+        expected: durableCoordinateFields(expectedBoundary),
+        current: durableCoordinateFields(committed.value),
+        coordinateDigestEqual:
+          committed.value?.coordinateDigest === expectedBoundary.coordinateDigest,
+        sameObject: committed.value === expectedBoundary,
+      })),
+      historicalCorrespondence: reacquisitionObservation(() => {
+        const fields = durableCoordinateCorrespondence(
+          originalExecutionBasisCut,
+          reidentified.value,
+        );
+        return {
+          fields,
+          allFieldsEqual: Object.values(fields).every((field) => field.equal),
+          distinctFromOriginalObject:
+            reidentified.value !== originalExecutionBasisCut,
+          reboundEqualsCurrentBoundary:
+            reidentified.value?.coordinateDigest ===
+              committed.value?.coordinateDigest,
+          historicalPrefixBeforeCurrent:
+            reidentified.value?.prefixLength < committed.value?.prefixLength,
+          sameEventLogAsCurrent: reidentified.value?.eventLogRef ===
+              committed.value?.eventLogRef &&
+            reidentified.value?.storeIdentity?.device ===
+              committed.value?.storeIdentity?.device &&
+            reidentified.value?.storeIdentity?.inode ===
+              committed.value?.storeIdentity?.inode,
+        };
+      }),
+      heldOwner: {
+        current: reacquisitionStepEvidence(committedHeld, heldHistoryEvidence),
+        historicalOriginal: reacquisitionStepEvidence(
+          originalHeld,
+          heldHistoryEvidence,
+        ),
+        rebound: reacquisitionStepEvidence(reboundHeld, heldHistoryEvidence),
+      },
+      setupArtifactTruth: {
+        answerAfterRollback: setupArtifactTruthAnswerAfterRollback,
+        error: setupArtifactTruthError,
+        projection: reacquisitionEvidence(setupArtifactTruth),
+      },
+      artifactTruthProjection: reacquisitionStepEvidence(projected),
+      artifactTruthPrefixComparison: reacquisitionObservation(() => ({
+        projectionCoordinateDigest:
+          projected.value?.prefix?.coordinateDigest ?? null,
+        currentCoordinateDigest: committed.value?.coordinateDigest ?? null,
+        equal: projected.value?.prefix?.coordinateDigest ===
+          committed.value?.coordinateDigest,
+      })),
+      artifactTruthValidation: reacquisitionStepEvidence(validation),
+      workspaceBindingAnswer: reacquisitionStepEvidence(binding),
+      productInstallAnswer: reacquisitionStepEvidence(install),
+      historicalEvents: reacquisitionStepEvidence(historical, (events) => ({
+        eventCount: events.length,
+        eventsDigest: product.sha256Canonical(events),
+        firstEventId: events[0]?.eventId ?? null,
+        lastEventId: events.at(-1)?.eventId ?? null,
+        lastAdmissionOrdinal: events.at(-1)?.admissionOrdinal ?? null,
+        prefixOfHeldEvents: product.canonicalJson(events) ===
+          product.canonicalJson(store.readAll().slice(0, events.length)),
+        events: JSON.parse(product.canonicalJson(events)),
+      })),
+      historicalValidatedPrefix: reacquisitionStepEvidence(
+        historicalPrefix,
+        (prefix) => ({
+          valueType: typeof prefix,
+          kind: prefix?.kind ?? null,
+          keys: prefix !== null && typeof prefix === "object"
+            ? Object.keys(prefix)
+            : [],
+        }),
+      ),
+      leafPortConstruction: reacquisitionStepEvidence(leafPortStep, (port) => ({
+        valueType: typeof port,
+        members: port !== null && typeof port === "object"
+          ? Object.fromEntries(Object.keys(port).map((key) =>
+            [key, typeof port[key]]))
+          : {},
+      })),
+      bindingInputs: {
+        workspaceBinding: reacquisitionEvidence(environment.workspaceBinding),
+        admittedInstall: reacquisitionEvidence(environment.admittedInstall),
+        implementationSet: reacquisitionEvidence(environment.implementationSet),
+        semanticsProjectionDigest: reacquisitionObservation(() =>
+          product.sha256Canonical(environment.semanticsProjection)),
+        executionBasisAdmissionKind:
+          environment.executionBasisAdmission.kind ?? null,
+      },
+      heldStore: reacquisitionObservation(() => ({
+        eventCount: store.readAll().length,
+        digest: store.digest(),
+        eventLogByteLength,
+      })),
+    };
+  } catch (error) {
+    candidate = {
+      kind: "f09_reacquisition_candidate",
+      schemaVersion: "1",
+      helper: "reacquireCommittedArtifactTruth",
+      constructionError: reacquisitionErrorEvidence(error),
+      steps: [...pathSteps, originalHeld].map((step) => ({
+        name: step.name,
+        ...reacquisitionStepEvidence(step, () => "[omitted]"),
+      })),
+    };
+  }
+  let candidatePersistence;
+  try {
+    candidatePersistence = await retainF09ReacquisitionCandidate(candidate);
+  } catch (error) {
+    const refusals = pathSteps
+      .filter((step) => step.outcome === "threw")
+      .map((step) => step.error);
+    if (refusals.length === 0) throw error;
+    throw new AggregateError(
+      [error, ...refusals],
+      "F09 reacquisition candidate was not retained",
+    );
+  }
+  const committedBoundary = requireReacquisition(committed);
   assert.equal(
     committedBoundary.coordinateDigest,
     expectedBoundary.coordinateDigest,
     "the committed boundary is the authenticated prefix before the faults",
   );
-  const artifactTruth = abg.projectOwnedPrefixArtifactTruth(committedBoundary);
+  const artifactTruth = requireReacquisition(projected);
   assert.equal(
     artifactTruth.kind,
     "exact_prefix_artifact_truth_projection",
@@ -1578,32 +1927,30 @@ async function reacquireCommittedArtifactTruth(environment, expectedBoundary) {
     artifactTruth.prefix.coordinateDigest,
     committedBoundary.coordinateDigest,
   );
-  assert.equal(
-    abg.validateExactPrefixArtifactTruthProjection(artifactTruth, {
-      requireCurrent: true,
-    }),
-    true,
+  assert.equal(requireReacquisition(validation), true);
+  assert.equal(requireReacquisition(binding), true);
+  assert.equal(requireReacquisition(install), true);
+  const reboundExecutionBasisCut = requireReacquisition(reidentified);
+  assert.notEqual(
+    reboundExecutionBasisCut,
+    originalExecutionBasisCut,
+    "the current held owner rebinds the historical cut rather than returning the abandoned object",
   );
-  assert.equal(
-    abg.hasAdmittedWorkspaceBinding(artifactTruth, environment.workspaceBinding),
-    true,
+  assert.deepEqual(
+    durableCoordinateFields(reboundExecutionBasisCut),
+    durableCoordinateFields(originalExecutionBasisCut),
+    "the rebound coordinate is the same original execution-basis cut",
   );
+  const currentHistory = requireReacquisition(committedHeld);
+  const reboundHistory = requireReacquisition(reboundHeld);
   assert.equal(
-    abg.hasAdmittedProductInstall(artifactTruth, environment.admittedInstall),
+    reboundHistory !== undefined && reboundHistory === currentHistory,
     true,
+    "the rebound historical cut is held by the current owner history",
   );
-  const leafPort =
-    await environment.implementationLeafPort.constructAdmittedLeafInvocationPort({
-      prefix: abg.selectValidatedRuntimeEventPrefix(
-        abg.readRuntimeEventsAtDurablePrefix(
-          environment.executionBasisAdmission.successorPrefix,
-        ),
-      ),
-      artifactTruth,
-      implementationSet: environment.implementationSet,
-      executionResolution: environment.executionResolution,
-      semanticsProjection: environment.semanticsProjection,
-    });
+  requireReacquisition(historical);
+  requireReacquisition(historicalPrefix);
+  const leafPort = requireReacquisition(leafPortStep);
   environment.artifactTruth = artifactTruth;
   environment.leafPort = leafPort;
   environment.actorRuntimeBinding = {
@@ -1614,7 +1961,12 @@ async function reacquireCommittedArtifactTruth(environment, expectedBoundary) {
     ...environment.continuationProductBasis,
     artifactTruth,
   };
-  return { artifactTruth, setupArtifactTruthAnswerAfterRollback };
+  return {
+    artifactTruth,
+    setupArtifactTruthAnswerAfterRollback,
+    reboundExecutionBasisCut,
+    candidatePersistence,
+  };
 }
 
 async function advanceOwnerToLocus(
