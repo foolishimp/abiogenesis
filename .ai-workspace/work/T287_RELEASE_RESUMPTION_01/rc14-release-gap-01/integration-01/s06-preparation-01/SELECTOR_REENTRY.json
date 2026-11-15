@@ -1,0 +1,23 @@
+{
+  "id": "RC14-S06-OWNER-COORDINATE-REPAIR-01",
+  "role": "Separate Root Writer activation for external preparation tooling",
+  "baseSubject": "ffdf680fe348ac5a6a84d2ed2effa131a3efa5ca",
+  "basis": "stdo://releases/v3.0.4/; fixed5.0 Product F17/S06 and existing semantic evidence owner",
+  "triage": {
+    "origin": "D1 selector assumes observation value uniquely identifies an admitted Result",
+    "ownerRelation": "semantic_job.ts projects executionResultRef/executionResultDigest from its authenticated predecessor; semantic_stage_publication invokes C2 as a child",
+    "counterexample": "Closed basic04 has equal-valued leaf471 and forwarded parent484; value equality does not select producer identity",
+    "effect": "Lawful successful D1 can be refused by external custody tooling before report observation",
+    "reentry": "Select exact owner-supplied Result ref/digest, then preserve success, typed observation and value equality checks; custody/graph/runtime/oracle unchanged"
+  },
+  "permittedEffects": [
+    "Change only the D1 selector in c2-evidence.mjs and its compact manifest/check/return records in this carrier",
+    "One bounded pure selector discriminator with equal-valued admitted input records and refusal controls;30seconds maximum, no runtime acquisition or admission",
+    "Read the retained basic04 authenticated prefix through the installed readRuntimeEventsAtDurablePrefix owner; read-only history derivation, no append resource or new events",
+    "Syntax and canonical no-emit type check; preserve prior satisfied checks under exact unchanged-body relations",
+    "Commit this carrier on its existing branch and stop for independent review; no main or push"
+  ],
+  "externalOutput": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03",
+  "executionRemainsDisabled": true,
+  "prohibitions": "No Public invocation, provider, application execution, Product/runtime/graph/oracle edit or fabricated S06 evidence"
+}

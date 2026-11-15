@@ -1,0 +1,158 @@
+{
+  "kind": "s06_external_preparation_controls",
+  "preparationSource": "ebe085acf2812252daf45bc7d86b5dc3f4cb1b5e",
+  "tenantSourceRelation": "7a2411def conserved per Root; no tenant mutations in this preparation",
+  "controls": [
+    {
+      "path": "BINDING.template.json",
+      "bytes": 5497,
+      "sha256": "80534748143acf4950f8ff1c556c40da568ce196d3a5ad4efe4adaff38989884"
+    },
+    {
+      "path": "CONTROL_REPAIR.md",
+      "bytes": 9190,
+      "sha256": "b1044692c3a5bd0fc45c19af70a837ab6fe505596ea59a32bc3f1efc3c58a89a"
+    },
+    {
+      "path": "D2_RUBRIC.md",
+      "bytes": 1095,
+      "sha256": "58c6a122daeb6c14e74b5ef49f7deb7f368b2b56c07c7b4e54153930b240643e"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 23610,
+      "sha256": "161ebcbe2f902fe3cd82d241dc54851652919b39d73b3d594d3ad07c2c1edbd7"
+    },
+    {
+      "path": "INPUTS.json",
+      "bytes": 17273,
+      "sha256": "f823ca394a51388a6b9c57b14fd36b423d80036a53d785fe8c21336a1add6851"
+    },
+    {
+      "path": "README.md",
+      "bytes": 8899,
+      "sha256": "af3c1dfad1214cb936346a3a9f51ce19de8df24b6ad089cbdc37f17ca2ad81a8"
+    },
+    {
+      "path": "SELECTION.md",
+      "bytes": 4404,
+      "sha256": "2ebbce863f958f13f3f0fc41abcdf9a9bf7ebe150706bc47fc71cd4ba5b703a7"
+    },
+    {
+      "path": "SELECTOR_REENTRY.json",
+      "bytes": 2002,
+      "sha256": "e2271389d7c34bdf59c57100359ac840df693368dc9b1a5082abc773e3117025"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 8167,
+      "sha256": "bcd790b727388ff02bad4a1315ec6d5f54c656507f1daa33afe5b986123e7b3a"
+    },
+    {
+      "path": "bounded.py",
+      "bytes": 4206,
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "path": "c2-evidence.mjs",
+      "bytes": 8532,
+      "sha256": "97b4550e453b632ded002177c414548fde3fbddfa1c8e16b6e5940982f0bfb44"
+    },
+    {
+      "path": "command-owner.py",
+      "bytes": 664,
+      "sha256": "ad26e04344dd738384a24d753ed67f67eb572dfda5f5187f5123774ecb0d496a"
+    },
+    {
+      "path": "consumer.mjs",
+      "bytes": 6341,
+      "sha256": "155cd181b290c7ff70c73af09cd8db176c5b51bc1508bd4a63e491185681ac8d"
+    },
+    {
+      "path": "declarations.mjs",
+      "bytes": 2295,
+      "sha256": "e7afc1906e2d45f58d127a02617bf177e2d756050e507583261e5ce2b116083b"
+    },
+    {
+      "path": "inputs.mjs",
+      "bytes": 11021,
+      "sha256": "bcf89a447d2883b2b4ecd5db94b4ba10f3019450141266dbf2f49110b74d4399"
+    },
+    {
+      "path": "npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "observe.py",
+      "bytes": 6318,
+      "sha256": "af9527ab1e00c173aceb009ab4e09eae2e2fdf6181d18b406746ea9535f17f58"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "run.py",
+      "bytes": 8215,
+      "sha256": "e7349f70fcc28b6ac541fc2f4eb6003cdee244ba8437ce8a18bfb0150eb162dd"
+    },
+    {
+      "path": "setup.mjs",
+      "bytes": 21253,
+      "sha256": "1c8735c276cf01b95009664a06cf9ae8375448de3337e42f00d1d7b7be311e21"
+    },
+    {
+      "path": "tsconfig.noemit.json",
+      "bytes": 860,
+      "sha256": "37a9c773657b3195b682e045f5a9f7f7ff6d8cb6346723c35edc8438de34114d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39738,
+      "sha256": "9bb83493f9bd34691dda02bb48f864d04b57f302edbdd39f2964f3857e59ab71"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "bytes": 7508,
+      "sha256": "0e046834271851dcb50ce16d7272290b47294a73dc18cd4b394fe5995102a47e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/amendment-witness.mjs",
+      "bytes": 17077,
+      "sha256": "2c3de69d59284b474aa613d941627922b05786aa77f15271653c7c4d1951c99b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product/index.mjs",
+      "bytes": 730,
+      "sha256": "e8cde80b6ca3093f65857eac23fa6969260567f1220f705f9ac5ca316e089c41"
+    }
+  ],
+  "executionAuthorized": false,
+  "scope": "External consumer declarations, ordinary inputs, Public setup/run and read-only witness observation",
+  "repairBase": "ffdf680fe348ac5a6a84d2ed2effa131a3efa5ca",
+  "repairScope": "D1 exact owner Result-coordinate selector; prior four closed relations conserved"
+}

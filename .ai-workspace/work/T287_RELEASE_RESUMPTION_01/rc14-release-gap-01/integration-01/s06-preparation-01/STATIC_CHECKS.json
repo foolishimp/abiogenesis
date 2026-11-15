@@ -1,0 +1,202 @@
+{
+  "kind": "s06_control_repair_checks",
+  "baseSubject": "6af06d60ea84ba15f1222479070b5950ca887267",
+  "preparedUtc": "2026-11-15T08:41:03.575418+00:00",
+  "checks": [
+    {
+      "path": "HOST.mjs",
+      "check": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "bounded.py",
+      "check": "ast.parse",
+      "passed": true
+    },
+    {
+      "path": "c2-evidence.mjs",
+      "check": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "command-owner.py",
+      "check": "ast.parse",
+      "passed": true
+    },
+    {
+      "path": "consumer.mjs",
+      "check": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "declarations.mjs",
+      "check": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "inputs.mjs",
+      "check": "node --check",
+      "exitCode": 0
+    },
+    {
+      "path": "observe.py",
+      "check": "ast.parse",
+      "passed": true
+    },
+    {
+      "path": "physical-topology.py",
+      "check": "ast.parse",
+      "passed": true
+    },
+    {
+      "path": "run.py",
+      "check": "ast.parse",
+      "passed": true
+    },
+    {
+      "path": "setup.mjs",
+      "check": "node --check",
+      "exitCode": 0
+    }
+  ],
+  "externalInputReceipt": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preflight-20261115-02/EXTERNAL_INPUTS.json",
+    "bytes": 11567,
+    "sha256": "1790f88efb9a4adf74860cfd7a0e5c781db37afdc0b9bf22e9badd67fb97578f"
+  },
+  "externalInputCount": 35,
+  "pureCanonicalConstructor": {
+    "status": "passed before later probe-location assertion",
+    "scope": "exact installed constructGovernanceWorkState over input-only specimen, not an admitted D1 Result",
+    "script": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preflight-20261115-02/check-controls.mjs",
+      "bytes": 6291,
+      "sha256": "7ba08eba88b30786599fabfaa7b0406ba89bc253195880232a9f1644353a6435"
+    }
+  },
+  "actualC2ReadOnly": {
+    "receipt": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preflight-20261115-02/ACTUAL_C2_CUSTODY.json",
+      "bytes": 8614,
+      "sha256": "cbee23a481df4c2e7eba2d2cb2d48b9e244c2784d0523670d777bebe25c527c6"
+    },
+    "sourceLogSha256": "31a6356b5b4f0ff934fba6e07dcc488430fffdb3a68566ca64b2beb6d74847ea",
+    "admissionOrdinal": 471,
+    "snapshotMembers": 10,
+    "reportOutputJoinExercised": false,
+    "S06Credit": false,
+    "finalModuleRelation": "D2 selection and authenticateExecutionEvidence bodies unchanged from ffdf680; D1 selection now separately checks exact semantic-owner Result coordinates. New selector discriminator includes actual D2 selection conservation."
+  },
+  "preservedProbeFailure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preflight-20261115-02/FIRST_PREPARATION_FAILURE.json",
+    "bytes": 1325,
+    "sha256": "3c3aadbbed2fda2e7662f5bf0acc850060cfaf45c3d5bed55e2b48bb11267137"
+  },
+  "physicalProducer": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preflight-20261115-02/PAIRED_LAYOUTS.json",
+    "bytes": 8218,
+    "sha256": "84539ea244fcff179e378277bd842d63fe11ea2f45c5012d54c3dbe46c000cef"
+  },
+  "physicalRoles": [
+    {
+      "role": "operator-custody",
+      "receipt": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preflight-20261115-02/probe-operator-custody/result.json",
+        "bytes": 638,
+        "sha256": "d880a636c7d807427eb797284ecaee3e1b674adf8484d339037d1c5192be2ba1"
+      },
+      "observation": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preflight-20261115-02/probe-operator-custody/stdout.raw",
+        "bytes": 48774,
+        "sha256": "e895d968077023d85f7fad64b13580288f94799e2e532e063ef9fde2cd3dc55c"
+      },
+      "deadlineMs": 30000,
+      "sharedOuterBoundMs": 60000
+    },
+    {
+      "role": "runtime-owner",
+      "receipt": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preflight-20261115-02/probe-runtime-owner/result.json",
+        "bytes": 632,
+        "sha256": "377084aab3b24e93bb1123209f9cbaccb37f0c39b764867c9d1ad75379ef1dff"
+      },
+      "observation": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preflight-20261115-02/probe-runtime-owner/stdout.raw",
+        "bytes": 67550,
+        "sha256": "e3582bc99ac5312b02109599268a129f090f6065597a8d830d4e85b608548c5a"
+      },
+      "deadlineMs": 30000,
+      "sharedOuterBoundMs": 60000
+    }
+  ],
+  "typeCheck": {
+    "exitCode": 0,
+    "command": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+      "-p",
+      ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-01/tsconfig.noemit.json"
+    ],
+    "scope": "inputs.mjs and c2-evidence.mjs against exact installed Product declarations; no emit"
+  },
+  "executionLimits": {
+    "PublicInvocations": 0,
+    "runtimeAdmissions": 0,
+    "builds": 0,
+    "applicationTests": 0,
+    "providerCalls": 0,
+    "newS06Clock": false
+  },
+  "methodVerification": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "failures": [],
+    "preparationCommandCorrection": "First stdo status lacked required --definition and exited2; exact --definition stdo_abiogenesis.json --verify returned valid. No Product operation."
+  },
+  "formatting": {
+    "initialDiffCheck": "one carried trailing space on HOST declaration",
+    "corrected": true
+  },
+  "oracleRelation": {
+    "path": "observe.py",
+    "derivedFrom": "INPUTS.json oracle boundedApplicationCase.expectedBackwardRelations.error:src-103.originalRecord",
+    "comparison": "JSON-typed exact canonical object; Boolean true remains distinct from integer1 or string true",
+    "onlyD2Change": "source_key property name to record_id"
+  },
+  "selectorReentry": {
+    "subject": "ffdf680fe348ac5a6a84d2ed2effa131a3efa5ca",
+    "ownerCoordinate": "semantic evidence executionResultRef/executionResultDigest",
+    "discriminator": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/SELECTOR_CHECKS.json",
+      "bytes": 1439,
+      "sha256": "6c60f4fe33ca482b1481a9a83bd6d2644615630605d8757c177fa0c40f7dfee5"
+    },
+    "script": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/probe.mjs",
+      "bytes": 4620,
+      "sha256": "6cff9ff5f3f9aa13129fa7b30d4ae04b7a83fb74de56e8e4299f5fc97afaecf5"
+    },
+    "execution": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/command-02/result.json",
+      "bytes": 614,
+      "sha256": "2078c85f46ebef3f17d0fc2245113d5c680ead6119e1aaa3e73e0ddaf94f8403"
+    },
+    "syntax": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/syntax/result.json",
+      "bytes": 604,
+      "sha256": "c31f2f72c259eacf77aab9954af826ecc9a8f15c0818df3b4d1f1c494f678e5f"
+    },
+    "types": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/types/result.json",
+      "bytes": 603,
+      "sha256": "36ef5b28b4cd4b80af39f98f8c0fc4be60e26c5207d1f46f01d1f5f597caa5fa"
+    },
+    "priorControlEntryFailure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/FIRST_CONTROL_ENTRY_FAILURE.json",
+      "bytes": 415,
+      "sha256": "75850ca30724a2f5a80480d04f16296979cc1700ec582af940d4c68f086613a6"
+    },
+    "scope": "Six checks on genuine decoded471/484 plus D1 input specimen, no S06/admission credit"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "kind": "s06_preparation_return",
+  "status": "repaired_frozen_for_independent_review_not_execution",
+  "parentSubject": "ffdf680fe348ac5a6a84d2ed2effa131a3efa5ca",
+  "originalPreparationSource": "ebe085acf2812252daf45bc7d86b5dc3f4cb1b5e",
+  "changedTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-01",
+  "controlManifest": {
+    "path": "/private/tmp/abg-rc14-s06-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-01/CONTROL_MANIFEST.json",
+    "bytes": 5266,
+    "sha256": "cc48ceebad92f8d425912b81dea6ac37c49b396a92240bd2ae7e97c0ddb7780a"
+  },
+  "controlCount": 22,
+  "maintainedInputCount": 7,
+  "externalInputs": {
+    "count": 35,
+    "inventorySha256": "f823ca394a51388a6b9c57b14fd36b423d80036a53d785fe8c21336a1add6851",
+    "originalSourceMembers": 5,
+    "originalSourceBytes": 135805,
+    "retainedApplicationMembers": 22,
+    "retainedApplicationBytes": 111575,
+    "oracleUnchanged": true,
+    "selectionUnchanged": true,
+    "historicalRuntimeCredit": false
+  },
+  "repair": [
+    "Canonical dirname and two complete protected-root roles with shared W; exact observer unchanged",
+    "Remove only retired generic workOrders.review; named review conserved",
+    "Testing sources include actual D2 input and full existing fixed-command dependency set",
+    "Read original admitted C2 sandbox with task/plan/artifact/snapshot/report and observed-file custody; preserve actual D1 evidence/query after D2",
+    "Immutable typed Boolean oracle record; only D2 source_key to record_id rename"
+  ],
+  "boundedChecks": {
+    "syntaxAndTypes": "passed",
+    "pureCanonicalD2Input": "passed; input-only specimen, no admission",
+    "actualRetainedC2": "closed basic04 Result471, helper/task artifact and10 snapshot files authenticated; no S06 credit",
+    "expectedReportJoin": "source/type checked, not exercised by basic04 report-free example",
+    "physicalRoles": "both separated, shared60second preparation bound,309/303ms, groups absent; retained basic04 binding/install fields and prospective S06 W only",
+    "originalProbeFailure": "Retained external installedProduct-coordinate/installedRoot mismatch; Root-selected projection-only re-entry; no repeated constructor/C2 run",
+    "D1ResultSelector": "Six bounded selector checks passed; genuine decoded471/484, owner-coordinate selection, old uniqueness refusal, negative controls and unchanged D2 selection. No S06 credit.",
+    "selectorReceipt": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-selector-preflight-20261115-03/SELECTOR_CHECKS.json",
+      "bytes": 1439,
+      "sha256": "6c60f4fe33ca482b1481a9a83bd6d2644615630605d8757c177fa0c40f7dfee5"
+    },
+    "selectorControlFailure": "Wrong deadline argument type stopped before process creation; retained, corrected typed call separately bounded"
+  },
+  "externalProofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preflight-20261115-02",
+  "sourceOrRuntimeEffects": {
+    "tenantChanges": false,
+    "PublicInvocations": 0,
+    "runtimeAdmissions": 0,
+    "builds": 0,
+    "packInstall": 0,
+    "applicationTests": 0,
+    "providerCalls": 0,
+    "S06ExecutionClockStarted": false,
+    "mainOrPush": false,
+    "readonlyPrefixDerivations": 1
+  },
+  "unresolvedBeforeExecution": [
+    "Independent exact successor review and Root acceptance",
+    "Exact future candidate artifact/bootstrap and source checkpoint",
+    "Separate S06 execution grant and finite deadline; fresh complete actual topology after setup and before each dispatch",
+    "Actual Java/JDK/SBT launcher/compiler/bridge/Spark/ScalaTest/transitive library acquisition; pins currently cover named executables/wrapper and Scala runtime only",
+    "Explicit offline/network and read-source authority; isolated writable caches and temporary state inside owned territory; no implicit shared-user/toolchain-cache effects",
+    "Actual Java/SBT startup, compilation/application execution and five-minute-command capacity",
+    "Actual S06 report/output evidence, independent semantic adequacy, real amendment and affected/unaffected evidence relation"
+  ],
+  "qualification": false,
+  "recordedUtc": "2026-11-15T08:58:10.653637+00:00"
+}
