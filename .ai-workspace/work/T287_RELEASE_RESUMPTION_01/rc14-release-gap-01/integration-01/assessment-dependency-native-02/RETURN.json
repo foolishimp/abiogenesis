@@ -1,0 +1,194 @@
+{
+  "id": "RC14-B56-NATIVE-RETURN-02",
+  "role": "Separate native execution/evidence Writer",
+  "recordedUtc": "2026-11-15T21:18:35.680900+00:00",
+  "standing": "Closed native attempt; selected Task incomplete, source unaccepted and unproved.",
+  "authority": {
+    "sourceBinding": "3d68a8b7c104c9873b12741fdce5b67d3987534f",
+    "activation": "integration-01/B56_NATIVE_ACTIVATION_02.json",
+    "checkoutCorrection": "integration-01/B56_NATIVE02_CHECKOUT_PREFLIGHT_DISPOSITION_01.json",
+    "checkoutDispositionCommit": "8967b68f17314eef6e79bd291aa0d523ba03e7ea"
+  },
+  "controls": {
+    "commit": "641503e25789715a7ba3b70e0132d027897f72a8",
+    "manifestSha256": "2c63065c29354c96a5efbb306935aeb7db0c6d73773425e59a1c7f0741a29470"
+  },
+  "source": {
+    "head": "3d68a8b7c104c9873b12741fdce5b67d3987534f",
+    "worktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-02",
+    "headAndIndexUnchanged": true,
+    "postimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/SOURCE_POSTIMAGE.json",
+      "bytes": 393526,
+      "sha256": "6da4a29b9153b40b13fc92c1f4113c6fd49d8a07c140a02e8525d63b17dc316d"
+    },
+    "diff": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/SOURCE_DIFF.patch",
+      "bytes": 42779,
+      "sha256": "6a49c49a159fb32ae8a5e8813700feabd80530ef378be7eaa65aaf10ea89abae"
+    },
+    "frozen": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/FROZEN_SOURCE.json",
+      "bytes": 2286,
+      "sha256": "08e1baf3616452704b201a7479fc542fcbd4f635b1a8c4295c77ef257c7fa77a"
+    },
+    "files": [
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/source-subject/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 207588,
+        "sha256": "ab08b50f6fef9b894bcdc4f11aae906b50c819c507133997137fe325f736356d"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 366518,
+        "sha256": "debe24eeb01db480efb993414ae514d43e4229d545a679c3ee5378a48094ff34"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+        "bytes": 125368,
+        "sha256": "8ff9b9bd57e7b73c7c49f64c1a828a49b425130d1d10af415a6de14d92e5bec9"
+      }
+    ],
+    "rows": 1558,
+    "onlyThreeWChanged": true,
+    "setupOwnedManifestOnlyAddition": true,
+    "fiveRecoveredFilesConserved": true,
+    "committedOrStaged": false
+  },
+  "execution": {
+    "hostStartUtc": "2026-11-15T21:05:08.635464+00:00",
+    "originalDeadlineUtc": "2026-11-16T00:05:08.635464+00:00",
+    "exitReserveUtc": "2026-11-16T00:02:08.635464+00:00",
+    "hostPID": 40812,
+    "actorPID": 41385,
+    "actorStartUtc": "2026-11-15T21:05:51.596Z",
+    "actorExitUtc": "2026-11-15T21:12:04.446Z",
+    "hostExitCode": 0,
+    "actorExitCode": 0,
+    "hostElapsedMs": 421791,
+    "nativeDurationMs": 371467,
+    "nativeTurns": 33,
+    "protocolModel": "claude-opus-5-5",
+    "configuredEffort": "xhigh",
+    "listCostUSD": 2.5392642000000003,
+    "costLimit": "Protocol list estimate, not account invoice.",
+    "providerCalls": 1,
+    "groupsIndependentlyAbsent": [
+      40812,
+      41385
+    ],
+    "actualResourceClose": true,
+    "freshResultAndClosedReplay": true,
+    "noRuntimeRetry": true,
+    "oldClockReused": false
+  },
+  "taskDisposition": {
+    "requiredSplitInstalledCase": "Absent; author explicitly returned this first unmet check. No split candidate implementation.",
+    "coincidentCapture": "Incomplete preassert full CLI/negative/preimage/readback evidence, per typed report.",
+    "commonHOW": "Names installed split proof not yet implemented.",
+    "component": "New coherent-premise edits require independent source review; author reports unresolved canonical-owner acquisition.",
+    "semanticAcceptance": "None. Successful native terminal is only the closed report transport."
+  },
+  "methodAudit": {
+    "toolCounts": {
+      "Bash": 30,
+      "Edit": 1,
+      "StructuredOutput": 1
+    },
+    "installedMethodSectionsBeforeFirstEdit": 8,
+    "textOnlyPythonEdits": 4,
+    "prospectivelyPermitted": true,
+    "syntaxChecksOnly": 2,
+    "forbiddenBehavioralExecutionObserved": false,
+    "residuals": [
+      "Author did not perform stdo status --verify or member-manifest verification.",
+      "Explicit required Product/readFirst content acquisition is incomplete; retained task prompt has paths/instructions, not canonical Product/requirement bodies. No unpinned context credit granted.",
+      "First tool listed selected control files before TASK; initial TASK output persisted, later TASK parse acquired instructions.",
+      "Actual renderer readable scope excludes leaf_execution_authority.ts; missing read authority and completion consequences remain for Root disposition."
+    ],
+    "readError": "Unquoted shell marker failed after handoff sections; subsequent Product Basis content read succeeded before first Edit.",
+    "scopeAndCommandsAdmitted": false,
+    "rootDispositionRequired": true
+  },
+  "checkoutPreflight": {
+    "firstFailure": "Seven root files absent after index/cone setup, before raw/preimage/clock/provider.",
+    "correction": "Root-selected exact worktree-only restore from bound source; HEAD/index unchanged and bytes matched.",
+    "runtimeAttemptsBeforeCorrection": 0,
+    "evidence": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/CHECKOUT_PREFLIGHT.json",
+      "bytes": 874,
+      "sha256": "51f6b414bd095deaea72b3f117b7ad011d28b781130c8586d955f96fba2079c7"
+    }
+  },
+  "pins": {
+    "rawReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/OPERATOR_RETURN.json",
+      "bytes": 15249,
+      "sha256": "64b2f44effef0459d7ef6ecc0d1ce062d44f1987d646d16374995285461343b6"
+    },
+    "typedReport": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 3433,
+      "sha256": "f764ca46d6983b55e1f1eb5704b9cc11e18737d25561505d0c08a5c8e01cc0ce"
+    },
+    "typedReportBinding": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/NATIVE_AUTHOR_REPORT_BINDING.json",
+      "bytes": 715,
+      "sha256": "d48244ce030d771145f0b69b8344e81ae42389747cf6fbe9ad30095fb3751ed5"
+    },
+    "audit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/AUTHOR_AUDIT.json",
+      "bytes": 10214,
+      "sha256": "1a4f5d4e1eb2f5c03aef51dd8f6e33118f7c371a5257c07d604d7efd5e13d8ef"
+    },
+    "toolAudit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/AUTHOR_TOOL_AUDIT.json",
+      "bytes": 320418,
+      "sha256": "9330a88c29dad2e5d0e1eec5a8b4466a2d732b050f2f742e7fd7f25070b9ec8a"
+    },
+    "promptTrace": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/PROMPT_ACQUISITION_TRACE.json",
+      "bytes": 2144,
+      "sha256": "a628328a7f30aa05b57597f65e61efafde0a1823d6faded2a0a2f2fc11a6ba73"
+    },
+    "fullTaskPrompt": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/runtime/resources/archives/fp-8ed731986ecdebbd-prompt.txt",
+      "bytes": 15856,
+      "sha256": "0afde2dbcb2d75a9574efa032af1b3920307b3dd89df68b3b1715d97ccc767cd"
+    },
+    "actualTransport": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/runtime/resources/archives/fp-8ed731986ecdebbd-transport.json",
+      "bytes": 2543830,
+      "sha256": "d2e42576aa02ccf4aae6f4d1d50903c3e48617a93682a64bf3bf0c8dc97d13d5"
+    },
+    "exitCustody": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/EXIT_CUSTODY.json",
+      "bytes": 1167,
+      "sha256": "bb7185025011b0a73de1f1442d4118dab4f445fea3bd3c610928b94032cdca90"
+    },
+    "actualGroups": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/ACTUAL_PROCESS_CLOSURE.json",
+      "bytes": 301,
+      "sha256": "72f6dc3eed13c0c4789eb667e48e7e8d8d9e927aac5dc888b971c79e8a15e5ef"
+    },
+    "nativeCompletion": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/runtime/AUTHOR_COMPLETION.json",
+      "bytes": 1397,
+      "sha256": "6e5d8e9abee7b3c9c957dab0a356253281e52e81da146b865893a1eeab48a131"
+    },
+    "freshReadbacks": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/runtime/FRESH_READBACKS.json",
+      "bytes": 5717,
+      "sha256": "178c28c74110224961bba84128f208c39d9685750f8c04063e6ae08a6bdc1df0"
+    }
+  },
+  "proof": {
+    "builds": 0,
+    "tests": 0,
+    "proofExecuted": false,
+    "automaticallyAuthorized": false,
+    "qualified": false
+  },
+  "limits": "No source/Task acceptance, independent assurance or qualification. Raw protocol/event/capture bodies remain external; this is authored compact accounting only.",
+  "returnTo": "Root; actual frozen source and incomplete closed report. No main write/push or continued attempt."
+}
