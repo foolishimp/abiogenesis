@@ -1,0 +1,248 @@
+{
+  "kind": "seven_file_diagnostic_selection",
+  "order": [
+    "steel-basic-cli-public",
+    "t292-td26-p2t-declaration-rows-installed",
+    "t287-d5-authentic-preserved-result",
+    "t287-management-supervision",
+    "t287-worksite-branch-construction",
+    "t287-worksite-command-execution",
+    "t287-worksite-construction"
+  ],
+  "files": [
+    {
+      "file": "steel-basic-cli-public.test.mjs",
+      "sha256": "6231af9f58a66ccd6a87979045fde4baf3abac845030163bb9eca9b2e65a62c9",
+      "caseAndChildDeadlineSourceLines": [
+        {
+          "line": 217,
+          "text": "timeout: 60_000, maxBuffer: 20 * 1024 * 1024,"
+        }
+      ],
+      "wholeFile": true,
+      "outerBudgetMs": 1200000,
+      "caseOrChildDeadlineChanged": false
+    },
+    {
+      "file": "t292-td26-p2t-declaration-rows-installed.test.mjs",
+      "sha256": "70e11b8883967cf187ff558aa0775b58de3ccdd486cbd978af30c7aea51ad77b",
+      "caseAndChildDeadlineSourceLines": [
+        {
+          "line": 121,
+          "text": "env: { ...process.env, NODE_OPTIONS: \"\" }, timeout: 120_000, maxBuffer: 20 * 1024 * 1024 }));"
+        }
+      ],
+      "wholeFile": true,
+      "outerBudgetMs": 1200000,
+      "caseOrChildDeadlineChanged": false
+    },
+    {
+      "file": "t287-d5-authentic-preserved-result.test.mjs",
+      "sha256": "2f5263711ad524fb3a69631e39b04494d9631bb211049e242c2ce043c687bd56",
+      "caseAndChildDeadlineSourceLines": [
+        {
+          "line": 58,
+          "text": "test(\"D5 authentic preserved Construction proposal through installed owners; genuine causal negatives refuse\", { timeout: 180_000 }, async (t) => {"
+        }
+      ],
+      "wholeFile": true,
+      "outerBudgetMs": 1200000,
+      "caseOrChildDeadlineChanged": false
+    },
+    {
+      "file": "t287-management-supervision.test.mjs",
+      "sha256": "fa7a413cf991fbd79791a636404908e1460475df148b7213987f886179462dfd",
+      "caseAndChildDeadlineSourceLines": [
+        {
+          "line": 59,
+          "text": "test(\"prompt and both stream archives survive supervisor SIGKILL before process completion\", { timeout: 10000 }, async () => {"
+        },
+        {
+          "line": 87,
+          "text": "test(\"retry-only process rows remain archived without renewing the observer lease\", { timeout: 10000 }, async () => {"
+        },
+        {
+          "line": 94,
+          "text": "timeoutMs: 180, absoluteTimeoutMs: 1200, terminationGraceMs: 50,"
+        },
+        {
+          "line": 105,
+          "text": "test(\"native lease contains a silent actor at inactivity before its hard cap without a no-progress classification under unknown coverage; an active blocked child reaches Public unchanged, also across status-heartbeat-only intervals longer than its lease\", { timeout: 600000 }, async () => {"
+        }
+      ],
+      "wholeFile": true,
+      "outerBudgetMs": 1200000,
+      "caseOrChildDeadlineChanged": false
+    },
+    {
+      "file": "t287-worksite-branch-construction.test.mjs",
+      "sha256": "15c025a667c5a64337a61dcf9c5d81b845f82f2ebedaba656e7aaaac965c3869",
+      "caseAndChildDeadlineSourceLines": [
+        {
+          "line": 594,
+          "text": "timeout: 240_000,"
+        },
+        {
+          "line": 679,
+          "text": "timeout: 240_000,"
+        }
+      ],
+      "wholeFile": true,
+      "outerBudgetMs": 1200000,
+      "caseOrChildDeadlineChanged": false
+    },
+    {
+      "file": "t287-worksite-command-execution.test.mjs",
+      "sha256": "0e556e999ab541dcfc2721a73262953476d87d54e13d52537073d33f77e9cda4",
+      "caseAndChildDeadlineSourceLines": [
+        {
+          "line": 149,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 5_000, terminationGraceMs: 1_000,"
+        },
+        {
+          "line": 155,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 5_000, terminationGraceMs: 1_000,"
+        },
+        {
+          "line": 166,
+          "text": "portFile: { relativePath: \"c2-source/evidence-http-port.txt\" }, timeoutMs: 5_000, terminationGraceMs: 1_000 },"
+        },
+        {
+          "line": 167,
+          "text": "request: { hostname: \"127.0.0.1\", method: \"GET\", path: \"/\", timeoutMs: 1_000 },"
+        },
+        {
+          "line": 183,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 5_000, terminationGraceMs: 1_000, expectedReports: [] }],"
+        },
+        {
+          "line": 362,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] };"
+        },
+        {
+          "line": 380,
+          "text": "environment: {}, relativeCwd: \".\", portFile: { relativePath: \"evidence/port.txt\" }, timeoutMs: 1000, terminationGraceMs: 100 },"
+        },
+        {
+          "line": 381,
+          "text": "request: { hostname: \"127.0.0.1\", method: \"GET\", path: \"/\", timeoutMs: 100 } } };"
+        },
+        {
+          "line": 395,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 18_000_000, terminationGraceMs: 10_000, expectedReports: [] };"
+        },
+        {
+          "line": 422,
+          "text": "const row = { ...command, timeoutMs: 10_000, terminationGraceMs };"
+        },
+        {
+          "line": 434,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] };"
+        },
+        {
+          "line": 457,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] };"
+        },
+        {
+          "line": 1199,
+          "text": "timeout: process.env.ABG_T287_C2_PROOF_CONFIG === undefined ? 180_000 : 600_000,"
+        },
+        {
+          "line": 1207,
+          "text": "timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && \"ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case\","
+        },
+        {
+          "line": 1214,
+          "text": "const task = { commands: [{ timeoutMs: 1000, terminationGraceMs: grace }, { timeoutMs: 2000, terminationGraceMs: 100 }],"
+        },
+        {
+          "line": 1216,
+          "text": "launch: { timeoutMs: 3000, terminationGraceMs: grace }, request: { timeoutMs: 500 },"
+        },
+        {
+          "line": 1261,
+          "text": "timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] });"
+        },
+        {
+          "line": 1267,
+          "text": "environment: {}, relativeCwd: \".\", portFile: { relativePath: \"evidence/port.txt\" }, timeoutMs: 1000, terminationGraceMs: 100 },"
+        },
+        {
+          "line": 1268,
+          "text": "request: { hostname: \"127.0.0.1\", method: \"GET\", path: \"/\", timeoutMs: 100 } } };"
+        },
+        {
+          "line": 1277,
+          "text": "args: command.args, relativeCwd: command.relativeCwd, environment: command.environment, timeoutMs: command.timeoutMs,"
+        },
+        {
+          "line": 1378,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 5_000, terminationGraceMs: 1_000, expectedReports: [] }],"
+        },
+        {
+          "line": 1386,
+          "text": "timeoutMs: 5_000, terminationGraceMs: 1_000 },"
+        },
+        {
+          "line": 1387,
+          "text": "request: { hostname: \"127.0.0.1\", method, path: \"/\", timeoutMs: 1_000 },"
+        },
+        {
+          "line": 1463,
+          "text": "method: declared.method, path: declared.path, timeoutMs: declared.timeoutMs });"
+        },
+        {
+          "line": 1476,
+          "text": "timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && \"ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case\","
+        },
+        {
+          "line": 1480,
+          "text": "timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && \"ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case\","
+        },
+        {
+          "line": 1503,
+          "text": "timeoutMs: 5_000, terminationGraceMs: 1_000, expectedReports: [] });"
+        },
+        {
+          "line": 1522,
+          "text": "timeoutMs: 5_000, terminationGraceMs: 1_000 },"
+        },
+        {
+          "line": 1523,
+          "text": "request: { hostname: \"127.0.0.1\", method: \"GET\", path: \"/\", timeoutMs: 1_000 },"
+        },
+        {
+          "line": 1661,
+          "text": "timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && \"ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case\","
+        },
+        {
+          "line": 1665,
+          "text": "timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && \"ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case\","
+        }
+      ],
+      "wholeFile": true,
+      "outerBudgetMs": 1200000,
+      "caseOrChildDeadlineChanged": false
+    },
+    {
+      "file": "t287-worksite-construction.test.mjs",
+      "sha256": "e47a2de84bc573d6caef8dc2c10c0173e5f99f7bfce865bedbdcddcf422ed4a9",
+      "caseAndChildDeadlineSourceLines": [
+        {
+          "line": 381,
+          "text": "timeout: 180_000,"
+        },
+        {
+          "line": 709,
+          "text": "timeout: 180_000,"
+        }
+      ],
+      "wholeFile": true,
+      "outerBudgetMs": 1200000,
+      "caseOrChildDeadlineChanged": false
+    }
+  ],
+  "count": 7,
+  "realExecutionAuthorized": false,
+  "scope": "One serial whole-file attempt each; original source deadlines, no test-name filter or Node test-timeout override. Red is diagnostic evidence, not automatic campaign abort when custody closes."
+}

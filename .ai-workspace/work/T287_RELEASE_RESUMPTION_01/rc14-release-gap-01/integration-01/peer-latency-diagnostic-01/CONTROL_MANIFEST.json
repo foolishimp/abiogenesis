@@ -1,0 +1,102 @@
+{
+  "kind": "peer_latency_diagnostic_preparation_controls",
+  "sourceBase": "b92f1bf23b8e79f9f9b8146156b6a613c08afd73",
+  "executionAuthorized": false,
+  "files": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 1956,
+      "sha256": "3ff471f01aff29af64adaa6f40a79ad13fcffd7b8e90ce461bf7d08952cba3ca"
+    },
+    {
+      "path": "BUILD_REUSE.json",
+      "bytes": 2894,
+      "sha256": "d46bde7c404d49124219f68452aee32b9b904492af46d2ca6a401c64b521811d"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 706,
+      "sha256": "f57ae6dd95a2280fa6ec0e2976fd13b48c9d28858bb324cdf6ff05f2455b5540"
+    },
+    {
+      "path": "LAUNCH.template.json",
+      "bytes": 446,
+      "sha256": "50d9958b59dbb73d0cd9e0ba91164497c3191592c2c07e7a58232ef08e4666ff"
+    },
+    {
+      "path": "PEER_RECEIPTS.json",
+      "bytes": 7238,
+      "sha256": "c17f7c462208ad6d0515b47517c101f19fad947971164f70f6e5bb00856f73ff"
+    },
+    {
+      "path": "POPULATION.json",
+      "bytes": 9708,
+      "sha256": "1919470c73e581cf987702718dbc349c357efb2674514cd57914ea6096258de2"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6549,
+      "sha256": "46ee35332a470323c7ce217181c9d99bd25f1ecd6aec3f16f99df40c8ee10dcb"
+    },
+    {
+      "path": "RETAINED_INPUTS.json",
+      "bytes": 2617,
+      "sha256": "6b3acd6edd34a09ee213a583ffc743c88c96ecf9ca94757b34270407efbdb74b"
+    },
+    {
+      "path": "REUSE.json",
+      "bytes": 2418,
+      "sha256": "2c4a972d6658ea9f84be8de93d2aaf14b35383406c65ba4bc91c1e507c3a5ff4"
+    },
+    {
+      "path": "SOURCE_BINDING.json",
+      "bytes": 1644,
+      "sha256": "5c879a53897442d6de2b251945b11c124717b366f248dd255a4d200eb103282f"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 2187,
+      "sha256": "1cfd140a6581fef395b26011400789626276b900aa5ff3dda66092a3b6cb3dea"
+    },
+    {
+      "path": "SYNTHETIC_PROBE.json",
+      "bytes": 982,
+      "sha256": "e2086ed9b8211f788681e5a176fcb33414b0be5975383bd83864f2e6d9a37541"
+    },
+    {
+      "path": "child-observer.mjs",
+      "bytes": 5013,
+      "sha256": "b1efe0a0b8bd014a4dcbe606cf26dc19ad5a0f3443bb2d201ac01050d4d351a9"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "probe.py",
+      "bytes": 3435,
+      "sha256": "80387778a9e49826f5b0860b23d13815691475ed7abd8d4f5cd9605a190a1dd5"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "run.py",
+      "bytes": 11811,
+      "sha256": "ffb39e0fdf601255fd6006f065b911ea4be2b2d9732bb7f8c70a3f2507036863"
+    },
+    {
+      "path": "synthetic-node-probe.mjs",
+      "bytes": 1970,
+      "sha256": "66d85c2704ca7f215e37b38befd89425e997790d250cd2747cdb6217fa07152e"
+    }
+  ]
+}

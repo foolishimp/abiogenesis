@@ -1,0 +1,20 @@
+{
+  "source": {
+    "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/peer-latency-diagnostic-01/synthetic-node-probe.mjs",
+    "bytes": 1970,
+    "sha256": "66d85c2704ca7f215e37b38befd89425e997790d250cd2747cdb6217fa07152e"
+  },
+  "sidecar": {
+    "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/peer-latency-diagnostic-01/child-observer.mjs",
+    "bytes": 5013,
+    "sha256": "b1efe0a0b8bd014a4dcbe606cf26dc19ad5a0f3443bb2d201ac01050d4d351a9"
+  },
+  "return": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-peer-latency-diagnostic-20261115-01/synthetic-probe-01/RETURN.json",
+    "bytes": 4704,
+    "sha256": "32b9622502a2ed4234e715d3dfee147628f8d30bbbc33c57d147b24123f63e79"
+  },
+  "result": "passed",
+  "elapsedMs": 3322,
+  "noABG": true
+}

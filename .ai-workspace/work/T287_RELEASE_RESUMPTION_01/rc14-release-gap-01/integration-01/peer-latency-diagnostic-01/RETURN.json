@@ -1,0 +1,56 @@
+{
+  "activationId": "RC14-PEER-LATENCY-DIAGNOSTIC-PREPARATION-01",
+  "disposition": "prepared_held_for_independent_review",
+  "preparedUtc": "2026-11-15T08:45:42.840199+00:00",
+  "sourceBase": "b92f1bf23b8e79f9f9b8146156b6a613c08afd73",
+  "sourceWorktree": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-01",
+  "controlManifestSha256": "693298f0da7736c9dca46d0b79846973d8a4652ab5ba61312ee23c2260c5e6ba",
+  "controls": 19,
+  "sourceTestProductChanged": false,
+  "sevenFileDiagnosticExecuted": false,
+  "providerBuildPackInstallExecuted": false,
+  "syntheticProbe": {
+    "source": {
+      "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/peer-latency-diagnostic-01/synthetic-node-probe.mjs",
+      "bytes": 1970,
+      "sha256": "66d85c2704ca7f215e37b38befd89425e997790d250cd2747cdb6217fa07152e"
+    },
+    "sidecar": {
+      "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/peer-latency-diagnostic-01/child-observer.mjs",
+      "bytes": 5013,
+      "sha256": "b1efe0a0b8bd014a4dcbe606cf26dc19ad5a0f3443bb2d201ac01050d4d351a9"
+    },
+    "return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-peer-latency-diagnostic-20261115-01/synthetic-probe-01/RETURN.json",
+      "bytes": 4704,
+      "sha256": "32b9622502a2ed4234e715d3dfee147628f8d30bbbc33c57d147b24123f63e79"
+    },
+    "result": "passed",
+    "elapsedMs": 3322,
+    "noABG": true
+  },
+  "verifiedInputs": {
+    "tenantRows": 1295,
+    "authorityRows": 102,
+    "compiledFiles": 782,
+    "dependencyFilesAndLinks": 4576,
+    "retainedFiles": 7,
+    "retainedBytes": 669118059,
+    "peerSourceTapPairs": 7
+  },
+  "change": "Existing Node child_process diagnostic subscriber, exact input/custody binding and one held serial seven-file runner; original assertions and child/case limits unchanged.",
+  "originalPeerLimit": "No complete original driver argv/env or source/build-at-execution relation; the selected prospective subject is freshly bound.",
+  "limits": [
+    "No spawnSync or callback-local execFile Error reconstruction",
+    "No unconsumed-pipe draining; data digest covers only observed chunks",
+    "No invented timing split for intervals containing only in-process SDK work",
+    "No measured Product instrumentation overhead",
+    "Known-child and process-group closure only; no global detached-child absence claim"
+  ],
+  "remaining": [
+    "Root independent review and exact launch admission",
+    "Fresh runtime topology/input/source preflight and absolute deadline",
+    "Actual seven-file execution and interpretation; no Product repair is selected by this preparation"
+  ],
+  "returnTo": "Root; stop; no main merge, push or execution"
+}

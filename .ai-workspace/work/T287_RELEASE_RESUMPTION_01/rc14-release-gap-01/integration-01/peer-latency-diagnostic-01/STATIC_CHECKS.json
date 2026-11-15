@@ -1,0 +1,100 @@
+{
+  "sourceBase": "b92f1bf23b8e79f9f9b8146156b6a613c08afd73",
+  "checkedUtc": "2026-11-15T08:44:33.599338+00:00",
+  "checks": [
+    {
+      "path": "ACTIVATION.json",
+      "check": "JSON parse only",
+      "passed": true
+    },
+    {
+      "path": "BUILD_REUSE.json",
+      "check": "JSON parse only",
+      "passed": true
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "check": "JSON parse only",
+      "passed": true
+    },
+    {
+      "path": "LAUNCH.template.json",
+      "check": "JSON parse only",
+      "passed": true
+    },
+    {
+      "path": "PEER_RECEIPTS.json",
+      "check": "JSON parse only",
+      "passed": true
+    },
+    {
+      "path": "POPULATION.json",
+      "check": "JSON parse only",
+      "passed": true
+    },
+    {
+      "path": "RETAINED_INPUTS.json",
+      "check": "JSON parse only",
+      "passed": true
+    },
+    {
+      "path": "REUSE.json",
+      "check": "JSON parse only",
+      "passed": true
+    },
+    {
+      "path": "SOURCE_BINDING.json",
+      "check": "JSON parse only",
+      "passed": true
+    },
+    {
+      "path": "SYNTHETIC_PROBE.json",
+      "check": "JSON parse only",
+      "passed": true
+    },
+    {
+      "path": "child-observer.mjs",
+      "check": "node --check only",
+      "passed": true
+    },
+    {
+      "path": "dependency-inputs.py",
+      "check": "Python AST only",
+      "passed": true
+    },
+    {
+      "path": "physical-topology.py",
+      "check": "Python AST only",
+      "passed": true
+    },
+    {
+      "path": "probe.py",
+      "check": "Python AST only",
+      "passed": true
+    },
+    {
+      "path": "process-owner.py",
+      "check": "Python AST only",
+      "passed": true
+    },
+    {
+      "path": "run.py",
+      "check": "Python AST only",
+      "passed": true
+    },
+    {
+      "path": "synthetic-node-probe.mjs",
+      "check": "node --check only",
+      "passed": true
+    }
+  ],
+  "subjectExecuted": false,
+  "syntheticProbe": "SYNTHETIC_PROBE.json",
+  "qualification": false,
+  "authorityFiles": 102,
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  }
+}
