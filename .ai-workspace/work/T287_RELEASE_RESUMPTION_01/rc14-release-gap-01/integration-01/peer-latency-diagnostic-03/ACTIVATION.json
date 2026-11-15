@@ -1,0 +1,36 @@
+{
+  "id": "RC14-PEER-LATENCY-DIAGNOSTIC-PREPARATION-03",
+  "role": "Separate Root external-tool Writer; three-file preparation only",
+  "authority": "Closed peer d leaves three persistent cancelled files; four later clean results retained, no repeat selected. Distinct review and exact Rootlaunch required.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "frame": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "sourceBase": "96b93b75b9b0310651334710ecd37cbcbb4805e5",
+  "sourceWorktree": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-02",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-peer-latency-diagnostic-20261115-03",
+  "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/peer-latency-diagnostic-03",
+  "executionAuthorized": false,
+  "productFrame": "Fixed 5.0, T287 RC14, installed Public/effect/replay. Test acquisition, deadlines and diagnostic evidence are derived tools, not ABG authority. Product, tests, assertion and child/case deadline bytes remain unchanged.",
+  "exclusions": [
+    "No Product/test/helper edits or import",
+    "No ABG/provider/build/pack/install execution during preparation",
+    "No native04 widening, automatic retry or duplicate broad campaign",
+    "No main/push/raw publication"
+  ],
+  "launch": null,
+  "limits": {
+    "perFileMs": 1200000,
+    "perFileEnvelopeBasis": "Retained peer original 20-minute outer envelope; original driver argv/env unavailable; no Node --test-timeout added",
+    "enclosingMs": 4500000,
+    "cleanupReserveMs": 120000,
+    "outputBytesPerFile": 268435456,
+    "reserveBytes": 4294967296,
+    "syntheticMaxMs": 60000
+  },
+  "preparedUtc": "2026-11-15T09:39:00.290891+00:00",
+  "diagnosticWorksite": "/private/tmp/abg-rc14-peer-latency-worksite-20261115-03",
+  "predecessorControls": "b53c0182b7064d4f2694e68a845642d888adb999"
+}

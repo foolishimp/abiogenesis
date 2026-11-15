@@ -1,0 +1,100 @@
+{
+  "sourceIndex": {
+    "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/5e4c25c3-fca5-4dd6-89e7-20d55d008bdf/scratchpad/rc14d/results.jsonl",
+    "bytes": 1987,
+    "sha256": "f07a73719521b125e60fd120e47743382206c85878665e7ac84070e9f62b9e3d"
+  },
+  "ended": {
+    "end": "2026-11-15T09:33:53.605Z",
+    "done": 11
+  },
+  "selected": [
+    {
+      "name": "t287-worksite-construction.test.mjs",
+      "code": 1,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 378,
+      "tests": 3,
+      "pass": 2,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 1
+    },
+    {
+      "name": "t287-worksite-branch-construction.test.mjs",
+      "code": 1,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 489,
+      "tests": 2,
+      "pass": 0,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 2
+    },
+    {
+      "name": "t287-worksite-command-execution.test.mjs",
+      "code": 1,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 458,
+      "tests": 13,
+      "pass": 11,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 2
+    }
+  ],
+  "excludedLaterPasses": [
+    {
+      "name": "t287-management-supervision.test.mjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 169,
+      "tests": 5,
+      "pass": 5,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    {
+      "name": "t292-td26-p2t-declaration-rows-installed.test.mjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 340,
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    {
+      "name": "steel-basic-cli-public.test.mjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 316,
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    {
+      "name": "t287-d5-authentic-preserved-result.test.mjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 166,
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0
+    }
+  ],
+  "meaning": "Later independent peer observations justify no repeat of four files; originals retained, no root-cause claim from later success and no qualification union"
+}

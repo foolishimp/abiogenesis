@@ -1,0 +1,105 @@
+{
+  "checkedUtc": "2026-11-15T09:39:00.290891+00:00",
+  "selectedSourceHashes": true,
+  "pythonSyntax": true,
+  "pureCompletionBoundaryCases": [
+    {
+      "case": "complete",
+      "result": {
+        "withinDeadline": true,
+        "wallWithinDeadline": true,
+        "monotonicWithinDeadline": true,
+        "disposition": "diagnostic_population_completed",
+        "exitCode": 0
+      }
+    },
+    {
+      "case": "wall_equal",
+      "result": {
+        "withinDeadline": false,
+        "wallWithinDeadline": false,
+        "monotonicWithinDeadline": true,
+        "disposition": "stopped_incomplete",
+        "exitCode": 1
+      }
+    },
+    {
+      "case": "mono_equal",
+      "result": {
+        "withinDeadline": false,
+        "wallWithinDeadline": true,
+        "monotonicWithinDeadline": false,
+        "disposition": "stopped_incomplete",
+        "exitCode": 1
+      }
+    },
+    {
+      "case": "wall_expired",
+      "result": {
+        "withinDeadline": false,
+        "wallWithinDeadline": false,
+        "monotonicWithinDeadline": true,
+        "disposition": "stopped_incomplete",
+        "exitCode": 1
+      }
+    },
+    {
+      "case": "mono_expired",
+      "result": {
+        "withinDeadline": false,
+        "wallWithinDeadline": true,
+        "monotonicWithinDeadline": false,
+        "disposition": "stopped_incomplete",
+        "exitCode": 1
+      }
+    },
+    {
+      "case": "failure",
+      "result": {
+        "withinDeadline": true,
+        "wallWithinDeadline": true,
+        "monotonicWithinDeadline": true,
+        "disposition": "stopped_incomplete",
+        "exitCode": 1
+      }
+    },
+    {
+      "case": "missing",
+      "result": {
+        "withinDeadline": true,
+        "wallWithinDeadline": true,
+        "monotonicWithinDeadline": true,
+        "disposition": "stopped_incomplete",
+        "exitCode": 1
+      }
+    },
+    {
+      "case": "extra",
+      "result": {
+        "withinDeadline": true,
+        "wallWithinDeadline": true,
+        "monotonicWithinDeadline": true,
+        "disposition": "stopped_incomplete",
+        "exitCode": 1
+      }
+    },
+    {
+      "case": "conservation",
+      "result": {
+        "withinDeadline": true,
+        "wallWithinDeadline": true,
+        "monotonicWithinDeadline": true,
+        "disposition": "stopped_incomplete",
+        "exitCode": 1
+      }
+    }
+  ],
+  "unchangedBodyPins": {
+    "child-observer.mjs": "b1efe0a0b8bd014a4dcbe606cf26dc19ad5a0f3443bb2d201ac01050d4d351a9",
+    "physical-topology.py": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+    "process-owner.py": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39",
+    "dependency-inputs.py": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+  },
+  "execution": "Only extracted pure Tool completion gate; no Product/test/observer/provider execution",
+  "physical": "Previous strict-child/disjoint producer law unchanged; actual new topology is reacquired before effects by runtime observer, not inferred from old path observation"
+}

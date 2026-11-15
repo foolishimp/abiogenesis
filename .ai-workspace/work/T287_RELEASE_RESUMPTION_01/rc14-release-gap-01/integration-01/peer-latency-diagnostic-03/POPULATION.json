@@ -1,0 +1,180 @@
+{
+  "kind": "seven_file_diagnostic_selection",
+  "order": [
+    "t287-worksite-construction.test.mjs",
+    "t287-worksite-branch-construction.test.mjs",
+    "t287-worksite-command-execution.test.mjs"
+  ],
+  "files": [
+    {
+      "file": "t287-worksite-construction.test.mjs",
+      "sha256": "e47a2de84bc573d6caef8dc2c10c0173e5f99f7bfce865bedbdcddcf422ed4a9",
+      "caseAndChildDeadlineSourceLines": [
+        {
+          "line": 381,
+          "text": "timeout: 180_000,"
+        },
+        {
+          "line": 709,
+          "text": "timeout: 180_000,"
+        }
+      ],
+      "wholeFile": true,
+      "outerBudgetMs": 1200000,
+      "caseOrChildDeadlineChanged": false
+    },
+    {
+      "file": "t287-worksite-branch-construction.test.mjs",
+      "sha256": "15c025a667c5a64337a61dcf9c5d81b845f82f2ebedaba656e7aaaac965c3869",
+      "caseAndChildDeadlineSourceLines": [
+        {
+          "line": 594,
+          "text": "timeout: 240_000,"
+        },
+        {
+          "line": 679,
+          "text": "timeout: 240_000,"
+        }
+      ],
+      "wholeFile": true,
+      "outerBudgetMs": 1200000,
+      "caseOrChildDeadlineChanged": false
+    },
+    {
+      "file": "t287-worksite-command-execution.test.mjs",
+      "sha256": "0e556e999ab541dcfc2721a73262953476d87d54e13d52537073d33f77e9cda4",
+      "caseAndChildDeadlineSourceLines": [
+        {
+          "line": 149,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 5_000, terminationGraceMs: 1_000,"
+        },
+        {
+          "line": 155,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 5_000, terminationGraceMs: 1_000,"
+        },
+        {
+          "line": 166,
+          "text": "portFile: { relativePath: \"c2-source/evidence-http-port.txt\" }, timeoutMs: 5_000, terminationGraceMs: 1_000 },"
+        },
+        {
+          "line": 167,
+          "text": "request: { hostname: \"127.0.0.1\", method: \"GET\", path: \"/\", timeoutMs: 1_000 },"
+        },
+        {
+          "line": 183,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 5_000, terminationGraceMs: 1_000, expectedReports: [] }],"
+        },
+        {
+          "line": 362,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] };"
+        },
+        {
+          "line": 380,
+          "text": "environment: {}, relativeCwd: \".\", portFile: { relativePath: \"evidence/port.txt\" }, timeoutMs: 1000, terminationGraceMs: 100 },"
+        },
+        {
+          "line": 381,
+          "text": "request: { hostname: \"127.0.0.1\", method: \"GET\", path: \"/\", timeoutMs: 100 } } };"
+        },
+        {
+          "line": 395,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 18_000_000, terminationGraceMs: 10_000, expectedReports: [] };"
+        },
+        {
+          "line": 422,
+          "text": "const row = { ...command, timeoutMs: 10_000, terminationGraceMs };"
+        },
+        {
+          "line": 434,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] };"
+        },
+        {
+          "line": 457,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] };"
+        },
+        {
+          "line": 1199,
+          "text": "timeout: process.env.ABG_T287_C2_PROOF_CONFIG === undefined ? 180_000 : 600_000,"
+        },
+        {
+          "line": 1207,
+          "text": "timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && \"ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case\","
+        },
+        {
+          "line": 1214,
+          "text": "const task = { commands: [{ timeoutMs: 1000, terminationGraceMs: grace }, { timeoutMs: 2000, terminationGraceMs: 100 }],"
+        },
+        {
+          "line": 1216,
+          "text": "launch: { timeoutMs: 3000, terminationGraceMs: grace }, request: { timeoutMs: 500 },"
+        },
+        {
+          "line": 1261,
+          "text": "timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] });"
+        },
+        {
+          "line": 1267,
+          "text": "environment: {}, relativeCwd: \".\", portFile: { relativePath: \"evidence/port.txt\" }, timeoutMs: 1000, terminationGraceMs: 100 },"
+        },
+        {
+          "line": 1268,
+          "text": "request: { hostname: \"127.0.0.1\", method: \"GET\", path: \"/\", timeoutMs: 100 } } };"
+        },
+        {
+          "line": 1277,
+          "text": "args: command.args, relativeCwd: command.relativeCwd, environment: command.environment, timeoutMs: command.timeoutMs,"
+        },
+        {
+          "line": 1378,
+          "text": "relativeCwd: \".\", environment: {}, timeoutMs: 5_000, terminationGraceMs: 1_000, expectedReports: [] }],"
+        },
+        {
+          "line": 1386,
+          "text": "timeoutMs: 5_000, terminationGraceMs: 1_000 },"
+        },
+        {
+          "line": 1387,
+          "text": "request: { hostname: \"127.0.0.1\", method, path: \"/\", timeoutMs: 1_000 },"
+        },
+        {
+          "line": 1463,
+          "text": "method: declared.method, path: declared.path, timeoutMs: declared.timeoutMs });"
+        },
+        {
+          "line": 1476,
+          "text": "timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && \"ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case\","
+        },
+        {
+          "line": 1480,
+          "text": "timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && \"ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case\","
+        },
+        {
+          "line": 1503,
+          "text": "timeoutMs: 5_000, terminationGraceMs: 1_000, expectedReports: [] });"
+        },
+        {
+          "line": 1522,
+          "text": "timeoutMs: 5_000, terminationGraceMs: 1_000 },"
+        },
+        {
+          "line": 1523,
+          "text": "request: { hostname: \"127.0.0.1\", method: \"GET\", path: \"/\", timeoutMs: 1_000 },"
+        },
+        {
+          "line": 1661,
+          "text": "timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && \"ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case\","
+        },
+        {
+          "line": 1665,
+          "text": "timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && \"ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case\","
+        }
+      ],
+      "wholeFile": true,
+      "outerBudgetMs": 1200000,
+      "caseOrChildDeadlineChanged": false
+    }
+  ],
+  "count": 3,
+  "realExecutionAuthorized": false,
+  "scope": "Only three persistent original-budget cancellation targets; later peer d clean management/declaration/steel/D5 observations are retained, not repeated"
+}
