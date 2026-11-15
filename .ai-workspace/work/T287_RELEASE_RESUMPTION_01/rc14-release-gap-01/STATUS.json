@@ -1,5 +1,5 @@
 {
-  "status": "RC14_FIFTEEN_WHOLE_FILES_CLOSED_FINAL_GOVERNANCE_REPAIR_PREPARING",
+  "status": "RC14_NATIVE08_FINAL_GOVERNANCE_AUTHOR_RUNNING",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -7,7 +7,7 @@
   },
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
-  "providerCalls": 10,
+  "providerCalls": 11,
   "triage": "Fifteen original peer-red files now retain83passes/1declaredskip,64observedtop versus62named minimum. Corrected-input012-016 closed30pass/0skip with24 conservation comparisons. Native08 sole governance first-case repair and whole010 proof remain before candidate preparation.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
@@ -27,8 +27,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T14:06:39.639813+00:00",
-  "nativeAuthorState": "No active provider/proof. Native08 final retention controls preparing; author not started.",
+  "recordedUtc": "2026-11-15T14:24:59.937255+00:00",
+  "nativeAuthorState": "Actual RC13-native08 actor running, one governance first-case write scope. Fifteen prior wholefile results retained; separate source review and one-file proof follow.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -49,7 +49,7 @@
     "commit": "c11db33ddedae51c3edde1961b15f3f7280f003e",
     "rootAcceptance": "integration-01/B12_PREPARATION_ACCEPTANCE.json"
   },
-  "providerCallsMeaning": "Ten observed source-author sessions through native07; not API requests. Installed basic04 six actors remain separate.",
+  "providerCallsMeaning": "Eleven observed source-author sessions through native08; not API requests. Installed basic04 six actors remain separate.",
   "b12Native": {
     "sourceHead": "df4d2cbca9e075c8c8017f07d37e7a02687f926a",
     "startedUtc": "2026-11-14T16:19:44.332Z",
@@ -815,14 +815,22 @@
     "qualified": false
   },
   "native08": {
-    "state": "FINAL_SINGLE_FILE_PROOF_CONTROLS_PREPARING",
+    "state": "ACTUAL_NATIVE_AUTHOR_RUNNING",
     "triage": "integration-01/NATIVE08_GOVERNANCE_TRIAGE.json",
-    "sourceAuthorStarted": false,
+    "sourceAuthorStarted": true,
     "acceptedCommit": "cebc89dd5b2e9079fbfac176982a3a33df250ab9",
     "acceptance": "integration-01/NATIVE08_CONTROL_ACCEPTANCE.json",
     "freshProofOrdinals": [
       10
-    ]
+    ],
+    "sourceHead": "324ec312fa6ae4ab0f4d88a443d607fcd13c3c77",
+    "finalControls": "1a3b701c8aa33b0c42281c4370acff2a901fdb11",
+    "finalAcceptance": "integration-01/NATIVE08_FINAL_PARTITION_ACCEPTANCE.json",
+    "startRecord": "integration-01/NATIVE08_START.json",
+    "actorPid": 71138,
+    "hostPid": 70557,
+    "originalDeadlineUtc": "2026-11-15T16:37:49.211017+00:00",
+    "proofAuthorized": false
   },
   "amendmentFinalCandidateControls": {
     "state": "ACCEPTED_PENDING_ACTUAL_RC14_CUT_BINDING",
