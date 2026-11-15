@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_NATIVE_HOST_RUNNING_B57_CONTROLS_ACCEPTED",
+  "status": "RC14_B56_NATIVE_AUTHOR_RUNNING_B57_ACCEPTED_SUCCESSOR_CONTROLS_PREPARING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -719,7 +719,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T19:58:27.160489+00:00",
+  "updatedUtc": "2026-11-15T20:08:08.659662+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1076,19 +1076,30 @@
     "executionAuthorized": false
   },
   "b56Repair": {
-    "state": "ACTUAL_HOST_RUNNING_ACTOR_NOT_YET_CONFIRMED",
+    "state": "ACTUAL_NATIVE_AUTHOR_RUNNING",
     "controlCommit": "7ae1bdd4f048d00f642485b9cd70da9909412e14",
     "activation": "integration-01/B56_NATIVE_ACTIVATION_01.json",
     "sourceTree": "43e8e4fb26a434ecc6b44436ec9c64da368e3bea",
     "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01",
     "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-01",
-    "nativeProviderStarted": false,
+    "nativeProviderStarted": true,
     "proofAuthorized": false,
     "candidateBuildAuthorized": false,
     "sourceHead": "17e8224bfa4514bcee137d3b11544fe0b52d4cc8",
     "launch": "integration-01/B56_NATIVE_LAUNCH_01.json",
     "startedUtc": "2026-11-15T19:57:33.049891+00:00",
     "originalDeadlineUtc": "2026-11-15T22:57:33.049891+00:00",
-    "hostPid": 95298
+    "hostPid": 95298,
+    "actorPid": 95853,
+    "actorStartedUtc": "2026-11-15T19:58:16.061Z",
+    "actualProtocolModel": "claude-opus-5-5",
+    "configuredEffort": "xhigh",
+    "methodAcquisition": "All five installed inputs/eight section reads observed before edits; full final audit remains pending."
+  },
+  "candidateSuccessorPreparation": {
+    "state": "EXTERNAL_DISABLED_CONTROLS_SELECTED",
+    "selection": "integration-01/CANDIDATE_SUCCESSOR_CONTROL_SELECTION_02.json",
+    "executionAuthorized": false,
+    "sourceBinding": null
   }
 }

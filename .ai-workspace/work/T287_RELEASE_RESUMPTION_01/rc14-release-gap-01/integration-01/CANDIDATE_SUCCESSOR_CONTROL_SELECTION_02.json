@@ -1,0 +1,92 @@
+{
+  "id": "RC14-CANDIDATE-SUCCESSOR-CONTROL-SELECTION-02",
+  "recordedUtc": "2026-11-15T20:08:08.659662+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-RECORDS-WRITER-022",
+    "role": "Separate Root candidate-control records Writer",
+    "authority": "Owner finish RC14 and continue; independent B56 integration triage and read-only existing candidate route analysis.",
+    "effects": [
+      "Write this preparation selection and STATUS.",
+      "Later record exact frozen external-control review/acceptance and integrate its authored-only controls; checkpoint/push named records."
+    ],
+    "exclusions": [
+      "No Product/claim/version/source mutation, runtime/build/install/provider, raw Git, qualification or publication by this preparation record."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Separately frozen prospective RC14 successor after B56 source/proof acceptance, preserving exact earlier C0/C1/archive/install and RC13 operational pin.",
+    "authority": "Still-mutable preparation window before any ExactCandidateQualification subject or AF25 immutable cut. SELF-CONFORMANCE008/QUAL070A require no-rebuild exact qualification/publication and later human acceptance at their actual boundaries.",
+    "categories": [
+      "Immutable source/artifact/install identities",
+      "Deterministic external packaging and metadata tools",
+      "Actual Public setup observations"
+    ],
+    "prohibitions": [
+      "No retrospective evidence transfer, overwriting old install, synthetic identity, independent semantic runtime or claim of qualification from mechanical packaging."
+    ]
+  },
+  "readOnlyRouteFinding": {
+    "actor": "/root/b29_vm_triage",
+    "subject": "17e8224bfa4514bcee137d3b11544fe0b52d4cc8",
+    "cutControls": {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/CONTROL_MANIFEST.json",
+      "bytes": 2554,
+      "sha256": "da49f6dc6a36302b106434a7d11ba3f5aab52e94244890849a3600dd05d9380c"
+    },
+    "checks": "All15 accepted helper/control members match frozen Git and retained tool checkout:30 comparisons, zero mismatches.",
+    "findings": [
+      "stamp-rc14.mjs59 and prepare-candidate-rc14.mjs68-89 accept four already-RC14 stamps; no helper change or second bump is required.",
+      "prepare-candidate-rc14.mjs63 archives the selected tenant and performs one fresh build into fresh output/scratch.",
+      "install-candidate-rc14.mjs22 takes explicit install-host; line33 requires absence. install_product.ts367-392 respects targetRoot.",
+      "C1 metadata requires actual successful Public identity.json.install, not the mechanical INSTALL_RECORD. The two receipts remain distinct.",
+      "Existing ten derived metadata paths and freeze-candidate-inputs preserve exact C0 compilation lineage without rebuilding.",
+      "Include both metadata helper pins in entry and exit custody; prior C1 needed a later observation for those omitted exit checks."
+    ],
+    "limits": "No future B56 source/C0/claim/archive/install or proof exists yet. No execution or mutation performed by this route analysis."
+  },
+  "controlWriter": {
+    "id": "RC14-CANDIDATE-SUCCESSOR-CONTROL-WRITER-002",
+    "actor": "/root/b29_vm_triage",
+    "role": "Separate external preparation Writer",
+    "sourceBase": "3327a8a2eb2aab58ee502d3b8b1e85a3acd283b5",
+    "worktree": "/private/tmp/abg-rc14-candidate-successor-controls-20261116-02",
+    "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/candidate-successor-02",
+    "maximumMs": 1200000,
+    "effects": [
+      "After this selection is pushed, create one isolated worktree at sourceBase and write only the new external carrier.",
+      "Reference existing accepted cut/Public setup02 helpers by exact immutable pins. Prepare compact disabled C0/build/install/Public-setup/C1 binding or activation templates and invocation recipe using existing tools; do not copy/rewrite helpers or invent an orchestration mechanism.",
+      "Bind known stable inputs and prospective distinct roots; leave actual sourceHead/C0/claim/tree/archive/manifest/install/Public identity/metadata postimage and runtime authorization null or false.",
+      "Document stage dependency order and exact entry/exit custody, including both metadata helpers. Existing finite prior stage bounds may be proposed, but no clock starts or stage executes.",
+      "Syntax/JSON/hash/static conservation checks only, without Product imports/probes. Freeze one authored-only commit and compact Return, then stop for independent review."
+    ],
+    "exclusions": [
+      "No source/Design/test/claim/version/derived-output editing or materialization, no native/provider/Tool/setup/build/test/pack/install/metadata execution.",
+      "No old output/install/candidate/pin mutation, main/push, raw Git, B50 policy or qualification/AF25/publication selection."
+    ],
+    "stops": [
+      "First failed check, missing owner relation, preserved-byte drift or need for executable/helper change: retain evidence and return to Root before repair."
+    ],
+    "returnTo": "Root; exact disabled-control review and separately selected accepted B56 source are required before any stage grant."
+  },
+  "futureRoots": {
+    "candidateSource": "/private/tmp/abg-rc14-candidate-source-20261116-02",
+    "metadataSource": "/private/tmp/abg-rc14-candidate-metadata-20261116-02",
+    "buildRaw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02",
+    "installRaw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/install-host",
+    "publicSetupRaw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03",
+    "metadataRaw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-02"
+  },
+  "preserved": {
+    "C0": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "C1": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+    "archiveSha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+    "builder": "RC13 remains pinned"
+  },
+  "executionAuthorized": false,
+  "qualified": false,
+  "rawPublished": false
+}
