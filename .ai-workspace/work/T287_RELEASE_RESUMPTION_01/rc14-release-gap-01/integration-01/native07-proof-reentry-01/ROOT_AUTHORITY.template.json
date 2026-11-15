@@ -1,0 +1,33 @@
+{
+  "id": "RC14-NATIVE07-PROOF-REENTRY-01",
+  "executionAuthorized": false,
+  "controlManifestSha256": null,
+  "auditSha256": "37d399a76f75f8beb6fe50465673913ecb97cbd8fb2203170bd4807933a8da65",
+  "originalObservationSha256": "d5df12b7c8208d222a76a49762cb36021041acfc0fcf899999a18972cd57bd0c",
+  "sourceHead": "b47ee9e72eb2dd6ae247f111fca7fa966f4c9d46",
+  "sourceDiffSha256": "43cbb39f291e49bb74b6dbfab56883646e76b7243f5f48a4866a833c3f3662a9",
+  "sourcePostimageSha256": "65db2d1664509c6731389e259255bd90be2e9ff1289eb61f22cec8ff4391540e",
+  "launchSha256": "f66541de1d780d69957f68bb7cd8e9af1c0a961fbe2e5b241d802c64938d8bef",
+  "originalHostDeadlineUtc": "2026-11-15T14:44:43.176910+00:00",
+  "acceptedCommandVarianceIds": [
+    "native07-node-version-metadata-probe"
+  ],
+  "varianceRemainsDisclosed": true,
+  "literalCommandComplianceClaim": false,
+  "commandDisposition": "preserve_actual_variance_and_admit_exact_snapshot_for_bounded_proof",
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE07_SOURCE_REVIEW.json",
+    "sha256": "2f093eb904206777c34eb520463151185b050ff8d29ea8f8a00ec23566db37cd",
+    "disposition": "accepted_for_bounded_proof",
+    "sourceDiffSha256": "43cbb39f291e49bb74b6dbfab56883646e76b7243f5f48a4866a833c3f3662a9"
+  },
+  "proofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/proof-01",
+  "proofSubject": "/private/tmp/abg-rc14-regression-proof-20261115-07",
+  "retry": false,
+  "qualified": false,
+  "note": "Disabled proposal. Root must accept and checkpoint/push exact controls and separately issue actual proof authority. No original clock reset, author repeat or proof retry.",
+  "auditDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE07_AUDIT_DISPOSITION.json",
+    "sha256": "9c9790798cce3763756fae6d9d49c4260582c5c76a5a63be372bf61f19d137af"
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "kind": "native07_closed_author_audit",
+  "disposition": "scope_admitted_with_disclosed_command_variance",
+  "observedUtc": "2026-11-15T12:49:33.396135+00:00",
+  "sourceHead": "b47ee9e72eb2dd6ae247f111fca7fa966f4c9d46",
+  "launchSha256": "f66541de1d780d69957f68bb7cd8e9af1c0a961fbe2e5b241d802c64938d8bef",
+  "sourceDiffSha256": "43cbb39f291e49bb74b6dbfab56883646e76b7243f5f48a4866a833c3f3662a9",
+  "observation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/AUTHOR_AUDIT_OBSERVATION.json",
+    "bytes": 114388,
+    "sha256": "d5df12b7c8208d222a76a49762cb36021041acfc0fcf899999a18972cd57bd0c"
+  },
+  "authorReport": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/AUTHOR_REPORT.json",
+    "bytes": 7582,
+    "sha256": "e16c39c8b3e51a4e82b1e7ef69469c84d5f244e21c6e030024f1706dbe9741cb"
+  },
+  "capture": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/runtime/resources/archives/fp-5bafe00609af2dec-stdout.log",
+    "bytes": 2960081,
+    "sha256": "2ef5e57fe7b6b32973c93131cbc4eafb12f289a653dfb9e021cf085c5991d0d1"
+  },
+  "deviations": [
+    {
+      "id": "native07-node-version-metadata-probe",
+      "actualCommand": "node --version",
+      "containerCallId": "toolu_01D77inrt9uoRDgS2BTZBAnP",
+      "selectedTaskText": "Bash only read-only text acquisition or node --check on this authored file",
+      "standing": "Literal allowance variance, preserved as observed; not cured or relabelled zero",
+      "rootDisposition": "Read-only pinned tool-version metadata has no Product/source/custody consequence and does not warrant another author. Proof remains held for source review and a truthful audit-entry successor."
+    }
+  ],
+  "selectedMethodContentVerified": true,
+  "allReadFirstHaveActualPreEditContent": true,
+  "readFirstLimits": "GOALS1-56,150-174 and worker selected sections only; other readFirst source files fully read. No whole-file claim for GOALS or worker.",
+  "terminalEmptyLineExplanation": [
+    {
+      "path": "AGENTS.md",
+      "renderedLine": 223,
+      "content": "",
+      "actualSourceLinesExact": true,
+      "meaning": "Trailing newline rendered as an extra empty line; no source-content mismatch or omitted source line"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "renderedLine": 115,
+      "content": "",
+      "actualSourceLinesExact": true,
+      "meaning": "Trailing newline rendered as an extra empty line; no source-content mismatch or omitted source line"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/ROOT_ACTIVATION.json",
+      "renderedLine": 54,
+      "content": "",
+      "actualSourceLinesExact": true,
+      "meaning": "Trailing newline rendered as an extra empty line; no source-content mismatch or omitted source line"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/TASK.json",
+      "renderedLine": 145,
+      "content": "",
+      "actualSourceLinesExact": true,
+      "meaning": "Trailing newline rendered as an extra empty line; no source-content mismatch or omitted source line"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/ROOT_TRIAGE.json",
+      "renderedLine": 76,
+      "content": "",
+      "actualSourceLinesExact": true,
+      "meaning": "Trailing newline rendered as an extra empty line; no source-content mismatch or omitted source line"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "renderedLine": 122,
+      "content": "",
+      "actualSourceLinesExact": true,
+      "meaning": "Trailing newline rendered as an extra empty line; no source-content mismatch or omitted source line"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+      "renderedLine": 49,
+      "content": "",
+      "actualSourceLinesExact": true,
+      "meaning": "Trailing newline rendered as an extra empty line; no source-content mismatch or omitted source line"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "renderedLine": 444,
+      "content": "",
+      "actualSourceLinesExact": true,
+      "meaning": "Trailing newline rendered as an extra empty line; no source-content mismatch or omitted source line"
+    }
+  ],
+  "rootDisposition": "Literal node --version variance retained. Root accepts bounded read-only pinned version metadata as having no Product/source/custody consequence; no further author. Proof requires separate source review and truthful audit-entry successor.",
+  "closePins": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/HOST_RETURN.json",
+      "bytes": 624,
+      "sha256": "14da7a9d3c8d0c22160e6aa7b26d79f5de33fb6ad17695923bab846401d92eff"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/runtime/FINAL.json",
+      "bytes": 886,
+      "sha256": "5345eab614d16d0ce699e91453793b89d70f79ad39c459ee7860f0e12db9eb55"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/runtime/NATIVE_RETURN.json",
+      "bytes": 330751,
+      "sha256": "39805572ba1f05729b70b99cc216d793e080b1b91723c33d36bb2a5320155597"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/runtime/AUTHOR_COMPLETION.json",
+      "bytes": 1394,
+      "sha256": "6df366b31bdcee9eddc46422de64e6e8febf96a34351553ef327840740e3d61b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/runtime/FRESH_READBACKS.json",
+      "bytes": 5717,
+      "sha256": "74aa213404a8db1be879560140c0a2b5e65d5fc64ee460aed0035e49cf53ca64"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/runtime/resource-close.json",
+      "bytes": 2270,
+      "sha256": "0283ba8e4a5cdfc1250a4d8003a60945a7e312036875984b9bd8d1e005a3484b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/runtime/calls/run_result.outcome.json",
+      "bytes": 238263,
+      "sha256": "df6b820a4254043fb2d2d311f182e5d32b0655f95837933e8822094515bb36ad"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/runtime/calls/run_replay.outcome.json",
+      "bytes": 237852,
+      "sha256": "1ac5b2c118469d98019d0d184de76197b41d072c25ba5de6b35e81d1b210325c"
+    }
+  ],
+  "sourceFreeze": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/FROZEN_SOURCE.json",
+    "bytes": 2050,
+    "sha256": "2fc0ef2858bfee043a49bff7a6c6f751737805cb834d076331231a7343ff944d"
+  },
+  "sourcePostimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-07/SOURCE_POSTIMAGE.json",
+    "bytes": 357121,
+    "sha256": "65db2d1664509c6731389e259255bd90be2e9ff1289eb61f22cec8ff4391540e"
+  },
+  "actualResourceAndGroupsClosed": true,
+  "proofAuthorized": false,
+  "noRetry": true,
+  "fullMethodAndCommandComplianceClaim": false
+}
