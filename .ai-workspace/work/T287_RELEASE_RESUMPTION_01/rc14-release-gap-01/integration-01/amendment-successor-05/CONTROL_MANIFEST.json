@@ -1,0 +1,126 @@
+{
+  "kind": "external_control_successor_manifest",
+  "preparationSource": "d91cfb4b12c65ad00f75fb604a33ab7eec4dba13",
+  "retainedControlCommit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+  "retainedControlRelativePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-preparation-01",
+  "retainedControlManifestSha256": "d595c6bba5daec4a26267c0147fd5f28566784146217c360522e7ffb31db4d8b",
+  "controls": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 3809,
+      "sha256": "e7a3df5919f4a8ba14e15ce054ab72dc29a9cb8a88188b317831e0459a4393d2"
+    },
+    {
+      "path": "BINDING.template.json",
+      "bytes": 2977,
+      "sha256": "42899564439df3c61ce018341a213dffbebf95f4f9938ccc1f4999f0026ec7d6"
+    },
+    {
+      "path": "CUSTODY_DIFF.patch",
+      "bytes": 27737,
+      "sha256": "35190f05d9e7a7335cfc3629e4ed9d892989cd10f0ca918f7c6e5a46d1ed3dff"
+    },
+    {
+      "path": "ORACLE.json",
+      "bytes": 1357,
+      "sha256": "e7d4616b1a9846318ede859225fa513c3ca032cd5e2bee0ef66d5ceaa2966655"
+    },
+    {
+      "path": "PROCESS.json",
+      "bytes": 16404,
+      "sha256": "e7a4ff85512f8e0244b4aaa814229a5568a648ed6c61aa1a4c688f4c80a0ee9e"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4260,
+      "sha256": "975b34b85e53d31c8eb09625c6b789cfb70fa66f7d43ae946ec51500a12befdf"
+    },
+    {
+      "path": "REUSED_HELPERS.json",
+      "bytes": 4924,
+      "sha256": "600a472223a8bf4275d51e5ddc90a8285756f38dba86b978eff8d47e183a1f0d"
+    },
+    {
+      "path": "SMOKE_INPUTS.template.json",
+      "bytes": 4467,
+      "sha256": "13061a945615c7fd0e6cdb4c7d6aead265d32f407eee8c86f3a5f0ced575a076"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 4400,
+      "sha256": "99852b3d4490d636e9bd940ac0a6140105f96f70b461fd72a5f1d80821f369b5"
+    },
+    {
+      "path": "TOPOLOGY_DIFF.patch",
+      "bytes": 525,
+      "sha256": "34a9f4038879b0d9b7be1ab5df72ff9da2b9dce61c53999c3b8aea1866e50343"
+    },
+    {
+      "path": "amendment-consumer.mjs",
+      "bytes": 7211,
+      "sha256": "331d91e9f7c69528ba9220ccccc7876ca47decd74881aa091b323c236def5356"
+    },
+    {
+      "path": "amendment-setup.mjs",
+      "bytes": 20680,
+      "sha256": "b1633b2431031875c2174f01769ccf26f0922377165e51d063d0391cf4dc096a"
+    },
+    {
+      "path": "amendment.mjs",
+      "bytes": 18069,
+      "sha256": "384587ede17eba18134867ac1a7affc3ac2d40cb74b865a4bdf04ebe1c706c27"
+    },
+    {
+      "path": "baseline-rubric.md",
+      "bytes": 1628,
+      "sha256": "5c2ed42b1b19c366e9e8a1be62aebd33bbc250e3893ba7924f29393b26326139"
+    },
+    {
+      "path": "bounded.py",
+      "bytes": 4206,
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "path": "command-owner.py",
+      "bytes": 1200,
+      "sha256": "16179ed58782c1880118ad4e5c6c2a05d23692d819951b24e2952071fcc9f9f2"
+    },
+    {
+      "path": "coverage.mjs",
+      "bytes": 8688,
+      "sha256": "9d2734cf136eb65370fc694eebb6b4d1c4c3a839b6bb6f31e260b41657c7792b"
+    },
+    {
+      "path": "npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "oracle.mjs",
+      "bytes": 1178,
+      "sha256": "52830cb62f0178699ccdce58415e2f744466c5bb1b96b1d87935e772009854fc"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "run.py",
+      "bytes": 14495,
+      "sha256": "90239843169ea6d51b942aed9715df4373c5f1fe507b7d24f75a622a3f0562ed"
+    },
+    {
+      "path": "smoke-custody.py",
+      "bytes": 14906,
+      "sha256": "3d2b4890c8e5f7098c07befff64be29ab827186767e5a4c867dc7833eac755a0"
+    }
+  ],
+  "executionAuthorized": false,
+  "predecessor": "580c6eb0e37a3e5c3dbf59c2fb2e162f685e86dc"
+}

@@ -1,0 +1,54 @@
+{
+  "id": "RC14-AMENDMENT-CONTROL-WRITER-005",
+  "role": "Separate B29 external-control Writer",
+  "authority": {
+    "commit": "d91cfb4b12c65ad00f75fb604a33ab7eec4dba13",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/AMENDMENT_TOPOLOGY_DISPOSITION_01.json",
+    "bytes": 6342,
+    "sha256": "92396d0f1524fc94c9354be3687aa46e656d2a320280931644105453358b840c",
+    "selector": "successorWriterActivation"
+  },
+  "baseCommit": "d91cfb4b12c65ad00f75fb604a33ab7eec4dba13",
+  "predecessor": "580c6eb0e37a3e5c3dbf59c2fb2e162f685e86dc",
+  "sourceCarrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-04",
+  "territory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-05",
+  "ProductFrame": "Fixed5.0 S03/F17 installed amendment and selective currentness. External custody/topology observes and conserves inputs; ABG owns runtime authority. Exact STDO3.0.4, empty composition. No formal qualification, changed Product policy or candidate bytes.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#exact-basis",
+    "composition": []
+  },
+  "changeIntent": "Separate historical OS git/tar byte custody from recursive protected-root proof. Preserve every tool hash and every independently governed input/runtime root.",
+  "effectsAllowed": [
+    "Create one isolated worktree/branch after this selection is pushed. Reuse the exact predecessor controls into successor05.",
+    "In smoke-custody only, stop requiring historical OS cut tools git/tar as recursive protectedRoots. Preserve their original CUT_RECORD paths and digests and all entry/exit cutTools hashing. Preserve Node/npm and all other selected protections.",
+    "Reconcile README, activation, manifest, bounded static readiness and compact Return with this role split; maintain exact immutable predecessor/helper references.",
+    "Parse/syntax-check without execution; compare all unaffected lifecycle, observer, custody and budget mechanics byte-for-byte. Freeze one exact authored-only commit and return to Root."
+  ],
+  "effectsExcluded": [
+    "No Product/source/test change, archive/build/install mutation, physical-observer guard weakening, tool substitution, credential use, provider/test/probe/lifecycle execution, main/push, raw Git, new retry or clock."
+  ],
+  "elapsedBudgetMs": 1200000,
+  "candidateBindingComplete": false,
+  "executionAuthorized": false,
+  "clockStarted": false,
+  "failedAttempt": {
+    "controlCommit": "580c6eb0e37a3e5c3dbf59c2fb2e162f685e86dc",
+    "helperCommit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+    "bindingSha256": "02b0c1f347f85287ad94f5d0b4590790c5f0b94def61e96d7545d57e985205a3",
+    "startedUtc": "2026-11-15T18:26:13.842832+00:00",
+    "deadlineUtc": "2026-11-15T21:26:13.842832+00:00",
+    "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
+    "returnSha256": "bd4d6f18f02b78be611bdb822e9a51ef4283e40d0e01f23ff50959746093cdf2",
+    "rawReturnSha256": "84c3537d0d15f842e3952d22e1a10d1574b015d20557045a79472ac7b83a1b6c"
+  },
+  "helperCheckout": {
+    "path": "/private/tmp/abg-rc14-amendment-controls-823-20261116-01",
+    "commit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+    "alreadyProvisionedByRoot": true,
+    "mutationAuthorized": false
+  },
+  "stop": "Root assigns separate exact successor-source review. Only after acceptance/checkpoint push may Root bind a fresh separately finite witness02. Failed01 never reopens."
+}
