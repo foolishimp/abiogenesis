@@ -1,0 +1,35 @@
+{
+  "standing": "Frozen unqualified predecessor only; no current B56 proof credit or mutation. Source commits remain Git evidence.",
+  "C0": {
+    "commit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "tree": "38781133fba9bc96194a1ce4f5f0d22f818c2ded"
+  },
+  "C1": {
+    "commit": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+    "tree": "db27ed1be8ba16a25888ab785ba26263f730f811",
+    "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-01",
+    "mainMerge": "d3b1ad5930a096149a8d3e49be19071bd156d151"
+  },
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/RC14_C1_FINALIZATION_ACCEPTANCE.json",
+    "bytes": 3274,
+    "sha256": "2d3ffa89ac139de19e92b5ae9b7949e70782f3a407db15b54030e04e0eaec8ab"
+  },
+  "archive": {
+    "name": "abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "bytes": 10814430,
+    "sha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-01/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz"
+  },
+  "freeze": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-01/FREEZE.json",
+    "bytes": 4776,
+    "sha256": "4db84a20a83e020206e4161fbd4ca50284fd9b929a702d346645e78cc21bd012"
+  },
+  "publicIdentity": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-02/public-setup/installed/0/identity.json",
+    "bytes": 4108509,
+    "sha256": "3bb7bde102e8cd9681eaf33191875a35511978a1d07886c2dd287914dbb15b5c"
+  },
+  "publicInstalledRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-02/public-setup/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant"
+}

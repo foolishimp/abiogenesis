@@ -1,0 +1,117 @@
+{
+  "id": "RC14-B56-NATIVE-CONTROL-SELECTION-01",
+  "recordedUtc": "2026-11-15T19:31:29.702086+00:00",
+  "role": "Executive selection, recorded by separate Root Records Writer019",
+  "authority": "Owner finish RC14 and continue; closed independent Product/Design/Identity/Integration/Proof B56 triage.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "productFrame": "Fixed5.0 F04/F17/S06. Deterministic schema/use dependency and assembly; ABG alone owns actual runtime admission. No feature expansion or B50/policy change.",
+  "sourceBase": "86c9caa1c8c46da38410b4b46b6a5004e351d60f",
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S06_SECOND_FAILURE_DISPOSITION_01.json",
+    "bytes": 8457,
+    "sha256": "857f2c635f6933b2f99a13ded0f60f2cd91505279285ab6927a5cea2360583ca"
+  },
+  "controlWriter": {
+    "id": "RC14-B56-CONTROL-WRITER-001",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate external control preparation Writer",
+    "worktree": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-01",
+    "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01",
+    "maximumMs": 1800000,
+    "effects": [
+      "After this exact selection is pushed, create one isolated worktree from the named source base and write only the declared external carrier.",
+      "Reuse maintained native08 process/topology/custody/launch/close/fresh-read/audit mechanics at1a3b701c8aa33b0c42281c4370acff2a901fdb11. Reuse earlier maintained fresh-build mechanics where necessary. Preserve their exact source attribution and hashes.",
+      "Remove native08-specific retained782-build and16-file retention campaign from selected new execution/proof; old receipts remain untouched.",
+      "Prepare exact source Task/read/write roots, method content reads, input/fixture/native-toolchain inventories, static checks, proof recipe and disabled launch templates; no new execution system.",
+      "Freeze one authored-only control commit and compact Return; return to Root for independent source review."
+    ],
+    "exclusions": [
+      "No tenant source/Design/test implementation, Product imports, setup, provider, physical probe, build/test/pack/install or source-author/proof clock.",
+      "No main/push, old-root/candidate/archive/install/pin alteration, raw data in Git, runtime/verdict manufacture, B50 activation or automatic retry."
+    ]
+  },
+  "selectedDesignRelation": [
+    "Correct the owning HOW before dependent implementation within the coherent native increment. Distinguish the unique schema/contract owner from exact admitted executing Program declaration of use.",
+    "Use existing loaded Program coordinate/publication at leaf preparation/raw preimage, and already authenticated basis.publication plus execution Program coordinate at assembly/cold reconstruction. No new persisted basis or registry is currently required.",
+    "Authenticate exact Program ref/digest/member use, both publication/install/lock joins and required forward dependency directions. Multiple legitimate declaring members of that exact Program are valid; arbitrary Catalog membership grants nothing.",
+    "Preserve unique schema owner, installed bytes, strict schema/I-JSON validation, original semantic-stage author worker-result, consumer-owned coincident case, ordinary static contract lookup and fail-closed negatives.",
+    "Keep assessmentPublication as the schema owner. Shared dependency relation remains canonical for preparation, assembly, raw admission and cold reconstruction."
+  ],
+  "prospectiveNativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "requiredReadOnlyOwners": [
+    "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_publication.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs"
+  ],
+  "sourceScopeRule": "These seven exact paths are initial W. Any proved missing dependency returns to Root before writing outside them; no speculative interface/codec/HoG expansion. Controls may bind necessary transitive read inputs explicitly.",
+  "evidenceInputs": {
+    "S06ReturnCommit": "94d24dc95695956a54e929866c79bc82ac23939a",
+    "S06Return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-witness-02/RETURN.json",
+      "bytes": 27530,
+      "sha256": "9779728e8f0dc54ee7b6b78e325aebaecd26553245292d25bada005b749b301a"
+    },
+    "failureRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02",
+    "rawPolicy": "Only exact source-relevant task/publication/identity evidence may be copied into external input territory. Git holds authored manifest/reference summaries only.",
+    "builderPin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+      "bytes": 5769,
+      "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26"
+    }
+  },
+  "prospectiveNative": {
+    "builder": "exact pinned installed RC13",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "absoluteMs": 2700000,
+    "inactivityMs": 300000,
+    "maxTurns": 360,
+    "attempts": 1,
+    "providerConcurrency": "At most two actual provider executions globally, including active amendment lane. No additional lane.",
+    "nativeChecks": "Author source and meaningful regressions only; selected build/proof remains external after successful source return and review."
+  },
+  "prospectiveProof": {
+    "enclosingMs": 10800000,
+    "proofMaximumMs": 5400000,
+    "exitAuditReserveMs": 180000,
+    "firstFailureStops": true,
+    "retries": 0,
+    "order": [
+      "Actual successful RC13 native terminal, resource close, fresh result/replay and full source/method/command audit.",
+      "Independent frozen-source review and separate exact proof grant.",
+      "One fresh normal build in disjoint proof copy using authenticated dependencies and existing B32 native compiler/header/SDK closure; no old compiled payload reuse.",
+      "Earliest focused complete assessment-dependency discriminator: split/coincident owner positives, multiple legitimate Program members, missing/wrong Program/non-member/ambiguous owner/crossed install-lock/missing-reverse dependency/altered schema negatives.",
+      "Existing RC7 installed dependency case plus bounded split-owner case via actual Public setup/start, assembly, raw preimage, persisted cold reconstruction and reads, using scripted actor explicitly as mechanical proof.",
+      "Affected native-workspace-work and native-semantic-job whole files, then existing small native-C2 assembly and instruction-assembly-owner whole files. Avoid repeating the earlier focused case when executing the remainder; account combined full-file coverage truthfully.",
+      "Return actual complete captures, input/source conservation, original deadline and physical closure. Root conjoins bounded proof before separately frozen successor candidate and new installed S06."
+    ],
+    "fixture": "Acquire exact default-library-witness selection and ten seed execution files; keep its two contextual documents distinct. Do not copy historical execution data into Git.",
+    "notClaimed": "No live semantic assessment, full S06, broad qualification, AF25, publication or human acceptance from these tests."
+  },
+  "futureRoots": {
+    "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-01",
+    "proofWorktree": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-01",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01"
+  },
+  "versionAndPreservation": "Keep current C0/C1/archive/install and RC13 pin exact. This selects no version stamp/rebuild now. A new separately frozen prospective RC14 candidate follows accepted source/proof under the still-mutable preparation window.",
+  "executionAuthorized": false,
+  "returnTo": "Root; stop after frozen controls for independent review and separate execution grant."
+}
