@@ -1,0 +1,66 @@
+{
+  "checkedUtc": "2026-11-15T09:51:34.194660+00:00",
+  "pythonAst": "pass",
+  "executedControlBodiesConserved": true,
+  "oldToolInventoryPins": "all hashes equal; full byte reobservation remains mandatory in future preflight",
+  "sourceBaseDistinction": {
+    "comparison": "96b93b75 to selected03f6cf858",
+    "allTenantEqual": false,
+    "changedAbiTestFixturePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-readable-stops-foldback.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p3-continuation-refused.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p6-language-retired.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t292-td36r-admitted-binding-owner.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t292-td36r-bind-door-strings.test.mjs"
+    ],
+    "meaning": "Return assembly initially rejected an overbroad all-tenant-equal assumption. These13 existing ABI test/falsifier deltas are not S06 toolchain inputs. No production/spec/Definition delta; exact22 external Scala inputs remain selected by original immutable snapshot."
+  },
+  "oldBranch60cdPreserved": "60cd47319b360048f2176f97d0d2cb8703df1397",
+  "shortRootAbsentForFreshPreflight": true,
+  "prospectiveBounds": [
+    {
+      "root": "/private/tmp/abg-s06-03/tmp",
+      "rootBytes": 27,
+      "maxSuffixBytesIncludingNul": 51,
+      "maxFullPathBytesIncludingNul": 78,
+      "limitStrictlyBelow": 104
+    },
+    {
+      "root": "/private/tmp/abg-s06-03/ipc",
+      "rootBytes": 27,
+      "maxSuffixBytesIncludingNul": 51,
+      "maxFullPathBytesIncludingNul": 78,
+      "limitStrictlyBelow": 104
+    }
+  ],
+  "exactSbtBootOwner": {
+    "jar": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/boot/scala-2.12.20/org.scala-sbt/sbt/1.11.7/command_2.12-1.11.7.jar",
+      "bytes": 488035,
+      "sha256": "cef4e44a20831966fc3e2ab8025fa8a1be450d9ee269f32e288884f83599b973"
+    },
+    "class": "sbt/internal/BootServerSocket.class",
+    "classSha256": "0214bb0b6038a9ba0d5d6287b260773fd491a81b24d62a3fd58f7aba0c00ce0e",
+    "readOnlyBytecodeRelation": "Map getenv.getOrDefault(XDG_RUNTIME_DIR, System.getProperty(java.io.tmpdir)); Paths.get(root).resolve(.sbt).resolve(sbt-socket + signed long decimal).resolve(sbt-load.sock)",
+    "nativeBufferBytes": 104
+  },
+  "oneControlProbe": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/RETURN.json",
+    "bytes": 1636,
+    "sha256": "8c64ba4b5286cc804141439dcd766286d67b0b057e9231854063c12bd1425252"
+  },
+  "controlStderr": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/control-probe-01/002-unix-ipc/stderr.raw",
+    "meaning": "Apple /usr/bin/python3 launcher attempted an ambient xcrun cache write; sandbox denied it. Child still executed four socket checks and exited0. No such wrapper is selected for future direct Java preflight.",
+    "sha256": "8028679c534243b8358c0919609c6292f2857997dd32d1760b34329fc22e37e1"
+  },
+  "javaSbtOrAppExecution": false
+}

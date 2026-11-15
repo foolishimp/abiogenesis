@@ -1,0 +1,57 @@
+{
+  "activationId": "RC14-S06-TOOLCHAIN-OFFLINE-PREFLIGHT-003",
+  "executionAuthorized": false,
+  "sourceBase": "03f6cf858bab67c196270c178e3e002a581caa9b",
+  "controls": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 5365,
+      "sha256": "035bd5a76d15bfa3d8d5a582a1a101e362aa0f045c163c28d765564a10e2317e"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3983,
+      "sha256": "8e4a7d888e971872c88561d341ae33b4ac09a03119ab3d15fa6d803e682e33a6"
+    },
+    {
+      "path": "SANDBOX_BASIS.json",
+      "bytes": 2373,
+      "sha256": "082de5afa2a19a27a68ddb52f7397071249c881f3d8d938d02bb01bec7a8a564"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 4048,
+      "sha256": "04ef7ca3ef8a2c59c4eff71ebe0e469936de8be9141a752a6f9ec13a574ff965"
+    },
+    {
+      "path": "TRIAGE.json",
+      "bytes": 2037,
+      "sha256": "0392b2f462e3e53eb91d735f9a969af96b62234fa43ad3c50a2f4371c4ca283d"
+    },
+    {
+      "path": "control-probe.py",
+      "bytes": 4239,
+      "sha256": "1100c962fd01945f3d2fd74edfa6c0d4f048decda21bf4eda3d2e145242243ce"
+    },
+    {
+      "path": "freeze.py",
+      "bytes": 6073,
+      "sha256": "27237334d39c7580477119a00e70f842d901c0f8e56cfe839a5eaab947440424"
+    },
+    {
+      "path": "preflight.py",
+      "bytes": 10562,
+      "sha256": "5e84f83fa0ef882450ca2adf681530904a02438420b9fa392291af0e78820fab"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "unix-ipc-probe.py",
+      "bytes": 1962,
+      "sha256": "ee4ec10e0285d9e41d0941819a646dc7daf49b59fe87cd45bc17dd825501de2e"
+    }
+  ]
+}

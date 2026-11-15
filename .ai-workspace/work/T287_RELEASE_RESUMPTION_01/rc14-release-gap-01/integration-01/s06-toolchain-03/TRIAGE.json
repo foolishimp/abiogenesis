@@ -1,0 +1,48 @@
+{
+  "subject": "Closed02 PID63319, no rerun",
+  "crashReport": {
+    "path": "/Users/jim/Library/Logs/DiagnosticReports/Retired/java-2026-11-15-203105.ips",
+    "bytes": 95478,
+    "sha256": "92081c80c6024086c26acb8c9500b177908f6d383bc5b0f0ca1864d7c05b1677"
+  },
+  "oldReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/preflight-01/RETURN.json",
+    "bytes": 2850,
+    "sha256": "4692d92eb1105b60a2ba044c4b8bb995587f3870a478154af2f3afb780ebc138"
+  },
+  "fatalSignal": 5,
+  "nativeCall": "Java_org_scalasbt_ipcsocket_JNIUnixDomainSocketLibraryProvider_bindNative",
+  "fatalStack": [
+    "__chk_fail_overflow",
+    "__memcpy_chk",
+    "bindNative"
+  ],
+  "registerCopyBytes": 156,
+  "registerDestinationBytes": 104,
+  "actualSocketPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-02/work/tmp/.sbt/sbt-socket4555303206904143799/sbt-load.sock",
+  "header": {
+    "path": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/un.h",
+    "bytes": 4671,
+    "sha256": "a733cb89955ef81312f4bc3a42002c6cc873e27381eb43656c7158ef9a433c24"
+  },
+  "headerLine": 79,
+  "cause": "Long isolated temp path gives156-byte Unix socket name copied into104-byte sun_path before native bind syscall",
+  "dns": "mDNSResponder denial correlated only; no fatal causality and no DNS exception selected",
+  "selectedCorrection": "Short real work root and exact owned local Unix IPC; same tools/input graph/file-only Maven/remote deny; no Product change",
+  "prospectivePathBounds": [
+    {
+      "root": "/private/tmp/abg-s06-03/tmp",
+      "rootBytes": 27,
+      "maxSuffixBytesIncludingNul": 51,
+      "maxFullPathBytesIncludingNul": 78,
+      "limitStrictlyBelow": 104
+    },
+    {
+      "root": "/private/tmp/abg-s06-03/ipc",
+      "rootBytes": 27,
+      "maxSuffixBytesIncludingNul": 51,
+      "maxFullPathBytesIncludingNul": 78,
+      "limitStrictlyBelow": 104
+    }
+  ]
+}

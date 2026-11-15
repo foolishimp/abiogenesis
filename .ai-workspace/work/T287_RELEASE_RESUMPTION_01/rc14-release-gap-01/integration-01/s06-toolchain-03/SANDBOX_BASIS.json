@@ -1,0 +1,71 @@
+{
+  "role": "Local Apple installed profile syntax evidence; no rival sandbox implementation",
+  "sources": [
+    {
+      "path": "/System/Library/Sandbox/Profiles/com.apple.rpcbind.sb",
+      "bytes": 1930,
+      "sha256": "f145f81a5cdb736876d76e377cf3b8519be19ad0d33669d724366bdd51b321c4",
+      "selectedLines": [
+        {
+          "line": 40,
+          "text": ";; Allow receiving on our tickler socket"
+        },
+        {
+          "line": 44,
+          "text": "(allow network-bind (literal \"/private/var/run/rpcb.ticotsord\"))"
+        },
+        {
+          "line": 46,
+          "text": "(allow network-inbound (literal \"/var/run/rpcb.ticotsord\") (local tcp) (remote tcp))"
+        },
+        {
+          "line": 49,
+          "text": "(allow network-bind (literal \"/private/var/run/rpcb.ticlts\"))"
+        }
+      ]
+    },
+    {
+      "path": "/usr/share/sandbox/mdworker-scan.sb",
+      "bytes": 2861,
+      "sha256": "ad8571231d1efac20b3c3cea6b57f97dcd693c48d49e5a5a27ccaa82eb006f4d",
+      "selectedLines": [
+        {
+          "line": 56,
+          "text": "(allow network-outbound"
+        },
+        {
+          "line": 57,
+          "text": "    (remote unix-socket (path-literal \"/private/var/run/asl_input\"))"
+        },
+        {
+          "line": 58,
+          "text": "    (remote unix-socket (path-literal \"/private/var/run/syslog\")))"
+        }
+      ]
+    },
+    {
+      "path": "/System/Library/Sandbox/Profiles/application.sb",
+      "bytes": 44324,
+      "sha256": "2cccfaf281f9826be351cbee46ff991b0e10d895b4dd6880d736b6e864193df6",
+      "selectedLines": [
+        {
+          "line": 759,
+          "text": "(allow network-bind"
+        },
+        {
+          "line": 760,
+          "text": "       network-outbound"
+        },
+        {
+          "line": 761,
+          "text": "       (resolving-subpath (param \"application_container\")))"
+        }
+      ]
+    }
+  ],
+  "selectedRule": "(allow network-bind network-inbound network-outbound (subpath \"/private/tmp/abg-s06-03/ipc/.sbt\"))",
+  "defaultNetworkRule": "(deny network*)",
+  "dnsException": null,
+  "necessity": "Exact SBT boot loader constructs pathname Unix socket before dependency resolution even when standard server/client flags are false",
+  "proofLimit": "Control exchange plus path/IP refusals is bounded evidence, not exhaustive network or JVM behavior"
+}
