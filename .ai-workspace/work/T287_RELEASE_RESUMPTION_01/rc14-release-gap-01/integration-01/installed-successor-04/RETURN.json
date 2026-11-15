@@ -1,0 +1,13 @@
+{
+  "status": "prepared_for_narrow_review",
+  "manifestSha256": "94da00677ea7034e403f56f6ca19430d388d534212e6645e809749ddefce2bed",
+  "predecessor": "e79770398575e8ade182656ece59e8c05d3f1de6",
+  "changedHost": "Canonical local directory and two explicit physical roles with conserved complete W/protected sets",
+  "retainedFailures": [
+    "basic03 trailing slash beforedispatch",
+    "preflight04 seven overlaps from incorrect outercapture-vschildren requirement"
+  ],
+  "probe": "Exact constructor output and both unchanged observers passed once inpreflight05",
+  "executionAuthorized": false,
+  "qualified": false
+}

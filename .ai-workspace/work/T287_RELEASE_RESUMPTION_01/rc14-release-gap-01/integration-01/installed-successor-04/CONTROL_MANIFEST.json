@@ -1,0 +1,60 @@
+{
+  "kind": "external_control_successor_manifest",
+  "preparationSource": "e79770398575e8ade182656ece59e8c05d3f1de6",
+  "retainedControlCommit": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862",
+  "retainedControlRelativePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01",
+  "retainedControlManifestSha256": "bcc070ad765b3a5a2a4de05d3292877e8d562c341a4a80a56ed904db12b7acf1",
+  "controls": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 1759,
+      "sha256": "16f682a611d4a9e180997560c31f69ce19aa9106f16633267036e872b89d4ffd"
+    },
+    {
+      "path": "BINDING.template.json",
+      "bytes": 4117,
+      "sha256": "9cc694ffe3903b82cf289172a3f45bd2b4f162818e391b1a21f6dfbbfc9787bc"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2006,
+      "sha256": "9e016abd20edd7dde5c33267149dca80ceeddb946a132280111c873331efb928"
+    },
+    {
+      "path": "SMOKE_INPUTS.json",
+      "bytes": 8332,
+      "sha256": "1155cd29bce90d2bc139e0b50730624a3ae48bfa89c36139a34166fc9fe5f694"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 714,
+      "sha256": "a59f180d249c30daf6eab26d177c75235a38e5a66d8dc6ce9eb6e1110634e656"
+    },
+    {
+      "path": "basic-cli.mjs",
+      "bytes": 16741,
+      "sha256": "f71a7d7bd5c0989bca98f629eeff9ca83736ce736c0103c5a0694a2cfa874e00"
+    },
+    {
+      "path": "npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "run.py",
+      "bytes": 13919,
+      "sha256": "d19e087859ded07942fbea1730d53b77f87b0aa16c9d611297eedce9fc0283db"
+    },
+    {
+      "path": "smoke-custody.py",
+      "bytes": 9454,
+      "sha256": "1a668244df0e34e5be4d82c665a591f2a5a1eaa5f42708e9287f74e7252b0bdb"
+    }
+  ],
+  "executionAuthorized": false
+}
