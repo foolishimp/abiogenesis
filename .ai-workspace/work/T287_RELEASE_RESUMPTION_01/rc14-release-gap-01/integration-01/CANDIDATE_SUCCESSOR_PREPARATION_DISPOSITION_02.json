@@ -1,0 +1,46 @@
+{
+  "id": "RC14-CANDIDATE-SUCCESSOR-PREPARATION-DISPOSITION-02",
+  "recordedUtc": "2026-11-15T20:12:09.208917+00:00",
+  "writerActivation": "integration-01/CANDIDATE_SUCCESSOR_CONTROL_SELECTION_02.json#writerActivation",
+  "scope": "External Writer002 fresh worktree setup only",
+  "actualFailure": "After git worktree add --no-checkout and sparse-checkout set, a clean-status check ran before initializing the index. It reported137491 staged deletions.",
+  "rootAcquisition": {
+    "worktree": "/private/tmp/abg-rc14-candidate-successor-controls-20261116-02",
+    "head": "3327a8a2eb2aab58ee502d3b8b1e85a3acd283b5",
+    "branch": "codex/rc14-candidate-successor-controls-20261116-02",
+    "indexEntries": 0,
+    "worktreeFiles": [
+      ".git"
+    ],
+    "authoredCarrierFiles": 0
+  },
+  "triangulation": {
+    "ProductIdentity": "No Product or preserved input changed; exact intended branch/HEAD remains. Empty prospective checkout is not a candidate.",
+    "DesignIntegration": "External workspace materialization has an ordering precondition: populate the new index/worktree from the fixed commit before evaluating cleanliness. No existing helper change is necessary.",
+    "EffectProof": "Only a new worktree registration, sparse configuration and empty index exist. No authored/source data is present to overwrite, and no other checkout is affected. The status red is an Operator setup observation, not137491 actual source deletions."
+  },
+  "selectedCorrection": {
+    "class": "realization_refactor of external preparation ordering",
+    "effect": "Initialize this exact fresh empty worktree/index once from its unchanged HEAD with ordinary Git read-tree/checkout; verify exact branch/HEAD and clean sparse materialization, then continue the already-declared Writer002 carrier only.",
+    "preferredArgv": [
+      "git",
+      "-c",
+      "core.hooksPath=/dev/null",
+      "-C",
+      "/private/tmp/abg-rc14-candidate-successor-controls-20261116-02",
+      "read-tree",
+      "-mu",
+      "HEAD"
+    ],
+    "precondition": "Reconfirm index0 and no materialized/authored files other than.git immediately before effect; any difference returns to Root.",
+    "originalPreparationStartUtc": "2026-11-15T20:08:37Z",
+    "originalPreparationDeadlineUtc": "2026-11-15T20:28:37Z",
+    "clockRestart": false,
+    "newRuntimeAttempt": false,
+    "stop": "Any further actual check failure, missing owner or unexpected state returns; no local repair loop."
+  },
+  "custodyClarification": "The two prior C1 omitted exit pins are the consumed external process-owner.py dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39 and dependency-inputs.py d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed. The earlier wording metadata helpers names their use in metadata execution, not stage/freeze scripts. Include these exact consumed helpers at entry and exit, along with all selected cut/metadata inputs.",
+  "executionAuthorized": false,
+  "nativeAttemptUnaffected": true,
+  "rawPublished": false
+}
