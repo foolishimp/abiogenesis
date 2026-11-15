@@ -1,0 +1,153 @@
+{
+  "kind": "prospective_proof_audit_projection",
+  "id": "RC14-NATIVE06-PROOF-REENTRY-01",
+  "disposition": "scope_and_commands_observed_with_disclosed_method_residual",
+  "rootDisposition": "pending_separate_authority",
+  "originalObservation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/AUTHOR_AUDIT_OBSERVATION.json",
+    "bytes": 62292,
+    "sha256": "e95642c41b6c8b2826312f03139dc00ac1224c7c8e699c8fcf3fc2538fe14a00"
+  },
+  "sourceHead": "512f936499b4e7264ddcf953e962c1374136504c",
+  "sourceDiffSha256": "76e30382cb6054c7bf301a235692ce994fefbec81529064f541cebc9b362e589",
+  "sourcePostimageSha256": "2a20f8fe556d6e6f143639c6e67cb3610313eda757555c7af03c076b05de62d8",
+  "launchSha256": "7ce099d1b5a960bac6fb262bf0390d30b826951858f4c8acaf8672458d59b915",
+  "originalHostDeadlineUtc": "2026-11-15T13:12:34.310925+00:00",
+  "originalControlsManifestSha256": "e5d035b375d23a74bf1beb6979c2dd8bbba96db9428bd09b5cca32276373088d",
+  "originalRunnerSha256": "e38676d0944f4f3c4dffa8941e497eaea7dd44e9d79ee1e9f4efebc31619934c",
+  "changedRows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "bytes": 133997,
+      "sha256": "86eaf470644456bc3fc1d325ac5589b406b296bedebffcab965bfe20066f19fb",
+      "executable": false
+    }
+  ],
+  "observedToolCounts": {
+    "Read": 49,
+    "Bash": 4,
+    "Grep": 23,
+    "Edit": 4,
+    "StructuredOutput": 1
+  },
+  "requiredReadFirstCount": 13,
+  "observedFacts": {
+    "sourceScopeSatisfied": true,
+    "commandAllowlistSatisfied": true,
+    "methodContentBeforeEditSatisfied": true,
+    "taskReadFirstContentBeforeEditSatisfied": true
+  },
+  "deviations": [
+    {
+      "id": "native06-coordinated-handoff-reference-not-acquired",
+      "omittedReference": "COORDINATED_HANDOFF.md#receive",
+      "evidence": "originalObservation.methodReferencesOmitted",
+      "standing": "actual historical method noncompliance",
+      "cured": false,
+      "methodComplianceClaim": false
+    },
+    {
+      "id": "native06-product-basis-reference-not-acquired",
+      "omittedReference": "PRODUCT_BASIS.md",
+      "evidence": "originalObservation.methodReferencesOmitted",
+      "standing": "actual historical method noncompliance",
+      "cured": false,
+      "methodComplianceClaim": false
+    },
+    {
+      "id": "native06-activation-reference-not-acquired",
+      "omittedReference": "ACTIVATION.md",
+      "evidence": "originalObservation.methodReferencesOmitted",
+      "standing": "actual historical method noncompliance",
+      "cured": false,
+      "methodComplianceClaim": false
+    }
+  ],
+  "inspectionError": {
+    "toolId": "toolu_019PkA974jYVaGmTUPGEDBGp",
+    "status": 1,
+    "reason": "wc glob included ignored __pycache__ directory; ordinary read-only inspection error, no Product/test run",
+    "provenance": "Operator dependency-inputs import before freeze created Python bytecode cache; frozen control source bytes unchanged, no author write attributed"
+  },
+  "operatorEntryCheckCorrection": {
+    "failedReceipt": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/ENTRY_VERIFICATION_FAILURE.json",
+    "correctedReceipt": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/ENTRY_VERIFICATION_SUCCESSOR.json",
+    "cause": "inventory JSON byte length was confused with aggregate payload bytes; Root conjoined exact hash/rows/sum correction before clock"
+  },
+  "evidence": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/AUTHOR_AUDIT_OBSERVATION.json",
+      "bytes": 62292,
+      "sha256": "e95642c41b6c8b2826312f03139dc00ac1224c7c8e699c8fcf3fc2538fe14a00"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/LAUNCH.json",
+      "bytes": 7918,
+      "sha256": "7ce099d1b5a960bac6fb262bf0390d30b826951858f4c8acaf8672458d59b915"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/CONTROL_START.json",
+      "bytes": 1159,
+      "sha256": "b534779e8ab645ac99e4bb919bbe99cdc74b11b23c5576f440d0944382fa73ab"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/SOURCE_PREIMAGE.json",
+      "bytes": 438785,
+      "sha256": "75e1837df0e4bb7e872d42740fbb4abdcf61fe777a505b732e756d02ddb6e413"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/source-freeze-01/SOURCE_POSTIMAGE.json",
+      "bytes": 357347,
+      "sha256": "2a20f8fe556d6e6f143639c6e67cb3610313eda757555c7af03c076b05de62d8"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/source-freeze-01/source.diff",
+      "bytes": 41898,
+      "sha256": "76e30382cb6054c7bf301a235692ce994fefbec81529064f541cebc9b362e589"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/runtime/resources/archives/fp-09b14ffd72bbaa71-stdout.log",
+      "bytes": 4023311,
+      "sha256": "c22c1c4635edf65f08b942721b8f8f5cc8aba83c3ccb7dd7e27f282cc939250e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/AUTHOR_REPORT.json",
+      "bytes": 8076,
+      "sha256": "7bb527c148dd554e0c9a995409099237e315867bcbd270e0ab7ddfc9e8242b02"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/HOST_RETURN.json",
+      "bytes": 625,
+      "sha256": "c4b3713b36b1678bf8c7074616bb9edde687cf748c74e7eea1ea15dfbf7b4aed"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/runtime/NATIVE_RETURN.json",
+      "bytes": 334146,
+      "sha256": "dc02d6f4ec4c1b2f86f1d7609b5eb2850ae594313cd445db7bd4d9fd65201111"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/runtime/resource-close.json",
+      "bytes": 2270,
+      "sha256": "60e9fba9b8a86b2af21df990bd18d0662c31c831f5c1fa1c7470387c04a2686f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/runtime/FRESH_READBACKS.json",
+      "bytes": 5717,
+      "sha256": "589280cd1d45780311c0bbae13f9150de3d3c3151ab48258882ee01fb1238921"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/runtime/AUTHOR_COMPLETION.json",
+      "bytes": 1394,
+      "sha256": "6364b5df6f9f21a25d5dac368d7b46a4715d07ac348d4477b03f03b0e48c2016"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/runtime/FINAL.json",
+      "bytes": 903,
+      "sha256": "de91a51640c3fcc27fb1a8d7fd11f938c3a144f6f1ae486b9ba9bf0ff547c6e1"
+    }
+  ],
+  "proofAuthorized": false,
+  "proofStarted": false,
+  "qualified": false,
+  "limits": "Factual projection of the exact Operator observation; not source acceptance, method compliance or Root proof authority."
+}

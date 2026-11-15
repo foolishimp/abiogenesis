@@ -1,0 +1,31 @@
+{
+  "id": "RC14-NATIVE06-PROOF-REENTRY-01",
+  "executionAuthorized": false,
+  "controlManifestSha256": null,
+  "auditSha256": "46c71aea7368514965aeb8af9d30145c38b5cf65bf17a5dcbba9f35a01fbbf5e",
+  "originalObservationSha256": "e95642c41b6c8b2826312f03139dc00ac1224c7c8e699c8fcf3fc2538fe14a00",
+  "sourceHead": "512f936499b4e7264ddcf953e962c1374136504c",
+  "sourceDiffSha256": "76e30382cb6054c7bf301a235692ce994fefbec81529064f541cebc9b362e589",
+  "sourcePostimageSha256": "2a20f8fe556d6e6f143639c6e67cb3610313eda757555c7af03c076b05de62d8",
+  "launchSha256": "7ce099d1b5a960bac6fb262bf0390d30b826951858f4c8acaf8672458d59b915",
+  "originalHostDeadlineUtc": "2026-11-15T13:12:34.310925+00:00",
+  "acceptedHistoricalMethodResidualIds": [
+    "native06-coordinated-handoff-reference-not-acquired",
+    "native06-product-basis-reference-not-acquired",
+    "native06-activation-reference-not-acquired"
+  ],
+  "residualsRemainDisclosed": true,
+  "authorMethodComplianceClaim": false,
+  "methodDisposition": "preserve_actual_deviation_and_admit_exact_snapshot_for_bounded_proof",
+  "sourceReview": {
+    "path": null,
+    "sha256": null,
+    "disposition": "pending",
+    "sourceDiffSha256": "76e30382cb6054c7bf301a235692ce994fefbec81529064f541cebc9b362e589"
+  },
+  "proofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-06/proof-01",
+  "proofSubject": "/private/tmp/abg-rc14-regression-proof-20261115-06",
+  "retry": false,
+  "qualified": false,
+  "note": "Disabled proposal only. Root must accept the exact controls, bind independent source QA and its actual residual disposition, checkpoint/push, and separately authorize one invocation before the original deadline."
+}
