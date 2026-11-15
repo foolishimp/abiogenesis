@@ -1,0 +1,262 @@
+{
+  "id": "RC14-B56-NATIVE03-CONJUNCTION-AND-REENTRY-04",
+  "recordedUtc": "2026-11-15T22:20:23.537907+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-B56-COMPLETION-RECORDS-WRITER-027",
+    "role": "Separate Root records/integration Writer",
+    "authority": "Owner continue and finish RC14; existing Writer026 and closed independent Product/Design/Identity/Method and Proof/Fixture reviews of native03.",
+    "effects": [
+      "Record exact conjunction and prospective control04 selection; preserve native03 full source patch only as source code.",
+      "Update current T287/T293/STATUS, checkpoint and push named authored records.",
+      "Later integrate only exact adjudicated controls, frozen source and compact Returns."
+    ],
+    "exclusions": [
+      "No Root semantic source edit, rejected whole-file adoption, raw Git, execution/proof/candidate by this grant, old-clock reuse, B50 policy, qualification or publication."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Fixed5.0 F04/F17/S06 exact schema-owner and executing-Program-use admission and installed cold evidence; ABG retains sole event/Result/replay authority.",
+    "classification": "Immutable source and derived proof fixtures; bounded native execution grant is a distinct effect.",
+    "reentry": "realization_refactor: replace one incorrect installed fixture path, close capture preservation edge and repair read/method handoff; WHAT/HOW runtime owner split unchanged."
+  },
+  "native03": {
+    "sourceHead": "80b651f8197c4f98bc444cca145972aeb03f3974",
+    "returnCommit": "54276817e7dcee253f1bc5cfdf0a5b29d2f89fc5",
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-native-03/RETURN.json",
+      "bytes": 12844,
+      "sha256": "f57798772c756a931754175a91c45fa3e9de0b2de1c514d2c83ea69747372e10"
+    },
+    "frozenSource": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/FROZEN_SOURCE.json",
+      "bytes": 2480,
+      "sha256": "b580a9f264c1cc65526cd3a7b7486ce3cddde3c5af6e931cf69894bf98467316"
+    },
+    "postimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/SOURCE_POSTIMAGE.json",
+      "bytes": 395112,
+      "sha256": "c501d437ffae9dcd6df2e6092f7bfc228f9c66fd88810c4810a424186fffcba0"
+    },
+    "diff": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/SOURCE_DIFF.patch",
+      "bytes": 79968,
+      "sha256": "c6b932cd05760836196a5e7221df39ab888ddb7a5b441f757c941a476d2f8295"
+    },
+    "audit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/AUTHOR_AUDIT.json",
+      "bytes": 13791,
+      "sha256": "280eaee63a9af2ac201c6ee19b20a65794e8d0cbd1a61830de800a42dbc1fc8c"
+    },
+    "report": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 7073,
+      "sha256": "165ba9d04e8a822390f22c809a9d6cbb528d74c1dee1e04899783a9c5c010e39"
+    },
+    "typedNativeCompleted": true,
+    "actualCloseFreshResultClosedReplay": true,
+    "taskComplete": false,
+    "sourceAccepted": false,
+    "proofStarted": false,
+    "turns": 99,
+    "sdkWallMs": 1241848,
+    "hostWallMs": 1293093,
+    "reportedListCostUsd": 8.4880592,
+    "costNotInvoice": true,
+    "originalStartedUtc": "2026-11-15T21:42:02.325963Z",
+    "originalDeadlineUtc": "2026-11-16T00:42:02.325963Z",
+    "returnedUtc": "2026-11-15T22:03:29.980Z",
+    "closed": true
+  },
+  "rootReacquisition": {
+    "verifiedPins": 7,
+    "mismatches": 0,
+    "host65698Actor66197PidAndSamePgidAbsent": true,
+    "compactReturnPathsOnly": true,
+    "sourcePatchPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    ],
+    "mainSourceStillUnchanged": true
+  },
+  "independentResults": {
+    "ProductDesignIdentityMethod": {
+      "actor": "/root/amendment_topology_review",
+      "disposition": "Reject native03 for proof; no new Product defect established.",
+      "findings": [
+        "Frozen test3010/3014-15/3060-61/3077-91 adds excluded default-governance/Construction/C2/UAT;2991-95/3054 deliberately manufactures gap;3079 tolerates failure;3242-45 compare whatever terminal/replay occurred without successful completion.",
+        "Core schema has criteria/pressure, no disposition. Default governance specifically reads disposition; structural intake does not establish pre-assessor refusal. Native semantic-stage author/assessor graph and owner derive criteria disposition lawfully without governance.",
+        "Test2706-07 catches child failure;2709-11 capture can throw outside preservation catch, losing that primary error. Existing capture improvements otherwise useful donor.",
+        "Coherent read-only code/src is materially justified within existing context limits; W stays one test."
+      ]
+    },
+    "ProofFixture": {
+      "actor": "/root/b29_vm_triage",
+      "disposition": "S2 fixture completion blocker, no Product defect established; no behavior run.",
+      "findings": [
+        "Case2982 clones libraryConsumerDeclaration,3060 supplies GovernanceWorkState,3077-92 uses Construction/C2/UAT and failureFree:false; violates Task353-355.",
+        "Canonical core assessment shape is valid; scalar disposition concern is downstream governance mismatch, not established initial admission failure.",
+        "Capture bridge and reporter cause/message retention materially improve; original RC7 assertions remain. This general improvement does not contradict the separately identified child/capture double-failure edge.",
+        "Program/member-use negatives precede publication/install checks at native_workspace_assessment178-190; no blanket masking conclusion. Keep controls.",
+        "Same one-file re-entry suffices using real canonical path; actual installed dispatch, retained candidate and cold readbacks remain future proof."
+      ]
+    }
+  },
+  "conjunction": {
+    "originatingRelation": "Native source failed the selected successful installed native-assessment boundary by substituting a forbidden governance lifecycle; partial capture repair omits preservation on secondary failure.",
+    "causalCone": "One test-local declaration/input/role sequence, error capture helper and prospective author acquisition/read grant; no changed runtime or Product/schema meaning.",
+    "recurrence": "Filename-specific R omitted canonical semantic-stage owners, encouraging wrong existing-consumer reuse. Prior control checks verified declared constraints, not actual constructed fixture. Native task success was correctly not source acceptance. Wider coherent R and explicit owner routes address that retained relation prospectively.",
+    "uncertainty": "No behavioral run; canonical route feasibility is source-supported, not proven. Internal author decision cause is unknown.",
+    "decision": "Reject03 whole test for proof; preserve all evidence and use reviewed sound source only as donor. Complete the same one test under fresh controls; do not narrow evidence or change production."
+  },
+  "methodDisposition": {
+    "actualContent": "26requiredcontentranges acquired before first edit;97tools90Bash3Read3Edit1StructuredOutput. One text-only W edit via Bash/Python allowed; sole node --check passed; no Product build/test/provider nesting observed.",
+    "deviations": [
+      {
+        "id": "M03-STATUS-CAPTURE",
+        "line": 261,
+        "resultLine": 282,
+        "finding": "Native piped status --verify to head -60; actual retained prefix shows exact definition,basis,manifest,installed:true,failures:[], but valid:true is not present. Printed exit=0 is pipeline/head status, not independently retained stdo child exit. No full output is reconstructed."
+      },
+      {
+        "id": "M03-FRAME-ROW-CHECK",
+        "line": 510,
+        "resultLine": 514,
+        "finding": "Native read FRAME_INPUTS and printed bootstrap summary with one binds and fifteen routes plus direct frame digest; its verification loop used sources/inputs keys, absent on this entry. Thus no per-bind/route owner or section hash comparison was observed. Six manifest member comparisons at431/435 did match; these do not substitute for the missing selected frame-input-row checks."
+      },
+      {
+        "id": "R03-1452",
+        "toolLine": 1452,
+        "resultLine": 1456,
+        "finding": "grep over all tests/*.mjs exceeds selected file R",
+        "effect": "read_only",
+        "actualCommandAndResult": "AUTHOR_TOOL_AUDIT.json",
+        "waived": false
+      },
+      {
+        "id": "R03-1810",
+        "toolLine": 1810,
+        "resultLine": 1814,
+        "finding": "recursive code/src content search extends beyond named R owners; actual returned matches happen to be selected semantic_job",
+        "effect": "read_only",
+        "actualCommandAndResult": "AUTHOR_TOOL_AUDIT.json",
+        "waived": false
+      },
+      {
+        "id": "R03-1892",
+        "toolLine": 1892,
+        "resultLine": 1896,
+        "finding": "recursive code/src schema_asset filename search outside named R",
+        "effect": "read_only",
+        "actualCommandAndResult": "AUTHOR_TOOL_AUDIT.json",
+        "waived": false
+      },
+      {
+        "id": "R03-2133",
+        "toolLine": 2133,
+        "resultLine": 2137,
+        "finding": "recursive code/src semanticWorkerResultSchema search returned product/semantic_stage.ts outside R",
+        "effect": "read_only",
+        "actualCommandAndResult": "AUTHOR_TOOL_AUDIT.json",
+        "waived": false
+      },
+      {
+        "id": "R03-2448",
+        "toolLine": 2448,
+        "resultLine": 2452,
+        "finding": "recursive code/src verdictField filename search returned product/default_library.ts outside R",
+        "effect": "read_only",
+        "actualCommandAndResult": "AUTHOR_TOOL_AUDIT.json",
+        "waived": false
+      },
+      {
+        "id": "R03-2598",
+        "toolLine": 2598,
+        "resultLine": 2602,
+        "finding": "recursive all-fixtures search extends beyond two declared fixture directories; observed output is selected support/default fixture",
+        "effect": "read_only",
+        "actualCommandAndResult": "AUTHOR_TOOL_AUDIT.json",
+        "waived": false
+      },
+      {
+        "id": "R03-3730",
+        "toolLine": 3730,
+        "resultLine": 3734,
+        "finding": "abg/index.ts export lines read outside R",
+        "effect": "read_only",
+        "actualCommandAndResult": "AUTHOR_TOOL_AUDIT.json",
+        "waived": false
+      },
+      {
+        "id": "R03-8831",
+        "toolLine": 8831,
+        "resultLine": 8835,
+        "finding": "recursive .ai-workspace metadata search extends beyond named R controls",
+        "effect": "read_only",
+        "actualCommandAndResult": "AUTHOR_TOOL_AUDIT.json",
+        "waived": false
+      },
+      {
+        "id": "R03-8973",
+        "toolLine": 8973,
+        "resultLine": 8977,
+        "finding": "Root B56_NATIVE_ACTIVATION_03.json read outside native R",
+        "effect": "read_only",
+        "actualCommandAndResult": "AUTHOR_TOOL_AUDIT.json",
+        "waived": false
+      }
+    ],
+    "compliance": false,
+    "standing": "Nine outside-R reads and two verification limits remain explicit; no waived/deviation-free audit, no altered prove admission. Prospective correction grants no retroactive credit."
+  },
+  "recovery": {
+    "adoptedSourcePaths": [],
+    "donor": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 412987,
+      "sha256": "9d5fdd296c39f28470a63928668b7eaf2f37b740b5a81d8db9239b512f4eff4c"
+    },
+    "preservedSourcePatch": "integration-01/assessment-dependency-native-03/SOURCE_DIFF.patch",
+    "standing": "Authored source patch only, no raw execution data in Git. Original source tree, logs and failed clocks unchanged; seven recovered source files remain unproved construction inputs."
+  },
+  "completionControlWriter": {
+    "id": "RC14-B56-COMPLETION-CONTROL-WRITER-004",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate external preparation Writer",
+    "worktree": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-04",
+    "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-04",
+    "sourceBase": "Exact pushed main containing this record, identified in Root followup",
+    "maximumMs": 1800000,
+    "effects": [
+      "Reuse accepted03 mechanics with fresh04 coordinates. Preserve six executable owners unchanged unless a concrete mandatory handoff change is returned to Root, positive exact10-title1+9 proof partition, final evidence-leaf custody, actual typed-close/fresh-read, lifetime, first-failure/finally and separate proof guards.",
+      "Native W is exactly build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs. Seven recovered source files remain immutable/read-only. Native03 default-library test and its full patch are read-only donor inputs only; require actual native author to recover sound capture/RC7 source while correcting the rejected case. Do not install the rejected full file as an accepted source baseline.",
+      "Grant coherent read-only build_tenants/abiogenesis/typescript/code/src, with exact complete file pins and purpose-directed acquisition, retaining required existing test/support/fixture/readFirst dependencies. Native03 reviewer measured284regularfiles/7237051bytes and union388files/9851287bytes under existing1024files/25165824bytes. Recompute actual context and rendered-instruction bounds; do not assume wider R is automatically prompt-fit. One W unchanged. Existing excluded areas remain excluded.",
+      "First semantic obligation: implement genuine installed split-owner author-to-assessor path via canonical native semantic-stage construction. Read gtl/semantic_stage_publication.ts157-172, product/semantic_job.ts916-926, product/semantic_stage.ts411-421 and immediate declarations/consumers before choosing local wrapper. Preserve actual same-Run producer provenance, successful terminal completion and held/fresh result/replay. No default-governance, Construction/C2/UAT fold, manufactured producer coordinates, deliberate gap or failureFree:false substitute. Schema-owner/executing-use separation and all original named negatives remain.",
+      "Preserve sound test-local CLI preassert capture and RC7 assertions. Fix the concrete child-error plus capture-error path: after an actual child failure, secondary seen/capture failure must retain that child failure as primary and capture failure through channels the actual evidence reporter retains. All split/coincident CLI outcomes, warm/cold assembly, preimages, negatives and both readbacks remain captured before dependent assertions.",
+      "Carry actual task/method/Product/requirements/frame/HOW acquisition before edits. Require full stdo status JSON and child exit, exact Definition/basis/manifest/installed:true/valid:true/failures:[], real resolver/member comparisons and nonempty actual FRAME_INPUTS.binds/routes owner and section checks. Do not pipe status through head or use absent sources/inputs fields. ProductBasis and exact method verification guidance are read-only, no sync/install/fallback. Existing owning sections and full skills are content, not path/hash credit.",
+      "Completion checks are source obligations. Unwritten test code is unfinished work, not a missing dependency. Preserve concrete unsupported dependencies or failures honestly; do not infer exhausted time from unsupported estimates. Read-only clock observations allowed, no clock reset.",
+      "Retain45min native/5min inactivity/360turns and fresh3h enclosing/3min exitreserve; later90min proof clipped to original new clock and separately authorized. No execution now. No ceiling increase or provider change.",
+      "Prepare disabled exact native/proof templates, input pins, static syntax/hash/declared-context checks, compact manifest/Return. Bind this conjunction and native03 Return/audit/frozen source by hash. Freeze one authored-controls-only commit and return for independent delta review."
+    ],
+    "exclusions": [
+      "No source/Design/test/support implementation by controls Writer, Product imports/behavioral probes/build/tests/provider/runtime clocks, main/push, raw publication, B50/qualification/cut/pin changes."
+    ],
+    "stops": [
+      "First failed check or need outside grant returns to Root; no unbounded repair."
+    ],
+    "returnTo": "Root exact frozen control review, then separate native grant."
+  },
+  "futureRoots": {
+    "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04",
+    "proofWorktree": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-04",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04"
+  },
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "qualified": false,
+  "rawPublished": false,
+  "preservation": "Original candidate/install and failed attempts remain exact; candidate02/amendment07/S06 readiness await B56 proof; B50 unresolved."
+}

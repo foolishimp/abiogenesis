@@ -1,0 +1,35 @@
+{
+  "moduleRef": "module://s06-witness/native-lifecycle@5",
+  "owningProductId": "product://default-library-witness/consumer@5",
+  "programRef": "program://s06-witness/d1@5",
+  "programDigest": "sha256:6b01ca1fc95ba54d5005af7f416b05e3d968c91525518066e9a6b47fa76ca7ad",
+  "localAssessmentMemberCount": 12,
+  "schemaContractRef": "contract://abiogenesis/semantic-stage/native-assessment@5",
+  "publicationBindingDigest": "sha256:0449013a4fddd07656be12309bfec20087ee0d28b4e3ed71b8ccd45dd073b1eb",
+  "invocationAdmissionOrdinal": 5,
+  "eventRef": "event://abiogenesis/d50bdd932355a20caac2cffb0ec104c964229ae8417746f7954819cc0dcbb22d",
+  "eventPayloadDigest": "sha256:fa579cc3def998b7f7ce726cc95dd527ddfb73216f61c223e7cff7e6ce8e8cc7",
+  "sourcePins": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/setup/consumer-source/build/d1.json",
+      "bytes": 347765,
+      "sha256": "474b43cb3cd2399ad8399f6de8244c1e3ae10c21a58924f3f825c34d9634d9e8",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/resources/events/runtime.events.jsonl",
+      "bytes": 7550103,
+      "sha256": "2bcb3dc3664abd3e366f1992705504bcdd9633ec5a99c96688d9f6d16174c564",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/setup/setup-identity.json",
+      "bytes": 9660711,
+      "sha256": "fa05f1ea58b11525bc97c98d567f46ef7b6a3e82a33acab9524fd8606842ad30",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    }
+  ],
+  "observation": "Read-only projection of genuine closed receipts. Canonical Program JSON hash equals the admitted event coordinate; no new admission or runtime evidence.",
+  "matchingSetupPublicationBindingRows": 98,
+  "matchingRowsMeaning": "Repeated coordinate occurrences in the complete setup record, not distinct publication owners or new admission evidence."
+}

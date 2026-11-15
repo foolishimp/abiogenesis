@@ -1,0 +1,17 @@
+# Native04 construction guidance
+
+Commentary under ROOT_SELECTION and ROOT_READ_DEPENDENCIES; fixed5.0, no source acceptance or execution grant. Closed guidance comes from Root-conjoined independent Product/Design/Method and Proof/Fixture reviews of native03.
+
+Use a test-local one-stage SemanticJobLifecycle and a real local root: semantic intake → `constructNativeSemanticStageGraphFunctions(stage, stageClose, assessmentClose)[0]` → canonical `envelope_output`. `product/semantic_job.ts:727–729` requires all declared stages satisfied; C2 evidence is conditional on an application_assessment stage. One ordinary stage omits that capability and needs no governance, Construction, C2 or UAT fold. These are existing owner relations, not a new controller.
+
+Read `gtl/semantic_stage_publication.ts:84–104,157–172`, `gtl/semantic_job.ts:33–76`, and the existing one-stage declaration in `test_env/support/t287-generic-job-intake.mjs:28–46`. The single newly permitted `test_env/fixtures/native-semantic-revision/declarations.mjs:68–131` illustrates publication/membership/semantics binding only. Do not import its full revision/construction chain. All code paths are under the tenant code/src; the fixture/support paths are under its test_env.
+
+`product/semantic_job.ts:774–926` constructs physical source/rubric/absent author-asset inputs and derives the producer. `abg/semantic_job.ts:98–195,563–605` binds admitted intake, the exact same-Run producer and folds. `gtl/stdo_run_environment.ts:49–80,230–240` and `product/stdo_environment.ts:43–54` own canonical resources/roles: the native work leaf uses constructor, the assessment leaf uses assessor. Do not infer a role key from the lifecycle label.
+
+The case-local installed setup keeps `installTenantOnce`, `prepareRegisteredSelectionProduct`, `openCaseEnvironment` and the actual core `constructSemanticStageModulePublication`. A test-local scripted native actor writes the declared semantic candidate path and returns the core criteria/pressure assessment. The old SCRIPTED_ACTOR writes generated/hello-world.mjs and returns consumer_outcome_assessment; it is not an unchanged donor for this path. No script or host supplies producer IDs or manufactures a failure to stop the graph. Assert actual successful terminal completion and both fresh readbacks of that Run.
+
+Sound03 cold reconstruction remains donor code: exact-prefix environment → ProductExecutionResolutionPort.resolve → rehydrated implementationSet → constructAdmittedLeafInvocationPort, nativeAssessmentDependency, persisted assembly and warm/cold preimage. Preserve all genuine positive/negative inputs and captured outcomes; exact negative failure causes remain obligations.
+
+Fix both observed double-failure edges in03 CLI helper: a caught actual child error must survive if `seen` subsequently fails; likewise an already observed parseError must survive if parse capture fails. Preserve the original primary and append capture-secondary via reporter-retained cause/message fields. An expected nonzero observation is distinct from a genuine child failure. No reporter or support edit is selected.
+
+Method acquisition uses METHOD_VERIFICATION.json and the installed read_basis.py owner. Complete status capture/parse,1bind+15routes, exact16 comparisons and separately acquired deciding contents replace the rejected truncated/vacuous03 checks. All01–03 historical findings remain exact.

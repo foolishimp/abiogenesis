@@ -1,0 +1,22 @@
+# B56 installed fixture completion04 — disabled preparation
+
+ROOT_SELECTION.json is the exact Root conjunction of native03. ROOT_READ_DEPENDENCIES.json adds one read-only fixture example and the existing installed method reader. This packet is based on cbb37be84c9ba6a65f14cef670bf55bd0104d60c; the selected tenant remains e4d2c3f2f3ee0b2a4a0b9b525b526c7d7348d620. Fixed5.0/F04/F17/S06 and exact STDO3.0.4 are unchanged.
+
+One native write path remains: t287-default-library.test.mjs. Seven recovered files stay immutable. Coherent code/src is purpose-directed read scope, with every file pinned, while other tests/fixtures remain bounded. Only declarations.mjs68–131 in native-semantic-revision is added as an example; its complete workflow is not selected. The rejected03 test is external donor input, never a source baseline.
+
+The first obligation is a successful installed native-semantic-stage author→assessor Run: one ordinary SemanticJobLifecycle, real intake, canonical native pair and envelope output, exact same-Run producer, installed schema/use/forward joins and canonical constructor/assessor roles. No governance/Construction/C2/UAT, deliberate gap, failureFree:false or matching a failed terminal substitutes. CONSTRUCTION_GUIDANCE.md gives the existing owner routes. Existing RC7 positives/negatives remain, with full installed, cold, assembly, preimage and both fresh readback evidence.
+
+Recover sound03 preassert CLI capture, then fix both specific secondary-failure edges: already observed child error or parseError must remain primary if its next capture fails. The actual reporter cause/message channels retain the secondary error; no custom-property or diagnostic-only proof. No Product/support/reporter change is selected.
+
+METHOD_VERIFICATION.json uses the existing installed read_basis.py. Native acquisition must capture the entire manager response and true child exit, parse/check full JSON in memory, and retain exact identity/validity/failures and bytes/digests without dumping inventories. It must compare the actual one bind and fifteen routes,16 completed owner/section joins through five grouped canonical-helper reads. Required method/Product bodies are separately acquired before edits. Native03 truncation, vacuous loop and outside-R reads remain historical failures; nothing is retroactively waived.
+
+## Prospective sequence
+
+1. Independent review and Root integration/push bind the final source head. The fresh04 source checkout must fully materialize the tenant/specification/root authorities and this carrier, including complete index/worktree setup, before clean-status interpretation. Original01–03 source/raw/clocks remain unchanged.
+2. Operator verifies exact source/control/input pins, makes fresh raw04 scratch and distinct empty npm configs, fills the disabled launch template and exclusive preimage, then calls existing operate.py once. Actual pinnedRC13/Opus5.5/xhigh owns the one source pass:45min,5min inactivity,360turns; enclosing3h with3min exit reserve. No old clock or retry.
+3. Actual typed task-matching return, resource close, fresh result/closed replay, command/method/R/W audit and frozen uncommitted source are required. Preserve HEAD/index. Successful transport is not source or task acceptance; concrete gaps remain for Root.
+4. Separate Root proof grant alone permits prove.py: one fresh build, six commands/five files, two installed cases, exact immutable semantic10-title positive1+9 partition and preserved whole-owner regressions. Actual set equality/disjointness/union, ten candidate evidence leaves, first-failure/finally custody and original limits are unchanged. Proof90min is clipped to the fresh original enclosure; no historical16-file/build credit.
+
+Six executable owners are byte-equal03: prove.py, freeze-source.py, process-owner.py, physical-topology.py, setup-custody.py and dependency-inputs.py. HOST.mjs/operate.py change only04 coordinates. Expanded read evidence goes through existing hash and all three physical observations; no new runtime/controller/verifier. CONTEXT_CHECK.json is a static declared-context and source-grounded prompt-size computation, not actual observation/admission. Actual topology and source currentness remain mandatory at launch.
+
+No Product import, provider, setup, test, build, proof, release cut or qualification ran in preparation. Actual native/proof source heads, grants and clocks stay unset. This packet returns one frozen subject to Root and stops.

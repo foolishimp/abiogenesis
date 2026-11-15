@@ -1,0 +1,67 @@
+{
+  "kind": "static_declared_context_and_author_prompt_bounds",
+  "purpose": "Static files and source-grounded literal projection only; no Product import or evaluation, no physical observer or current admission.",
+  "sourceBase": "cbb37be84c9ba6a65f14cef670bf55bd0104d60c",
+  "sourceRoot": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-04",
+  "readRootEntries": 37,
+  "sourceFiles": 391,
+  "directoryEntries": 22,
+  "completeContextEntries": 413,
+  "fileBytes": 9918981,
+  "maxFiles": 1024,
+  "maxBytes": 25165824,
+  "entryHeadroom": 611,
+  "byteHeadroom": 15246843,
+  "rowsDigest": "5a80de8d6005bca3e0c02b3a8a43f3ced159bec94ee4e01eac9841f15edf17b6",
+  "allReadFirstPresent": true,
+  "coherentCodeSource": {
+    "files": 284,
+    "bytes": 7237051
+  },
+  "scopeBinding": {
+    "onlyNativeW": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    ],
+    "coherentCodeRNotW": true,
+    "fixtureExampleIsOneFileOnly": true,
+    "externalMethodInputsOutsideWorksiteContext": "Explicit native read-only routes and protected input pins; not added as physical worksite bodies."
+  },
+  "sourceOwners": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+      "bytes": 22624,
+      "sha256": "de6b56ba0bb967fd06c8ea42d7f06eacaa53c65954bc33594a553ec6520661fe"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_operations.js",
+      "bytes": 52814,
+      "sha256": "5e20b37db005f8a22996f1afb204cfd8b3c559814ed6ea7dace8586a4b7f1317"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+      "bytes": 113438,
+      "sha256": "1586f32966f065f548d4c0d53f5be9d07517bb6450dc268b20ea6ee63022ea57"
+    }
+  ],
+  "promptProjection": {
+    "algorithm": "Static author-only literal/JSON-string projection from the exact installed renderer source, conjoined byte-equal with retained03 actual output; no Product function/import executed.",
+    "retained03ActualPrompt": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/runtime/resources/archives/fp-5b450fe17c2a7fa9-prompt.txt",
+      "bytes": 16201,
+      "sha256": "1d8435ded059c54de8b1f1794d25feed9321fff717fad90b4358fed75e60f967"
+    },
+    "retained03ActualPromptEquality": true,
+    "prospective04Bytes": 15863,
+    "prospective04Sha256": "fdb0f031f07859c0ab5b62f114a9f9bb5be48ada2548a189e947e1da68f22c67",
+    "readableScopeMatchesTask": true,
+    "noContextBodiesInAuthorPrompt": true,
+    "rolePrefix": "None in actual03 on unchanged pinned native Program/setup; actual04 owner still decides.",
+    "selectedPromptBound": "Native source-work root is not a governance work state; declaredRunPromptBound has no finite root maxPromptBytes here. No new prompt limit or admission claim is invented. Context entry/byte bounds remain exact and positive; actual04 assembly/transport is unexecuted."
+  },
+  "notExecuted": [
+    "Product imports/functions",
+    "STDO CLI/helper",
+    "observer/setup/native",
+    "build/test/proof"
+  ]
+}
