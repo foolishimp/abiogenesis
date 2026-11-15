@@ -1,0 +1,444 @@
+{
+  "kind": "completion02_static_preparation_checks",
+  "recordedUtc": "2026-11-15T20:46:07.977891+00:00",
+  "checks": [
+    {
+      "kind": "Python AST",
+      "path": "dependency-inputs.py",
+      "passed": true
+    },
+    {
+      "kind": "Python AST",
+      "path": "freeze-source.py",
+      "passed": true
+    },
+    {
+      "kind": "Python AST",
+      "path": "operate.py",
+      "passed": true
+    },
+    {
+      "kind": "Python AST",
+      "path": "physical-topology.py",
+      "passed": true
+    },
+    {
+      "kind": "Python AST",
+      "path": "process-owner.py",
+      "passed": true
+    },
+    {
+      "kind": "Python AST",
+      "path": "prove.py",
+      "passed": true
+    },
+    {
+      "kind": "Python AST",
+      "path": "setup-custody.py",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "ACTIVATION.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "D1_COORDINATES.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "DEPENDENCY_INPUTS.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "FIXTURE_INPUTS.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "IMMUTABLE_RECOVERY.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "LAUNCH.template.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "LAYOUT.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "NATIVE_INPUTS.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "ORIGINAL_CANDIDATE.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "PRIOR_ATTEMPT.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "PROOF_LAUNCH.template.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "PROOF_PLAN.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "READ_ONLY_EVIDENCE.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "REUSE.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "ROOT_SELECTION.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "ROOT_TRIAGE.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "SEMANTIC_JOB_POPULATION.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "SOURCE_BINDING.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "SOURCE_INPUTS.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "TASK.json",
+      "passed": true
+    },
+    {
+      "kind": "JSON syntax",
+      "path": "TOOL_INPUTS.json",
+      "passed": true
+    },
+    {
+      "kind": "Node syntax only",
+      "path": "HOST.mjs",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 owner bytes",
+      "path": "process-owner.py",
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 owner bytes",
+      "path": "physical-topology.py",
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 owner bytes",
+      "path": "dependency-inputs.py",
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 owner bytes",
+      "path": "setup-custody.py",
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 owner bytes",
+      "path": "freeze-source.py",
+      "sha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 proof function AST",
+      "function": "module",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 proof function AST",
+      "function": "digest",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 proof function AST",
+      "function": "bound_json",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 proof function AST",
+      "function": "require_author_completion",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 proof function AST",
+      "function": "source_inventory",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 proof function AST",
+      "function": "pinned",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 proof function AST",
+      "function": "tree",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 proof function AST",
+      "function": "native_inputs",
+      "passed": true
+    },
+    {
+      "kind": "Exact accepted01 proof function AST",
+      "function": "fixtures",
+      "passed": true
+    },
+    {
+      "kind": "Three W, five immutable inputs and actual read roots",
+      "passed": true
+    },
+    {
+      "kind": "Positive exact-title partition;10 names,disjoint1+9,no negative ancestor pattern",
+      "passed": true
+    },
+    {
+      "kind": "Actual launch/source/clock/proof disabled",
+      "passed": true
+    }
+  ],
+  "freshReadHashInputs": {
+    "sourceRows": 43,
+    "readOnlyEvidenceRows": 10,
+    "immutableRecoveredRows": 5,
+    "methodFiles": 5,
+    "fixtureRows": 13,
+    "dependencyRows": 4576,
+    "nativeRows": 196,
+    "npmToolRows": 2326,
+    "tools": 5
+  },
+  "notExecuted": [
+    "Product import or owner operation",
+    "native provider",
+    "physical observer",
+    "behavioral test or selector experiment",
+    "build",
+    "qualification"
+  ],
+  "limits": "Control syntax/source/identity preparation only; no source acceptance or execution proof.",
+  "finalControlInputs": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 9896,
+      "sha256": "75d0fb32c5304c9ddc40cc1df87389cbe55aaedb4cc49d49598fafadace7c8b2"
+    },
+    {
+      "path": "D1_COORDINATES.json",
+      "bytes": 2179,
+      "sha256": "f9cbcb809a95147afe7cb3ad5a0b1437a3de7d5ba83bc69dd6f46ec44fe68d44"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 895,
+      "sha256": "d6a3c424189133724db9b6e0fac6dc0db0308e97a51ee6201a299c3d8e52d881"
+    },
+    {
+      "path": "FIXTURE_INPUTS.json",
+      "bytes": 3781,
+      "sha256": "bbf31f53be16e16bfcfd1fe418206343af896cd61bab482f378564f1c22d7067"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 21672,
+      "sha256": "9a22fdc8d1d37df46a4300a32112b6c7333317b2d6389bee015d4aa49cf056f5"
+    },
+    {
+      "path": "IMMUTABLE_RECOVERY.json",
+      "bytes": 1285,
+      "sha256": "0d5c33cd20309aa22b865307ebd38ff486929768d1dee5b622c0032dd135c83f"
+    },
+    {
+      "path": "LAUNCH.template.json",
+      "bytes": 544,
+      "sha256": "2d1b3418ef2139c09fdc74693c9ea7056b1efbab328b68ba29699e09a11a4756"
+    },
+    {
+      "path": "LAYOUT.json",
+      "bytes": 1139,
+      "sha256": "611c0832b8238fdd2ac5cbf7d5daf7ddaee7645d1002abb4787b1c2a513bc356"
+    },
+    {
+      "path": "NATIVE_INPUTS.json",
+      "bytes": 717,
+      "sha256": "597f9f141164645d98bf9cab9496d6e7a8a5894ec5db2411c8d940f86b01ca81"
+    },
+    {
+      "path": "ORIGINAL_CANDIDATE.json",
+      "bytes": 1907,
+      "sha256": "9db608e54527d2b1c7cf297865336639b180c80bab3dd0db5c88050990322480"
+    },
+    {
+      "path": "PRIOR_ATTEMPT.json",
+      "bytes": 1280,
+      "sha256": "16bae83fed649c4d6bd586ad5a8d0300b29e4533508980d97fa5b2c175fa6fa7"
+    },
+    {
+      "path": "PROOF_LAUNCH.template.json",
+      "bytes": 530,
+      "sha256": "a8b62268ec85b12ab4a3a53540b0f709978c608de72c6002c2ecb79edacfde28"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 7752,
+      "sha256": "1ed6b9d755ee15993585c4bdf4a11c05e9b7739beafd609740377b7a60c8d12a"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6365,
+      "sha256": "feebda71164d65127272583f276f4b01fc1a64a00811396819c266b686229fc2"
+    },
+    {
+      "path": "READ_ONLY_EVIDENCE.json",
+      "bytes": 4050,
+      "sha256": "46a19c6e33f12bb313fcb118994f352434986e9cb0b65ba6e9383eaae33fea90"
+    },
+    {
+      "path": "REUSE.json",
+      "bytes": 3431,
+      "sha256": "6c85e6e80472fdf61c6c88408e88f021a7ba05e2b40ac6454c1b13623930f74c"
+    },
+    {
+      "path": "ROOT_SELECTION.json",
+      "bytes": 15060,
+      "sha256": "e932820fe9ecd1c15c3f42cf0e5887e1811222ab59074c7a44812ce09a6c97b3"
+    },
+    {
+      "path": "ROOT_TRIAGE.json",
+      "bytes": 8457,
+      "sha256": "857f2c635f6933b2f99a13ded0f60f2cd91505279285ab6927a5cea2360583ca"
+    },
+    {
+      "path": "SEMANTIC_JOB_POPULATION.json",
+      "bytes": 3357,
+      "sha256": "20efb56bfc1e6035e9e5b594f67447d1c9aa4d1962843df748d9c6b08c2cdff0"
+    },
+    {
+      "path": "SOURCE_BINDING.json",
+      "bytes": 491,
+      "sha256": "fa0b308ba0997ae4f7b816c5082411737161a95c4c88a489e982200ee654cc0f"
+    },
+    {
+      "path": "SOURCE_INPUTS.json",
+      "bytes": 9205,
+      "sha256": "fc6afc4c5a9693ef0b74340ee27aadd03e2f60fe1fe49e9ba90fdf3a5022da38"
+    },
+    {
+      "path": "TASK.json",
+      "bytes": 25653,
+      "sha256": "bd45020a2569bcb9b9b90460b346c049df533695b7a5e666b199f05460620b82"
+    },
+    {
+      "path": "TOOL_INPUTS.json",
+      "bytes": 1492,
+      "sha256": "9a4c859cfd9a273972cfd23df9b08f00b2b98ac1cb847176954c821b89a6f3ee"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 3060,
+      "sha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8"
+    },
+    {
+      "path": "operate.py",
+      "bytes": 6486,
+      "sha256": "8bf79cdc9fca0525f992b61ba5dda71bf4039d0fa8cc32ea5d713d7b26cea5f1"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 23524,
+      "sha256": "384250f34457e05d865a9333127bb6c7df8ad6c9efea82ef6988521b53cc740f"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ],
+  "closedUtc": "2026-11-15T20:57:15.572602+00:00",
+  "finalNarrowDeltaInspection": {
+    "HOST": "Fresh02 identifiers and added exact controls/evidence pins; all three native topology protected lists now include existing externalEvidenceRoots. Delta01 corrects finalProtected omission identified independently.",
+    "operate": "Fresh source/raw02 coordinates only.",
+    "prove": "Added exact evidence/recovered-source pins; positive exact title selection and exact/disjoint/full immutable semantic population; accepted clock/process/source/finally code conserved.",
+    "scope": "Only new external control carrier authored; source worktree and runtime not created."
+  },
+  "delta01": {
+    "activationId": "RC14-B56-COMPLETION-CONTROL-WRITER-002-DELTA-01",
+    "base": "461c522ee09c3966b3ba9f78cfb02fb131612bde",
+    "rootDisposition": {
+      "commit": "5f0282f42",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_COMPLETION_CONTROL_REVIEW_02.json",
+      "bytes": 4063,
+      "sha256": "e1a20ef09e8c47dc685d5ff3c8fd1d30c9f242eab5aa4a23d1b056ed77a77597"
+    },
+    "closedUtc": "2026-11-15T20:57:15.572602+00:00",
+    "soleExecutableDelta": "HOST.mjs finalProtected appends the existing ...externalEvidenceRoots; all other executable/control inputs byte-equal.",
+    "checks": [
+      {
+        "kind": "Exact single byte replacement against frozen461c522ee",
+        "passed": true
+      },
+      {
+        "kind": "Node HOST syntax only",
+        "passed": true
+      },
+      {
+        "kind": "All29 controls outside four-path delta byte-equal",
+        "passed": true
+      }
+    ],
+    "runtimeExecuted": false
+  }
+}

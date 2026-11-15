@@ -1,0 +1,21 @@
+{
+  "standing": "Closed01 stays incomplete/unproved with its two historical method deviations. No author/proof clock or compliant label transfers.",
+  "conjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE01_CONJUNCTION_AND_REENTRY_02.json",
+    "bytes": 15060,
+    "sha256": "e932820fe9ecd1c15c3f42cf0e5887e1811222ab59074c7a44812ce09a6c97b3"
+  },
+  "native01Return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-native-01/RETURN.json",
+    "bytes": 8050,
+    "sha256": "4e83c7968b1461a18582f8adee19707e649317a2d2db21bfe9159e9feb966962"
+  },
+  "native01Audit": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/AUTHOR_AUDIT.json",
+    "bytes": 3005,
+    "sha256": "f84e882f1c95302c2493ba07fd74ce565295735d2b623864cc5814f583c676c2"
+  },
+  "oldDeadlineUtc": "2026-11-15T22:57:33.049891Z",
+  "oldProofWillRun": false,
+  "prospectiveToolPermission": "02 permits explicit text-only Bash/Python source edits inside exact W. No Product imports/behavioral build/test/provider/Git mutation or out-of-W writes."
+}

@@ -1,0 +1,139 @@
+{
+  "kind": "external_control_preparation_return",
+  "activationId": "RC14-ASSESSMENT-DEPENDENCY-NATIVE-002",
+  "status": "prepared_for_independent_review_execution_disabled",
+  "role": "Writer002 external controls only",
+  "closedUtc": "2026-11-15T20:57:15.572602+00:00",
+  "preparationBase": "486160a463d8742a94b44482d6be9a6ccbaf79ea",
+  "controlCarrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02",
+  "sourceTenantTree": "1e8934d82df68780036d6de07c35e2bf86f7837c",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE01_CONJUNCTION_AND_REENTRY_02.json",
+    "bytes": 15060,
+    "sha256": "e932820fe9ecd1c15c3f42cf0e5887e1811222ab59074c7a44812ce09a6c97b3"
+  },
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 4964,
+    "sha256": "2c63065c29354c96a5efbb306935aeb7db0c6d73773425e59a1c7f0741a29470"
+  },
+  "controlMembers": 31,
+  "staticChecks": {
+    "path": "STATIC_CHECKS.json",
+    "bytes": 12196,
+    "sha256": "d835e058e12074d082ba3cea42f2accd4cc47be2b9f3455c3ec8087680496d55"
+  },
+  "staticCheckCount": 49,
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "recoveredInputs": {
+    "file": "IMMUTABLE_RECOVERY.json",
+    "rows": 5,
+    "standing": "Read-only recovered construction inputs; no new source/proof acceptance."
+  },
+  "externalEvidence": {
+    "file": "READ_ONLY_EVIDENCE.json",
+    "rows": 10,
+    "D1Coordinates": "D1_COORDINATES.json",
+    "standing": "Exact original donor/D1/B31 bytes; no historical lifecycle or current qualification credit."
+  },
+  "completion": {
+    "installedSplit": "Case-local installation/declarationFactory with actual local start plus real core semantic-stage owner; existing supported helper parameters, no support edit.",
+    "capture": "Full actual coincident/split candidates, raw/receipts/readbacks before relevant assertions; preserve primary error on capture failure.",
+    "component": "Coherent Program/publication/implementation-row/authority/assembly coordinates, real guards conserved.",
+    "commonHOW": "Narrow paragraph852-864 consistency; no runtime or serialized-basis changes."
+  },
+  "B58": {
+    "priorStanding": "Native01 proof was never executed; earlier B31 negative selection ruling and83/82 actual audit preserved.",
+    "selector": "Positive anchored exact-title unions only.",
+    "population": "Immutable semantic source10titles partitions1+9; exact name-set equality, no duplicate top names, cross-command disjointness and union equality.",
+    "nestedCases": "All actual nested cases retained; only exact existing Data-alias host-premise skip optional."
+  },
+  "finiteProspectiveProof": {
+    "freshBuilds": 1,
+    "testCommands": 6,
+    "distinctFiles": 5,
+    "immutableSemanticTopTitles": 10,
+    "preservedRequiredTopTitlesAcrossSelectedFiles": 43,
+    "maximumMs": 5400000,
+    "enclosingMs": 10800000,
+    "exitReserveMs": 180000,
+    "firstFailureStops": true,
+    "retries": 0,
+    "historicalCredit": false
+  },
+  "preservation": {
+    "native01": "Original source, two method deviations, raw evidence and clock remain closed and unchanged.",
+    "prospective02": "Text-only Bash/Python source editing is explicitly allowed only within three W paths; no retrospective compliance.",
+    "owners": "Five exact01 helper files and nine exact01 proof-function ASTs verified; same admission/close/audit/process/finally guards.",
+    "originalCandidate": "RC13 pin and original RC14 C0/C1/archive/install frozen.",
+    "noRawPublication": true
+  },
+  "freshPreparationIdentityCounts": {
+    "sourceRows": 43,
+    "readOnlyEvidenceRows": 10,
+    "immutableRecoveredRows": 5,
+    "methodFiles": 5,
+    "fixtureRows": 13,
+    "dependencyRows": 4576,
+    "nativeRows": 196,
+    "npmToolRows": 2326,
+    "tools": 5
+  },
+  "unboundPrerequisites": [
+    "Independent exact control review and Root acceptance/pushed checkpoint",
+    "Fresh source worktree with exact tenant43source pins; exclusive full preimage",
+    "Actual native launch/source HEAD/clock/grant",
+    "Actual typed native close/fresh reads/full audit/frozen source review",
+    "Separate exact proof grant within original new02 enclosing clock"
+  ],
+  "gaps": [],
+  "notExecuted": [
+    "Product import or owner operation",
+    "native provider",
+    "physical observer",
+    "behavioral test or selector experiment",
+    "build",
+    "qualification"
+  ],
+  "claims": {
+    "sourceImplemented": false,
+    "proofPassed": false,
+    "liveS06Passed": false,
+    "qualified": false,
+    "executionAuthorized": false,
+    "clockStarted": false
+  },
+  "returnTo": "Root; freeze exact controls and stop. No main write or push.",
+  "delta01": {
+    "activationId": "RC14-B56-COMPLETION-CONTROL-WRITER-002-DELTA-01",
+    "base": "461c522ee09c3966b3ba9f78cfb02fb131612bde",
+    "rootDisposition": {
+      "commit": "5f0282f42",
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_COMPLETION_CONTROL_REVIEW_02.json",
+      "bytes": 4063,
+      "sha256": "e1a20ef09e8c47dc685d5ff3c8fd1d30c9f242eab5aa4a23d1b056ed77a77597"
+    },
+    "closedUtc": "2026-11-15T20:57:15.572602+00:00",
+    "soleExecutableDelta": "HOST.mjs finalProtected appends the existing ...externalEvidenceRoots; all other executable/control inputs byte-equal.",
+    "checks": [
+      {
+        "kind": "Exact single byte replacement against frozen461c522ee",
+        "passed": true
+      },
+      {
+        "kind": "Node HOST syntax only",
+        "passed": true
+      },
+      {
+        "kind": "All29 controls outside four-path delta byte-equal",
+        "passed": true
+      }
+    ],
+    "runtimeExecuted": false
+  },
+  "reviewStanding": "Original461c522ee was rejected for one final topology caller-list omission. This exact correction is prepared for independent narrow delta review; no execution acceptance is claimed."
+}

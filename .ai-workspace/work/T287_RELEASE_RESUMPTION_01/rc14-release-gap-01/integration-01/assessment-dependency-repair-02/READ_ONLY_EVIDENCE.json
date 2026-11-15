@@ -1,0 +1,68 @@
+{
+  "files": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 366807,
+      "sha256": "f8cfb91bc2c873636370bed12177cda526ba3a07c7984163da11f006a5c1c344",
+      "role": "rejected_native01_source_donor",
+      "relativeSourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 121267,
+      "sha256": "f2bc9b64368294f950714a00c67d3c9701bf67caf8716db372a412254c1d3419",
+      "role": "rejected_native01_source_donor",
+      "relativeSourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 5128,
+      "sha256": "6c40051bf0ef640ea45efe9b0863042c442371de6f69958de397d91593e9ed1a",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/AUTHOR_AUDIT.json",
+      "bytes": 3005,
+      "sha256": "f84e882f1c95302c2493ba07fd74ce565295735d2b623864cc5814f583c676c2",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/SOURCE_DIFF.patch",
+      "bytes": 64786,
+      "sha256": "ad087ba92f97f3a7764fd93cdf09f1e7eadcd28b97f902c1137566a23d37d6fa",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/setup/consumer-source/build/d1.json",
+      "bytes": 347765,
+      "sha256": "474b43cb3cd2399ad8399f6de8244c1e3ae10c21a58924f3f825c34d9634d9e8",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/resources/events/runtime.events.jsonl",
+      "bytes": 7550103,
+      "sha256": "2bcb3dc3664abd3e366f1992705504bcdd9633ec5a99c96688d9f6d16174c564",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/setup/setup-identity.json",
+      "bytes": 9660711,
+      "sha256": "fa05f1ea58b11525bc97c98d567f46ef7b6a3e82a33acab9524fd8606842ad30",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b31-native-01/RETURN.json",
+      "bytes": 39732,
+      "sha256": "c68c2d68ae730d1dcd565a7bfe01e80b42878651d02f2a97f5894131d0bd459f",
+      "role": "prior_B31_positive_population_ruling"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/PROOF_POPULATION_AUDIT.json",
+      "bytes": 2422,
+      "sha256": "930b2c3fae5500c324637977935869f9c70299759fc2afee1b313caa67597549",
+      "role": "prior_B31_actual_population_audit"
+    }
+  ],
+  "standing": "External read-only source/evidence inputs only. No old clock, runtime admission, proof, semantic or qualification credit transfers. Do not publish raw contents in Git.",
+  "nativeReading": "Use bounded text/JSON extraction for D1 Program/membership/schema-owner/install-lock/event coordinates; no Product import, event reopening or new admission."
+}

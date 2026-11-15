@@ -1,0 +1,201 @@
+{
+  "id": "RC14-B56-NATIVE01-CONJUNCTION-AND-REENTRY-02",
+  "recordedUtc": "2026-11-15T20:33:23.930363+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-RECOVERY-RECORDS-WRITER-023",
+    "role": "Separate Root mechanical source-recovery/integration and records Writer",
+    "authority": "Owner continue/finish RC14/checkpoint main; closed independent Product/Design/Identity and Proof results plus exact native/postimage custody.",
+    "effects": [
+      "Record this conjunction, T287/T293/STATUS and later exact completion-control selection.",
+      "Preserve exact native01 seven-path SOURCE_DIFF as authored source code under assessment-dependency-native-01/SOURCE_DIFF.patch; no raw runtime data.",
+      "Recover only the five explicitly listed conforming native-authored files byte-for-byte from their frozen subject into main. This is mechanical integration of actual RC13 source, no Root implementation or edits. The two rejected test postimages remain donor evidence only.",
+      "Checkpoint/push selected source and authored records before completion preparation/runtime; later integrate exact reviewed controls and closed Returns."
+    ],
+    "exclusions": [
+      "No rewriting recovered source, direct Root semantic repair, adoption of rejected fixture bytes, runtime/proof/retry/new candidate execution by this record, raw Git, repin, B50 or qualification/publication."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Fixed5.0 F04/F17/S06 joins exact schema owner and executing Program use while ABG alone owns admission, runtime facts and replay.",
+    "classification": "Immutable declaration/identity relation plus derived Proof fixtures; no new runtime entity or authority.",
+    "reentry": "Bounded realization completion and one owning-HOW consistency paragraph under unchanged WHAT."
+  },
+  "native01": {
+    "sourceHead": "17e8224bfa4514bcee137d3b11544fe0b52d4cc8",
+    "returnCommit": "139541fd9869e6db8c07c730c23115242bd4588e",
+    "returnPath": "integration-01/assessment-dependency-native-01/RETURN.json",
+    "returnSha256": "4e83c7968b1461a18582f8adee19707e649317a2d2db21bfe9159e9feb966962",
+    "postimageSha256": "9b8b0a263a103c5a473df1cae22190960ccf18241b6ef49c0e4ebd538a9ddcb6",
+    "sourceDiffSha256": "ad087ba92f97f3a7764fd93cdf09f1e7eadcd28b97f902c1137566a23d37d6fa",
+    "auditSha256": "f84e882f1c95302c2493ba07fd74ce565295735d2b623864cc5814f583c676c2",
+    "actualClosedNative": true,
+    "actualCloseAndFreshReads": true,
+    "turns": 102,
+    "sdkWallMs": 930190,
+    "reportedListCostUsd": 7.3657826,
+    "costNotInvoice": true,
+    "oldOriginalDeadlineUtc": "2026-11-15T22:57:33.049891Z",
+    "oldAttemptClosed": true,
+    "oldProofWillRun": false
+  },
+  "rootChecks": {
+    "postimageRows": 1426,
+    "frozenChangedFiles": 7,
+    "returnEvidencePins": 10,
+    "distinctClosurePins": 47,
+    "mismatches": 0,
+    "sourceHeadAndIndexUnchanged": true,
+    "host95298AndActor95853AndSamePgidsAbsent": true,
+    "fullProtocolBytes": 6925314,
+    "fullProtocolSha256": "2f86dad8a5977287917ba963b45188a0c8bc3a71b188c0175445fece07b6d256"
+  },
+  "independentResults": {
+    "ProductDesignIdentity": {
+      "actor": "/root/amendment_topology_review",
+      "verdict": "Production correction supported for continued construction, not yet executed/proved. Handoff incomplete.",
+      "findings": [
+        "Three runtime owners consistently use existing authenticated Program coordinates and schema-owner carriage; no new persisted authority. Full production start/continue/recursive callers carry loaded resolution; existing cold authentication conserves digest/publication.",
+        "Actual retained D1 Program digest6b01ca1fc95ba54d5005af7f416b05e3d968c91525518066e9a6b47fa76ca7ad equals event5;12 actual local members declare native-assessment and consumer-to-ABG edge covers both owners. Author external-member concern is unsupported.",
+        "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md852-864 retains a conflicting unchanged-relation/schema-owner edge paragraph; narrowly update it to Program/use owner edges and actual fixture.",
+        "M03 payload ledger41-61 remains consistent with unchanged publication codec fields; no edit needed."
+      ]
+    },
+    "ProofFixtures": {
+      "actor": "/root/b29_vm_triage",
+      "verdict": "Selected proof claim falsified: three bounded source findings.",
+      "findings": [
+        "Mandatory installed split-owner case/capture absent. Existing test-local installTenantOnce, prepareRegisteredSelectionProduct declarationFactory/schemaAssets and additionalCorePublicationConstructors support it. No shared-support expansion established. Program start must be an actual local member; ordinary lawful wrapper/declaration is permitted. Completing default-governance semantic fold is not this selected boundary proof.",
+        "RC7 CLI2658-2665/readback2809 and several negatives assert before complete capture; finally-only write may lose primary exception on capture failure. Preserve full actual executions/receipts/outputs before assertions and primary failure.",
+        "Native-workspace-work component implementation row291 and authority314 use old publication while assembly336 uses modified declaring publication; mock authenticator hides real204/179-180 joins. Repair coherent case-local coordinates, preserving real guards.",
+        "Reported partial support callers do not require changes: installed/F09 use full loaded values; actual partial component paths do not reach assessment selection."
+      ]
+    },
+    "MethodEffect": {
+      "actor": "Root",
+      "verdict": "Two historical tool-method deviations remain; no out-of-W effect observed.",
+      "deviations": [
+        {
+          "id": "B56-METHOD-01",
+          "protocolLine": 7868,
+          "commandSha256": "3e068819fc00772906097c0c8b60e1129bf4700ed002865573024a4c6cc32178"
+        },
+        {
+          "id": "B56-METHOD-02",
+          "protocolLine": 7980,
+          "commandSha256": "746bf7e3b66527288134aae8e0e44af9c1b4149563716b25bda38a1e85371d26"
+        }
+      ],
+      "relation": "Both Python commands perform literal text replacements only in the rejected default-library test, followed by syntax/status reads. They violate01 Task Bash restriction. No retroactive compliant audit is created. The five recovered files were authored through the granted Edit path after required method acquisition.",
+      "prospectiveDecision": "Next source Writer may use Edit/Write or explicit text-only Bash/Python edits confined to its exact W. No target Product imports/behavioral execution/build/test/provider nesting/Git mutation or other paths. Same source/effect/physical limits; this changes only the next operational tool grant."
+    }
+  },
+  "proofControlRecurrence": {
+    "finding": "B58, before execution",
+    "owner": "External B56 proof population selector",
+    "cause": "prove.py211 reintroduced negative --test-name-pattern exclusion. Node24.7 testMatchesPattern166-175 matches any ancestor; negative lookahead matches root/parent and selects the excluded child. Old B31 ruling was not retained as a dependency in the new proof recipe.",
+    "priorRootRecord": "rc14-release-gap-01/b31-native-01/RETURN.json:529",
+    "priorActualAudit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/PROOF_POPULATION_AUDIT.json",
+      "bytes": 2422,
+      "sha256": "930b2c3fae5500c324637977935869f9c70299759fc2afee1b313caa67597549"
+    },
+    "freshRootVerification": "Read exact installed Node24.7 embedded source testMatchesPattern166 and willBeFilteredByName740; no new test executed.",
+    "selectedRepair": "Use a positive exact-title union for the remainder, bound to the complete current read-only semantic-job top-level title inventory minus the focused case. Check set equality, mandatory actual positives and cross-command disjointness. Preserve all added/nested case accounting and declared host skip; no negative ancestor pattern.",
+    "noRuntimeFailureClaim": true
+  },
+  "recovery": {
+    "standing": "Five exact files accepted as conforming construction input only. No compile, installed, acceptance or qualification claim. No source byte of either rejected fixture is adopted.",
+    "files": [
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+        "bytes": 115704,
+        "sha256": "7d525fdc954b228b5eaa2fc5f4cdde9b11b51c43d698a478901d08feb51b639e",
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "bytes": 77659,
+        "sha256": "b30a90884a9107fd680b0cb2e4621f24d7dab402e6a72c18125fd057b3750c79",
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+        "bytes": 14276,
+        "sha256": "305f979128822bcc6ce7a3ebac25eb005bec5dad1b137726427aa479505d8bbd",
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+        "bytes": 40332,
+        "sha256": "31938a2f0eb2d858f881c48c7214daeb3859e124239b64a98e69729f76f66dca",
+        "relativePath": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+        "bytes": 62319,
+        "sha256": "0bdfc1911188c3244187892082232966fe82054ccbbbe4de8538b2e1b008e173",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs"
+      }
+    ],
+    "preservedFullPatch": "integration-01/assessment-dependency-native-01/SOURCE_DIFF.patch",
+    "rejectedDonors": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    ]
+  },
+  "completionControlWriter": {
+    "id": "RC14-B56-COMPLETION-CONTROL-WRITER-002",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate external control preparation Writer",
+    "sourceBase": "Exact pushed recovery checkpoint identified in followup; source selection is the five-row recovery above.",
+    "worktree": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-02",
+    "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02",
+    "maximumMs": 1800000,
+    "effects": [
+      "Reuse accepted01 mechanical controls, with prospective02 roots and new exact source/input bindings; execution remains disabled.",
+      "Bind source W to exactly the three paths below. All recovered production/HOW/semantic-test bytes are read-only; no support, codec or extra runtime owner expansion.",
+      "Give actual case-local fixture route, coherent publication/row/assembly joins and complete preassert/thrown-path capture obligations. Preserve every existing assertion and ordinary consumer-owned case. Require the same named split/coincident candidates and complete mechanical dependency/assembly/preimage/cold/readbacks; no new governance scenario.",
+      "Bind raw native01 donor test files and actual retained D1 publication/Program as explicit external read-only evidence with exact pins. Copies/records of execution data remain outside Git. Record scope and gaps; do not treat donor assertions as proof.",
+      "Correct only external proof title selection/accounting for B58 using positive exact-title union plus complete immutable title set, retaining all lifetime/custody/finally guards and one fresh normal build. Add B31 ruling/audit as retained control input.",
+      "Update next Task operational tool permission prospectively as above; mandatory method content reads and full actual command/scope audit remain.",
+      "Prepare static syntax/JSON/hash/source/fixture/dependency/tool/native-input checks, disabled launch templates, manifest and compact Return. No Product import/build/test/probe/actor. Freeze one authored-only commit and stop for independent review."
+    ],
+    "exclusions": [
+      "No tenant/source/Design/test implementation by controls Writer, main/push, old root alteration, provider or proof clock, raw Git, qualification/B50/cut/pin changes."
+    ],
+    "stops": [
+      "First actual check failure, missing owner/effect relation or needed W expansion returns to Root; no automatic repair/retry."
+    ],
+    "returnTo": "Root for independent exact control review and separate one-attempt runtime grant."
+  },
+  "prospectiveNativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "futureRoots": {
+    "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-02",
+    "proofWorktree": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-02",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02"
+  },
+  "prospectiveBounds": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "builder": "exact pinnedRC13",
+    "providerCallsAtMost": 1,
+    "globalProviderConcurrency": 2,
+    "nativeAbsoluteMs": 2700000,
+    "nativeInactivityMs": 300000,
+    "maxTurns": 360,
+    "newEnclosingMs": 10800000,
+    "proofMaximumMs": 5400000,
+    "exitReserveMs": 180000,
+    "attempts": 1,
+    "executionAuthorized": false
+  },
+  "preservation": "Native01 and original deadline remain closed, incomplete/unproved with method deviations. Existing C0/C1/archive/install, failed S06/amendment attempts, RC13 pin and B50 decisions unchanged. Candidate02/amendment07 controls remain accepted but disabled until complete B56 source/proof.",
+  "qualified": false,
+  "rawPublished": false
+}
