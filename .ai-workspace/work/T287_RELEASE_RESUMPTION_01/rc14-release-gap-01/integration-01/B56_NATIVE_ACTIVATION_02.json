@@ -1,0 +1,110 @@
+{
+  "id": "RC14-B56-NATIVE-ACTIVATION-02",
+  "recordedUtc": "2026-11-15T20:59:48.648023+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-B56-COMPLETION-RECORDS-WRITER-024",
+    "role": "Separate Root records/integration Writer",
+    "authority": "Owner continue/finish RC14; B56_NATIVE01_CONJUNCTION_AND_REENTRY_02 and closed independent control review/delta",
+    "effects": [
+      "Record this accepted control/native selection and current T287/T293/STATUS; integrate exact frozen controls and compact Returns.",
+      "Checkpoint/push selected authored records and adjudicated native source before dependent effects.",
+      "Record exact native evidence, independent source review and separately selected proof disposition."
+    ],
+    "exclusions": [
+      "No Root semantic implementation, scope expansion, blind retry, raw Git, old artifact/pin mutation, B50 policy or qualification/publication."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Complete fixed5.0 F04/F17/S06 assessment owner/use dependency with actual installed evidence; ABG alone owns admission, events, Results and replay.",
+    "classification": "Three-path source completion over five immutable native01 construction inputs; no new Product feature/runtime authority.",
+    "reentry": "Bounded realization completion plus common owning-HOW consistency; Product WHAT unchanged.",
+    "selection": "integration-01/B56_NATIVE01_CONJUNCTION_AND_REENTRY_02.json"
+  },
+  "acceptedControls": {
+    "commit": "641503e25789715a7ba3b70e0132d027897f72a8",
+    "tree": "82ec285504a53faeca124591f19718ede688acdc",
+    "initialCommit": "461c522ee09c3966b3ba9f78cfb02fb131612bde",
+    "root": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02",
+    "manifestSha256": "2c63065c29354c96a5efbb306935aeb7db0c6d73773425e59a1c7f0741a29470",
+    "manifestMembers": 31,
+    "returnSha256": "3c4718349dc65df1d6ff263db047de8ee1add98f3f17e4d98a327cc0ba889fb2",
+    "sourceTenantTree": "1e8934d82df68780036d6de07c35e2bf86f7837c",
+    "integratedMain": "5f3d60345c9735829abf20fc10f77953b4ecda65"
+  },
+  "independentReviews": {
+    "ProductDesignIdentityTask": {
+      "actor": "/root/amendment_topology_review",
+      "subject": "461c522ee09c3966b3ba9f78cfb02fb131612bde",
+      "disposition": "Satisfied for exact Task/scope; no material counterexample. Three W, five immutable inputs, actual installed split proof, D1 identities and method restrictions coherent."
+    },
+    "ProofEffect": {
+      "actor": "/root/b29_vm_triage",
+      "subject": "641503e25789715a7ba3b70e0132d027897f72a8",
+      "disposition": "Satisfied after exact finalProtected evidence-root correction. Other accepted control relations retained.",
+      "verified": "31 members; positive exact semantic10-title1+9 partition and union/disjoint/actual-positive guards; immutable/evidence custody; task-matching typed completion, close/fresh reads; finite separate proof."
+    },
+    "findingPreserved": "integration-01/B56_COMPLETION_CONTROL_REVIEW_02.json"
+  },
+  "rootAcquisition": {
+    "manifestMembers": 31,
+    "sourceRows": 43,
+    "mismatches": 0,
+    "cleanFrozenWorktree": true,
+    "oneExecutableDelta": "HOST finalProtected appends existing externalEvidenceRoots; all other executable bytes unchanged."
+  },
+  "operatorActivation": {
+    "id": "RC14-B56-NATIVE-OPERATOR-002",
+    "role": "Separate R14 execution/evidence Writer; semantic author is actual pinned RC13 native worker",
+    "actor": "/root/rc14_release_proof",
+    "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-02",
+    "sourceBranch": "codex/rc14-assessment-dependency-source-20261116-02",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02",
+    "sourceBinding": "Exact pushed main checkpoint containing this activation and controls, identified in followup after direct origin parity. Tenant tree and all43 source rows must match accepted controls.",
+    "effects": [
+      "Create one isolated sparse source checkout from exact pushed binding; materialize complete tenant/specification/root authority and exact selected control/method inputs, without generated build/dependencies. Initialize index before interpreting sparse status. Verify source/input/control identities.",
+      "Create fresh external raw/host-scratch and distinct empty npm user/global config files. Fill accepted native LAUNCH template with actual sourceHead/pushedCheckpoint, this Root record pin and accepted manifest rows; enable one dispatch.",
+      "Capture exclusive preimage with exact freeze-source.py; invoke exact operate.py once with explicit approved launch path. Capture new original clock once; never reset it or reuse native01 time.",
+      "Only actual RC13 Claude Opus5.5 xhigh native author may edit exactly three W paths under Task. Text-only Bash/Python or Edit/Write are permitted within W; target Product import/probe/build/test/provider nesting/Git mutation/outside writes are not.",
+      "Observe actual typed task-matching completed inner terminal, resource close, fresh result and closed replay. Fully audit actual commands, mandatory content reads, scope and method against this prospective grant. Preserve any variance without laundering.",
+      "Freeze full source postimage/diff and physical/input/setup/control custody; keep source HEAD/index unchanged for subsequent proof. Return on first failure or completed source; do not run proof automatically.",
+      "After closure, freeze compact authored Return on separate records branch; all raw logs/event/capture bodies stay external."
+    ],
+    "bounds": {
+      "providerCallsAtMost": 1,
+      "globalProviderConcurrency": 2,
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "nativeAbsoluteMs": 2700000,
+      "nativeInactivityMs": 300000,
+      "maxTurns": 360,
+      "newEnclosingMs": 10800000,
+      "exitReserveMs": 180000,
+      "retries": 0
+    },
+    "stops": [
+      "First identity/scope/integration/physical/completion/readback failure: preserve original evidence/clock and return to Root; no automatic retry or expanded Task.",
+      "New native source needs independent frozen-source review and separate exact proof grant."
+    ],
+    "returnTo": "Root; actual closed native source/audit or first failure. No source/proof acceptance delegated."
+  },
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "immutableRecoveredInputs": "integration-01/assessment-dependency-repair-02/IMMUTABLE_RECOVERY.json",
+  "dispatchAuthorizedAfterPushedBinding": true,
+  "proofAuthorized": false,
+  "newCandidateBuildAuthorized": false,
+  "proofBoundary": "One later fresh normal build and accepted finite proof, at most90min clipped to this original new3h enclosing clock with3min exit reserve. No native01 proof credit or reused clock.",
+  "preservation": [
+    "Native01 closed incomplete with two method deviations, no proof. Five recovered files remain immutable/unproved construction input.",
+    "Original C0/C1/archive/install, all failed S06/amendment attempts and RC13 operational pin remain exact.",
+    "Amendment07/candidate02 controls accepted but disabled until B56 source/proof acceptance.",
+    "B50 route/policy unresolved; no qualification, AF25, repin, acceptance or publication."
+  ],
+  "qualified": false,
+  "rawPublished": false
+}

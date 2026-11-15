@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_CONFORMING_SOURCE_RECOVERED_COMPLETION_CONTROLS_SELECTED",
+  "status": "RC14_B56_COMPLETION_CONTROLS_ACCEPTED_NATIVE02_SELECTED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T19:25:55.663148+00:00",
-  "nativeAuthorState": "No source author active. S06-02 closed failed at assessment; independent triage selects B56 existing-owner repair preparation. Amendment03 continues actual admitted workflow.",
+  "recordedUtc": "2026-11-15T20:59:48.648023+00:00",
+  "nativeAuthorState": "Completion02 accepted; actual RC13 native author selected after pushed binding; provider not yet launched. Native01 stays closed incomplete/unproved.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1138,7 +1138,7 @@
     "acceptance": "integration-01/CANDIDATE_SUCCESSOR_CONTROL_ACCEPTANCE_02.json"
   },
   "b56Completion": {
-    "state": "DISABLED_CONTROL_PREPARATION_SELECTED",
+    "state": "CONTROLS_ACCEPTED_NATIVE_GRANT_BOUND_AFTER_PUSH",
     "selection": "integration-01/B56_NATIVE01_CONJUNCTION_AND_REENTRY_02.json",
     "nativeWritePaths": [
       "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
@@ -1146,6 +1146,18 @@
       "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
     ],
     "providerStarted": false,
-    "proofAuthorized": false
+    "proofAuthorized": false,
+    "controlCommit": "641503e25789715a7ba3b70e0132d027897f72a8",
+    "manifestSha256": "2c63065c29354c96a5efbb306935aeb7db0c6d73773425e59a1c7f0741a29470",
+    "activation": "integration-01/B56_NATIVE_ACTIVATION_02.json",
+    "candidateBuildAuthorized": false
+  },
+  "b58Control": {
+    "state": "POSITIVE_EXACT_PARTITION_CONTROL_ACCEPTED_NOT_EXECUTED",
+    "controlCommit": "641503e25789715a7ba3b70e0132d027897f72a8",
+    "semanticTitles": 10,
+    "focused": 1,
+    "remainder": 9,
+    "actualProofStarted": false
   }
 }
