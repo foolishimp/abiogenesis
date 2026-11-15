@@ -1,0 +1,52 @@
+{
+  "id": "RC14-QUALIFICATION-PRIOR-ATTRIBUTION-TRIAGE-01",
+  "recordedUtc": "2026-11-15T09:34:25.866288+00:00",
+  "exactSource": "a0b0ab5dd37322b66f69909d6a1c7ab75e7ee3fa",
+  "productFrame": "Fixed15-family5.0, F11/F15 andT287RC14. Native result/qualifiedcut remainscomplete same-subject green; externalrecords areevidence, notnativeauthor events. F_Hresponse/resume stays5.1.",
+  "frames": [
+    "Product/requirements: F11/F15 andREQ-P-QUAL064A-C retainindependentcompletejudgment",
+    "Design: D4/D5\u00a73permits sufficientexternalrecords butQ23explicitlydefersprioreligibility",
+    "Identity: authorshipnotabsence/traileralone, survivingcontributors notlastwriteronly",
+    "Integration/effect: nativecall-boundgate rejects beforeprovider; coldreplay repeats",
+    "Proof: passingcomponentnegativeguards do notestablishproductionpositivepath"
+  ],
+  "originatingRelation": "No prior externally-grounded contributor/profile facts reach the existing call-bound eligibility owner; all externalconstruction returnsunknown beforestart. Samefamily/nondeclaredprofile andClaude-onlydispatch areadditional independentbarriers.",
+  "incidentalToolFailures": [
+    "88Fable5.2trailers unhandled",
+    "TD58dualtrailer rejected",
+    "22empty/deletionpostimages cannotformcanonicalnonemptychains",
+    "75no-trailercommits incorrectlydefaulttohumanowner; B31/B12counterexamples",
+    "task/per-chain filtering losesextra attributionmaterials"
+  ],
+  "currentMechanism": {
+    "task": "assessment-plan.mjs selects author_distinct; qualificationMaterialMatches refusesnot_required",
+    "dispatch": "qualification_proof.ts passes external authors:null; qualification.ts returns external_attribution_requires_future_judgment",
+    "acknowledgment": "projectQualificationOwnerRuling unconditionallynull under5.0humanresponse deferral",
+    "replay": "sameeligibilitydecision reapplied afterJ, so hypotheticalJdoesnotclose",
+    "profiles": "OnlyOpus5.5 andCodexgpt6astra declared; Fable5.1/5.2unlisted; samefamilynonindependent; mixed survivingClaude/Codexcontributions conflictwithbothdeclaredfamilies"
+  },
+  "supportingRoutes": [
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+    ".ai-workspace/TECHNICAL_DEBT_REGISTER.md#td-29--qualification-and-self-conformance-have-never-completed-a-run",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_NEXT_INCREMENT.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/ROOT_IDENTITY_DISPOSITION.json"
+  ],
+  "disposition": "Existing prior-attribution/correspondence HOW completion mayprepare underunchangedWHAT. Policy-dependentthird-provider orsame-familyimplementationawaitsactualownerchoice. No parser-onlyfalsecompletion, F_Hrestoration, inventedack, syntheticestablishedJ orguardwaiver.",
+  "lastLawfulCut": "Evidence readiness with explicitunresolvedattribution/eligibility beforeassessmentbinding/start",
+  "pendingOwnerQuestion": {
+    "status": "asked_async_no_answer_yet",
+    "choices": [
+      "Retaincrossfamilyrule andcompleteeligiblethirdfamilyroute",
+      "Permitseparatenon-author samefamilyreviewunderexplicitconditions"
+    ],
+    "recommended": "Retaincrossfamilyrule",
+    "notAnApproval": "Elapsedtime/defaultselectiondoesnotanswer"
+  },
+  "continuingIndependentWork": [
+    "Native05fixtures",
+    "Seven-filediagnosticsafterpeerrc14dends",
+    "S06toolchainreadiness",
+    "Concreteprior-attributionproposal"
+  ],
+  "qualified": false
+}

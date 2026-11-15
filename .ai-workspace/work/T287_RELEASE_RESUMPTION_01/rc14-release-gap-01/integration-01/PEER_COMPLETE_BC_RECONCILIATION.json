@@ -1,0 +1,45 @@
+{
+  "sourceHead": "669704c158d4ceb69459fd994e0ffc887e7586c0",
+  "reviewer": "/root/rc14_release_proof",
+  "recordedUtc": "2026-11-15T09:34:25.866288+00:00",
+  "attempts": 237,
+  "repeatFiles": 9,
+  "uniqueFiles": 228,
+  "latestFiles": {
+    "exit0": 205,
+    "exit1": 23,
+    "outerKill": 0
+  },
+  "latestCases": {
+    "total": 1523,
+    "pass": 1443,
+    "fail": 23,
+    "skip": 51,
+    "cancelled": 6
+  },
+  "redSet": "Exactly16native fixture files plus7diagnostic targets, disjoint",
+  "native16": {
+    "cases": 84,
+    "pass": 60,
+    "fail": 21,
+    "skip": 3
+  },
+  "diagnostic7": {
+    "cases": 26,
+    "pass": 18,
+    "fail": 2,
+    "cancelled": 6
+  },
+  "indexSha256": {
+    "b": "679d757c9829b506fed0ea6e237fabd265966159832350ab42b17c470485d744",
+    "c": "cb6aac5b3b12c97bc202162a4549cafd232849cddb42e8afbd42ddce8c575a40"
+  },
+  "reacquisition": "All228 latest TAPfooters matchindexes; seven diagnostic TAPshashes matchPEER_LATENCY_TRIAGE_01; all228peer testsource hashes match669704c15",
+  "limits": [
+    "Original failures retained; six repeated later passes do not explain originalfailurecauses",
+    "Peer build-at-execution and complete sourceconservation notestablished",
+    "Current mainhas12modified selectedtestfiles; no repaired-source orRC14qualificationcredit",
+    "Separate rc14d stillactive; rootdiagnosticheld toavoidduplicate"
+  ],
+  "rawPublication": false
+}

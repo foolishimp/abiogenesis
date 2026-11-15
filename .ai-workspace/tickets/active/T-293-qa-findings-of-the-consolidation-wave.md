@@ -95,11 +95,13 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | B-49 | Native04 exceeds its turn ceiling after partial fixture edits; external host accepted outer result despite inner runtime_failed | Actual241-turn/max-turn failure, null terminal, fresh result refusal and failed replay; independent source review | S4 control/proof | P1 fresh re-entry | Exact13-path incomplete source preserved at85a23d71. Native05 controlsdef9a97ed require owner-typed completion and fresh closed result/replay;5-file fresh scope,11prior paths immutable, original04clock closed. No04proof credit. `rc14-release-gap-01/integration-01/NATIVE04_PARTIAL_SOURCE_TRIAGE.json` |
 
+| B-50 | Exact qualification has no positive prior external-attribution/eligible-assessor route | Closed Product/Design/Identity/Integration/Proof trace at a0b0ab5dd; existing TD-29/Q23/QR02 | S2 selected-release blocker | P1 before qualification | Parser repairs alone cannot reach dispatch or replay. Prior contributor correspondence and owner join are incomplete; same-family/unlisted profiles and Claude-only transport independently block. Native human-response remains5.1. Owner policy choice asked; independent fixture/lifecycle work continues. No qualified cut claimed. `rc14-release-gap-01/integration-01/QUALIFICATION_ROUTE_TRIAGE_01.json` |
+
 ## Schedule
 
 | When | Items |
 |---|---|
-| Current | RC13 remains pinned. Installed basic04 composition and independent evidence review passed. Native04 failed at241turns; exact13-path partial source saved, unproved. Native05 controls accepted for3unfinished fixtures+2full-capture repairs; final pushed launch pending. Peer broad ended08:42Z and counts are reconciling; seven-file diagnostic controls accepted. S06 controls accepted, offline toolchain closure pending. Amendment/S06 bind prospectiveRC14 after source freeze. Qualification/publication/human acceptance remain open. |
+| Current | RC13 pinned. Installed basic04 accepted. Native05 runs on pushed a0b0ab5dd to complete3fixtures+2capture repairs; original3hbound and16-fileproof pending. Peer b/c closes228unique files:205exit0/23reds, exactlynative16+diagnostic7; peer d stillactive. S06toolchain Java passes, SBTstops withsignal5; cause triagepending. Exactqualification has confirmed TD29/B50prior-attribution/eligibility gap; ownerpolicychoice pending. NoRC14cut, qualification orhumanacceptance claimed. |
 | Dependency-ready sequence | Owner selects finish RC14: B44 control correction and first installed workflow; RC13-native repair/reproof of16 peer-red files B36-B42/B45; reconcile peer coverage; bounded B21 support statement, installed amendment/S06, exact qualification and RC14/S07. Expired attempts stay closed; no duplicate broad campaign |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |
