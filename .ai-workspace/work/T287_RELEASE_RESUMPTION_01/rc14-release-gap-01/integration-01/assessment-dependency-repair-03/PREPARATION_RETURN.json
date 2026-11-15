@@ -1,0 +1,144 @@
+{
+  "kind": "external_control_preparation_return",
+  "activationId": "RC14-ASSESSMENT-DEPENDENCY-NATIVE-003",
+  "status": "prepared_for_independent_review_execution_disabled",
+  "role": "Separate completion03 external-controls Writer",
+  "closedUtc": "2026-11-15T21:36:39.543940+00:00",
+  "preparationBase": "71acfb4f0a5e397777387073dfa59c30270bf14d",
+  "controlCarrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-03",
+  "sourceTenantTree": "e4d2c3f2f3ee0b2a4a0b9b525b526c7d7348d620",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE02_CONJUNCTION_AND_REENTRY_03.json",
+    "bytes": 13232,
+    "sha256": "982e78c96d914778047004092a72ad03fe744ca1494a5411405839fce3210f68"
+  },
+  "readDependencyAddendum": {
+    "commit": "f57e7a263a1010454aa88b02fa60f8e4459c1c9f",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_COMPLETION03_READ_DEPENDENCIES_01.json",
+    "bytes": 2706,
+    "sha256": "76ee99e20640742cc5734789ef7d1b48d0a0bd2bfd3ff0eaae824e4240017760",
+    "packetCopy": "ROOT_READ_DEPENDENCIES.json"
+  },
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 5127,
+    "sha256": "706f2d649808af1f516c9a751177f60c7759313215b8be921a81368b5fe23ad8"
+  },
+  "controlMembers": 32,
+  "staticChecks": {
+    "path": "STATIC_CHECKS.json",
+    "bytes": 10274,
+    "sha256": "8b070dd35c3e5fd60d08c975ddd987ccfe3517eb94461aabe9881de4904ec9c1"
+  },
+  "staticCheckCount": 42,
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "immutableRecovery": {
+    "file": "IMMUTABLE_RECOVERY.json",
+    "rows": 7,
+    "standing": "Unproved recovered inputs, read-only; no retrospective compliance or proof credit."
+  },
+  "readScope": {
+    "entries": 53,
+    "approvedNewPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_execution_authority.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/cli.ts"
+    ],
+    "content": "Required deciding Product/requirement/frame/HOW ranges and actual method status/resolve/member acquisition before edits; no delivered-body fiction.",
+    "tools": "Existing STDO Tool read-only commands explicitly permitted; wrapper/interpreter13package sources pinned, no command executed in preparation."
+  },
+  "completionOrder": [
+    "Genuine named installed split-owner case through existing case-local install/local start/core semantic-stage and generic environment owners",
+    "Complete split/coincident full CLI-before-helper preassert evidence, negatives, same-Run assembly/preimage/cold and fresh reads",
+    "Preserve primary error and capture secondary through actual reporter cause fields; no arbitrary property-only retention"
+  ],
+  "stops": "Unwritten required source is an obligation to finish, not a stop by itself. Concrete unsupported dependency/effect, actual failed check or actual bound returns. No invented expiry; actual read-only time permitted.",
+  "preservedExecutableMechanics": {
+    "exact02Files": [
+      "prove.py",
+      "freeze-source.py",
+      "process-owner.py",
+      "physical-topology.py",
+      "setup-custody.py",
+      "dependency-inputs.py"
+    ],
+    "coordinateOnlyFiles": [
+      "HOST.mjs",
+      "operate.py"
+    ],
+    "positiveProofPartition": "Exact immutable semantic10-title1+9, actual-set/disjoint/union guards unchanged.",
+    "finalProtectedInputs": "Existing externalEvidenceRoots spread preserved at all three native observations; expanded rows go through existing pin/physical owners.",
+    "newMechanism": false
+  },
+  "budgets": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 2700000,
+    "nativeMaxTurns": 360,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 10800000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 180000,
+    "perBuildMs": 600000
+  },
+  "freshReadHashInputs": {
+    "sourceRows": 50,
+    "recoveredRows": 7,
+    "externalMethodFiles": 5,
+    "externalEvidenceRows": 17,
+    "fixtureRows": 13,
+    "dependencyRows": 4576,
+    "nativeRows": 196,
+    "npmToolRows": 2326,
+    "toolFiles": 20
+  },
+  "proofPopulation": {
+    "freshBuilds": 1,
+    "testCommands": 6,
+    "distinctFiles": 5,
+    "preservedTopLevelObligations": 43,
+    "defaultLibrary": "Only two selected installed cases; no whole-file or old16-file credit.",
+    "executed": false
+  },
+  "priorStanding": "Native01/02 permanently closed incomplete/unproved, original clocks/audits/raw preserved; seven supported source files now immutable, rejected default-library donors remain read-only.",
+  "lookupLimitations": "Two initially named stale support/environment filenames failed read lookup; corrected through actual import/definition routes, not counted as checks or Product findings.",
+  "unbound": [
+    "Root independent control review/integration/pushed exact source binding",
+    "Fresh03 source/preimage/native launch and actual new clock",
+    "Actual native completion/audit/closed fresh reads and frozen source review",
+    "Separate exact proof grant clipped to original03 enclosure"
+  ],
+  "gaps": [],
+  "notExecuted": [
+    "STDO CLI",
+    "Product imports",
+    "runtime/physical observer",
+    "provider",
+    "behavioral probe/test",
+    "build/proof",
+    "qualification"
+  ],
+  "claims": {
+    "sourceImplemented": false,
+    "nativeLaunched": false,
+    "proofPassed": false,
+    "S06Complete": false,
+    "qualified": false,
+    "executionAuthorized": false,
+    "clockStarted": false
+  },
+  "returnTo": "Root; frozen controls only. No main write/push or further work."
+}

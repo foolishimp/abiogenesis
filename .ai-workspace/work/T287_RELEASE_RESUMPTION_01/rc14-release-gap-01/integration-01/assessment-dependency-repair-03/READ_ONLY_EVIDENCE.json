@@ -1,0 +1,111 @@
+{
+  "files": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 366807,
+      "sha256": "f8cfb91bc2c873636370bed12177cda526ba3a07c7984163da11f006a5c1c344",
+      "role": "rejected_native01_source_donor",
+      "relativeSourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 121267,
+      "sha256": "f2bc9b64368294f950714a00c67d3c9701bf67caf8716db372a412254c1d3419",
+      "role": "rejected_native01_source_donor",
+      "relativeSourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 5128,
+      "sha256": "6c40051bf0ef640ea45efe9b0863042c442371de6f69958de397d91593e9ed1a",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/AUTHOR_AUDIT.json",
+      "bytes": 3005,
+      "sha256": "f84e882f1c95302c2493ba07fd74ce565295735d2b623864cc5814f583c676c2",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/SOURCE_DIFF.patch",
+      "bytes": 64786,
+      "sha256": "ad087ba92f97f3a7764fd93cdf09f1e7eadcd28b97f902c1137566a23d37d6fa",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/setup/consumer-source/build/d1.json",
+      "bytes": 347765,
+      "sha256": "474b43cb3cd2399ad8399f6de8244c1e3ae10c21a58924f3f825c34d9634d9e8",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/resources/events/runtime.events.jsonl",
+      "bytes": 7550103,
+      "sha256": "2bcb3dc3664abd3e366f1992705504bcdd9633ec5a99c96688d9f6d16174c564",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/setup/setup-identity.json",
+      "bytes": 9660711,
+      "sha256": "fa05f1ea58b11525bc97c98d567f46ef7b6a3e82a33acab9524fd8606842ad30",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b31-native-01/RETURN.json",
+      "bytes": 39732,
+      "sha256": "c68c2d68ae730d1dcd565a7bfe01e80b42878651d02f2a97f5894131d0bd459f",
+      "role": "prior_B31_positive_population_ruling"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/PROOF_POPULATION_AUDIT.json",
+      "bytes": 2422,
+      "sha256": "930b2c3fae5500c324637977935869f9c70299759fc2afee1b313caa67597549",
+      "role": "prior_B31_actual_population_audit"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 366518,
+      "sha256": "debe24eeb01db480efb993414ae514d43e4229d545a679c3ee5378a48094ff34",
+      "role": "rejected_native02_source_donor"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 3433,
+      "sha256": "f764ca46d6983b55e1f1eb5704b9cc11e18737d25561505d0c08a5c8e01cc0ce",
+      "role": "closed_native02_report"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/AUTHOR_AUDIT.json",
+      "bytes": 10214,
+      "sha256": "1a4f5d4e1eb2f5c03aef51dd8f6e33118f7c371a5257c07d604d7efd5e13d8ef",
+      "role": "closed_native02_method_audit"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/SOURCE_DIFF.patch",
+      "bytes": 42779,
+      "sha256": "6a49c49a159fb32ae8a5e8813700feabd80530ef378be7eaa65aaf10ea89abae",
+      "role": "closed_native02_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/runtime/resources/archives/fp-8ed731986ecdebbd-prompt.txt",
+      "bytes": 15856,
+      "sha256": "0afde2dbcb2d75a9574efa032af1b3920307b3dd89df68b3b1715d97ccc767cd",
+      "role": "actual_native02_instruction_read_boundary"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/manifest.json",
+      "bytes": 18022,
+      "sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "role": "exact_selected_STDO_read_only_verification_input"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/FRAME_INPUTS.json",
+      "bytes": 105110,
+      "sha256": "3a33acd708e75802c1609e9ce0d1e75dad9bcff2533b5ecb24b5c9659e18b303",
+      "role": "exact_selected_STDO_read_only_verification_input"
+    }
+  ],
+  "standing": "Exact read-only original01/02 donors/reports/audits, D1, B31 and selected STDO verification inputs; no live/release credit.",
+  "nativeReading": "Actual bounded extraction permitted by Task. No whole raw dump, event reopen or source authority transfer. Selected STDO manifest/member verification is explicitly permitted.",
+  "scope": "Native01/02 donor and audit/D1/B31/STDO inputs remain exact read-only bytes. No old proof/acceptance credit. Full raw bodies remain external."
+}

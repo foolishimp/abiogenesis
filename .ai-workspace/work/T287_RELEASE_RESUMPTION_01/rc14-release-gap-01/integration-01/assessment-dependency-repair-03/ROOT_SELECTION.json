@@ -1,0 +1,155 @@
+{
+  "id": "RC14-B56-NATIVE02-CONJUNCTION-AND-REENTRY-03",
+  "recordedUtc": "2026-11-15T21:23:38.422214+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-B56-RECOVERY-RECORDS-WRITER-025",
+    "role": "Separate Root mechanical recovery/integration and records Writer",
+    "authority": "Owner continue/finish RC14; closed independent Product/Design/Identity/Method and Proof/Fixture results plus exact custody.",
+    "effects": [
+      "Record this conjunction and current T287/T293/STATUS; preserve full three-path native02 patch as authored source code.",
+      "Recover exactly the two listed native02 files byte-equal as unproved construction inputs. The default-library test remains a rejected read-only donor.",
+      "Record the independently closed S06 control-reuse readiness; no witness execution.",
+      "Checkpoint/push named source and records; later integrate exact reviewed completion03 controls and compact Returns."
+    ],
+    "exclusions": [
+      "No Root semantic implementation, rejected default-library adoption, raw Git, scope expansion by worker, blind retry, old clock reset, runtime/proof/candidate execution by this record, qualification/B50 or publication."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Fixed5.0 F04/F17/S06 exact schema-owner and executing-Program-use admission and installed cold evidence; ABG retains sole event/Result/replay authority.",
+    "classification": "Immutable source and derived proof fixtures; bounded native execution grant is a distinct effect.",
+    "reentry": "realization_refactor: finish one installed fixture file and repair the external Task acquisition/read dependency grant. No further production or WHAT change."
+  },
+  "native02": {
+    "sourceHead": "3d68a8b7c104c9873b12741fdce5b67d3987534f",
+    "returnCommit": "f4d1f21c7323e26eae3e0dac3dd00f5cb0c95f6c",
+    "returnSha256": "8e88f0753a0c80320b47c43cd6db77298b9f4bbe2c85bd2bfd563526048cea4b",
+    "sourcePostimageSha256": "6da4a29b9153b40b13fc92c1f4113c6fd49d8a07c140a02e8525d63b17dc316d",
+    "sourceDiffSha256": "6a49c49a159fb32ae8a5e8813700feabd80530ef378be7eaa65aaf10ea89abae",
+    "reportSha256": "f764ca46d6983b55e1f1eb5704b9cc11e18737d25561505d0c08a5c8e01cc0ce",
+    "auditSha256": "1a4f5d4e1eb2f5c03aef51dd8f6e33118f7c371a5257c07d604d7efd5e13d8ef",
+    "typedNativeCompleted": true,
+    "actualCloseFreshResultClosedReplay": true,
+    "taskComplete": false,
+    "turns": 33,
+    "sdkWallMs": 371467,
+    "hostWallMs": 421791,
+    "reportedListCostUsd": 2.5392642,
+    "costNotInvoice": true,
+    "originalDeadlineUtc": "2026-11-16T00:05:08.635464+00:00",
+    "attemptClosed": true,
+    "proofWillRun": false
+  },
+  "rootChecks": {
+    "postimageRows": 1558,
+    "distinctReturnAndFreezePins": 19,
+    "mismatches": 0,
+    "host40812Actor41385PidAndSamePgidAbsent": true,
+    "sourceHeadIndexUnchanged": true
+  },
+  "independentResults": {
+    "ProductDesignIdentityMethod": {
+      "actor": "/root/amendment_topology_review",
+      "disposition": "Two source files recoverable, unproved. Native02 incomplete; actual R omits real owners.",
+      "findings": [
+        "Component publication/row/Program/GraphFunction/authority/assembly joins align with the real constructor. Supplied authentication premise remains explicitly component evidence.",
+        "Common HOW owner split is correct. Its named installed split-case paragraph is an unfulfilled proof obligation, never evidence that the case exists.",
+        "Actual RC13 prompt labels context.readRoots Readable worksite scope and requires local reads within it. This is an operative native instruction boundary, though not OS containment. leaf_execution_authority.ts and product/native_workspace_work.ts are missing, with implementation/native_workspace_work.ts the immediate consumer. Extra R does not grant W.",
+        "Actual protocol time-exhaustion claim at21:10:45Z has no configured ceiling basis:371467ms/33turns, success/no stop reason,45min/360turns. Internal reason unknown. R omission does not establish missing installed test was impossible."
+      ]
+    },
+    "ProofFixtures": {
+      "actor": "/root/b29_vm_triage",
+      "disposition": "Two S2 fixture gaps persist; component repair recoverable as unproved source.",
+      "findings": [
+        "Required named installed split case and b56-installed-split.candidate.json absent. First required check unmet is unfinished work, not an unavailable dependency.",
+        "RC7 actual CLI/start/admission/assembly assertions precede capture; negatives, warm/cold preimage and both readbacks remain incompletely captured.",
+        "runInstalledCliRequest416-454 asserts stderr/shape and discards full subprocess output before returning. A wrapper after it cannot capture preassert raw results. Test-local capture at the same installed Public CLI boundary can complete this without changing shared support.",
+        "Capture failure is attached as b56CaptureFailure but actual node-test-evidence-reporter errorValue3-8 drops it. Preserve primary and secondary facts through channels the selected reporter actually retains.",
+        "Existing case-local installTenantOnce, prepareAdditionalProducts, prepareRegisteredSelectionProduct local declarationFactory/start and openCaseEnvironment core semantic-stage constructor suffice. No shared support or Product source write dependency established."
+      ]
+    }
+  },
+  "methodDisposition": {
+    "actualPrompt": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/runtime/resources/archives/fp-8ed731986ecdebbd-prompt.txt",
+      "bytes": 15856,
+      "sha256": "0afde2dbcb2d75a9574efa032af1b3920307b3dd89df68b3b1715d97ccc767cd"
+    },
+    "actualProtocol": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/runtime/resources/archives/fp-8ed731986ecdebbd-stdout.log",
+      "bytes": 2350597,
+      "sha256": "c3006dc5b527909b61ebc19aa5a2e91eac962b72ccf3b4c0b4d59e41b89417c2"
+    },
+    "observed": "Eight installed method sections acquired before first edit. Four text-only Python edits confined to W are permitted under02. No target imports/build/tests/provider nesting/Git writes observed.",
+    "unmet": "Native did not perform required STDO status/member verification and did not acquire required Product/readFirst content before editing. Actual15856-byte prompt contains paths/instructions, not those canonical bodies. No prompt-body or retroactive compliance credit.",
+    "minorIntake": "Directory listing preceded named Task intake; first Task output truncated; later instructions read. One shell marker failure occurred after handoff content; Product Basis subsequently read. Preserve actual ordering.",
+    "recurrence": "Control review established source/control identities but did not retain the actual rendered read-boundary dependency. Successful typed source observation admits a report, not task acceptance. Early author stopping is observed but its internal cause is unknown."
+  },
+  "recovery": {
+    "standing": "Exactly two files accepted as source construction input only after independent content review. No compliance laundering, compile, test, installed or qualification credit. Original five recovered files remain unchanged.",
+    "files": [
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/source-subject/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 207588,
+        "sha256": "ab08b50f6fef9b894bcdc4f11aae906b50c819c507133997137fe325f736356d",
+        "relativePath": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+        "bytes": 125368,
+        "sha256": "8ff9b9bd57e7b73c7c49f64c1a828a49b425130d1d10af415a6de14d92e5bec9",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+      }
+    ],
+    "preservedPatch": "integration-01/assessment-dependency-native-02/SOURCE_DIFF.patch",
+    "rejectedDonor": "native02 frozen t287-default-library.test.mjs; partial captures cannot satisfy proof."
+  },
+  "completionControlWriter": {
+    "id": "RC14-B56-COMPLETION-CONTROL-WRITER-003",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate external preparation Writer",
+    "worktree": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-03",
+    "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-03",
+    "sourceBase": "Exact pushed two-file recovery checkpoint identified in followup",
+    "maximumMs": 1800000,
+    "effects": [
+      "Reuse accepted02 mechanics and positive exact10-title1+9 proof partition; use new03 control/source/proof/raw coordinates. Preserve the final ten-evidence-leaf correction and all actual typed-close/fresh-read, lifetime, custody, first-failure/finally and separate proof guards.",
+      "Set native W to exactly t287-default-library.test.mjs. The seven recovered source files are immutable/read-only. Native02 default-library is a read-only donor; preserve both failed attempts, reports, audits and original clocks.",
+      "Add R for the three actual authority owner/caller paths and scripts/node-test-evidence-reporter.mjs, with exact pins. These are acquisition dependencies, never W. Preserve other necessary existing owner/support/fixture reads.",
+      "First implementation obligation is the actual named installed split-owner case. Then complete both split/coincident preassert and thrown-path captures with full CLI outcomes before helper assertions, same-Run assembly/preimage/cold/readbacks and real reporter retention of primary plus capture error. Existing API/local fixture route stays selected; no default-governance fold or support/Product edits.",
+      "Make mandatory acquisition concrete: own Task/selection first; actual selected STDO status --definition --verify, resolver/manifest member checks and required method content before edits; then actual owning Product/requirement/frame/HOW/readFirst contents. Read-only STDO verification/resolution is explicitly permitted; no sync/install/fallback. A path/hash/summary alone is not content acquisition. Keep scope bounded to deciding owner sections; no historical whole GOALS scan or unrelated review.",
+      "Clarify source-completion checks are obligations to finish before return, not a reason to stop merely because the file/case is still unwritten. Stop only for a concrete unsupported dependency/effect, actual failed check or actual bound; preserve any genuine gap. Permitted read-only host date/time observations may assess elapsed time; no new clock owner or time reset. Do not infer exhausted time from unsupported estimates.",
+      "Retain45min/5min/360turn one-attempt bounds and new3h enclosure/3min reserve. One later90min proof is clipped to that original new clock. No ceiling increase, provider change, auto-proof or old credit.",
+      "Prepare disabled launch/proof templates, fresh source/tool/method/evidence/input pins, static syntax/hash checks, compact manifest and Return. Freeze one exact authored-only commit and stop for independent delta review."
+    ],
+    "exclusions": [
+      "No source/Design/test/support implementation by controls Writer, Product imports/behavioral probes/build/tests/provider/runtime clocks, main/push, raw publication, B50/qualification/cut/pin changes."
+    ],
+    "stops": [
+      "First failed check or need outside grant returns to Root; no unbounded repair."
+    ],
+    "returnTo": "Root exact frozen control review, then separate native grant."
+  },
+  "futureRoots": {
+    "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-03",
+    "proofWorktree": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-03",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03"
+  },
+  "newReadPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_execution_authority.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+    "build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs"
+  ],
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "qualified": false,
+  "rawPublished": false,
+  "preservation": "Original candidate/install and failed S06/amendment/native attempts remain exact; candidate02/amendment07 accepted disabled; B50 unresolved."
+}

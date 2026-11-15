@@ -1,0 +1,11 @@
+{
+  "source": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-03",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03",
+  "proofSubject": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-03",
+  "writePaths": [
+    "/private/tmp/abg-rc14-assessment-dependency-source-20261116-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "status": "Prospective, fresh actual topology before setup and twice before dispatch; existing controlled ASCII observer, no arbitrary namespace/atomic guarantee.",
+  "setupCustody": "Exact imported setup-owned manifest only; no broad .abiogenesis exclusion."
+}

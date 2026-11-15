@@ -1,0 +1,133 @@
+{
+  "files": [
+    {
+      "invocationPath": "/opt/homebrew/bin/node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "invocationPath": "/opt/homebrew/bin/npm",
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "invocationPath": "/usr/bin/python3",
+      "path": "/usr/bin/python3",
+      "bytes": 118640,
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    },
+    {
+      "invocationPath": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "bytes": 33816,
+      "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa"
+    },
+    {
+      "invocationPath": "/usr/bin/git",
+      "path": "/usr/bin/git",
+      "bytes": 118640,
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/bin/stdo",
+      "bytes": 203,
+      "sha256": "dd2fb1a3e5e946dc09132a180e3d8fbb4db1f09aa9c2958a802cf56d439c2fb4",
+      "invocationPath": "/Users/jim/.local/bin/stdo"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/python@3.13/3.13.7/Frameworks/Python.framework/Versions/3.13/bin/python3.13",
+      "bytes": 52640,
+      "sha256": "a708f6e9f4803b806b29146c4e0feecfd9bf2d9eb60f3e15b850cd7cb56f200b",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/bin/python"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/__init__.py",
+      "bytes": 149,
+      "sha256": "cd7002239875e9cd822ddaacc0fd55631c6ac848594a9ad2cf7d7c88ab86cf42",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/__init__.py"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/cli.py",
+      "bytes": 13237,
+      "sha256": "7501055cbc5ffc48190bf66bc5d51cc5c579fc3a1c265c479eb17b06d28bdd06",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/cli.py"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/cohort_assets.py",
+      "bytes": 9190,
+      "sha256": "0ab00000697afb5bd5ab8bb71d56f310be466ac5a7782908f287374293747bff",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/cohort_assets.py"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/cohort_update.py",
+      "bytes": 38674,
+      "sha256": "e00eff22e8938a672c48e3554ee6b194c397cc88d54046c652412283109a13af",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/cohort_update.py"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/composition.py",
+      "bytes": 26259,
+      "sha256": "f9c15e022627c12a1a9c8b7cbaf642fc396101fd2b0314e14b988456afff76d1",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/composition.py"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/constants.py",
+      "bytes": 1872,
+      "sha256": "865976bc3726e27a3f48c6f895d9238b507d1ccf132cfc3cd3622e88db3313e1",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/constants.py"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/errors.py",
+      "bytes": 149,
+      "sha256": "2fcb25411f230ffdb1dfb38a1994b47e23b3516d79cfde7e5bc10d6580a01982",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/errors.py"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/git_source.py",
+      "bytes": 25167,
+      "sha256": "64b1a7f3c1a179cfea56303ecf900378fc0152ea0767018498c5914f9251ce50",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/git_source.py"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/manifest.py",
+      "bytes": 16332,
+      "sha256": "c7b53d36ffd6970cf4bc1d5c626ec17b429e86edbe5f519e73d6ff9ba3033885",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/manifest.py"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/product_definition.py",
+      "bytes": 25849,
+      "sha256": "7c2d81ea1d3cff5769a0a5f1cdb2ca7d4bf37890262090cab071215343c2a077",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/product_definition.py"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/references.py",
+      "bytes": 761,
+      "sha256": "b230307a0c81d9896e3d98e83c17e0aa3f6a6fcf085a33c480027446a1e01a40",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/references.py"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/store.py",
+      "bytes": 17752,
+      "sha256": "24dd080d0daced716e1284733c30089cb4768983e174441aae8eebc0e8f4e74d",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/store.py"
+    },
+    {
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/util.py",
+      "bytes": 2101,
+      "sha256": "51508fc8878db4211abb58265b4dd7824ed92d3125b98b8e392797ccbc68d7c0",
+      "invocationPath": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/util.py"
+    }
+  ],
+  "npmTree": {
+    "path": "/opt/homebrew/lib/node_modules/npm",
+    "inventorySha256": "8245bad3cbdc99d8720c49c1ea829570d304761633405f0c53cb7d7dabb2c2f9",
+    "filesAndLinks": 2326,
+    "bytes": 13354162
+  },
+  "verifiedUtc": "2026-11-15T21:33:51.321010+00:00",
+  "scope": "External Operator executable identity; no new Product authority or portable-host claim.",
+  "stdoScope": "Existing Tool used only for explicitly permitted read-only status/resolve/member verification. No STDO install/sync or ABI runtime operation; no new semantic authority."
+}

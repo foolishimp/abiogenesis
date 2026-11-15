@@ -1,0 +1,42 @@
+{
+  "id": "RC14-B56-COMPLETION03-READ-DEPENDENCIES-01",
+  "recordedUtc": "2026-11-15T21:30:26.756909+00:00",
+  "writerActivation": "RC14-ROOT-B56-RECOVERY-RECORDS-WRITER-025",
+  "parentSelection": "integration-01/B56_NATIVE02_CONJUNCTION_AND_REENTRY_03.json",
+  "preparationSourceBase": "71acfb4f0a5e397777387073dfa59c30270bf14d",
+  "requester": "/root/rc14_release_proof",
+  "rootDisposition": "Add these four exact existing canonical owner files to native03 R and source pins, in addition to the four previously selected read dependencies. Root independently traced exact exported owners and support calls. This completes named construction/transport reads; it changes neither W nor intended Product/test behavior.",
+  "rows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "bytes": 19639,
+      "sha256": "f809e0f1b4c8d810fece82d03d7c1c9781de206db566d35276cde577a3cb2f1e",
+      "owner": "constructRunEnvironmentDeclaration156, called by selected support/default-library.mjs43"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "bytes": 25912,
+      "sha256": "261f712b93e81aa3433a50b00b6ace28fc10b218ae9da983d1a484ac5704fa4e",
+      "owner": "defaultLibraryRunEnvironment268, called by selected support/default-library.mjs34"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+      "bytes": 22460,
+      "sha256": "c5048ae6d50dd2e978bd340bd9c5ea7235a7029332ac6097ef4944aeadc53ff5",
+      "owner": "constructRunEnvironmentResources52, called by selected support/default-library.mjs48"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/cli.ts",
+      "bytes": 5355,
+      "sha256": "7f8f304715970e0aeccba9762efb47f88535734eac0cf56b62f710dc8e7d990b",
+      "owner": "Canonical abg_cli_transport_request28 and --jsonl85 used by selected installed CLI capture"
+    }
+  ],
+  "controlsWriterEffects": "Continue original Writer003 preparation and original30min preparation bound. Copy this addendum into the frozen controls, bind its source pin, and carry reads consistently through Task/activation/source inputs. No source edit, Product import, runtime preview, probe/build/test/provider or execution clock.",
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "futureBindings": "Final native source must still be exact pushed checkpoint with unchanged selected tenant/source bytes. Original71ac preparation source remains valid; later record additions do not retarget tenant identity.",
+  "executionAuthorized": false,
+  "qualified": false
+}
