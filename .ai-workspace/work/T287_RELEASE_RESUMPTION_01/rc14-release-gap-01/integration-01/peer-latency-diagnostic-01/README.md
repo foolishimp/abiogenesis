@@ -104,3 +104,41 @@ once, preserves complete parent stdout/stderr before interpreting events, and
 returns every observed summary without turning red/cancelled/skipped cases into
 success. The seven-file attempt is not broad-suite or qualification closure.
 No main merge/push or automatic execution follows this preparation Return.
+
+## Bounded successor after independent review
+
+The original preparation is preserved at `6961b8f3b24da9d472185ccd10b70847c9319ddb`
+and its original worktree/raw root. Root's separate Writer re-entry changes only
+this external carrier. The original layout was unconstructable: its archive
+contained the worksite, and its write path equalled the worksite. The unchanged
+physical observer correctly refuses both relations. The original completion
+path could also return exit 0 while recording an expired final deadline.
+
+`run.py:diagnostic_layout` now produces the exact prospective layout. The fresh
+`/private/tmp/abg-rc14-peer-latency-worksite-20261115-02` container has two strictly
+contained write destinations: `subject` and `scratch`. `subject` contains all
+source/specification copies, the reused build/dependency payload, and every
+selected test-owned local mutation or pack/install output. `scratch` contains
+TMPDIR, the two distinct npm configs and npm cache, including all child scratch
+and temporary installs. Both recursive destinations are compared against the
+protected source, dependency and proved-payload roots. The separate archive at
+the new raw root's `diagnostic-01` contains all runner receipts, retained-input
+copies, seven per-file command/capture directories and seven child trace trees.
+The observer also compares that complete archive with the worksite and protected
+roots; archive writes are not omitted or disguised as worksite writes.
+
+The actual runner refuses a pre-existing worksite, passes the producer's exact
+layout to the unchanged observer before creating either write destination, and
+retains that input and the observation. The preparation preflight exercises this
+same producer-to-observer relation against the absent future destinations; it
+does not create a test mirror or acquire a Product. Future execution must observe
+the actual layout again. All bounds and ASCII/platform limits remain those of
+the accepted observer; this is not a new general topology service.
+
+After final source conservation, `completion_gate` requires both the original
+wall deadline and its monotonic counterpart. Equality or expiry of either clock
+returns `stopped_incomplete` and exit 1 even after seven complete file receipts.
+The two-minute execution/cleanup separation and every case/child/file deadline
+remain unchanged. The final receipt records both clock decisions. Pure static
+boundary checks and the single read-only physical preflight are bound in
+`SUCCESSOR_CHECKS.json`; no seven-file attempt or new synthetic child probe ran.

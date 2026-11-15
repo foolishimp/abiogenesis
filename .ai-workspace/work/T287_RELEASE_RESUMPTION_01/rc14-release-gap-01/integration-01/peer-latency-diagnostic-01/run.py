@@ -30,6 +30,15 @@ def git(*args):return subprocess.check_output(['/usr/bin/git','-C',str(SOURCE),*
 def source_rows():
  paths=[p.decode() for p in git('ls-tree','-rz','--name-only','HEAD','--',str(REL)).split(b'\0') if p]
  return [{'path':p,'bytes':(SOURCE/p).stat().st_size,'sha256':digest(SOURCE/p)} for p in paths]
+def diagnostic_layout(proof,reuse,dependency):
+ worksite=Path(ACT['diagnosticWorksite'])
+ return {'worksite':str(worksite),'writePaths':[str(worksite/'subject'),str(worksite/'scratch')],
+  'protectedRoots':[str(SOURCE),dependency['path'],reuse['priorProofRoot']],'archiveRoot':str(proof)}
+def completion_gate(failure,completed_files,conserved,wall_now,wall_deadline,monotonic_now,monotonic_deadline):
+ wall=wall_now<wall_deadline;monotonic=monotonic_now<monotonic_deadline
+ completed=failure is None and completed_files==7 and conserved and wall and monotonic
+ return {'withinDeadline':wall and monotonic,'wallWithinDeadline':wall,'monotonicWithinDeadline':monotonic,
+  'disposition':'diagnostic_population_completed' if completed else 'stopped_incomplete','exitCode':0 if completed else 1}
 def diagnostic_custody(trace):
  # Read only. A missing observation does not claim descendant absence.
  pids=set();errors=[]
@@ -60,9 +69,11 @@ def main():
  end=datetime.datetime.fromisoformat(launch['deadlineUtc'])
  assert 0<(end-started).total_seconds()<=ACT['limits']['enclosingMs']/1000
  stop=end-datetime.timedelta(milliseconds=ACT['limits']['cleanupReserveMs'])
+ completion_deadline=clock+(end-started).total_seconds()
  deadline=clock+(stop-started).total_seconds();rows=[];failure=None;original=None;subject=None
  write(proof/'CONTROL_START.json',{'sourceHead':launch['sourceHead'],'launch':pin(launchpath),'startedUtc':started.isoformat(),
-  'deadlineUtc':end.isoformat(),'executionStopUtc':stop.isoformat(),'oldClockReused':False,'qualified':False})
+  'deadlineUtc':end.isoformat(),'executionStopUtc':stop.isoformat(),'monotonicStart':clock,
+  'monotonicDeadline':completion_deadline,'oldClockReused':False,'qualified':False})
  try:
   source_binding=json.loads((HERE/'SOURCE_BINDING.json').read_text())
   original=source_rows();expected=bound(source_binding['tenantInventory'])
@@ -77,11 +88,14 @@ def main():
   dependency=json.loads((HERE/'DEPENDENCY_INPUTS.json').read_text())
   assert deps.inventory(dependency['path'])['sha256']==dependency['inventorySha256']
   assert digest(SOURCE/REL/'package-lock.json')==dependency['lockSha256']
-  subject=proof/'subject';protected=[str(SOURCE),dependency['path'],reuse['priorProofRoot']]
+  layout=diagnostic_layout(proof,reuse,dependency)
+  worksite=Path(layout['worksite']);subject=Path(layout['writePaths'][0]);scratch=Path(layout['writePaths'][1])
+  assert not worksite.exists(),'fresh diagnostic worksite only'
+  write(proof/'LAYOUT.json',layout)
   observed=json.loads(subprocess.check_output(['/usr/bin/python3',str(HERE/'physical-topology.py'),'-'],
-   input=json.dumps({'worksite':str(subject),'writePaths':[str(subject)],'protectedRoots':protected,'archiveRoot':str(proof)}).encode(),timeout=60))
+   input=json.dumps(layout).encode(),timeout=60))
   write(proof/'TOPOLOGY.json',observed);assert observed['ok'] is True and observed['disposition']=='separated'
-  subject.mkdir();tenant=subject/REL;tenant.mkdir(parents=True)
+  subject.mkdir(parents=True);tenant=subject/REL;tenant.mkdir(parents=True)
   for row in original:
    destination=subject/row['path'];destination.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(SOURCE/row['path'],destination)
   for name in ['AGENTS.md','CLAUDE.md','stdo_abiogenesis.json']:shutil.copy2(SOURCE/name,subject/name)
@@ -94,7 +108,7 @@ def main():
   for row in retained['files']:
    src=Path(retained['sourceRoot'])/row['path'];dst=evidence/row['path'];assert src.stat().st_size==row['bytes'] and digest(src)==row['sha256']
    dst.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(src,dst);assert digest(dst)==row['sha256']
-  scratch=proof/'scratch';scratch.mkdir();(scratch/'tmp').mkdir();(scratch/'user.npmrc').write_text('');(scratch/'global.npmrc').write_text('')
+  scratch.mkdir();(scratch/'tmp').mkdir();(scratch/'user.npmrc').write_text('');(scratch/'global.npmrc').write_text('')
   env={'HOME':'/Users/jim','PATH':'/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin','LANG':'en_US.UTF-8','LC_ALL':'en_US.UTF-8',
    'TMPDIR':str(scratch/'tmp'),'NODE_OPTIONS':'','GIT_OPTIONAL_LOCKS':'0','STDO_STORE':'/Users/jim/Library/Application Support/STDO',
    'NPM_CONFIG_OFFLINE':'true','NPM_CONFIG_UPDATE_NOTIFIER':'false','NPM_CONFIG_USERCONFIG':str(scratch/'user.npmrc'),
@@ -145,9 +159,14 @@ def main():
   try:conserved=original is not None and source_rows()==original
   except BaseException as error:
    conserved=False;failure=failure or {'name':type(error).__name__,'message':str(error)}
-  write(proof/'RETURN.json',{'disposition':'diagnostic_population_completed' if failure is None and len(rows)==7 and conserved else 'stopped_incomplete',
-   'sourceHead':launch['sourceHead'],'sourceConserved':conserved,'rows':rows,'failure':failure,'completedUtc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
-   'deadlineUtc':end.isoformat(),'withinDeadline':datetime.datetime.now(datetime.timezone.utc)<end,
+  completed_utc=datetime.datetime.now(datetime.timezone.utc);completed_monotonic=time.monotonic()
+  completion=completion_gate(failure,len(rows),conserved,completed_utc,end,completed_monotonic,completion_deadline)
+  if not completion['withinDeadline'] and failure is None:
+   failure={'name':'DeadlineExceeded','message':'Final conservation completed outside the original wall or monotonic deadline'}
+   if not (proof/'FIRST_FAILURE.json').exists():write(proof/'FIRST_FAILURE.json',failure)
+  write(proof/'RETURN.json',{**completion,
+   'sourceHead':launch['sourceHead'],'sourceConserved':conserved,'rows':rows,'failure':failure,'completedUtc':completed_utc.isoformat(),
+   'deadlineUtc':end.isoformat(),'completedMonotonic':completed_monotonic,'monotonicDeadline':completion_deadline,
    'qualification':False,'claims':'Diagnostic observations under unchanged source and child/case budgets; no automatic red-to-green conversion or peer evidence union.'})
- return 0 if failure is None and len(rows)==7 and conserved else 1
+ return completion['exitCode']
 if __name__=='__main__':raise SystemExit(main())

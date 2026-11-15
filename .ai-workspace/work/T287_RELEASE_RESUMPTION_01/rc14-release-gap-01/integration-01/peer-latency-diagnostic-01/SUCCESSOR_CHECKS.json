@@ -1,0 +1,65 @@
+{
+  "predecessorControls": "6961b8f3b24da9d472185ccd10b70847c9319ddb",
+  "checkedUtc": "2026-11-15T09:06:22.750438+00:00",
+  "run": {
+    "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/peer-latency-diagnostic-01/run.py",
+    "bytes": 13112,
+    "sha256": "25d54f6c3ed325effc7501780277f7377d0ae5fc0f732f741fa73e29b10b5864"
+  },
+  "observer": {
+    "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/peer-latency-diagnostic-01/physical-topology.py",
+    "bytes": 14764,
+    "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+  },
+  "sidecar": {
+    "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/peer-latency-diagnostic-01/child-observer.mjs",
+    "bytes": 5013,
+    "sha256": "b1efe0a0b8bd014a4dcbe606cf26dc19ad5a0f3443bb2d201ac01050d4d351a9"
+  },
+  "static": {
+    "allPythonAst": true,
+    "allJsonParse": true,
+    "newProductOrTestBytes": false
+  },
+  "layoutPreflight": {
+    "input": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-peer-latency-diagnostic-20261115-02/layout-preflight-01/LAYOUT.json",
+      "bytes": 678,
+      "sha256": "c8ae61fc598eda37cd47c4135b940c1bf7e31012d9ec6994dfb0bf8807f62133"
+    },
+    "stdout": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-peer-latency-diagnostic-20261115-02/layout-preflight-01/stdout.raw",
+      "bytes": 27897,
+      "sha256": "50cf1566a12ce1516904a4144270438a30ce695aa64629859963de9b8f38d49f"
+    },
+    "stderr": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-peer-latency-diagnostic-20261115-02/layout-preflight-01/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "process": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-peer-latency-diagnostic-20261115-02/layout-preflight-01/PROCESS.json",
+      "bytes": 313,
+      "sha256": "42becc9feef854c98776dcd39e95b639498fd8201ae25ca75cebd14945ce4ec0"
+    },
+    "disposition": "separated",
+    "mountCount": 27,
+    "relations": 13,
+    "writeDestinations": [
+      "/private/tmp/abg-rc14-peer-latency-worksite-20261115-02/subject",
+      "/private/tmp/abg-rc14-peer-latency-worksite-20261115-02/scratch"
+    ],
+    "futureWorksiteCreated": false
+  },
+  "deadlineBoundaries": {
+    "receipt": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-peer-latency-diagnostic-20261115-02/layout-preflight-01/DEADLINE_BOUNDARIES.json",
+      "bytes": 2632,
+      "sha256": "59c6b6b30b50b35b9cebb6d6553fef863ce3e38d803157ceab157ceb07e749d2"
+    },
+    "cases": 9,
+    "passed": true,
+    "clockStartedForActualDiagnostic": false
+  },
+  "limits": "One planned-layout observation, not an atomic race proof or actual seven-file execution. Original observer/sidecar/platform limits remain."
+}

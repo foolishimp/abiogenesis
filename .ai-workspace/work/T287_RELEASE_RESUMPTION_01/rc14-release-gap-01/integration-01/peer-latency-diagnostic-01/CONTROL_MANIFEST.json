@@ -1,12 +1,13 @@
 {
   "kind": "peer_latency_diagnostic_preparation_controls",
   "sourceBase": "b92f1bf23b8e79f9f9b8146156b6a613c08afd73",
+  "predecessorControls": "6961b8f3b24da9d472185ccd10b70847c9319ddb",
   "executionAuthorized": false,
   "files": [
     {
       "path": "ACTIVATION.json",
-      "bytes": 1956,
-      "sha256": "3ff471f01aff29af64adaa6f40a79ad13fcffd7b8e90ce461bf7d08952cba3ca"
+      "bytes": 2206,
+      "sha256": "f8dfad1f0497e5a5e7cdaaab749d4f425603ed3dc0d53ab208d85fb7e5e4c533"
     },
     {
       "path": "BUILD_REUSE.json",
@@ -21,7 +22,7 @@
     {
       "path": "LAUNCH.template.json",
       "bytes": 446,
-      "sha256": "50d9958b59dbb73d0cd9e0ba91164497c3191592c2c07e7a58232ef08e4666ff"
+      "sha256": "eb853f93eb2ed0964d554d3492f08dd814cbfb0b54da0a5e84d35fbe2f3a39ca"
     },
     {
       "path": "PEER_RECEIPTS.json",
@@ -35,8 +36,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6549,
-      "sha256": "46ee35332a470323c7ce217181c9d99bd25f1ecd6aec3f16f99df40c8ee10dcb"
+      "bytes": 9109,
+      "sha256": "a1a12d5166b7edc500e1b298a1c290d64e7ff0696fb4133866f27d7d32ad4317"
     },
     {
       "path": "RETAINED_INPUTS.json",
@@ -57,6 +58,11 @@
       "path": "STATIC_CHECKS.json",
       "bytes": 2187,
       "sha256": "1cfd140a6581fef395b26011400789626276b900aa5ff3dda66092a3b6cb3dea"
+    },
+    {
+      "path": "SUCCESSOR_CHECKS.json",
+      "bytes": 3196,
+      "sha256": "d48795d88f16ba7f06e8b71a6c7cc9551017404a7a0abbde468cb12587bfe311"
     },
     {
       "path": "SYNTHETIC_PROBE.json",
@@ -90,8 +96,8 @@
     },
     {
       "path": "run.py",
-      "bytes": 11811,
-      "sha256": "ffb39e0fdf601255fd6006f065b911ea4be2b2d9732bb7f8c70a3f2507036863"
+      "bytes": 13112,
+      "sha256": "25d54f6c3ed325effc7501780277f7377d0ae5fc0f732f741fa73e29b10b5864"
     },
     {
       "path": "synthetic-node-probe.mjs",
