@@ -719,7 +719,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T23:55:15.216221+00:00",
+  "updatedUtc": "2026-11-15T23:56:33.743476+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1259,9 +1259,9 @@
     "reportedListCostUsd": 6.576858
   },
   "b56ProofRecovery": {
-    "state": "PROOF_ACTIVE",
+    "state": "PROOF01_CLOSED_CONTROL02_PREPARING",
     "selection": "integration-01/B56_NATIVE04_SOURCE_RECOVERY_AND_PROOF_REENTRY_01.json",
-    "proofAuthorized": true,
+    "proofAuthorized": false,
     "newNativeAuthorized": false,
     "originalDeadlineUtc": "2026-11-16T01:47:31.946547Z",
     "controlCommit": "39117a22f127dff3515f2bba6e57507e1fa3135b",
@@ -1276,6 +1276,12 @@
     "driverPid": 46403,
     "providerCalls": 0,
     "proof01Disposition": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_PROOF01_DISPOSITION_AND_CONTROL02_SELECTION.json",
-    "current": "First fresh build passed; generated capability graph omitted from external proof output list caused pre-test stop. Two frames conjoined; successor controls with exact path and fresh build selected, original proof deadline retained; execution disabled."
+    "current": "First fresh build passed; generated capability graph omitted from external proof output list caused pre-test stop. Two frames conjoined; successor controls with exact path and fresh build selected, original proof deadline retained; execution disabled.",
+    "proof01HistoricalAuthorized": true,
+    "proof01DriverGroupAbsent": true,
+    "proof01TestSelectionsRun": 0,
+    "proof01BuildElapsedMs": 25188,
+    "proof01ReturnCommit": "5633fe0b94367510c9c93051beceb39f0896c98a",
+    "proof02Selection": "integration-01/B56_PROOF01_DISPOSITION_AND_CONTROL02_SELECTION.json"
   }
 }
