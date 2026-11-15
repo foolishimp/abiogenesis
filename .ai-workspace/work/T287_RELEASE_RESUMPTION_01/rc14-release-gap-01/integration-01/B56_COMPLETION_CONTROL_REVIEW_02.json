@@ -1,0 +1,54 @@
+{
+  "id": "RC14-B56-COMPLETION-CONTROL-REVIEW-02",
+  "writerActivation": "RC14-ROOT-RECOVERY-RECORDS-WRITER-023",
+  "authority": "Owner continue/finish RC14 and B56_NATIVE01_CONJUNCTION_AND_REENTRY_02.json; Root records/integration only.",
+  "subject": {
+    "commit": "461c522ee09c3966b3ba9f78cfb02fb131612bde",
+    "tree": "c2dd6706e7af6107d483d740ac67f15a920f598d",
+    "manifestSha256": "a90ab5209dea572ba85679811ebc7414c9c353ae1a3cd8bf40759df656a9d172",
+    "returnSha256": "9f55ba55d74c9a5738c8396f58232d6abbdf0df952f306927f7eb68f9702fd46"
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "classification": "External execution/proof controls; no Product runtime authority.",
+    "outcome": "Complete fixed5.0 assessment admission and installed cold evidence while ABG retains all event, Result and replay authority.",
+    "reentry": "realization_refactor: carry the already-selected protected evidence leaves consistently to the final external observation."
+  },
+  "independentResults": {
+    "ProductDesignIdentityTask": {
+      "actor": "/root/amendment_topology_review",
+      "disposition": "Accept exact scope and Task controls; no material counterexample found.",
+      "evidence": "31 control members, five recovered source pins, ten external evidence pins, exact D1 Program and twelve local declarations independently verified; three-path W, actual installed proof, coherent fixture identity and prospective method permission remain bounded."
+    },
+    "ProofEffect": {
+      "actor": "/root/b29_vm_triage",
+      "disposition": "One S2 external-control omission; remaining reviewed relations satisfied.",
+      "counterexample": "HOST.mjs:120 carries the ten externalEvidenceRoots after setup, but finalProtected at141 omits them immediately before dispatch. The final topology receipt therefore covers an incomplete selected protection set.",
+      "evidence": "31 control members; exact immutable semantic10-title positive1+9 partition, exact actual-set checks, source/evidence custody, reused helpers, typed completion, close/fresh reads and disabled clocks verified."
+    }
+  },
+  "rootDisposition": {
+    "acceptedClaims": "Product/Design/Identity/Task and the remaining bounded Proof/Effect control relations only; no source/proof/runtime credit.",
+    "blockedClaim": "Unconditional completion02 control acceptance and launch.",
+    "cause": "External caller omitted the existing evidence-root list from its final observation argument; no missing Product or observer mechanism.",
+    "selectedCorrection": "Append ...externalEvidenceRoots to finalProtected only, then refresh directly dependent static check, manifest and Return pins. Preserve the previous frozen commit and all other controls.",
+    "reviewScope": "Independent frozen delta review of the one changed call argument and its accounting; no repeated whole control review."
+  },
+  "writer": {
+    "id": "RC14-B56-COMPLETION-CONTROL-WRITER-002-DELTA-01",
+    "actor": "/root/rc14_release_proof",
+    "worktree": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-02",
+    "base": "461c522ee09c3966b3ba9f78cfb02fb131612bde",
+    "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02",
+    "allowedFiles": ["HOST.mjs", "STATIC_CHECKS.json", "CONTROL_MANIFEST.json", "PREPARATION_RETURN.json"],
+    "maximumMs": 900000,
+    "effects": "Apply the single selected caller-list correction, syntax/static/hash verification and dependent receipt regeneration; commit the exact four-file-or-smaller delta and stop.",
+    "exclusions": "No source/Task/proof/observer changes, Product import, behavioral probe, build/test/provider, runtime clock, main/push or old evidence mutation.",
+    "stop": "First failed check or need outside this grant returns to Root. No automatic expansion.",
+    "returnTo": "Root for narrow independent Proof/Effect review and integration."
+  },
+  "executionAuthorized": false,
+  "clockStarted": false,
+  "qualified": false,
+  "rawPublished": false
+}
