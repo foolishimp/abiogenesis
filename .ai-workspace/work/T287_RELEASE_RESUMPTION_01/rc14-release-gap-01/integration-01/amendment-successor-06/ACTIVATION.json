@@ -1,0 +1,54 @@
+{
+  "id": "RC14-AMENDMENT-CONTROL-WRITER-006",
+  "role": "Separate B29 external-control Writer",
+  "authority": {
+    "commit": "623ff9d87eaeb75b7c9a079460244d98cc969e58",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/AMENDMENT_INSTALL_HOST_DISPOSITION_01.json",
+    "bytes": 6974,
+    "sha256": "2098fc26f850c71aa4f48d6c12923877382f66b1e1ddfdb019d2430149da8335",
+    "selector": "successorWriterActivation"
+  },
+  "baseCommit": "623ff9d87eaeb75b7c9a079460244d98cc969e58",
+  "predecessor": "c1b6468736c6289e5689c22bf8ab54658a50b14d",
+  "territory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-06",
+  "ProductFrame": "Fixed5.0 S01/S03/F17 installed runtime, amendment and currentness. External setup coordinates are observations and must join actual cut/install owners; Public and ABG retain runtime authority. Exact STDO3.0.4, empty composition.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#exact-basis",
+    "composition": []
+  },
+  "effectsAllowed": [
+    "After pushed selection, reuse exact successor05 into one isolated new carrier.",
+    "Add the original mechanical INSTALL_RECORD as one explicit fourth smoke-input receipt, checked through the existing receipt owner. Join exact cut-record pin, archive/C0/version/product/content/manifest and canonical host/package-root relation. Keep archive bootstrap distinct.",
+    "Use the record's checked installHost for the unchanged smoke consumer. Include its actual installed tree in entry/exit custody with complete member/byte equality against the existing archive inventory. Preserve source/bootstrap/dependency/tool custody and B52's role split; require receipt and actual install protection.",
+    "Executable changes only run.py and smoke-custody.py; reconcile SMOKE_INPUTS/template coordinates, README/activation/manifest/static checks/compact Return. No replacement framework/schema or runtime.",
+    "One read-only actual-candidate custody acquisition may exercise the new receipt/tree join using exact prior bindings plus the selected original receipt, retaining observation in the declared fresh external readiness root. No Product imports, physical probe, smoke/lifecycle or provider execution. Syntax and unaffected-byte comparisons permitted.",
+    "Freeze one authored-only commit and return to Root for separate exact source review."
+  ],
+  "effectsExcluded": [
+    "No Product/test/maintained helper/candidate/archive/install/pin change, alias tree, rebuild/reinstall, observer or lifetime guard change.",
+    "No raw Git, native/provider/Tool/application execution, main/push, automatic retry or old-clock reuse."
+  ],
+  "elapsedBudgetMs": 1200000,
+  "selectedInstallation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/INSTALL_RECORD.json",
+    "bytes": 6778,
+    "sha256": "16f294953676d261871622e0d88825fb0190352d22a241eed749969c8b5e5b1d",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "externalReadinessRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-readiness-20261116-06",
+  "failedAttempt": {
+    "controls": "c1b6468736c6289e5689c22bf8ab54658a50b14d",
+    "bindingSha256": "cef3d8787059ce8d88e71e5cc95d86e770f7a5f1cc7093a3d31ed871e0b3478b",
+    "startUtc": "2026-11-15T18:47:20.425957+00:00",
+    "deadlineUtc": "2026-11-15T21:47:20.425957+00:00",
+    "returnCommit": "b33eec0fd85ed71a4528300cd6e4db1f8a8b2b92",
+    "returnSha256": "bf34b929ed19b3c4f4853950719c6699c2ce00eb2e40ab8c41f66e5631fff166"
+  },
+  "executionAuthorized": false,
+  "clockStarted": false,
+  "stop": "One actual-candidate custody acquisition only; stop on first failure. Freeze and return for separate source review."
+}

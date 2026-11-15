@@ -1,0 +1,48 @@
+--- amendment-successor-05/smoke-custody.py
++++ amendment-successor-06/smoke-custody.py
+@@ -58 +58 @@
+-    need(set(spec['receipts']) == {'cutRecord', 'archiveMembers', 'dependencyInventory'}, 'Exact cut receipt roles required')
++    need(set(spec['receipts']) == {'cutRecord', 'archiveMembers', 'dependencyInventory', 'installRecord'}, 'Exact cut receipt roles required')
+@@ -90,0 +91,27 @@
++
++    # Mechanical installation and archive bootstrap are different input roles.
++    install = documents['installRecord']
++    need(spec['receipts']['installRecord']['path'] == selected['installRecordPath'] and
++         spec['receipts']['installRecord']['sha256'] == selected['installRecordSha256'], 'Root install receipt binding differs')
++    need(install['kind'] == 'local_unqualified_development_candidate_install' and
++         install['schemaVersion'] == '1' and install['mode'] == 'apply' and
++         install['status'] == 'INSTALL_COMPLETE_UNQUALIFIED', 'Actual completed mechanical installation required')
++    need(all(install['cutRecord'][key] == spec['receipts']['cutRecord'][key] for key in ['path', 'bytes', 'sha256']) and
++         all(install['archive'][key] == cut['archive'][key] for key in ['path', 'bytes', 'sha256']), 'Install cut/archive source differs')
++    expected_install = {'packageName': cut['packageName'], 'packageVersion': cut['version'],
++                        'productId': cut['productId'], **cut['identity'], 'sourceCommit': spec['sourceCommit']}
++    need(all(install['expected'][key] == value for key, value in expected_install.items()) and
++         install['version'] == cut['version'] and install['productId'] == cut['productId'], 'Install candidate identity differs')
++    install_host, installed_root = Path(install['installHost']), Path(install['installedRoot'])
++    need(str(install_host) == selected['installHost'] and str(installed_root) == selected['installedRoot'] and
++         install_host.is_absolute() and installed_root.is_absolute() and
++         install_host.resolve() == install_host and installed_root.resolve() == installed_root and
++         stat.S_ISDIR(install_host.lstat().st_mode) and stat.S_ISDIR(installed_root.lstat().st_mode),
++         'Different or noncanonical actual install coordinates')
++    need(installed_root == install_host / 'node_modules' / cut['packageName'] and
++         install['installedCli'] == str(installed_root / 'build/code/src/public/cli.js'), 'Actual install host/package relation differs')
++    need(install['members'] == install['installedFiles'] == len(member_rows) and
++         install['installedEqualsArchive'] is True and install['owners']['verification'] == 'verified' and
++         install['owners']['installation'] == 'materialized' and install['owners']['installCandidateInLock'] is True and
++         install['owners']['installedContentMatches'] is True, 'Mechanical install completion differs')
++    need({str(install_host), str(installed_root)} <= set(binding['protectedRoots']), 'Actual install host/package must be protected')
+@@ -158,0 +186,9 @@
++    installed = dependency_reader.inventory(installed_root)
++    need(all(row['kind'] == 'file' for row in installed['rows']), 'Actual installed package contains a link')
++    need({row['path']: {key: row[key] for key in ['bytes', 'sha256']} for row in installed['rows']} ==
++         {row['path']: {key: row[key] for key in ['bytes', 'sha256']} for row in member_rows} and
++         len(installed['rows']) == len(member_rows) and installed['bytes'] == members['payloadBytes'],
++         'Complete actual installed package differs from archive members')
++    result['installed'] = {'installHost': str(install_host), 'installedRoot': str(installed_root),
++                           'installId': install['installId'], 'count': len(installed['rows']),
++                           'bytes': installed['bytes'], 'sha256': installed['sha256']}
+--- amendment-successor-05/run.py
++++ amendment-successor-06/run.py
+@@ -144 +144 @@
+-        smoke_env={**env,'ABI5_WAVE1_FROZEN_ARTIFACT_PATH':str(archive),'ABI5_WAVE1_FROZEN_ARTIFACT_SHA256':c['archiveSha256'],'ABI5_WAVE1_FROZEN_INSTALL_HOST':str(package.parents[2]),'ABI5_CANDIDATE_BASIS_SOURCE':'packed_artifact'}
++        smoke_env={**env,'ABI5_WAVE1_FROZEN_ARTIFACT_PATH':str(archive),'ABI5_WAVE1_FROZEN_ARTIFACT_SHA256':c['archiveSha256'],'ABI5_WAVE1_FROZEN_INSTALL_HOST':baseline['candidateSmokeInputs']['installed']['installHost'],'ABI5_CANDIDATE_BASIS_SOURCE':'packed_artifact'}

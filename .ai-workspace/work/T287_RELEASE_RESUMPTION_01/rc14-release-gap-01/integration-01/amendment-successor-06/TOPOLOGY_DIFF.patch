@@ -1,0 +1,7 @@
+--- amendment-successor-04/smoke-custody.py
++++ amendment-successor-05/smoke-custody.py
+@@ -188 +188,3 @@
+-    protected = [cut['source']['sourceArchive']['path'], cut['dependencies']['donor'], *[v['realPath'] for v in cut['toolchain'].values()]]
++    # Historical OS git/tar remain exact byte-custody inputs, not recursive roots.
++    protected = [cut['source']['sourceArchive']['path'], cut['dependencies']['donor'],
++                 *[v['realPath'] for name, v in cut['toolchain'].items() if name not in {'git', 'tar'}]]

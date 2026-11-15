@@ -1,0 +1,130 @@
+{
+  "kind": "bounded_static_preparation_checks",
+  "performedUtc": "2026-11-15T18:59:58.074048+00:00",
+  "pythonAstOnly": [
+    "bounded.py",
+    "command-owner.py",
+    "physical-topology.py",
+    "run.py",
+    "smoke-custody.py"
+  ],
+  "jsonParsePassed": true,
+  "unaffectedFiles": [
+    {
+      "path": "CUSTODY_DIFF.patch",
+      "bytes": 27737,
+      "sha256": "35190f05d9e7a7335cfc3629e4ed9d892989cd10f0ca918f7c6e5a46d1ed3dff"
+    },
+    {
+      "path": "ORACLE.json",
+      "bytes": 1357,
+      "sha256": "e7d4616b1a9846318ede859225fa513c3ca032cd5e2bee0ef66d5ceaa2966655"
+    },
+    {
+      "path": "PROCESS.json",
+      "bytes": 16404,
+      "sha256": "e7a4ff85512f8e0244b4aaa814229a5568a648ed6c61aa1a4c688f4c80a0ee9e"
+    },
+    {
+      "path": "REUSED_HELPERS.json",
+      "bytes": 4924,
+      "sha256": "600a472223a8bf4275d51e5ddc90a8285756f38dba86b978eff8d47e183a1f0d"
+    },
+    {
+      "path": "TOPOLOGY_DIFF.patch",
+      "bytes": 525,
+      "sha256": "34a9f4038879b0d9b7be1ab5df72ff9da2b9dce61c53999c3b8aea1866e50343"
+    },
+    {
+      "path": "amendment-consumer.mjs",
+      "bytes": 7211,
+      "sha256": "331d91e9f7c69528ba9220ccccc7876ca47decd74881aa091b323c236def5356"
+    },
+    {
+      "path": "amendment-setup.mjs",
+      "bytes": 20680,
+      "sha256": "b1633b2431031875c2174f01769ccf26f0922377165e51d063d0391cf4dc096a"
+    },
+    {
+      "path": "amendment.mjs",
+      "bytes": 18069,
+      "sha256": "384587ede17eba18134867ac1a7affc3ac2d40cb74b865a4bdf04ebe1c706c27"
+    },
+    {
+      "path": "baseline-rubric.md",
+      "bytes": 1628,
+      "sha256": "5c2ed42b1b19c366e9e8a1be62aebd33bbc250e3893ba7924f29393b26326139"
+    },
+    {
+      "path": "bounded.py",
+      "bytes": 4206,
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "path": "command-owner.py",
+      "bytes": 1200,
+      "sha256": "16179ed58782c1880118ad4e5c6c2a05d23692d819951b24e2952071fcc9f9f2"
+    },
+    {
+      "path": "coverage.mjs",
+      "bytes": 8688,
+      "sha256": "9d2734cf136eb65370fc694eebb6b4d1c4c3a839b6bb6f31e260b41657c7792b"
+    },
+    {
+      "path": "npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "oracle.mjs",
+      "bytes": 1178,
+      "sha256": "52830cb62f0178699ccdce58415e2f744466c5bb1b96b1d87935e772009854fc"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    }
+  ],
+  "runOnlyDelta": "smoke environment consumes the checked installed installHost; exact reversal restores predecessor",
+  "custodyHelpersAstUnchanged": 4,
+  "cutToolsTailByteUnchanged": true,
+  "B52HistoricalToolRoleSplitPreserved": true,
+  "readiness": {
+    "attempts": 1,
+    "request": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-readiness-20261116-06/REQUEST.json",
+      "bytes": 2816,
+      "sha256": "e6c175dbcd98fcb6e5320c95305eee5de0bcb26c90711ea60ee0d39eaf68ff2a"
+    },
+    "result": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-readiness-20261116-06/RESULT.json",
+      "bytes": 8097,
+      "sha256": "7ba480cca42171134cdcdeaaa7a33e14a65b3b7ea2e997635393ff16b319bba1"
+    },
+    "status": "passed",
+    "elapsedMs": 3785,
+    "installed": {
+      "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+      "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14/node_modules/@abiogenesis/typescript-tenant",
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.14/7646989ad108d1f4cfb8075909c9a26208f5f605b23b590e264c25544ba3332a/0657e3111a0c31651b2443da00dc2d0a98abb82eb169560f44418bc80988cf54",
+      "count": 5302,
+      "bytes": 69284648,
+      "sha256": "ec785e52357f181e6af896e5c33bd9b53ca48ad93031a23b97222abf8d0795b3"
+    },
+    "firstFailure": null,
+    "ProductImports": false,
+    "physicalProbe": false,
+    "smokeOrLifecycle": false,
+    "provider": false
+  },
+  "intakeObservation": "A read-only initial script treated the grant prose word only as a path suffix; ENOENT before worktree/acquisition. Root confirmed literal path and unchanged grant. No readiness attempt occurred.",
+  "ProductImports": false,
+  "runtimeExecution": false,
+  "custodyOnlyDelta": "Add fourth exact mechanical-install receipt/identity/root join and one full installed inventory using existing reader; exact reversal restores predecessor bytes."
+}
