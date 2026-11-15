@@ -4,7 +4,7 @@ import {spawn} from 'node:child_process';
 import {populateAmendment,constructAmendmentCall} from './amendment-setup.mjs';
 import {amendmentCoverage} from './coverage.mjs';
 import {readFile,mkdir,writeFile,readdir,lstat,readlink} from 'node:fs/promises';
-import {join,relative,isAbsolute} from 'node:path';
+import {join,relative,isAbsolute,dirname} from 'node:path';
 import {pathToFileURL,fileURLToPath} from 'node:url';
 
 const b=JSON.parse(await readFile(process.argv[2],'utf8'));
@@ -16,7 +16,7 @@ for(const key of Object.keys(providerCredentials)) {
   assert(providerCredentials[key],'Missing selected credential key: '+key);
   delete process.env[key];
 }
-const control=fileURLToPath(new URL('.',import.meta.url));
+const control=dirname(fileURLToPath(import.meta.url));
 const tenant=join(b.controlSourceRoot,'build_tenants/abiogenesis/typescript');
 const load=path=>import(pathToFileURL(join(tenant,path)).href);
 const R=await load('test_env/uat/runner.mjs'), S=await load('test_env/uat/scenarios.mjs');
@@ -88,6 +88,24 @@ const tree=async(dir,prefix='')=>{
   }
   return rows;
 };
+// Pure external layout construction. Roles come from declared custody and the
+// one actual environment; no overlap result selects or removes a protected root.
+function topologyLayouts(environment,writePaths,b,control,worksiteRoot) {
+  const binding=environment.workspaceBinding,roots=Object.values(binding.roots);
+  assert(roots.every(value=>typeof value==='string'));
+  const installRoots=environment.productInstalls.map(row=>row.installedRoot);assert.equal(installRoots.length,2);
+  const unique=values=>[...new Set(values)].sort();
+  const external=unique([b.candidate.bootstrapPackageRoot,b.candidate.archivePath,b.controlSourceRoot,control,b.smokeSourceRoot,...b.protectedRoots]);
+  assert(![...roots,...installRoots,...external].includes(b.rawRoot),'Outer capture container is a separate declared custody role');
+  const completeProtectedRoots=unique([...roots,...installRoots,...external,b.rawRoot]);
+  const layouts=[
+    {role:'operator-custody',layout:{worksite:worksiteRoot,writePaths,protectedRoots:unique([b.rawRoot,...external]),archiveRoot:b.rawRoot}},
+    {role:'runtime-owner',layout:{worksite:worksiteRoot,writePaths,protectedRoots:unique([...roots,...installRoots,...external]),archiveRoot:binding.roots.archiveRoot}},
+  ];
+  assert.equal(layouts[0].layout.writePaths,layouts[1].layout.writePaths,'Both roles share exact W');
+  assert.deepEqual(unique(layouts.flatMap(row=>row.layout.protectedRoots)),completeProtectedRoots,'Complete original protected set conserved');
+  return {bindingId:binding.bindingId??null,installRoots,completeProtectedRoots,layouts};
+}
 let caller,summary={status:'incomplete',scenario:'amendment',qualified:false};
 try {
   await record('run.json',{runId:b.runId,sourceCommit:b.candidate.sourceCommit,
@@ -119,18 +137,20 @@ try {
   const before=await tree(config.worksiteRoot);await record('worksite-before.json',before);
   async function observeLayout(phase) {
     assert.equal(S.digest(await readFile(join(control,'physical-topology.py'))),'sha256:eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31');
-    const environment=caller.refresh(),binding=environment.workspaceBinding;
-    const roots=Object.values(binding.roots);assert(roots.every(value=>typeof value==='string'));
-    const installRoots=environment.productInstalls.map(row=>row.installedRoot);assert.equal(installRoots.length,2);
+    const environment=caller.refresh();
     const writes=[...new Set([...Object.values(input.original.workOrders).flatMap(order=>order.writeRoots),
       ...input.original.testing.allowedWriteTerritories.map(row=>row.relativePath)])].map(path=>S.fixturePath(config.worksiteRoot,path));
-    const layout={worksite:config.worksiteRoot,writePaths:writes,
-      protectedRoots:[...new Set([...roots,...installRoots,b.candidate.bootstrapPackageRoot,b.candidate.archivePath,b.controlSourceRoot,control,b.smokeSourceRoot,b.rawRoot,...b.protectedRoots])].sort(),archiveRoot:b.rawRoot};
-    const layoutPath=await record('topology-'+phase+'.layout.json',{...layout});
-    const observed=await command('topology-'+phase,b.pythonPath,[join(control,'physical-topology.py'),layoutPath],{timeoutMs:60000,maxBytes:4194304});
-    assert.equal(observed.exitCode,0);const value=JSON.parse(observed.stdout);
-    await record('topology-'+phase+'.observation.json',{layout,bindingId:binding.bindingId??null,installRoots,observed:value,at:new Date().toISOString()});
-    assert.equal(value.ok,true);assert.equal(value.disposition,'separated');
+    const prepared=topologyLayouts(environment,writes,b,control,config.worksiteRoot);
+    await record('topology-'+phase+'.roles.json',{bindingId:prepared.bindingId,installRoots:prepared.installRoots,
+      completeProtectedRoots:prepared.completeProtectedRoots,roles:prepared.layouts.map(row=>({role:row.role,archiveRoot:row.layout.archiveRoot}))});
+    for(const {role,layout} of prepared.layouts) {
+      const label='topology-'+phase+'-'+role;
+      const layoutPath=await record(label+'.layout.json',layout);
+      const observed=await command(label,b.pythonPath,[join(control,'physical-topology.py'),layoutPath],{timeoutMs:30000,maxBytes:4194304});
+      assert.equal(observed.exitCode,0);const value=JSON.parse(observed.stdout);
+      await record(label+'.observation.json',{role,layout,bindingId:prepared.bindingId,installRoots:prepared.installRoots,observed:value,at:new Date().toISOString()});
+      assert.equal(value.ok,true);assert.equal(value.disposition,'separated');
+    }
   }
   await observeLayout('after-setup');
   // Initial counterevidence must arrive through the declared Testing owner.

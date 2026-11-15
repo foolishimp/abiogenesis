@@ -1,14 +1,14 @@
 {
   "kind": "external_control_successor_manifest",
-  "preparationSource": "5582dcbf0daa265a7439e65bb15619d8aaf579f7",
+  "preparationSource": "b66663e43280836878a5f491e2a7c0d93f6f5524",
   "retainedControlCommit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
   "retainedControlRelativePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-preparation-01",
   "retainedControlManifestSha256": "d595c6bba5daec4a26267c0147fd5f28566784146217c360522e7ffb31db4d8b",
   "controls": [
     {
       "path": "ACTIVATION.json",
-      "bytes": 1918,
-      "sha256": "29a53286b3633973279bbe13ac2d53ed0caa9b74b5307b566ec477cd5d11bc44"
+      "bytes": 3449,
+      "sha256": "b65bb1f7af78efbe263567633145b51e86a446c37db1aa19f72a6b8a57a2affe"
     },
     {
       "path": "BINDING.template.json",
@@ -27,8 +27,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 2759,
-      "sha256": "05035324c4d727eef4480e8912c564ffe8f3e1aec1a9b5e4f9279121a098b0d5"
+      "bytes": 5095,
+      "sha256": "01a03a17150c19e79b502e7bfb904f22e75310f917157a343377d62a6e201211"
     },
     {
       "path": "REUSED_HELPERS.json",
@@ -42,8 +42,8 @@
     },
     {
       "path": "STATIC_CHECKS.json",
-      "bytes": 2637,
-      "sha256": "01178a0e09c8219fdecb9311d17ec1b20f25ffd137c0c9f0f3c66f5451e35441"
+      "bytes": 5970,
+      "sha256": "4376e56b2295f16fa06320f0c42f3863215fa81a67047360d99635ef41e26aa9"
     },
     {
       "path": "amendment-consumer.mjs",
@@ -57,8 +57,8 @@
     },
     {
       "path": "amendment.mjs",
-      "bytes": 16580,
-      "sha256": "a02c0e393064f05226dcb8399960d28494afa5ec8d8022f38b7f7a6a05a7abd0"
+      "bytes": 18069,
+      "sha256": "384587ede17eba18134867ac1a7affc3ac2d40cb74b865a4bdf04ebe1c706c27"
     },
     {
       "path": "baseline-rubric.md",

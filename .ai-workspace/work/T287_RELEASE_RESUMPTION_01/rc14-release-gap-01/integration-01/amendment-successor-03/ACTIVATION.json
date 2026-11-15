@@ -38,5 +38,23 @@
     ],
     "capMs": 30000,
     "cleanupMs": 15000
+  },
+  "successorRepair": {
+    "source": "b66663e43280836878a5f491e2a7c0d93f6f5524",
+    "cause": "URL directory pathname retains trailing slash; unchanged observer requires lexical canonical form",
+    "grant": "Root separate Writer reactivation; exactly dirname import and control assignment plus compact metadata",
+    "probeRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-preflight-20261115-04",
+    "effects": "Exact-source initializer under controlled import.meta.url, Python normpath comparison and one read-only unchanged physical observer command; 30 s command plus 15 s cleanup"
+  },
+  "pairedLayoutReentry": {
+    "source": "b66663e43280836878a5f491e2a7c0d93f6f5524 plus retained failed04 two-line preparation",
+    "authority": "Root accepted closed B29 Product/Integration/Identity/Effect/Proof disposition",
+    "scope": "Actual host one-refresh two-role layouts, same exact W, protected-set union preservation; unchanged observer/bridge",
+    "probeRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-preflight-20261115-05",
+    "enclosingMs": 75000,
+    "eachObserverCapMs": 30000,
+    "ownerCleanupMs": 15000,
+    "input": "Root-selected external read-only field projection: event ordinal3 binding artifact joined to workspace-bind.outcome and setup-identity admitted installs; not current runtime admission",
+    "priorFailures": "Original lexical refusal and04 seven-overlap result preserved; no old clock reset"
   }
 }

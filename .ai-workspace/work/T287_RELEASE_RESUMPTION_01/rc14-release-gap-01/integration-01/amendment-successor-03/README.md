@@ -40,3 +40,38 @@ to5582dcbf0. Initial admitted counterevidence, baseline invalidation/refresh,
 preserved impact, native acceptance and held/close/fresh-read obligations remain
 prospective. S06 is separate. Execution remains disabled pending Root's exact
 independent recheck and later grant; no automatic retry, main mutation or push.
+
+Root selected the subsequent lexical-coordinate repair from b66663e43: only
+the dirname import and control initializer change. The original URL-directory
+producer retained a slash; Python planned-layout construction did not. The
+exact initializer is discriminated separately under controlled import.meta.url
+without Product imports; unchanged physical observation and original negative
+evidence remain authoritative for their bounded claims. The earlier bridge
+probe remains tied to b66663e43, with its executed bridge/loader/owner unchanged.
+
+The exact initializer passed the04 discriminator, but the unchanged observer
+returned overlap: the retained layout labels the outer raw evidence root as
+archiveRoot while it contains seven protected runtime/install roots. The one
+probe stopped on that first failure; inputs were conserved and groups absent.
+Root held freeze for a separate layout-contract disposition. No retry or
+topology-closure claim is made by this unfinished source change.
+
+Root then selected a separate two-layout re-entry. Each phase refreshes the
+actual environment once and supplies identical W to both unchanged observer
+calls. Operator custody protects the outer capture root and explicit external
+inputs; runtime ownership protects all actual binding/install roots and those
+external inputs, with the actual binding archiveRoot. Their protected-set union
+must equal the complete original set. Roles come from declarations, never an
+overlap result. Both observations must pass and retain distinct layout/result
+records. The75 s physical discriminator uses the exact extracted host function
+and Root-selected retained binding/install fields; it is not runtime admission
+or a substitute for later fresh phase observations.
+
+The05 paired physical discriminator passed once: exact host function/initializer,
+identical W and complete protected union; both unchanged observer calls returned
+separated. All three owned groups ended and entry/exit inputs were conserved.
+The separately created extraction program is bound in ACTIVATION before the
+first command and conjoined with INPUTS_ENTRY in INPUT_CONSERVATION.json. The
+04 red and original lexical refusal remain unchanged. This closes the selected
+external construction discriminator only; later live phases still acquire and
+observe their own actual environment.
