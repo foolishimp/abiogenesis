@@ -1,0 +1,50 @@
+{
+  "kind": "external_control_successor_manifest",
+  "preparationSource": "69f5c035af0e21114104aaaa8354f59bc4d38808",
+  "retainedControlCommit": "c1683d3cdb299c33b0d20bd04b7c1d40d6a05862",
+  "retainedControlRelativePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/installed-smoke-preparation-01",
+  "retainedControlManifestSha256": "bcc070ad765b3a5a2a4de05d3292877e8d562c341a4a80a56ed904db12b7acf1",
+  "controls": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 2439,
+      "sha256": "284b6ab01e53928fae63681630431e8b9285f74b1f15bed8757a3c89decd184d"
+    },
+    {
+      "path": "BINDING.template.json",
+      "bytes": 3789,
+      "sha256": "81d4722c29d926611eafe38ba32e456561630880d8475cd26bae56b0d99c91a0"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6459,
+      "sha256": "8cf4c6a0ea47f369620ff27e5396607488ec8502b3e97da11f20523c2611ee07"
+    },
+    {
+      "path": "SMOKE_INPUTS.json",
+      "bytes": 8332,
+      "sha256": "1155cd29bce90d2bc139e0b50730624a3ae48bfa89c36139a34166fc9fe5f694"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 1842,
+      "sha256": "1ebc308deb2409b158bb8e6d350b31f0d6a71eb3df9ef527b24f346fa17c1709"
+    },
+    {
+      "path": "basic-cli.mjs",
+      "bytes": 15413,
+      "sha256": "98062a72c8c9f619c6872d1eb6bc6a551c44ac569cbce5433c817faff5d95b87"
+    },
+    {
+      "path": "run.py",
+      "bytes": 13919,
+      "sha256": "d19e087859ded07942fbea1730d53b77f87b0aa16c9d611297eedce9fc0283db"
+    },
+    {
+      "path": "smoke-custody.py",
+      "bytes": 9454,
+      "sha256": "1a668244df0e34e5be4d82c665a591f2a5a1eaa5f42708e9287f74e7252b0bdb"
+    }
+  ],
+  "executionAuthorized": false
+}
