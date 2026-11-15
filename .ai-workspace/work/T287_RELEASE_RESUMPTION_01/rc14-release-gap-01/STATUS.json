@@ -1,5 +1,5 @@
 {
-  "status": "RC14_NATIVE05_SOURCE_REVIEW_CLOSED_PROOF_ENTRY_ACCEPTED",
+  "status": "RC14_NATIVE05_PROOF_STOPPED_ONE_FILE_NATIVE06_PREPARATION",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -8,7 +8,7 @@
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
   "providerCalls": 7,
-  "triage": "Native05 actualcompletedRun closed; independent source review permits16wholefileproof, explicitmethodresidual preserved. Peer3file18casesgreen and S06offline dependencyresolutionclosed. S06actualtoolchain-to-C2 join intakepending; finalcandidate/qualificationopen.",
+  "triage": "Native05 five-file source checkpointed; two whole files13cases passed, third14pass/3fail has two stale P5 expectations plus recorder cascade. Native06 one-file controls preparing;13 other files unrun. Peer diagnostics closed18/18, offline S06 dependency closure passed; C2 Tool join source review satisfied with bounded network claim pending records. Qualification policy remains unanswered.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
   "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
@@ -28,7 +28,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-15T09:34:25.866288+00:00",
-  "nativeAuthorState": "Native05 actualClaudeOpus5.5 actorstarted09:22:41.131Z aftersetup/topology; originaldeadline12:21:55.242224Z. Noauthorcompletion/proofyet.",
+  "nativeAuthorState": "No active provider. Native05 completed and proof closed failed; native06 preparation only.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -590,7 +590,7 @@
     "qualificationOrder": "C0 compiles; C1 binds complete inventory; prospectiveRC14 bytes fixed before qualification; formal publication copies qualified archive unchanged"
   },
   "s06Preparation": {
-    "state": "ACCEPTED_PREPARATION_TOOLCHAIN_AND_CANDIDATE_PENDING",
+    "state": "TOOL_C2_JOIN_REVIEW_SATISFIED_CANDIDATE_UNBOUND",
     "rejectedSubject": "6af06d60ea84ba15f1222479070b5950ca887267",
     "writer": "/root/b29_vm_triage",
     "reviewer": "/root/rc14_release_proof",
@@ -605,10 +605,14 @@
     "executionBound": false,
     "sourceScope": "integration-01/s06-preparation-01",
     "subject": "60cd47319b360048f2176f97d0d2cb8703df1397",
-    "acceptance": "integration-01/S06_PREPARATION_ACCEPTANCE_02.json"
+    "acceptance": "integration-01/S06_PREPARATION_ACCEPTANCE_02.json",
+    "toolJoinSubject": "62b148155eb087e6fc4d19e6fceb9d2eea4dd9ad",
+    "toolJoinWriter": "/root/b30_catalog_triage",
+    "toolJoinReviewer": "/root/b29_vm_triage",
+    "networkLimit": "Measured Unix/v4/v6 loopback exchange and denied remote connect; wildcard bind allowed, remote ingress unmeasured. Root applicability disposition pending durable acceptance."
   },
   "peerLatencyIntake": {
-    "state": "CLOSED_TRIAGE_DIAGNOSTIC_PREPARATION_ONLY",
+    "state": "CLOSED_TRIAGE_AND_BOUNDED_DIAGNOSTIC",
     "record": "integration-01/PEER_LATENCY_TRIAGE_01.md",
     "observedPassCases": 18,
     "captureParseFailures": 2,
@@ -623,7 +627,7 @@
     "native04ScopeExpanded": false
   },
   "regressionRepair05": {
-    "state": "NATIVE_AUTHOR_RUNNING",
+    "state": "SOURCE_CHECKPOINTED_PROOF_CLOSED_FAILURE",
     "controls": "def9a97ed3ab9d15d69d1221ee0a84160d87d773",
     "acceptance": "integration-01/NATIVE05_CONTROL_ACCEPTANCE.json",
     "writePaths": 5,
@@ -640,14 +644,18 @@
     "originalDeadlineUtc": "2026-11-15T12:21:55.242224Z",
     "model": "claude-opus-5-5",
     "effort": "xhigh",
-    "proofAuthorized": false
+    "proofAuthorized": true,
+    "sourceCommit": "97b1fa1ccc7c8e160efcd7208a1c87a4ab4443da",
+    "mainMerge": "2b979bbe3",
+    "closure": "integration-01/NATIVE05_PROOF_CLOSURE.json"
   },
   "peerLatencyDiagnostic": {
-    "state": "THREE_FILE_PREPARATION_ACCEPTED_PENDING_EXACT_LAUNCH",
+    "state": "CLOSED_THREE_FILES_18_PASS",
     "subject": "f022c572532d668add27ed026384be4d057155bc",
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "wholeFiles": 3,
-    "executionBound": false
+    "executionBound": true,
+    "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json"
   },
   "peerCompleteBC": {
     "record": "integration-01/PEER_COMPLETE_BC_RECONCILIATION.json",
@@ -655,7 +663,7 @@
     "passFiles": 205,
     "redFiles": 23,
     "additionalFailingFiles": 0,
-    "followupD": "Closed09:33:53Z; fourdiagnosticfilesnowpass; threepersistentcancelledfilesselectedonce"
+    "followupD": "Closed09:33:53Z; four diagnostic files pass. Remaining three closed in separate original-budget diagnostic18/18; no causal latency or qualification claim."
   },
   "qualificationRoute": {
     "state": "PRIOR_ATTRIBUTION_HOW_INCOMPLETE_ELIGIBILITY_POLICY_DECISION_PENDING",
@@ -664,17 +672,18 @@
     "paidQualificationStarted": false
   },
   "s06Toolchain": {
-    "state": "SECOND_PREFLIGHT_STOPPED_SBT_SIGNAL5",
-    "subject": "96b93b75b9b0310651334710ecd37cbcbb4805e5",
+    "state": "THIRD_PREFLIGHT_CLOSED_SUCCESS",
+    "subject": "03b05d3d2fb18c61fecf8dad42943e8c718c53e2",
     "javaVersion": "11.0.28",
     "javaVersionPassed": true,
     "sbtElapsedMs": 2597,
     "stdoutStderrBytes": 0,
     "allInputsConserved": true,
-    "dependencyClosure": "unknown",
-    "readOnlyOriginatingCauseTriage": "active; no retry"
+    "dependencyClosure": "offline resolved;163 classpath jars; no application execution",
+    "readOnlyOriginatingCauseTriage": "closed",
+    "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T10:05:42.887531+00:00",
+  "updatedUtc": "2026-11-15T10:41:36.720345+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -706,8 +715,19 @@
     "modifiedPaths": 5,
     "sourceReview": "integration-01/NATIVE05_SOURCE_REVIEW.json",
     "methodAudit": "integration-01/NATIVE05_METHOD_DISPOSITION.json",
-    "proofExecuted": false,
+    "proofExecuted": true,
     "qualification": false,
-    "proofEntry": "integration-01/NATIVE05_PROOF_REENTRY_ACCEPTANCE.json"
+    "proofEntry": "integration-01/NATIVE05_PROOF_REENTRY_ACCEPTANCE.json",
+    "proofDisposition": "stopped_first_failure",
+    "closure": "integration-01/NATIVE05_PROOF_CLOSURE.json"
+  },
+  "regressionRepair06": {
+    "state": "ONE_FILE_TWO_CASE_PREPARATION_ONLY",
+    "triage": "integration-01/NATIVE06_TWO_CASE_TRIAGE.json",
+    "executionBound": false,
+    "sourceHead": null,
+    "writePaths": 1,
+    "freshWholeFiles": 14,
+    "retainedWholeFilesConditional": 2
   }
 }

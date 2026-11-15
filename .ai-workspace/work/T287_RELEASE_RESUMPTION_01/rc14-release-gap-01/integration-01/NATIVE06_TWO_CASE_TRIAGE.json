@@ -1,0 +1,53 @@
+{
+  "id": "RC14-NATIVE06-TWO-CASE-TRIAGE-01",
+  "recordedUtc": "2026-11-15T10:41:36.720345+00:00",
+  "productFrame": "Fixed5.0 GOAL035/T287 RC14. Immutable Program coordinates, ABG event admission/calculus and distinct F_H authority remain unchanged. Test projections are evidence, not a rival owner. P5 retires construction continuation/index semantics while keeping generic public operation facts and fail-closed historical lifecycle admission.",
+  "exactSubject": {
+    "commit": "2b979bbe3",
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "bytes": 122252,
+    "sha256": "99d923d17a43e2c68d6b197b2d2e0d468f26a554a2b9bbaefaf9d2e3e7de501f",
+    "runtimeHistorySha256": "c3065c8ea56147dabcf8f407bb3e0ce246e47686ee35f39124048a804767a383"
+  },
+  "authorityRoutes": [
+    ".ai-workspace/work/T292_CONSOLIDATION_01/TD-26_RETIREMENT_PLAN.md sections2.4 and6/P5",
+    ".ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P5_RETURN.md lines36-39",
+    "P5 source4a6889a3bf1d85f37fc7ae8dc2a11fea0b449044"
+  ],
+  "causes": [
+    {
+      "case": 3,
+      "origin": "Test expects construction-operation index explicitly removed by P5; current runtime_history696-755 retains generic public operation/continuation/pending classes. No production consumer of retired key.",
+      "repair": "Assert retired key absent; retain complete historical generic bucket equality, orphan payload/envelope facts, mixed-arm classes, nonpublic exclusion and immutable-history identity. Do not trim shared class lists."
+    },
+    {
+      "case": 7,
+      "origin": "Retired construction intent/selection causes Event Calculus lifecycle refusal before outer F_H pair projection. Test wrongly expects invocation_pair_invalid through an invalid-calculus prefix.",
+      "sourceTrace": "effectful_invocation_truth149 -> artifact_truth964/818/667 -> event_calculus331/298/251-254 -> calculus/fold214/116 -> axioms1261-1263. artifact_truth982 maps the caught lifecycle error to event_envelope_invalid; later pair check195 is not reached.",
+      "uncertainty": "Original exact thrown lifecycle message was not captured; it is source-traced. Actual outer artifact_truth_invalid/event_envelope_invalid/empty refs were captured.",
+      "repair": "Reorder existing historyA controls: F_H respond first, then retired intent/selected. At first valid-calculus cut keep exact invocation_pair_invalid/respond reference; at retired cuts prove same-prefix lifecycle cause and actual outer refusal. Preserve direct F_H sorted orphan set, complete current Run pairs, warm/copied/cold/historical/unrelated equivalence, historyB and unwritten mixed-arm refusal. No extra installed Run."
+    },
+    {
+      "case": 13,
+      "origin": "Final recorder checks missing case3 assignment after earlier assertion failure.",
+      "repair": "None; retain strict recorder assertion unchanged."
+    }
+  ],
+  "captureGap": "Node reporter drops test:diagnostic. Native04 case7 diagnostic was not a durable candidate capture before scratch cleanup. Native06 must write full case3/case7 candidates under ABG_REGRESSION_PROOF_ROOT before assertions; no reporter change.",
+  "completeAffectedCone": "Exactly one tenant test file; original runtime/definitions and other15 repaired paths conserved. New names map old case3/case7 without deleting coverage;17 separate build-reuse exceptions are not write authority.",
+  "prospectiveReentry": {
+    "writer": "/root/rc14_release_proof external controls; actual source through RC13 native author",
+    "nativeMinutes": 20,
+    "maxTurns": 160,
+    "inactivityMinutes": 5,
+    "freshHostMinutes": 135,
+    "proofMinutes": 90,
+    "freshWholeFiles": 14,
+    "conditionalRetainedFiles": 2,
+    "overallTopLevelMinimum": 71,
+    "installedMethodReadBeforeEdit": true,
+    "finalSourceHead": null,
+    "authorStarted": false
+  },
+  "closure": "Review actual native one-file diff/captures and exact owner-typed completion. Prove changed003 and13 unattempted whole files once; retain001/002 only through verified unchanged source/support/build/deps/input/load relation. No old clock reset, weakened assertion or qualification claim."
+}

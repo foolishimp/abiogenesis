@@ -1,0 +1,69 @@
+{
+  "id": "RC14-NATIVE05-PROOF-CLOSURE-01",
+  "recordedUtc": "2026-11-15T10:41:36.720345+00:00",
+  "role": "Root records Writer08 conjoining independent reviewer and closed Operator results",
+  "sourceCommit": "97b1fa1ccc7c8e160efcd7208a1c87a4ab4443da",
+  "mainMerge": "2b979bbe3",
+  "sourcePaths": 5,
+  "sourceTree": "42134a014e1fd0bcd960f84bfa40e99f9b12c14b",
+  "nativeCompletion": {
+    "innerDisposition": "completed",
+    "actualResourceClose": true,
+    "freshResultAndReplay": "task-matching terminal and closed Run",
+    "turns": 154,
+    "wallMs": 1425437,
+    "methodResidual": "Installed stdo-work acquisition absent; independent review permits bounded proof only, not retrospective method compliance."
+  },
+  "proof": {
+    "disposition": "stopped_first_failure",
+    "startedUtc": "2026-11-15T10:09:02.135162Z",
+    "closedUtc": "2026-11-15T10:22:48.764967Z",
+    "deadlineUtc": "2026-11-15T11:39:02.135162Z",
+    "originalHostDeadlineUtc": "2026-11-15T12:21:55.242224Z",
+    "elapsedMs": 826630,
+    "syntaxPassed": 5,
+    "completedWholeFiles": [
+      {
+        "file": "t287-required-operation-bindings",
+        "passed": 11,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "file": "t292-td26-p6-language-retired",
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "file": "t287-single-address-space-consolidation",
+        "passed": 14,
+        "failed": 3,
+        "skipped": 0,
+        "topLevelCases": 13,
+        "totalCases": 17
+      }
+    ],
+    "unrunWholeFiles": 13,
+    "allObservedCommandGroupsAbsent": true,
+    "sourceConserved": true,
+    "setupCustodyReverified": true,
+    "successLoopFinalChecksReached": false
+  },
+  "rawEvidence": {
+    "root": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-05",
+    "proofReturnSha256": "4ec14319c6ee1d168958723241dda8b738fdcec9a7a25acfe1eb326e9c8561a7",
+    "firstFailureSha256": "caf6fa1f7eec5e8512fc2fa5d89996b5772cfa546f15531ddb252f0899a3abbe",
+    "failedStdoutSha256": "d61cdc1a87650600f738618c6998a1dcdd5562c59b2cf9c1626e714ffae589bc",
+    "published": false
+  },
+  "lateConservation": {
+    "record": "POST_FAILURE_CONSERVATION.json",
+    "sha256": "c1be49dad10385372571240ecea511ad1c2abb42afde83bc1feec9a83370c78b",
+    "startedUtc": "2026-11-15T10:25:33.067246Z",
+    "completedUtc": "2026-11-15T10:25:34.563729Z",
+    "matchedChecks": 22,
+    "scope": "Both782-member builds, both4576-member dependency trees, both two derived payloads and both seven retained inputs. Separate late point-in-time read-only observation; not original finally, continuous or atomic conservation."
+  },
+  "disposition": "Source checkpoint retained; proof failure preserved. Two stale test expectations select one-file native06 repair; no supported Product defect or qualification closure."
+}

@@ -1,0 +1,19 @@
+{
+  "id": "RC14-ROOT-RECORDS-WRITER-008",
+  "role": "Separate Root integration/records Writer",
+  "startedUtc": "2026-11-15T10:33:13.220999+00:00",
+  "authority": "Owner-approved finishRC14; selected STDO3.0.4 work/review flow and existing T293; current two-case fixture triage",
+  "permittedEffects": [
+    "Merge exact97b1fa1ccc7c8e160efcd7208a1c87a4ab4443da five-file native05 checkpoint to main without source edits",
+    "Record closed failed proof, independent source-grounded two-case triage, separate late conservation and prospective native06 preparation selection",
+    "Update existing T293 B36/B46/B48/B49/B50 dispositions and current RC14 STATUS",
+    "Commit exact source/authored records and push main with LFS skip; verify directremoteparity"
+  ],
+  "exclusions": [
+    "No raw/event/archive/LFS publication or unrelated peer commentary",
+    "No qualification or human acceptance or new independence-policy decision",
+    "No source05/06 modification by Root, old-clock reset or proof retry",
+    "No automatic S06/RC14 candidate launch"
+  ],
+  "returnTo": "Root Executive and native06 control Writer"
+}
