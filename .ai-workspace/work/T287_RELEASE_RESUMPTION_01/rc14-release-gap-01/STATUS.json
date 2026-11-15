@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_COMPLETION_CONTROLS_ACCEPTED_NATIVE02_SELECTED",
+  "status": "RC14_B56_COMPLETION_NATIVE02_ACTIVE",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T20:59:48.648023+00:00",
-  "nativeAuthorState": "Completion02 accepted; actual RC13 native author selected after pushed binding; provider not yet launched. Native01 stays closed incomplete/unproved.",
+  "recordedUtc": "2026-11-15T21:07:41.959865+00:00",
+  "nativeAuthorState": "Actual pinnedRC13/Opus5.5 author active on three-path completion; no proof/build yet.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1138,19 +1138,28 @@
     "acceptance": "integration-01/CANDIDATE_SUCCESSOR_CONTROL_ACCEPTANCE_02.json"
   },
   "b56Completion": {
-    "state": "CONTROLS_ACCEPTED_NATIVE_GRANT_BOUND_AFTER_PUSH",
+    "state": "NATIVE02_ACTIVE",
     "selection": "integration-01/B56_NATIVE01_CONJUNCTION_AND_REENTRY_02.json",
     "nativeWritePaths": [
       "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
       "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
       "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
     ],
-    "providerStarted": false,
+    "providerStarted": true,
     "proofAuthorized": false,
     "controlCommit": "641503e25789715a7ba3b70e0132d027897f72a8",
     "manifestSha256": "2c63065c29354c96a5efbb306935aeb7db0c6d73773425e59a1c7f0741a29470",
     "activation": "integration-01/B56_NATIVE_ACTIVATION_02.json",
-    "candidateBuildAuthorized": false
+    "candidateBuildAuthorized": false,
+    "launch": "integration-01/B56_NATIVE_LAUNCH_02.json",
+    "sourceHead": "3d68a8b7c104c9873b12741fdce5b67d3987534f",
+    "startedUtc": "2026-11-15T21:05:08.635464+00:00",
+    "originalDeadlineUtc": "2026-11-16T00:05:08.635464+00:00",
+    "actorPid": 41385,
+    "actorStartedUtc": "2026-11-15T21:05:51.596Z",
+    "modelObserved": "claude-opus-5-5",
+    "effortConfigured": "xhigh",
+    "sourcePreimageRows": 1557
   },
   "b58Control": {
     "state": "POSITIVE_EXACT_PARTITION_CONTROL_ACCEPTED_NOT_EXECUTED",

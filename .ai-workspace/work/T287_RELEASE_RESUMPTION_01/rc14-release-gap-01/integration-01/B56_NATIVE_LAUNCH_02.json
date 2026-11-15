@@ -1,0 +1,77 @@
+{
+  "id": "RC14-B56-NATIVE-LAUNCH-02",
+  "writerActivation": "RC14-ROOT-B56-COMPLETION-RECORDS-WRITER-024",
+  "recordedUtc": "2026-11-15T21:07:41.959865+00:00",
+  "activation": "integration-01/B56_NATIVE_ACTIVATION_02.json",
+  "checkoutDisposition": "integration-01/B56_NATIVE02_CHECKOUT_PREFLIGHT_DISPOSITION_01.json",
+  "sourceHead": "3d68a8b7c104c9873b12741fdce5b67d3987534f",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02",
+  "startedUtc": "2026-11-15T21:05:08.635464+00:00",
+  "originalDeadlineUtc": "2026-11-16T00:05:08.635464+00:00",
+  "executionStopDeadlineUtc": "2026-11-16T00:02:08.635464+00:00",
+  "hostPid": 40812,
+  "actor": {
+    "pid": 41385,
+    "eventOrdinal": 18,
+    "startedUtc": "2026-11-15T21:05:51.596Z",
+    "runRef": "run://abiogenesis/08229a63a777d18b1f7530a09934ff50103a46905f3c1c8bfb9e032c17b5acfa",
+    "protocolModel": "claude-opus-5-5",
+    "effortConfigured": "xhigh",
+    "remoteEffortAttested": false,
+    "observationSource": "Operator actual event18 and protocol init; complete immutable protocol audit follows close."
+  },
+  "sourcePreimageRows": 1557,
+  "sourcePreimageBytes": 40282037,
+  "sourceInitiallyClean": true,
+  "publicSetupPassed": true,
+  "allPreDispatchTopologyPassed": true,
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "contextEntries": 118,
+  "contextBytes": 3225885,
+  "taskDigest": "sha256:acb90b638bc061c8d62460da4a1717fb0b6cfaaa39824a039c6f57d467420044",
+  "providerCalls": 1,
+  "proofStarted": false,
+  "qualified": false,
+  "rawPublished": false,
+  "evidencePins": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/CHECKOUT_PREFLIGHT.json",
+      "bytes": 874,
+      "sha256": "51f6b414bd095deaea72b3f117b7ad011d28b781130c8586d955f96fba2079c7"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/CONTROL_START.json",
+      "bytes": 1207,
+      "sha256": "2a7f8ac87bbcd11230e64e8763577904da384318b22e332b7159a8d00921a80d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/LAUNCH_STAGING.json",
+      "bytes": 425,
+      "sha256": "7a052f9f536b9bd29e08cf9fba73e2104940f8b87e9843cc8c52d29f9e019a43"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/LAUNCH.json",
+      "bytes": 5686,
+      "sha256": "28b2b82692b38cf821eeea14ef80080136bb0f5b59e0968714418d9c3b23866d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/SOURCE_PREIMAGE.json",
+      "bytes": 482093,
+      "sha256": "4bd110a58a4bb5569d581d613f7b71dc20919a5efb36f62b4840a076f4371101"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/HOST_PID.json",
+      "bytes": 44,
+      "sha256": "29a987fc5f0300447f243b4e78bd2d21fca7228c8082b2c9e951558da7e0cd21"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/runtime/PREPARED.json",
+      "bytes": 1373,
+      "sha256": "934ea6d1f84779f4da8aa9b7e325f869c2298d284b90e278ff9175204dffc175"
+    }
+  ]
+}
