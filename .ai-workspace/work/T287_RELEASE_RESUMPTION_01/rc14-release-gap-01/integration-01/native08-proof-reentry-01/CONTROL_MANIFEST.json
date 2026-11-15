@@ -1,0 +1,36 @@
+{
+  "kind": "native08_proof_entry_control_manifest",
+  "files": [
+    {
+      "path": "AUTHOR_AUDIT.json",
+      "bytes": 8251,
+      "sha256": "55aa22cdf562830e69bf47591c6210d803eb062ab7b912c03cc162b7876d0225"
+    },
+    {
+      "path": "ENTRY_DIFF.patch",
+      "bytes": 8081,
+      "sha256": "2ace84aefde37f003d68b0e937f82940d202ad4305dc96c7ef399dece6e8dff7"
+    },
+    {
+      "path": "REENTRY.md",
+      "bytes": 4256,
+      "sha256": "54cd1d35bec4edfa7ebbc7aa5d9d9f27a314e326a06ebfdc29a2ac23baa66bf4"
+    },
+    {
+      "path": "ROOT_AUTHORITY.template.json",
+      "bytes": 1896,
+      "sha256": "2684cf31e206d6892ae6a1370ad34a453291668ebef28731946960088fc79ca0"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 41085,
+      "sha256": "ef0d5f11e530487ed373de55252ccf0bf4562c186086352a9b8c961981176233"
+    }
+  ],
+  "originalControls": {
+    "path": "/private/tmp/abg-rc14-regression-repair-20261115-08/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08",
+    "manifestSha256": "a292f252469b18261cfb33080f830f4d1e5a8480ef9ed1372d47e55943f93a3f",
+    "runnerSha256": "98e4d45d4e056953702e9db8a86f2e0d5e4f4162a56f6cfdeeca58d92ed05f8f"
+  },
+  "executionAuthorized": false
+}

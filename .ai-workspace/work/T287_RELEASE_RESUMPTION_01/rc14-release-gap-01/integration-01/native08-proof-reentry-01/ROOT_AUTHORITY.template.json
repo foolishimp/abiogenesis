@@ -1,0 +1,33 @@
+{
+  "id": "RC14-NATIVE08-PROOF-REENTRY-01",
+  "executionAuthorized": false,
+  "controlManifestSha256": null,
+  "auditSha256": "55aa22cdf562830e69bf47591c6210d803eb062ab7b912c03cc162b7876d0225",
+  "originalObservationSha256": "c6b226195b98d81b7ff6ee03f044d2489f1ce30dc870ad5b5bd4f36882c488d1",
+  "sourceHead": "324ec312fa6ae4ab0f4d88a443d607fcd13c3c77",
+  "sourceDiffSha256": "86b0e5c9f6e25d31fc65d3907f94ea099b4e2512e5b6e55e4b933028716bb1a9",
+  "sourcePostimageSha256": "8e4ae03d4b8e4522be0a65fd41b439aed15e51afef4db57e69592f08eeb7dc39",
+  "launchSha256": "0c71f54110369c7be6110a33a453ddf3624f955ff835e5137f6a19025c28e5da",
+  "originalHostDeadlineUtc": "2026-11-15T16:37:49.211017+00:00",
+  "acceptedReadScopeVarianceIds": [
+    "native08-readonly-metadata-outside-declared-files",
+    "native08-directory-grep-query-scope"
+  ],
+  "varianceRemainsDisclosed": true,
+  "fullLiteralCompliance": false,
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE08_SOURCE_REVIEW.json",
+    "bytes": 2078,
+    "sha256": "2000d6c3971930f4f5103aa5150e88dd42319bf7c72e8ad46ca14107902cf147"
+  },
+  "auditDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/NATIVE08_AUDIT_DISPOSITION.json",
+    "bytes": 3993,
+    "sha256": "e106995e128aefa6dd4929c58f06646ce5db6b919083a9da62c79713d8959d27"
+  },
+  "proofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/proof-01",
+  "proofSubject": "/private/tmp/abg-rc14-regression-proof-20261115-08",
+  "retry": false,
+  "qualified": false,
+  "note": "Disabled proposal. Root must accept and checkpoint/push exact controls and separately issue actual proof authority. No original clock reset, author repeat or proof retry."
+}

@@ -1,0 +1,131 @@
+{
+  "kind": "native08_closed_author_audit",
+  "disposition": "closed_with_disclosed_read_scope_variances_pending_root",
+  "observedUtc": "2026-11-15T14:41:25.988169+00:00",
+  "sourceHead": "324ec312fa6ae4ab0f4d88a443d607fcd13c3c77",
+  "launchSha256": "0c71f54110369c7be6110a33a453ddf3624f955ff835e5137f6a19025c28e5da",
+  "sourceDiffSha256": "86b0e5c9f6e25d31fc65d3907f94ea099b4e2512e5b6e55e4b933028716bb1a9",
+  "observation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/AUTHOR_AUDIT_OBSERVATION.json",
+    "bytes": 141980,
+    "sha256": "c6b226195b98d81b7ff6ee03f044d2489f1ce30dc870ad5b5bd4f36882c488d1"
+  },
+  "authorReport": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/AUTHOR_REPORT.json",
+    "bytes": 8902,
+    "sha256": "47a8360560f8533efcb78489373b8e05d6b10c0e0df81ed3594b564ce7187f88"
+  },
+  "capture": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/runtime/resources/archives/fp-02231e7140aa7f05-stdout.log",
+    "bytes": 3017285,
+    "sha256": "ce7b2f6600a2598e494acc445f27bf9912e36ba51f5422533629ae3a8fe83349"
+  },
+  "deviations": [
+    {
+      "id": "native08-readonly-metadata-outside-declared-files",
+      "callId": "toolu_019LRJ3aaFBCDXNhVE8QssWh",
+      "actualCommand": "wc -l AGENTS.md stdo_abiogenesis.json specification/PRODUCT.md specification/GOALS.md .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/*.json .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/README.md specification/requirements/abg/REQ-R-ABG3-EVENTS.md specification/requirements/abg/REQ-R-ABG3-PROJECTION.md build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md build_tenants/abiogenesis/typescript/test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "observedPaths": [
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/BUILD_REUSE.json",
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/CONTROL_MANIFEST.json",
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/DEPENDENCY_INPUTS.json",
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/LAYOUT.json",
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/PREPARATION_RETURN.json",
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/PROOF_PLAN.json",
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/REENTRY.json",
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/RETAINED_INPUTS.json",
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/SOURCE_BINDING.json",
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08/STATIC.json"
+      ],
+      "effect": "Line-count metadata returned for ten off-scope sibling control files; no content acquired by this command, no writes. Author disclosed.",
+      "disposition": "Retained literal scope variance; Root disposition pending. No repair/retry or full-compliance claim."
+    },
+    {
+      "id": "native08-directory-grep-query-scope",
+      "callIds": [
+        "toolu_01NVpmEv7YcYFAMaSA9cPgHk",
+        "toolu_01UV33QKKA47Ec3fFv2mhDKL"
+      ],
+      "actualInputs": [
+        {
+          "pattern": "observeRuntimeHistoryWork|historyDecodes|coldHistoryReads|bodyReads|RuntimeHistoryWork",
+          "path": "/private/tmp/abg-rc14-regression-repair-20261115-08/build_tenants/abiogenesis/typescript/code/src/abg",
+          "output_mode": "content"
+        },
+        {
+          "pattern": "class DurableHistoryDerivation|DurableHistoryDerivation\\.(bind|unbind|release|close|deactivate|retire)|static (selection|activeSelection|events|activeEvents|bindSelection|bindRead)",
+          "path": "/private/tmp/abg-rc14-regression-repair-20261115-08/build_tenants/abiogenesis/typescript/code/src/abg",
+          "output_mode": "content"
+        }
+      ],
+      "effect": "Two directory-wide read-only Grep queries without filename restriction; actual returned content solely from declared event_store.ts. No undeclared direct Read content.",
+      "disposition": "Query scope exceeds the exact file list; retained for Root disposition, not hidden as zero deviation."
+    }
+  ],
+  "selectedMethodContentVerified": true,
+  "allReadFirstHaveActualPreEditContent": true,
+  "readFirstLimits": "Product825-890,1418-1436; Goals1-60,163-282; frame1-97,165-304; pending design255-284; other selected readFirst files complete. No complete-file claim for selected-range surfaces.",
+  "projection002CompleteBeforeEdit": true,
+  "syntax": {
+    "commandCallId": "toolu_01DsygZZWiPpjMSJnEa3upNd",
+    "actualOutput": "node --check exit=0",
+    "behavioralTestExecuted": false
+  },
+  "literalCommandLimits": "wc/shasum source metadata and shell status echo retained exactly; no implied permission to broaden future native scope. Two actual read-scope variances require Root disposition.",
+  "closePins": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/HOST_RETURN.json",
+      "bytes": 624,
+      "sha256": "b8a6f02da067d7296c9fad7be0145b494de99e6eb0d8131bed42aaa810b60bf6"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/runtime/FINAL.json",
+      "bytes": 891,
+      "sha256": "788eda0cac9ccf37537aac22899b33a07868fb5aec4d4e44776a4626c11a99e1"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/runtime/NATIVE_RETURN.json",
+      "bytes": 217303,
+      "sha256": "7b1d22a4485ea9c2ef2db54a6b0920f1d7c95d5c63ad7f99a0519bc390a7df6d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/runtime/AUTHOR_COMPLETION.json",
+      "bytes": 1394,
+      "sha256": "5d973aa9fa5f2e942b307a1b040de938645fbd86a39e869da1add892de8fedd2"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/runtime/FRESH_READBACKS.json",
+      "bytes": 5717,
+      "sha256": "90a93099b437ca0366f6dbb5a3b31d443e6925c1fa9d4c17451a534153276156"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/runtime/resource-close.json",
+      "bytes": 2270,
+      "sha256": "7916a916c38fec8a406ca1543ece813818fc7f100952ebe36a0e921a3574ff43"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/runtime/calls/run_result.outcome.json",
+      "bytes": 137515,
+      "sha256": "728301cc388478626c2384583fa479a527ae411c8105d5cb2f8cef53b3d05466"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/runtime/calls/run_replay.outcome.json",
+      "bytes": 137104,
+      "sha256": "d5afd946f2e4899de5276e7d25f4cca7a33f401cf0a8807ed5369aa6062110d4"
+    }
+  ],
+  "sourceFreeze": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/FROZEN_SOURCE.json",
+    "bytes": 4822,
+    "sha256": "4fc87606b0116253fb037850cdc451145abb217574eff33703d9e50353bb44c5"
+  },
+  "sourcePostimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-08/SOURCE_POSTIMAGE.json",
+    "bytes": 356887,
+    "sha256": "8e4ae03d4b8e4522be0a65fd41b439aed15e51afef4db57e69592f08eeb7dc39"
+  },
+  "actualResourceAndGroupsClosed": true,
+  "proofAuthorized": false,
+  "noRetry": true,
+  "fullMethodAndCommandComplianceClaim": false
+}
