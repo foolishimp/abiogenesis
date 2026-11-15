@@ -1,0 +1,65 @@
+{
+  "kind": "external_amendment_oracle",
+  "sourceRequirement": "REQ-ORDER-APPROVAL",
+  "seedThreshold": 5000,
+  "amendedThreshold": 10000,
+  "cases": [
+    {
+      "id": "7500",
+      "lines": [
+        {
+          "quantity": 1,
+          "unitPrice": 7500
+        }
+      ],
+      "total": 7500,
+      "managerApproval": false
+    },
+    {
+      "id": "10000",
+      "lines": [
+        {
+          "quantity": 1,
+          "unitPrice": 10000
+        }
+      ],
+      "total": 10000,
+      "managerApproval": false
+    },
+    {
+      "id": "10000.01",
+      "lines": [
+        {
+          "quantity": 1,
+          "unitPrice": 10000.01
+        }
+      ],
+      "total": 10000.01,
+      "managerApproval": true
+    },
+    {
+      "id": "bulk-discount",
+      "lines": [
+        {
+          "quantity": 10,
+          "unitPrice": 1040
+        }
+      ],
+      "total": 9880,
+      "managerApproval": false
+    }
+  ],
+  "initialMismatchIds": [
+    "7500",
+    "10000",
+    "bulk-discount"
+  ],
+  "writePaths": [
+    "design/impact-assessment.md",
+    "src/approval.mjs",
+    "src/order.mjs",
+    "test/approval.test.mjs",
+    "work/intake-triage.md"
+  ],
+  "claim": "Prospective protected application cases. The same exact script/cases run through declared native Testing and through the external final oracle; only the former has admitted C2 provenance."
+}

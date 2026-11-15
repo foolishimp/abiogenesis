@@ -1,0 +1,137 @@
+{
+  "kind": "external_control_successor_manifest",
+  "preparationSource": "5b75c3a38114685d66d443ffc4e23733e24457c1",
+  "retainedControlCommit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+  "retainedControlRelativePath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-preparation-01",
+  "retainedControlManifestSha256": "d595c6bba5daec4a26267c0147fd5f28566784146217c360522e7ffb31db4d8b",
+  "controls": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 4450,
+      "sha256": "9b7d05c0d56ac7fea377c5402280fcf863e8d8ef4b7c2446a6a5d2bb0a443872"
+    },
+    {
+      "path": "BINDING.template.json",
+      "bytes": 3049,
+      "sha256": "99d2ee93136f7f46bf6803db430548764f858939a12e5ac0d5e6c451b2517fd0"
+    },
+    {
+      "path": "CUSTODY_DIFF.patch",
+      "bytes": 27737,
+      "sha256": "35190f05d9e7a7335cfc3629e4ed9d892989cd10f0ca918f7c6e5a46d1ed3dff"
+    },
+    {
+      "path": "INSTALL_HOST_DIFF.patch",
+      "bytes": 4481,
+      "sha256": "c02426139e90a9cd323399fbf18cdd5534d6ea1c301f4635838faeecc864c465"
+    },
+    {
+      "path": "ORACLE.json",
+      "bytes": 1357,
+      "sha256": "e7d4616b1a9846318ede859225fa513c3ca032cd5e2bee0ef66d5ceaa2966655"
+    },
+    {
+      "path": "PROCESS.json",
+      "bytes": 16404,
+      "sha256": "0c93847e07402055b027c0deee3552142ad94b14a9cbc7f95cf19eb0e23cf7e1"
+    },
+    {
+      "path": "PROMPT_BOUND_DIFF.patch",
+      "bytes": 345,
+      "sha256": "25fb83aaf0df29e04f35809873f85988cf476b203abd3aeaada89e087aac080a"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3820,
+      "sha256": "fa5b63770b9f767643895ffff5f50a9ac034b71ccea39b2ef9cee333adda7462"
+    },
+    {
+      "path": "REUSED_HELPERS.json",
+      "bytes": 5283,
+      "sha256": "c0348d4d71d5605cfbed702abb508174065681bafb3ab55c93526e3365a58361"
+    },
+    {
+      "path": "SMOKE_INPUTS.template.json",
+      "bytes": 4756,
+      "sha256": "6124a52e0e3b80ed0f3c7b6c1db8494e4698ffd64953c972d6a9c98e5c33f22b"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 7200,
+      "sha256": "8b6a1b0cda0da75865006476c6b2b6e459874bcf819928e6e09eb6a16cbca985"
+    },
+    {
+      "path": "TOPOLOGY_DIFF.patch",
+      "bytes": 525,
+      "sha256": "34a9f4038879b0d9b7be1ab5df72ff9da2b9dce61c53999c3b8aea1866e50343"
+    },
+    {
+      "path": "amendment-consumer.mjs",
+      "bytes": 7211,
+      "sha256": "331d91e9f7c69528ba9220ccccc7876ca47decd74881aa091b323c236def5356"
+    },
+    {
+      "path": "amendment-setup.mjs",
+      "bytes": 20680,
+      "sha256": "b1633b2431031875c2174f01769ccf26f0922377165e51d063d0391cf4dc096a"
+    },
+    {
+      "path": "amendment.mjs",
+      "bytes": 18069,
+      "sha256": "384587ede17eba18134867ac1a7affc3ac2d40cb74b865a4bdf04ebe1c706c27"
+    },
+    {
+      "path": "baseline-rubric.md",
+      "bytes": 1628,
+      "sha256": "5c2ed42b1b19c366e9e8a1be62aebd33bbc250e3893ba7924f29393b26326139"
+    },
+    {
+      "path": "bounded.py",
+      "bytes": 4206,
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "path": "command-owner.py",
+      "bytes": 1200,
+      "sha256": "16179ed58782c1880118ad4e5c6c2a05d23692d819951b24e2952071fcc9f9f2"
+    },
+    {
+      "path": "coverage.mjs",
+      "bytes": 8688,
+      "sha256": "9d2734cf136eb65370fc694eebb6b4d1c4c3a839b6bb6f31e260b41657c7792b"
+    },
+    {
+      "path": "npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "oracle.mjs",
+      "bytes": 1178,
+      "sha256": "52830cb62f0178699ccdce58415e2f744466c5bb1b96b1d87935e772009854fc"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "run.py",
+      "bytes": 14532,
+      "sha256": "5ee8bf797b02eef7011c45a05f4cbc22ddabc77ee4ffaea58e9e836e0358bb06"
+    },
+    {
+      "path": "smoke-custody.py",
+      "bytes": 18367,
+      "sha256": "bb0ff8792e84a1dfa4eeb73b494ec2ea4a2eeb6acbe7dfb66987cab843d1ef80"
+    }
+  ],
+  "executionAuthorized": false,
+  "predecessor": "5b75c3a38114685d66d443ffc4e23733e24457c1",
+  "authorityCommit": "acf3dedcb11f2037e4ce8e157c79af86598f2878"
+}
