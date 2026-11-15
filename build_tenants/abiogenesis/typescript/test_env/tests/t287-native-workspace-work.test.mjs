@@ -28,6 +28,7 @@ import { ROOT_EVENT_CONTRACT_DIGEST } from '../../build/code/src/abg/event_store
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/abg/invocation_execution_truth.js';
 import { rehydrateAdmittedImplementationSetAtPrefix } from '../../build/code/src/abg/execution_basis.js';
 import { modulePublicationSemanticDigest } from '../../build/code/src/product/publication.js';
+import { resolveNativeWorkspaceAssessmentDependency } from '../../build/code/src/product/native_workspace_assessment.js';
 const product = await loadWorksiteOwner();
 // Component frontier: the exact-prefix workspace environment is a controlled
 // premise keyed by each fixture's exact binding and authority prefix. The
@@ -75,13 +76,33 @@ function executingProductPremise(expected) {
 // assessor role and no constructor role. The actual NativeInstructionAssembly
 // producer renders and returns the complete worker request.
 const assemblyOwners = new WeakMap();
+// The controlled outer authentication premise mirrors the exact joins of the
+// real assembly-basis authentication over the supplied coordinates: the basis
+// publication selects exactly one Program by the execution basis ref and
+// digest, its GraphFunction matches the execution digest and the carried
+// graph, the owner's Program is that Program, and the implementation row binds
+// the same publication and GraphFunction digests. A conflicting row,
+// publication, Program or digest refuses instead of being hidden.
+function coherentAssemblyPremise(basis, owner, row) {
+  const hash = product.sha256Canonical, execution = owner?.execution, programPublication = basis?.publication;
+  if (execution === undefined || programPublication === undefined || row === undefined) return false;
+  const programs = programPublication.programs.filter(p => p.programRef === execution.programRef);
+  const graphs = programPublication.graphFunctions.filter(g => g.name === execution.graphFunctionRef && hash(g) === execution.graphFunctionDigest);
+  return programs.length === 1 && hash(programs[0]) === execution.programDigest && isDeepStrictEqual(owner.program, programs[0]) &&
+    graphs.length === 1 && isDeepStrictEqual(graphs[0], basis.graphFunction) &&
+    row.publicationDigest === hash(programPublication) && row.graphFunctionRef === execution.graphFunctionRef &&
+    row.graphFunctionDigest === execution.graphFunctionDigest;
+}
 const assessorRole = deepFreeze({frameRefs:['frame://fixture/reviewer'],policy:{policyRef:'policy://fixture/reviewer',text:'Independent assessment',digest:digest('reviewer-policy')},
   contextPolicy:{policyRef:'policy://fixture/read-only',selectors:['current_worksite','current_candidate','full_source']},sourceContent:[],accessContent:[]});
 const instructionAssembly = await (async () => {
   const path = resolve(import.meta.dirname, '../../build/code/src/abg/instruction_assembly.js');
   const module = new SourceTextModule(await fs.readFile(path, 'utf8'), {identifier: path});
   const premises = {
-    './execution_basis.js': {authenticateOwnedNativeInstructionAssemblyBasis: basis => assemblyOwners.get(basis) ?? null},
+    './execution_basis.js': {authenticateOwnedNativeInstructionAssemblyBasis: basis => {
+      const entry = assemblyOwners.get(basis);
+      return entry !== undefined && coherentAssemblyPremise(basis, entry.owner, entry.row) ? entry.owner : null;
+    }},
     './stdo_environment.js': {projectRunEnvironmentRoleEvidenceAtPrefix: (...args) => args.at(-1) === 'assessor' ? assessorRole : null},
   };
   await module.link(async specifier => {
@@ -284,11 +305,21 @@ function rebind(env, roots) {
   return {workspaceBinding, capabilityGrant, executionBasis, cCall, territory};
 }
 // These are cold owner coordinates, not ABG admission or installed/native proof.
+// One case-local executing Program publication supplies every dependent
+// coordinate: implementation row, leaf execution authority, execution-basis
+// Program/GraphFunction digests, assembly basis and owner Program. An assessor
+// task's coincident consumer-owned premise uses the declaring publication, whose
+// own Program member declares use of its result contract.
 async function prepare(t, env, realize = true) {
   const graphFunctionRef = native.nativeWorkspaceWorkGraphFunctionRef(env.task);
   const sink = await acquireNewEmptyAppendSinkFixture(t, createNewEmptyAppendSink);
+  const a=env.task.assessment,programPublication=a===undefined?publication:declaringAssessmentPublication(a.resultContract);
+  const program=programPublication.programs.find(x=>x.programRef===ids.programRef);
+  const graphFunction=programPublication.graphFunctions.find(g=>g.name===graphFunctionRef);
+  assert.ok(program&&graphFunction,'the case-local Program publication holds the executing Program and GraphFunction');
+  const programDigest=product.sha256Canonical(program),graphFunctionDigest=product.sha256Canonical(graphFunction);
   const {kind,schemaVersion,disposition,leafResolutionCandidateRef,leafResolutionCandidateDigest,...oldBody}=env.implementationSet.rows[0];
-  const body={...oldBody, publicationDigest:product.sha256Canonical(publication),graphFunctionRef,
+  const body={...oldBody, publicationDigest:product.sha256Canonical(programPublication),graphFunctionRef,graphFunctionDigest,
     computeRegime:'F_P',implementationRef:ids.implementationRef,implementationBindingRef:ids.implementationBindingRef,
     inputContractRef:ids.taskContractRef,outputContractRef:ids.observationContractRef,failureContractRef:ids.failureContractRef,
     refusalContractRef:ids.refusalContractRef};
@@ -296,7 +327,7 @@ async function prepare(t, env, realize = true) {
   const row={kind,schemaVersion,disposition,leafResolutionCandidateRef:`leaf-resolution-candidate://abiogenesis/${rd.slice(7)}`,leafResolutionCandidateDigest:rd,...body};
   const sd=product.sha256Canonical({rows:[row]});
   const set={...env.implementationSet,rows:[row],implementationSetRef:`implementation-set://abiogenesis/${sd.slice(7)}`,implementationSetDigest:sd};
-  const execution={...env.executionBasis,programRef:ids.programRef,graphFunctionRef,
+  const execution={...env.executionBasis,programRef:ids.programRef,programDigest,graphFunctionRef,graphFunctionDigest,
     rawInputValue:env.task,rawInputDigest:product.sha256Canonical(env.task),implementationSetRef:set.implementationSetRef,implementationSetDigest:sd};
   const call={...env.cCall,runId:'run://native-owner/test',regime:'F_P',graphFunctionRef,
     inputContractRef:ids.taskContractRef,outputContractRef:ids.observationContractRef,failureContractRef:ids.failureContractRef,
@@ -306,7 +337,7 @@ async function prepare(t, env, realize = true) {
   const authority=constructLeafExecutionAuthority({actorRef:execution.actorRef,workspaceBinding:env.workspaceBinding,
     workspaceBindingIdentity:env.workspaceBinding.bindingId,workspaceBindingDigest:env.workspaceBinding.bindingDigest,
     executionBasis:execution,executionBasisRef:execution.basisRef,executionBasisDigest:execution.basisDigest,
-    programRef:execution.programRef,programDigest:execution.programDigest,programPublication:publication,
+    programRef:execution.programRef,programDigest:execution.programDigest,programPublication,
     graphFunctionRef,graphFunctionDigest:execution.graphFunctionDigest,cCall:call,cCallRef:call.cCallRef,cCallDigest:call.cCallDigest,
     predecessorPrefix:sink.prefix,implementationSet:set,implementationSetRef:set.implementationSetRef,implementationSetDigest:sd,
     leafResolutionCandidateRef:row.leafResolutionCandidateRef,leafResolutionCandidateDigest:rd,
@@ -315,25 +346,25 @@ async function prepare(t, env, realize = true) {
     implementationRef:row.implementationRef,implementationOwnerRef:row.implementationOwnerProductId,
     effectUri:ids.effectUri,handlerRef:ids.handlerRef,handlerDigest:native.NATIVE_WORKSPACE_WORK_HANDLER_DIGEST,
     capabilityGrantRef:env.capabilityGrant.grantRef,capabilityGrantDigest:env.capabilityGrant.grantDigest});
-  // The assessor's inner response dependency is the carried declaring
+  // The assessor's inner response dependency carries the schema-owner
   // publication under the admitted owner install, lock and this call's admitted
-  // resolution row; the Program publication stays the native one.
-  const a=env.task.assessment;
+  // resolution row. In this coincident premise it is the same case-local
+  // publication as the executing Program publication, whose member declares use.
   let carried={},assessmentOwner={},assemblyInstalls=env.productInstalls??[];
   if(a!==undefined){
-    const schemaBytes=Buffer.from(a.schemaAsset.bytesBase64,'base64'),declaring=declaringAssessmentPublication(a.resultContract);
+    const schemaBytes=Buffer.from(a.schemaAsset.bytesBase64,'base64'),declaring=programPublication;
     await fs.writeFile(join(env.scratch,'native-assessment-schema.json'),schemaBytes);
     const facts=assessmentDependencyFacts(declaring,{installedRoot:env.scratch,path:'native-assessment-schema.json',bytes:schemaBytes,
       contractId:a.schemaAsset.contractId,assessorOwnerProductId:row.graphFunctionOwnerProductId});
     assemblyInstalls=[...assemblyInstalls,facts.install];carried={assessmentPublication:declaring};
     assessmentOwner={resolution:row,resolvedProductLock:facts.resolvedLock};
   }
-  const assemblyBasis={publication,...carried,graphFunction:publication.graphFunctions.find(g=>g.name===graphFunctionRef),
+  const assemblyBasis={publication:programPublication,...carried,graphFunction,
     executionBasis:authority.executionBasis,cCall:call,predecessorPrefix:authority.predecessorPrefix};
   const {resolution:ownerResolution,resolvedProductLock}=assessmentOwner;
-  assemblyOwners.set(assemblyBasis,{inputDigest:product.sha256Canonical(env.task),inputValue:env.task,inputRef:'component:native-work-input',
-    call,execution:authority.executionBasis,program:publication.programs[0],...(ownerResolution===undefined?{}:{resolution:ownerResolution}),events:[],prefix:authority.predecessorPrefix,
-    environment:{kind:'exact_prefix_workspace_environment',productInstalls:assemblyInstalls,...(resolvedProductLock===undefined?{}:{resolvedProductLock})}});
+  assemblyOwners.set(assemblyBasis,{row,owner:{inputDigest:product.sha256Canonical(env.task),inputValue:env.task,inputRef:'component:native-work-input',
+    call,execution:authority.executionBasis,program,...(ownerResolution===undefined?{}:{resolution:ownerResolution}),events:[],prefix:authority.predecessorPrefix,
+    environment:{kind:'exact_prefix_workspace_environment',productInstalls:assemblyInstalls,...(resolvedProductLock===undefined?{}:{resolvedProductLock})}}});
   const assembly=instructionAssembly.constructWorksiteNativeInstructionAssembly(assemblyBasis,env.task);
   assert.equal(assembly?.kind,'native_instruction_assembly','the actual producer assembles the complete native worker request');
   const request=assembly.request;
@@ -346,7 +377,7 @@ async function prepare(t, env, realize = true) {
     transportBindingRef:'transport-binding://native-owner/test',transportBindingDigest:digest('transport-binding'),
     promptDigest:digest('prompt'),transportDigest:digest('transport'),finalOutput,disposition,
     failureClass:disposition==='success'?null:'absolute_timeout'}});
-  return {prepared,exchange,occurrence,request,call,assembly};
+  return {prepared,exchange,occurrence,request,call,assembly,programPublication,program,graphFunction,row};
 }
 test('native work publishes one ordinary callable effect with run and child closure',()=>{
   assert.equal(rawAdmitValue(publication,'module_publication','contract://abiogenesis/gtl/module-publication@5').kind,'raw_admitted_value');
@@ -782,30 +813,37 @@ async function assessmentFixture(t, schema = assessmentSchema) {
   return {...env,task};
 }
 // Carried assessment dependency (native HOW, Declared typed assessment). The
-// declaring publication is the one the leaf port carries as
-// `assessmentPublication`: a Program-member callable declares the raw result
-// contract. Component frontier: its owner install and the resolved lock are
-// controlled premises built from these exact coordinates; the actual shared
-// relation runs over them. The lock holds the declaring owner, the resolution's
-// GraphFunction owner and the declaring owner's `requires` edge when they differ.
+// schema-owner publication is the one the leaf port carries as
+// `assessmentPublication`; the executing Program publication declares use when
+// one of its Program-member callables declares the raw result contract. They
+// coincide by default; `use` selects a split executing Program publication.
+// Component frontier: owner installs and the resolved lock are controlled
+// premises built from these exact coordinates; the actual shared relation runs
+// over them. The lock holds the schema owner, the use owner, the resolution's
+// GraphFunction owner and the use owner's forward `requires` edges.
 function declaringAssessmentPublication(contract) {
   const root = publication.graphFunctions[0];
   return {...publication, contracts:[...publication.contracts, contract], graphFunctions:[{...root,
     declarations:{...root.declarations, 'abg.raw_result_contract':contract.contractRef}}, ...publication.graphFunctions.slice(1)]};
 }
-function assessmentDependencyFacts(declaring, {installedRoot, path, bytes, contractId, assessorOwnerProductId}) {
-  const owner = declaring.owningProductId, distinct = assessorOwnerProductId !== owner;
-  const install = {productId:owner, installedRoot, publicContracts:[{contractKind:'schema_asset', contractId, contractVersion:'5.0.0', owningProduct:owner,
-      contractDigest:product.sha256Bytes(bytes), assetLocator:{path, mediaType:'application/schema+json', contentDigest:product.sha256Bytes(bytes)}}],
-    artifactDigest:declaring.artifactDigest, productContentDigest:declaring.productContentDigest, manifestDigest:declaring.productManifestDigest,
-    contributionManifest:{publicationBindings:[{moduleRef:declaring.moduleRef, publicationDigest:modulePublicationSemanticDigest(declaring)}]}};
+function assessmentDependencyFacts(declaring, {installedRoot, path, bytes, contractId, assessorOwnerProductId, use = declaring}) {
+  const owner = declaring.owningProductId, user = use.owningProductId;
+  const bound = x => ({productId:x.owningProductId, artifactDigest:x.artifactDigest, productContentDigest:x.productContentDigest, manifestDigest:x.productManifestDigest,
+    contributionManifest:{publicationBindings:[{moduleRef:x.moduleRef, publicationDigest:modulePublicationSemanticDigest(x)}]}});
+  const install = {...bound(declaring), installedRoot, publicContracts:[{contractKind:'schema_asset', contractId, contractVersion:'5.0.0', owningProduct:owner,
+      contractDigest:product.sha256Bytes(bytes), assetLocator:{path, mediaType:'application/schema+json', contentDigest:product.sha256Bytes(bytes)}}]};
+  const useInstall = user === owner ? null : {...bound(use), installedRoot, publicContracts:[]};
   const lockRow = ({productId, artifactDigest, productContentDigest, manifestDigest}) => ({productId, artifactDigest, productContentDigest, manifestDigest});
-  const rows = [lockRow(install), ...(distinct ? [lockRow({productId:assessorOwnerProductId, artifactDigest:digest('assessor-artifact'),
-    productContentDigest:digest('assessor-content'), manifestDigest:digest('assessor-manifest')})] : [])];
-  const dependencyEdges = distinct ? [{kind:'requires', fromProductId:owner, toProductId:assessorOwnerProductId}] : [];
+  const rows = [lockRow(install), ...(useInstall === null ? [] : [lockRow(useInstall)]),
+    ...([owner, user].includes(assessorOwnerProductId) ? [] : [lockRow({productId:assessorOwnerProductId, artifactDigest:digest('assessor-artifact'),
+      productContentDigest:digest('assessor-content'), manifestDigest:digest('assessor-manifest')})])];
+  // Forward edges only, from the executing Program (use) owner.
+  const dependencyEdges = [...new Set([assessorOwnerProductId, owner])].filter(to => to !== user)
+    .map(toProductId => ({kind:'requires', fromProductId:user, toProductId}));
   const lockDigest = product.sha256Canonical({rows, dependencyEdges});
   const resolvedLock = {kind:'resolved_product_lock', schemaVersion:'5.0.0', lockId:`product-lock://abiogenesis/${lockDigest.slice(7)}`, lockDigest, rows, dependencyEdges};
-  return {install:{...install, resolvedLockId:resolvedLock.lockId, resolvedLockDigest:lockDigest}, resolvedLock};
+  const locked = value => ({...value, resolvedLockId:resolvedLock.lockId, resolvedLockDigest:lockDigest});
+  return {install:locked(install), ...(useInstall === null ? {} : {useInstall:locked(useInstall)}), resolvedLock};
 }
 const verdict = () => JSON.stringify({kind:'fixture_assessment',
   criteria:[{criterionRef:'criterion://fixture/meaning',disposition:'satisfied',explanation:'Synthetic judgment for mechanical qualification only.'}],residuals:[]});
@@ -1044,17 +1082,26 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
   const selectedSchema=generated===null ? assessmentSchema : {...assessmentSchema,required:[...assessmentSchema.required,'fulfillment'],properties:{...assessmentSchema.properties,fulfillment:generated}};
   const env=await assessmentFixture(t,selectedSchema), p=await prepare(t,env), a=env.task.assessment;
   const schemaBytes=Buffer.from(a.schemaAsset.bytesBase64,'base64');await fs.writeFile(join(env.scratch,'schema.json'),schemaBytes);
-  const selectedPublication=declaringAssessmentPublication(assessmentContract),rootGraph=selectedPublication.graphFunctions[0];
-  const graphFunction=publication.graphFunctions.find(g=>g.name===ids.assessmentGraphFunctionRef);
+  // The case-local executing Program publication from prepare(): coincident
+  // consumer-owned schema owner and Program use, with coherent row, authority,
+  // execution-basis digests, GraphFunction and owner Program.
+  const selectedPublication=p.programPublication,rootGraph=selectedPublication.graphFunctions[0];
+  assert.deepEqual(selectedPublication,declaringAssessmentPublication(assessmentContract));
+  const graphFunction=p.graphFunction;
   const authority=p.occurrence.executionAuthority,resolution=authority.implementationResolution;
+  assert.equal(resolution.publicationDigest,product.sha256Canonical(selectedPublication),'row and Program publication agree');
+  assert.equal(authority.executionBasis.programDigest,product.sha256Canonical(p.program),'execution basis and Program agree');
   const facts=assessmentDependencyFacts(selectedPublication,{installedRoot:env.scratch,path:'schema.json',bytes:schemaBytes,
     contractId:assessmentContract.contractRef,assessorOwnerProductId:resolution.graphFunctionOwnerProductId});
-  // The carried declaring publication; the call's Program publication is the native one.
+  // The carried schema owner; in the coincident premise it is also the call's
+  // executing Program publication, whose member declares use.
   let assessmentPublication=selectedPublication;
-  let selectedPublicationForCall=publication;
+  let selectedPublicationForCall=selectedPublication;
   const environment={kind:'exact_prefix_workspace_environment',productInstalls:[facts.install],resolvedProductLock:facts.resolvedLock};
   const owner={inputDigest:product.sha256Canonical(env.task),inputValue:env.task,inputRef:'component:assessment-input',
-    call:p.call,execution:authority.executionBasis,program:publication.programs[0],resolution,events:[],environment};
+    call:p.call,execution:authority.executionBasis,program:p.program,resolution,events:[],environment};
+  // Controlled outer authentication with the real joins over these coordinates.
+  const authenticated=basis=>coherentAssemblyPremise(basis,owner,resolution)?owner:null;
   const role={frameRefs:['frame://fixture/reviewer'],policy:{policyRef:'policy://fixture/reviewer',text:'Independent assessment',digest:digest('reviewer-policy')},
     contextPolicy:{policyRef:'policy://fixture/read-only',selectors:['current_worksite','current_candidate','full_source']},sourceContent:[],accessContent:[]};
   let roleSelection='assessor',requestedRole=null,dispatches=0,capturedTransport=null,capturedPlan=null;
@@ -1067,7 +1114,7 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
     await module.evaluate();return module.namespace;
   }
   const assembly=await component('abg/instruction_assembly',{
-    './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner,constructNativeInstructionAssemblyBasis:value=>value},
+    './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:authenticated,constructNativeInstructionAssemblyBasis:value=>value},
     './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:(...args)=>{requestedRole=args.at(-1);return requestedRole===roleSelection?role:false;}},
   });
   // TD78 is a premise at the authority's exact predecessor and fixture binding.
@@ -1075,7 +1122,7 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
     boundIdentity:digest('executing-toolchain'),executingIdentity:digest('executing-toolchain')});
   const actor=await component('abg/actor_process',{
     './instruction_assembly.js':assembly,'./execution_basis.js':{constructNativeInstructionAssemblyBasis:value=>value,
-      authenticateOwnedNativeInstructionAssemblyBasis:()=>owner},
+      authenticateOwnedNativeInstructionAssemblyBasis:authenticated},
     // Admission is a supplied component fact; preparation below remains real.
     './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true,boundWorkspaceMatchesExecutingToolchain:td78.boundWorkspaceMatchesExecutingToolchain},
     './worker_transport.js':{prepareWorkerTransport:async input=>{
@@ -1137,15 +1184,59 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
   assert.equal(capturedPlan.promptDigest,product.sha256Canonical(prepared.workerRequest.prompt));
   assert.equal(capturedPlan.cwd,env.canonicalRoot);
   roleSelection='constructor';let refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation');assert.equal(refused.ownerObservation.reason,'thrown');
-  roleSelection='assessor';assessmentPublication={...selectedPublication,graphFunctions:selectedPublication.graphFunctions.map(graph=>
+  roleSelection='assessor';
+  // The executing Program's member declares another raw contract. Through the
+  // port, its publication conflicts with the admitted row and refuses at the
+  // authentication premise; over facts rebuilt for that exact publication the
+  // actual shared relation itself finds no declaration of use.
+  const undeclared={...selectedPublication,graphFunctions:selectedPublication.graphFunctions.map(graph=>
     graph===rootGraph?{...rootGraph,declarations:{...rootGraph.declarations,'abg.raw_result_contract':ids.workerReportContractRef}}:graph)};
+  assessmentPublication=undeclared;selectedPublicationForCall=undeclared;
   refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation','unselected raw contract refuses before dispatch');
-  // The carried declaring publication owns the installed schema bytes; another
-  // Program publication without the contract is not consulted.
-  selectedPublicationForCall={...publication,owningProductId:'product://component/consumer'};
-  assessmentPublication=selectedPublication;
+  assessmentPublication=selectedPublication;selectedPublicationForCall=selectedPublication;
+  const factsFor=(schemaOwner,use)=>assessmentDependencyFacts(schemaOwner,{installedRoot:env.scratch,path:'schema.json',bytes:schemaBytes,
+    contractId:assessmentContract.contractRef,assessorOwnerProductId:resolution.graphFunctionOwnerProductId,use});
+  const relationOver=(f,schemaOwner,use,program={})=>resolveNativeWorkspaceAssessmentDependency(a,{publications:[schemaOwner],
+    installs:[f.install,...(f.useInstall===undefined?[]:[f.useInstall])],resolvedLock:f.resolvedLock,assessorOwnerProductId:resolution.graphFunctionOwnerProductId,
+    program:{publication:use,programRef:authority.executionBasis.programRef,programDigest:authority.executionBasis.programDigest,...program}});
+  const coincident=relationOver(facts,selectedPublication,selectedPublication);
+  assert.ok(coincident&&coincident.use.memberRefs.length>0&&coincident.use.memberRefs.every(r=>p.program.callableMembership.includes(r)),
+    'coincident schema owner and Program use over the coherent component coordinates');
+  assert.equal(relationOver(factsFor(undeclared,undeclared),undeclared,undeclared),null,'unselected raw contract: no Program member declares use');
+  // Split owner and use (component premises): the schema owner declares and
+  // installs the contract while its members declare no use; a separate
+  // consumer Program publication declares use without owning the contract.
+  const schemaPublication={...publication,contracts:[...publication.contracts,assessmentContract]};
+  const usePublication={...publication,owningProductId:'product://component/consumer',artifactDigest:digest('consumer-artifact'),
+    productContentDigest:digest('consumer-content'),productManifestDigest:digest('consumer-manifest'),graphFunctions:selectedPublication.graphFunctions};
+  const splitFacts=factsFor(schemaPublication,usePublication);
+  assert.deepEqual(splitFacts.resolvedLock.dependencyEdges.map(e=>[e.fromProductId,e.toProductId]).sort(),
+    [[usePublication.owningProductId,resolution.graphFunctionOwnerProductId],[usePublication.owningProductId,schemaPublication.owningProductId]].sort(),
+    'forward edges from the executing Program owner');
+  const split=relationOver(splitFacts,schemaPublication,usePublication);
+  assert.ok(split,'split schema owner and executing Program use');
+  assert.deepEqual([split.install.productId,split.use.install.productId],[schemaPublication.owningProductId,usePublication.owningProductId]);
+  assert.deepEqual(split.schema,selectedSchema);
+  const withLock=(f,over)=>({...f,resolvedLock:{...f.resolvedLock,...over}});
+  for(const [label,value] of [
+    ['split: the schema owner Program alone declares no use',()=>relationOver(factsFor(schemaPublication,schemaPublication),schemaPublication,schemaPublication)],
+    ['split: missing use-to-schema-owner edge',()=>relationOver(withLock(splitFacts,{dependencyEdges:splitFacts.resolvedLock.dependencyEdges
+      .filter(e=>e.toProductId!==schemaPublication.owningProductId)}),schemaPublication,usePublication)],
+    ['split: reverse schema-owner-to-use edge',()=>relationOver(withLock(splitFacts,{dependencyEdges:splitFacts.resolvedLock.dependencyEdges
+      .map(e=>e.toProductId!==schemaPublication.owningProductId?e:{...e,fromProductId:e.toProductId,toProductId:e.fromProductId})}),schemaPublication,usePublication)],
+    ['split: executing Program install absent',()=>relationOver({...splitFacts,useInstall:undefined},schemaPublication,usePublication)],
+    ['split: wrong executing Program digest',()=>relationOver(splitFacts,schemaPublication,usePublication,{programDigest:digest('crossed-program')})],
+    ['split: executing Program ref absent from its publication',()=>relationOver(splitFacts,schemaPublication,usePublication,{programRef:'program://component/absent'})],
+  ])assert.equal(value(),null,label);
+  // Through the port, the coherent coincident carriage delegates; the carried
+  // schema owner's installed bytes are the dispatched response schema.
   const delegated=await invoke();assert.equal(delegated.kind,'prepared_probabilistic_leaf_owner_invocation');
   assert.deepEqual(delegated.workerRequest.responseJsonSchema,selectedSchema);
+  // A crossed executing Program publication conflicts with the admitted row
+  // and refuses at the authentication premise before dispatch.
+  selectedPublicationForCall=usePublication;
+  refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation','crossed executing Program publication');
+  selectedPublicationForCall=selectedPublication;
   assessmentPublication={...selectedPublication,owningProductId:'product://component/wrong-owner'};
   refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation','crossed declaring owner');
   assessmentPublication=selectedPublication;

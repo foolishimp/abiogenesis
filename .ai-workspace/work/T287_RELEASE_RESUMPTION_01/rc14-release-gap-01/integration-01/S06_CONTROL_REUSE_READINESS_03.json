@@ -1,0 +1,45 @@
+{
+  "id": "RC14-S06-CONTROL-REUSE-READINESS-03",
+  "recordedUtc": "2026-11-15T21:24:57.200019+00:00",
+  "writerActivation": "RC14-ROOT-B56-RECOVERY-RECORDS-WRITER-025",
+  "classification": "Read-only future binding readiness; not runtime authorization",
+  "reviewer": "/root/amendment_topology_review",
+  "controlCommit": "6f4c3777cee044a7a9c3de23e18cb7ed3ac4f188",
+  "controlManifestSha256": "b753febcd89ec78742117fe3abd20da47df49363766901b908f283b59ab7de61",
+  "verifiedByReviewer": {
+    "controls": 25,
+    "maintainedInputs": 7,
+    "mismatches": 0
+  },
+  "correctionToRootPremise": "Tool roots as6j2/as6r2 were created by run.py84 before HOST, then removed by actual final cleanup. They were not never-created. Both are currently absent; old cleanup reports no attempts, groups or retained states.",
+  "priorClosure": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/tool-custody/CLEANUP.json",
+      "bytes": 88,
+      "sha256": "fc83a4236ef61248b1b52c8710421b55b6e6583973db64a927f1b37383d20d50"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/RETURN.json",
+      "bytes": 496,
+      "sha256": "911dd32d5ad7aaecec398b6683cac959086ef1d060e537463776085ca80c1f23"
+    }
+  ],
+  "reusableMechanisms": [
+    "run.py22-27 requires absent raw/worksite/state/receipt roots;78-83 observes fresh physical topology.",
+    "tool-launcher.py109-126 archives custody and checks unaccounted state before cleanup;192-195 creates exclusive attempt paths.",
+    "HOST34-38 propagates actual candidate binding, setup25-32 authenticates publication binding; phase-local fresh reads retained.",
+    "HOST228-268 preserves original D1 and consequent D2 semantic, executable, review/UAT and cold evidence obligations."
+  ],
+  "futureBindingRequirements": [
+    "First accept completed B56 source/proof and exact candidate02.",
+    "Bind genuine new candidate source/archive/bootstrap/manifest; fresh witness03 raw/worksite/runId, scratch/cache, grant/deadline and protected roots.",
+    "A later explicit grant may reuse vacated zero-attempt Tool coordinates /private/tmp/as6j2 and /private/tmp/as6r2 after renewed absence and closure checks. Archive all new custody under new raw root; old evidence stays immutable.",
+    "Occupied roots or contradicted closure stop preparation; never delete or reuse them automatically. A fresh TOOLCHAIN/manifest path rebind is needed only if reuse preconditions fail."
+  ],
+  "rootReadCorrection": "Initial records read tried tool-custody/RETURN.json, which is absent. Actual run root RETURN.json was located and matched the reviewer pin before this record was written; no evidence or runtime mutation.",
+  "noCodeDeltaCurrentlyRequired": true,
+  "executionAuthorized": false,
+  "candidateBound": false,
+  "clockStarted": false,
+  "qualified": false
+}

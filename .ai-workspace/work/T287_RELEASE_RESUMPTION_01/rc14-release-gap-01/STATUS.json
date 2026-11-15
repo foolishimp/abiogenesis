@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_COMPLETION_NATIVE02_ACTIVE",
+  "status": "RC14_B56_NATIVE02_CLOSED_INCOMPLETE_ONE_FILE_COMPLETION_SELECTED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T21:07:41.959865+00:00",
-  "nativeAuthorState": "Actual pinnedRC13/Opus5.5 author active on three-path completion; no proof/build yet.",
+  "recordedUtc": "2026-11-15T21:23:38.422214+00:00",
+  "nativeAuthorState": "No author active. Native02 returned incomplete; two reviewed files recovered as unproved input. One-file completion03 controls preparing with corrected R and acquisition obligations.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1138,7 +1138,7 @@
     "acceptance": "integration-01/CANDIDATE_SUCCESSOR_CONTROL_ACCEPTANCE_02.json"
   },
   "b56Completion": {
-    "state": "NATIVE02_ACTIVE",
+    "state": "NATIVE02_CLOSED_INCOMPLETE",
     "selection": "integration-01/B56_NATIVE01_CONJUNCTION_AND_REENTRY_02.json",
     "nativeWritePaths": [
       "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
@@ -1159,7 +1159,20 @@
     "actorStartedUtc": "2026-11-15T21:05:51.596Z",
     "modelObserved": "claude-opus-5-5",
     "effortConfigured": "xhigh",
-    "sourcePreimageRows": 1557
+    "sourcePreimageRows": 1557,
+    "actorClosed": true,
+    "taskComplete": false,
+    "proofStarted": false,
+    "sourcePostimageSha256": "6da4a29b9153b40b13fc92c1f4113c6fd49d8a07c140a02e8525d63b17dc316d",
+    "sourceDiffSha256": "6a49c49a159fb32ae8a5e8813700feabd80530ef378be7eaa65aaf10ea89abae",
+    "returnCommit": "f4d1f21c7323e26eae3e0dac3dd00f5cb0c95f6c",
+    "conjunction": "integration-01/B56_NATIVE02_CONJUNCTION_AND_REENTRY_03.json",
+    "auditSha256": "1a4f5d4e1eb2f5c03aef51dd8f6e33118f7c371a5257c07d604d7efd5e13d8ef",
+    "actualCloseFreshResultClosedReplay": true,
+    "sdkWallMs": 371467,
+    "turns": 33,
+    "reportedListCostUsd": 2.5392642,
+    "methodCompliance": false
   },
   "b58Control": {
     "state": "POSITIVE_EXACT_PARTITION_CONTROL_ACCEPTED_NOT_EXECUTED",
@@ -1168,5 +1181,20 @@
     "focused": 1,
     "remainder": 9,
     "actualProofStarted": false
+  },
+  "b56Completion03": {
+    "state": "DISABLED_CONTROL_PREPARATION_SELECTED",
+    "selection": "integration-01/B56_NATIVE02_CONJUNCTION_AND_REENTRY_03.json",
+    "nativeWritePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    ],
+    "newReadPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_execution_authority.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs"
+    ],
+    "providerStarted": false,
+    "proofAuthorized": false
   }
 }

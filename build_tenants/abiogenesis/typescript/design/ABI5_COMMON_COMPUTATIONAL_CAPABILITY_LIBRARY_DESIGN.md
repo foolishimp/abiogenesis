@@ -850,18 +850,35 @@ not copied. The record is read through the ABG event owner at the call's prefix.
 It adds no event or authority.
 
 The native-workspace-work component fixture uses the carried dependency
-relation (`T287_NATIVE_WORKSPACE_WORK_DESIGN.md`, Declared typed assessment).
-The relation is unchanged. The assembly basis keeps the native Program
-publication as `publication`. It carries the contract-declaring publication as
-`assessmentPublication`. Its owner supplies the call's admitted resolution row
-as `resolution`, the declaring install with its lock coordinates, and a
-resolved lock. The lock holds one row for the declaring owner, one row for the
-resolution's GraphFunction owner and the declaring owner's `requires` edge when
-the two owners differ. Positive cases assemble through that carriage. Omitted,
-crossed-owner, crossed-lock and unselected-contract carriages refuse before
-dispatch. Ordinary constructor tasks keep their original fixture. The installed
-same-Run relation stays with the `RC7 assessment dependency:` case. The
-controlled lock is component evidence only.
+relation as `T287_NATIVE_WORKSPACE_WORK_DESIGN.md`, Declared typed assessment,
+now defines it: the schema owner and the executing Program's declaration of use
+are distinct joins. `assessmentPublication` carries only the unique
+schema-owner publication, which declares the result contract and whose install
+holds the schema asset. The assembly basis `publication` is the authenticated
+executing Program publication; with the execution basis Program ref and
+digest it selects exactly one Program. One or more of that Program's own
+member GraphFunctions must declare the contract as `abg.raw_result_contract`.
+Another Program, Catalog membership, installation or supplied schema bytes
+grants no use. The schema owner and the use owner each join their publication
+digest to exactly one admitted install and one row of the same resolved lock.
+The lock carries forward `requires` edges from the use owner to the assessor's
+GraphFunction owner and to the schema owner, unless they are the same Product;
+a reverse edge grants nothing. Owner and use coincide in the consumer-owned
+case. The component fixture derives one case-local Program publication and
+uses it for the implementation row, leaf execution authority, execution-basis
+Program and GraphFunction digests, assembly basis and owner Program. Its
+outer authentication premise refuses a basis whose publication, Program or
+digest disagrees with those coordinates. Split cases rebuild installs and lock
+from the exact schema-owner and use publications. Omitted, crossed-owner,
+crossed-lock, missing or reverse edge, absent or crossed Program and
+unselected-contract carriages refuse before dispatch. Ordinary constructor
+tasks keep their original fixture and static raw-result lookup. Installs, lock
+and authentication are supplied component premises, not installed or ABG
+admission evidence. The installed same-Run proof belongs to the coincident
+`RC7 assessment dependency:` case and the split `S06 assessment dependency:`
+case. The split case uses the core semantic-stage native-assessment contract
+and schema asset with a consumer Program whose local member declares that use.
+The M03 publication codec fields are unchanged.
 
 ### 10.10 Bounded stdout windows and pre-decision flush (RC7 HS03)
 
