@@ -1,0 +1,55 @@
+{
+  "id": "RC14-S06-CONTROL-WRITER-003",
+  "role": "Separate external-control Writer",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": []
+  },
+  "productFrame": "Fixed5.0 F17/S06 complete selected lifecycle, independent assessment, executable evidence and consequential revision. Generic GTL is not required to adopt STDO; a selected native assessment requires declared role/context. External host records remain observations; Public and ABG retain authority.",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S06_FIRST_FAILURE_DISPOSITION_01.json",
+    "bytes": 8955,
+    "sha256": "b2f77f1450d723c82ffacecad55fd199e06e74805cbe3d2f50cea7e5923cd426"
+  },
+  "grantMainCommit": "0fab8effbbb9b5d496a486cd08b85590f8955cb7",
+  "predecessor": {
+    "commit": "62b148155eb087e6fc4d19e6fceb9d2eea4dd9ad",
+    "manifest": {
+      "path": "/private/tmp/abg-rc14-s06-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/CONTROL_MANIFEST.json",
+      "bytes": 5689,
+      "sha256": "a7f70b26c391929b03fa1e09c8683d3258f1c5134fa2bd916794504444a352e7"
+    }
+  },
+  "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03",
+  "permittedExecutableDelta": [
+    "declarations.mjs",
+    "HOST.mjs"
+  ],
+  "executionAuthorized": false,
+  "executionGrant": null,
+  "candidateBound": false,
+  "runtimeDeadlineBound": false,
+  "preparationDeadlineUtc": "2026-11-15T19:13:47+00:00",
+  "effects": [
+    "After this selection is pushed, create one isolated worktree/branch and reuse exact predecessor controls.",
+    "Only executable host changes: declarations.mjs and HOST.mjs. Construct a distinct generic D1 environment from the already authenticated packaged default-library declaration, retaining exact dependencies, contexts, source spans, policies/access and only D1's three matching constructor/assessor/command_executor rows. Use canonical current GTL constructors; attach it only to program://s06-witness/d1@5.",
+    "Do not pass the default environment blindly through the helper's runEnvironment parameter: it would bind eleven unselected revision Programs with incomplete role closure. Those Programs stay byte-equivalent and unbound. Actual D2's separate four-role default Executive environment remains unchanged.",
+    "Keep existing physical resource owner and setup code. For readback use a phase-local external caller view whose root matches the current phase recorder, retaining identical runtime/state/owner-method references. Write truthful phase-local run.json provenance. Preserve create-only D1/D2 separation and all original held/fresh assertions.",
+    "Reconcile only necessary control coordinates, README/activation/manifest/compact Return and static readiness. One pure canonical declaration-validation check may use actual public constructors and Program validation without Public invocation, provider, event admission or Product mutation; do not invent a runtime result. Syntax and exact unaffected-byte comparison are allowed.",
+    "Freeze one authored-only exact commit and return to Root. Preserve selected source, specification, application, Tool, oracle, C2, credentials, lifecycle semantics, finite budgets and first-failure mechanics."
+  ],
+  "exclusions": [
+    "No Product/source/test/maintained helper changes; no changes to candidate/archive/install/pin or original failed roots.",
+    "No execution/probe/provider/app compile/test/Spark, credential use, retry, main/push or raw Git.",
+    "No invented role/frame semantic judgment, forced verdict, dropped assertion, changed source/oracle/coverage, historical producer credit or new runtime/schema."
+  ],
+  "sourceOfFailure": {
+    "returnCommit": "277d82948a20b768a31e1938d1447def97089e62",
+    "rawReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-01/RETURN.json",
+      "bytes": 496,
+      "sha256": "1578f4b2ae970915ad340aea120f9141fa6b25314a3c7734b6e1791bcb892caf"
+    }
+  }
+}

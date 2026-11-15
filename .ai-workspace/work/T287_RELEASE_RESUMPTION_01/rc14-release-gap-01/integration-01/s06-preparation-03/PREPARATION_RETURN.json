@@ -1,0 +1,153 @@
+{
+  "id": "RC14-S06-CONTROL-WRITER-003-RETURN",
+  "status": "prepared_for_independent_review",
+  "writer": "/root/rc14_release_proof",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S06_FIRST_FAILURE_DISPOSITION_01.json",
+    "bytes": 8955,
+    "sha256": "b2f77f1450d723c82ffacecad55fd199e06e74805cbe3d2f50cea7e5923cd426"
+  },
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": []
+  },
+  "productFrame": "Fixed5.0 F17/S06 complete selected lifecycle, independent assessment, executable evidence and consequential revision. Generic GTL is not required to adopt STDO; a selected native assessment requires declared role/context. External host records remain observations; Public and ABG retain authority.",
+  "predecessor": {
+    "commit": "62b148155eb087e6fc4d19e6fceb9d2eea4dd9ad",
+    "manifestSha256": "a7f70b26c391929b03fa1e09c8683d3258f1c5134fa2bd916794504444a352e7"
+  },
+  "subjectCarrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03",
+  "manifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 5706,
+    "sha256": "b753febcd89ec78742117fe3abd20da47df49363766901b908f283b59ab7de61"
+  },
+  "activation": {
+    "path": "ACTIVATION.json",
+    "bytes": 4257,
+    "sha256": "0fd8ee1c6b84aadf35f3b5aa24a0b980091a99e50cc47d2df7e2432f1d610388"
+  },
+  "staticChecks": {
+    "path": "STATIC_CHECKS.json",
+    "bytes": 10480,
+    "sha256": "f9bbabdf85d4a174487d8fa96b5d3530f010dc92790652d17af8b05fe8ba6751"
+  },
+  "executableDelta": [
+    "declarations.mjs",
+    "HOST.mjs"
+  ],
+  "closure": [
+    "Distinct canonical generic D1 environment; exact packaged three role rows and context/dependency bodies retained.",
+    "Only selected initial D1 policy/declaration changes; eleven unselected revision Programs stay unbound and byte-equivalent.",
+    "D2 is byte-equivalent and its four-role environment is unchanged.",
+    "Both selected setup Programs require canonical declaration before any native dispatch.",
+    "Phase-local caller root is the sole caller-property change; state/runtime/recorder/owner methods are same references. Phase run.json is actual-Run evidence.",
+    "All original held/fresh/read-only/terminal/close and application evidence assertions remain."
+  ],
+  "proof": [
+    {
+      "name": "syntax-declarations",
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/syntax-declarations/result.json",
+        "bytes": 632,
+        "sha256": "b74958b387eab892f61364c57ff8ac1e8e227146b5a5e670e640a5f7516e5302"
+      },
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/syntax-declarations/stdout.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/syntax-declarations/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "wallMs": 205,
+      "ownedGroupAbsent": true
+    },
+    {
+      "name": "syntax-host",
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/syntax-host/result.json",
+        "bytes": 616,
+        "sha256": "12932985871fb59ba99367d83a81315311e1b284adab83c1beafb5cea4e859d4"
+      },
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/syntax-host/stdout.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/syntax-host/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "wallMs": 206,
+      "ownedGroupAbsent": true
+    },
+    {
+      "name": "canonical-check",
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/canonical-check/result.json",
+        "bytes": 626,
+        "sha256": "606967f4b462517a42f9fcfbc321db848277ccc3af5eb8299767380cdb225d62"
+      },
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/canonical-check/stdout.raw",
+        "bytes": 510,
+        "sha256": "714c57e4e3646d11f40bce25ecfb85c0f9d14b39cb88bb3faf34b6d8ab3434b3"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/canonical-check/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "wallMs": 628,
+      "ownedGroupAbsent": true
+    }
+  ],
+  "purePublicConstructorResult": {
+    "kind": "pure_constructor_readiness",
+    "candidateVersion": "5.0.0-rc.14",
+    "selectedD1Validation": "program_validation",
+    "selectedD2Validation": "program_validation",
+    "roles": [
+      "constructor",
+      "assessor",
+      "command_executor"
+    ],
+    "packagedMaterialAndRoleBodiesConserved": true,
+    "elevenUnselectedProgramsByteEquivalent": true,
+    "D2ByteEquivalent": true,
+    "negativeMissingAssessorRefused": true,
+    "negativeExtraSelectorRefused": true,
+    "phaseCallerReferenceAndPathRelation": true,
+    "runtimeAdmission": false,
+    "provider": false,
+    "qualification": false
+  },
+  "limits": [
+    "The missing environment is a sufficient observed refusal cause, not proof of absence of later defects.",
+    "No Public invocation, provider, event admission, Tool, application compile/test/Spark or query occurred.",
+    "Readback path specimen is not actual fresh-process proof. Complete fresh D1 then D2 remains required.",
+    "Candidate and actual runtime grant/deadline unbound. Preparation is not execution approval, semantic acceptance or qualification.",
+    "Whole-carrier diff --check flagged only inherited byte-identical SELECTION.md EOF blank line; preserved by Root instruction, not normalized."
+  ],
+  "conservation": {
+    "unchangedControlCount": 20,
+    "unchangedMaintainedInputs": 7,
+    "externalInputsRehashed": 35,
+    "ToolSha256": "16c83f445c4378f2e465e93662dff5147350d196732eb93b3b87c796714faf05",
+    "ToolchainSha256": "7fb0213fb32ea8170f0c89fbaabd691400b8c9f613cf7b457bf59d77ff805db3",
+    "INPUTSSha256": "9a9744c9cc6522ad95b298b5fa76b686a2f75f6cca3f12ec7ac0ca2284ab3673",
+    "priorRawAndControlsUntouched": true
+  },
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03",
+  "closedUtc": "2026-11-15T18:55:14.362361+00:00",
+  "originalPreparationDeadlineUtc": "2026-11-15T19:13:47+00:00",
+  "next": "Return exact commit to Root and stop. Independent review precedes any separately granted runtime attempt.",
+  "mainChanged": false,
+  "pushed": false,
+  "qualified": false
+}

@@ -1,0 +1,279 @@
+{
+  "kind": "bounded_external_control_readiness",
+  "start": {
+    "startedUtc": "2026-11-15T18:49:56.454263+00:00",
+    "deadlineUtc": "2026-11-15T19:13:47+00:00",
+    "grant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S06_FIRST_FAILURE_DISPOSITION_01.json",
+    "grantSha256": "b2f77f1450d723c82ffacecad55fd199e06e74805cbe3d2f50cea7e5923cd426",
+    "scope": "External control preparation only; one pure public constructor/Program validation command permitted"
+  },
+  "closedUtc": "2026-11-15T18:54:10.519426+00:00",
+  "checks": [
+    {
+      "name": "syntax-declarations",
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/syntax-declarations/result.json",
+        "bytes": 632,
+        "sha256": "b74958b387eab892f61364c57ff8ac1e8e227146b5a5e670e640a5f7516e5302"
+      },
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/syntax-declarations/stdout.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/syntax-declarations/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "wallMs": 205,
+      "ownedGroupAbsent": true
+    },
+    {
+      "name": "syntax-host",
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/syntax-host/result.json",
+        "bytes": 616,
+        "sha256": "12932985871fb59ba99367d83a81315311e1b284adab83c1beafb5cea4e859d4"
+      },
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/syntax-host/stdout.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/syntax-host/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "wallMs": 206,
+      "ownedGroupAbsent": true
+    },
+    {
+      "name": "canonical-check",
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/canonical-check/result.json",
+        "bytes": 626,
+        "sha256": "606967f4b462517a42f9fcfbc321db848277ccc3af5eb8299767380cdb225d62"
+      },
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/canonical-check/stdout.raw",
+        "bytes": 510,
+        "sha256": "714c57e4e3646d11f40bce25ecfb85c0f9d14b39cb88bb3faf34b6d8ab3434b3"
+      },
+      "stderr": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/canonical-check/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "wallMs": 628,
+      "ownedGroupAbsent": true
+    }
+  ],
+  "canonicalScript": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-preparation-20261116-03/canonical-check.mjs",
+    "bytes": 6968,
+    "sha256": "1e2b3cb115ee46aa55f8418e282ade5633d68302e01aaf40aac924da4a68e500"
+  },
+  "canonicalResult": {
+    "kind": "pure_constructor_readiness",
+    "candidateVersion": "5.0.0-rc.14",
+    "selectedD1Validation": "program_validation",
+    "selectedD2Validation": "program_validation",
+    "roles": [
+      "constructor",
+      "assessor",
+      "command_executor"
+    ],
+    "packagedMaterialAndRoleBodiesConserved": true,
+    "elevenUnselectedProgramsByteEquivalent": true,
+    "D2ByteEquivalent": true,
+    "negativeMissingAssessorRefused": true,
+    "negativeExtraSelectorRefused": true,
+    "phaseCallerReferenceAndPathRelation": true,
+    "runtimeAdmission": false,
+    "provider": false,
+    "qualification": false
+  },
+  "phaseReadbackCheckLimit": "Source-linked identical expression specimen and source inspection; no CLI request consumed and no runtime invocation performed.",
+  "unchangedControlCount": 20,
+  "unchangedControls": [
+    {
+      "path": "D2_RUBRIC.md",
+      "bytes": 1095,
+      "sha256": "58c6a122daeb6c14e74b5ef49f7deb7f368b2b56c07c7b4e54153930b240643e"
+    },
+    {
+      "path": "INPUTS.json",
+      "bytes": 17655,
+      "sha256": "9a9744c9cc6522ad95b298b5fa76b686a2f75f6cca3f12ec7ac0ca2284ab3673"
+    },
+    {
+      "path": "SELECTION.md",
+      "bytes": 4404,
+      "sha256": "2ebbce863f958f13f3f0fc41abcdf9a9bf7ebe150706bc47fc71cd4ba5b703a7"
+    },
+    {
+      "path": "TOOLCHAIN.json",
+      "bytes": 4844,
+      "sha256": "7fb0213fb32ea8170f0c89fbaabd691400b8c9f613cf7b457bf59d77ff805db3"
+    },
+    {
+      "path": "bounded.py",
+      "bytes": 4206,
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "path": "c2-evidence.mjs",
+      "bytes": 8532,
+      "sha256": "97b4550e453b632ded002177c414548fde3fbddfa1c8e16b6e5940982f0bfb44"
+    },
+    {
+      "path": "check-preparation.py",
+      "bytes": 3775,
+      "sha256": "490713c30c7d82dab89c9576fbc1aa12c683fcc63df0e35986acc39410ce96f5"
+    },
+    {
+      "path": "command-owner.py",
+      "bytes": 664,
+      "sha256": "ad26e04344dd738384a24d753ed67f67eb572dfda5f5187f5123774ecb0d496a"
+    },
+    {
+      "path": "consumer.mjs",
+      "bytes": 6341,
+      "sha256": "155cd181b290c7ff70c73af09cd8db176c5b51bc1508bd4a63e491185681ac8d"
+    },
+    {
+      "path": "inputs.mjs",
+      "bytes": 13095,
+      "sha256": "5a82c88ffc946d9593ddef71e686e48b5af0e986371f350b17cca26c6134e87c"
+    },
+    {
+      "path": "npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "observe.py",
+      "bytes": 6318,
+      "sha256": "af9527ab1e00c173aceb009ab4e09eae2e2fdf6181d18b406746ea9535f17f58"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "run.py",
+      "bytes": 10041,
+      "sha256": "02cdfc4e6a30ae048e4d254b2f49421e0607ba3188ce51ccd2759ccff26a1a07"
+    },
+    {
+      "path": "setup.mjs",
+      "bytes": 21253,
+      "sha256": "1c8735c276cf01b95009664a06cf9ae8375448de3337e42f00d1d7b7be311e21"
+    },
+    {
+      "path": "socket-control.py",
+      "bytes": 1671,
+      "sha256": "ac5321556c3fa39d5ae8ce3a7b0929d0b29750bc042f121ddcb289360a0ef529"
+    },
+    {
+      "path": "static-input-join.mjs",
+      "bytes": 3580,
+      "sha256": "8291506be76830c35aed669c8024007bf55103d171c3f76447ee542ed978f03b"
+    },
+    {
+      "path": "tool-launcher.py",
+      "bytes": 15213,
+      "sha256": "16c83f445c4378f2e465e93662dff5147350d196732eb93b3b87c796714faf05"
+    },
+    {
+      "path": "tsconfig.noemit.json",
+      "bytes": 889,
+      "sha256": "c4ca9fce6b24309af55ee23b3d14a85dcb46eaba5e8cb69d7f21f4c14f498bb1"
+    }
+  ],
+  "maintainedInputRowsConserved": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39738,
+      "sha256": "9bb83493f9bd34691dda02bb48f864d04b57f302edbdd39f2964f3857e59ab71"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "bytes": 7508,
+      "sha256": "0e046834271851dcb50ce16d7272290b47294a73dc18cd4b394fe5995102a47e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/amendment-witness.mjs",
+      "bytes": 17077,
+      "sha256": "2c3de69d59284b474aa613d941627922b05786aa77f15271653c7c4d1951c99b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product/index.mjs",
+      "bytes": 730,
+      "sha256": "e8cde80b6ca3093f65857eac23fa6969260567f1220f705f9ac5ca316e089c41"
+    }
+  ],
+  "externalInputRowsVerified": 35,
+  "unchangedTemplateConfigurationAndBounds": true,
+  "candidateAndRuntimeExecutionDisabled": true,
+  "runtimeAdmission": false,
+  "qualified": false,
+  "wholeCarrierWhitespaceCheck": {
+    "wholeCarrierCheck": {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exitCode": 2,
+      "observationKind": "retained tool-output observation",
+      "message": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/SELECTION.md:59: new blank line at EOF."
+    },
+    "source": {
+      "path": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/SELECTION.md",
+      "bytes": 4404,
+      "sha256": "2ebbce863f958f13f3f0fc41abcdf9a9bf7ebe150706bc47fc71cd4ba5b703a7"
+    },
+    "byteEqualPredecessor": true,
+    "disposition": "Preserve exact selected input; Root explicitly accepted inherited whitespace warning. No source normalization."
+  },
+  "authoredWhitespaceCheck": {
+    "scope": [
+      "ACTIVATION.json",
+      "BINDING.template.json",
+      "README.md",
+      "declarations.mjs",
+      "HOST.mjs",
+      "CONTROL_MANIFEST.json",
+      "STATIC_CHECKS.json",
+      "PREPARATION_RETURN.json"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+}
