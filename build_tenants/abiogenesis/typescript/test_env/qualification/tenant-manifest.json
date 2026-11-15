@@ -1,18 +1,18 @@
 {
   "kind": "tenant_conformance_manifest",
   "schemaVersion": "5.0.0",
-  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.14",
   "capabilityDefinitionGraph": {
     "ref": "capability-definition-graph://abiogenesis/abg-5",
-    "digest": "sha256:7ad59e8d3848d4adcf85ec4fd127b1d3186bab219cdafaca2625c3d33ec91af8"
+    "digest": "sha256:e95299db28408327b1fc715fe5de01a986a83e21226541090306a0e6fd9357b7"
   },
   "publicContractCatalog": {
-    "ref": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
-    "digest": "sha256:b0df08b8cb880a6e42aa02a7956dfa26e1ed4d57183ac1083c409d5588970bd4"
+    "ref": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.14",
+    "digest": "sha256:36d6841b8b5f53f9f757bff154d09645123ef7226d470019811a808de4f89a2c"
   },
   "claims": [
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.catalog.apply-node-type@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.catalog.apply-node-type@5",
       "capabilityRef": "abg.capability.catalog.apply-node-type@5",
       "publicContractRefs": [
         "abg.operation.catalog.apply"
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.catalog.apply-overlay@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.catalog.apply-overlay@5",
       "capabilityRef": "abg.capability.catalog.apply-overlay@5",
       "publicContractRefs": [
         "abg.operation.catalog.apply"
@@ -32,7 +32,7 @@
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.catalog.contribute@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.catalog.contribute@5",
       "capabilityRef": "abg.capability.catalog.contribute@5",
       "publicContractRefs": [
         "abg.contract.hog.graph-function-catalog",
@@ -43,54 +43,20 @@
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.catalog.invoke-graph-function@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.catalog.invoke-graph-function@5",
       "capabilityRef": "abg.capability.catalog.invoke-graph-function@5",
       "publicContractRefs": [
         "abg.contract.hog.traversal-root",
         "abg.contract.product.implementation-resolution-root",
         "abg.contract.product.invocation-root",
-        "abg.operation.run.invoke",
-        "abg.schema.consensus-panel",
-        "abg.schema.consensus-result",
-        "abg.schema.consensus-reviewer-profile",
-        "abg.schema.consensus-round-outcome",
-        "abg.schema.consensus-round-policy",
-        "abg.schema.consensus-subject",
-        "abg.schema.review-findings",
-        "abg.schema.review-rulings",
-        "abg.schema.ticket-consensus-projection",
-        "abg.vocabulary.consensus-fh-decision",
-        "abg.vocabulary.consensus-round-outcome",
-        "abg.vocabulary.review-ruling-kind"
+        "abg.operation.run.invoke"
       ],
       "evidenceRefs": [
         "proof://t287/st2a-g/capability-definition-graph"
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.graph-function.consensus@5",
-      "capabilityRef": "abg.capability.graph-function.consensus@5",
-      "publicContractRefs": [
-        "abg.schema.consensus-escalation-decision",
-        "abg.schema.consensus-panel",
-        "abg.schema.consensus-result",
-        "abg.schema.consensus-reviewer-profile",
-        "abg.schema.consensus-round-outcome",
-        "abg.schema.consensus-round-policy",
-        "abg.schema.consensus-ruling-overlay",
-        "abg.schema.consensus-subject",
-        "abg.schema.consensus-submitter-profile",
-        "abg.schema.consensus-submitter-response",
-        "abg.schema.review-findings",
-        "abg.schema.review-rulings",
-        "abg.schema.ticket-consensus-projection"
-      ],
-      "evidenceRefs": [
-        "proof://t287/st2a-g/capability-definition-graph"
-      ]
-    },
-    {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.gtl.admit@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.gtl.admit@5",
       "capabilityRef": "abg.capability.gtl.admit@5",
       "publicContractRefs": [
         "abg.contract.gtl.materialization-root",
@@ -101,7 +67,7 @@
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.gtl.declare@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.gtl.declare@5",
       "capabilityRef": "abg.capability.gtl.declare@5",
       "publicContractRefs": [
         "abg.contract.gtl.root-declaration",
@@ -112,7 +78,7 @@
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.gtl.serialize@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.gtl.serialize@5",
       "capabilityRef": "abg.capability.gtl.serialize@5",
       "publicContractRefs": [
         "abg.operation.conformance.evaluate"
@@ -122,7 +88,7 @@
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.gtl.typecheck@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.gtl.typecheck@5",
       "capabilityRef": "abg.capability.gtl.typecheck@5",
       "publicContractRefs": [
         "abg.contract.gtl.validation-root",
@@ -133,7 +99,7 @@
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.install.bind-products@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.install.bind-products@5",
       "capabilityRef": "abg.capability.install.bind-products@5",
       "publicContractRefs": [
         "abg.contract.abg.environment-admission",
@@ -151,7 +117,7 @@
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.module.publish@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.module.publish@5",
       "capabilityRef": "abg.capability.module.publish@5",
       "publicContractRefs": [
         "abg.operation.catalog.admit"
@@ -161,11 +127,10 @@
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.operator.public-contract@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.operator.public-contract@5",
       "capabilityRef": "abg.capability.operator.public-contract@5",
       "publicContractRefs": [
         "abg.operation.catalog.view",
-        "abg.operation.interaction.respond",
         "abg.operation.project.read",
         "abg.operation.release.snapshot",
         "abg.operation.witness.admit",
@@ -180,7 +145,7 @@
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.qualification.self-conformance@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.qualification.self-conformance@5",
       "capabilityRef": "abg.capability.qualification.self-conformance@5",
       "publicContractRefs": [
         "abg.operation.conformance.evaluate",
@@ -191,7 +156,7 @@
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.runtime.admit-fp-result@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.runtime.admit-fp-result@5",
       "capabilityRef": "abg.capability.runtime.admit-fp-result@5",
       "publicContractRefs": [
         "abg.operation.result.assess"
@@ -201,7 +166,7 @@
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.runtime.execute-seven-term-c@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.runtime.execute-seven-term-c@5",
       "capabilityRef": "abg.capability.runtime.execute-seven-term-c@5",
       "publicContractRefs": [
         "abg.contract.abg.c-call-root",
@@ -216,11 +181,10 @@
       ]
     },
     {
-      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.1/abg.capability.runtime.replay-continuation@5",
+      "claimRef": "claim://abiogenesis/typescript-tenant@5.0.0-rc.14/abg.capability.runtime.replay-continuation@5",
       "capabilityRef": "abg.capability.runtime.replay-continuation@5",
       "publicContractRefs": [
         "abg.contract.abg.replay-root",
-        "abg.operation.interaction.respond",
         "abg.operation.project.read",
         "abg.operation.run.continue"
       ],
@@ -229,6 +193,6 @@
       ]
     }
   ],
-  "manifestRef": "tenant-conformance-manifest://abiogenesis/5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5",
-  "manifestDigest": "sha256:5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5"
+  "manifestRef": "tenant-conformance-manifest://abiogenesis/01e9102553c6681882c1939711ad0adc964158ba474fd0f4af801d070d7a49df",
+  "manifestDigest": "sha256:01e9102553c6681882c1939711ad0adc964158ba474fd0f4af801d070d7a49df"
 }

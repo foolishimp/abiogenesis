@@ -1,59 +1,196 @@
 {
   "kind": "qualification_inventory_classification",
   "schemaVersion": "1",
-  "purpose": "Declares the subject inventory of the local unqualified candidate of @abiogenesis/typescript-tenant 5.0.0-rc.13: its selected root, its member set, the surface role of each member and the declared surface and rule partitions from which the bound qualification scope is constructed. The classification is a declaration for J to assess (inventory_coverage, inventory_classification); it supplies no authority.",
+  "purpose": "Declares the subject inventory of the local unqualified candidate of @abiogenesis/typescript-tenant 5.0.0-rc.14: its selected root, its member set, the surface role of each member and the declared surface and rule partitions from which the bound qualification scope is constructed. The classification is a declaration for J to assess (inventory_coverage, inventory_classification); it supplies no authority.",
   "repository": "repo://abiogenesis",
   "tenantPath": "build_tenants/abiogenesis/typescript",
-  "selectedRoots": ["repo://abiogenesis/build_tenants/abiogenesis/typescript"],
+  "selectedRoots": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript"
+  ],
   "memberRefPrefix": "repo://abiogenesis/build_tenants/abiogenesis/typescript/",
   "memberPathPrefix": "build_tenants/abiogenesis/typescript/",
   "coverage": "complete_claim",
   "memberSet": {
     "rule": "Every file of the selected root that Git tracks or would track (git ls-files --cached --others --exclude-standard, run in the tenant root), minus the exclusions below. Ignored outputs (build, node_modules, test_env/test_runs) are not members.",
     "exclusions": [
-      { "path": "test_env/qualification/inventory.json", "reason": "The inventory itself: it carries its own identity and cannot be its own member. No other file of the selected root binds the inventory's digest." }
+      {
+        "path": "test_env/qualification/inventory.json",
+        "reason": "The inventory itself: it carries its own identity and cannot be its own member. No other file of the selected root binds the inventory's digest."
+      }
     ]
   },
   "outsideSelectedRoots": [
-    { "ref": "repo://abiogenesis/specification", "reason": "The constitutional specification is the law, not the subject. The law basis binds it through the rule catalog's 94 sources (refs repo://abiogenesis/specification/..., byte copies under contracts/qualification/sources/, which are members here with the constitutional role). Selecting it as a subject root would give two inventory and catalog sources one ref with two paths, and a J task's material requires unique refs." },
-    { "ref": "repo://abiogenesis/build_tenants/abiogenesis/python", "reason": "A paused sibling realization; not part of this candidate." },
-    { "ref": "repo://abiogenesis/build_tenants/common", "reason": "Shared cross-tenant material; the candidate's package does not include it." }
+    {
+      "ref": "repo://abiogenesis/specification",
+      "reason": "The constitutional specification is the law, not the subject. The law basis binds it through the rule catalog's 94 sources (refs repo://abiogenesis/specification/..., byte copies under contracts/qualification/sources/, which are members here with the constitutional role). Selecting it as a subject root would give two inventory and catalog sources one ref with two paths, and a J task's material requires unique refs."
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/python",
+      "reason": "A paused sibling realization; not part of this candidate."
+    },
+    {
+      "ref": "repo://abiogenesis/build_tenants/common",
+      "reason": "Shared cross-tenant material; the candidate's package does not include it."
+    }
   ],
   "roles": [
-    { "id": "release-claim", "match": { "file": "release-claim.md" }, "surfaceRoles": ["release_claim"], "reason": "The release claim of 5.0.0-rc.13. prospectiveRelease.releaseClaim binds this member's coordinate (REQ-P-QUAL-057C) and publication copies its bytes. It is outside the pack and is neither law, contract nor manifest; the role set's release_claim names it." },
-    { "id": "manifest", "match": { "files": ["package.json", "package-lock.json", "tsconfig.json", "product-toolchain-manifest.json", ".gitignore"] }, "surfaceRoles": ["manifest"], "reason": "Package, lock, compiler, product-toolchain and ignore manifests of the tenant." },
-    { "id": "constitutional-sources", "match": { "prefix": "contracts/qualification/sources/" }, "surfaceRoles": ["constitutional"], "reason": "Byte copies of the specification and method sources the rule catalog extracts and the law basis binds." },
-    { "id": "qualification-law", "match": { "prefix": "contracts/qualification/" }, "surfaceRoles": ["qualification"], "reason": "The published qualification rule catalog, law basis, coverage catalog and authority inputs." },
-    { "id": "public-contract", "match": { "prefix": "contracts/" }, "surfaceRoles": ["public_contract"], "reason": "Published public contracts, schemas, vocabularies, capabilities and default library assets." },
-    { "id": "code", "match": { "prefix": "code/" }, "surfaceRoles": ["code"], "reason": "Tenant source code." },
-    { "id": "design", "match": { "prefix": "design/" }, "surfaceRoles": ["design"], "reason": "Tenant design surfaces." },
-    { "id": "execution-contract", "match": { "prefix": "scripts/" }, "surfaceRoles": ["execution_contract"], "reason": "Build, generation, lint and reporter scripts the package scripts and the verification recipe execute." },
-    { "id": "qualification-resources", "match": { "prefix": "test_env/qualification/" }, "surfaceRoles": ["qualification"], "reason": "The verification recipe, its inputs and these qualification resource declarations." },
-    { "id": "proof", "match": { "prefix": "test_env/" }, "surfaceRoles": ["proof"], "reason": "Tests, support, fixtures, falsifiers and proof surfaces." }
+    {
+      "id": "release-claim",
+      "match": {
+        "file": "release-claim.md"
+      },
+      "surfaceRoles": [
+        "release_claim"
+      ],
+      "reason": "The release claim of 5.0.0-rc.14. prospectiveRelease.releaseClaim binds this member's coordinate (REQ-P-QUAL-057C) and publication copies its bytes. It is outside the pack and is neither law, contract nor manifest; the role set's release_claim names it."
+    },
+    {
+      "id": "manifest",
+      "match": {
+        "files": [
+          "package.json",
+          "package-lock.json",
+          "tsconfig.json",
+          "product-toolchain-manifest.json",
+          ".gitignore"
+        ]
+      },
+      "surfaceRoles": [
+        "manifest"
+      ],
+      "reason": "Package, lock, compiler, product-toolchain and ignore manifests of the tenant."
+    },
+    {
+      "id": "constitutional-sources",
+      "match": {
+        "prefix": "contracts/qualification/sources/"
+      },
+      "surfaceRoles": [
+        "constitutional"
+      ],
+      "reason": "Byte copies of the specification and method sources the rule catalog extracts and the law basis binds."
+    },
+    {
+      "id": "qualification-law",
+      "match": {
+        "prefix": "contracts/qualification/"
+      },
+      "surfaceRoles": [
+        "qualification"
+      ],
+      "reason": "The published qualification rule catalog, law basis, coverage catalog and authority inputs."
+    },
+    {
+      "id": "public-contract",
+      "match": {
+        "prefix": "contracts/"
+      },
+      "surfaceRoles": [
+        "public_contract"
+      ],
+      "reason": "Published public contracts, schemas, vocabularies, capabilities and default library assets."
+    },
+    {
+      "id": "code",
+      "match": {
+        "prefix": "code/"
+      },
+      "surfaceRoles": [
+        "code"
+      ],
+      "reason": "Tenant source code."
+    },
+    {
+      "id": "design",
+      "match": {
+        "prefix": "design/"
+      },
+      "surfaceRoles": [
+        "design"
+      ],
+      "reason": "Tenant design surfaces."
+    },
+    {
+      "id": "execution-contract",
+      "match": {
+        "prefix": "scripts/"
+      },
+      "surfaceRoles": [
+        "execution_contract"
+      ],
+      "reason": "Build, generation, lint and reporter scripts the package scripts and the verification recipe execute."
+    },
+    {
+      "id": "qualification-resources",
+      "match": {
+        "prefix": "test_env/qualification/"
+      },
+      "surfaceRoles": [
+        "qualification"
+      ],
+      "reason": "The verification recipe, its inputs and these qualification resource declarations."
+    },
+    {
+      "id": "proof",
+      "match": {
+        "prefix": "test_env/"
+      },
+      "surfaceRoles": [
+        "proof"
+      ],
+      "reason": "Tests, support, fixtures, falsifiers and proof surfaces."
+    }
   ],
   "roleRule": "The first matching entry in order classifies a member; a member no entry matches is a classification error.",
   "evidenceSelections": [
     {
       "id": "diagnosed-generated-toolchain-manifest-definition",
-      "ruleSourceRefs": ["repo://abiogenesis/stdo_abiogenesis.json"],
-      "subjectMemberRefs": ["repo://abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"],
-      "sourceRefs": ["repo://abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs", "repo://abiogenesis/build_tenants/abiogenesis/typescript/package.json", "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/classification.json"],
+      "ruleSourceRefs": [
+        "repo://abiogenesis/stdo_abiogenesis.json"
+      ],
+      "subjectMemberRefs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+      ],
+      "sourceRefs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/package.json",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/classification.json"
+      ],
       "argument": "For this one generated manifest under the Product Definition binding, package.json declares build -> tsc -> scripts/generate-product-manifest.mjs; that exact generator constructs the abg_product_toolchain_manifest and writes canonicalJson(manifest). The complete output's bound inventory record remains the assessed subject; the actual generator and build declaration supply its construction/ownership argument beside the exact governing Product Definition source. This does not establish generated byte reproduction, input completeness, semantic compliance or justified applicability. The verification recipe's authenticated compare result can establish exact reproduction only when actually supplied; absent reproduction or any essential generator dependency remains an explicit unknown. No output body is silently clipped and no other rule family inherits this selection."
     },
     {
       "id": "diagnosed-design-complement-argument",
-      "ruleSourceRefs": ["repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-PROVENANCE.md", "repo://abiogenesis/specification/requirements/product/README.md"],
+      "ruleSourceRefs": [
+        "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-PROVENANCE.md",
+        "repo://abiogenesis/specification/requirements/product/README.md"
+      ],
       "groupKey": "complement/design",
-      "sourceRefs": ["repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md", "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/adrs/ADR-047-reflective-optimization-is-gtl-over-replay.md", "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/classification.json"],
+      "sourceRefs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/adrs/ADR-047-reflective-optimization-is-gtl-over-replay.md",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/classification.json"
+      ],
       "argument": "For these two exact sources only, the complete complement consists of the inventory's individually classified design members. The realization-requirements family declares code/proof/execution_contract as its governed roles; its exclusion of design is the common applicability argument to assess against the actual selected governing source, not an established waiver. The register and ADR are actual design evidence for interpreting that classification; they do not establish conformity or irrelevance of every unprovided design body. Every member, role and classification evidence ref remains visible. If the source governs a design member, or common scope/context is insufficient, the assessor must return falsified or unknown as supported. No other family receives this argument or these selections."
     }
   ],
   "surfaceGroups": {
-    "representativeSelection": {"kind": "first_and_last_member_within_byte_limit", "maxMemberBytes": 131072, "order": "frozen inventory order", "fallback": "first member when no member is within the byte limit", "meaning": "A declared actual source subset for J to assess the grouping argument. memberRefs retain the complete coverage domain; exact refs remain reacquirable. Selection supplies no conformity judgment; insufficient context is unknown."},
+    "representativeSelection": {
+      "kind": "first_and_last_member_within_byte_limit",
+      "maxMemberBytes": 131072,
+      "order": "frozen inventory order",
+      "fallback": "first member when no member is within the byte limit",
+      "meaning": "A declared actual source subset for J to assess the grouping argument. memberRefs retain the complete coverage domain; exact refs remain reacquirable. Selection supplies no conformity judgment; insufficient context is unknown."
+    },
     "rule": "One group per (role entry id, directory key): the directory key is the first two path segments of a tenant-relative path with three or more segments, the first segment of a two-segment path, and the whole path of a top-level file. groupRef = qualification-surface-group://abiogenesis/typescript-tenant/<role id>/<segments>.",
-    "rootRefs": ["repo://abiogenesis/build_tenants/abiogenesis/typescript"],
-    "ownerRefs": ["product://abiogenesis/typescript-tenant@5.0.0-rc.13"],
-    "sourceRefs": ["repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/classification.json"]
+    "rootRefs": [
+      "repo://abiogenesis/build_tenants/abiogenesis/typescript"
+    ],
+    "ownerRefs": [
+      "product://abiogenesis/typescript-tenant@5.0.0-rc.14"
+    ],
+    "sourceRefs": [
+      "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/classification.json"
+    ]
   },
   "ruleGroups": {
     "rule": "One group per rule catalog source: the group holds every rule whose sourceRef is that source, and its sourceRefs are that source alone. groupRef = qualification-rule-group://abiogenesis/typescript-tenant/<source ordinal in the catalog>."
@@ -63,15 +200,137 @@
     "rule": "Each rule group (one per catalog source) declares its domain, which partitions the whole inventory (validator/qualification.ts:369-374): every global surface group whose surface role is governed by the source's family, cut in inventory order into parts of at most chunkBytes (a larger member is a part alone) so that a part's bytes fit one slot beside its rule sources, re-keyed per rule group as qualification-surface-group://abiogenesis/typescript-tenant/domain/<rule group ordinal>/<global group key>[/part-<n>] (the suffix when a group has more than one part), and, for each surface role no governed group carries, one complement group of the members with that role, qualification-surface-group://abiogenesis/typescript-tenant/domain/<rule group ordinal>/complement/<role> (one complement per role; a complement's members enter its slot as metadata). A global group's surface roles are one role (the role entries above), so a group is governed or not as a whole. The family is the first entry below that matches the source ref (refs exactly, else the prefix). Governance derives from the source's family and the classification's roles (REQ-P-SELF-CONFORMANCE-003): a requirement family over realization governs the code, proof and execution-contract groups; the product definition governs every realized surface; contract law the public-contract groups; the qualification, manifest and release-claim groups by their own sources; the method standards by what they govern. The constitutional byte copies are the law itself and no family governs them as subject. The self-conformance input's applications declare each governed pair applicable and each complement pair inapplicable, with this entry's family as premise evidence (classification.json#domain/<family id>); J assesses the declaration and its premises.",
     "chunkBytes": 340000,
     "families": [
-      {"id": "qualification-law", "match": {"refs": ["repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md", "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md"]}, "governedRoles": ["code", "proof", "execution_contract", "qualification", "manifest", "release_claim"], "reason": "The qualification and self-conformance requirements govern their realization (code, proof, the recipe's scripts), the qualification law and resources, the packaged manifests the basis binds and the release claim (REQ-P-QUAL-057C)."},
-      {"id": "contract-law", "match": {"refs": ["repo://abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md", "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md"]}, "governedRoles": ["code", "proof", "execution_contract", "public_contract"], "reason": "Contract law governs the published public contracts and schemas beside the code, proof and generation scripts that realize them."},
-      {"id": "install-law", "match": {"refs": ["repo://abiogenesis/specification/requirements/product/REQ-P-INSTALL.md"]}, "governedRoles": ["code", "proof", "execution_contract", "manifest"], "reason": "The install requirements govern the package, lock and product-toolchain manifests beside the realizing code, proof and scripts."},
-      {"id": "product-definition", "match": {"refs": ["repo://abiogenesis/specification/INTENT.md", "repo://abiogenesis/specification/PRODUCT.md"]}, "governedRoles": ["code", "proof", "execution_contract", "public_contract", "design", "manifest", "qualification", "release_claim"], "reason": "The intent and the Product Definition govern every realized surface of the tenant; only the constitutional byte copies, which are the law, are outside it."},
-      {"id": "realization-requirements", "match": {"prefix": "repo://abiogenesis/specification/requirements/"}, "governedRoles": ["code", "proof", "execution_contract"], "reason": "A requirement family over realization (ABG, GTL, mapping and product requirements and their family indexes) governs the code, the proof and the execution-contract scripts."},
-      {"id": "release-method", "match": {"refs": ["stdo://releases/v3.0.4/standards/RELEASE.md"]}, "governedRoles": ["manifest", "qualification", "release_claim"], "reason": "The release standard governs the release claim, the release manifests and the qualification resources of the cut."},
-      {"id": "identity-method", "match": {"refs": ["stdo://releases/v3.0.4/standards/IDENTITY.md"]}, "governedRoles": ["public_contract", "manifest"], "reason": "The identity standard governs the published identities: public contracts and the product manifests."},
-      {"id": "method-project", "match": {"refs": ["repo://abiogenesis/stdo_abiogenesis.json"]}, "governedRoles": ["design", "manifest"], "reason": "The project's method binding governs the design surfaces and the manifests that select the method."},
-      {"id": "method-standards", "match": {"prefix": "stdo://releases/v3.0.4/standards/"}, "governedRoles": ["design"], "reason": "The method standards (specification, ODD, executive baseline, reference frames, the axiomatic calculus, bootstrap) are design law: they govern the design surfaces."}
+      {
+        "id": "qualification-law",
+        "match": {
+          "refs": [
+            "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+            "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md"
+          ]
+        },
+        "governedRoles": [
+          "code",
+          "proof",
+          "execution_contract",
+          "qualification",
+          "manifest",
+          "release_claim"
+        ],
+        "reason": "The qualification and self-conformance requirements govern their realization (code, proof, the recipe's scripts), the qualification law and resources, the packaged manifests the basis binds and the release claim (REQ-P-QUAL-057C)."
+      },
+      {
+        "id": "contract-law",
+        "match": {
+          "refs": [
+            "repo://abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+            "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md"
+          ]
+        },
+        "governedRoles": [
+          "code",
+          "proof",
+          "execution_contract",
+          "public_contract"
+        ],
+        "reason": "Contract law governs the published public contracts and schemas beside the code, proof and generation scripts that realize them."
+      },
+      {
+        "id": "install-law",
+        "match": {
+          "refs": [
+            "repo://abiogenesis/specification/requirements/product/REQ-P-INSTALL.md"
+          ]
+        },
+        "governedRoles": [
+          "code",
+          "proof",
+          "execution_contract",
+          "manifest"
+        ],
+        "reason": "The install requirements govern the package, lock and product-toolchain manifests beside the realizing code, proof and scripts."
+      },
+      {
+        "id": "product-definition",
+        "match": {
+          "refs": [
+            "repo://abiogenesis/specification/INTENT.md",
+            "repo://abiogenesis/specification/PRODUCT.md"
+          ]
+        },
+        "governedRoles": [
+          "code",
+          "proof",
+          "execution_contract",
+          "public_contract",
+          "design",
+          "manifest",
+          "qualification",
+          "release_claim"
+        ],
+        "reason": "The intent and the Product Definition govern every realized surface of the tenant; only the constitutional byte copies, which are the law, are outside it."
+      },
+      {
+        "id": "realization-requirements",
+        "match": {
+          "prefix": "repo://abiogenesis/specification/requirements/"
+        },
+        "governedRoles": [
+          "code",
+          "proof",
+          "execution_contract"
+        ],
+        "reason": "A requirement family over realization (ABG, GTL, mapping and product requirements and their family indexes) governs the code, the proof and the execution-contract scripts."
+      },
+      {
+        "id": "release-method",
+        "match": {
+          "refs": [
+            "stdo://releases/v3.0.4/standards/RELEASE.md"
+          ]
+        },
+        "governedRoles": [
+          "manifest",
+          "qualification",
+          "release_claim"
+        ],
+        "reason": "The release standard governs the release claim, the release manifests and the qualification resources of the cut."
+      },
+      {
+        "id": "identity-method",
+        "match": {
+          "refs": [
+            "stdo://releases/v3.0.4/standards/IDENTITY.md"
+          ]
+        },
+        "governedRoles": [
+          "public_contract",
+          "manifest"
+        ],
+        "reason": "The identity standard governs the published identities: public contracts and the product manifests."
+      },
+      {
+        "id": "method-project",
+        "match": {
+          "refs": [
+            "repo://abiogenesis/stdo_abiogenesis.json"
+          ]
+        },
+        "governedRoles": [
+          "design",
+          "manifest"
+        ],
+        "reason": "The project's method binding governs the design surfaces and the manifests that select the method."
+      },
+      {
+        "id": "method-standards",
+        "match": {
+          "prefix": "stdo://releases/v3.0.4/standards/"
+        },
+        "governedRoles": [
+          "design"
+        ],
+        "reason": "The method standards (specification, ODD, executive baseline, reference frames, the axiomatic calculus, bootstrap) are design law: they govern the design surfaces."
+      }
     ]
   }
 }
