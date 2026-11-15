@@ -4,8 +4,8 @@ import ast,datetime,hashlib,importlib.util,json,os,pathlib,shutil,sys,time
 sys.dont_write_bytecode=True
 from bounded import run,save
 C=pathlib.Path(__file__).resolve().parent
-RAW=pathlib.Path('/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-02')
-SHORT=pathlib.Path('/private/tmp/as6p2')
+RAW=pathlib.Path('/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03')
+SHORT=pathlib.Path('/private/tmp/as6p3')
 def sha(p):return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
 def main():
  assert not RAW.exists() and not SHORT.exists(),'One fresh control check; no retry'
@@ -22,7 +22,7 @@ def main():
   checks.append({'check':'Python AST, JSON and exact control hashes','passed':True})
   def command(label,argv):
    result=run(RAW/label,argv,str(C),env,deadline,45000,8388608);checks.append({'check':label,'result':result})
-  for i,p in enumerate(sorted(C.glob('*.mjs'))):command('syntax-'+str(i),[b['configuration']['nodePath'],'--check',str(p)])
+  for i,p in enumerate([C/'inputs.mjs',C/'static-input-join.mjs']):command('syntax-'+str(i),[b['configuration']['nodePath'],'--check',str(p)])
   command('canonical-types',[b['configuration']['nodePath'],'/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc','--project',str(C/'tsconfig.noemit.json')])
   command('canonical-inputs',[b['configuration']['nodePath'],str(C/'static-input-join.mjs'),str(RAW/'prospective-shape')])
   spec=importlib.util.spec_from_file_location('s06_static_tool',C/'tool-launcher.py');tool=importlib.util.module_from_spec(spec);spec.loader.exec_module(tool)

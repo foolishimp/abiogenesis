@@ -19,5 +19,14 @@
     "main writes or push"
   ],
   "toolEffectGrant": "One immutable identity-bound actual C2 launcher owns fresh phase/attempt-specific short JVM cache/tmp/IPC state and external receipts on named disjoint private/tmp roots; inputs read-only; topology/custody and bounded cleanup; no app verdict",
-  "return": "Root exact frozen preparation plus typed joins, proof identities and limits; stop"
+  "return": "Root exact frozen preparation plus typed joins, proof identities and limits; stop",
+  "controlCorrection": {
+    "grant": "Root separate correction after closed b23f87975",
+    "predecessorSubject": "b23f87975bff4620477244eed0f3e48b477cd9a5",
+    "predecessorManifestSha256": "eb9afcc649ceda5cec6872b0057ea1a53fbd933a5b87ee7d098a2bac408185c5",
+    "scope": "Canonical public indexed capability type; three explicit utf8 reads; fresh control raw/short-root identities and affected static population only",
+    "envelope": "one new60s preparation check; no lifecycle/old clock extension",
+    "preservedFailure": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-02/canonical-types/stdout.raw",
+    "preservedFailureSha256": "e910d23201c348934d21092d78b554cfce464328a8e43e1d38bdc480ab6b9fca"
+  }
 }

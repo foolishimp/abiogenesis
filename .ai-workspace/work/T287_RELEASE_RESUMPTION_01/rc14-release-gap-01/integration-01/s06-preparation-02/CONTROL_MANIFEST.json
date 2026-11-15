@@ -6,8 +6,8 @@
   "controls": [
     {
       "path": "ACTIVATION.json",
-      "bytes": 1289,
-      "sha256": "92d58f56274e8c2303525624d45048abdceb802adeadcb38b6c331b7e805b998"
+      "bytes": 2050,
+      "sha256": "0771f004fc1bff1be1fc208b1a561320510f8d25ec652cdf868a97e9c89cd51e"
     },
     {
       "path": "BINDING.template.json",
@@ -56,8 +56,8 @@
     },
     {
       "path": "check-preparation.py",
-      "bytes": 4112,
-      "sha256": "a737a75e635070451b50b9a7e3b9626bca876db14677bdc176866ae9a2621720"
+      "bytes": 4131,
+      "sha256": "bff3d19012e6791ffa1694c237008a40b84dae9b52c4dc4d5c63ded5b75163db"
     },
     {
       "path": "command-owner.py",
@@ -76,8 +76,8 @@
     },
     {
       "path": "inputs.mjs",
-      "bytes": 13026,
-      "sha256": "dd758b6d5a416cba8b7b5f72a6aeb88b819e998e8ca81cf9b104b866800357cf"
+      "bytes": 13063,
+      "sha256": "c97528a1cf2e13a5387be38b682670f3dc55eae96f2394c0a7f909dedcddf97b"
     },
     {
       "path": "npm-global.npmrc",
@@ -116,8 +116,8 @@
     },
     {
       "path": "static-input-join.mjs",
-      "bytes": 3559,
-      "sha256": "f2e387274d2c478f6e6dd6f537d16902a695b6d036ad3330e369885386800993"
+      "bytes": 3580,
+      "sha256": "8291506be76830c35aed669c8024007bf55103d171c3f76447ee542ed978f03b"
     },
     {
       "path": "tool-launcher.py",
@@ -170,5 +170,9 @@
   "derivedReturnsExcludedFromControlSet": [
     "PREPARATION_RETURN.json",
     "STATIC_CHECKS.json"
-  ]
+  ],
+  "predecessorControls": {
+    "commit": "b23f87975bff4620477244eed0f3e48b477cd9a5",
+    "manifestSha256": "eb9afcc649ceda5cec6872b0057ea1a53fbd933a5b87ee7d098a2bac408185c5"
+  }
 }

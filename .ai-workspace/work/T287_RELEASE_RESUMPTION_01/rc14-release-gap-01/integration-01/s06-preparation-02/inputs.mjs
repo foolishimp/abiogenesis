@@ -56,7 +56,7 @@ export function witnessCommand(executable,phase,timeoutMs) {
 // One external consumer declaration, reused by D1, D2, evidence and static checks.
 export function witnessProtocol(binding,toolchain) {
  const environment={S06_TOOLCHAIN_SHA256:binding.application.toolchainSha256,PATH:'/usr/bin:/bin',HOME:toolchain.stateRoot,TMPDIR:toolchain.stateRoot,LANG:'en_US.UTF-8',LC_ALL:'C'};
- /** @type {import('@abiogenesis/typescript-tenant/product').SemanticJobExecutionCapability} */
+ /** @type {import('@abiogenesis/typescript-tenant/product').SemanticJobInput['worksiteScope']['executableCapabilities'][number]} */
  const capability={executable:binding.application.commandExecutable,relativeCwdRoots:['.'],environment,maxTimeoutMs:binding.application.commandTimeoutMs,maxTerminationGraceMs:10000};
  const commands=Object.fromEntries(['d1','d2'].map(phase=>[phase,{...witnessCommand(binding.application.commandExecutable,phase,binding.application.commandTimeoutMs),environment}]));
  return {environment,capability,commands};

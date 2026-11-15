@@ -1,12 +1,12 @@
 {
   "activationId": "RC14-S06-TOOLCHAIN-C2-JOIN-PREP-002",
-  "disposition": "source_prepared_type_check_stopped_execution_held",
+  "disposition": "canonical_join_ready_socket_profile_parser_stopped_execution_held",
   "sourceBase": "27d971a3641ae016451ac72eb766f22c170f63b3",
   "predecessor": "60cd47319b360048f2176f97d0d2cb8703df1397",
   "controlManifest": {
     "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/CONTROL_MANIFEST.json",
-    "bytes": 5510,
-    "sha256": "eb9afcc649ceda5cec6872b0057ea1a53fbd933a5b87ee7d098a2bac408185c5"
+    "bytes": 5689,
+    "sha256": "44945991e59327ebb766dd08ded0cfd39c7e4708c5a840a8fe3873bcf4811f22"
   },
   "controls": 25,
   "toolExecutable": {
@@ -21,8 +21,8 @@
   },
   "staticChecks": {
     "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-02/STATIC_CHECKS.json",
-    "bytes": 3413,
-    "sha256": "93fddc105e07cab263d998b4810fda28dc28514e47092b09deb1f64f6bcefca6"
+    "bytes": 5405,
+    "sha256": "7192330f32a95a39ba28a77314d06068e68bfc90d2f9b572ceecffd9e615d997"
   },
   "grant": "Root separate Writer and60s pure/static/local socket control grant; no live candidate or execution",
   "realizedJoin": [
@@ -33,33 +33,22 @@
     "Frozen-JDK reader-only fresh queries",
     "Copy-first external Tool custody and bounded cleanup; original wall/monotonic completion check"
   ],
-  "firstFailure": {
-    "owner": "external control annotations/input decoding",
-    "diagnostics": [
-      "Public Product namespace does not export source-local SemanticJobExecutionCapability",
-      "Three JSON.parse(readFile(...)) expressions require utf8 for canonical TypeScript checking"
-    ],
-    "stdout": {
-      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-02/canonical-types/stdout.raw",
-      "bytes": 702,
-      "sha256": "e910d23201c348934d21092d78b554cfce464328a8e43e1d38bdc480ab6b9fca"
-    },
-    "smallestReentry": "One owner-indexed type annotation through exported SemanticJobInput.worksiteScope.executableCapabilities and three utf8 reads; preserve failed check, then separately select remaining canonical/socket discriminator",
-    "repaired": false,
-    "retried": false
-  },
   "closedEvidence": {
-    "pythonAstJsonHashes": true,
-    "mjsSyntaxFiles": 7,
+    "types": true,
+    "canonicalProspectiveSemanticInput": true,
+    "canonicalProspectiveGovernanceInput": true,
+    "exactCapabilityCommandEnvironmentJoin": true,
+    "originalNamedReviewAndRelativeCommandMeaning": true,
+    "completeFrozenToolInventories": true,
+    "changedMjsSyntaxFiles": 2,
+    "retainedUnchangedMjsSyntaxFiles": 5,
     "allCommandsClosed": true,
     "withinOriginal60s": true,
-    "elapsedMs": 2526,
+    "elapsedMs": 4529,
     "syntheticShortRootAbsent": true
   },
   "open": [
-    "Type check",
-    "Prospective canonical constructor join",
-    "New local TCP/Unix permission control",
+    "Local TCP/Unix permission syntax and discriminator",
     "Actual application compilation/ScalaTest/Spark under Tool policy",
     "Five-minute C2 capacity",
     "Independent preparation review and exact prospective RC14 candidate/runtime binding",
@@ -72,5 +61,41 @@
     "mainPushVersionPinQualification": "none",
     "JavaSbtProviderRuntime": "none"
   },
-  "returnTo": "Root; stopped with exact prepared source; no automatic correction/retry"
+  "returnTo": "Root; stopped with exact prepared source; no automatic correction/retry",
+  "preparationSuccessorOf": "b23f87975bff4620477244eed0f3e48b477cd9a5",
+  "priorTypeStop": {
+    "commit": "b23f87975bff4620477244eed0f3e48b477cd9a5",
+    "preparationReturnSha256": "81a232bb48b9508fd4d828612ddd117c1853dd2ebec2e15b9c7768690e9d1107",
+    "record": {
+      "owner": "external control annotations/input decoding",
+      "diagnostics": [
+        "Public Product namespace does not export source-local SemanticJobExecutionCapability",
+        "Three JSON.parse(readFile(...)) expressions require utf8 for canonical TypeScript checking"
+      ],
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-02/canonical-types/stdout.raw",
+        "bytes": 702,
+        "sha256": "e910d23201c348934d21092d78b554cfce464328a8e43e1d38bdc480ab6b9fca"
+      },
+      "smallestReentry": "One owner-indexed type annotation through exported SemanticJobInput.worksiteScope.executableCapabilities and three utf8 reads; preserve failed check, then separately select remaining canonical/socket discriminator",
+      "repaired": false,
+      "retried": false
+    },
+    "correction": "Canonical public indexed type and three utf8 decodes only; original raw bytes unchanged"
+  },
+  "firstFailure": {
+    "owner": "consumer Tool macOS sandbox policy syntax",
+    "reason": "sandbox-exec: host must be * or localhost in network address",
+    "origin": "tool-launcher.py profile(): local/remote tcp numeric127.0.0.1 host literals",
+    "stderr": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-control-join-20261115-03/socket-controls/stderr.raw",
+      "bytes": 219,
+      "sha256": "169125960bf6ce230833a0e6205be4a611e62d0b29c929b7ff13c03294135b57"
+    },
+    "childStatus": "sandbox parser exit65, socket Python never started",
+    "smallestReentry": "Use exact supported localhost host filter, describe loopback scope honestly, retain remote denial and original socket assertions; separately select one fresh socket-only discriminator",
+    "repaired": false,
+    "retried": false
+  },
+  "authoringObservation": "Before the one actual successor check, an exact text-replacement guard found two matching read expressions and refused; only the authorized type annotation had been written. The three JSON parse contexts were then targeted explicitly; no broader read/hash encoding changed and no extra check was run."
 }
