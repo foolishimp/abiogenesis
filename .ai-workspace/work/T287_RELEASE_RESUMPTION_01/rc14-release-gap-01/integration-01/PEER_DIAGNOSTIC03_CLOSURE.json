@@ -1,0 +1,95 @@
+{
+  "id": "RC14-PEER-DIAGNOSTIC03-CLOSED",
+  "reviewedUtc": "2026-11-15T09:54:52.022132+00:00",
+  "sourceHead": "f022c572532d668add27ed026384be4d057155bc",
+  "return": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-peer-latency-diagnostic-20261115-03/diagnostic-01/RETURN.json",
+    "bytes": 7017,
+    "sha256": "bc44cf1e6973b049aae8b55118350abfbe1c4ca8939da5a5523e703cb3d5d507"
+  },
+  "controlStart": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-peer-latency-diagnostic-20261115-03/diagnostic-01/CONTROL_START.json",
+    "bytes": 611,
+    "sha256": "c23a3a0940bad72982dfab2acdbef412514fc6c13ea4c075c93bb5a5badd3da7"
+  },
+  "sourcePreimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-peer-latency-diagnostic-20261115-03/diagnostic-01/SOURCE_PREIMAGE.json",
+    "bytes": 290868,
+    "sha256": "0bb6ac1f33cc7348e4b8a24c2786d23b8eb88c4f662c5809d215424942543ee9"
+  },
+  "topology": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-peer-latency-diagnostic-20261115-03/diagnostic-01/TOPOLOGY.json",
+    "bytes": 36856,
+    "sha256": "3edf5ab278d45cfa9c00f12ac4dc9bad8fb798980736fef5a1670e4bb7105546"
+  },
+  "disposition": "three_selected_whole_files_passed_original_case_limits",
+  "files": [
+    {
+      "file": "t287-worksite-construction.test.mjs",
+      "cases": {
+        "tests": 3,
+        "failed": 0,
+        "passed": 3,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 3,
+        "suites": 0
+      },
+      "elapsedMs": 65541,
+      "processGroupAbsent": true,
+      "knownChildAbsenceObserved": true,
+      "observerFailures": []
+    },
+    {
+      "file": "t287-worksite-branch-construction.test.mjs",
+      "cases": {
+        "tests": 2,
+        "failed": 0,
+        "passed": 2,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 2,
+        "suites": 0
+      },
+      "elapsedMs": 164365,
+      "processGroupAbsent": true,
+      "knownChildAbsenceObserved": true,
+      "observerFailures": []
+    },
+    {
+      "file": "t287-worksite-command-execution.test.mjs",
+      "cases": {
+        "tests": 13,
+        "failed": 0,
+        "passed": 13,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 13,
+        "suites": 0
+      },
+      "elapsedMs": 178103,
+      "processGroupAbsent": true,
+      "knownChildAbsenceObserved": true,
+      "observerFailures": []
+    }
+  ],
+  "total": {
+    "files": 3,
+    "pass": 18,
+    "fail": 0,
+    "skip": 0,
+    "cancelled": 0
+  },
+  "checked": [
+    "Raw stdout/stderr byte identities reacquired",
+    "Per-file complete case frames and global summaries conjoined; all18pass and0skip/todo",
+    "All3 process groups closed; subscriber-observed children absent; no universal descendant claim",
+    "Original case/child deadlines and source unchanged; owner conserved complete source/dependency/build/input inventories",
+    "Completed09:51:17Z before original10:59:23Z deadline"
+  ],
+  "meaning": "Fresh bounded development proof over retained exact Product payload. Prior peer timeouts remain history; no attributed root-cause claim or automatic broad campaign union.",
+  "qualification": false
+}

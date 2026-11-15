@@ -1,0 +1,19 @@
+{
+  "id": "RC14-ROOT-RECORDS-WRITER-006",
+  "role": "Separate Root records Writer activation following closed control and diagnostic review",
+  "startedUtc": "2026-11-15T09:53:52.995635+00:00",
+  "authority": "Owner instruction to finish RC14; existing PLAN and T293, exact STDO3.0.4 and project reference frame",
+  "subject": "S06 toolchain03 frozen f0b05bc82125596250bf826c8cfe1651d11c8933 and closed diagnostic03 on f022c572532d668add27ed026384be4d057155bc",
+  "permittedEffects": [
+    "Merge only the frozen12-file S06-toolchain03 carrier to main",
+    "Write compact acceptance, diagnostic completion and current STATUS records in existing RC14 work carrier",
+    "Stage exact authored control/record paths, commit main, push HEAD:refs/heads/main with LFS skip and verify direct remote parity"
+  ],
+  "exclusions": [
+    "No tenant/Product/requirement/policy change",
+    "No raw logs, event bodies, archives or LFS publication",
+    "No unrelated peer commentary staging",
+    "No qualification, human acceptance, provider launch, old-clock reset or cleanup"
+  ],
+  "returnTo": "Root Executive; exact source/record checkpoint and parity"
+}

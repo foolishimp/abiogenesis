@@ -1,5 +1,5 @@
 {
-  "status": "RC14_PARTIAL_FIXTURES_SAVED_FRESH_REENTRY_PREPARATION_ACCEPTED",
+  "status": "RC14_FIXTURE_AUTHOR_COMPLETED_REVIEW_PENDING_DIAGNOSTIC_GREEN",
   "builderPin": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
     "bytes": 5769,
@@ -8,7 +8,7 @@
   "sourceCheckpointBeforeDelivery": "db0983c9e2f2609fcd155ad165d6e562e080025f",
   "implementationStarted": true,
   "providerCalls": 7,
-  "triage": "Installed basic04 composition accepted; actual6native actor sessions and2real app tests, fresh replay matching. Native04 partial fixture source conserved after max-turn failure; native05 completes3fixtures+2capture repairs. S06/diagnostic controls accepted as preparation; final candidate/qualification open.",
+  "triage": "Native05 completed and fresh result/replay closed; source/method review before16-fileproof. Three remaining peer timeout files18/18pass originallimits. S06socket correction controlsaccepted; oneoffline resolutionpendingpushedlaunch. Candidate/qualificationremainopen.",
   "rawEvidencePublication": false,
   "initialSelectionRecordedUtc": "2026-11-14T13:14:50.325246+00:00",
   "pinAndPlanCheckpoint": "d9ebd816c7f50d01a88fa7dd480861ce3eb1fdda",
@@ -673,5 +673,36 @@
     "allInputsConserved": true,
     "dependencyClosure": "unknown",
     "readOnlyOriginatingCauseTriage": "active; no retry"
+  },
+  "updatedUtc": "2026-11-15T09:54:52.022132+00:00",
+  "peerDiagnostic03": {
+    "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
+    "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
+    "files": 3,
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0,
+    "sourceHead": "f022c572532d668add27ed026384be4d057155bc",
+    "originalCaseLimitsPreserved": true,
+    "qualification": false
+  },
+  "s06Toolchain03": {
+    "controlsCommit": "f0b05bc82125596250bf826c8cfe1651d11c8933",
+    "acceptance": "integration-01/S06_TOOLCHAIN03_ACCEPTANCE.json",
+    "state": "accepted_execution_pending_pushed_checkpoint",
+    "oldFailure": "156-byteSBTUnixsocketnameinto104-byteDarwinsun_path",
+    "selectedCorrection": "shortactualworkrootwithpathname-scopedownedUnixIPC; remotenetworkdenied",
+    "applicationRun": false
+  },
+  "native05Completion": {
+    "sourceHead": "a0b0ab5dd37322b66f69909d6a1c7ab75e7ee3fa",
+    "innerDisposition": "completed",
+    "actualResourceClose": true,
+    "freshResultAndClosedReplay": true,
+    "modifiedPaths": 5,
+    "sourceReview": "in_progress",
+    "methodAudit": "contentreadFirst12confirmed; exactinstalledSTDOskillreadnotobserved; dispositionpending",
+    "proofExecuted": false,
+    "qualification": false
   }
 }
