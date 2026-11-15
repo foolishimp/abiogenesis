@@ -1,0 +1,91 @@
+{
+  "id": "RC14-AMENDMENT-INSTALL-HOST-DISPOSITION-01",
+  "recordedUtc": "2026-11-15 18:54:07 UTC",
+  "writerActivation": {
+    "id": "RC14-ROOT-RECORDS-WRITER-018",
+    "role": "Separate Root records Writer",
+    "authority": "Owner finish RC14 and continue; closed independent B55 triangulation.",
+    "effects": "Record this disposition and T287/T293/STATUS; integrate exact amendment02 Return and accepted external controls/activation records; authored-only main checkpoint/push. No implementation by this records role."
+  },
+  "productFrame": "Fixed5.0 S01/S03/F17 installed runtime, amendment and currentness. External setup coordinates are observations and must join actual cut/install owners; Public and ABG retain runtime authority. Exact STDO3.0.4, empty composition.",
+  "basis": "stdo://releases/v3.0.4/",
+  "failedSubject": {
+    "controls": "c1b6468736c6289e5689c22bf8ab54658a50b14d",
+    "bindingSha256": "cef3d8787059ce8d88e71e5cc95d86e770f7a5f1cc7093a3d31ed871e0b3478b",
+    "startUtc": "2026-11-15T18:47:20.425957+00:00",
+    "deadlineUtc": "2026-11-15T21:47:20.425957+00:00",
+    "returnCommit": "b33eec0fd85ed71a4528300cd6e4db1f8a8b2b92",
+    "returnSha256": "bf34b929ed19b3c4f4853950719c6699c2ce00eb2e40ab8c41f66e5631fff166"
+  },
+  "outcome": {
+    "plannedTopology": "passed:27 mounts,224 relations",
+    "pairedActualRoles": "unperformed",
+    "smoke": {
+      "pass": 0,
+      "fail": 1,
+      "wallMs": 412,
+      "cause": "ERR_MODULE_NOT_FOUND before Product owner import"
+    },
+    "setup": 0,
+    "lifecycle": 0,
+    "provider": 0,
+    "qualified": false,
+    "retry": false
+  },
+  "rootVerification": {
+    "receiptPins": 33,
+    "inputRows": 88,
+    "entryExitEqual": true,
+    "mismatches": [],
+    "errors": [],
+    "ownedGroupsAbsent": 6,
+    "outerOperatorAbsent": true
+  },
+  "triangulation": {
+    "ticket": "B55",
+    "severity": "S2 external integration",
+    "reviewer": "/root/amendment_topology_review, separate read-only source/receipt/Design/Proof review",
+    "origin": "run.py144 inverts bootstrapPackageRoot with parents[2], assuming an npm package location. Actual bootstrap is records/bootstrap/package, while smoke support213-225 expects installHost/node_modules/@abiogenesis/typescript-tenant.",
+    "producer": "install-candidate-rc14 extracts bootstrap separately from the Product-owned install and records both roles. Its original INSTALL_RECORD explicitly owns installHost, installedRoot, cut/archive/C0/version/content/manifest identities.",
+    "supportedCause": "The inferred host points to the raw install-record parent; the calculated module is absent. The genuine recorded installed module exists. No Product or candidate packaging defect is established.",
+    "recurrence": "B44's earlier proof package was already beneath installed/node_modules, so the inverse relation happened to hold. Amendment04 replaced its bootstrap coordinate while conserving the old arithmetic. Prior source/byte identity checks did not establish directory-role correspondence; B52 narrow delta review conserved that unassessed tail.",
+    "affectedCone": "Existing install receipt plus its actual imported package tree, smoke packet, driver environment and entry/exit custody. Planned topology already passed; smoke and all actual lifecycle/currentness roles remain open.",
+    "reentry": "External control realization_refactor. Derive actual host from existing authenticated installation record, never from arbitrary bootstrap ancestry.",
+    "rejectedAlternatives": "No alias tree, relabelled bootstrap coordinate, new installation/rebuild or Product/test/observer repair. The Public setup install remains a distinct admitted instance.",
+    "cost": "One added existing receipt and two complete5302-file comparisons against existing archive inventory; no extra broad campaign."
+  },
+  "selectedInstallation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-01/records/INSTALL_RECORD.json",
+    "bytes": 6778,
+    "sha256": "16f294953676d261871622e0d88825fb0190352d22a241eed749969c8b5e5b1d",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "disposition": "Preserve failed02 and its original clock. Select one reviewed existing-install join; no execution until separate exact acceptance and grant.",
+  "successorWriterActivation": {
+    "id": "RC14-AMENDMENT-CONTROL-WRITER-006",
+    "role": "Separate B29 external-control Writer",
+    "sourceCommit": "c1b6468736c6289e5689c22bf8ab54658a50b14d",
+    "worktree": "/private/tmp/abg-rc14-amendment-successor-20261116-06",
+    "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-06 only",
+    "externalReadinessRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-control-readiness-20261116-06",
+    "elapsedBudgetMs": 1200000,
+    "grant": [
+      "After pushed selection, reuse exact successor05 into one isolated new carrier.",
+      "Add the original mechanical INSTALL_RECORD as one explicit fourth smoke-input receipt, checked through the existing receipt owner. Join exact cut-record pin, archive/C0/version/product/content/manifest and canonical host/package-root relation. Keep archive bootstrap distinct.",
+      "Use the record's checked installHost for the unchanged smoke consumer. Include its actual installed tree in entry/exit custody with complete member/byte equality against the existing archive inventory. Preserve source/bootstrap/dependency/tool custody and B52's role split; require receipt and actual install protection.",
+      "Executable changes only run.py and smoke-custody.py; reconcile SMOKE_INPUTS/template coordinates, README/activation/manifest/static checks/compact Return. No replacement framework/schema or runtime.",
+      "One read-only actual-candidate custody acquisition may exercise the new receipt/tree join using exact prior bindings plus the selected original receipt, retaining observation in the declared fresh external readiness root. No Product imports, physical probe, smoke/lifecycle or provider execution. Syntax and unaffected-byte comparisons permitted.",
+      "Freeze one authored-only commit and return to Root for separate exact source review."
+    ],
+    "exclusions": [
+      "No Product/test/maintained helper/candidate/archive/install/pin change, alias tree, rebuild/reinstall, observer or lifetime guard change.",
+      "No raw Git, native/provider/Tool/application execution, main/push, automatic retry or old-clock reuse."
+    ],
+    "stops": [
+      "Changed preserved input/basis, missing owner relation, scope expansion or first actual readiness failure; return to Root with retained evidence."
+    ]
+  },
+  "qualified": false,
+  "rawPublished": false
+}

@@ -1,5 +1,5 @@
 {
-  "status": "RC14_AMENDMENT_SUCCESSOR_READY_S06_CONTROL_WRITER_SELECTED",
+  "status": "RC14_AMENDMENT_INSTALL_JOIN_REPAIR_S06_REVIEW_NEXT",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T18:45:39.910706+00:00",
-  "nativeAuthorState": "No active provider. Reviewed amendment05 and fresh witness02 grant selected after checkpoint; S06 Writer03 selected, no S06 retry granted.",
+  "recordedUtc": "2026-11-15T18:54:07.516651+00:00",
+  "nativeAuthorState": "No active provider. Amendment02 closed after planned topology passed and smoke failed; explicit existing-install join selected. S06 control Writer03 has passed pure readiness and is freezing for source review.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -977,11 +977,23 @@
     "formalQualification": "Not activated; B50 policy/route remains open"
   },
   "amendmentWitness02": {
-    "state": "SELECTED_AFTER_REVIEW_AND_CHECKPOINT",
+    "state": "CLOSED_SMOKE_INSTALL_HOST_FAILURE",
     "controlCommit": "c1b6468736c6289e5689c22bf8ab54658a50b14d",
     "controlAcceptance": "integration-01/AMENDMENT_CONTROL_ACCEPTANCE_05.json",
     "activation": "integration-01/amendment-witness-02/ACTIVATION.json",
     "providerStarted": false,
-    "qualified": false
+    "qualified": false,
+    "returnCommit": "b33eec0fd85ed71a4528300cd6e4db1f8a8b2b92",
+    "record": "integration-01/amendment-witness-02/OPERATOR_RETURN.json",
+    "triage": "integration-01/AMENDMENT_INSTALL_HOST_DISPOSITION_01.json",
+    "plannedTopology": "27 mounts/224relations passed",
+    "pairedActualRoles": "unperformed",
+    "smokePass": 0,
+    "smokeFail": 1,
+    "providerCalls": 0,
+    "inputRowsConserved": 88,
+    "commandGroupsAbsent": 6,
+    "originalDeadlineUtc": "2026-11-15T21:47:20.425957+00:00",
+    "retry": false
   }
 }
