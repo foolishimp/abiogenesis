@@ -2,10 +2,11 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import fs from 'node:fs';
 import path from 'node:path';
-import {pathToFileURL} from 'node:url';
+import {fileURLToPath,pathToFileURL} from 'node:url';
 import {SourceTextModule,SyntheticModule} from 'node:vm';
 import {syncBuiltinESMExports} from 'node:module';
 import {evidenceGate} from '../support/evidence-root.mjs';
+import {installOncePerFile,installTenantOnce,openCaseEnvironment} from '../support/root-installed-environment.mjs';
 
 const root=process.env.ABG_GOVERNANCE_COVERED_BUILD_ROOT??path.resolve('build/code/src');
 const load=name=>import(pathToFileURL(path.join(root,name+'.js')).href);
@@ -34,6 +35,37 @@ async function moduleAt(name,replacements={},names=[]) {
 const oldIdentity={productId:p.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:'5.0.0-rc.1',artifactDigest:hash('old archive'),productContentDigest:hash('old content'),productManifestDigest:hash('old manifest')};
 const newIdentity={...oldIdentity,artifactDigest:hash('new archive'),productContentDigest:hash('new content'),productManifestDigest:hash('new manifest')};
 const publications=identity=>['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'].map(n=>gtl[n](identity));
+// The covered-use positive is new work. Its declarations are an actual
+// current-register Catalog: the packed, verified and installed tenant with the
+// three canonical governance publication constructors, admitted under one lock
+// by the maintained installed fixture API, shared by this file's cases.
+const packageRoot=fileURLToPath(new URL('../..',import.meta.url));
+const governanceConstructors=['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'];
+const governanceInstall=installOncePerFile(async()=>{const install=await installTenantOnce(packageRoot);return {install,dispose:()=>install.dispose()};});
+// Each complete candidate is retained under ABG_REGRESSION_PROOF_ROOT, one file
+// per case, before its assertions run. Retained evidence is never copied: only
+// its identities and the owners' complete refusals are kept.
+const regressionRoot=process.env.ABG_REGRESSION_PROOF_ROOT;
+function retainCandidate(name,value){
+  if(!regressionRoot)return;const directory=path.join(regressionRoot,'t287-governance-covered-source-use');
+  fs.mkdirSync(directory,{recursive:true});fs.writeFileSync(path.join(directory,name+'.json'),JSON.stringify(value)+'\n');
+}
+// The complete returned value, or the complete thrown failure, of one owner call.
+const outcome=call=>{try{return {kind:'returned',value:call()};}catch(error){return {kind:'thrown',name:error?.name,message:String(error?.message??error)};}};
+const catalogIdentity=value=>value?.kind==='graph_function_catalog'?{kind:value.kind,basisDigest:value.basisDigest,lockDigest:value.lockDigest,workspaceBindingId:value.workspaceBindingId}
+  :value?.kind==='graph_function_catalog_view'?{kind:value.kind,viewDigest:value.viewDigest,allowlist:value.allowlist}:value;
+const outcomeIdentity=result=>result.kind==='returned'?{kind:'returned',value:result.value?.catalog===undefined?catalogIdentity(result.value)
+  :{catalog:catalogIdentity(result.value.catalog),catalogView:catalogIdentity(result.value.catalogView)}}:result;
+// The captured binding transition: same A/root and installed meaning, a changed
+// projection root, and the binding re-identified by the owner's identity law.
+function reboundReadiness(readiness){
+  const next=clone(readiness),binding=clone(readiness.workspaceBinding);binding.roots.projectionRoot+='/covered-test';
+  const body={workspaceId:binding.workspaceId,authorityBasisId:binding.authorityBasisId,authorityBasisDigest:binding.authorityBasisDigest,
+    authorizedActorRef:binding.authorizedActorRef,productSetId:binding.productSetId,productSetDigest:binding.productSetDigest,
+    lockId:binding.lockId,lockDigest:binding.lockDigest,roots:binding.roots};
+  next.workspaceBinding={...binding,bindingDigest:hash(body),bindingId:'workspace-binding://abiogenesis/'+hash(body).slice(7)};
+  return next;
+}
 
 test('normal close preserves the owned ArtifactTruth snapshot while copies and fresh reads validate bytes',{skip:!proofRoot&&'ABG_GOVERNANCE_COVERED_PROOF_ROOT unset; requires the proof-local output root'},async t=>{
   fs.mkdirSync(proofRoot,{recursive:true});const scratch=fs.mkdtempSync(path.join(proofRoot,'closed-owner-'));
@@ -291,23 +323,59 @@ function invokeRow(f,fields){
   const admission=f.append('invocation_admitted',{...body,invocationAdmissionRef:admissionRef,invocationAdmissionDigest:admissionDigest},{...common,basisId:admissionRef,causationEventRefs:[operation.eventId]});
   return {operation,admission,body};
 }
-async function coveredFixture(fixtureSource){
-  const c=captured(fixtureSource),old={kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:c.oldCatalog,catalogView:c.oldView};
-  const readiness=c.oldCatalog.readinessBasis,oldCandidate=readiness.workspaceBinding;
-  const nextReady=clone(readiness),authority=c.authority;
+async function coveredFixture(t,fixtureSource){
+  const c=captured(fixtureSource),name=fixtureSource==='completed'?'completed-work':'covered-use';
+  // The retained captured declarations are recorded history. Offered as new
+  // work, the current register refuses them: the captured Catalog basis, its
+  // same binding transition, and the strict declaration reconstruction. They
+  // are never rewritten, and recorded reconstruction is not used for new work.
+  const donor={kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:c.oldCatalog,catalogView:c.oldView};
+  const donorStrict={catalog:outcome(()=>p.admitGraphFunctionCatalog(c.oldCatalog.readinessBasis)),
+    transition:outcome(()=>p.admitGraphFunctionCatalog(reboundReadiness(c.oldCatalog.readinessBasis))),
+    reconstruction:outcome(()=>decl.reconstructHistoricalDeclarationCatalog(donor,c.oldCatalog.readinessBasis))};
+  retainCandidate(name+'-donor-new-work',{donorIdentity:{catalogBasisDigest:c.oldCatalog?.basisDigest??null,catalogViewDigest:c.oldView?.viewDigest??null},
+    donorStrict:{catalog:outcomeIdentity(donorStrict.catalog),transition:outcomeIdentity(donorStrict.transition),reconstruction:outcomeIdentity(donorStrict.reconstruction)}});
+  // The current positive: the actual installed current-register readiness basis
+  // (verified Products, lock, workspace binding candidate, installs and the
+  // canonical governance publications), admitted here by the Product Catalog
+  // owner under the strict question; the CatalogView is the default Program's
+  // callable membership, as the default-library Runs select it.
+  const {install}=await governanceInstall();
+  const env=await openCaseEnvironment(t,install,{workspaceProductIndex:1,additionalCorePublicationConstructors:governanceConstructors});
+  const readiness=clone(env.catalog.readinessBasis),programRef=p.governanceRef('program','default');
+  const oldCatalog=p.admitGraphFunctionCatalog(readiness);
+  const program=oldCatalog.boundPublications?.flatMap(x=>x.programs??[]).find(x=>x.programRef===programRef);
+  const allowlist=program===undefined?[]:[...program.callableMembership].sort();
+  const oldView=oldCatalog.kind==='graph_function_catalog'?p.narrowGraphFunctionCatalog(oldCatalog,allowlist):oldCatalog;
   // This controlled binding transition has the same A/root and installed
   // meaning. Catalog construction is genuine; witness/environment membership
   // is supplied below rather than invented by a path or copied source state.
-  nextReady.workspaceBinding=clone(oldCandidate);nextReady.workspaceBinding.roots.projectionRoot+='/covered-test';
-  const {kind,schemaVersion,bindingId,bindingDigest,...bindingBody}=nextReady.workspaceBinding;
-  nextReady.workspaceBinding={kind,schemaVersion,...bindingBody,bindingDigest:hash(bindingBody),bindingId:'workspace-binding://abiogenesis/'+hash(bindingBody).slice(7)};
-  const nextCatalog=p.admitGraphFunctionCatalog(nextReady);assert.equal(nextCatalog.kind,'graph_function_catalog',JSON.stringify(nextCatalog));
-  const nextView=p.narrowGraphFunctionCatalog(nextCatalog,c.oldView.allowlist);assert.equal(nextView.kind,'graph_function_catalog_view');
+  const nextReady=reboundReadiness(oldCatalog.readinessBasis??readiness);
+  const nextCatalog=p.admitGraphFunctionCatalog(nextReady);
+  const nextView=nextCatalog.kind==='graph_function_catalog'?p.narrowGraphFunctionCatalog(nextCatalog,allowlist):nextCatalog;
+  retainCandidate(name+'-declarations',{current:{programRef,allowlist,historical:{catalog:catalogIdentity(oldCatalog),catalogView:catalogIdentity(oldView)},
+      transitioned:{catalog:catalogIdentity(nextCatalog),catalogView:catalogIdentity(nextView)}}});
+  for(const [which,refused]of [['captured Catalog',donorStrict.catalog],['captured transition',donorStrict.transition]]){
+    assert.equal(refused.kind,'returned',which+' '+JSON.stringify(outcomeIdentity(refused)).slice(0,4000));
+    assert.equal(refused.value.kind,'catalog_construction_refusal',which+' '+JSON.stringify(outcomeIdentity(refused)).slice(0,4000));
+    assert.equal(refused.value.disposition,'refused',which);
+  }
+  assert.equal(donorStrict.reconstruction.kind,'thrown',JSON.stringify(outcomeIdentity(donorStrict.reconstruction)).slice(0,4000));
+  assert.equal(donorStrict.reconstruction.name,'TypeError');
+  assert.equal(oldCatalog.kind,'graph_function_catalog',JSON.stringify(catalogIdentity(oldCatalog)).slice(0,4000));
+  assert.ok(program,'select the actual current default governance Program');
+  assert.equal(oldView.kind,'graph_function_catalog_view',JSON.stringify(oldView).slice(0,4000));
+  assert.notEqual(oldCatalog.basisDigest,c.oldCatalog.basisDigest,'the current positive is not the captured donor');
+  assert.equal(nextCatalog.kind,'graph_function_catalog',JSON.stringify(catalogIdentity(nextCatalog)).slice(0,4000));
+  assert.equal(nextView.kind,'graph_function_catalog_view');
+  assert.notEqual(nextCatalog.basisDigest,oldCatalog.basisDigest,'the binding transition is a distinct current Catalog basis');
+  // The historical declaration is the portable plain carrier, as a retained
+  // declaration is; the strict owner reconstructs it cold from its own basis.
+  const old={kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:clone(oldCatalog),catalogView:clone(oldView)};
+  const oldCandidate=old.catalog.readinessBasis.workspaceBinding;
   const current={kind:old.kind,schemaVersion:old.schemaVersion,catalog:nextCatalog,catalogView:nextView};
   const oldW={...oldCandidate,kind:'workspace_binding',admissionEventRef:'event://old-binding'},newW={...nextReady.workspaceBinding,kind:'workspace_binding',admissionEventRef:'event://new-binding'};
-  const program=readiness.publications.flatMap(p=>p.programs).find(p=>p.programRef===c.sourceBasisPremise.sourceResultValue.synthesis?.basis?.programRef)??readiness.publications.flatMap(p=>p.programs).find(p=>p.programRef.includes('sandbox-uat'));
-  assert.ok(program,'select the actual retained consumer Program');
-  const gf=readiness.publications.flatMap(p=>p.graphFunctions).find(g=>g.name===program.starts[0].graphFunctionRef);assert.ok(gf);
+  const gf=oldCatalog.boundPublications.flatMap(x=>x.graphFunctions).find(g=>g.name===program.starts[0].graphFunctionRef);assert.ok(gf);
   const closure=decl.resolveExecutionDeclarationClosure(old.catalog,old.catalogView,program.programRef,gf.name);assert.equal(closure.kind,'resolved_execution_declaration_closure');
   const input=decl.selectExactClosureContract(closure,p.governanceContract('state')),output=decl.selectExactClosureContract(closure,p.governanceContract('state'));assert.ok(input&&output);
   const f=eventsFixture(),inv=invokeRow(f,{workspaceId:oldW.workspaceId,workspaceBindingId:oldW.bindingId,workspaceBindingDigest:oldW.bindingDigest,actorRef:oldW.authorizedActorRef,
@@ -356,12 +424,16 @@ async function coveredFixture(fixtureSource){
   const m=new SourceTextModule(text,{identifier:sourceFile});await m.link(async spec=>{const actual=await import(pathToFileURL(path.resolve(path.dirname(sourceFile),spec)).href),values={...actual,...overrides[spec]};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
   const owner=m.namespace;owner.__controlledExecutionLookup((_p,id)=>id===oldBasis.basisRef?oldBasis:null);
   const inputUse={predecessorPrefix:coordinate(f.rows),source,workspaceBinding:newW,program,graphFunction:gf,currentDeclaration:current,historicalDeclarations:[old]};
-  return {c,f,source,oldW,newW,old,current,program,gf,oldBasis,gates,owner,inputUse,result,judgment,oldInvocation,beforeRows:freeze([...f.rows])};
+  return {c,f,source,oldW,newW,old,current,program,gf,oldBasis,gates,owner,inputUse,result,judgment,oldInvocation,beforeRows:freeze([...f.rows]),donorStrict,name};
 }
 
 test('covered use binds exact original state, complete canonical Catalog and cold admitted coordinates',fixtureOptions,async t=>{
-  const x=await coveredFixture(),stateBytes=JSON.stringify(x.c.state34),sourceBytes=JSON.stringify(x.source),valueDigest=x.result.payload.valueDigest;
-  const use=x.owner.projectGovernanceCoveredSourceUse(x.f.prefix(),x.inputUse);assert.ok(use);
+  const x=await coveredFixture(t),stateBytes=JSON.stringify(x.c.state34),sourceBytes=JSON.stringify(x.source),valueDigest=x.result.payload.valueDigest;
+  const use=x.owner.projectGovernanceCoveredSourceUse(x.f.prefix(),x.inputUse);
+  // The private comparison result carries no Catalog, lock or state bodies.
+  retainCandidate(x.name+'-binds-exact-original-state',{use,sourceBasisDigest:x.source.basisDigest,sourceResultValueDigest:x.source.sourceResultValueDigest,
+    historicalCatalog:catalogIdentity(x.old.catalog),currentCatalog:catalogIdentity(x.current.catalog)});
+  assert.ok(use);
   assert.deepEqual(use.historicalDeclaration,terminal.constructAbgHistoricalDeclarationReference(x.old));assert.deepEqual(use.currentDeclaration,terminal.constructAbgHistoricalDeclarationReference(x.current));
   assert.equal(JSON.stringify(x.c.state34),stateBytes);assert.equal(JSON.stringify(x.source),sourceBytes);assert.equal(x.result.payload.valueDigest,valueDigest);
   assert.equal(use.sourceBasisDigest,x.source.basisDigest);assert.equal(use.declarationOwners.length,decl.resolveProgramDeclarationClosure(x.old.catalog,x.old.catalogView,x.program.programRef).publications.length);
@@ -395,7 +467,7 @@ test('covered use binds exact original state, complete canonical Catalog and col
 });
 
 test('later completed work follows actual admitted covered-source ancestry without root or value guesses',completedFixtureOptions,async t=>{
-  const x=await coveredFixture('completed');
+  const x=await coveredFixture(t,'completed');
   const replay={runId:x.result.runId,runtimeStatus:'blocked',runClosedEventRef:null,runStoppedEventRef:'event://controlled-source-stop',runtimeFailureEventRef:null,
     replayRef:'replay://controlled-source',replayDigest:hash('controlled semantic replay'),actorProcesses:[],cCalls:[{
       cCallRef:x.result.aggregateId,status:'judged',judgment:'advance',judgmentRef:x.judgment.payload.judgmentRef,
@@ -413,7 +485,13 @@ test('later completed work follows actual admitted covered-source ancestry witho
   const selection={publicAuthorityDigest:x.oldInvocation.publicRequestDigest,runtimeInvocationRef:x.oldInvocation.invocationRef,
     invocationAdmissionRef:x.oldInvocation.invocationAdmissionRef,runId:x.result.runId,resultRef:x.result.payload.resultRef};
   const originalRows=clone(x.f.rows),derive=()=>admission.deriveInvocationSourceResultBasisAtPrefix(x.f.prefix(),selection);
-  const initial=derive();assert.ok(initial);assert.deepEqual(initial.sourceResultValue,x.c.state34);
+  const initial=derive();
+  // Identities only: the derived basis carries the retained captured34 state.
+  retainCandidate(x.name+'-follows-admitted-ancestry',{initial:initial===null||initial===undefined?initial??null:{basisRef:initial.basisRef,basisDigest:initial.basisDigest,
+    sourceResultRef:initial.sourceResultRef,sourceResultDigest:initial.sourceResultDigest,sourceResultValueDigest:initial.sourceResultValueDigest,
+    stateMatches:JSON.stringify(initial.sourceResultValue)===JSON.stringify(x.c.state34)},
+    historicalCatalog:catalogIdentity(x.old.catalog),currentCatalog:catalogIdentity(x.current.catalog)});
+  assert.ok(initial);assert.deepEqual(initial.sourceResultValue,x.c.state34);
   const appendSuccessor=(linked=true)=>invokeRow(x.f,{workspaceId:x.newW.workspaceId,workspaceBindingId:x.newW.bindingId,workspaceBindingDigest:x.newW.bindingDigest,actorRef:x.newW.authorizedActorRef,
     programRef:x.program.programRef,programDigest:hash(x.program),graphFunctionRef:x.gf.name,graphFunctionDigest:hash(x.gf),catalogBasisDigest:x.current.catalog.basisDigest,catalogViewDigest:x.current.catalogView.viewDigest,
     catalogBasisRef:'graph-function-catalog://abiogenesis/'+x.current.catalog.basisDigest.slice(7),catalogViewId:'graph-function-catalog-view://abiogenesis/'+x.current.catalogView.viewDigest.slice(7),

@@ -1,8 +1,19 @@
 import assert from "node:assert/strict";
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { join } from "node:path";
 import test from "node:test";
 import * as product from "../../build/code/src/product/index.js";
 import { evidenceGate } from "../support/evidence-root.mjs";
+
+// Each complete candidate is retained under ABG_REGRESSION_PROOF_ROOT, one
+// file per case, before its assertions run. Retained evidence is only read.
+const regressionRoot = process.env.ABG_REGRESSION_PROOF_ROOT;
+async function retainCandidate(name, value) {
+  if (!regressionRoot) return;
+  const directory = join(regressionRoot, "w2-steel-single-start-closure");
+  await mkdir(directory, { recursive: true });
+  await writeFile(join(directory, `${name}.json`), `${JSON.stringify(value)}\n`);
+}
 
 // Retired (T-292 TD-60): a retained C2 pre-actor failure Run keeps its historical cuts; input the retained installed C2 pre-actor failure not recorded
 // Retired (T-292 TD-60): retry continuation keeps the retained C1 input of a completed prefix; input the retained completed C1 prefix not recorded
@@ -23,9 +34,29 @@ test("consumer callable membership resolves exact borrowed owners without contri
   const resources = call.resources;
   const supplied = resources.declarationCatalog;
   // The Product's Catalog owner re-derives the recorded Catalog from its recorded readiness
-  // basis, as the historical declaration proof does; catalog.admit refuses this basis (below).
-  const catalog = product.admitGraphFunctionCatalog(supplied.catalog.readinessBasis);
+  // basis under the explicit recorded question, as the historical declaration proof does;
+  // catalog.admit refuses this basis (below). The recorded result is retained apart by the
+  // owner and never becomes an owner-admitted ready Catalog for new work.
+  const catalog = product.admitGraphFunctionCatalog(supplied.catalog.readinessBasis, "recorded");
+  // The same historical declaration offered as new work asks the strict question
+  // and is refused by the current register; no current Catalog replaces it.
+  const strictNewWork = product.admitGraphFunctionCatalog(supplied.catalog.readinessBasis);
+  // Identities only: the retained Catalog bytes themselves are never copied.
+  await retainCandidate("consumer-callable-membership-recorded-catalog", {
+    callSha256: await product.sha256File(callPath),
+    suppliedCatalog: { basisDigest: supplied.catalog.basisDigest, viewDigest: supplied.catalogView.viewDigest },
+    recordedCatalog: catalog.kind === "graph_function_catalog" ? {
+      kind: catalog.kind, basisDigest: catalog.basisDigest, readinessBasisDigest: catalog.readinessBasisDigest,
+      lockDigest: catalog.lockDigest, workspaceBindingId: catalog.workspaceBindingId, entryCount: catalog.entries.length,
+      exact: product.canonicalJson(catalog) === product.canonicalJson(supplied.catalog),
+    } : catalog,
+    strictNewWork: strictNewWork.kind === "graph_function_catalog"
+      ? { kind: strictNewWork.kind, basisDigest: strictNewWork.basisDigest } : strictNewWork,
+  });
   assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
+  assert.equal(strictNewWork.kind, "catalog_construction_refusal", JSON.stringify(strictNewWork).slice(0, 4000));
+  assert.equal(strictNewWork.disposition, "refused", JSON.stringify(strictNewWork).slice(0, 4000));
+  assert.notEqual(strictNewWork, catalog);
   const view = product.narrowGraphFunctionCatalog(catalog, supplied.catalogView.allowlist);
   assert.deepEqual(catalog, supplied.catalog);
   assert.deepEqual(view, supplied.catalogView);
@@ -68,6 +99,7 @@ test("consumer callable membership resolves exact borrowed owners without contri
   // refuses on the retired key, before the previously refused gate application.
   const admission = product.CatalogOperationPort.admit({ kind: "catalog_admit_packet", schemaVersion: "5.0.0",
     memberKey: "admit", readinessBasis: supplied.catalog.readinessBasis });
+  await retainCandidate("consumer-callable-membership-new-admission", { admission, refused });
   assert.equal(admission.kind, "catalog_validation_refusal", JSON.stringify(admission));
   assert.equal(admission.validation.code, "invalid_kind", JSON.stringify(admission));
   assert.equal(admission.validation.message,
