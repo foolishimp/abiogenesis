@@ -1,0 +1,694 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts b/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts
+index fa0794b40..3947b248e 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts
+@@ -175,13 +175,16 @@ function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssem
+       if (stdo === false || (assessment !== undefined && stdo === null) ||
+         stdo !== null && !(stdo.contextPolicy.selectors as readonly string[]).includes("current_worksite")) return null;
+       const resultContractRef = nativeWorkspaceWorkResultContractRef(supplied);
+-      // The inner consumer dependency is the carried selected publication under
+-      // the shared admitted-environment relation; the Program closure is not consulted.
++      // The inner dependency is the carried schema-owner publication under the
++      // shared admitted-environment relation; its use is the authenticated
++      // `basis.publication` and the execution basis Program ref/digest. The
++      // Program's static closure is not consulted.
+       const dependency = assessment === undefined || basis.assessmentPublication === undefined ||
+         owner.environment.kind !== "exact_prefix_workspace_environment" ? null :
+         resolveNativeWorkspaceAssessmentDependency(assessment, { publications: [basis.assessmentPublication],
+           installs: owner.environment.productInstalls, resolvedLock: owner.environment.resolvedProductLock,
+-          assessorOwnerProductId: owner.resolution.graphFunctionOwnerProductId });
++          assessorOwnerProductId: owner.resolution.graphFunctionOwnerProductId,
++          program: { publication: basis.publication, programRef: owner.execution.programRef, programDigest: owner.execution.programDigest } });
+       const schema = assessment === undefined ? nativeWorkspaceWorkReportSchema : dependency?.schema ?? null;
+       if (schema === null || assessment !== undefined && resultContractRef !== assessment.resultContract.contractRef ||
+         assessment?.producer.cCallRef === owner.call.cCallRef) return null;
+diff --git a/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts b/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
+index a471794cd..576f9a203 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
+@@ -125,6 +125,8 @@ type LoadedLeafExecutionAuthority = Pick<
+   | "ownerInstalls"
+   | "admittedCatalog"
+   | "admittedInstalls"
++  | "resolution"
++  | "programPublication"
+ >;
+ 
+ export function isClosedProbabilisticLeafInvocation(
+@@ -1109,19 +1111,27 @@ export async function constructAdmittedLeafInvocationPort(authority: AdmittedLea
+ 
+   // Only the canonical assessment's inner response dependency, through the one
+   // shared relation over this resolution's authenticated Catalog, admitted
+-  // installs and Catalog lock. Static contract lookup stays closure-scoped.
++  // installs and Catalog lock, and the loaded execution resolution's exact
++  // Program coordinate and publication as the declaration of use. Static
++  // contract lookup stays closure-scoped.
+   function nativeAssessmentDependency(
+     selection: NativeWorkspaceAssessmentSelection,
+     resolution: Readonly<LeafInvocationResolution>,
+   ) {
+     try {
+       const admitted = exactAdmittedResolution(resolution);
+-      const { admittedCatalog: catalog, admittedInstalls: installs } = authority.executionResolution;
++      const { admittedCatalog: catalog, admittedInstalls: installs, resolution: loaded,
++        programPublication, declarationClosure } = authority.executionResolution;
+       if (admitted === null || admitted.computeRegime !== "F_P" || admitted.implementationRef !== nativeIds.implementationRef ||
+-        admitted.graphFunctionRef !== nativeIds.assessmentGraphFunctionRef) return null;
++        admitted.graphFunctionRef !== nativeIds.assessmentGraphFunctionRef ||
++        declarationClosure.programRef !== loaded.programRef ||
++        !canonicalEquals(declarationClosure.programPublication, programPublication)) return null;
+       const dependency = resolveNativeWorkspaceAssessmentDependency(selection, { publications: catalog.boundPublications,
+-        installs, resolvedLock: catalog.readinessBasis.resolvedLock, assessorOwnerProductId: admitted.graphFunctionOwnerProductId });
+-      return dependency !== null && hasAdmittedProductInstall(authority.artifactTruth, dependency.install) ? dependency : null;
++        installs, resolvedLock: catalog.readinessBasis.resolvedLock, assessorOwnerProductId: admitted.graphFunctionOwnerProductId,
++        program: { publication: programPublication, programRef: loaded.programRef, programDigest: loaded.programDigest } });
++      return dependency !== null && dependency.use.install.installId === loaded.programOwner.installId &&
++        hasAdmittedProductInstall(authority.artifactTruth, dependency.install) &&
++        hasAdmittedProductInstall(authority.artifactTruth, dependency.use.install) ? dependency : null;
+     } catch { return null; }
+   }
+ 
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts b/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts
+index 74252d483..1e831d2e7 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts
+@@ -5,7 +5,7 @@ import * as v from "valibot";
+ import type { ContractDeclaration, ModulePublication } from "../gtl/contracts.js";
+ import { type JsonValue } from "../shared/canonical_json.js";
+ import { admitIJsonText } from "../shared/i_json.js";
+-import type { Sha256Digest } from "../shared/digests.js";
++import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+ import type { ProductInstall, ResolvedProductLock } from "./environment.js";
+ import { modulePublicationSemanticDigest } from "./publication.js";
+ import { normalizeWorksiteRelativePath, type WorksiteContextObservation } from "./worksite_effect.js";
+@@ -103,24 +103,67 @@ export function resolveNativeWorkspaceAssessmentSchema(selection: NativeWorkspac
+     return schema;
+   } catch { return null; }
+ }
++/** The exact admitted executing Program coordinate: the loaded execution
++ * resolution's Program publication, ref and digest at leaf preparation and raw
++ * preimage, or the authenticated assembly `basis.publication` with the
++ * execution basis Program ref and digest at assembly and cold reconstruction. */
++export type NativeWorkspaceAssessmentProgramUse = {
++  readonly publication: Readonly<ModulePublication>;
++  readonly programRef: string;
++  readonly programDigest: Sha256Digest;
++};
+ /** Admitted-environment evidence for the canonical assessment's inner response
+- * dependency: candidate publications, admitted installs, the resolved lock and
+- * the assessment callable's owner. */
++ * dependency: candidate schema-owner publications, admitted installs, the
++ * resolved lock, the assessment callable's owner and the executing Program. */
+ export type NativeWorkspaceAssessmentDependencyBasis = {
+   readonly publications: readonly Readonly<ModulePublication>[];
+   readonly installs: readonly Readonly<ProductInstall>[];
+   readonly resolvedLock: Readonly<ResolvedProductLock>;
+   readonly assessorOwnerProductId: string;
++  readonly program: Readonly<NativeWorkspaceAssessmentProgramUse>;
+ };
++/** `publication`/`install` remain the unique schema owner; `use` is the exact
++ * executing Program's declaration of use. Neither is persisted. */
+ export type NativeWorkspaceAssessmentDependency = {
+   readonly publication: Readonly<ModulePublication>;
+   readonly install: Readonly<ProductInstall>;
+   readonly schema: Readonly<Record<string, JsonValue>>;
++  readonly use: {
++    readonly publication: Readonly<ModulePublication>;
++    readonly install: Readonly<ProductInstall>;
++    readonly programRef: string;
++    readonly programDigest: Sha256Digest;
++    readonly memberRefs: readonly string[];
++  };
+ };
+-/** One relation for assembly, raw preimage and cold reconstruction. The
+- * consumer's own Program member declares the contract and the lock carries the
+- * consumer's dependency on the assessment owner; installation or supplied
+- * schema bytes alone grant nothing. No reverse edge or fallback is consulted. */
++/** One publication/install/lock join: the owning Product's unique admitted
++ * install binds exactly this publication digest under exactly this lock row. */
++function exactPublicationInstall(publication: Readonly<ModulePublication>, installs: readonly Readonly<ProductInstall>[],
++  lock: Readonly<ResolvedProductLock>): Readonly<ProductInstall> | null {
++  const owners = installs.filter(install => install.productId === publication.owningProductId);
++  if (owners.length !== 1) return null;
++  const install = owners[0]!, publicationDigest = modulePublicationSemanticDigest(publication);
++  return install.artifactDigest === publication.artifactDigest && install.productContentDigest === publication.productContentDigest &&
++    install.manifestDigest === publication.productManifestDigest &&
++    install.contributionManifest.publicationBindings.filter(row => row.moduleRef === publication.moduleRef &&
++      row.publicationDigest === publicationDigest).length === 1 &&
++    install.resolvedLockId === lock.lockId && install.resolvedLockDigest === lock.lockDigest &&
++    lock.rows.filter(row => row.productId === install.productId && row.artifactDigest === install.artifactDigest &&
++      row.productContentDigest === install.productContentDigest && row.manifestDigest === install.manifestDigest).length === 1
++    ? install : null;
++}
++/** Forward dependency only: equality, or exactly one `requires` edge from the
++ * dependent Product to the Product it uses. A reverse edge grants nothing. */
++function requiresForward(lock: Readonly<ResolvedProductLock>, fromProductId: string, toProductId: string): boolean {
++  return fromProductId === toProductId || lock.dependencyEdges.filter(edge => edge.kind === "requires" &&
++    edge.fromProductId === fromProductId && edge.toProductId === toProductId).length === 1;
++}
++/** One relation for leaf preparation, assembly, raw preimage and cold
++ * reconstruction. The unique schema owner declares the contract and installs
++ * its bytes; the exact executing Program's member callables declare its use;
++ * the lock carries the executing Program owner's forward dependencies on the
++ * assessment owner and the schema owner. Owner and use may coincide. Catalog
++ * membership, installation or supplied schema bytes alone grant nothing. */
+ export function resolveNativeWorkspaceAssessmentDependency(selection: NativeWorkspaceAssessmentSelection,
+   basis: NativeWorkspaceAssessmentDependencyBasis): Readonly<NativeWorkspaceAssessmentDependency> | null {
+   try {
+@@ -130,27 +173,27 @@ export function resolveNativeWorkspaceAssessmentDependency(selection: NativeWork
+       contract.contractRef === contractRef).map(contract => ({ publication, contract })));
+     if (declarations.length !== 1) return null;
+     const { publication, contract } = declarations[0]!;
+-    if (publication.owningProductId !== ownerId || !canonicalEquals(contract, selection.resultContract) ||
+-      !publication.graphFunctions.some(graph => graph.declarations["abg.raw_result_contract"] === contractRef &&
+-        publication.programs.some(program => program.callableMembership.includes(graph.name)))) return null;
+-    const publicationDigest = modulePublicationSemanticDigest(publication);
+-    const owners = basis.installs.filter(install => install.productId === ownerId);
+-    const install = owners.length === 1 ? owners[0]! : null;
+-    if (install === null || install.artifactDigest !== publication.artifactDigest ||
+-      install.productContentDigest !== publication.productContentDigest || install.manifestDigest !== publication.productManifestDigest ||
+-      install.contributionManifest.publicationBindings.filter(row => row.moduleRef === publication.moduleRef &&
+-        row.publicationDigest === publicationDigest).length !== 1) return null;
++    if (publication.owningProductId !== ownerId || !canonicalEquals(contract, selection.resultContract)) return null;
++    // The executing Program's own declaration of use, never another Program.
++    const use = basis.program, programs = use.publication.programs.filter(program => program.programRef === use.programRef);
++    if (programs.length !== 1 || sha256Canonical(programs[0]!) !== use.programDigest) return null;
++    const program = programs[0]!;
++    const memberRefs = use.publication.graphFunctions.filter(graph => program.callableMembership.includes(graph.name) &&
++      graph.declarations["abg.raw_result_contract"] === contractRef).map(graph => graph.name);
++    if (memberRefs.length === 0) return null;
+     const lock = basis.resolvedLock;
+-    if (install.resolvedLockId !== lock.lockId || install.resolvedLockDigest !== lock.lockDigest ||
+-      lock.rows.filter(row => row.productId === ownerId && row.artifactDigest === install.artifactDigest &&
+-        row.productContentDigest === install.productContentDigest && row.manifestDigest === install.manifestDigest).length !== 1 ||
++    const install = exactPublicationInstall(publication, basis.installs, lock);
++    const useInstall = exactPublicationInstall(use.publication, basis.installs, lock);
++    if (install === null || useInstall === null || install.productId !== ownerId ||
+       lock.rows.filter(row => row.productId === basis.assessorOwnerProductId).length !== 1 ||
+-      ownerId !== basis.assessorOwnerProductId && lock.dependencyEdges.filter(edge => edge.kind === "requires" &&
+-        edge.fromProductId === ownerId && edge.toProductId === basis.assessorOwnerProductId).length !== 1) return null;
++      !requiresForward(lock, useInstall.productId, basis.assessorOwnerProductId) ||
++      !requiresForward(lock, useInstall.productId, ownerId)) return null;
+     if (basis.installs.filter(candidate => candidate.publicContracts.some(row => row.contractKind === "schema_asset" &&
+       row.contractId === selection.schemaAsset.contractId)).length !== 1) return null;
+     const schema = resolveNativeWorkspaceAssessmentSchema(selection, [publication], [install]);
+-    return schema === null ? null : Object.freeze({ publication, install, schema });
++    return schema === null ? null : Object.freeze({ publication, install, schema,
++      use: Object.freeze({ publication: use.publication, install: useInstall, programRef: use.programRef,
++        programDigest: use.programDigest, memberRefs: Object.freeze(memberRefs) }) });
+   } catch { return null; }
+ }
+ export function parseNativeWorkspaceAssessmentResult(schema: Readonly<Record<string, JsonValue>>, text: string): Readonly<Record<string, JsonValue>> | null {
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md b/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+index 899c58952..5d1f1e7a9 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+@@ -414,50 +414,81 @@ and the admitted Run environment's actual `assessor` role/context, including
+ current worksite access. The same F_P implementation, native tools, physical
+ authority, transport and before/after observation owners apply.
+ 
+-The consumer declares an output contract and immutable `schema_asset` through
+-the existing Product install convention. A Program-member callable of the same
+-consumer publication declares that exact contract via `abg.raw_result_contract`.
+-The canonical assessment keeps its fixed outer task and observation contracts,
+-static implementation, library Program membership, actual assessor authority
+-and read-only scope. Its authenticated typed task selects one inner consumer
++The selection names an output contract and immutable `schema_asset` under the
++existing Product install convention. Two distinct relations bind it. The
++unique schema/contract owner is the one publication declaring the contract;
++its installed Product publishes the exact schema bytes. The exact admitted
++executing Program declares use: a GraphFunction of that Program's publication
++which is a member of that exact Program declares the contract via
++`abg.raw_result_contract`; several such members are valid. Owner and use
++coincide when a consumer publication owns and uses its contract. They split
++when, for example, the core semantic-stage publication owns
++`semantic-stage/native-assessment` while its sole author member keeps the
++worker-result contract, and the executing consumer Program's members declare
++use. The canonical assessment keeps its fixed outer task and observation
++contracts, static implementation, library membership, actual assessor
++authority and read-only scope. Its authenticated typed task selects one inner
+ response dependency: the contract, schema owner and exact schema bytes. That
+ dependency is task input, not a member of the running Program's static
+-execution closure, so a library Program can host the assessment without
+-declaring any consumer contract.
++execution closure; the executing Program's declared use, not the closure,
++admits it.
+ 
+ One Product relation, `resolveNativeWorkspaceAssessmentDependency`, admits the
+-inner dependency over the actual admitted environment: candidate publications,
+-admitted installs, the resolved lock and the assessment callable's owner. It
+-requires all of the following:
++inner dependency over the actual admitted environment: candidate schema-owner
++publications, admitted installs, the resolved lock, the assessment callable's
++owner and the executing Program coordinate (publication, Program ref and
++digest). It requires all of the following:
+ 
+ 1. exactly one declaration of the contract among the candidate publications,
+    owned by the selected schema product and equal to the selected contract;
+-2. a declaring callable in that publication that is a member of one of its
+-   Programs;
+-3. exactly one admitted install of the owner whose artifact, content and
+-   manifest identities and contribution manifest bind exactly that
+-   publication digest;
+-4. that install's resolved lock equal to the environment lock, with exactly one
+-   equal lock row;
+-5. the owner equal to the assessment callable's owner, or exactly one lock
+-   `requires` edge from the owner to that callable owner;
+-6. exactly one admitted install publishing the selected `schema_asset`, whose
+-   installed bytes equal the supplied bytes under the existing schema
+-   admission and compile under the fixed validator below.
++2. exactly one Program with the executing ref in the executing publication,
++   whose canonical digest equals the executing digest, and at least one member
++   GraphFunction of that publication and Program declaring the contract via
++   `abg.raw_result_contract`;
++3. for the schema-owner publication and for the executing Program publication,
++   exactly one admitted install of its owning Product whose artifact, content
++   and manifest identities and contribution manifest bind exactly that
++   publication digest, whose resolved lock equals the environment lock, with
++   exactly one equal lock row;
++4. exactly one lock row of the assessment callable's owner, and the executing
++   Program owner's forward dependencies: equality with, or exactly one lock
++   `requires` edge to, the assessment callable owner, and likewise to the
++   schema owner;
++5. exactly one admitted install publishing the selected `schema_asset`, the
++   schema owner's install, whose installed bytes equal the supplied bytes under
++   the existing schema admission and compile under the fixed validator below.
+ 
+ Installation alone, supplied schema bytes alone, a declaration on another
+-publication or a non-member callable, and a reverse library-to-consumer edge
+-grant nothing.
++publication, a declaring callable that is not a member of the exact executing
++Program, use found only in another Program or by arbitrary Catalog membership,
++a crossed install, publication or lock, and a missing or reverse edge grant
++nothing.
++
++```mermaid
++sequenceDiagram
++  participant L as Leaf port (preparation, raw preimage)
++  participant A as Instruction assembly (warm, cold)
++  participant R as resolveNativeWorkspaceAssessmentDependency
++  L->>R: Catalog publications, admitted installs, Catalog lock,<br/>loaded Program publication + resolution Program ref/digest
++  R-->>L: schema owner publication/install, schema, Program use
++  L->>A: existing assessmentPublication (schema owner only)
++  A->>R: [assessmentPublication], exact-prefix installs/lock,<br/>authenticated basis.publication + execution Program ref/digest
++  R-->>A: same schema or refusal
++```
+ 
+ The leaf port applies the relation before dispatch over its authenticated ready
+-Catalog publications, admitted installs and Catalog lock. It carries the selected
+-publication in the existing `assessmentPublication` basis field. Instruction
+-assembly applies the same relation to that carried publication against the
+-exact-prefix admitted environment. Cold reconstruction repeats it from the
+-persisted basis. The leaf's raw-result preimage repeats it over the Catalog
+-before ordinary raw/result admission. Response completion consumes only the
+-assembly-bound request schema. Only the canonical assessment implementation and
+-callable receive this selection. Ordinary raw-result declarations and static
++Catalog publications, admitted installs and Catalog lock, with the loaded
++execution resolution's Program publication, ref and digest. It carries the
++selected schema-owner publication in the existing `assessmentPublication` basis
++field; the use coordinate is never persisted. Instruction assembly applies the
++same relation to that carried publication against the exact-prefix admitted
++environment, using the already authenticated `basis.publication` and the
++execution basis Program ref and digest. Cold reconstruction repeats it from the
++persisted basis. The leaf's raw-result preimage repeats it over the Catalog and
++loaded Program before ordinary raw/result admission. Response completion
++consumes only the assembly-bound request schema. Only the canonical assessment
++implementation and callable receive this selection. Ordinary raw-result
++declarations, the original semantic-stage author worker result and static
+ `contractByRef` and `contractPublicationByRef` lookup stay closure-scoped and
+ unchanged. Missing, ambiguous, crossed, stale or invalid evidence refuses before
+ dispatch. A task cannot invent an undeclared response contract.
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
+index a83679976..959c20dfb 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
+@@ -2617,7 +2617,22 @@ test('RC7 fixed admission: a Public direct Testing state Result admits direct UA
+ // the persisted assembly basis and the raw preimage are then exercised cold over
+ // that Run's admitted Catalog, installs, lock and events. Each negative subcase
+ // calls an owner that gates dispatch; none starts an actor.
+-test('RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage',{timeout:280_000},async t=>{
++// B56 proof retention: one exclusive capture per installed case under the
++// Operator-selected proof root, written whether assertions pass or throw. It
++// holds the actual owner inputs/outputs and refusal coordinates observed.
++async function retainB56Capture(name,value){
++  const root=process.env.ABG_REGRESSION_PROOF_ROOT;if(root===undefined||root==='')return;
++  await mkdir(root,{recursive:true});await writeFile(join(root,name),JSON.stringify(value,null,1)+'\n',{flag:'wx'});
++}
++async function withB56Capture(name,title,body){
++  const capture={test:title,observations:{}},seen=(label,value)=>{capture.observations[label]=value===undefined?null:value;return value;};
++  try{await body(seen);}
++  catch(error){capture.thrown={name:error?.name??null,message:String(error?.message??error),stack:error?.stack??null};throw error;}
++  finally{await retainB56Capture(name,capture);}
++}
++test('RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage',{timeout:280_000},t=>
++  withB56Capture('b56-installed-coincident.candidate.json','RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage',seen=>rc7AssessmentDependency(t,seen)));
++async function rc7AssessmentDependency(t,seen){
+   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
+   const shared=await libraryInstall();selectedEnvironment=shared.selectedEnvironment;
+   const env=await openCaseEnvironment(t,shared.install,{workspaceProductIndex:1,additionalCorePublicationConstructors:constructors});
+@@ -2674,14 +2689,22 @@ test('RC7 assessment dependency: exact admitted consumer selection, refusals and
+   const row=implementationSet.rows.find(r=>r.graphFunctionRef===assessmentRef&&r.implementationRef===ids.implementationRef);assert.ok(row);
+   const constructorRow=implementationSet.rows.find(r=>r.graphFunctionRef===ids.graphFunctionRef),commandRow=implementationSet.rows.find(r=>r.graphFunctionRef===env.product.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef);
+   assert.ok(constructorRow&&commandRow);
++  // The executing Program coordinate is the loaded resolution's own Program.
++  const executing={publication:loaded.programPublication,programRef:loaded.resolution.programRef,programDigest:loaded.resolution.programDigest};
++  seen('loaded executing Program',{programRef:executing.programRef,programDigest:executing.programDigest,programOwner:loaded.resolution.programOwner,moduleRef:executing.publication.moduleRef});
++  seen('dispatched assessment',{start:{outcomeKind:started.ownerOutput.outcomeKind,value},selection:admitted,task,warm,assembly:stored,events:{opened:opened[0],assessed,artifact,binding}});
+   const dependencyBasis=over=>({publications:loaded.admittedCatalog.boundPublications,installs:loaded.admittedInstalls,
+-    resolvedLock:loaded.admittedCatalog.readinessBasis.resolvedLock,assessorOwnerProductId:row.graphFunctionOwnerProductId,...over});
+-  const dependencyOf=(sel,over={})=>relation.resolveNativeWorkspaceAssessmentDependency(sel,dependencyBasis(over));
++    resolvedLock:loaded.admittedCatalog.readinessBasis.resolvedLock,assessorOwnerProductId:row.graphFunctionOwnerProductId,program:executing,...over});
++  const dependencyOf=(sel,over={})=>seen('relation '+(seen.ordinal=(seen.ordinal??0)+1),{selection:sel,over,
++    value:relation.resolveNativeWorkspaceAssessmentDependency(sel,dependencyBasis(over))}).value;
+   const lock=dependencyBasis({}).resolvedLock,others=dependencyBasis({}).publications.filter(p=>p.moduleRef!==consumerPublication.moduleRef);
+   const withBytes=(sel,bytes)=>({...sel,schemaAsset:{...sel.schemaAsset,bytesBase64:Buffer.from(bytes).toString('base64')}});
+-  const exact=assessor.nativeAssessmentDependency(admitted,row);
++  const exact=seen('leaf exact dependency',assessor.nativeAssessmentDependency(admitted,row));
+   assert.ok(exact,'the admitted consumer selection resolves through the leaf port');
+   assert.deepEqual([exact.publication.moduleRef,exact.publication.owningProductId,exact.install.productId],[consumerPublication.moduleRef,consumerId,consumerId]);
++  assert.deepEqual([exact.use.publication.moduleRef,exact.use.install.productId,exact.use.programRef],[consumerPublication.moduleRef,consumerId,consumerProgram.programRef],
++    'consumer-owned coincident schema owner and executing Program use');
++  assert.ok(exact.use.memberRefs.length>0&&exact.use.memberRefs.every(r=>consumerProgram.callableMembership.includes(r)));
+   assert.deepEqual(exact.schema,stored.request.responseJsonSchema,'the dispatched request schema is the relation schema');
+   assert.deepEqual(dependencyOf(admitted)?.publication,exact.publication,'the port and the shared relation agree over the same carriage');
+   await subcase('crossed consumer owner refuses before assessment dispatch',()=>{
+@@ -2711,12 +2734,21 @@ test('RC7 assessment dependency: exact admitted consumer selection, refusals and
+     assert.equal(dependencyOf(admitted,{publications:others}),null,'no consumer publication');
+     assert.equal(dependencyOf(admitted,{publications:[...dependencyBasis({}).publications,{...consumerPublication,moduleRef:consumerPublication.moduleRef+'/twin'}]}),null,'two declarations');
+     const nonMember={...consumerPublication,graphFunctions:consumerPublication.graphFunctions.map(g=>{const {'abg.raw_result_contract':_declared,...declarations}=g.declarations;return {...g,declarations};})};
+-    assert.equal(dependencyOf(admitted,{publications:[...others,nonMember]}),null,'no Program-member consumer callable declares the contract');
++    assert.equal(dependencyOf(admitted,{publications:[...others,nonMember],program:{...executing,publication:nonMember}}),null,'no Program-member consumer callable declares the contract');
++  });
++  await subcase('executing Program use is exact: ref, digest, publication and membership',()=>{
++    const libraryRef=env.product.governanceRef('program','default'),library=dependencyBasis({}).publications.find(p=>p.programs.some(pr=>pr.programRef===libraryRef));assert.ok(library);
++    const libraryProgram=library.programs.find(pr=>pr.programRef===libraryRef);
++    assert.equal(dependencyOf(admitted,{program:{...executing,programRef:witnessRef('program','absent')}}),null,'missing executing Program');
++    assert.equal(dependencyOf(admitted,{program:{...executing,programDigest:zero}}),null,'wrong executing Program digest');
++    assert.equal(dependencyOf(admitted,{program:{publication:library,programRef:libraryRef,programDigest:product.sha256Canonical(libraryProgram)}}),null,
++      'the library Program declares no use; Catalog membership of the consumer grants nothing');
++    assert.equal(dependencyOf(admitted,{program:{...executing,publication:{...consumerPublication,programs:[]}}}),null,'executing Program absent from its publication');
+   });
+   // The persisted assembly basis carries the selected consumer publication; cold assembly is the dispatch gate.
+-  const captured=env.abg.constructNativeInstructionAssemblyBasis(stored.envelope.nativeBasis);assert.ok(captured,'the persisted basis reconstructs cold');
++  const captured=seen('cold basis',env.abg.constructNativeInstructionAssemblyBasis(stored.envelope.nativeBasis));assert.ok(captured,'the persisted basis reconstructs cold');
+   assert.equal(captured.assessmentPublication?.moduleRef,consumerPublication.moduleRef);
+-  const coldAssembly=env.abg.constructWorksiteNativeInstructionAssembly(captured,task);
++  const coldAssembly=seen('cold assembly',env.abg.constructWorksiteNativeInstructionAssembly(captured,task));
+   assert.equal(coldAssembly?.kind,'native_instruction_assembly');assert.deepEqual(coldAssembly.request,stored.request,'cold assembly reproduces the dispatched request');
+   await subcase('stale task input and unrelated callable refuse before assessment dispatch',()=>{
+     assert.equal(env.abg.constructWorksiteNativeInstructionAssembly(captured,{...task,outcome:task.outcome+' (stale)'}),null,'stale task input');
+@@ -2765,10 +2797,12 @@ test('RC7 assessment dependency: exact admitted consumer selection, refusals and
+   await subcase('warm/cold assessment raw-preimage and complete same-boundary read agreement',async()=>{
+     const contractInput={resolution:row,input:task,inputDigest:childBasis.rawInputDigest,instructionContractRef:stored.request.instructionContractRef,
+       rawResultContractRef:stored.request.resultContractRef,rawResult:JSON.parse(artifact.payload.finalOutput)};
+-    assert.deepEqual(assessor.verifyProbabilisticResultContractPreimage(contractInput),warm.verification,'cold raw preimage equals the warm admitted verification');
+-    assert.deepEqual(assessor.revalidateProbabilisticResultContractPreimage(contractInput,warm.verification),warm.verification);
+-    assert.equal(assessor.verifyProbabilisticResultContractPreimage({...contractInput,inputDigest:zero}).code,'input_contract_refused','a stale input digest');
+-    const reads={};
++    const coldPreimage=seen('cold raw preimage',{input:contractInput,warm:warm.verification,cold:assessor.verifyProbabilisticResultContractPreimage(contractInput),
++      revalidated:assessor.revalidateProbabilisticResultContractPreimage(contractInput,warm.verification),stale:assessor.verifyProbabilisticResultContractPreimage({...contractInput,inputDigest:zero})});
++    assert.deepEqual(coldPreimage.cold,warm.verification,'cold raw preimage equals the warm admitted verification');
++    assert.deepEqual(coldPreimage.revalidated,warm.verification);
++    assert.equal(coldPreimage.stale.code,'input_contract_refused','a stale input digest');
++    const reads=seen('Public readbacks',{});
+     for(const memberKey of ['run_result','run_replay']){
+       const {call}=constructInstalledRunReadCall({environment:env,publicApi,projectReadContracts:readContracts,memberKey,selector:memberKey==='run_result'?{kind:'none'}:{kind:'ordinal_page',fromOrdinal:0,limit:2048},
+         source:started.resources.run,eventResource:resource(),identity:`assessment-dependency-${memberKey}`});
+@@ -2779,10 +2813,10 @@ test('RC7 assessment dependency: exact admitted consumer selection, refusals and
+   });
+   assert.deepEqual(await roles(),['select','native','select','c2','select','assess'],'refusals dispatched no assessor');
+   const predicates=['crossed consumer owner refuses before assessment dispatch','crossed resolved lock refuses before assessment dispatch','crossed schema bytes refuse before assessment dispatch',
+-    'missing or ambiguous exact consumer declaration refuses before assessment dispatch','stale task input and unrelated callable refuse before assessment dispatch',
++    'missing or ambiguous exact consumer declaration refuses before assessment dispatch','executing Program use is exact: ref, digest, publication and membership','stale task input and unrelated callable refuse before assessment dispatch',
+     'omitted or mismatched whole-Program F_P role refuses without weakening role/permission guards','ordinary static raw-result contract lookup stays closed',
+     'warm/cold assessment raw-preimage and complete same-boundary read agreement'];
+   assert.deepEqual(subcases,predicates,'every selected predicate ran');
+   t.diagnostic(JSON.stringify({subcases,run:value.run?.ref,assessmentResultRef:assessed.payload.resultRef,consumerModuleRef:consumerPublication.moduleRef,
+     proofLimit:'Actual installed witness-consumer fixture, one Public start with the scripted stand-in actor, cold ABG/Product/leaf owners over its events; not a live provider or the maintained sandbox caller.'}));
+-});
++}
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs
+index 8d198a6c1..8bd734477 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs
+@@ -334,11 +334,102 @@ test('native typed semantic assessment uses the exact installed schema owner and
+  const bytes=Buffer.from(selection.schemaAsset.bytesBase64,'base64');await writeFile(join(env.scratch,'assessment.schema.json'),bytes);
+  const install={productId:publication.owningProductId,installedRoot:env.scratch,publicContracts:[{contractId:selection.resultContract.contractRef,contractVersion:'5.0.0',
+   contractKind:'schema_asset',owningProduct:publication.owningProductId,contractDigest:p.sha256Bytes(bytes),assetLocator:{path:'assessment.schema.json',mediaType:'application/schema+json',contentDigest:p.sha256Bytes(bytes)}}]};
+- assert.deepEqual(schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,[publication],[install]),m.NATIVE_SEMANTIC_ASSESSMENT_SCHEMA);
+- assert.equal(schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,[{...publication,owningProductId:'product://foreign'}],[install]),null);
+- assert.equal(schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,[publication,publication],[install]),null);
+- assert.equal(schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,[{...publication,contracts:publication.contracts.filter(c=>c.contractRef!==selection.resultContract.contractRef)}],[install]),null);
+- await writeFile(join(env.scratch,'assessment.schema.json'),'{}');assert.equal(schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,[publication],[install]),null);
++ // B56 complete dependency relation. Component premises, explicitly labelled:
++ // (1) the actual core semantic-stage publication and its actual assessment
++ // contract are the unique schema owner; (2) the executing consumer Program is
++ // a component publication whose members are the actual native semantic
++ // stage/review GraphFunctions; (3) installs and lock are admitted-shaped facts
++ // built from those exact coordinates. No ABG admission, actor or install runs.
++ const relationOwner=await load('product/publication'),contractRef=selection.resultContract.contractRef,consumerId='product://component/b56-consumer';
++ const assessorOwnerProductId=p.ABI5_PRODUCT_ID,consumerModule='module://component/b56-consumer';
++ const declaring=declaration.stages.slice(0,2).flatMap(stage=>g.constructNativeSemanticStageGraphFunctions(stage,'contract://component/b56-consumer/close','contract://component/b56-consumer/assess-close'));
++ const consumerProgram=(programRef,members)=>({...publication.programs[0],programRef,moduleRef:consumerModule,starts:[{startRef:programRef+'/start',graphFunctionRef:members[0]}],
++  callableMembership:members,policies:{...publication.programs[0].policies,'abg.default_start_ref':programRef+'/start'}});
++ const executingRef='program://component/b56-consumer/executing',memberRefs=[...declaring.map(x=>x.name),g.NATIVE_WORKSPACE_WORK_IDS.assessmentGraphFunctionRef];
++ const consumer={...publication,moduleRef:consumerModule,owningProductId:consumerId,artifactDigest:hash('b56-consumer-artifact'),productContentDigest:hash('b56-consumer-content'),
++  productManifestDigest:hash('b56-consumer-manifest'),contracts:[],implementationBindings:[],closureContracts:[],graphFunctions:declaring,programs:[consumerProgram(executingRef,memberRefs)],contributions:[]};
++ const lockRow=x=>({productId:x.owningProductId,artifactDigest:x.artifactDigest,productContentDigest:x.productContentDigest,manifestDigest:x.productManifestDigest});
++ const installOf=(x,lock,publicContracts=[])=>({productId:x.owningProductId,installId:'install://component/b56/'+x.owningProductId,installedRoot:env.scratch,publicContracts,
++  artifactDigest:x.artifactDigest,productContentDigest:x.productContentDigest,manifestDigest:x.productManifestDigest,resolvedLockId:lock.lockId,resolvedLockDigest:lock.lockDigest,
++  contributionManifest:{publicationBindings:[{moduleRef:x.moduleRef,publicationDigest:relationOwner.modulePublicationSemanticDigest(x)}]}});
++ // One admitted-shaped world per case, so each negative crosses only its own coordinate.
++ const world=({owner=publication,use=consumer,sel=selection,ownerContracts=install.publicContracts,programRef=executingRef,
++  edges=[...new Set([assessorOwnerProductId,owner.owningProductId])].filter(to=>to!==use.owningProductId).map(to=>({kind:'requires',fromProductId:use.owningProductId,toProductId:to}))}={})=>{
++  const rows=[...new Map([publication,owner,use].map(x=>[x.owningProductId,lockRow(x)])).values()],lockDigest=hash({rows,dependencyEdges:edges});
++  const resolvedLock={kind:'resolved_product_lock',schemaVersion:'5.0.0',lockId:'product-lock://component/b56/'+lockDigest.slice(7),lockDigest,nativeContractClosureDigest:zero,rows,dependencyEdges:edges};
++  const installs=[installOf(owner,resolvedLock,ownerContracts),...(use.owningProductId===owner.owningProductId?[]:[installOf(use,resolvedLock)])];
++  const program=use.programs.find(x=>x.programRef===programRef);
++  return {selection:sel,basis:{publications:[...new Map([owner,use].map(x=>[x.moduleRef,x])).values()],installs,resolvedLock,assessorOwnerProductId,
++   program:{publication:use,programRef,programDigest:program===undefined?zero:hash(program)}}};
++ };
++ const base=world(),with_=(over)=>({selection,basis:{...base.basis,...over}});
++ const otherProgram={...consumer,programs:[consumerProgram(executingRef,[g.NATIVE_WORKSPACE_WORK_IDS.assessmentGraphFunctionRef]),consumerProgram('program://component/b56-consumer/other',declaring.map(x=>x.name))]};
++ const nonMember={...consumer,programs:[consumerProgram(executingRef,[g.NATIVE_WORKSPACE_WORK_IDS.assessmentGraphFunctionRef])]};
++ // Consumer-owned coincident case: the consumer declares, installs and uses its own contract.
++ const ownedRef='contract://component/b56-consumer/assessment@5',ownedText=JSON.stringify({...m.NATIVE_SEMANTIC_ASSESSMENT_SCHEMA,$id:ownedRef})+'\n';
++ await writeFile(join(env.scratch,'b56-consumer.schema.json'),ownedText);
++ const ownedSelection={...selection,resultContract:{...selection.resultContract,contractRef:ownedRef},schemaAsset:{productId:consumerId,contractId:ownedRef,bytesBase64:Buffer.from(ownedText).toString('base64')}};
++ const owned={...consumer,contracts:[ownedSelection.resultContract],graphFunctions:declaring.map(x=>({...x,declarations:{...x.declarations,'abg.raw_result_contract':ownedRef}}))};
++ const ownedContracts=[{contractId:ownedRef,contractVersion:'5.0.0',contractKind:'schema_asset',owningProduct:consumerId,contractDigest:p.sha256Bytes(Buffer.from(ownedText)),
++  assetLocator:{path:'b56-consumer.schema.json',mediaType:'application/schema+json',contentDigest:p.sha256Bytes(Buffer.from(ownedText))}}];
++ const cases=[
++  ['split schema owner and executing consumer Program use',base,'resolved'],
++  ['consumer-owned coincident schema owner and use',world({owner:owned,use:owned,sel:ownedSelection,ownerContracts:ownedContracts}),'resolved'],
++  ['absent carried schema owner',with_({publications:[consumer]}),null],
++  ['wrong carried schema owner',with_({publications:[{...publication,owningProductId:'product://foreign'},consumer]}),null],
++  ['ambiguous schema declaration',world({use:{...consumer,contracts:[selection.resultContract]}}),null],
++  ['missing executing Program',with_({program:{...base.basis.program,programRef:'program://component/b56-consumer/absent'}}),null],
++  ['wrong executing Program digest',with_({program:{...base.basis.program,programDigest:zero}}),null],
++  ['wrong executing Program publication',with_({program:{...base.basis.program,publication}}),null],
++  ['use found only in another Program',world({use:otherProgram}),null],
++  ['declaring callables are not members of the executing Program',world({use:nonMember}),null],
++  ['crossed schema-owner install binding',with_({installs:base.basis.installs.map(i=>i.productId!==publication.owningProductId?i:{...i,contributionManifest:{publicationBindings:[]}})}),null],
++  ['crossed executing Program install binding',with_({installs:base.basis.installs.map(i=>i.productId!==consumerId?i:{...i,contributionManifest:{publicationBindings:[{moduleRef:consumerModule,publicationDigest:zero}]}})}),null],
++  ['crossed executing Program install lock',with_({installs:base.basis.installs.map(i=>i.productId!==consumerId?i:{...i,resolvedLockDigest:zero})}),null],
++  ['crossed lock row',with_({resolvedLock:{...base.basis.resolvedLock,rows:base.basis.resolvedLock.rows.map(r=>r.productId!==consumerId?r:{...r,manifestDigest:zero})}}),null],
++  ['crossed executing publication identity',with_({program:{...base.basis.program,publication:{...consumer,artifactDigest:zero}}}),null],
++  ['missing forward dependency',world({edges:[]}),null],
++  ['reverse dependency only',world({edges:[{kind:'requires',fromProductId:assessorOwnerProductId,toProductId:consumerId}]}),null],
++ ];
++ const observe=thunk=>{try{return {value:thunk()};}catch(error){return {thrown:{name:error?.name??null,message:String(error?.message??error),stack:error?.stack??null}};}};
++ const outcomes=cases.map(([label,{selection:sel,basis}])=>({label,selection:sel,basis,...observe(()=>schemaOwner.resolveNativeWorkspaceAssessmentDependency(sel,basis))}));
++ const schemaOnly=[['exact owner',[publication]],['foreign owner',[{...publication,owningProductId:'product://foreign'}]],['duplicate declaration',[publication,publication]],
++  ['missing declaration',[{...publication,contracts:publication.contracts.filter(c=>c.contractRef!==contractRef)}]]]
++  .map(([label,publications])=>({label,...observe(()=>schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,publications,[install]))}));
++ await writeFile(join(env.scratch,'assessment.schema.json'),'{}');
++ const changedBytes={label:'changed installed schema bytes',schemaOnly:observe(()=>schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,[publication],[install])),
++  dependency:observe(()=>schemaOwner.resolveNativeWorkspaceAssessmentDependency(selection,base.basis))};
++ const authorMembers=publication.graphFunctions.map(x=>({name:x.name,rawResultContract:x.declarations['abg.raw_result_contract']??null,
++  programMember:publication.programs.some(pr=>pr.callableMembership.includes(x.name))}));
++ const captureRoot=process.env.ABG_REGRESSION_PROOF_ROOT;
++ if(captureRoot!==undefined&&captureRoot!==''){await mkdir(captureRoot,{recursive:true});
++  await writeFile(join(captureRoot,'b56-dependency.candidate.json'),JSON.stringify({test:'native typed semantic assessment uses the exact installed schema owner and rejects wrong declarations',
++   componentPremises:['actual core semantic-stage publication and assessment contract as schema owner','component consumer Program publication over actual native semantic GraphFunctions',
++    'admitted-shaped install and lock facts from exact coordinates'],
++   schemaOwner:{moduleRef:publication.moduleRef,owningProductId:publication.owningProductId,contractRef,authorMembers},
++   executingProgram:{moduleRef:consumerModule,owningProductId:consumerId,programRef:executingRef,memberRefs},
++   cases:outcomes,schemaOnly,changedBytes},null,1)+'\n',{flag:'wx'});}
++ // Premise: the core owner's sole Program member keeps the original worker
++ // result, so a same-publication owner/use restriction refuses the split case.
++ assert.deepEqual(authorMembers,[{name:g.SEMANTIC_STAGE_IDS.graphFunctionRef,rawResultContract:g.SEMANTIC_STAGE_IDS.workerContractRef,programMember:true}]);
++ assert.ok(publication.contracts.some(c=>c.contractRef===contractRef),'the core semantic-stage publication owns the assessment contract');
++ assert.equal(consumer.contracts.some(c=>c.contractRef===contractRef),false,'the executing consumer Program does not own the contract');
++ for(const outcome of outcomes){
++  assert.equal(outcome.thrown,undefined,outcome.label+' owner boundary does not throw');
++  const expected=cases.find(([label])=>label===outcome.label)[2];
++  if(expected===null){assert.equal(outcome.value,null,outcome.label);continue;}
++  assert.ok(outcome.value,outcome.label);
++ }
++ const split=outcomes[0].value,coincident=outcomes[1].value;
++ assert.equal(split.publication,publication,'the schema owner stays the core semantic-stage publication');assert.equal(split.install.productId,publication.owningProductId);
++ assert.deepEqual(split.schema,m.NATIVE_SEMANTIC_ASSESSMENT_SCHEMA);
++ assert.equal(split.use.publication,consumer);assert.equal(split.use.install.productId,consumerId);assert.equal(split.use.programRef,executingRef);
++ assert.deepEqual(split.use.memberRefs,declaring.map(x=>x.name),'several legitimate declaring members of the exact Program');assert.ok(split.use.memberRefs.length>1);
++ assert.equal(coincident.publication,owned);assert.equal(coincident.use.publication,owned);assert.equal(coincident.install,coincident.use.install,'one consumer install owns and uses');
++ assert.deepEqual(coincident.schema,{...m.NATIVE_SEMANTIC_ASSESSMENT_SCHEMA,$id:ownedRef});
++ assert.deepEqual(schemaOnly.map(o=>[o.label,o.thrown,o.value===null?null:'schema']),[['exact owner',undefined,'schema'],['foreign owner',undefined,null],['duplicate declaration',undefined,null],['missing declaration',undefined,null]]);
++ assert.deepEqual(schemaOnly[0].value,m.NATIVE_SEMANTIC_ASSESSMENT_SCHEMA);
++ assert.equal(changedBytes.schemaOnly.value,null);assert.equal(changedBytes.dependency.value,null,'changed installed schema bytes refuse the complete relation');
+ });
+ 
+ // Component preparation only: real C2 manifests/current-file checks, no actor or runtime admission.
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
+index 0fd69945f..09d17a108 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
+@@ -296,7 +296,12 @@ async function prepare(t, env, realize = true) {
+   const row={kind,schemaVersion,disposition,leafResolutionCandidateRef:`leaf-resolution-candidate://abiogenesis/${rd.slice(7)}`,leafResolutionCandidateDigest:rd,...body};
+   const sd=product.sha256Canonical({rows:[row]});
+   const set={...env.implementationSet,rows:[row],implementationSetRef:`implementation-set://abiogenesis/${sd.slice(7)}`,implementationSetDigest:sd};
++  // An assessor's executing Program declares use of its contract: the
++  // consumer-owned coincident premise keeps the native Program bytes and binds
++  // the execution basis to that Program's exact digest.
++  const a=env.task.assessment,declaring=a===undefined?null:declaringAssessmentPublication(a.resultContract);
+   const execution={...env.executionBasis,programRef:ids.programRef,graphFunctionRef,
++    ...(declaring===null?{}:{programDigest:product.sha256Canonical(declaring.programs.find(x=>x.programRef===ids.programRef))}),
+     rawInputValue:env.task,rawInputDigest:product.sha256Canonical(env.task),implementationSetRef:set.implementationSetRef,implementationSetDigest:sd};
+   const call={...env.cCall,runId:'run://native-owner/test',regime:'F_P',graphFunctionRef,
+     inputContractRef:ids.taskContractRef,outputContractRef:ids.observationContractRef,failureContractRef:ids.failureContractRef,
+@@ -317,18 +322,18 @@ async function prepare(t, env, realize = true) {
+     capabilityGrantRef:env.capabilityGrant.grantRef,capabilityGrantDigest:env.capabilityGrant.grantDigest});
+   // The assessor's inner response dependency is the carried declaring
+   // publication under the admitted owner install, lock and this call's admitted
+-  // resolution row; the Program publication stays the native one.
+-  const a=env.task.assessment;
++  // resolution row. In this coincident premise the same publication is the
++  // executing Program publication whose member declares use.
+   let carried={},assessmentOwner={},assemblyInstalls=env.productInstalls??[];
+   if(a!==undefined){
+-    const schemaBytes=Buffer.from(a.schemaAsset.bytesBase64,'base64'),declaring=declaringAssessmentPublication(a.resultContract);
++    const schemaBytes=Buffer.from(a.schemaAsset.bytesBase64,'base64');
+     await fs.writeFile(join(env.scratch,'native-assessment-schema.json'),schemaBytes);
+     const facts=assessmentDependencyFacts(declaring,{installedRoot:env.scratch,path:'native-assessment-schema.json',bytes:schemaBytes,
+       contractId:a.schemaAsset.contractId,assessorOwnerProductId:row.graphFunctionOwnerProductId});
+     assemblyInstalls=[...assemblyInstalls,facts.install];carried={assessmentPublication:declaring};
+     assessmentOwner={resolution:row,resolvedProductLock:facts.resolvedLock};
+   }
+-  const assemblyBasis={publication,...carried,graphFunction:publication.graphFunctions.find(g=>g.name===graphFunctionRef),
++  const assemblyBasis={publication:declaring??publication,...carried,graphFunction:publication.graphFunctions.find(g=>g.name===graphFunctionRef),
+     executionBasis:authority.executionBasis,cCall:call,predecessorPrefix:authority.predecessorPrefix};
+   const {resolution:ownerResolution,resolvedProductLock}=assessmentOwner;
+   assemblyOwners.set(assemblyBasis,{inputDigest:product.sha256Canonical(env.task),inputValue:env.task,inputRef:'component:native-work-input',
+@@ -783,29 +788,35 @@ async function assessmentFixture(t, schema = assessmentSchema) {
+ }
+ // Carried assessment dependency (native HOW, Declared typed assessment). The
+ // declaring publication is the one the leaf port carries as
+-// `assessmentPublication`: a Program-member callable declares the raw result
+-// contract. Component frontier: its owner install and the resolved lock are
+-// controlled premises built from these exact coordinates; the actual shared
+-// relation runs over them. The lock holds the declaring owner, the resolution's
+-// GraphFunction owner and the declaring owner's `requires` edge when they differ.
++// `assessmentPublication`, the unique schema owner. The executing Program
++// publication declares use: a member callable declares the raw result contract.
++// They coincide by default; `use` selects a split executing Program publication.
++// Component frontier: owner installs and the resolved lock are controlled
++// premises built from these exact coordinates; the actual shared relation runs
++// over them. The lock holds the schema owner, the use owner, the resolution's
++// GraphFunction owner and the use owner's forward `requires` edges.
+ function declaringAssessmentPublication(contract) {
+   const root = publication.graphFunctions[0];
+   return {...publication, contracts:[...publication.contracts, contract], graphFunctions:[{...root,
+     declarations:{...root.declarations, 'abg.raw_result_contract':contract.contractRef}}, ...publication.graphFunctions.slice(1)]};
+ }
+-function assessmentDependencyFacts(declaring, {installedRoot, path, bytes, contractId, assessorOwnerProductId}) {
+-  const owner = declaring.owningProductId, distinct = assessorOwnerProductId !== owner;
+-  const install = {productId:owner, installedRoot, publicContracts:[{contractKind:'schema_asset', contractId, contractVersion:'5.0.0', owningProduct:owner,
+-      contractDigest:product.sha256Bytes(bytes), assetLocator:{path, mediaType:'application/schema+json', contentDigest:product.sha256Bytes(bytes)}}],
+-    artifactDigest:declaring.artifactDigest, productContentDigest:declaring.productContentDigest, manifestDigest:declaring.productManifestDigest,
+-    contributionManifest:{publicationBindings:[{moduleRef:declaring.moduleRef, publicationDigest:modulePublicationSemanticDigest(declaring)}]}};
++function assessmentDependencyFacts(declaring, {installedRoot, path, bytes, contractId, assessorOwnerProductId, use = declaring}) {
++  const owner = declaring.owningProductId, user = use.owningProductId;
++  const bound = x => ({productId:x.owningProductId, artifactDigest:x.artifactDigest, productContentDigest:x.productContentDigest, manifestDigest:x.productManifestDigest,
++    contributionManifest:{publicationBindings:[{moduleRef:x.moduleRef, publicationDigest:modulePublicationSemanticDigest(x)}]}});
++  const install = {...bound(declaring), installedRoot, publicContracts:[{contractKind:'schema_asset', contractId, contractVersion:'5.0.0', owningProduct:owner,
++      contractDigest:product.sha256Bytes(bytes), assetLocator:{path, mediaType:'application/schema+json', contentDigest:product.sha256Bytes(bytes)}}]};
++  const useInstall = user === owner ? null : {...bound(use), installedRoot, publicContracts:[]};
+   const lockRow = ({productId, artifactDigest, productContentDigest, manifestDigest}) => ({productId, artifactDigest, productContentDigest, manifestDigest});
+-  const rows = [lockRow(install), ...(distinct ? [lockRow({productId:assessorOwnerProductId, artifactDigest:digest('assessor-artifact'),
+-    productContentDigest:digest('assessor-content'), manifestDigest:digest('assessor-manifest')})] : [])];
+-  const dependencyEdges = distinct ? [{kind:'requires', fromProductId:owner, toProductId:assessorOwnerProductId}] : [];
++  const rows = [lockRow(install), ...(useInstall === null ? [] : [lockRow(useInstall)]),
++    ...([owner, user].includes(assessorOwnerProductId) ? [] : [lockRow({productId:assessorOwnerProductId, artifactDigest:digest('assessor-artifact'),
++    productContentDigest:digest('assessor-content'), manifestDigest:digest('assessor-manifest')})])];
++  const dependencyEdges = [...new Set([assessorOwnerProductId, owner])].filter(to => to !== user)
++    .map(toProductId => ({kind:'requires', fromProductId:user, toProductId}));
+   const lockDigest = product.sha256Canonical({rows, dependencyEdges});
+   const resolvedLock = {kind:'resolved_product_lock', schemaVersion:'5.0.0', lockId:`product-lock://abiogenesis/${lockDigest.slice(7)}`, lockDigest, rows, dependencyEdges};
+-  return {install:{...install, resolvedLockId:resolvedLock.lockId, resolvedLockDigest:lockDigest}, resolvedLock};
++  const locked = value => ({...value, resolvedLockId:resolvedLock.lockId, resolvedLockDigest:lockDigest});
++  return {install:locked(install), ...(useInstall === null ? {} : {useInstall:locked(useInstall)}), resolvedLock};
+ }
+ const verdict = () => JSON.stringify({kind:'fixture_assessment',
+   criteria:[{criterionRef:'criterion://fixture/meaning',disposition:'satisfied',explanation:'Synthetic judgment for mechanical qualification only.'}],residuals:[]});
+@@ -1049,9 +1060,10 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
+   const authority=p.occurrence.executionAuthority,resolution=authority.implementationResolution;
+   const facts=assessmentDependencyFacts(selectedPublication,{installedRoot:env.scratch,path:'schema.json',bytes:schemaBytes,
+     contractId:assessmentContract.contractRef,assessorOwnerProductId:resolution.graphFunctionOwnerProductId});
+-  // The carried declaring publication; the call's Program publication is the native one.
++  // The carried declaring publication; in the coincident premise it is also the
++  // call's executing Program publication, whose member declares use.
+   let assessmentPublication=selectedPublication;
+-  let selectedPublicationForCall=publication;
++  let selectedPublicationForCall=selectedPublication;
+   const environment={kind:'exact_prefix_workspace_environment',productInstalls:[facts.install],resolvedProductLock:facts.resolvedLock};
+   const owner={inputDigest:product.sha256Canonical(env.task),inputValue:env.task,inputRef:'component:assessment-input',
+     call:p.call,execution:authority.executionBasis,program:publication.programs[0],resolution,events:[],environment};
+@@ -1137,15 +1149,42 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
+   assert.equal(capturedPlan.promptDigest,product.sha256Canonical(prepared.workerRequest.prompt));
+   assert.equal(capturedPlan.cwd,env.canonicalRoot);
+   roleSelection='constructor';let refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation');assert.equal(refused.ownerObservation.reason,'thrown');
+-  roleSelection='assessor';assessmentPublication={...selectedPublication,graphFunctions:selectedPublication.graphFunctions.map(graph=>
++  roleSelection='assessor';
++  // The executing Program's member declares another raw contract: no use. The
++  // facts are rebuilt for that exact publication so only the use relation fails.
++  const factsFor=(schemaOwner,use)=>assessmentDependencyFacts(schemaOwner,{installedRoot:env.scratch,path:'schema.json',bytes:schemaBytes,
++    contractId:assessmentContract.contractRef,assessorOwnerProductId:resolution.graphFunctionOwnerProductId,use});
++  const factsEnvironment=f=>({kind:'exact_prefix_workspace_environment',productInstalls:[f.install,...(f.useInstall===undefined?[]:[f.useInstall])],resolvedProductLock:f.resolvedLock});
++  const undeclared={...selectedPublication,graphFunctions:selectedPublication.graphFunctions.map(graph=>
+     graph===rootGraph?{...rootGraph,declarations:{...rootGraph.declarations,'abg.raw_result_contract':ids.workerReportContractRef}}:graph)};
++  assessmentPublication=undeclared;selectedPublicationForCall=undeclared;owner.environment=factsEnvironment(factsFor(undeclared,undeclared));
+   refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation','unselected raw contract refuses before dispatch');
+-  // The carried declaring publication owns the installed schema bytes; another
+-  // Program publication without the contract is not consulted.
+-  selectedPublicationForCall={...publication,owningProductId:'product://component/consumer'};
+-  assessmentPublication=selectedPublication;
+-  const delegated=await invoke();assert.equal(delegated.kind,'prepared_probabilistic_leaf_owner_invocation');
++  // Split owner and use: the carried schema owner declares and installs the
++  // contract while its members declare no use; a separate executing consumer
++  // Program publication declares use without owning the contract.
++  const schemaPublication={...publication,contracts:[...publication.contracts,assessmentContract]};
++  const usePublication={...publication,owningProductId:'product://component/consumer',artifactDigest:digest('consumer-artifact'),
++    productContentDigest:digest('consumer-content'),productManifestDigest:digest('consumer-manifest'),graphFunctions:selectedPublication.graphFunctions};
++  const splitFacts=factsFor(schemaPublication,usePublication);
++  assert.deepEqual(splitFacts.resolvedLock.dependencyEdges.map(e=>[e.fromProductId,e.toProductId]).sort(),
++    [[usePublication.owningProductId,resolution.graphFunctionOwnerProductId],[usePublication.owningProductId,schemaPublication.owningProductId]].sort(),'forward edges from the executing Program owner');
++  assessmentPublication=schemaPublication;selectedPublicationForCall=usePublication;owner.environment=factsEnvironment(splitFacts);
++  const delegated=await invoke();assert.equal(delegated.kind,'prepared_probabilistic_leaf_owner_invocation','split schema owner and executing Program use');
+   assert.deepEqual(delegated.workerRequest.responseJsonSchema,selectedSchema);
++  for(const [label,cross] of [
++    ['split: the schema owner Program alone declares no use',()=>{selectedPublicationForCall=schemaPublication;owner.environment=factsEnvironment(factsFor(schemaPublication,schemaPublication));}],
++    ['split: missing use-to-schema-owner edge',()=>{owner.environment={...factsEnvironment(splitFacts),resolvedProductLock:{...splitFacts.resolvedLock,
++      dependencyEdges:splitFacts.resolvedLock.dependencyEdges.filter(e=>e.toProductId!==schemaPublication.owningProductId)}};}],
++    ['split: reverse schema-owner-to-use edge',()=>{owner.environment={...factsEnvironment(splitFacts),resolvedProductLock:{...splitFacts.resolvedLock,
++      dependencyEdges:splitFacts.resolvedLock.dependencyEdges.map(e=>e.toProductId!==schemaPublication.owningProductId?e:{...e,fromProductId:e.toProductId,toProductId:e.fromProductId})}};}],
++    ['split: executing Program install absent',()=>{owner.environment={...factsEnvironment(splitFacts),productInstalls:[splitFacts.install]};}],
++    ['split: wrong executing Program digest',()=>{owner.execution={...authority.executionBasis,programDigest:digest('crossed-program')};}],
++    ['split: executing Program ref absent from its publication',()=>{owner.execution={...authority.executionBasis,programRef:'program://component/absent'};}],
++  ]){
++    cross();refused=await invoke();selectedPublicationForCall=usePublication;owner.environment=factsEnvironment(splitFacts);owner.execution=authority.executionBasis;
++    assert.equal(refused.ownerObservation?.stage,'preparation',label);
++  }
++  assessmentPublication=selectedPublication;selectedPublicationForCall=selectedPublication;owner.environment=environment;
+   assessmentPublication={...selectedPublication,owningProductId:'product://component/wrong-owner'};
+   refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation','crossed declaring owner');
+   assessmentPublication=selectedPublication;

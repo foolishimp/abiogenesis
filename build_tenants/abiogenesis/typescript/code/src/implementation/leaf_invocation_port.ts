@@ -125,6 +125,8 @@ type LoadedLeafExecutionAuthority = Pick<
   | "ownerInstalls"
   | "admittedCatalog"
   | "admittedInstalls"
+  | "resolution"
+  | "programPublication"
 >;
 
 export function isClosedProbabilisticLeafInvocation(
@@ -1109,19 +1111,27 @@ export async function constructAdmittedLeafInvocationPort(authority: AdmittedLea
 
   // Only the canonical assessment's inner response dependency, through the one
   // shared relation over this resolution's authenticated Catalog, admitted
-  // installs and Catalog lock. Static contract lookup stays closure-scoped.
+  // installs and Catalog lock, and the loaded execution resolution's exact
+  // Program coordinate and publication as the declaration of use. Static
+  // contract lookup stays closure-scoped.
   function nativeAssessmentDependency(
     selection: NativeWorkspaceAssessmentSelection,
     resolution: Readonly<LeafInvocationResolution>,
   ) {
     try {
       const admitted = exactAdmittedResolution(resolution);
-      const { admittedCatalog: catalog, admittedInstalls: installs } = authority.executionResolution;
+      const { admittedCatalog: catalog, admittedInstalls: installs, resolution: loaded,
+        programPublication, declarationClosure } = authority.executionResolution;
       if (admitted === null || admitted.computeRegime !== "F_P" || admitted.implementationRef !== nativeIds.implementationRef ||
-        admitted.graphFunctionRef !== nativeIds.assessmentGraphFunctionRef) return null;
+        admitted.graphFunctionRef !== nativeIds.assessmentGraphFunctionRef ||
+        declarationClosure.programRef !== loaded.programRef ||
+        !canonicalEquals(declarationClosure.programPublication, programPublication)) return null;
       const dependency = resolveNativeWorkspaceAssessmentDependency(selection, { publications: catalog.boundPublications,
-        installs, resolvedLock: catalog.readinessBasis.resolvedLock, assessorOwnerProductId: admitted.graphFunctionOwnerProductId });
-      return dependency !== null && hasAdmittedProductInstall(authority.artifactTruth, dependency.install) ? dependency : null;
+        installs, resolvedLock: catalog.readinessBasis.resolvedLock, assessorOwnerProductId: admitted.graphFunctionOwnerProductId,
+        program: { publication: programPublication, programRef: loaded.programRef, programDigest: loaded.programDigest } });
+      return dependency !== null && dependency.use.install.installId === loaded.programOwner.installId &&
+        hasAdmittedProductInstall(authority.artifactTruth, dependency.install) &&
+        hasAdmittedProductInstall(authority.artifactTruth, dependency.use.install) ? dependency : null;
     } catch { return null; }
   }
 

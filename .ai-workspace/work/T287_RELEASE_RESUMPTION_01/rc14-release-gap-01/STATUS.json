@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_NATIVE_HANDOFF_INCOMPLETE_UNDER_REVIEW_SUCCESSOR_CONTROLS_ACCEPTED",
+  "status": "RC14_B56_CONFORMING_SOURCE_RECOVERED_COMPLETION_CONTROLS_SELECTED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -719,7 +719,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-15T20:21:42.826756+00:00",
+  "updatedUtc": "2026-11-15T20:33:23.930363+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1076,7 +1076,7 @@
     "executionAuthorized": false
   },
   "b56Repair": {
-    "state": "NATIVE_CLOSED_SUCCESSFULLY_SOURCE_HANDOFF_INCOMPLETE_UNDER_REVIEW",
+    "state": "NATIVE01_CLOSED_INCOMPLETE_FIVE_CONFORMING_FILES_RECOVERED",
     "controlCommit": "7ae1bdd4f048d00f642485b9cd70da9909412e14",
     "activation": "integration-01/B56_NATIVE_ACTIVATION_01.json",
     "sourceTree": "43e8e4fb26a434ecc6b44436ec9c64da368e3bea",
@@ -1116,7 +1116,18 @@
       "Required installed split-owner test absent; no split candidate capture.",
       "Other author-reported fixture/capture/caller gaps are under independent review; claimed extra write scope is not yet accepted.",
       "Two Python source edits via Bash violated Task method restrictions; exact scoped writes retained, no retroactive compliant audit."
-    ]
+    ],
+    "returnCommit": "139541fd9869e6db8c07c730c23115242bd4588e",
+    "returnRecord": "integration-01/assessment-dependency-native-01/RETURN.json",
+    "conjunction": "integration-01/B56_NATIVE01_CONJUNCTION_AND_REENTRY_02.json",
+    "recoveredFiles": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs"
+    ],
+    "completeSourceAccepted": false
   },
   "candidateSuccessorPreparation": {
     "state": "ACCEPTED_DISABLED_CONTROLS_WAITING_FOR_B56_SOURCE_PROOF",
@@ -1125,5 +1136,16 @@
     "sourceBinding": null,
     "controlCommit": "b8f77c2cf9e75ff744000fa91e7f90dd0686c1a7",
     "acceptance": "integration-01/CANDIDATE_SUCCESSOR_CONTROL_ACCEPTANCE_02.json"
+  },
+  "b56Completion": {
+    "state": "DISABLED_CONTROL_PREPARATION_SELECTED",
+    "selection": "integration-01/B56_NATIVE01_CONJUNCTION_AND_REENTRY_02.json",
+    "nativeWritePaths": [
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    ],
+    "providerStarted": false,
+    "proofAuthorized": false
   }
 }

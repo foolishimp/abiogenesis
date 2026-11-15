@@ -334,11 +334,102 @@ test('native typed semantic assessment uses the exact installed schema owner and
  const bytes=Buffer.from(selection.schemaAsset.bytesBase64,'base64');await writeFile(join(env.scratch,'assessment.schema.json'),bytes);
  const install={productId:publication.owningProductId,installedRoot:env.scratch,publicContracts:[{contractId:selection.resultContract.contractRef,contractVersion:'5.0.0',
   contractKind:'schema_asset',owningProduct:publication.owningProductId,contractDigest:p.sha256Bytes(bytes),assetLocator:{path:'assessment.schema.json',mediaType:'application/schema+json',contentDigest:p.sha256Bytes(bytes)}}]};
- assert.deepEqual(schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,[publication],[install]),m.NATIVE_SEMANTIC_ASSESSMENT_SCHEMA);
- assert.equal(schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,[{...publication,owningProductId:'product://foreign'}],[install]),null);
- assert.equal(schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,[publication,publication],[install]),null);
- assert.equal(schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,[{...publication,contracts:publication.contracts.filter(c=>c.contractRef!==selection.resultContract.contractRef)}],[install]),null);
- await writeFile(join(env.scratch,'assessment.schema.json'),'{}');assert.equal(schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,[publication],[install]),null);
+ // B56 complete dependency relation. Component premises, explicitly labelled:
+ // (1) the actual core semantic-stage publication and its actual assessment
+ // contract are the unique schema owner; (2) the executing consumer Program is
+ // a component publication whose members are the actual native semantic
+ // stage/review GraphFunctions; (3) installs and lock are admitted-shaped facts
+ // built from those exact coordinates. No ABG admission, actor or install runs.
+ const relationOwner=await load('product/publication'),contractRef=selection.resultContract.contractRef,consumerId='product://component/b56-consumer';
+ const assessorOwnerProductId=p.ABI5_PRODUCT_ID,consumerModule='module://component/b56-consumer';
+ const declaring=declaration.stages.slice(0,2).flatMap(stage=>g.constructNativeSemanticStageGraphFunctions(stage,'contract://component/b56-consumer/close','contract://component/b56-consumer/assess-close'));
+ const consumerProgram=(programRef,members)=>({...publication.programs[0],programRef,moduleRef:consumerModule,starts:[{startRef:programRef+'/start',graphFunctionRef:members[0]}],
+  callableMembership:members,policies:{...publication.programs[0].policies,'abg.default_start_ref':programRef+'/start'}});
+ const executingRef='program://component/b56-consumer/executing',memberRefs=[...declaring.map(x=>x.name),g.NATIVE_WORKSPACE_WORK_IDS.assessmentGraphFunctionRef];
+ const consumer={...publication,moduleRef:consumerModule,owningProductId:consumerId,artifactDigest:hash('b56-consumer-artifact'),productContentDigest:hash('b56-consumer-content'),
+  productManifestDigest:hash('b56-consumer-manifest'),contracts:[],implementationBindings:[],closureContracts:[],graphFunctions:declaring,programs:[consumerProgram(executingRef,memberRefs)],contributions:[]};
+ const lockRow=x=>({productId:x.owningProductId,artifactDigest:x.artifactDigest,productContentDigest:x.productContentDigest,manifestDigest:x.productManifestDigest});
+ const installOf=(x,lock,publicContracts=[])=>({productId:x.owningProductId,installId:'install://component/b56/'+x.owningProductId,installedRoot:env.scratch,publicContracts,
+  artifactDigest:x.artifactDigest,productContentDigest:x.productContentDigest,manifestDigest:x.productManifestDigest,resolvedLockId:lock.lockId,resolvedLockDigest:lock.lockDigest,
+  contributionManifest:{publicationBindings:[{moduleRef:x.moduleRef,publicationDigest:relationOwner.modulePublicationSemanticDigest(x)}]}});
+ // One admitted-shaped world per case, so each negative crosses only its own coordinate.
+ const world=({owner=publication,use=consumer,sel=selection,ownerContracts=install.publicContracts,programRef=executingRef,
+  edges=[...new Set([assessorOwnerProductId,owner.owningProductId])].filter(to=>to!==use.owningProductId).map(to=>({kind:'requires',fromProductId:use.owningProductId,toProductId:to}))}={})=>{
+  const rows=[...new Map([publication,owner,use].map(x=>[x.owningProductId,lockRow(x)])).values()],lockDigest=hash({rows,dependencyEdges:edges});
+  const resolvedLock={kind:'resolved_product_lock',schemaVersion:'5.0.0',lockId:'product-lock://component/b56/'+lockDigest.slice(7),lockDigest,nativeContractClosureDigest:zero,rows,dependencyEdges:edges};
+  const installs=[installOf(owner,resolvedLock,ownerContracts),...(use.owningProductId===owner.owningProductId?[]:[installOf(use,resolvedLock)])];
+  const program=use.programs.find(x=>x.programRef===programRef);
+  return {selection:sel,basis:{publications:[...new Map([owner,use].map(x=>[x.moduleRef,x])).values()],installs,resolvedLock,assessorOwnerProductId,
+   program:{publication:use,programRef,programDigest:program===undefined?zero:hash(program)}}};
+ };
+ const base=world(),with_=(over)=>({selection,basis:{...base.basis,...over}});
+ const otherProgram={...consumer,programs:[consumerProgram(executingRef,[g.NATIVE_WORKSPACE_WORK_IDS.assessmentGraphFunctionRef]),consumerProgram('program://component/b56-consumer/other',declaring.map(x=>x.name))]};
+ const nonMember={...consumer,programs:[consumerProgram(executingRef,[g.NATIVE_WORKSPACE_WORK_IDS.assessmentGraphFunctionRef])]};
+ // Consumer-owned coincident case: the consumer declares, installs and uses its own contract.
+ const ownedRef='contract://component/b56-consumer/assessment@5',ownedText=JSON.stringify({...m.NATIVE_SEMANTIC_ASSESSMENT_SCHEMA,$id:ownedRef})+'\n';
+ await writeFile(join(env.scratch,'b56-consumer.schema.json'),ownedText);
+ const ownedSelection={...selection,resultContract:{...selection.resultContract,contractRef:ownedRef},schemaAsset:{productId:consumerId,contractId:ownedRef,bytesBase64:Buffer.from(ownedText).toString('base64')}};
+ const owned={...consumer,contracts:[ownedSelection.resultContract],graphFunctions:declaring.map(x=>({...x,declarations:{...x.declarations,'abg.raw_result_contract':ownedRef}}))};
+ const ownedContracts=[{contractId:ownedRef,contractVersion:'5.0.0',contractKind:'schema_asset',owningProduct:consumerId,contractDigest:p.sha256Bytes(Buffer.from(ownedText)),
+  assetLocator:{path:'b56-consumer.schema.json',mediaType:'application/schema+json',contentDigest:p.sha256Bytes(Buffer.from(ownedText))}}];
+ const cases=[
+  ['split schema owner and executing consumer Program use',base,'resolved'],
+  ['consumer-owned coincident schema owner and use',world({owner:owned,use:owned,sel:ownedSelection,ownerContracts:ownedContracts}),'resolved'],
+  ['absent carried schema owner',with_({publications:[consumer]}),null],
+  ['wrong carried schema owner',with_({publications:[{...publication,owningProductId:'product://foreign'},consumer]}),null],
+  ['ambiguous schema declaration',world({use:{...consumer,contracts:[selection.resultContract]}}),null],
+  ['missing executing Program',with_({program:{...base.basis.program,programRef:'program://component/b56-consumer/absent'}}),null],
+  ['wrong executing Program digest',with_({program:{...base.basis.program,programDigest:zero}}),null],
+  ['wrong executing Program publication',with_({program:{...base.basis.program,publication}}),null],
+  ['use found only in another Program',world({use:otherProgram}),null],
+  ['declaring callables are not members of the executing Program',world({use:nonMember}),null],
+  ['crossed schema-owner install binding',with_({installs:base.basis.installs.map(i=>i.productId!==publication.owningProductId?i:{...i,contributionManifest:{publicationBindings:[]}})}),null],
+  ['crossed executing Program install binding',with_({installs:base.basis.installs.map(i=>i.productId!==consumerId?i:{...i,contributionManifest:{publicationBindings:[{moduleRef:consumerModule,publicationDigest:zero}]}})}),null],
+  ['crossed executing Program install lock',with_({installs:base.basis.installs.map(i=>i.productId!==consumerId?i:{...i,resolvedLockDigest:zero})}),null],
+  ['crossed lock row',with_({resolvedLock:{...base.basis.resolvedLock,rows:base.basis.resolvedLock.rows.map(r=>r.productId!==consumerId?r:{...r,manifestDigest:zero})}}),null],
+  ['crossed executing publication identity',with_({program:{...base.basis.program,publication:{...consumer,artifactDigest:zero}}}),null],
+  ['missing forward dependency',world({edges:[]}),null],
+  ['reverse dependency only',world({edges:[{kind:'requires',fromProductId:assessorOwnerProductId,toProductId:consumerId}]}),null],
+ ];
+ const observe=thunk=>{try{return {value:thunk()};}catch(error){return {thrown:{name:error?.name??null,message:String(error?.message??error),stack:error?.stack??null}};}};
+ const outcomes=cases.map(([label,{selection:sel,basis}])=>({label,selection:sel,basis,...observe(()=>schemaOwner.resolveNativeWorkspaceAssessmentDependency(sel,basis))}));
+ const schemaOnly=[['exact owner',[publication]],['foreign owner',[{...publication,owningProductId:'product://foreign'}]],['duplicate declaration',[publication,publication]],
+  ['missing declaration',[{...publication,contracts:publication.contracts.filter(c=>c.contractRef!==contractRef)}]]]
+  .map(([label,publications])=>({label,...observe(()=>schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,publications,[install]))}));
+ await writeFile(join(env.scratch,'assessment.schema.json'),'{}');
+ const changedBytes={label:'changed installed schema bytes',schemaOnly:observe(()=>schemaOwner.resolveNativeWorkspaceAssessmentSchema(selection,[publication],[install])),
+  dependency:observe(()=>schemaOwner.resolveNativeWorkspaceAssessmentDependency(selection,base.basis))};
+ const authorMembers=publication.graphFunctions.map(x=>({name:x.name,rawResultContract:x.declarations['abg.raw_result_contract']??null,
+  programMember:publication.programs.some(pr=>pr.callableMembership.includes(x.name))}));
+ const captureRoot=process.env.ABG_REGRESSION_PROOF_ROOT;
+ if(captureRoot!==undefined&&captureRoot!==''){await mkdir(captureRoot,{recursive:true});
+  await writeFile(join(captureRoot,'b56-dependency.candidate.json'),JSON.stringify({test:'native typed semantic assessment uses the exact installed schema owner and rejects wrong declarations',
+   componentPremises:['actual core semantic-stage publication and assessment contract as schema owner','component consumer Program publication over actual native semantic GraphFunctions',
+    'admitted-shaped install and lock facts from exact coordinates'],
+   schemaOwner:{moduleRef:publication.moduleRef,owningProductId:publication.owningProductId,contractRef,authorMembers},
+   executingProgram:{moduleRef:consumerModule,owningProductId:consumerId,programRef:executingRef,memberRefs},
+   cases:outcomes,schemaOnly,changedBytes},null,1)+'\n',{flag:'wx'});}
+ // Premise: the core owner's sole Program member keeps the original worker
+ // result, so a same-publication owner/use restriction refuses the split case.
+ assert.deepEqual(authorMembers,[{name:g.SEMANTIC_STAGE_IDS.graphFunctionRef,rawResultContract:g.SEMANTIC_STAGE_IDS.workerContractRef,programMember:true}]);
+ assert.ok(publication.contracts.some(c=>c.contractRef===contractRef),'the core semantic-stage publication owns the assessment contract');
+ assert.equal(consumer.contracts.some(c=>c.contractRef===contractRef),false,'the executing consumer Program does not own the contract');
+ for(const outcome of outcomes){
+  assert.equal(outcome.thrown,undefined,outcome.label+' owner boundary does not throw');
+  const expected=cases.find(([label])=>label===outcome.label)[2];
+  if(expected===null){assert.equal(outcome.value,null,outcome.label);continue;}
+  assert.ok(outcome.value,outcome.label);
+ }
+ const split=outcomes[0].value,coincident=outcomes[1].value;
+ assert.equal(split.publication,publication,'the schema owner stays the core semantic-stage publication');assert.equal(split.install.productId,publication.owningProductId);
+ assert.deepEqual(split.schema,m.NATIVE_SEMANTIC_ASSESSMENT_SCHEMA);
+ assert.equal(split.use.publication,consumer);assert.equal(split.use.install.productId,consumerId);assert.equal(split.use.programRef,executingRef);
+ assert.deepEqual(split.use.memberRefs,declaring.map(x=>x.name),'several legitimate declaring members of the exact Program');assert.ok(split.use.memberRefs.length>1);
+ assert.equal(coincident.publication,owned);assert.equal(coincident.use.publication,owned);assert.equal(coincident.install,coincident.use.install,'one consumer install owns and uses');
+ assert.deepEqual(coincident.schema,{...m.NATIVE_SEMANTIC_ASSESSMENT_SCHEMA,$id:ownedRef});
+ assert.deepEqual(schemaOnly.map(o=>[o.label,o.thrown,o.value===null?null:'schema']),[['exact owner',undefined,'schema'],['foreign owner',undefined,null],['duplicate declaration',undefined,null],['missing declaration',undefined,null]]);
+ assert.deepEqual(schemaOnly[0].value,m.NATIVE_SEMANTIC_ASSESSMENT_SCHEMA);
+ assert.equal(changedBytes.schemaOnly.value,null);assert.equal(changedBytes.dependency.value,null,'changed installed schema bytes refuse the complete relation');
 });
 
 // Component preparation only: real C2 manifests/current-file checks, no actor or runtime admission.

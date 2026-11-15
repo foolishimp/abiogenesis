@@ -414,50 +414,81 @@ and the admitted Run environment's actual `assessor` role/context, including
 current worksite access. The same F_P implementation, native tools, physical
 authority, transport and before/after observation owners apply.
 
-The consumer declares an output contract and immutable `schema_asset` through
-the existing Product install convention. A Program-member callable of the same
-consumer publication declares that exact contract via `abg.raw_result_contract`.
-The canonical assessment keeps its fixed outer task and observation contracts,
-static implementation, library Program membership, actual assessor authority
-and read-only scope. Its authenticated typed task selects one inner consumer
+The selection names an output contract and immutable `schema_asset` under the
+existing Product install convention. Two distinct relations bind it. The
+unique schema/contract owner is the one publication declaring the contract;
+its installed Product publishes the exact schema bytes. The exact admitted
+executing Program declares use: a GraphFunction of that Program's publication
+which is a member of that exact Program declares the contract via
+`abg.raw_result_contract`; several such members are valid. Owner and use
+coincide when a consumer publication owns and uses its contract. They split
+when, for example, the core semantic-stage publication owns
+`semantic-stage/native-assessment` while its sole author member keeps the
+worker-result contract, and the executing consumer Program's members declare
+use. The canonical assessment keeps its fixed outer task and observation
+contracts, static implementation, library membership, actual assessor
+authority and read-only scope. Its authenticated typed task selects one inner
 response dependency: the contract, schema owner and exact schema bytes. That
 dependency is task input, not a member of the running Program's static
-execution closure, so a library Program can host the assessment without
-declaring any consumer contract.
+execution closure; the executing Program's declared use, not the closure,
+admits it.
 
 One Product relation, `resolveNativeWorkspaceAssessmentDependency`, admits the
-inner dependency over the actual admitted environment: candidate publications,
-admitted installs, the resolved lock and the assessment callable's owner. It
-requires all of the following:
+inner dependency over the actual admitted environment: candidate schema-owner
+publications, admitted installs, the resolved lock, the assessment callable's
+owner and the executing Program coordinate (publication, Program ref and
+digest). It requires all of the following:
 
 1. exactly one declaration of the contract among the candidate publications,
    owned by the selected schema product and equal to the selected contract;
-2. a declaring callable in that publication that is a member of one of its
-   Programs;
-3. exactly one admitted install of the owner whose artifact, content and
-   manifest identities and contribution manifest bind exactly that
-   publication digest;
-4. that install's resolved lock equal to the environment lock, with exactly one
-   equal lock row;
-5. the owner equal to the assessment callable's owner, or exactly one lock
-   `requires` edge from the owner to that callable owner;
-6. exactly one admitted install publishing the selected `schema_asset`, whose
-   installed bytes equal the supplied bytes under the existing schema
-   admission and compile under the fixed validator below.
+2. exactly one Program with the executing ref in the executing publication,
+   whose canonical digest equals the executing digest, and at least one member
+   GraphFunction of that publication and Program declaring the contract via
+   `abg.raw_result_contract`;
+3. for the schema-owner publication and for the executing Program publication,
+   exactly one admitted install of its owning Product whose artifact, content
+   and manifest identities and contribution manifest bind exactly that
+   publication digest, whose resolved lock equals the environment lock, with
+   exactly one equal lock row;
+4. exactly one lock row of the assessment callable's owner, and the executing
+   Program owner's forward dependencies: equality with, or exactly one lock
+   `requires` edge to, the assessment callable owner, and likewise to the
+   schema owner;
+5. exactly one admitted install publishing the selected `schema_asset`, the
+   schema owner's install, whose installed bytes equal the supplied bytes under
+   the existing schema admission and compile under the fixed validator below.
 
 Installation alone, supplied schema bytes alone, a declaration on another
-publication or a non-member callable, and a reverse library-to-consumer edge
-grant nothing.
+publication, a declaring callable that is not a member of the exact executing
+Program, use found only in another Program or by arbitrary Catalog membership,
+a crossed install, publication or lock, and a missing or reverse edge grant
+nothing.
+
+```mermaid
+sequenceDiagram
+  participant L as Leaf port (preparation, raw preimage)
+  participant A as Instruction assembly (warm, cold)
+  participant R as resolveNativeWorkspaceAssessmentDependency
+  L->>R: Catalog publications, admitted installs, Catalog lock,<br/>loaded Program publication + resolution Program ref/digest
+  R-->>L: schema owner publication/install, schema, Program use
+  L->>A: existing assessmentPublication (schema owner only)
+  A->>R: [assessmentPublication], exact-prefix installs/lock,<br/>authenticated basis.publication + execution Program ref/digest
+  R-->>A: same schema or refusal
+```
 
 The leaf port applies the relation before dispatch over its authenticated ready
-Catalog publications, admitted installs and Catalog lock. It carries the selected
-publication in the existing `assessmentPublication` basis field. Instruction
-assembly applies the same relation to that carried publication against the
-exact-prefix admitted environment. Cold reconstruction repeats it from the
-persisted basis. The leaf's raw-result preimage repeats it over the Catalog
-before ordinary raw/result admission. Response completion consumes only the
-assembly-bound request schema. Only the canonical assessment implementation and
-callable receive this selection. Ordinary raw-result declarations and static
+Catalog publications, admitted installs and Catalog lock, with the loaded
+execution resolution's Program publication, ref and digest. It carries the
+selected schema-owner publication in the existing `assessmentPublication` basis
+field; the use coordinate is never persisted. Instruction assembly applies the
+same relation to that carried publication against the exact-prefix admitted
+environment, using the already authenticated `basis.publication` and the
+execution basis Program ref and digest. Cold reconstruction repeats it from the
+persisted basis. The leaf's raw-result preimage repeats it over the Catalog and
+loaded Program before ordinary raw/result admission. Response completion
+consumes only the assembly-bound request schema. Only the canonical assessment
+implementation and callable receive this selection. Ordinary raw-result
+declarations, the original semantic-stage author worker result and static
 `contractByRef` and `contractPublicationByRef` lookup stay closure-scoped and
 unchanged. Missing, ambiguous, crossed, stale or invalid evidence refuses before
 dispatch. A task cannot invent an undeclared response contract.

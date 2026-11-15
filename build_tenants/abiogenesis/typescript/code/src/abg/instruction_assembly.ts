@@ -175,13 +175,16 @@ function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssem
       if (stdo === false || (assessment !== undefined && stdo === null) ||
         stdo !== null && !(stdo.contextPolicy.selectors as readonly string[]).includes("current_worksite")) return null;
       const resultContractRef = nativeWorkspaceWorkResultContractRef(supplied);
-      // The inner consumer dependency is the carried selected publication under
-      // the shared admitted-environment relation; the Program closure is not consulted.
+      // The inner dependency is the carried schema-owner publication under the
+      // shared admitted-environment relation; its use is the authenticated
+      // `basis.publication` and the execution basis Program ref/digest. The
+      // Program's static closure is not consulted.
       const dependency = assessment === undefined || basis.assessmentPublication === undefined ||
         owner.environment.kind !== "exact_prefix_workspace_environment" ? null :
         resolveNativeWorkspaceAssessmentDependency(assessment, { publications: [basis.assessmentPublication],
           installs: owner.environment.productInstalls, resolvedLock: owner.environment.resolvedProductLock,
-          assessorOwnerProductId: owner.resolution.graphFunctionOwnerProductId });
+          assessorOwnerProductId: owner.resolution.graphFunctionOwnerProductId,
+          program: { publication: basis.publication, programRef: owner.execution.programRef, programDigest: owner.execution.programDigest } });
       const schema = assessment === undefined ? nativeWorkspaceWorkReportSchema : dependency?.schema ?? null;
       if (schema === null || assessment !== undefined && resultContractRef !== assessment.resultContract.contractRef ||
         assessment?.producer.cCallRef === owner.call.cCallRef) return null;

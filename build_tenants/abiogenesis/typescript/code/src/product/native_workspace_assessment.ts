@@ -5,7 +5,7 @@ import * as v from "valibot";
 import type { ContractDeclaration, ModulePublication } from "../gtl/contracts.js";
 import { type JsonValue } from "../shared/canonical_json.js";
 import { admitIJsonText } from "../shared/i_json.js";
-import type { Sha256Digest } from "../shared/digests.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import type { ProductInstall, ResolvedProductLock } from "./environment.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
 import { normalizeWorksiteRelativePath, type WorksiteContextObservation } from "./worksite_effect.js";
@@ -103,24 +103,67 @@ export function resolveNativeWorkspaceAssessmentSchema(selection: NativeWorkspac
     return schema;
   } catch { return null; }
 }
+/** The exact admitted executing Program coordinate: the loaded execution
+ * resolution's Program publication, ref and digest at leaf preparation and raw
+ * preimage, or the authenticated assembly `basis.publication` with the
+ * execution basis Program ref and digest at assembly and cold reconstruction. */
+export type NativeWorkspaceAssessmentProgramUse = {
+  readonly publication: Readonly<ModulePublication>;
+  readonly programRef: string;
+  readonly programDigest: Sha256Digest;
+};
 /** Admitted-environment evidence for the canonical assessment's inner response
- * dependency: candidate publications, admitted installs, the resolved lock and
- * the assessment callable's owner. */
+ * dependency: candidate schema-owner publications, admitted installs, the
+ * resolved lock, the assessment callable's owner and the executing Program. */
 export type NativeWorkspaceAssessmentDependencyBasis = {
   readonly publications: readonly Readonly<ModulePublication>[];
   readonly installs: readonly Readonly<ProductInstall>[];
   readonly resolvedLock: Readonly<ResolvedProductLock>;
   readonly assessorOwnerProductId: string;
+  readonly program: Readonly<NativeWorkspaceAssessmentProgramUse>;
 };
+/** `publication`/`install` remain the unique schema owner; `use` is the exact
+ * executing Program's declaration of use. Neither is persisted. */
 export type NativeWorkspaceAssessmentDependency = {
   readonly publication: Readonly<ModulePublication>;
   readonly install: Readonly<ProductInstall>;
   readonly schema: Readonly<Record<string, JsonValue>>;
+  readonly use: {
+    readonly publication: Readonly<ModulePublication>;
+    readonly install: Readonly<ProductInstall>;
+    readonly programRef: string;
+    readonly programDigest: Sha256Digest;
+    readonly memberRefs: readonly string[];
+  };
 };
-/** One relation for assembly, raw preimage and cold reconstruction. The
- * consumer's own Program member declares the contract and the lock carries the
- * consumer's dependency on the assessment owner; installation or supplied
- * schema bytes alone grant nothing. No reverse edge or fallback is consulted. */
+/** One publication/install/lock join: the owning Product's unique admitted
+ * install binds exactly this publication digest under exactly this lock row. */
+function exactPublicationInstall(publication: Readonly<ModulePublication>, installs: readonly Readonly<ProductInstall>[],
+  lock: Readonly<ResolvedProductLock>): Readonly<ProductInstall> | null {
+  const owners = installs.filter(install => install.productId === publication.owningProductId);
+  if (owners.length !== 1) return null;
+  const install = owners[0]!, publicationDigest = modulePublicationSemanticDigest(publication);
+  return install.artifactDigest === publication.artifactDigest && install.productContentDigest === publication.productContentDigest &&
+    install.manifestDigest === publication.productManifestDigest &&
+    install.contributionManifest.publicationBindings.filter(row => row.moduleRef === publication.moduleRef &&
+      row.publicationDigest === publicationDigest).length === 1 &&
+    install.resolvedLockId === lock.lockId && install.resolvedLockDigest === lock.lockDigest &&
+    lock.rows.filter(row => row.productId === install.productId && row.artifactDigest === install.artifactDigest &&
+      row.productContentDigest === install.productContentDigest && row.manifestDigest === install.manifestDigest).length === 1
+    ? install : null;
+}
+/** Forward dependency only: equality, or exactly one `requires` edge from the
+ * dependent Product to the Product it uses. A reverse edge grants nothing. */
+function requiresForward(lock: Readonly<ResolvedProductLock>, fromProductId: string, toProductId: string): boolean {
+  return fromProductId === toProductId || lock.dependencyEdges.filter(edge => edge.kind === "requires" &&
+    edge.fromProductId === fromProductId && edge.toProductId === toProductId).length === 1;
+}
+/** One relation for leaf preparation, assembly, raw preimage and cold
+ * reconstruction. The unique schema owner declares the contract and installs
+ * its bytes; the exact executing Program's member callables declare its use;
+ * the lock carries the executing Program owner's forward dependencies on the
+ * assessment owner and the schema owner. Owner and use may coincide. Catalog
+ * membership, installation or supplied schema bytes alone grant nothing. */
 export function resolveNativeWorkspaceAssessmentDependency(selection: NativeWorkspaceAssessmentSelection,
   basis: NativeWorkspaceAssessmentDependencyBasis): Readonly<NativeWorkspaceAssessmentDependency> | null {
   try {
@@ -130,27 +173,27 @@ export function resolveNativeWorkspaceAssessmentDependency(selection: NativeWork
       contract.contractRef === contractRef).map(contract => ({ publication, contract })));
     if (declarations.length !== 1) return null;
     const { publication, contract } = declarations[0]!;
-    if (publication.owningProductId !== ownerId || !canonicalEquals(contract, selection.resultContract) ||
-      !publication.graphFunctions.some(graph => graph.declarations["abg.raw_result_contract"] === contractRef &&
-        publication.programs.some(program => program.callableMembership.includes(graph.name)))) return null;
-    const publicationDigest = modulePublicationSemanticDigest(publication);
-    const owners = basis.installs.filter(install => install.productId === ownerId);
-    const install = owners.length === 1 ? owners[0]! : null;
-    if (install === null || install.artifactDigest !== publication.artifactDigest ||
-      install.productContentDigest !== publication.productContentDigest || install.manifestDigest !== publication.productManifestDigest ||
-      install.contributionManifest.publicationBindings.filter(row => row.moduleRef === publication.moduleRef &&
-        row.publicationDigest === publicationDigest).length !== 1) return null;
+    if (publication.owningProductId !== ownerId || !canonicalEquals(contract, selection.resultContract)) return null;
+    // The executing Program's own declaration of use, never another Program.
+    const use = basis.program, programs = use.publication.programs.filter(program => program.programRef === use.programRef);
+    if (programs.length !== 1 || sha256Canonical(programs[0]!) !== use.programDigest) return null;
+    const program = programs[0]!;
+    const memberRefs = use.publication.graphFunctions.filter(graph => program.callableMembership.includes(graph.name) &&
+      graph.declarations["abg.raw_result_contract"] === contractRef).map(graph => graph.name);
+    if (memberRefs.length === 0) return null;
     const lock = basis.resolvedLock;
-    if (install.resolvedLockId !== lock.lockId || install.resolvedLockDigest !== lock.lockDigest ||
-      lock.rows.filter(row => row.productId === ownerId && row.artifactDigest === install.artifactDigest &&
-        row.productContentDigest === install.productContentDigest && row.manifestDigest === install.manifestDigest).length !== 1 ||
+    const install = exactPublicationInstall(publication, basis.installs, lock);
+    const useInstall = exactPublicationInstall(use.publication, basis.installs, lock);
+    if (install === null || useInstall === null || install.productId !== ownerId ||
       lock.rows.filter(row => row.productId === basis.assessorOwnerProductId).length !== 1 ||
-      ownerId !== basis.assessorOwnerProductId && lock.dependencyEdges.filter(edge => edge.kind === "requires" &&
-        edge.fromProductId === ownerId && edge.toProductId === basis.assessorOwnerProductId).length !== 1) return null;
+      !requiresForward(lock, useInstall.productId, basis.assessorOwnerProductId) ||
+      !requiresForward(lock, useInstall.productId, ownerId)) return null;
     if (basis.installs.filter(candidate => candidate.publicContracts.some(row => row.contractKind === "schema_asset" &&
       row.contractId === selection.schemaAsset.contractId)).length !== 1) return null;
     const schema = resolveNativeWorkspaceAssessmentSchema(selection, [publication], [install]);
-    return schema === null ? null : Object.freeze({ publication, install, schema });
+    return schema === null ? null : Object.freeze({ publication, install, schema,
+      use: Object.freeze({ publication: use.publication, install: useInstall, programRef: use.programRef,
+        programDigest: use.programDigest, memberRefs: Object.freeze(memberRefs) }) });
   } catch { return null; }
 }
 export function parseNativeWorkspaceAssessmentResult(schema: Readonly<Record<string, JsonValue>>, text: string): Readonly<Record<string, JsonValue>> | null {
