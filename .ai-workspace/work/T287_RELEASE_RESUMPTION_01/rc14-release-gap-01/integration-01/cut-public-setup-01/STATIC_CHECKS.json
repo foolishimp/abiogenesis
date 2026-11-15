@@ -1,0 +1,44 @@
+{
+  "kind": "static_preparation_checks",
+  "elapsedMs": 30,
+  "checks": [
+    {
+      "check": "python AST parse only",
+      "status": "passed"
+    },
+    {
+      "check": "node --check only; no module imports/evaluation",
+      "status": "passed",
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "check": "all candidate/actual roots/deadline/grant unbound; execution disabled",
+      "status": "passed"
+    },
+    {
+      "check": "eight exact reused input bytes/hash joins",
+      "status": "passed"
+    },
+    {
+      "check": "distinct empty regular npm configuration files",
+      "status": "passed"
+    },
+    {
+      "check": "Root corrected installed package suffix present in both host and outer handoff",
+      "status": "passed",
+      "basis": "Both literal producers select sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant; actual output still unexecuted."
+    }
+  ],
+  "notExecuted": [
+    "Product imports",
+    "setup",
+    "tests",
+    "provider",
+    "build",
+    "install",
+    "cut",
+    "qualification"
+  ],
+  "qualificationClaim": false
+}

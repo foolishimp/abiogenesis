@@ -1,0 +1,23 @@
+{
+  "executables": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    "npm": {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    "python": {
+      "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa"
+    }
+  },
+  "npmTree": {
+    "root": "/opt/homebrew/lib/node_modules/npm",
+    "rows": 2326,
+    "sha256": "fb6e09972ed9bc200b97e8c1d87dcb00325128cc6c4398dec1e26f2a276a04b1",
+    "encoding": "sha256 of UTF-8 JSON sorted keys, separators comma/colon, rows in path order; same rows as retained bounded.inventory"
+  },
+  "evidence": "Read-only file hashes during preparation; no executable/version invocation or compatibility claim."
+}

@@ -1,0 +1,55 @@
+{
+  "kind": "external_control_preparation_return",
+  "status": "frozen_preparation_for_independent_review",
+  "writer": "/root/rc14_release_proof",
+  "parentSource": "9b0757a206fb9ec50afee0c8c57415c475b28dc4",
+  "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/cut-public-setup-01",
+  "manifestSha256": "6f79ede133cbc844a565f042f654dad0610e3180b34202c98588d9bec446e4af",
+  "authoredFiles": 12,
+  "authority": "ACTIVATION.json; exact Root external Writer grant under finishRC14 and accepted RC14_CUT_PREPARATION_ACCEPTANCE_01",
+  "closure": [
+    "One external entry uses existing installed Public setup and closes its acquired resource without lifecycle/provider",
+    "Eight maintained source/process/physical owner files pinned and unchanged",
+    "Exact archive/bootstrap comparison before Product imports; actual Public-installed package/archive comparison afterward",
+    "Credential-free explicit environment, two empty distinct npm configs and isolated writable temp/cache",
+    "Bounded commands reuse accepted process owner; original total15min/30s reserve/300s max command/16MiB streams/first failure preserved",
+    "Complete paired topology roles and protected-set union; actual setup-owned manifest W",
+    "Control source remains immutable c1683d3 while C0 candidate/source/archive remain separately unbound"
+  ],
+  "staticEvidence": {
+    "path": "STATIC_CHECKS.json",
+    "sha256": "3da00d2dd613668b06ff758a3113a578675fec8e62aa7f90ad37763b61269856",
+    "claims": "Syntax, JSON, disabled bindings and input hashes only"
+  },
+  "bindingCorrection": {
+    "priorReadinessShorthand": "R/sandbox/installed/abg is install target host, not metadata package root",
+    "corrected": "Use actual identity.install.installedRoot; require R/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "source": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-installed-basic-20261115-04/basic-cli/installed/0/identity.json",
+      "sha256": "728f7edbf0c35f8d9407fdce15833a44a18a787b8af3231740808186a9bcc21e",
+      "field": "install.installedRoot"
+    },
+    "disposition": "Corrected during preparation before execution; original evidence preserved; no new defect or ticket claimed"
+  },
+  "residuals": [
+    "Root must bind final C0 commit/tree/cut record/archive/bootstrap/manifest, fresh roots, exact manifest/grant and original deadline",
+    "Independent source review not yet performed on this new wrapper",
+    "Future Public setup/physical observations/install correspondence and actual cleanup are unexecuted",
+    "Npm/source input conservation is entry/exit observation, not continuous monitoring or OS isolation",
+    "Formal qualification/policy and final release remain separate unresolved owner work"
+  ],
+  "prohibitedEffectsPerformed": false,
+  "executed": {
+    "ProductImports": false,
+    "setup": false,
+    "tests": false,
+    "provider": false,
+    "build": false,
+    "install": false,
+    "stampOrCut": false,
+    "qualification": false,
+    "mainMutation": false,
+    "push": false
+  },
+  "returnTo": "/root; stop editing after own commit"
+}
