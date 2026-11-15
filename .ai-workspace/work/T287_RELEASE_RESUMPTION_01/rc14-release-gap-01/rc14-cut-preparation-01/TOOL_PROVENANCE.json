@@ -1,0 +1,39 @@
+{
+  "source": "4c6ad5021e9151c3c1fedcd958ed84bbf3ee4ea1",
+  "retainedFiveTools": [
+    {
+      "sourceCommit": "4c6ad5021e9151c3c1fedcd958ed84bbf3ee4ea1",
+      "sourcePath": ".ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/cut/cut-common.mjs",
+      "sourceSha256": "b014d6d5eb4fe14430372b258539bf4cd45ef6c7d2aa753f55ede534f2f65bc5",
+      "successor": "tools/cut-common.mjs"
+    },
+    {
+      "sourceCommit": "4c6ad5021e9151c3c1fedcd958ed84bbf3ee4ea1",
+      "sourcePath": ".ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/cut/stamp-rc13.mjs",
+      "sourceSha256": "e9aa1e5a14fc50600fda5eaa0087dcc44f365e1a42939c626f67eefe9731050c",
+      "successor": "tools/stamp-rc14.mjs"
+    },
+    {
+      "sourceCommit": "4c6ad5021e9151c3c1fedcd958ed84bbf3ee4ea1",
+      "sourcePath": ".ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/cut/cut-local-rc13.mjs",
+      "sourceSha256": "ea2e6004776393be895e52578274dd5faa538a750057ebe24fa108a0932d7922",
+      "successor": "tools/prepare-candidate-rc14.mjs"
+    },
+    {
+      "sourceCommit": "4c6ad5021e9151c3c1fedcd958ed84bbf3ee4ea1",
+      "sourcePath": ".ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/cut/install-local-rc13.mjs",
+      "sourceSha256": "f4acca438f66224101c2d8c930d886876104c30c30aef8c33ad320fe48a510b7",
+      "successor": "tools/install-candidate-rc14.mjs"
+    },
+    {
+      "sourceCommit": "4c6ad5021e9151c3c1fedcd958ed84bbf3ee4ea1",
+      "sourcePath": ".ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/cut/installed-owner-smoke.mjs",
+      "sourceSha256": "02b0b21fd461aa4514212bbadd56f1d7059bc2fa7feff9a4b72987d7d40990b5",
+      "successor": "tools/installed-owner-smoke.mjs"
+    }
+  ],
+  "retainedSequence": ".ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/DELIVERY_SEQUENCE.md",
+  "sourceArchiveSelection": "build_tenants/abiogenesis/typescript",
+  "noWholeHistoricalWorkspaceArchive": true,
+  "executionAuthorized": false
+}

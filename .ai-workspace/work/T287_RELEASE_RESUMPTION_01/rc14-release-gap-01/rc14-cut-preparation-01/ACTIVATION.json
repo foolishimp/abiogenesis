@@ -1,0 +1,34 @@
+{
+  "id": "RC14-CUT-QUALIFICATION-CONTROL-PREPARATION-01",
+  "role": "Separate external-control Writer",
+  "authority": "Root explicit prepare-only grant under owner finish RC14 instruction",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#exact-basis"
+  },
+  "source": "4c6ad5021e9151c3c1fedcd958ed84bbf3ee4ea1",
+  "worktree": "/private/tmp/abg-rc14-cut-preparation-20261115-01",
+  "branch": "codex/rc14-cut-preparation-20261115",
+  "writeTerritory": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01",
+  "executionAuthorized": false,
+  "permitted": "External preparation controls, compact records and claim draft; syntax/JSON/hash/static inspection only",
+  "excluded": [
+    "Product/code/test/spec changes",
+    "actual version stamp",
+    "Product imports/build/test/pack/install/provider",
+    "actual RC cut/tag/publication/acceptance",
+    "main/push",
+    "raw captures/archives/LFS in Git"
+  ],
+  "requirements": [
+    "REQ-P-QUAL-057C",
+    "REQ-P-QUAL-050",
+    "REQ-P-QUAL-068",
+    "REQ-P-QUAL-068A",
+    "REQ-P-QUAL-070",
+    "ABG5-S07"
+  ],
+  "preparedUtc": "2026-11-15T08:13:43.627412+00:00"
+}

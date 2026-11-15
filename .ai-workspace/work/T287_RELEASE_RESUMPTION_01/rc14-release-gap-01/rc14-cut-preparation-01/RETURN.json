@@ -1,0 +1,32 @@
+{
+  "status": "prepared_disabled_not_qualified",
+  "sourceParent": "4c6ad5021e9151c3c1fedcd958ed84bbf3ee4ea1",
+  "worktree": "/private/tmp/abg-rc14-cut-preparation-20261115-01",
+  "branch": "codex/rc14-cut-preparation-20261115",
+  "manifestSha256": "da49f6dc6a36302b106434a7d11ba3f5aab52e94244890849a3600dd05d9380c",
+  "claimDraftSha256": "739ba161548fde31c6f03ad99f397a24f47f2ddfb7ccd2288c1f70b37a7df1eb",
+  "controls": 15,
+  "scope": "Retained five cut-tool mechanisms adapted for prospective RC14 preparation; two thin existing-owner metadata/final-identity adapters; records and truthful claim draft only",
+  "changes": [
+    "RC13-to-RC14 four-site stamp with explicit separately owned metadata and hash-bound intentional historical t293 fixture",
+    "Native producer build inserted before manifest; candidate archive remains unqualified and requires exact derived-source finalization",
+    "Existing qualification metadata owners remain source of recipe/native pins/resources/inventory; actual same-pack Public install required",
+    "Final compiled lineage versus metadata source commit recorded without changing prepared package; formal Public publication consumes exact green artifact without rebuild"
+  ],
+  "versionCensusFiles": 11,
+  "maintainedTestFixRequired": false,
+  "ProductPolicyChange": false,
+  "staticOnly": true,
+  "finalSourceArtifactInventoryClaimBindingUnresolved": true,
+  "noApplication": true,
+  "noQualificationOrHumanAcceptance": true,
+  "remaining": [
+    "Final17-path author/integration and complete selected proof",
+    "Root review of exact controls and release claim; separately selected source/metadata write grant",
+    "Exact C0 build/package/native outputs and Public candidate install",
+    "Exact C1 generated/metadata/inventory freeze and source correspondence",
+    "Complete pre_rc_candidate qualification; same-artifact publication; installed_rc qualification; actual human decision"
+  ],
+  "proofLimit": "No execution assurance for adapted controls. Prior9f9812e archive and existing input/build provenance are preparation context only; no RC14 bytes or lifecycle result produced.",
+  "returnTo": "Root; stop, no main/push"
+}

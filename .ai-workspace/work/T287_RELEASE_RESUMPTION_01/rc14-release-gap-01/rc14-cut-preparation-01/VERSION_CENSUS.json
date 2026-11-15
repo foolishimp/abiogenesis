@@ -1,0 +1,169 @@
+{
+  "source": "4c6ad5021e9151c3c1fedcd958ed84bbf3ee4ea1",
+  "needle": "5.0.0-rc.13",
+  "files": [
+    {
+      "path": "code/src/product/contracts.ts",
+      "classification": "mechanical_four_site",
+      "sha256": "cac0039ca61c9eac563e3d333fe3bdfe872fe59af83762edeb312d4c601fc313",
+      "occurrences": 2,
+      "matches": [
+        {
+          "line": 10,
+          "text": "export const ABI5_PRODUCT_ID = \"product://abiogenesis/typescript-tenant@5.0.0-rc.13\";"
+        },
+        {
+          "line": 12,
+          "text": "export const ABI5_PACKAGE_VERSION = \"5.0.0-rc.13\";"
+        }
+      ]
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "classification": "generated_by_build",
+      "sha256": "4dec56be36f3100d7d340b1c8df975acd09fc137804a387bb1db7da62de2a151",
+      "occurrences": 1,
+      "matches": []
+    },
+    {
+      "path": "package-lock.json",
+      "classification": "mechanical_four_site",
+      "sha256": "5d208d9a94f66b818bfebd09fca74842d178006a405880551519443697805cf1",
+      "occurrences": 2,
+      "matches": [
+        {
+          "line": 3,
+          "text": "  \"version\": \"5.0.0-rc.13\","
+        },
+        {
+          "line": 9,
+          "text": "      \"version\": \"5.0.0-rc.13\","
+        }
+      ]
+    },
+    {
+      "path": "package.json",
+      "classification": "mechanical_four_site",
+      "sha256": "fa05615864043dc0bd91255fca3c10c7b925e9c8696e4ab35d69b8bacf49010b",
+      "occurrences": 1,
+      "matches": [
+        {
+          "line": 3,
+          "text": "  \"version\": \"5.0.0-rc.13\","
+        }
+      ]
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "classification": "generated_by_build",
+      "sha256": "00e0647836f72999ab899375067c4093a79d3cec07b1e063e0fb937f88019410",
+      "occurrences": 1,
+      "matches": []
+    },
+    {
+      "path": "release-claim.md",
+      "classification": "separately_owned_metadata",
+      "sha256": "389c1a33ba5785a922021251913f6908f403684214b71fb387fcbfaf3062b1d9",
+      "occurrences": 4,
+      "matches": [
+        {
+          "line": 1,
+          "text": "# ABIogenesis 5.0.0-rc.13 local development candidate"
+        },
+        {
+          "line": 3,
+          "text": "`5.0.0-rc.13` is the local, unqualified, unpublished development candidate for"
+        },
+        {
+          "line": 48,
+          "text": "Package: `@abiogenesis/typescript-tenant` `5.0.0-rc.13`, private."
+        },
+        {
+          "line": 49,
+          "text": "Product: `product://abiogenesis/typescript-tenant@5.0.0-rc.13`."
+        }
+      ]
+    },
+    {
+      "path": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "classification": "separately_owned_metadata",
+      "sha256": "44a65bf686cbeb1be48b5f62f50e778578a0f8a824926550198a3582950fa4b2",
+      "occurrences": 2,
+      "matches": [
+        {
+          "line": 7,
+          "text": "  \"productId\": \"product://abiogenesis/typescript-tenant@5.0.0-rc.13\","
+        },
+        {
+          "line": 9,
+          "text": "  \"packageVersion\": \"5.0.0-rc.13\""
+        }
+      ]
+    },
+    {
+      "path": "test_env/fixtures/t287-current-owner/README.md",
+      "classification": "mechanical_four_site",
+      "sha256": "d218546e51c3159ac60c5e0f31efcfe8b914b6e4584edd668d28bf74b605d42e",
+      "occurrences": 1,
+      "matches": [
+        {
+          "line": 30,
+          "text": "tree now declares package identity `5.0.0-rc.13`; these data remain RC10"
+        }
+      ]
+    },
+    {
+      "path": "test_env/qualification/classification.json",
+      "classification": "separately_owned_metadata",
+      "sha256": "40dc5837831c7ac91a3c905f5a8f538896e094cf017011763e8b1b6bd973ace9",
+      "occurrences": 3,
+      "matches": [
+        {
+          "line": 4,
+          "text": "  \"purpose\": \"Declares the subject inventory of the local unqualified candidate of @abiogenesis/typescript-tenant 5.0.0-rc.13: its selected root, its member set, the surface role of each member and the declared surface a"
+        },
+        {
+          "line": 23,
+          "text": "    { \"id\": \"release-claim\", \"match\": { \"file\": \"release-claim.md\" }, \"surfaceRoles\": [\"release_claim\"], \"reason\": \"The release claim of 5.0.0-rc.13. prospectiveRelease.releaseClaim binds this member's coordinate (REQ-P-"
+        },
+        {
+          "line": 55,
+          "text": "    \"ownerRefs\": [\"product://abiogenesis/typescript-tenant@5.0.0-rc.13\"],"
+        }
+      ]
+    },
+    {
+      "path": "test_env/qualification/recipe/expected-output-inventory.json",
+      "classification": "separately_owned_metadata",
+      "sha256": "6cba7f8641f8a0ad194eb76a1da8191178117b0184912aede9a74fcd02bb8301",
+      "occurrences": 1,
+      "matches": [
+        {
+          "line": 5,
+          "text": "  \"archive\": \"abiogenesis-typescript-tenant-5.0.0-rc.13.tgz\","
+        }
+      ]
+    },
+    {
+      "path": "test_env/tests/t293-rc14-qualification-preparation.test.mjs",
+      "classification": "intentional_predecessor_or_negative_fixture",
+      "sha256": "c96b44c444d77297e840284b8b13c8ee9cab4911378a954a78109c31a48f1c7d",
+      "occurrences": 3,
+      "matches": [
+        {
+          "line": 166,
+          "text": "  const version = '5.0.0-rc.14', previous = '5.0.0-rc.13', other = 'product://abiogenesis/typescript-tenant@' + previous;"
+        },
+        {
+          "line": 296,
+          "text": "  const previous = candidate('5.0.0-rc.13'), previousCommitted = committedFor(previous, deriveCandidateIdentity(previous));"
+        },
+        {
+          "line": 317,
+          "text": "      archive: 'abiogenesis-typescript-tenant-5.0.0-rc.13.tgz' } } }, /expected outputs archive \"/],"
+        }
+      ]
+    }
+  ],
+  "rule": "No global replacement; exact mechanical sites only, owner metadata refresh, generated owners, preserved historical negatives."
+}

@@ -1,0 +1,34 @@
+{
+  "source": "4c6ad5021e9151c3c1fedcd958ed84bbf3ee4ea1",
+  "metadataOwnerRepair": "b4026fa6445a098431ce9c26afe2cac978474932",
+  "owners": [
+    {
+      "path": "test_env/support/exact-candidate-identity.mjs",
+      "role": "Canonical positive RC identity; exact package/install/manifest/claim joins; existing two subject kinds"
+    },
+    {
+      "path": "test_env/qualification/build-resources.mjs",
+      "role": "Recipe,196 native auxiliary pins via native-inputs, tenant/resources and inventory last; full mode requires actual same-pack Public identity"
+    },
+    {
+      "path": "test_env/qualification/native-inputs.mjs",
+      "role": "Protected compiler/SDK/header/linker closure and placement"
+    },
+    {
+      "path": "scripts/build-native.mjs",
+      "role": "Host producer or protected C2 mode; prebuilt consumer has no compilation"
+    },
+    {
+      "path": "test_env/support/exact-candidate-qualification.mjs",
+      "role": "Existing run-specific basis and installed evidence; no old Run credit"
+    },
+    {
+      "path": "code/src/product/release_snapshot_operations.ts",
+      "role": "Published RC and tapped release contracts; external tools never replace AF25"
+    }
+  ],
+  "currentVersionCensus": "VERSION_CENSUS.json",
+  "noMaintainedTestFixEstablished": true,
+  "noProductPolicyChange": true,
+  "finalSubjectUnresolved": true
+}
