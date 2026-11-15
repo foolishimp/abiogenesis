@@ -1,0 +1,21 @@
+{
+  "id": "RC14-AMENDMENT-CONTROL-ACCEPTANCE-05",
+  "recordedUtc": "2026-11-15T18:45:39.910706+00:00",
+  "productFrame": "Fixed5.0 S03/F17 installed amendment/currentness; external custody/topology only. Public/ABG authority and all Product bytes remain unchanged.",
+  "basis": "stdo://releases/v3.0.4/",
+  "subjectCommit": "c1b6468736c6289e5689c22bf8ab54658a50b14d",
+  "subjectTree": "31a35806aaad4ffaba7c384393b18699bf99baa7",
+  "mainMerge": "44070a934baa7ab93eb0d0df712e5ba6e5ced29f",
+  "manifestSha256": "4de9c1cc8804ac95b8337b41a523b93b240ec38acb7195da06d4094470f06a38",
+  "returnSha256": "bd8cdc70aad0608b0bb594c1a7f45c5685c612d151b0f2f9e062a09eca13cb00",
+  "reviewer": "/root/amendment_topology_review, separate read-only exact source review",
+  "rootAcquisition": {
+    "manifestMembersVerified": 23,
+    "hashOrSizeMismatches": 0
+  },
+  "verified": "Only executable delta excludes named historical git/tar from required recursive root list. Every original tool path/digest remains measured; all17 unaffected files, observer and lifetime/custody mechanics conserved. Independently governed roots remain protected.",
+  "documentarySupersession": "RETURN34 and README42 assembly-owner shorthand is superseded by S06_FIRST_FAILURE_DISPOSITION_01.json: S06 lacks current generic D1 assessor context and its phase recorder disagrees with cold request root. No module-brand cause established; independent exact source trace finds neither demonstrated defect in amendment. No executable amendment repair follows from that shorthand.",
+  "disposition": "Source correction accepted; original failed01 remains closed. B52 actual planned and paired-role reproof remains open until a separately bound run.",
+  "qualified": false,
+  "rawPublished": false
+}

@@ -1,5 +1,5 @@
 {
-  "status": "RC14_INSTALLED_WITNESS_CONTROL_REPAIRS_SELECTED",
+  "status": "RC14_AMENDMENT_SUCCESSOR_READY_S06_CONTROL_WRITER_SELECTED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -63,8 +63,8 @@
     "skips": 0,
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
-  "recordedUtc": "2026-11-15T18:43:47.378459+00:00",
-  "nativeAuthorState": "No active provider. Amendment01 and S06-01 are closed failures; bounded external-control successors selected after independent triage. Candidate and RC13 pin remain unchanged.",
+  "recordedUtc": "2026-11-15T18:45:39.910706+00:00",
+  "nativeAuthorState": "No active provider. Reviewed amendment05 and fresh witness02 grant selected after checkpoint; S06 Writer03 selected, no S06 retry granted.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -975,5 +975,13 @@
       "grant": "integration-01/s06-witness-01/ACTIVATION.json"
     },
     "formalQualification": "Not activated; B50 policy/route remains open"
+  },
+  "amendmentWitness02": {
+    "state": "SELECTED_AFTER_REVIEW_AND_CHECKPOINT",
+    "controlCommit": "c1b6468736c6289e5689c22bf8ab54658a50b14d",
+    "controlAcceptance": "integration-01/AMENDMENT_CONTROL_ACCEPTANCE_05.json",
+    "activation": "integration-01/amendment-witness-02/ACTIVATION.json",
+    "providerStarted": false,
+    "qualified": false
   }
 }
