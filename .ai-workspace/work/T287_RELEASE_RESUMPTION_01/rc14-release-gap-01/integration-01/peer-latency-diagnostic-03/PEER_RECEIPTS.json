@@ -1,0 +1,137 @@
+{
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/PEER_LATENCY_TRIAGE_01.md",
+    "bytes": 6084,
+    "sha256": "22c6ea643aeeff22ccdfcfd7e991211cfd659c66fc495ab987123d50c2fb4747"
+  },
+  "rows": [
+    {
+      "file": "steel-basic-cli-public.test.mjs",
+      "currentSource": {
+        "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/steel-basic-cli-public.test.mjs",
+        "bytes": 36258,
+        "sha256": "6231af9f58a66ccd6a87979045fde4baf3abac845030163bb9eca9b2e65a62c9"
+      },
+      "peerSource": {
+        "path": "/private/tmp/abg-rc14b/build_tenants/abiogenesis/typescript/test_env/tests/steel-basic-cli-public.test.mjs",
+        "bytes": 36258,
+        "sha256": "6231af9f58a66ccd6a87979045fde4baf3abac845030163bb9eca9b2e65a62c9"
+      },
+      "tap": {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/5e4c25c3-fca5-4dd6-89e7-20d55d008bdf/scratchpad/rc14c/tap/steel-basic-cli-public.test.mjs.tap",
+        "bytes": 1330,
+        "sha256": "57b2dfb34eeb8fc2e419ffaa98b426ea7162fd15c25c88c8188ac5b1332349f1"
+      }
+    },
+    {
+      "file": "t292-td26-p2t-declaration-rows-installed.test.mjs",
+      "currentSource": {
+        "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p2t-declaration-rows-installed.test.mjs",
+        "bytes": 28991,
+        "sha256": "70e11b8883967cf187ff558aa0775b58de3ccdd486cbd978af30c7aea51ad77b"
+      },
+      "peerSource": {
+        "path": "/private/tmp/abg-rc14b/build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p2t-declaration-rows-installed.test.mjs",
+        "bytes": 28991,
+        "sha256": "70e11b8883967cf187ff558aa0775b58de3ccdd486cbd978af30c7aea51ad77b"
+      },
+      "tap": {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/5e4c25c3-fca5-4dd6-89e7-20d55d008bdf/scratchpad/rc14c/tap/t292-td26-p2t-declaration-rows-installed.test.mjs.tap",
+        "bytes": 1543,
+        "sha256": "08cf413871f1322fb12a525ff390233af00aec061248414216f5093baf57e109"
+      }
+    },
+    {
+      "file": "t287-d5-authentic-preserved-result.test.mjs",
+      "currentSource": {
+        "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+        "bytes": 13615,
+        "sha256": "2f5263711ad524fb3a69631e39b04494d9631bb211049e242c2ce043c687bd56"
+      },
+      "peerSource": {
+        "path": "/private/tmp/abg-rc14b/build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+        "bytes": 13615,
+        "sha256": "2f5263711ad524fb3a69631e39b04494d9631bb211049e242c2ce043c687bd56"
+      },
+      "tap": {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/5e4c25c3-fca5-4dd6-89e7-20d55d008bdf/scratchpad/rc14c/tap/t287-d5-authentic-preserved-result.test.mjs.tap",
+        "bytes": 648,
+        "sha256": "63dc20d6e241043784e7c0f44d9224bc6cac14d2825ade83e9627e08c97663d8"
+      }
+    },
+    {
+      "file": "t287-management-supervision.test.mjs",
+      "currentSource": {
+        "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-supervision.test.mjs",
+        "bytes": 15371,
+        "sha256": "fa7a413cf991fbd79791a636404908e1460475df148b7213987f886179462dfd"
+      },
+      "peerSource": {
+        "path": "/private/tmp/abg-rc14b/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-supervision.test.mjs",
+        "bytes": 15371,
+        "sha256": "fa7a413cf991fbd79791a636404908e1460475df148b7213987f886179462dfd"
+      },
+      "tap": {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/5e4c25c3-fca5-4dd6-89e7-20d55d008bdf/scratchpad/rc14c/tap/t287-management-supervision.test.mjs.tap",
+        "bytes": 2275,
+        "sha256": "3ad12d936180147f1ef542a18e0863e3580ff51f829b5de4f46725d3a570eae8"
+      }
+    },
+    {
+      "file": "t287-worksite-branch-construction.test.mjs",
+      "currentSource": {
+        "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+        "bytes": 29032,
+        "sha256": "15c025a667c5a64337a61dcf9c5d81b845f82f2ebedaba656e7aaaac965c3869"
+      },
+      "peerSource": {
+        "path": "/private/tmp/abg-rc14b/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+        "bytes": 29032,
+        "sha256": "15c025a667c5a64337a61dcf9c5d81b845f82f2ebedaba656e7aaaac965c3869"
+      },
+      "tap": {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/5e4c25c3-fca5-4dd6-89e7-20d55d008bdf/scratchpad/rc14c/tap/t287-worksite-branch-construction.test.mjs.tap",
+        "bytes": 834,
+        "sha256": "bb9c62bbede50dfcb01845cdadc8ffd76c538c211eebca7a1f52f6ebf544aca9"
+      }
+    },
+    {
+      "file": "t287-worksite-command-execution.test.mjs",
+      "currentSource": {
+        "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        "bytes": 110328,
+        "sha256": "0e556e999ab541dcfc2721a73262953476d87d54e13d52537073d33f77e9cda4"
+      },
+      "peerSource": {
+        "path": "/private/tmp/abg-rc14b/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        "bytes": 110328,
+        "sha256": "0e556e999ab541dcfc2721a73262953476d87d54e13d52537073d33f77e9cda4"
+      },
+      "tap": {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/5e4c25c3-fca5-4dd6-89e7-20d55d008bdf/scratchpad/rc14c/tap/t287-worksite-command-execution.test.mjs.tap",
+        "bytes": 12803,
+        "sha256": "3f4b0c8bf77dc1390993f285084dede45efe96fc0dfb699858da8d03643a8d88"
+      }
+    },
+    {
+      "file": "t287-worksite-construction.test.mjs",
+      "currentSource": {
+        "path": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+        "bytes": 42986,
+        "sha256": "e47a2de84bc573d6caef8dc2c10c0173e5f99f7bfce865bedbdcddcf422ed4a9"
+      },
+      "peerSource": {
+        "path": "/private/tmp/abg-rc14b/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+        "bytes": 42986,
+        "sha256": "e47a2de84bc573d6caef8dc2c10c0173e5f99f7bfce865bedbdcddcf422ed4a9"
+      },
+      "tap": {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/5e4c25c3-fca5-4dd6-89e7-20d55d008bdf/scratchpad/rc14c/tap/t287-worksite-construction.test.mjs.tap",
+        "bytes": 1014,
+        "sha256": "2df48e540f7d3d386591ec077ff98e3f95d6d98a5eac8f7506b6631d95a9d852"
+      }
+    }
+  ],
+  "peerSourceBuildAtExecutionIdentity": "unproved",
+  "movingResultIndexBound": false
+}

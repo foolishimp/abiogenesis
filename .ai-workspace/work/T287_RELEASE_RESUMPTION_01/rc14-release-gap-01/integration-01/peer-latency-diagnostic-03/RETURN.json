@@ -1,0 +1,28 @@
+{
+  "activationId": "RC14-PEER-LATENCY-DIAGNOSTIC-PREPARATION-03",
+  "disposition": "prepared_disabled",
+  "preparedUtc": "2026-11-15T09:39:00.290891+00:00",
+  "sourceBase": "96b93b75b9b0310651334710ecd37cbcbb4805e5",
+  "sourceWorktree": "/private/tmp/abg-rc14-peer-latency-diagnostic-20261115-02",
+  "manifestSha256": "d677e67e93dd2b14d76c99c33e33b1c84d716893c70c68b79074b7cc00b0164f",
+  "controls": 21,
+  "selection": [
+    "t287-worksite-construction.test.mjs",
+    "t287-worksite-branch-construction.test.mjs",
+    "t287-worksite-command-execution.test.mjs"
+  ],
+  "limits": {
+    "perFileMs": 1200000,
+    "perFileEnvelopeBasis": "Retained peer original 20-minute outer envelope; original driver argv/env unavailable; no Node --test-timeout added",
+    "enclosingMs": 4500000,
+    "cleanupReserveMs": 120000,
+    "outputBytesPerFile": 268435456,
+    "reserveBytes": 4294967296,
+    "syntheticMaxMs": 60000
+  },
+  "checks": "Three exact originalsourcehashes; ninepureboundarychecks; PythonAST; unchangedobserver/sidecar/processowner",
+  "actualExecution": false,
+  "rootLaunch": null,
+  "reviewPending": true,
+  "qualification": false
+}
