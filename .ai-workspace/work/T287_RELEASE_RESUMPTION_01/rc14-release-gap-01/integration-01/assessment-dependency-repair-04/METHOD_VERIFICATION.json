@@ -1,0 +1,177 @@
+{
+  "standing": "Prospective native acquisition recipe under ROOT_SELECTION/ROOT_READ_DEPENDENCIES; no new verifier or work authority, not executed during preparation.",
+  "basis": "stdo://releases/v3.0.4/",
+  "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "definition": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04/stdo_abiogenesis.json",
+  "manager": "/Users/jim/.local/bin/stdo",
+  "store": "/Users/jim/Library/Application Support/STDO",
+  "python": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+  "helper": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/scripts/read_basis.py",
+    "bytes": 11572,
+    "sha256": "df7730a1f661a8be7a3144feff474f83197987ebfd1cce4063aa9c5504e75c41"
+  },
+  "frameInput": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/FRAME_INPUTS.json",
+    "bytes": 105110,
+    "sha256": "3a33acd708e75802c1609e9ce0d1e75dad9bcff2533b5ecb24b5c9659e18b303"
+  },
+  "frame": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+    "bytes": 94520,
+    "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502"
+  },
+  "expectedPopulation": {
+    "frameId": "bootstrap",
+    "uniqueFrameRows": 1,
+    "binds": 1,
+    "routes": 15,
+    "completedComparisons": 16
+  },
+  "selectors": [
+    {
+      "kind": "bind",
+      "owner": "standards/ACTIVATION.md",
+      "anchor": "construction-relation",
+      "heading": "Construction relation",
+      "owner_sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "section_sha256": "6b6c2ce91c5a7e4be765af2f8009252fa8918719e1d885af6b5810ba4eb699da"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/SPEC_METHOD.md",
+      "anchor": "canonical-statement",
+      "heading": "Canonical statement",
+      "owner_sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "section_sha256": "55fea526d04f5e046c1cf3694485fb54495fa37e69f30d77da048fd9781da229"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/FOUNDATIONS.md",
+      "anchor": "product-lineage-objects",
+      "heading": "Product lineage objects",
+      "owner_sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "section_sha256": "81c6db0b5228df5164798661582015e2d87042cf7c8047d1844aaa981a75c21c"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/PRODUCT_DEFINITION.md",
+      "anchor": "2-required-definition-relations",
+      "heading": "2. Required definition relations",
+      "owner_sha256": "7ee46438de5e4cb33cd8920814ecc90cfef95fb5eaee269f6f1a4fa389f4e523",
+      "section_sha256": "e3d6fee138ce30376a30d3588544d432e3993191f9236854d391aae7ac2b4a9a"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/PRODUCT_DEFINITION.md",
+      "anchor": "9-recursive-discovery-and-explicit-composition",
+      "heading": "9. Recursive discovery and explicit composition",
+      "owner_sha256": "7ee46438de5e4cb33cd8920814ecc90cfef95fb5eaee269f6f1a4fa389f4e523",
+      "section_sha256": "c85b1bfac422d93cee6fbafdd61af11aea9decc078b22c117381d550df1852b9"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/PRODUCT_DEFINITION.md",
+      "anchor": "11-one-constitutional-surface-and-version-boundary",
+      "heading": "11. One constitutional surface and version boundary",
+      "owner_sha256": "7ee46438de5e4cb33cd8920814ecc90cfef95fb5eaee269f6f1a4fa389f4e523",
+      "section_sha256": "60347e22d55c62fee79a07a69a43705b2c41752a05190834295f40ee7b0e39da"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/FOUNDATIONS.md",
+      "anchor": "authority-kinds",
+      "heading": "Authority kinds",
+      "owner_sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "section_sha256": "82d442b13bfaf7d81004d6e2dde7d8819fb5a40b2bd762d2c6ac907c638bb4a5"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/FOUNDATIONS.md",
+      "anchor": "the-frame-tuple",
+      "heading": "The frame tuple",
+      "owner_sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "section_sha256": "d70e8fd7119c12f5169158e10aa4cda8641eada9b5cda2384d2be8d53f276664"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/REFERENCE_FRAME.md",
+      "anchor": "11-the-activation-packet",
+      "heading": "11. The activation packet",
+      "owner_sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "section_sha256": "31b5712cf01b721e258e587b42db633914012353c3fb5e4163f31918347ba71b"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/ACTIVATION.md",
+      "anchor": "intake",
+      "heading": "Intake",
+      "owner_sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "section_sha256": "7f6e6e2ca37cd177cdd23d13dbf025cb6db5f411e256e9463a9a9912db809354"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/ACTIVATION.md",
+      "anchor": "admission",
+      "heading": "Admission",
+      "owner_sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "section_sha256": "e85c6fdddd14033688ae2b8285bf4736c055b62ed6d8e5010d69badfec72948b"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/ACTIVATION.md",
+      "anchor": "2-context-construction-under-an-envelope",
+      "heading": "2. Context construction under an envelope",
+      "owner_sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "section_sha256": "e03f6d3e474243a650c6742c09b8c6b690380381000275165429bf5cfcb0bfbf"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/FOUNDATIONS.md",
+      "anchor": "results",
+      "heading": "Results",
+      "owner_sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "section_sha256": "4693c7036918b1003fc2064e8bb1907ba12589e8292502e1a5f904e1169b9d17"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/PRODUCT_DEFINITION.md",
+      "anchor": "foundation-to-law-binding-a-project-to-the-method",
+      "heading": "Foundation to law: binding a project to the method",
+      "owner_sha256": "7ee46438de5e4cb33cd8920814ecc90cfef95fb5eaee269f6f1a4fa389f4e523",
+      "section_sha256": "ed4d537b0b6774a5acbaaf9cf7e1b42733225627c4fdea511429854bc3b74d0e"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/REFERENCE_FRAME.md",
+      "anchor": "foundation-to-law",
+      "heading": "Foundation to law",
+      "owner_sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "section_sha256": "96bb2a10d79d9d242941fb4028689fe6c649d959fc1eb050feceb6bce7b6fd1f"
+    },
+    {
+      "kind": "route",
+      "owner": "standards/SPEC_METHOD.md",
+      "anchor": "foundation-to-law-chain-outcome-and-build-tenant-binding",
+      "heading": "Foundation to law: chain, outcome and build-tenant binding",
+      "owner_sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "section_sha256": "5b539c6a3af34046aa5633a39cd1920128d546443fde33ea0b0422c380d4ced2"
+    }
+  ],
+  "recipe": [
+    "Use bounded standard-library subprocess.run for exact manager status with --store, --definition and --verify; capture complete stdout/stderr and real child returncode before checking. Parse whole JSON. Require all Task requiredStatus fields plus exact installed root; output actual exit, stdout byte count/SHA and required identity/validity fields without dumping member inventories. Truncation or parse failure is not verification.",
+    "Resolve exact manifest, bootstrap, FRAME_INPUTS, required method owners and helper through the same manager/store/basis. Require exact requested URI, expected confined path, unique standards.members or auxiliary.plugin.members entry and whole-file digest. Helper is auxiliary.plugin scripts/read_basis.py; docs use their actual inventory roots.",
+    "Read actual FRAME_INPUTS.frames array and require one id=bootstrap, exact path/bytes/SHA, required binds/routes arrays,1+15 rows and exact selector set below. Each owner/anchor/owner_sha256/section_sha256 must be present. No .get(...,[]) population defaults.",
+    "For each of five owner groups, call existing pinned Python -B helper read --stdo MANAGER --store STORE --definition EXACT --member OWNER with one --heading argument per declared exact heading. Each subprocess captured completely and bounded; parse the full JSON. Require actual exit0,status=checked, exact definition/basis/manifest/member digest and exact section headings/count.",
+    "Hash every returned section.text and match both its returned sha256 and the corresponding actual FRAME_INPUTS section_sha256; verify owner bytes match owner_sha256. Emit compact16row comparison ledger with exact owner/anchor/heading/line range/digest/result and require completed count16. Selected0 in Results excerpt metadata is legitimate, not a zero-population shortcut.",
+    "Existing helper owns fence/comment-safe section projection. REFERENCE_FRAME activation contains fenced headings; no naive heading scanner, improvised replacement or mutable basis. Helper refusal/incomplete returns the concrete cause. Required body reads in Task are separate; byte checks do not acquire source content."
+  ],
+  "bounds": {
+    "perManagerSubprocessSeconds": 30,
+    "perGroupedHelperSubprocessSeconds": 60,
+    "groups": 5,
+    "writes": false,
+    "networkOrInstall": false
+  },
+  "permittedOptionalSelectorDiscovery": "Existing helper --list-headings on these exact five already permitted members only; no unrelated discovery."
+}

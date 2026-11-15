@@ -1,0 +1,122 @@
+{
+  "kind": "completion04_static_preparation_checks",
+  "recordedUtc": "2026-11-15T22:39:16.028024+00:00",
+  "sourceBase": "cbb37be84c9ba6a65f14cef670bf55bd0104d60c",
+  "checks": [
+    {
+      "check": "Exact source HEAD/tenant and unchanged tracked/index source",
+      "passed": true,
+      "receipt": "Completed before local checker addendum-path error; no repeated command"
+    },
+    {
+      "check": "All current JSON parsed",
+      "passed": true,
+      "receipt": "Completed before local checker addendum-path error; no repeated command"
+    },
+    {
+      "check": "Seven Python files parsed using ast only",
+      "passed": true,
+      "receipt": "Completed before local checker addendum-path error; no repeated command"
+    },
+    {
+      "check": "Node HOST --check exit0 with empty stdout/stderr",
+      "passed": true,
+      "receipt": "Completed before local checker addendum-path error; no repeated command"
+    },
+    {
+      "check": "Six accepted03 executable owners byte-equal",
+      "passed": true,
+      "receipt": "Completed before local checker addendum-path error; no repeated command"
+    },
+    {
+      "check": "HOST/operate only three literal coordinate substitutions",
+      "passed": true,
+      "receipt": "Completed before local checker addendum-path error; no repeated command"
+    },
+    {
+      "check": "Exact positive1+9/43-top-level proof population and accepted prove.py conserved",
+      "passed": true,
+      "receipt": "Completed before local checker addendum-path error; no repeated command"
+    },
+    {
+      "check": "All315 source pins including complete284-file code/src",
+      "passed": true,
+      "receipt": "Completed before local checker addendum-path error; no repeated command"
+    },
+    {
+      "check": "Seven recovered files immutable; one native W",
+      "passed": true,
+      "receipt": "Completed before local checker addendum-path error; no repeated command"
+    },
+    {
+      "check": "Exact selection/addendum copies; actual absolute addendum path",
+      "passed": true
+    },
+    {
+      "check": "Exact evidence/method/tool/fixture pins",
+      "passed": true,
+      "evidenceRows": 30,
+      "methodFiles": 10,
+      "toolFiles": 21,
+      "fixtureFiles": 13
+    },
+    {
+      "check": "Exact16 selector rows against pinned FRAME_INPUTS",
+      "passed": true,
+      "standing": "Static correspondence only; helper and native method verification unexecuted"
+    },
+    {
+      "check": "Retained dependency/npm exact inventories",
+      "passed": true,
+      "dependencyRows": 4576,
+      "npmRows": 2326
+    },
+    {
+      "check": "Exact196 native host inputs/declaration; no compilation",
+      "passed": true
+    },
+    {
+      "check": "Final context fit unchanged since exact static projection",
+      "passed": true,
+      "files": 391,
+      "directories": 22,
+      "bytes": 9918981
+    },
+    {
+      "check": "Actual source/grant/clock disabled; fresh04 runtime roots absent",
+      "passed": true
+    }
+  ],
+  "contextCheck": {
+    "path": "CONTEXT_CHECK.json",
+    "bytes": 3397,
+    "sha256": "c287a337388576a34b9c02ddfdc16db56ef223719035b6c6b7997ca6674863fc"
+  },
+  "counts": {
+    "sourceRows": 315,
+    "codeSourceRows": 284,
+    "recoveredRows": 7,
+    "externalMethodFiles": 10,
+    "externalEvidenceRows": 30,
+    "fixtureRows": 13,
+    "dependencyRows": 4576,
+    "nativeRows": 196,
+    "npmToolRows": 2326,
+    "toolFiles": 21
+  },
+  "preparationDiagnostic": {
+    "stage": "local static-check caller",
+    "failure": "FileNotFoundError: repo root erroneously prepended to already absolute readDependencyAddendum.path",
+    "disposition": "Direct authenticated absolute row path used. No control/input/source change; earlier completed syntax checks were not rerun. No runtime attempt occurred."
+  },
+  "inheritedMetadata": "Unchanged dependency/native/proof records retain original timestamps/sourceBase; current exact byte checks are here, without relabelling prior evidence.",
+  "notExecuted": [
+    "STDO CLI/helper",
+    "Product imports/functions",
+    "physical observer/setup/native",
+    "provider",
+    "behavioral tests/build/proof",
+    "release/qualification"
+  ],
+  "claims": "Preparation only. The imported existing external dependency inventory is a pure read-only function; no Product/runtime imports."
+}

@@ -1,0 +1,64 @@
+{
+  "standing": "Closed01 stays incomplete/unproved with its two historical method deviations. No author/proof clock or compliant label transfers.",
+  "conjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE01_CONJUNCTION_AND_REENTRY_02.json",
+    "bytes": 15060,
+    "sha256": "e932820fe9ecd1c15c3f42cf0e5887e1811222ab59074c7a44812ce09a6c97b3"
+  },
+  "native01Return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-native-01/RETURN.json",
+    "bytes": 8050,
+    "sha256": "4e83c7968b1461a18582f8adee19707e649317a2d2db21bfe9159e9feb966962"
+  },
+  "native01Audit": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/AUTHOR_AUDIT.json",
+    "bytes": 3005,
+    "sha256": "f84e882f1c95302c2493ba07fd74ce565295735d2b623864cc5814f583c676c2"
+  },
+  "oldDeadlineUtc": "2026-11-15T22:57:33.049891Z",
+  "oldProofWillRun": false,
+  "prospectiveToolPermission": "02 permits explicit text-only Bash/Python source edits inside exact W. No Product imports/behavioral build/test/provider/Git mutation or out-of-W writes.",
+  "native02": {
+    "commit": "f4d1f21c7323e26eae3e0dac3dd00f5cb0c95f6c",
+    "sourceHead": "3d68a8b7c104c9873b12741fdce5b67d3987534f",
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-native-02/RETURN.json",
+      "bytes": 10070,
+      "sha256": "8e88f0753a0c80320b47c43cd6db77298b9f4bbe2c85bd2bfd563526048cea4b"
+    },
+    "originalDeadlineUtc": "2026-11-16T00:05:08.635464+00:00",
+    "standing": "Permanently closed incomplete, unproved; two recovered files are unproved inputs; no time exhaustion established.",
+    "method": "Eight method sections read; selected Product/readFirst and status/member checks not acquired. Native02 explicit text-only Bash/Python edits were permitted."
+  },
+  "native03": {
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-native-03/RETURN.json",
+      "bytes": 12844,
+      "sha256": "f57798772c756a931754175a91c45fa3e9de0b2de1c514d2c83ea69747372e10"
+    },
+    "sourceHead": "80b651f8197c4f98bc444cca145972aeb03f3974",
+    "report": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 7073,
+      "sha256": "165ba9d04e8a822390f22c809a9d6cbb528d74c1dee1e04899783a9c5c010e39"
+    },
+    "audit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/AUTHOR_AUDIT.json",
+      "bytes": 13791,
+      "sha256": "280eaee63a9af2ac201c6ee19b20a65794e8d0cbd1a61830de800a42dbc1fc8c"
+    },
+    "donor": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 412987,
+      "sha256": "9d5fdd296c39f28470a63928668b7eaf2f37b740b5a81d8db9239b512f4eff4c"
+    },
+    "originalStartedUtc": "2026-11-15T21:42:02.325963Z",
+    "originalDeadlineUtc": "2026-11-16T00:42:02.325963Z",
+    "standing": "Permanently closed incomplete and rejected for proof; no whole-file adoption, old clock or source acceptance.",
+    "conjunction": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE03_CONJUNCTION_AND_REENTRY_04.json",
+      "bytes": 17810,
+      "sha256": "32b12c6ab037ac30683fc4d1df334cd743055c3b6836a493f6142e9e3843e010"
+    }
+  }
+}

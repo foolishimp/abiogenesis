@@ -1,0 +1,150 @@
+{
+  "kind": "external_control_preparation_return",
+  "activationId": "RC14-ASSESSMENT-DEPENDENCY-NATIVE-004",
+  "status": "prepared_for_independent_review_execution_disabled",
+  "role": "RC14-B56-COMPLETION-CONTROL-WRITER-004",
+  "preparation": {
+    "startedUtc": "2026-11-15T22:21:21+00:00",
+    "closedUtc": "2026-11-15T22:39:51.819275+00:00",
+    "deadlineUtc": "2026-11-15T22:51:21+00:00",
+    "elapsedSeconds": 1110.819,
+    "boundSeconds": 1800
+  },
+  "preparationBase": "cbb37be84c9ba6a65f14cef670bf55bd0104d60c",
+  "controlCarrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-04",
+  "sourceTenantTree": "e4d2c3f2f3ee0b2a4a0b9b525b526c7d7348d620",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE03_CONJUNCTION_AND_REENTRY_04.json",
+    "bytes": 17810,
+    "sha256": "32b12c6ab037ac30683fc4d1df334cd743055c3b6836a493f6142e9e3843e010"
+  },
+  "readDependencyAddendum": {
+    "commit": "939799735271de68291b4366a45ad160b8f3f8ce",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_COMPLETION04_READ_DEPENDENCIES_01.json",
+    "bytes": 3343,
+    "sha256": "416b6500bffe3d388f73581e593ff3319bab24b17d2e274f15ca1041fc687fdd",
+    "packetCopy": "ROOT_READ_DEPENDENCIES.json"
+  },
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 5598,
+    "sha256": "7063325b879e1d6c12d3d7dcab2dff423a16cfe237b094722c0589a2cf15d452"
+  },
+  "controlMembers": 35,
+  "staticChecks": {
+    "path": "STATIC_CHECKS.json",
+    "bytes": 4318,
+    "sha256": "f8dabae253fdfc9609a19ea870067d55d12a66be4a1f0226b875b79d17d03f67"
+  },
+  "contextCheck": {
+    "path": "CONTEXT_CHECK.json",
+    "bytes": 3397,
+    "sha256": "c287a337388576a34b9c02ddfdc16db56ef223719035b6c6b7997ca6674863fc"
+  },
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "immutableRecovery": {
+    "files": 7,
+    "standing": "Exact recovered construction inputs stay read-only and unproved; no03 donor source adopted."
+  },
+  "completionOrder": [
+    "Genuine successful installed split-owner case: one ordinary SemanticJobLifecycle, actual intake, canonical native semantic-stage author/assessor pair and envelope_output; actual same-Run producer and typed successful fresh result/closed replay.",
+    "Preserve RC7 positives/negatives; full installed dependency, assembly, warm/cold preimage and readback capture before assertions.",
+    "Carry an already observed child or parse failure as primary if its subsequent capture fails; retain secondary failure via actual reporter-supported cause/message."
+  ],
+  "method": {
+    "existingHelperOnly": "METHOD_VERIFICATION.json binds installed read_basis.py and the exact1bind+15route selector data; no new executable verifier.",
+    "nativeObligation": "Acquire full actual child stdout/stderr and true exit, parse whole status JSON in memory, retain exact identity/validity/failures/bytes/digests;16 completed section comparisons and separate deciding-body reads before editing.",
+    "preparationLimit": "Static selector/hash correspondence only; manager/helper and native method checks remain unexecuted."
+  },
+  "readScope": {
+    "roots": 37,
+    "pinnedSourceFiles": 315,
+    "coherentCodeSourceFiles": 284,
+    "contextFiles": 391,
+    "contextDirectories": 22,
+    "contextBytes": 9918981,
+    "maxFiles": 1024,
+    "maxBytes": 25165824,
+    "prospectivePromptBytes": 15863,
+    "promptStanding": "Source-grounded literal projection reproduces retained03 actual prompt exactly; not actual04 admission or transport."
+  },
+  "preservedExecutableMechanics": {
+    "exact03": [
+      "prove.py",
+      "freeze-source.py",
+      "process-owner.py",
+      "physical-topology.py",
+      "setup-custody.py",
+      "dependency-inputs.py"
+    ],
+    "coordinateOnly": [
+      "HOST.mjs",
+      "operate.py"
+    ],
+    "positiveProofPartition": "Immutable semantic10-title1+9, actual name-set/disjointness/union guards; six commands/five files/43top-level obligations and ten candidate evidence leaves unchanged.",
+    "physicalCustody": "Expanded read-only evidence uses existing input pins and all three protected-root observations.",
+    "newMechanism": false
+  },
+  "budgets": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 2700000,
+    "nativeMaxTurns": 360,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 10800000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 180000,
+    "perBuildMs": 600000
+  },
+  "readHashInputs": {
+    "sourceRows": 315,
+    "codeSourceRows": 284,
+    "recoveredRows": 7,
+    "externalMethodFiles": 10,
+    "externalEvidenceRows": 30,
+    "fixtureRows": 13,
+    "dependencyRows": 4576,
+    "nativeRows": 196,
+    "npmToolRows": 2326,
+    "toolFiles": 21
+  },
+  "priorStanding": "Native01/02/03 permanently closed with their exact original clocks/audits/donors and no proof or compliance credit.03 report, audit, source donor/patch, Return and Root rejection are pinned read-only.",
+  "preparationDiagnostic": {
+    "stage": "local static-check caller",
+    "failure": "FileNotFoundError: repo root erroneously prepended to already absolute readDependencyAddendum.path",
+    "disposition": "Direct authenticated absolute row path used. No control/input/source change; earlier completed syntax checks were not rerun. No runtime attempt occurred."
+  },
+  "unbound": [
+    "Root independent exact controls review, integration/push and final source HEAD",
+    "Fresh04 source/preimage/launch, one actual new clock and pinnedRC13 native actor",
+    "Actual task completion, close/fresh reads, full method/R/W/command audit and immutable source review",
+    "Separate exact proof grant clipped to original04 enclosure"
+  ],
+  "gaps": [],
+  "notExecuted": [
+    "STDO CLI/helper",
+    "Product imports/functions",
+    "physical observer/setup/native",
+    "provider",
+    "behavioral tests/build/proof",
+    "release/qualification"
+  ],
+  "claims": {
+    "sourceImplemented": false,
+    "nativeLaunched": false,
+    "proofPassed": false,
+    "S06Complete": false,
+    "qualified": false,
+    "executionAuthorized": false,
+    "clockStarted": false
+  },
+  "returnTo": "Root; freeze controls only and stop. No main write/push or runtime selected."
+}

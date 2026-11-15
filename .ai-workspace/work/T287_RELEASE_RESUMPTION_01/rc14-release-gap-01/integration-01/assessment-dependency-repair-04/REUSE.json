@@ -1,0 +1,83 @@
+{
+  "donorCommit": "1a3b701c8aa33b0c42281c4370acff2a901fdb11",
+  "donorCarrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-08",
+  "unchanged": [
+    {
+      "path": "process-owner.py",
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39",
+      "bytes": 3099
+    },
+    {
+      "path": "dependency-inputs.py",
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed",
+      "bytes": 2786
+    },
+    {
+      "path": "setup-custody.py",
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1",
+      "bytes": 10410
+    },
+    {
+      "path": "physical-topology.py",
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+      "bytes": 14764
+    }
+  ],
+  "adapted": [
+    "HOST.mjs: coordinates and required controls/source-only preflight",
+    "operate.py: coordinates only",
+    "freeze-source.py: replace obsolete build/prior-campaign preconditions with exact source inputs",
+    "prove.py: native08 completion/scope/process/population/finally mechanisms; one fresh build from qualification-preparation-01; new selected finite population",
+    {
+      "path": "HOST.mjs",
+      "scope": "Native08 owner mechanics retained; fresh coordinate/identity/control member changes plus full manifest equality before maintained imports."
+    }
+  ],
+  "excluded": [
+    "BUILD_REUSE.json",
+    "RETAINED_PROOF.json",
+    "PRIOR_PARTIAL_SOURCE.json",
+    "PRIOR_TITLE_MAP.json",
+    "TITLE_MAP.json",
+    "RETAINED_INPUTS.json"
+  ],
+  "retainedEvidenceCredit": false,
+  "freshBuildPrecedent": {
+    "commit": "86c9caa1c8c46da38410b4b46b6a5004e351d60f",
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/qualification-preparation-01/prove.py",
+    "sha256": "958115f87b8da0522dd421425fee9a0ab2041fa8324377a16c4d1b5e2af69aa3",
+    "scope": "Source/specification/authority mirror plus exact dependency copy, separate scratch, one npm run build; no prior relocation/install/qualification campaign reused."
+  },
+  "native08ProofFunctionsCopiedExactly": [
+    "module",
+    "digest",
+    "bound_json",
+    "require_author_completion",
+    "source_inventory"
+  ],
+  "proofAdaptation": "Only positive population/accounting and added immutable evidence inputs differ from01 proof mechanism; lifetime, first-failure, capture/finally, source/setup/inputs/build conservation and separate proof grant remain.",
+  "completionDonor": {
+    "commit": "7ae1bdd4f048d00f642485b9cd70da9909412e14",
+    "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01",
+    "standing": "Accepted mechanical01 controls;01 source/proof incomplete, no runtime credit or old clock reused."
+  },
+  "completionDelta": [
+    "Fresh02 coordinates, source43pins/threeW and five immutable recovered files.",
+    "Explicit rejected01 donor/D1/B31 read-only evidence, exact hashes; no raw bodies in Git.",
+    "Prospective text-only Bash/Python writes only within02 W; old deviations preserved.",
+    "B58 positive exact-title union and immutable10-title inventory; set equality/disjointness/completeness replace negative ancestor exclusion.",
+    "The newly declared read-only evidence leaves are added to the existing unchanged physical observer input sets for native/proof boundaries; no new observer or overlap policy."
+  ],
+  "completion03Donor": {
+    "commit": "641503e25789715a7ba3b70e0132d027897f72a8",
+    "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-02",
+    "standing": "Accepted02 mechanics, including positive exact population and final protected evidence roots; native02 source attempt remains closed incomplete."
+  },
+  "completion03Delta": "Coordinates, oneW/seven immutable/current-source pins, approved actual read scope/method/content permission and captured-input inventory only. HOST/operate coordinate changes; prove/freeze and four owners byte-equal02. No new executable mechanism.",
+  "completion04Donor": {
+    "commit": "d8389e40038fcb91c27989fb8770e7354c56f6b8",
+    "carrier": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-03",
+    "standing": "Accepted03 external mechanics only. Native03 source remains rejected/unproved; no compliance or clock transfer."
+  },
+  "completion04Delta": "HOST/operate04 coordinates only; six executable owners exact03. Coherent pinned code/src R, canonical native-semantic successful fixture obligation, full method/capture correction and03 donor/selection pins; no runtime/source implementation."
+}

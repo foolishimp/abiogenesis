@@ -1,0 +1,38 @@
+{
+  "id": "RC14-B56-COMPLETION04-READ-DEPENDENCIES-01",
+  "recordedUtc": "2026-11-15T22:25:46.019991+00:00",
+  "writerActivation": "RC14-ROOT-B56-COMPLETION-RECORDS-WRITER-027",
+  "selection": "integration-01/B56_NATIVE03_CONJUNCTION_AND_REENTRY_04.json",
+  "effect": "Prospective read-only dependency binding for accepted preparation Writer004; no runtime or native execution grant.",
+  "additionalNativeR": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+      "bytes": 21165,
+      "sha256": "f95df8511a4d56148a80bac009ea41bceeb17907f59488bd6b24a39281d6fd59"
+    }
+  ],
+  "scope": "Example declaration68-131 is pattern guidance for publication/membership/semantic binding; full revision/construction lifecycle remains unselected. No import or source write to this file. Existing support/t287-generic-job-intake.mjs28-46 plus code/src owners supply the small one-stage route.",
+  "methodHelper": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/scripts/read_basis.py",
+    "bytes": 11572,
+    "sha256": "df7730a1f661a8be7a3144feff474f83197987ebfd1cce4063aa9c5504e75c41"
+  },
+  "methodGrant": "Permit exact installed helper check/read/list-headings through pinned Python3.11 -B and pinned stdo manager with explicit selected STDO store. Read-only status/resolve/member projection only; no sync/install or alternate basis. Include helper in exact method custody.",
+  "independentGuidance": {
+    "ProductDesignMethod": "/root/amendment_topology_review closed read-only check: existing manifest auxiliary.plugin.members scripts/read_basis.py owns section extraction, including fenced headings. No new verifier.",
+    "ProofFixture": "/root/b29_vm_triage closed canonical route: one ordinary stage, intake then native pair then envelope_output; lifecyclePredicateRef; no application_assessment capability means no C2 evidence requirement. Real source/rubric/absent author-asset and constructor/assessor roles remain required.",
+    "rootReacquisition": "Example and installed helper byte pins independently matched; method full status result already returned exact basis/manifest/installed/valid with no failures."
+  },
+  "verificationObligations": [
+    "Capture complete status stdout/stderr and true child exit, parse whole JSON; match exact definition identity/path, selected3.0.4 basis/manifest,installed:true,valid:true,failures:[].",
+    "Require exactly one FRAME_INPUTS bootstrap row with1bind and15routes, complete16owner/section comparisons. Five owner files, frame and inventory must match unique manifest entries; absent sources/inputs defaults prohibited.",
+    "Use installed read_basis.py exact-heading grouped reads and actual returned source section bytes/digests; compare to real binds/routes. Retain compact comparison ledger and acquire deciding contents separately. Results route selected0 excerpt rows is legitimate, not an empty verification population.",
+    "Preserve observed child or parse error if subsequent capture fails; attach secondary capture failure through retained reporter channels."
+  ],
+  "nativeW": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "sourceBaselineUnchanged": true
+}
