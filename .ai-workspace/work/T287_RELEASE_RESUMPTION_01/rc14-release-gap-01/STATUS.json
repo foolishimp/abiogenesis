@@ -1,5 +1,5 @@
 {
-  "status": "RC14_CANDIDATE02_S06_RUNNING_AMENDMENT_BINDING_ACCEPTED",
+  "status": "RC14_CANDIDATE02_BOTH_INSTALLED_WITNESSES_RUNNING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -705,7 +705,26 @@
     "state": "PRIOR_ATTRIBUTION_HOW_INCOMPLETE_ELIGIBILITY_POLICY_DECISION_PENDING",
     "record": "integration-01/QUALIFICATION_ROUTE_TRIAGE_01.json",
     "ownerTicket": "TD-29/T287",
-    "paidQualificationStarted": false
+    "paidQualificationStarted": false,
+    "currentReadOnlyConfirmation": {
+      "C1Commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+      "reviewer": "/root/amendment_topology_review",
+      "rootConjunction": "Current source still narrows to last contributor chain, rejects historical postimage against current material, has no prior external author facts at dispatch, and repeats external refusal during cold resolution. Structural preparation rows are not actual attribution.",
+      "smallestExistingOwnerCone": [
+        "D4/D5 HOW section3",
+        "qualification_contracts.ts",
+        "test_env/qualification/provenance.mjs",
+        "validator/qualification.ts",
+        "abg/qualification_proof.ts",
+        "test_env/qualification/assessment-plan.mjs",
+        "test_env/tests/t287-qualification-scopes.test.mjs"
+      ],
+      "preparedPlanOnly": true,
+      "implementationSelectedByThisObservation": false,
+      "policyChoiceAnswered": false,
+      "positiveProductionEligibilityEstablished": false,
+      "limits": "Sufficient existing external attribution is already permitted by HOW; missing attribution stays unknown and deferred F_H is not restored. Complete live witnesses would not close this separate implementation/policy gap."
+    }
   },
   "s06Toolchain": {
     "state": "THIRD_PREFLIGHT_CLOSED_SUCCESS",
@@ -719,7 +738,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T03:10:33.133432+00:00",
+  "updatedUtc": "2026-11-16T03:28:11.614112+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -967,12 +986,12 @@
   },
   "installedWitnesses": {
     "amendment": {
-      "state": "attempt04_binding_accepted_runtime_pending",
+      "state": "attempt04_running",
       "grant": "integration-01/amendment-witness-04/ACTIVATION.json",
       "acceptance": "integration-01/amendment-witness-04/BINDING_ACCEPTANCE.json"
     },
     "S06": {
-      "state": "attempt03_runner_dispatched",
+      "state": "attempt03_running",
       "grant": "integration-01/s06-witness-03/ACTIVATION.json",
       "acceptance": "integration-01/s06-witness-03/BINDING_ACCEPTANCE.json"
     },
@@ -1402,17 +1421,46 @@
     "changedDerivedFiles": 8
   },
   "amendmentWitness04": {
-    "state": "BINDING_ACCEPTED_RUNTIME_AUTHORIZED_AFTER_PUSH",
+    "state": "INDUCTION_DESIGN_AND_BASELINE_TESTING_OBSERVED_REVIEW_PREREQUISITES_ACTIVE",
     "activation": "integration-01/amendment-witness-04/ACTIVATION.json",
-    "runtimeStarted": false,
+    "runtimeStarted": true,
     "qualified": false,
     "failureDisposition": "integration-01/amendment-witness-04/PREPARATION_CALLER_DISPOSITION.json",
     "originalDeadlineUtc": "2026-11-16T05:57:09.962433+00:00",
     "bindingAcceptance": "integration-01/amendment-witness-04/BINDING_ACCEPTANCE.json",
-    "B60": "Closed on corrected preparation; first failure retained"
+    "B60": "Closed on corrected preparation; first failure retained",
+    "runnerStartedUtc": "2026-11-16T03:13:00.393184Z",
+    "runnerPid": 81399,
+    "driverPid": 81398,
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04",
+    "bindingRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04",
+    "operator": "/root/rc14_release_proof",
+    "executionBinding": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04/EXECUTION_BINDING.json",
+      "bytes": 9278,
+      "sha256": "135a7306ef012ae6cf70b89954d775a7732004f718799bd793adb836ea57bac7"
+    },
+    "launch": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04/RUNTIME_LAUNCH.json",
+      "bytes": 19457,
+      "sha256": "09b009356ed517f15f0f00101775e9d68e6ffbd92390b0b512c721f1affe304a"
+    },
+    "runRef": "run://abiogenesis/7cb0ce942f866050a191c8e6cb321575a541891ca780a9a6b990041bb6160d7d",
+    "lastOperatorObservation": {
+      "completedBaselineTestingUtc": "2026-11-16T03:21:45Z",
+      "inductionAndDesignCompleted": true,
+      "baselineTestsPass": 7,
+      "baselineOracleExit": 1,
+      "expectedMissingAmendmentCases": [
+        "7500",
+        "10000",
+        "bulk-discount"
+      ],
+      "meaning": "Intended baseline counterevidence, not lane failure. Required review/currentness/correction/Testing/acceptance and final replay remain pending. Interim Operator observation, not sealed acceptance."
+    }
   },
   "s06Witness03": {
-    "state": "RUNNER_DISPATCHED",
+    "state": "INTENT_AUTHOR_COMPLETED_ASSESSMENT_RUNNING",
     "activation": "integration-01/s06-witness-03/ACTIVATION.json",
     "runtimeStarted": true,
     "qualified": false,
@@ -1420,6 +1468,23 @@
     "originalDeadlineUtc": "2026-11-16T06:55:03.038185+00:00",
     "runnerStartedUtc": "2026-11-16T03:08:36.822320+00:00",
     "runnerPid": 78097,
-    "executionBindingSha256": "02344fe1ee853569fa421dd4ea894dea23a4650952dff1fa2dd4e52bfb7dc3af"
+    "executionBindingSha256": "02344fe1ee853569fa421dd4ea894dea23a4650952dff1fa2dd4e52bfb7dc3af",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-03",
+    "bindingRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-03",
+    "operator": "/root/b29_vm_triage",
+    "executionBinding": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-03/EXECUTION_BINDING.json",
+      "bytes": 8671,
+      "sha256": "02344fe1ee853569fa421dd4ea894dea23a4650952dff1fa2dd4e52bfb7dc3af"
+    },
+    "lastOperatorObservation": {
+      "at": "2026-11-16T03:25:33Z",
+      "firstAuthorClosedUtc": "2026-11-16T03:18:49.157Z",
+      "firstAuthorSdkStatus": "completed/success",
+      "assessmentStartedUtc": "2026-11-16T03:18:59.429Z",
+      "assessmentPid": 85667,
+      "assessmentEventOrdinal": 306,
+      "meaning": "Actual assessment dispatch reached; semantic verdict and complete D1/D2 remain pending. This is an interim Operator observation, not sealed acceptance."
+    }
   }
 }
