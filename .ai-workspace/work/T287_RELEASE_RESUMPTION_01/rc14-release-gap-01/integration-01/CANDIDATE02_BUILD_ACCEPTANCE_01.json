@@ -1,0 +1,85 @@
+{
+  "id": "RC14-CANDIDATE02-BUILD-ACCEPTANCE-01",
+  "recordedUtc": "2026-11-16T02:18:25.306277+00:00",
+  "writer": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "productFrame": "STDO 3.0.4, fixed 5.0 S07; prospective packaging and exact correspondence only. Public admission, lifecycle witnesses and qualification remain separate.",
+  "source": {
+    "commit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "tree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+    "tenantTree": "f4cdd7aaa099ed80de34ead41e0cb73f451f92d3",
+    "branch": "codex/rc14-candidate-source-20261116-02",
+    "source": "/private/tmp/abg-rc14-candidate-source-20261116-02",
+    "sourceRows": 2261,
+    "fullIndexEqualsHead": true,
+    "rootSevenMaterialized": true,
+    "clean": true,
+    "sourceChanged": false,
+    "versionBumped": false,
+    "claim": {
+      "path": "/private/tmp/abg-rc14-candidate-source-20261116-02/build_tenants/abiogenesis/typescript/release-claim.md",
+      "bytes": 4591,
+      "sha256": "739ba161548fde31c6f03ad99f397a24f47f2ddfb7ccd2288c1f70b37a7df1eb"
+    }
+  },
+  "returnCommit": "2c01e65fdf350b69729f6041bc92327cb9e8d7f9",
+  "integratedMain": "aa0162e8753a50eef8eca19beca2461a108ddf2a",
+  "compactReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/candidate-build-02/RETURN.json",
+    "bytes": 22032,
+    "sha256": "a1c643dbfa4e7ed890e880eaa19f02c5baba9a7e1d393fb9fdd129134aac846d"
+  },
+  "rawReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/RETURN.json",
+    "bytes": 8294,
+    "sha256": "769397d5b28aa7730d68748e0c119b8f864ad63db05f7a2b3885f383a0186f18"
+  },
+  "cutRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/CUT_RECORD.json",
+    "bytes": 10529,
+    "sha256": "f7aa025826e6732726bf8aedac3ed8305ece21ede83e5ebfc5bc8d321f9388aa"
+  },
+  "archive": {
+    "name": "abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "bytes": 10815210,
+    "sha256": "be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz"
+  },
+  "identity": {
+    "artifactDigest": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "productContentDigest": "sha256:74058d1e18aaa98e7b5ad0c30f682fe45e82b1c49237dabc4c72e956d0eb918f",
+    "manifestDigest": "sha256:1d694d8b04776bd081a4f48bdefe5199d79b3cd6f885ed5718fe59d1e7e097fb"
+  },
+  "members": {
+    "count": 5302,
+    "payloadBytes": 69288430,
+    "inventoryDigest": "88475fdb0f101e01a34f02151dc42e186344fdeeebc237b4399c2a5c031bc60c",
+    "file": "ARCHIVE_MEMBERS.json",
+    "builtTreeByteEqual": true,
+    "buildAndContractsFilesAllPresent": 972
+  },
+  "clock": {
+    "startedUtc": "2026-11-16T02:14:22.350212+00:00",
+    "completedUtc": "2026-11-16T02:15:38.742314+00:00",
+    "deadlineUtc": "2026-11-16T02:44:22.350212+00:00",
+    "executionStopUtc": "2026-11-16T02:43:52.350212+00:00",
+    "elapsedMs": 76392,
+    "withinOriginalDeadline": true,
+    "reset": false
+  },
+  "rootVerification": {
+    "all35CompactEvidencePinsMatched": true,
+    "all5302ArchiveMembersMatchedInventoryAndActualBuiltBytes": true,
+    "actualPayloadBytes": 69288430,
+    "sourceEntryExit2261RowsEqual": true,
+    "all41EntryExitInputPinsEqual": true,
+    "additionalFreshInputAndOutputPinChecks": 46,
+    "all22CommandStreamHashesMatched": true,
+    "all10ConservationChecksPassed": true,
+    "all11RecordedGroupsIndependentlyAbsent": true
+  },
+  "decision": "Accept the exact prospective candidate for one same-archive mechanical installation. Retain C0 unchanged; two generated outputs and refreshed basis await separately selected C1.",
+  "qualified": false,
+  "published": false,
+  "rawPublished": false,
+  "builderPinChanged": false
+}

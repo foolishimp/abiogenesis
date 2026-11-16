@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_COMPONENT_PROOF_ACCEPTED_CANDIDATE02_BUILD_PENDING",
+  "status": "RC14_CANDIDATE02_BUILD_ACCEPTED_INSTALL_PENDING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -1070,7 +1070,7 @@
     "successor": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-07",
     "maxPromptBytes": 524288,
     "previousMaxPromptBytes": 131072,
-    "next": "Independent frozen-control review; paid installed attempt waits for B56 repaired exact candidate.",
+    "next": "Bind accepted controls to the corrected installed candidate after Public setup/C1; no additional control review is pending.",
     "controlCommit": "cd1a11eefdcf8790d93087a2015f857d3247ca12",
     "acceptance": "integration-01/AMENDMENT_CONTROL_ACCEPTANCE_07.json",
     "executionAuthorized": false
@@ -1340,9 +1340,22 @@
     "liveS06Pending": true
   },
   "candidate02Build": {
-    "state": "AUTHORIZED_AWAITING_PUSHED_BINDING",
+    "state": "BUILD_ACCEPTED",
     "activation": "integration-01/CANDIDATE02_C0_BUILD_ACTIVATION_01.json",
-    "started": false,
-    "installed": false
+    "started": true,
+    "installed": false,
+    "closed": true,
+    "acceptance": "integration-01/CANDIDATE02_BUILD_ACCEPTANCE_01.json",
+    "returnCommit": "2c01e65fdf350b69729f6041bc92327cb9e8d7f9",
+    "sourceCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "archiveSha256": "be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "members": 5302,
+    "elapsedMs": 76392,
+    "qualified": false
+  },
+  "candidate02Install": {
+    "state": "AUTHORIZED_AWAITING_PUSHED_BINDING",
+    "activation": "integration-01/CANDIDATE02_INSTALL_ACTIVATION_01.json",
+    "started": false
   }
 }
