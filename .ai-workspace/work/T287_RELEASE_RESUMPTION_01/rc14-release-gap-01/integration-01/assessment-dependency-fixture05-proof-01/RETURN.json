@@ -1,0 +1,441 @@
+{
+  "id": "RC14-B56-FIXTURE05-PROOF-RETURN-001",
+  "role": "Finite external proof/evidence Operator",
+  "status": "closed_selected_component_proof_passed",
+  "recordedUtc": "2026-11-16T01:52:46.447992+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_FIXTURE05_SOURCE_AND_PROOF_ACTIVATION_01.json",
+    "bytes": 19069,
+    "sha256": "460d99a8208c36f1c71f1839514cfd3c3f7777dcc49c5e08fd6037fd1f1035fd"
+  },
+  "grantPushedCheckpoint": "0053bebcde4a345db81e13cf2a7ce206cdd0282d",
+  "continuationDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_FIXTURE05_PROOF_PREFLIGHT_DISPOSITION_01.json",
+    "bytes": 3478,
+    "sha256": "c64199c3b21c6cf8ba27067fa1104cc5e565045848c3b9c169906468a8eb060d"
+  },
+  "continuationPushedCheckpoint": "3f2381d2e9f9a3dd1edfb53223a9d163a715c264",
+  "source": {
+    "nativeHead": "46375994b2eb1773d055ce8b16fe5bedc62b4ac0",
+    "worktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-05",
+    "fixture": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "fixtureSha256": "5a72c8f7a9a24aa89c511cd92edd6807122dc056c5d2c87121523185b60785e3",
+    "sourcePostimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/SOURCE_POSTIMAGE.json",
+      "bytes": 396773,
+      "sha256": "f7dda5461d164c3f425486805945b3071fcd6c1de20bd07c880844c83b5d58db"
+    },
+    "sourceDiff": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/SOURCE_DIFF.patch",
+      "bytes": 18992,
+      "sha256": "b2a7fbf7be178e684cb4e7501c6b2db9ecc2a882394616018a7765c04e2d0e6f"
+    },
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/FROZEN_SOURCE.json",
+      "bytes": 2986,
+      "sha256": "0ebb5a72e5b7239d0ceaf5806ca672dac47dde2876b3539fe44d10d4829f5f5e"
+    },
+    "headAndIndexUnchanged": true,
+    "rows": 1584,
+    "declaredSourceRows": 315,
+    "sevenOtherB56InputsConserved": true
+  },
+  "execution": {
+    "startUtc": "2026-11-16T01:50:42.474069+00:00",
+    "completedUtc": "2026-11-16T01:50:51.675805+00:00",
+    "elapsedMs": 9202,
+    "deadlineUtc": "2026-11-16T03:20:42.474069+00:00",
+    "executionStopUtc": "2026-11-16T03:17:42.474069+00:00",
+    "nativeEnclosureDeadlineUtc": "2026-11-16T04:09:05.055532+00:00",
+    "clockReset": false,
+    "freshSelections": 4,
+    "freshTopLevelNames": 53,
+    "freshPasses": 58,
+    "freshSkips": 0,
+    "newBuilds": 0,
+    "providerCalls": 0,
+    "retries": 0,
+    "failure": null,
+    "secondaryErrors": []
+  },
+  "selections": [
+    {
+      "selection": "004-native-workspace",
+      "file": "t287-native-workspace-work.test.mjs",
+      "mode": "whole",
+      "topLevel": 39,
+      "passes": 43,
+      "skips": 0,
+      "elapsedMs": 3804,
+      "counts": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/004-native-workspace/COUNTS.json",
+        "bytes": 20279,
+        "sha256": "e0709758a9ff9a0da4985c553450cc03f07beb1d41cd8df7ac796332d330be44"
+      },
+      "commandReturn": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/004-native-workspace/RETURN.json",
+        "bytes": 460,
+        "sha256": "3c9c814d948f754bf43e140cf80db5215a1a414a94ed74b11a5c1377ad911ed7"
+      }
+    },
+    {
+      "selection": "005-semantic-remainder",
+      "file": "t287-native-semantic-job.test.mjs",
+      "mode": "include",
+      "topLevel": 9,
+      "passes": 10,
+      "skips": 0,
+      "elapsedMs": 1133,
+      "counts": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/005-semantic-remainder/COUNTS.json",
+        "bytes": 5349,
+        "sha256": "43feda02f1930c6173976a11ef793d7c31c98617d04d9878aec917f282e4b2d8"
+      },
+      "commandReturn": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/005-semantic-remainder/RETURN.json",
+        "bytes": 459,
+        "sha256": "5e9acab45f3a352fc5c2c9124978c27f7790ffb072caa1ddbdca4b62faf27277"
+      }
+    },
+    {
+      "selection": "006-native-c2-assembly",
+      "file": "t287-native-c2-instruction-assembly.test.mjs",
+      "mode": "whole",
+      "topLevel": 1,
+      "passes": 1,
+      "skips": 0,
+      "elapsedMs": 418,
+      "counts": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/006-native-c2-assembly/COUNTS.json",
+        "bytes": 1084,
+        "sha256": "ca78604e161ff3d7844dde5ea6c00100ce5790f88ecdad683e2a66147da78b90"
+      },
+      "commandReturn": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/006-native-c2-assembly/RETURN.json",
+        "bytes": 457,
+        "sha256": "0f76abca7540411843a31a867c734225b130fe30452f592fa6a6c8f39e696d72"
+      }
+    },
+    {
+      "selection": "007-assembly-owner",
+      "file": "t288-instruction-assembly-owner.test.mjs",
+      "mode": "whole",
+      "topLevel": 4,
+      "passes": 4,
+      "skips": 0,
+      "elapsedMs": 422,
+      "counts": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/007-assembly-owner/COUNTS.json",
+        "bytes": 2537,
+        "sha256": "5a3658f1e419eadc3a110933d30c4e3904392f3f5aed7bcd3aa0848cdd5c90f8"
+      },
+      "commandReturn": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/007-assembly-owner/RETURN.json",
+        "bytes": 458,
+        "sha256": "7ab4e6a8c1eda8c9c9f7ec81ccecd68b3e17ddc63d75d580ae887a251e23d515"
+      }
+    }
+  ],
+  "retainedEvidence": {
+    "focusedPasses": 1,
+    "installedPasses": 2,
+    "focusedCounts": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/002-dependency-focused/COUNTS.json",
+      "bytes": 1074,
+      "sha256": "328423b506347b376c3d3a8c4ba26164f7284f28bb70a19a2149922a14d2081b"
+    },
+    "installedCounts": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/003-installed-dependency/COUNTS.json",
+      "bytes": 1534,
+      "sha256": "cfd7861e3573ca1032ec8f3c3cc1c7fdc7f126e8fac81400cfd2da75bdc554de"
+    },
+    "semanticWholeTitles": 10,
+    "semanticPositivePartitionDisjointAndComplete": true,
+    "standing": "Historical exact causal reuse under complete conserved build/source/support inputs; no repeat and no relabel of prior workspace failures."
+  },
+  "topology": {
+    "protectedLeaves": 108,
+    "batches": 2,
+    "requiredPairs": 865,
+    "observedPairs": 865,
+    "completeMountSnapshotSha256": "7e7a3a876229bceb5ffb87c650ae446fa32e6dbd01f376675cf9c8b3f9eefddd",
+    "sharedElapsedMs": 324,
+    "allowanceMs": 60000,
+    "result": "separated",
+    "metadataExclusion": "Only directory identity.links across observations: owned capture creation changes directory link counts. Every observer retains its own full identity/recheck; regular-file links, all mode/type/device/inode/backing/missing-suffix/mount fields remain compared.",
+    "atomicMountLockClaim": false
+  },
+  "captures": {
+    "records": 150,
+    "normalAttempts": 50,
+    "thrownAttempts": 0,
+    "pid": 28449,
+    "normalSequence": [
+      "selection",
+      "assembly",
+      "prepared"
+    ],
+    "preparedNullRecords": 17,
+    "filenameHeaderOrderingJoined": true,
+    "actualRecordsRehashedAtReturn": true,
+    "fixedPidOrCountAssumedBeforeExecution": false,
+    "conditionalThrownCaptureExercised": false,
+    "doubleFailureCaptureGuaranteeProved": false,
+    "presenceImpliesSemanticAcceptance": false
+  },
+  "custody": {
+    "checks": [
+      {
+        "name": "native05_full_source_setup_head_index",
+        "matched": true
+      },
+      {
+        "name": "all_control_method_tool_evidence_fixture_recovery_new_native_grant_pins",
+        "matched": true
+      },
+      {
+        "name": "native196",
+        "matched": true
+      },
+      {
+        "name": "source315",
+        "matched": true
+      },
+      {
+        "name": "original_dependencies4576",
+        "matched": true
+      },
+      {
+        "name": "npm2326",
+        "matched": true
+      },
+      {
+        "name": "retained_build2192",
+        "matched": true
+      },
+      {
+        "name": "retained_dependencies4576",
+        "matched": true
+      },
+      {
+        "name": "original_fixture13",
+        "matched": true
+      },
+      {
+        "name": "fresh_mirror_complete2192_payload_generated_native",
+        "matched": true
+      },
+      {
+        "name": "fresh_dependencies4576",
+        "matched": true
+      },
+      {
+        "name": "fresh_source315",
+        "matched": true
+      },
+      {
+        "name": "fresh_fixture13",
+        "matched": true
+      },
+      {
+        "name": "fresh_native196",
+        "matched": true
+      },
+      {
+        "name": "actual_owned_command_groups",
+        "matched": true
+      }
+    ],
+    "completePinnedFiles": 246,
+    "pinCategories": {
+      "current_grant": 1,
+      "preflight_disposition": 1,
+      "preserved_preflight": 2,
+      "preserved_inline_caller": 1,
+      "control_manifest": 2,
+      "control_member": 55,
+      "original_recovery": 20,
+      "old_native_manifest": 1,
+      "old_native_control": 35,
+      "native05_external_evidence13": 13,
+      "proof03_external_evidence30": 30,
+      "work_authority": 2,
+      "method_input": 10,
+      "tool_input": 21,
+      "native05_closed_evidence": 14,
+      "native05_closure": 1,
+      "native05_return_transitive": 25,
+      "native05_frozen_source": 1,
+      "native05_completion": 4,
+      "reuse_readiness": 1,
+      "retained_build": 4,
+      "builder_pin": 1,
+      "original_candidate": 4,
+      "rc13_builder": 3,
+      "native_cli": 1,
+      "fixture13": 13,
+      "immutable7": 7
+    },
+    "sourceEntryExitByteEqual": true,
+    "retainedBuildRows": 2192,
+    "retainedBuildEntryExitRowsEqual": true,
+    "freshBuildEntryExitRowsEqual": true,
+    "freshMirror": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-07",
+    "copiedDependencyRows": 4576,
+    "npmRows": 2326,
+    "nativeInputs": 196,
+    "fixtureRows": 13,
+    "oldEvidenceRows": 30,
+    "native05EvidenceRows": 13,
+    "ownedGroups": [
+      {
+        "command": "000-topology-01",
+        "pid": 28406,
+        "processGroup": 28406,
+        "absent": true
+      },
+      {
+        "command": "000-topology-02",
+        "pid": 28410,
+        "processGroup": 28410,
+        "absent": true
+      },
+      {
+        "command": "004-native-workspace",
+        "pid": 28448,
+        "processGroup": 28448,
+        "absent": true
+      },
+      {
+        "command": "005-semantic-remainder",
+        "pid": 28502,
+        "processGroup": 28502,
+        "absent": true
+      },
+      {
+        "command": "006-native-c2-assembly",
+        "pid": 28504,
+        "processGroup": 28504,
+        "absent": true
+      },
+      {
+        "command": "007-assembly-owner",
+        "pid": 28527,
+        "processGroup": 28527,
+        "absent": true
+      }
+    ],
+    "allNamedGroupsAbsentAtReturn": true,
+    "globalAbsenceClaim": false
+  },
+  "preservedPreflight": {
+    "failure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/FIXTURE05_PROOF_PREFLIGHT_FAILURE_01.json",
+      "bytes": 644,
+      "sha256": "203ae6e8174a9e8843657d19358090ae761ab195d63e1785ef1ef9d314801164"
+    },
+    "closedReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/FIXTURE05_PROOF_PREFLIGHT_RETURN_01.json",
+      "bytes": 4096,
+      "sha256": "8677431852ddb5f76a947e674ef68cc8cf86cc0f70093651cea9331da0f510cc"
+    },
+    "originalInlineCaller": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/FIXTURE05_PROOF_OPERATOR_COMMAND_01.txt",
+      "bytes": 26402,
+      "sha256": "a2bb7e49cac2ce7bc98b60a13fe55eaf14aef628bb6c6c7150270231d1776433"
+    },
+    "actualCorrectedInlineCaller": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/FIXTURE05_PROOF_OPERATOR_COMMAND_02.txt",
+      "bytes": 27077,
+      "sha256": "b664803fce9d1b4c12021aa07e39124f8c82eba7e4a66460847cb6570dc6689f"
+    },
+    "correction": "Only expected row projection ordering changed from string key to Path key; continuation pins and preserved earlier receipts added. Original postimage unchanged.",
+    "runtimeProofHadStartedAtFailure": false
+  },
+  "evidence": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/RETURN.json",
+      "bytes": 5784,
+      "sha256": "fdfdc6add1905e1448e74561bc3e2e1bac43b1f72c2c72cd004c5fc0970bd299"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/START.json",
+      "bytes": 1246,
+      "sha256": "97636337b2bd672202d6b2d10d4df09c3ead662db1beff1b12f7e5b9ab97b6c7"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/INPUTS_ENTRY.json",
+      "bytes": 170589,
+      "sha256": "f56bfd26c58d4b87c36bde55ec0ceb06047a30585b95ba289ac1da5e8cafd885"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/INPUTS_EXIT.json",
+      "bytes": 87300,
+      "sha256": "46fe756e07bbd38b2456d9bd21feb830ae37f039caa34017ee6590f5abffc1dd"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/SOURCE_ENTRY.json",
+      "bytes": 400188,
+      "sha256": "47fd7399278cac6c873167d179e80ec048317472376a060d152f05d62f8ec103"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/SOURCE_EXIT.json",
+      "bytes": 400188,
+      "sha256": "47fd7399278cac6c873167d179e80ec048317472376a060d152f05d62f8ec103"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/RETAINED_BUILD_ENTRY.json",
+      "bytes": 542216,
+      "sha256": "d9b8c5987d73b663dacb5f44d3159a7d63d32b053f05a511726e222667e349ef"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/RETAINED_BUILD_EXIT.json",
+      "bytes": 542216,
+      "sha256": "d9b8c5987d73b663dacb5f44d3159a7d63d32b053f05a511726e222667e349ef"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/MIRROR_BUILD_ENTRY.json",
+      "bytes": 542386,
+      "sha256": "0930f426846fca8bbe84d5aa81b264c1ec934939095b42e8b6ad58e2fd2a5368"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/MIRROR_BUILD_EXIT.json",
+      "bytes": 542216,
+      "sha256": "03c90c17a8b9ffc7ad68de341ea23105e0261606772e96cd6f40011ef70a5d6c"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/TOPOLOGY_LAYOUT.json",
+      "bytes": 16394,
+      "sha256": "b692292db57863d1917a5131697d1c228f00721d8acea7524449e66a02e84f1e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/TOPOLOGY_BATCH_CONJUNCTION.json",
+      "bytes": 636376,
+      "sha256": "5dbaffa60b1fdceaa61664e7fd6353ed90cc56b1e6267ba5131f07dbdc8a15be"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/POPULATION.json",
+      "bytes": 34790,
+      "sha256": "512db2ccfd6e72206128613051a64274f950f011f1cbc37a82a714bd6db7c2a1"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/GROUP_ABSENCE.json",
+      "bytes": 840,
+      "sha256": "8a07b9414520fb73fdd9be18196953ad870d21371c38f1bf193dd85dfd9bf28b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/004-native-workspace/CANDIDATE_RECORDS.json",
+      "bytes": 149337,
+      "sha256": "6c01413604b6e2b47c2f1c7df417585c2e397dc46904edfca698682279489bd9"
+    }
+  ],
+  "limits": [
+    "Component proof only; actual S06/amendment candidate witnesses and formal qualification remain unexecuted by this grant.",
+    "No candidate rebuild, repack, install, selector update or provider call.",
+    "Prior native method/acquisition limits and deviations remain recorded; this proof does not create compliant authorship retroactively.",
+    "Previous proof03 workspace failures remain preserved; only the four exact current selections are newly green.",
+    "Actual150 normal capture records were retained and joined; conditional thrown and synthetic double-failure capture were not exercised."
+  ],
+  "qualified": false,
+  "rawPublished": false
+}
