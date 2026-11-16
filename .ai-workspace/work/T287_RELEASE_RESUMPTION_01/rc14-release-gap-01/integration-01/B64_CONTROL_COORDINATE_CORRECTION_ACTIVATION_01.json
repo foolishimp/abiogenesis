@@ -1,0 +1,88 @@
+{
+  "id": "RC14-B64-CONTROL-COORDINATE-WRITER-041",
+  "recordedUtc": "2026-11-16T08:02:08.514402+00:00",
+  "recordsWriter": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "actor": "/root/b29_vm_triage",
+  "role": "Separate external control correction Writer",
+  "authority": "Owner finish RC14/continue; existing B64 selection; conjoined closed control-coordinate counterexample. Effective after this grant is pushed.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "frameURI": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "productFrame": {
+    "outcome": "Unchanged fixed5.0 F17/S06: preserve complete source/evidence, execute declared revision, independent assessment, complete D1/application and consequential D2.",
+    "classification": "Design correction and realization repair of an existing historical evidence presentation obligation; no new Product feature, Public family or semantic policy.",
+    "authoritySplit": "Revision owner authenticates declared historical use; held-prefix/body owner authenticates retained members; instruction assembly presents complete bytes without changing admitted carriers; ABG remains runtime admission authority.",
+    "prohibitions": [
+      "No fresh-workspace substitution for historical bytes, rewrites of old Result/context/binding, fabricated sourceResults/use grants or copied old stage credit.",
+      "No blanket cross-Run/member permission, generic registry, new semantic runtime, oracle weakening or hidden provider prompt."
+    ]
+  },
+  "failedControls": {
+    "commit": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
+    "tree": "7bda39f10e96fd855441fb467a2b6df728ef77b2",
+    "worktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-01",
+    "manifestSha256": "e14d70c415889915379045afb89f0c133541f47403d4991a2693107e31d67806",
+    "returnSha256": "8b866ed1c0067cbccfcad4f870ca6d06b462228258144bec2b80fd2dc82b478d"
+  },
+  "closedFrames": [
+    {
+      "actor": "/root/amendment_topology_review",
+      "frame": "Product/Design/Proof",
+      "finding": "Native producer and proof consumer select different raw directories; sunny path is unconstructable. Product/HOW/Task obligations inspected are coherent. Frozen controls refused; no runtime."
+    },
+    {
+      "actor": "/root/rc14_release_proof",
+      "frame": "Runtime/Integration/Identity/Effect/Proof",
+      "finding": "operate.py:4 and HOST.mjs:16 produce LAUNCH/CONTROL_START/runtime under the raw directory lacking -repair. ACTIVATION and prove.py select the -repair directory; proof reads CONTROL_START there. Confirmed frozen-source mismatch, not drift. No second concrete blocker observed at this return boundary."
+    }
+  ],
+  "rootAcquisition": {
+    "manifestRows": 32,
+    "frozenGitRows": 34,
+    "sourceRowsFromFrozenGit": 378,
+    "externalFailureRows": 6,
+    "methodRows": 5,
+    "authorityAndBuilderRows": 2,
+    "originalCandidateRows": 4,
+    "pinMismatches": 0,
+    "note": "Future source worktree is correctly absent. Initial read of that prospective path was corrected to immutable Git source acquisition; no runtime or subject mutation."
+  },
+  "originatingRelation": "Duplicated raw coordinate in two executable callers was renamed independently of the selected ACT.rawRoot consumed by proof.",
+  "whyChecksMissed": "Syntax/AST, inventories and layout capacity passed but did not conjoin actual producer and consumer raw coordinates.",
+  "selectedCorrection": "Use the one ACT.rawRoot definition in both HOST and operate before dependent reads/writes; retain ACT.sourceWorktree or exactly equal current source binding. Proof already consumes ACT.rawRoot. Preserve every process, custody, input, provider and proof contract.",
+  "controlBase": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
+  "controlWorktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-02",
+  "controlBranch": "codex/rc14-historical-context-controls-20261116-02",
+  "outputRoot": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01",
+  "sourceBase": {
+    "commit": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
+    "tree": "8e5a5194de10f816d95f61b9fcf5e8b19a006211"
+  },
+  "prospectiveSourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-01",
+  "prospectiveRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
+  "permittedEffects": [
+    "Create one sparse successor controls worktree from exact failed controlBase; preserve prior worktree and immutable commit.",
+    "Only executable HOST.mjs and operate.py change: acquire ACTIVATION before deriving raw/source coordinates, consuming its exact declared values. No new runtime mechanism.",
+    "Rederive affected external control records, activation copy, source/control pins, delta, checks, manifest and truthful Return inside this carrier. Preserve TASK, PROOF_PLAN, Product source, all scopes and limits except mechanically affected grant identity/pins.",
+    "Run bounded syntax/AST/hash checks and a pure coordinate discriminator that resolves actual HOST/operate/prove raw/source expressions against ACTIVATION/LAYOUT. It must catch the old mismatch and accept the successor without importing or executing Product/runtime/host effects.",
+    "Freeze one authored-only successor commit/tree/manifest/Return, preserve original failure and acquisition history, return and stop. Root integrates/pushes only after review."
+  ],
+  "originalPreparationClock": {
+    "startedUtc": "2026-11-16T07:34:42.254257+00:00",
+    "deadlineUtc": "2026-11-16T08:19:42.254257+00:00",
+    "newClock": false
+  },
+  "pendingIndependentCheck": "Runtime reviewer is closing static native-prompt material/capacity trace; no unsupported capacity claim or Task narrowing is selected. Any further blocker returns separately.",
+  "stops": [
+    "First changed Product/task/proof meaning, additional executable repair or control validation failure returns to Root.",
+    "Stop by the original preparation deadline; never start source/runtime/proof clocks."
+  ],
+  "exclusions": [
+    "No source/test/design edits, runtime/Public/observer/provider/build/test/install, old raw/worksite mutation, main writes/push, cleanup, qualification/AF25/publication/pin change or raw Git."
+  ],
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "sourceImplementationAuthorized": false
+}
