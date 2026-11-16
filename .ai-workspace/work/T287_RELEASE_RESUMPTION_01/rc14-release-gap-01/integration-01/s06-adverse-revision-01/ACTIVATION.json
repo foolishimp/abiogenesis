@@ -1,0 +1,241 @@
+{
+  "id": "RC14-S06-ADVERSE-REVISION-OPERATOR-001",
+  "recordedUtc": "2026-11-16T06:55:09.637634+00:00",
+  "recordsWriter": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "actor": "/root/b29_vm_triage",
+  "role": "Separate external Operator binding preparation; runtime remains separately gated",
+  "authority": "Owner continue/finish RC14 and exact closed reviews conjoined in S06_ADVERSE_REVISION_CONTROLS_ACCEPTANCE_01.json. Effective only after checkpoint/push.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "frameURI": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "productFrame": {
+    "outcome": "Fixed5.0 F17/S06 complete installed D1, independent semantic and executable evidence, consequential D2 and preserved admitted history.",
+    "category": "External caller/declarations and evidence custody. ABG remains sole runtime/event authority.",
+    "prohibitions": [
+      "No invented cause/parent/selection/verdict, copied03 stage credit, weakened application oracle, host-owned semantic traversal or private event writer."
+    ]
+  },
+  "controlAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S06_ADVERSE_REVISION_CONTROLS_ACCEPTANCE_01.json",
+    "bytes": 6477,
+    "sha256": "e8dc9cdaaa04fad9d54381c17670e83d8ac8c9d462cab3fa4b3611789b338a8f"
+  },
+  "controls": {
+    "commit": "cd109c4ec53b8893725e2836883442005deb3ace",
+    "tree": "3ec3859dd742924ba6aab6105b80dd61f71ecd18",
+    "parent": "5eb09d25245eb5954a2b1274fe87450d8853b62f",
+    "worktree": "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01",
+    "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01",
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/CONTROL_MANIFEST.json",
+      "bytes": 7212,
+      "sha256": "964b7f3ff7085264726a76d4af9a5905da4933bcbf0d7747acd41697ba4dc411"
+    },
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/PREPARATION_RETURN.json",
+      "bytes": 7703,
+      "sha256": "568aa3fa2a82ec5e18a3393fed79e9f95790e1e82e399559fcb3994b7f9aa416"
+    },
+    "integrationCommit": "dd824d2400a7bcae04fc591b551b9e7e43063451",
+    "root": "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01",
+    "template": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/BINDING.template.json",
+      "bytes": 8592,
+      "sha256": "33fb20efe6e5713d394341661d5c37300d3abfb6c6d2a0299a15ba75033904ce"
+    }
+  },
+  "candidate": {
+    "sourceCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "sourceTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+    "compileInputTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "archiveSha256": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+    "manifestSha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e",
+    "packageVersion": "5.0.0-rc.14",
+    "cutRecordPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/CUT_RECORD.json",
+    "cutRecordSha256": "f7aa025826e6732726bf8aedac3ed8305ece21ede83e5ebfc5bc8d321f9388aa",
+    "archiveMembersPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/ARCHIVE_MEMBERS.json",
+    "archiveMembersSha256": "6fbf0d20f29ae5515896455599f50e2f582a2ccbcb5eb7590c0bfb60ab5a7f60"
+  },
+  "sourceFinalization": {
+    "C1Commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+    "C1Tree": "22eed3693976419c6ed63117756294001096a280",
+    "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/FREEZE.json",
+      "bytes": 4619,
+      "sha256": "f65eed415da5b31978ffb6fac9f8c2264c5ac554c65c560547e49b1ad51dfc62"
+    },
+    "rootAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_C1_FREEZE_ACCEPTANCE_01.json",
+      "bytes": 3979,
+      "sha256": "b39e546d86be9b41ea96f8cf10cea63391bf4988c93f0ecc4d6cc28b672f1c31"
+    }
+  },
+  "originalClosedSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/CLOSED_SOURCE.json",
+    "bytes": 4034,
+    "sha256": "e77f494e295966f57d1edf43e73e7803d687bff92190171fd3fb94ab24b598e8"
+  },
+  "originalSourceRun": {
+    "ref": "run://abiogenesis/c89f6771d3efeed0d4c840b74acbf1a29be01e18d09c4166825f8e5f04a166bf",
+    "digest": "sha256:cfd5f732891500e138ebac6260b5a38efbebca277cc5158019c71244355ec2b0"
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "executableSha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "versionArgs": [
+      "--version"
+    ],
+    "model": "claude-opus-5-5",
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ],
+    "inactivityTimeoutMs": 600000,
+    "absoluteTimeoutMs": 3600000,
+    "maxTurns": 120
+  },
+  "concurrency": {
+    "globalMaximumNativeCalls": 2,
+    "selectedLanes": 1,
+    "currentNativeCalls": 0
+  },
+  "credentialRule": "Only named private credential keys may reach the native invocation interval; values remain in memory and are never written into binding, setup, command logs, Git or commentary.",
+  "limitsCommon": {
+    "processTimeoutMs": 300000,
+    "maxProcessOutputBytes": 67108864,
+    "recursionBound": 16,
+    "exitAuditReserveMs": 180000,
+    "captureBytes": 67108864,
+    "firstFailureStops": true,
+    "retries": 0
+  },
+  "originalClock": {
+    "startedUtc": "2026-11-16T05:03:00.480356+00:00",
+    "deadlineUtc": "2026-11-16T13:03:00.480356+00:00",
+    "executionStopUtc": "2026-11-16T13:00:00.480356+00:00",
+    "monotonicStartedNs": 3623594379871083,
+    "monotonicDeadlineNs": 3652394379871083,
+    "enclosingMs": 28800000,
+    "exitAuditReserveMs": 180000
+  },
+  "runId": "rc14-s06-adverse-revision-20261116-01",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01",
+  "worksiteRoot": "/private/tmp/abg-rc14-s06-witness-20261116-04",
+  "bindingRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01",
+  "bindingPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01/BINDING.json",
+  "entry": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/run.py",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01/BINDING.json"
+  ],
+  "preparationEffects": [
+    "Read exact accepted controls, full archive/bootstrap identity, retained111 pins, original32 worksite files, source/context pins, old handoff and existing clock. No old raw/worksite writes.",
+    "Create only the fresh binding root with disabled BINDING.json, START.json recording actual preparation entry plus inherited original clock, exact byte-copy of this pushed grant as TOPOLOGY_ACCEPTANCE.json, and compact PREPARATION_RETURN.json.",
+    "Fill only specified unresolved template fields and add the fresh binding root to protectedRoots. Check actual layout producer shape remains within64 without invoking the physical observer. Do not run setup, probe, native actor, Tool or run.py."
+  ],
+  "bindingRule": {
+    "executionAuthorized": false,
+    "executionGrant": "RC14-S06-ADVERSE-REVISION-OPERATOR-001",
+    "controlManifestSha256": "964b7f3ff7085264726a76d4af9a5905da4933bcbf0d7747acd41697ba4dc411",
+    "controlPreparationCommit": "cd109c4ec53b8893725e2836883442005deb3ace",
+    "topologyAcceptance": "Exact pushed activation byte-copy at bindingRoot/TOPOLOGY_ACCEPTANCE.json; pin actual bytes.",
+    "protectedRoots": "Template roots plus exact new bindingRoot; no removal.",
+    "unchanged": "All other template fields, candidate/model/effort/limits, old6f4c helper root, original04 worksite and13:03 deadline stay byte-equivalent by field."
+  },
+  "topologyAcceptanceSelection": "This exact pushed activation is prospective recipe acceptance only; actual planned, after-setup and immediate pre-dispatch paired physical observations remain required during separately authorized runtime.",
+  "prospectiveRuntimeEffects": [
+    "Reopen the actual original04 event resource through its close handoff; preserve exact9395463-byte original prefix and inode. Snapshot is external custody, never replacement authority. The event owner may hold its ordinary transient lock, which must be absent at close.",
+    "Create fresh consumer/install/binding/runtime/projection/archive/context/capture roots under the named new raw root. Preserve original workspace authority and actor. Admit exact old/new binding covers via existing Public witness.reprice for parent/cause/root bases.",
+    "After genuine setup and topology, invoke native revision intake once, use only its admitted request and canonical from-Intent selection, then the declared complete revision chain. Retain whole terminal before explicit current projection.",
+    "On real D1 semantic and application success, submit unchanged real D2 amendment through its existing Program; native Design/Construction own required candidate files. Keep independent impact/UAT, actual C2 evidence, retained D1 durable queries and all original oracle assertions.",
+    "Use only accepted immutable C2 Tool/frozen offline inputs with original finite limits. Only declared native owners change worksite; external host writes the three existing incoming D2 source files.",
+    "Stop at first actual failure/refusal/unexpected selection or capacity/custody gap. Close and prove process absence, conserve inputs and original prefix, copy owned Tool receipts then clean only owned Tool roots. No retry."
+  ],
+  "toolOwnedTerritory": [
+    "/private/tmp/as6j2/attempts/d1-<owned-id>",
+    "/private/tmp/as6j2/attempts/d2-<owned-id>",
+    "/private/tmp/as6r2/attempts"
+  ],
+  "application": {
+    "java": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/jdk/bin/java",
+    "javaHome": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/jdk",
+    "commandExecutable": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/tool-launcher.py",
+    "toolchainPath": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/TOOLCHAIN.json",
+    "toolchainSha256": "7fb0213fb32ea8170f0c89fbaabd691400b8c9f613cf7b457bf59d77ff805db3",
+    "path": "/usr/bin:/bin",
+    "commandTimeoutMs": 300000,
+    "status": "Offline closure proved by S06-03; exact immutable Tool is prospective C2 executable. Application compile/test/Spark and finite capacity remain unproved."
+  },
+  "tools": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "bytes": 86104016
+    },
+    "python": {
+      "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa",
+      "bytes": 33816
+    },
+    "java": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/jdk/bin/java",
+      "bytes": 69888,
+      "sha256": "a77aaa13441a13405be3018f3c7fc6d4cb7754411a2f51bb8c9004a7bb97bf07"
+    },
+    "provider": {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.322",
+      "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+      "bytes": 323702464
+    },
+    "npm": {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "bytes": 54
+    },
+    "sbtLauncher": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/sbt-launch.jar",
+      "bytes": 3822332,
+      "sha256": "f92a2095ac75008764fe3b2b793ffe624c4fbef5bfd9b0022e4bc2daf668c651"
+    },
+    "s06Tool": {
+      "path": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/tool-launcher.py",
+      "bytes": 15213,
+      "sha256": "16c83f445c4378f2e465e93662dff5147350d196732eb93b3b87c796714faf05"
+    }
+  },
+  "preparationBoundMs": 900000,
+  "clockRule": "Binding preparation has a15-minute sub-bound from actual entry, capped by the inherited original execution stop. No new8-hour clock is created. All later review/runtime/exit consume original05:03:00.480356Z-13:03:00.480356Z interval; stop execution13:00.",
+  "bindingPreparationAuthorizedAfterPush": true,
+  "runtimeExecutionAuthorized": false,
+  "runtimeCondition": "Return exact disabled binding/pins first. Root independently reacquires and pushes concrete acceptance before issuing a separately named execution binding (only executionAuthorized false->true) and dispatch.",
+  "stops": [
+    "Changed input/pin, occupied fresh roots, topology refusal, first failure/typed block/unobserved required coverage, budget/inactivity/capture limit, missing process absence or final conservation. Preserve full first-failure candidate and return to Root without retry."
+  ],
+  "return": "Frozen actual binding/topology/START/Return pins, complete identity joins and actual sub-bound. No runtime/provider/probe during preparation. Later runtime Return is selected separately.",
+  "exclusions": [
+    "No ABG Product/source/test/control repair, rebuild or repack; no change to source or pinned RC13 builder.",
+    "No manufactured results, forced adverse verdict, caller-owned semantic ordering, dropped assertion, weaker acceptance, automatic repair/retry or old-candidate proof transfer.",
+    "No broad duplicate suite, formal qualification/B50 campaign, AF25/tag/publication/selector/human acceptance.",
+    "No main writes/push, raw Git or deletion of retained evidence. Preparation writes only the new binding root. Future runtime effects, if separately selected, are limited to the exact fresh raw/install territories, retained worksite grants, original event append/transient owner lock and declared Tool territories; no other old raw changes.",
+    "No Product/source repair, candidate rebuild, new carrier schema, old03/04 verdict rewrite, stage-credit transplant, hidden prompt, global install/pin change, qualification, publication or raw Git."
+  ],
+  "retainedLimits": [
+    "Actual Public install/rebind/witness admission and physical topology",
+    "Native intake/selection, corrected Intent and all downstream semantic assessments",
+    "Complete future prompt capacity under unchanged1MiB stage guard and enlarged D2 source",
+    "Real application/C2/Tool/Evidence, consequential D2 and final process/custody closure",
+    "B50 owner policy/scope questions remain unanswered; no qualification selected"
+  ],
+  "qualified": false,
+  "rawPublished": false
+}

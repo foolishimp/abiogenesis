@@ -1,0 +1,117 @@
+{
+  "id": "RC14-S06-ADVERSE-REVISION-CONTROLS-ACCEPTANCE-001",
+  "recordedUtc": "2026-11-16T06:55:09.637634+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner continue/finish RC14; exact closed B63 multi-frame disposition; no new Product scope.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "frameURI": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "productFrame": {
+    "outcome": "Fixed5.0 F17/S06 complete installed D1, independent semantic and executable evidence, consequential D2 and preserved admitted history.",
+    "category": "External caller/declarations and evidence custody. ABG remains sole runtime/event authority.",
+    "prohibitions": [
+      "No invented cause/parent/selection/verdict, copied03 stage credit, weakened application oracle, host-owned semantic traversal or private event writer."
+    ]
+  },
+  "subject": {
+    "commit": "cd109c4ec53b8893725e2836883442005deb3ace",
+    "tree": "3ec3859dd742924ba6aab6105b80dd61f71ecd18",
+    "parent": "5eb09d25245eb5954a2b1274fe87450d8853b62f",
+    "worktree": "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01",
+    "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01",
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/CONTROL_MANIFEST.json",
+      "bytes": 7212,
+      "sha256": "964b7f3ff7085264726a76d4af9a5905da4933bcbf0d7747acd41697ba4dc411"
+    },
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/PREPARATION_RETURN.json",
+      "bytes": 7703,
+      "sha256": "568aa3fa2a82ec5e18a3393fed79e9f95790e1e82e399559fcb3994b7f9aa416"
+    },
+    "integrationCommit": "dd824d2400a7bcae04fc591b551b9e7e43063451"
+  },
+  "closedReviews": [
+    {
+      "actor": "/root/amendment_topology_review",
+      "frame": "Product/Design/Proof",
+      "result": "satisfied",
+      "scope": "Frozen external preparation only",
+      "findings": [
+        "Exact source-linked Root counterevidence preserves original modality and selected parse/ledger outcomes; no forced satisfaction or conflict inventory.",
+        "Existing member inventories carry the exact lifecycle standards and review bodies; native revision current inventory carries actual application text.",
+        "Whole revision terminal is retained before explicit current projection; D1 C2 and D2 assertion meaning are conserved."
+      ],
+      "routes": [
+        "declarations.mjs:34-47,68-82",
+        "consumer.mjs:11-15",
+        "setup.mjs:192-201",
+        "HOST.mjs:161-175,232-273",
+        "revision-source.mjs:54-60"
+      ]
+    },
+    {
+      "actor": "/root/rc14_release_proof",
+      "frame": "Runtime/Public Boundary/Integration/Identity/Effect",
+      "result": "satisfied",
+      "scope": "Static sufficiency for prospective execution decision only",
+      "findings": [
+        "Actual04 handoff, workspace authority and actor retained; fresh consumer/install/binding use Public owners.",
+        "Three witness.reprice calls cover exact parent30/cause505/root bases; intake rediscovery and canonical declared from-Intent lookup remain owner-authenticated.",
+        "Whole terminal/current separation, held/fresh joins, original prefix/inode custody and original deadline are preserved."
+      ],
+      "routes": [
+        "setup.mjs:20-23,73-107",
+        "revision-source.mjs:25-60",
+        "HOST.mjs:161-175,217-243",
+        "revision-custody.py:28-61",
+        "run.py:19-38,68-107"
+      ]
+    }
+  ],
+  "rootVerification": {
+    "frozenFilesEqualCommit": 38,
+    "manifestAndInputPinChecks": 48,
+    "manifestAndInputBytes": 15832032,
+    "closed04PinChecks": 111,
+    "closed04PinBytes": 79089823,
+    "worksiteFilesUnchanged": 32,
+    "errors": [],
+    "originalEventLog": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+      "bytes": 9395463,
+      "sha256": "1046007404641b741b4943cf58503358e19f27eeaec311301e52006a8d34d45d"
+    },
+    "preparationClockPreserved": true,
+    "sourceChangesOutsideCarrier": false,
+    "workerReadinessChecks": 14,
+    "readinessMeaning": "Bounded syntax/canonical declarations/contracts/layout/conservation. No actual future Public call, physical observation or runtime proof.",
+    "inspectionDiagnostic": "Initial Root display/hash lookups wrongly used the sparse new worktree for retained helpers/Product sources; reacquired through declared retained source and owning source routes. No runtime or source change."
+  },
+  "withdrawnPreliminaryFinding": {
+    "claim": "D2 absent physical stage3/stage4 means unconstructable route",
+    "disposition": "Withdrawn after actual producer/consumer sequence trace. No repair selected.",
+    "reason": "D2 Design is offered before impact review and has semantic-assets write scope plus complete admitted D1 source. Construction follows its prerequisite. Candidate files are required when an assessment is selected, not before Design.",
+    "ownerRoutes": [
+      "abg/default_library.ts:380-398",
+      "product/default_library.ts:299-310"
+    ],
+    "remaining": "Actual native production, currentness and semantic adequacy remain unproved."
+  },
+  "rootConjunction": "Accept exact external preparation; select only concrete binding preparation next. B63 semantic correction and complete S06 remain open until genuine execution/reassessment. Candidate02 bytes unchanged.",
+  "remaining": [
+    "Actual Public install/rebind/witness admission and physical topology",
+    "Native intake/selection, corrected Intent and all downstream semantic assessments",
+    "Complete future prompt capacity under unchanged1MiB stage guard and enlarged D2 source",
+    "Real application/C2/Tool/Evidence, consequential D2 and final process/custody closure",
+    "B50 owner policy/scope questions remain unanswered; no qualification selected"
+  ],
+  "runtimeAuthorized": false,
+  "qualified": false,
+  "AF25Authorized": false,
+  "publicationAuthorized": false,
+  "pinChangeAuthorized": false,
+  "rawPublished": false
+}

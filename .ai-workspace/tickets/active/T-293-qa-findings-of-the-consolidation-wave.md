@@ -116,7 +116,7 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | When | Items |
 |---|---|
-| Current | Candidate02 installed/Public/C1 and amendment04 accepted. S06-04 blocked; B63 triage conjoined and external adverse-revision controls preparing. Zero provider lanes. Original failures, B61 Design capacity, B62 historical effect deviation and B50 policy/scope remain. |
+| Current | Candidate02 installed/Public/C1 and amendment04 accepted. S06-04 remains blocked; B63 external revision controls cd109c4ec independently reviewed and accepted; concrete binding preparation selected. Zero provider lanes. Actual revised lifecycle/D2, B61 Design capacity, B62 historical deviation and B50 policy/scope remain. |
 | Dependency-ready sequence | Owner selects finish RC14: B44 control correction and first installed workflow; RC13-native repair/reproof of16 peer-red files B36-B42/B45; reconcile peer coverage; bounded B21 support statement, installed amendment/S06, exact qualification and RC14/S07. Expired attempts stay closed; no duplicate broad campaign |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |
