@@ -1,0 +1,65 @@
+{
+  "id": "RC14-B64-COMPOSITION-CONTROL-REENTRY-001",
+  "recordedUtc": "2026-11-16T15:10:46.829576+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner continue/finish RC14; Executive corrects selected external control incompatibility without changing Product, source outcome or proof obligations.",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": "Unchanged fixed5.0 F17/S06; actual Public/ABG owners admit authority, Results, uses and selector request. Deterministic actor supplies controlled fixture data only, never events/basis/cover/acceptance.",
+  "priorGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPOSITION_CONTROL_PREPARATION_01.json",
+    "bytes": 6687,
+    "sha256": "a591604f563a3e8a0a10f78f27c8f4ba8a39cbd7cd0b5eee156b0767ea3cd97d"
+  },
+  "originalAttempt": {
+    "actor": "/root/b29_vm_triage",
+    "activation": "RC14-B64-COMPOSITION-CONTROLS-WRITER-047",
+    "startedUtc": "2026-11-16T10:56:28.985902Z",
+    "deadlineUtc": "2026-11-16T11:16:28.985902Z",
+    "state": "closed at reported integration mismatch; no carrier files authored and no source/runtime effects",
+    "retainedCheckout": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01",
+    "head": "37d71a689fe8952480e23199ac6b5585e0479bb5",
+    "rootReverified": "Clean named branch, empty diff/index and no authored carrier; all original clocks remain historical and are not reset.",
+    "delay": "Workers returned while Root was idle after its status reply. No work advanced to source/proof during that interval."
+  },
+  "triage": {
+    "displayError": "Read-only display requested manifest.controls but the canonical manifest has files. Projection-only KeyError does not show malformed controls, identity drift or Product failure. Use observed files member; no executable owner fix needed.",
+    "integrationFailure": "Current prove.py225 insists exactly3 populations and226 labels threeWholeFiles:true, whereas new grant selects one whole-file discriminator and required unchanged helper bytes. Root inspected the source and conjoins Runtime cardinality with Product/Proof unchanged-first-composition scope.",
+    "responsibleOwner": "External proof runner count/reporting, not Product/native admission or the regression itself.",
+    "reentry": "Local external realization correction under unchanged Product/Design and existing work selection.",
+    "whyMissed": "The earlier selection changed proof population without acquiring the retained runner cardinality/report consumer. Source-only runtime could otherwise be prepared, but calling the retained proof runner later would deterministically fail."
+  },
+  "successorWriter": {
+    "id": "RC14-B64-COMPOSITION-CONTROLS-WRITER-048",
+    "actor": "/root/b29_vm_triage",
+    "role": "Separate bounded external-controls Writer",
+    "worktree": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01",
+    "branch": "codex/rc14-b64-composition-controls-20261116-01",
+    "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01/",
+    "sourceBase": "Exact newly pushed main containing this grant, supplied by Root after direct parity. Fast-forward the clean controls branch to that exact checkpoint; no reset or source changes.",
+    "operationGrant": [
+      "Complete original Writer047 preparation scope, preserving its closed failed attempt and this narrower successor delta.",
+      "Reuse all mechanical owners byte-identically except prove.py docstring and the population cardinality/completeness/reporting block corresponding to225-226. Derive the exact nonempty unique selected file population from the bound plan, require the actual populations match it, and report the actual whole-file count. Preserve all per-case/title/artifact, source/audit, custody, timer and failure guards. No new retry, parallelism or proof authorization.",
+      "Record old fixed3 predicate as historical. One selected whole-file plan is the future first discriminator; full B64 inherited/C2/other-file proof obligations remain open. The new helper is only prepared and independently reviewed now.",
+      "Apply actual manifest files key for read-only acquisition; do not treat harmless display correction as Product mutation or silently change schemas.",
+      "Retain actual preparation start/deadline, exact frozen source/control/evidence identities and immediate actual-candidate capture. Preserve active/closed S01 source/raw by path; no moving-source acquisition.",
+      "AST/JSON/syntax and pure static-plan calculations only. No Product import, runtime/setup/physical probe, native source, provider, build/test/proof or main write/push.",
+      "Freeze one controls commit/manifest/Return and stop for independent frames."
+    ],
+    "bounds": {
+      "minutes": 20,
+      "clock": "New changed-control preparation attempt starts once at actual intake; prior attempt remains closed with unchanged deadline.",
+      "retries": 0
+    },
+    "returnTo": "Root with exact controls and preserved mismatch; no reviewer or runtime activation."
+  },
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "sourceAccepted": false,
+  "qualified": false,
+  "rawPublished": false
+}
