@@ -1,0 +1,159 @@
+{
+  "id": "RC14-B56-RECOVERED-PROOF-OPERATOR-RETURN-002",
+  "role": "Separate proof execution/evidence Writer",
+  "operator": "/root/rc14_release_proof",
+  "closedUtc": "2026-11-16T00:09:12.803275+00:00",
+  "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+  "sourceRoot": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04",
+  "sourceRows": 1572,
+  "controls": {
+    "commit": "13ca1cf72fced938dde89e83aa76f0de10f336af",
+    "manifest": {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-02/CONTROL_MANIFEST.json",
+      "bytes": 3843,
+      "sha256": "64751b8f6649365716441e43f198bd981faf45eec1a78ac5d26eebd413d778de"
+    },
+    "nativeMembers": 35,
+    "proofMembers": 22
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_RECOVERED_PROOF_ACTIVATION_02.json",
+    "bytes": 8183,
+    "sha256": "fc8caa0c9b0b7fca4f9c23e525cdaa124a911f2d473be05ea51291475d019463"
+  },
+  "pushedCheckpoint": "597c8a1bd7c00b2addbd8b5587f9d00e747d5052",
+  "launch": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_LAUNCH_02.json",
+    "bytes": 1804,
+    "sha256": "7a7172d70adb773fb5102f006fc42b9c96c81ebef809fb9e045c777c49c030bc"
+  },
+  "preflight": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_PREFLIGHT_02.json",
+    "bytes": 1108,
+    "sha256": "046326c4f200dab3966103cc30e2dfbf012f099dd85485e194246e976eb48a8d"
+  },
+  "start": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-02/START.json",
+    "bytes": 522,
+    "sha256": "c1d6aabae8d4b1c84bdf3d6f5fb89ee9b12ace22708fc2e411647f4ab222c85d"
+  },
+  "timing": {
+    "startedUtc": "2026-11-16T00:08:05.286897+00:00",
+    "completedUtc": "2026-11-16T00:08:07.656086+00:00",
+    "proofDeadlineUtc": "2026-11-16T01:15:36.678788+00:00",
+    "executionStopUtc": "2026-11-16T01:12:36.678788+00:00",
+    "originalEnclosingDeadlineUtc": "2026-11-16T01:47:31.946547+00:00",
+    "elapsedMs": 2369,
+    "expired": false,
+    "clockReset": false
+  },
+  "outcome": {
+    "status": "stopped_first_failure",
+    "proofReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-02/RETURN.json",
+      "bytes": 2410,
+      "sha256": "66799327b00f5a69f1abb708b48a71759fdcc7355ec06064c1ac94d881754a6f"
+    },
+    "firstFailure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-02/FIRST_FAILURE.json",
+      "bytes": 614,
+      "sha256": "37794069dc5d9c4d5f7307cdb857f1e0b718bd2b681ac109d0e8b6deb24d6bdb"
+    },
+    "observation": {
+      "disposition": "indeterminate",
+      "elapsedMs": 0.084,
+      "errorType": "Indeterminate",
+      "ok": false,
+      "qualified": false,
+      "reason": "layout exceeds bound"
+    },
+    "observationPin": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-02/000-topology/stdout.raw",
+      "bytes": 150,
+      "sha256": "7933b379da972129827be1c2b7c19c8b300e10e60134135ac11974b74afb7944"
+    },
+    "commandsAttempted": 1,
+    "topologyElapsedMs": 106,
+    "actualBuilds": 0,
+    "testSelections": 0,
+    "providers": 0,
+    "automaticRetry": false
+  },
+  "layoutObservation": {
+    "pin": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-02/TOPOLOGY_LAYOUT.json",
+      "bytes": 9013,
+      "sha256": "a605349f3b45e13566ff99a6ad2bdc24f7980fdd5fc6dfe260cc38b5818dc17b"
+    },
+    "protectedEntries": 58,
+    "uniqueProtectedEntries": 58,
+    "writeEntries": 6,
+    "previousProtectedEntries": 53,
+    "addedProtectedEntries": [
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/BUILD_MIRROR_DIFFERENCES.json",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/RETURN.json",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/START.json",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_PROOF01_DISPOSITION_AND_CONTROL02_SELECTION.json",
+      "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-02",
+      "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-02/ROOT_RECOVERY.json",
+      "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-02/ROOT_SELECTION.json"
+    ],
+    "proofSubject": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-05",
+    "proofSubjectAbsent": true,
+    "causalDisposition": "Exact refused layout retained for independent triage; no observer/caller repair or policy decision made by Operator."
+  },
+  "unexecuted": {
+    "freshBuild": true,
+    "testSelections": 6,
+    "files": 5,
+    "topLevelObligations": 43,
+    "semanticPartition": "positive1+9",
+    "candidateEvidenceLeaves": 10,
+    "candidateAndWitnessWork": true,
+    "qualification": true
+  },
+  "preservation": {
+    "nativeAuthorshipCompliant": false,
+    "methodResiduals": [
+      "M04-01",
+      "M04-02",
+      "M04-03"
+    ],
+    "sourceHeadIndexSetupUnchanged": true,
+    "priorNativeAndProofAttemptsUnchanged": true,
+    "sourceControlsAndInputsConserved": true,
+    "proof01BuildCredit": false
+  },
+  "sourceOrControlRepair": false,
+  "mainChanged": false,
+  "pushed": false,
+  "rawPublished": false,
+  "qualified": false,
+  "returnTo": "Root for independent first-failure triage; no further execution selected.",
+  "externalOperatorReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/OPERATOR_PROOF_RETURN_02.json",
+    "bytes": 12202,
+    "sha256": "c88672f3ec5ec03149573dff34afcc34a51a4d5565aedbaa2c6089db653a74d9"
+  },
+  "conservation": {
+    "passed": 8,
+    "total": 8,
+    "secondaryErrors": [],
+    "sourceEntryEqualsExit": true,
+    "sourceEntry": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-02/SOURCE_ENTRY.json",
+      "bytes": 397116,
+      "sha256": "6303ce99fba4580a035fc65713274c4db7c593d290650a897dc00d31ed19b8ec"
+    },
+    "sourceExit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-02/SOURCE_EXIT.json",
+      "bytes": 397116,
+      "sha256": "6303ce99fba4580a035fc65713274c4db7c593d290650a897dc00d31ed19b8ec"
+    },
+    "ownedGroupsAbsent": [
+      60542,
+      60563
+    ],
+    "fullChecksAndCaptures": "Exact external Operator Return above; original controls/source/setup/native/dependencies/fixtures and prior-proof pins conserved."
+  }
+}
