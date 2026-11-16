@@ -1,0 +1,157 @@
+{
+  "id": "RC14-B64-NATIVE-ACTIVATION-003",
+  "recordedUtc": "2026-11-16T09:45:43.233754+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner continue/finish RC14; exact closed native02/source-frame conjunction and independently reviewed completion controls. One new changed-subject completion only after checkpoint/push. Closed attempts remain historical, with original clocks unchanged.",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": {
+    "outcome": "Unchanged fixed5.0 F17/S06: complete source/evidence, declared native revision and independent assessment, then D1/application and consequential D2.",
+    "selectedSlice": "Complete the existing historical-context owner/consumer repair; no new Product or Public-family scope.",
+    "classification": "HOW and realization correction plus affected proof; current immutable carrier identities and ABG admission remain authoritative.",
+    "authoritySplit": "Revision authenticates selected historical use; event-prefix/body owner resolves exact held members; instruction assembly derives complete presentation only.",
+    "prohibitions": [
+      "No blanket cross-Run read, fabricated use/sourceResults, generic registry, recursive arbitrary carrier search, producer deduplication rollback or historical carrier rewrite.",
+      "No new qualification policy, copied old stage credit, runtime retry, raw Git or publication."
+    ]
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_NATIVE02_PARTIAL_DISPOSITION_01.json",
+    "bytes": 9825,
+    "sha256": "9aa6a5d058f2f6d54f44cf94808b83851ebbb5175a8962bb3699b99a18d4110d"
+  },
+  "preparationGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPLETION_CONTROL_PREPARATION_01.json",
+    "bytes": 9554,
+    "sha256": "f0f401638ffc52089f04a3139d1817da0b8076a1e4a854bae8c1df0265ddbe71"
+  },
+  "controls": {
+    "commit": "c12f6269dab29d0fb8a110e5cdead9ebb803febe",
+    "tree": "c0884838929bba2026e93effe55ba3d9fac4b15a",
+    "parent": "999301134aace961800fecd2ed7930e85e623936",
+    "mergeCommit": "eae96cfc7f6b38a5d5a5bf03afb19aa7408c54f9",
+    "root": "/private/tmp/abg-rc14-historical-context-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01",
+    "manifest": {
+      "path": "/private/tmp/abg-rc14-historical-context-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/CONTROL_MANIFEST.json",
+      "bytes": 7975,
+      "sha256": "adda7468d73e448b3480aacfdbae7961e628681df7421a2c30c5bc5fbb3cf8c6"
+    },
+    "manifestMembers": 50,
+    "return": {
+      "path": "/private/tmp/abg-rc14-historical-context-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/PREPARATION_RETURN.json",
+      "bytes": 11507,
+      "sha256": "e30aa89cc9ff73c2365528d54ab9f027665d38bac25dae10d21d431a8f8f4618"
+    }
+  },
+  "closedReviews": [
+    {
+      "actor": "/root/amendment_topology_review",
+      "frame": "Product/Design/Proof",
+      "verdict": "controls_ready",
+      "finding": "Verified50members and eight unchanged executables; corrected inherited-binding/C2/context cone, exact39+3 proof population, two missing owner-path tests, primary/capture failure law and actual role/authority/clock intake. No material blocker. Preparation only; source remains unaccepted."
+    },
+    {
+      "actor": "/root/rc14_release_proof",
+      "frame": "Runtime/Integration/Identity/Effect/Proof",
+      "verdict": "controls_ready",
+      "finding": "Verified50control/378source/27external-method-authority pins, exact preserved-partial tenant, absent source/raw/proof03, complete old01/02 protection, canonical same-object candidate capture and fail-closed audit/proof consumer. No material blocker; actual physical/runtime/source/proof claims unexecuted."
+    }
+  ],
+  "rootAcquisition": {
+    "controlRows": 50,
+    "sourceRowsFromFrozenGit": 378,
+    "evidenceRows": 18,
+    "mismatches": 0,
+    "sourceInputBase": "999301134aace961800fecd2ed7930e85e623936",
+    "preservedPartialCommit": "eebb5c89cd78c717c23a68b24f302b9eee69906e",
+    "tenantTree": "a7c47c1ac107fa2cca311f63251d7a926572a42c",
+    "partialStillUnaccepted": true,
+    "sourceAndRaw03Absent": true
+  },
+  "operatorActivation": {
+    "id": "RC14-B64-NATIVE-OPERATOR-003",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate execution/evidence Operator Writer; actual installedRC13 native Worker003 alone authors semantic source",
+    "sourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-03",
+    "sourceBranch": "codex/rc14-historical-context-source-20261116-03",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03",
+    "sourceBinding": "Exact pushed main containing this grant and accepted controls, supplied after direct origin parity. All378 source rows and frozen partial tenant must equal reviewed controls; no moving main.",
+    "effects": [
+      "Create only selected isolated source03 checkout from that exact pushed commit, with full tenant/specification and required root/control inputs; no generated build or dependencies. Verify complete source/control identity.",
+      "Create fresh raw03/host scratch and distinct empty npm user/global configs. Fill existing disabled launch template with actual exact sourceHead/pushedCheckpoint, this Root grant pin, reviewed manifest/rows and dispatchAuthorized true. Capture exclusive complete SOURCE_PREIMAGE with unchanged freeze-source.py; invoke unchanged operate.py once.",
+      "Actual installedRC13 Public owners perform setup, physical observation, task construction/admission and the one Claude Opus5.5 xhigh source call. Preserve awaited complete actual constructor input and same-object canonical construction; no static check is actual admission.",
+      "Native source Worker003 may edit only the same eight paths under the reviewed task and this current grant. Bounded programmatic editing is allowed; no author build/test/install/pack/Product imports/behavioral probes/nested provider/Git mutation. Actual read-only STDO status, method/source/evidence/grant/clock reads are authorized and required as declared.",
+      "After actual return, verify task-matching typed terminal/resource close/fresh result and replay agreement, actual process absence and all custody. Freeze exact complete source postimage/diff and native report immediately, then return it for independent source review while completing command/content audit.",
+      "Audit every actual command and material read against the exact current read plan, preserving deviations and unsupported claims. If compliant, AUTHOR_AUDIT must use the existing prove.py-consumed shape: disposition scope_and_commands_admitted, actual launchSha256/sourceDiffSha256 and empty deviations, with supporting observed content. Never label a deviation compliant merely to pass a gate.",
+      "Keep source03 HEAD/index unchanged for later proof guard; no staging/commit there. Compact authored Return may be recorded separately after closure; no raw Git, main or push."
+    ],
+    "bounds": {
+      "providerCallsAtMost": 1,
+      "providerConcurrencyGlobal": 2,
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "nativeAbsoluteMs": 2700000,
+      "nativeInactivityMs": 300000,
+      "maxTurns": 360,
+      "enclosingMs": 10800000,
+      "exitReserveMs": 180000,
+      "retry": false
+    },
+    "entry": "One original3-hour source-attempt clock begins at actual operate.py entry for changed completion subject03. Record source/host/provider start and clocks separately. Native01/02 stay permanently closed; no old deadline/Run/source/raw is reset or reused for writes.",
+    "stops": [
+      "First integration/identity/physical/terminal/closure/custody failure returns exact retained evidence; no automatic retry.",
+      "Incomplete source, method/command deviations or unsupported early-stop claim return to Root and cannot activate proof."
+    ],
+    "returnTo": "Root on actual closed partial/complete source or first failure; independent frozen-source review and separate proof grant remain mandatory."
+  },
+  "nativeSourceActivation": {
+    "id": "RC14-B64-SOURCE-WORKER-003",
+    "role": "Actual installedRC13 native source author after Root-authorized dispatch",
+    "outcome": "Complete B64 within existing Product/requirements and eight W, from explicitly preserved partial source.",
+    "writePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+    ],
+    "obligations": [
+      "Derive every historical use through its authenticated acquisition/cover chain, preserving the admitted inherited-parent relation.",
+      "Complete exact typed historical context routes already consumed by selector and applicable stage views, including C2 sourceNativeWork contexts.",
+      "Align both owning HOWs, preserving unchanged Product WHAT.",
+      "Add the two missing mandatory owner-path/presentation tests; retain complete candidates before premises/assertions and fail capture-only errors while preserving primary failures.",
+      "Exercise actual admitted assessor/fold/new-Run/assembly held and cold, inherited parent and C2 cases, current-context separation and strict negatives. Preserve39 existing top-level titles and3 required B64 obligations."
+    ],
+    "readAuthority": "Reviewed TASK/COMPLETION_READ_PLAN, full bounded causal source cone, exact external method and evidence, actual LAUNCH/rootAcceptance/CONTROL_START. Task read roots select initial context rather than limiting material reasoning.",
+    "clock": "Use actual observed UTC/monotonic time;45min is maximum capacity, not elapsed-time evidence. Continue until source obligations authored or actual blocker/bound; report incomplete truthfully if necessary."
+  },
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "dispatchAuthorizedAfterPushedBinding": true,
+  "proofAuthorized": false,
+  "candidateBuildAuthorized": false,
+  "proofBoundary": "Later one normal build and three whole affected files after exact source/audit review. At most90min clipped to attempt03 original3h deadline,180s reserve; no automatic proof/retry or duplicate broad campaign.",
+  "preservation": [
+    "RC13 remains pinned unqualified builder.",
+    "Earlier candidate02, amendment04, S06 and closed native01/02 retain exact historical scope; partial source preservation is not acceptance.",
+    "B65/S01 proof-caller repair is separate and grants no extra native W here.",
+    "B50 owner policy/scope remains unanswered; no qualification/AF25/publication/pin change."
+  ],
+  "qualified": false,
+  "rawPublished": false
+}
