@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T09:15:52.684066+00:00",
+  "updatedUtc": "2026-11-16T09:39:47.461720+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1749,5 +1749,16 @@
     "nextIndependentWork": "Read-only S02/S03 obligation-to-receipt reconciliation; no duplicate broad campaign.",
     "B50OwnerDecision": "unanswered",
     "qualificationPerformed": false
+  },
+  "s01RootProofGap": {
+    "state": "BOUNDED_PROOF_CALLER_REPAIR_SELECTED_NOT_ACTIVATED",
+    "record": "integration-01/S01_ROOT_PROOF_GAP_TRIAGE_01.json",
+    "candidate02SmokePreserved": true,
+    "completeS01": false
+  },
+  "s06SuccessorHistoryPreflight": {
+    "state": "EXISTING_ROUTE_SUPPORTED_CONDITIONALLY",
+    "record": "integration-01/S06_SUCCESSOR_HISTORY_PREFLIGHT_01.json",
+    "executionAuthorized": false
   }
 }

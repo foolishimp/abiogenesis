@@ -1,0 +1,45 @@
+{
+  "id": "RC14-S06-SUCCESSOR-HISTORY-PREFLIGHT-001",
+  "recordedUtc": "2026-11-16T09:39:47.461720+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "exactSource": "999301134aace961800fecd2ed7930e85e623936",
+  "productFrame": "Unchanged F17/S06 causally linked replacement Run; preserve old Product/Run/assessment identity, actual currentness, independent assessment and complete D1/D2. No source acceptance or future artifact exists.",
+  "reviewer": "/root/amendment_topology_review",
+  "frame": "Product/Identity/Integration",
+  "oldControls": "cd109c4ec53b8893725e2836883442005deb3ace",
+  "conclusion": "Existing owners conditionally support successor install plus original historical inputs through a new binding/Catalog and fresh witnessed old-to-new cover. Old controls cannot execute unchanged.",
+  "route": [
+    "HOST68-85/123-126 selects authenticated bootstrap; setup54-88 installs into fresh destinations and resolves new lock.",
+    "setup95-125 retains original workspace authority but admits new binding and Catalog; environment988-1024/catalog488-533 enforce current correspondence.",
+    "nativeIntakeFacts authenticates original source Run/prefix/job/lifecycle/parent/cause; old and new installed sets need not be identical.",
+    "revision-source25-43 and worksite_revision139-150/173-209 require authentic Public reprice evidence, same workspace authority/workspace/actor and exact before/after bindings. Old cover to another binding is insufficient."
+  ],
+  "latestResource": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+    "bytes": 13730678,
+    "sha256": "207b160914a2fea0f0dac745f87bf70a12ee70eb0cf0b992d8e593a0c717bc47",
+    "physicalRows": 638,
+    "originalPrefixBytes": 9395463,
+    "originalPrefixSha256": "1046007404641b741b4943cf58503358e19f27eeaec311301e52006a8d34d45d",
+    "latestClose": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/revision-intake/session-close.json",
+    "latestCoordinate": "f8c315a1e0321f812c5f2c997b2b12fea48d1deda6c0b2125a4c07fc6c794fae"
+  },
+  "futureObligations": [
+    "Keep original sourceRun/sourcePrefix/parent30/cause505 as historical selection; separately bind latest full resource and latest authentic close. revision-custody48 and setup20-23 currently require obsolete whole-file/close. Never truncate or replace the genuine resource.",
+    "Bind actual new archive/bootstrap/source/install/manifest/lock/Catalog and fresh roots; preserve old candidate/install and complete failed revision attempt.",
+    "Correct revision-source38 unchanged-candidate account: WHAT is unchanged but implementation/install changed. Admit fresh cover through existing owner.",
+    "Require current lifecycle declaration canonically equal to original and all schema/use/role dependencies admitted in successor Catalog; matching version text is insufficient.",
+    "New selector/revision/assessments/executable evidence must be actual new work. Original04 has zero accepted stages; no stage credit transfer.",
+    "Separate exact future grant and original finite clock after accepted source/proof/artifact. No reset/reopen of closed attempts."
+  ],
+  "decision": "Retain as next-boundary control obligations. No new Product migration mechanism is established necessary. Eventual B64 source/package/owner-path success remains unproved.",
+  "executionAuthorized": false,
+  "candidateBuildAuthorized": false,
+  "rawPublished": false
+}
