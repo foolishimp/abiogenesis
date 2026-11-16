@@ -1,5 +1,5 @@
 --- accepted-B56/HOST.mjs
-+++ B64-corrected/HOST.mjs
++++ B64-task-carrier02/HOST.mjs
 @@ -12,13 +12,14 @@
  for(const key of Object.keys(providerCredentials))delete process.env[key];
  
@@ -14,7 +14,7 @@
  assert(process.argv.length===3,'one explicit Root launch-packet path required');
  const launch=JSON.parse(await readFile(launchPath,'utf8'));
 -assert.equal(launch.activationId,'RC14-ASSESSMENT-DEPENDENCY-NATIVE-001');
-+assert.equal(launch.activationId,'RC14-HISTORICAL-CONTEXT-NATIVE-001');
++assert.equal(launch.activationId,activation.id);
  assert.equal(launch.dispatchAuthorized,true,'Root must accept packet and pushed source before launch');
  const head=launch.sourceHead;assert.match(head,/^[0-9a-f]{40}$/);
  const controlClock=JSON.parse(await readFile(join(raw,'CONTROL_START.json'),'utf8'));
@@ -77,12 +77,14 @@
    await record('topology-before-dispatch.json',await observeTopology({worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots,archiveRoot:env.workspaceBinding.roots.archiveRoot}));
    const operations=await import(pathToFileURL(join(installed,'build/code/src/product/worksite_operations.js')));
    const writeRefusal=await operations.checkWorksiteWriteRoots({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,protectedInstallRoots:env.productInstalls.map(x=>x.installedRoot),writeRoots:task.writeRoots});
-@@ -128,15 +135,15 @@
+@@ -127,16 +134,16 @@
+   const entry=caller.state.selection;let input;
    const constructed=await api.constructInstalledStartCall({selection:{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'},programRef:ids.programRef,catalog:caller.state.catalog,catalogView:view,applications:[],
      admittedInstalls:env.productInstalls,workspaceBinding:env.workspaceBinding,verifyInstallAdmission:i=>abg.hasAdmittedProductInstall(env.artifactTruth,i),actorRef:caller.actorRef,
-     input:{factory:({workspaceBinding,grants})=>{assert.equal(grants.length,1);return input=product.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,capabilityGrant:grants[0],context,outcome:task.outcome,instructions:task.instructions,readFirst:task.readFirst,writeRoots:task.writeRoots,checks:task.checks});}},
+-    input:{factory:({workspaceBinding,grants})=>{assert.equal(grants.length,1);return input=product.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,capabilityGrant:grants[0],context,outcome:task.outcome,instructions:task.instructions,readFirst:task.readFirst,writeRoots:task.writeRoots,checks:task.checks});}},
 -    inputValueRef:'value://abiogenesis/rc14/assessment-dependency/input',source:{kind:'none'},eventResource:entry,
 -    envelope:{definitionContractCoordinates:native.verified.definitionContractCoordinates,requestRef:'request://abiogenesis/rc14/assessment-dependency/start',correlationRef:'correlation://abiogenesis/rc14/assessment-dependency',eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(dir,'TASK.json')).href]}});
++    input:{factory:async({workspaceBinding,grants})=>{assert.equal(grants.length,1);const candidate={workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,capabilityGrant:grants[0],context,outcome:task.outcome,instructions:task.instructions,readFirst:task.readFirst,writeRoots:task.writeRoots,checks:task.checks};await record('native-task-constructor-input.json',candidate);return input=product.constructNativeWorkspaceWorkTask(candidate);}},
 +    inputValueRef:'value://abiogenesis/rc14/historical-context/input',source:{kind:'none'},eventResource:entry,
 +    envelope:{definitionContractCoordinates:native.verified.definitionContractCoordinates,requestRef:'request://abiogenesis/rc14/historical-context/start',correlationRef:'correlation://abiogenesis/rc14/historical-context',eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(dir,'TASK.json')).href]}});
    await record('native-construction-kind.json',{kind:constructed.kind,code:constructed.code??null});assert.equal(constructed.kind,'installed_start_call');assert.strictEqual(constructed.call.resources.eventResource,entry);
@@ -106,7 +108,7 @@
    console.log(JSON.stringify({phase:'operator-return',launched,nativeCompleted,failure:failure?.message??null,readbackFailure,actualResourceClose:close!==null}));
  }
 --- accepted-B56/operate.py
-+++ B64-corrected/operate.py
++++ B64-task-carrier02/operate.py
 @@ -1,9 +1,9 @@
  import datetime, hashlib, json, os, pathlib, signal, stat, subprocess, sys, time
  
@@ -120,7 +122,7 @@
  MAX_BYTES = ACT['limits']['outputBytesPerCommand']
  
 --- accepted-B56/prove.py
-+++ B64-corrected/prove.py
++++ B64-task-carrier02/prove.py
 @@ -1,5 +1,5 @@
  #!/usr/bin/env python3
 -"""One fresh build and bounded dependency/assembly proof; separate exact Root grant."""

@@ -19,7 +19,7 @@ const runtimeRoot=join(raw,'runtime'), tenant=join(source,'build_tenants/abiogen
 const launchPath=resolve(process.argv[2]??'');
 assert(process.argv.length===3,'one explicit Root launch-packet path required');
 const launch=JSON.parse(await readFile(launchPath,'utf8'));
-assert.equal(launch.activationId,'RC14-HISTORICAL-CONTEXT-NATIVE-001');
+assert.equal(launch.activationId,activation.id);
 assert.equal(launch.dispatchAuthorized,true,'Root must accept packet and pushed source before launch');
 const head=launch.sourceHead;assert.match(head,/^[0-9a-f]{40}$/);
 const controlClock=JSON.parse(await readFile(join(raw,'CONTROL_START.json'),'utf8'));
@@ -134,7 +134,7 @@ try {
   const entry=caller.state.selection;let input;
   const constructed=await api.constructInstalledStartCall({selection:{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'},programRef:ids.programRef,catalog:caller.state.catalog,catalogView:view,applications:[],
     admittedInstalls:env.productInstalls,workspaceBinding:env.workspaceBinding,verifyInstallAdmission:i=>abg.hasAdmittedProductInstall(env.artifactTruth,i),actorRef:caller.actorRef,
-    input:{factory:({workspaceBinding,grants})=>{assert.equal(grants.length,1);return input=product.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,capabilityGrant:grants[0],context,outcome:task.outcome,instructions:task.instructions,readFirst:task.readFirst,writeRoots:task.writeRoots,checks:task.checks});}},
+    input:{factory:async({workspaceBinding,grants})=>{assert.equal(grants.length,1);const candidate={workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,capabilityGrant:grants[0],context,outcome:task.outcome,instructions:task.instructions,readFirst:task.readFirst,writeRoots:task.writeRoots,checks:task.checks};await record('native-task-constructor-input.json',candidate);return input=product.constructNativeWorkspaceWorkTask(candidate);}},
     inputValueRef:'value://abiogenesis/rc14/historical-context/input',source:{kind:'none'},eventResource:entry,
     envelope:{definitionContractCoordinates:native.verified.definitionContractCoordinates,requestRef:'request://abiogenesis/rc14/historical-context/start',correlationRef:'correlation://abiogenesis/rc14/historical-context',eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(dir,'TASK.json')).href]}});
   await record('native-construction-kind.json',{kind:constructed.kind,code:constructed.code??null});assert.equal(constructed.kind,'installed_start_call');assert.strictEqual(constructed.call.resources.eventResource,entry);
