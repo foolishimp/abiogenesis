@@ -1,0 +1,45 @@
+{
+  "id": "RC14-S06-ADVERSE-REVISION-DISPATCH-001",
+  "recordedUtc": "2026-11-16T07:11:49.998024+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "acceptedPushedCheckpoint": "9a56d9b65b0266c3b8f4eb0f014d444d394ced68",
+  "bindingAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-adverse-revision-01/BINDING_ACCEPTANCE.json",
+    "bytes": 13753,
+    "sha256": "a19e973ea2dff7f796d83c05d97ed597bf15535fcf53618da7d6c13eb9d679a8"
+  },
+  "executionBinding": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01/EXECUTION_BINDING.json",
+    "bytes": 9046,
+    "sha256": "e77cfd65e2ffa13be0f5cccf736f5b7005bedb71cf2c8fcc17fe7570c3c78a38"
+  },
+  "originalBinding": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01/BINDING.json",
+    "bytes": 9047,
+    "sha256": "3365f37a67dbe4b1f47180dc7fc1b4bc17e7563affec1a42da5299f91c400505"
+  },
+  "actualDispatchUtc": "2026-11-16T07:10:45.725806+00:00",
+  "runnerPid": 37039,
+  "runnerProcessGroup": 37039,
+  "operatorToolSession": 19050,
+  "controlStart": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/CONTROL_START.json",
+    "bytes": 241,
+    "sha256": "b7d7014e95e2d6867e855effd5aac5192de97738a925e90315692d4ff26e1f1c"
+  },
+  "originalClock": {
+    "startedUtc": "2026-11-16T05:03:00.480356+00:00",
+    "deadlineUtc": "2026-11-16T13:03:00.480356+00:00",
+    "executionStopUtc": "2026-11-16T13:00:00.480356+00:00",
+    "monotonicStartedNs": 3623594379871083,
+    "monotonicDeadlineNs": 3652394379871083,
+    "enclosingMs": 28800000,
+    "exitAuditReserveMs": 180000
+  },
+  "observedFrontier": "Operator reports source identity and two planned physical layouts passed; actual Public setup in progress. No native provider start observed at this checkpoint.",
+  "providerCallsObserved": 0,
+  "automaticRetries": 0,
+  "runtimeComplete": false,
+  "qualified": false,
+  "rawPublished": false
+}
