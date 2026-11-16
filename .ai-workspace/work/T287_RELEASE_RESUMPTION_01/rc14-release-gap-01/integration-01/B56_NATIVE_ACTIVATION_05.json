@@ -1,0 +1,114 @@
+{
+  "id": "RC14-B56-NATIVE-ACTIVATION-05",
+  "recordedUtc": "2026-11-16T01:02:34.142824+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-B56-FIXTURE05-RECORDS-WRITER-037",
+    "role": "Separate Root records/integration Writer",
+    "authority": "Owner continue/finish RC14; existing B56 fixture05 selection and closed independent control reviews, one-coordinate successor checked by Root.",
+    "effects": [
+      "Record this finite activation, actual native outcome, source reviews and later separate proof selection in the existing wave/T287/T293/STATUS; integrate exact adjudicated frozen source and authored control/Return records, checkpoint and push."
+    ],
+    "exclusions": [
+      "No Root semantic fixture edits, raw Git, scope expansion, automatic retry, previous clock or candidate mutation, B50 policy, qualification or publication."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Fixed5.0 F04/F17/S06; one controlled native assessment fixture uses correct role-aware Program/GraphFunction identity. ABG alone owns runtime truth.",
+    "classification": "realization_refactor: test fixture only under unchanged Product and accepted HOW",
+    "selection": "B56_PROOF03_CONJUNCTION_AND_FIXTURE05_SELECTION.json",
+    "selectionSha256": "6396135e581d6080be1066fb3505f173abe8e3551a52f9392491b4dcda2b8e2d",
+    "nativeOnlyAdaptation": "B56_NATIVE05_NATIVE_ONLY_PIN_ADAPTATION.json"
+  },
+  "acceptedControls": {
+    "priorReviewedCommit": "7248f2954467e6e433374017cf83b7b36e4c4b54",
+    "commit": "6fdb582b43f93b04da4b108e0d65f19be1e4237c",
+    "tree": "82fd686ef81abfab9ff2d0418b5e35421baae100",
+    "base": "7806efb2c3fb55a2af90533e4b5ebe8e830bbe21",
+    "root": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-05/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05",
+    "manifestMembers": 33,
+    "manifestSha256": "8f943513e265946af947e8536dd15667bdb6d86935a38512c2605a9247691d8b",
+    "returnSha256": "b1321916853009ccbff63ad11ad9dcbfe042f0ca78e3438d8f6249489c38708b",
+    "sourceTenantTree": "6cd0a3474915e0bd87fe602488ffbe41c6129900",
+    "integratedMain": "3f42e907fd9fef8f6a2985ec7a73aee01dd23041"
+  },
+  "independentReviews": {
+    "ProductDesignIdentityMethod": {
+      "actor": "/root/amendment_topology_review",
+      "priorDisposition": "One stale Task requiredStatus.definition selected04 while METHOD and activation selected05; all other reviewed scope satisfied.",
+      "verified": [
+        "Role-aware Program and graph identities, preserving constructor and coupled negative assertions; complete preassert preparation inputs/candidate.",
+        "Complete deciding method and source owners required before edits; oneW/sevenimmutable.",
+        "All33manifest members and7immutable source files matched; unchanged helpers and approved HOST list delta."
+      ],
+      "rootDisposition": "Select exact stale-coordinate correction only, preserve original reviewed subject. Root byte comparison proves one04-to05 definition replacement; all other Task bytes unchanged, five affected control/derived files only. All33successor pins match, definition agrees with METHOD; diff check and clean freeze passed. Original failure is not relabelled."
+    },
+    "ProofEffect": {
+      "actor": "/root/b29_vm_triage",
+      "disposition": "Satisfied bounded native-only readiness, retained across one-coordinate successor.",
+      "verified": [
+        "33manifest rows,315source pins,7immutable files; 389files+22directories=411entries/9922403bytes; all readFirst present.",
+        "Five maintained helpers byte-equal04; HOST/operate only selected coordinates and unused prove.py mandatory-name removal.",
+        "Complete producer-expanded layouts25/26/26paths,3599/3782bytes, within observer64limit; static reconstruction only, physical observation remains required.",
+        "Typed completion/actual close/fresh result/replay, exclusive launch staging, finite bounds and first-failure stop preserved."
+      ],
+      "nonblockingResidual": "read_basis.py requested230-269 range ends at262; acquire230-EOF and do not claim nonexistent lines. No code/control change needed."
+    }
+  },
+  "operatorActivation": {
+    "id": "RC14-B56-NATIVE-OPERATOR-005",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate execution/evidence Writer; actual installed RC13 native actor alone authors source",
+    "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-05",
+    "sourceBranch": "codex/rc14-assessment-dependency-source-20261116-05",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05",
+    "sourceBinding": "Exact pushed main containing this activation, supplied after direct remote parity; identical tenant tree and all315source pins.",
+    "effects": [
+      "Create one fresh sparse source checkout using successful complete root/index/tenant/specification/carrier materialization; verify all seven root authorities byte-equal to HEAD and clean source before preimage.",
+      "Verify current source/control/method/evidence/tool/dependency identities, including admitted SDK symlink inputs by existing native inventory predicates. Create fresh external raw/scratch with distinct empty npm user/global configs. Fill accepted LAUNCH.template with exact pushed source, this record pin and all33manifest rows; no direct provider seam.",
+      "Use exact freeze-source.py for exclusive preimage and exact operate.py once. Start the original new3h enclosure once;45min native/5min inactivity/360turns;3min reserve.",
+      "Actual RC13/claude-opus-5-5/xhigh author edits soleW. Native scope permits declared text reads/writes and node --check only, no build/test/Product imports/Git/provider nesting. Require actual complete status parse/exit,16source comparisons and required deciding owner body acquisition before first edit; no Root preflight credit.",
+      "Observe actual typed task-matching terminal completion, real close and fresh result/closed replay. Audit full actual protocol/commands/method acquisition/content order/read-write/tool effects and source completion independently of native success. Preserve every failure/deviation.",
+      "Freeze full source postimage/diff and source/setup/control/method/evidence/tool custody; keep source HEAD/index unchanged. Prove actual owned groups absent. Stop before proof/build.",
+      "After closure freeze compact authored Return on a separate records branch; all raw protocols/events/captures remain outside Git."
+    ],
+    "bounds": {
+      "providerCallsAtMost": 1,
+      "globalProviderConcurrency": 2,
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "nativeAbsoluteMs": 2700000,
+      "nativeInactivityMs": 300000,
+      "maxTurns": 360,
+      "newEnclosingMs": 10800000,
+      "exitReserveMs": 180000,
+      "retries": 0
+    },
+    "stops": [
+      "First unsupported identity/scope/dependency/effect, physical/completion/readback or actual execution failure stops advancement and returns original evidence/clock; no automatic retry.",
+      "Incomplete source or method report is not proof authority. Exact frozen source needs independent review and separately selected proof."
+    ],
+    "returnTo": "Root after actual closed source/audit or first failure."
+  },
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+  ],
+  "immutableRecoveredInputs": "assessment-dependency-repair-05/IMMUTABLE_RECOVERY.json",
+  "dispatchAuthorizedAfterPushedBinding": true,
+  "proofAuthorized": false,
+  "newCandidateBuildAuthorized": false,
+  "proofBoundary": {
+    "readiness": "B56_FIXTURE05_PROOF_REUSE_READINESS_01.json",
+    "standing": "Conditional only; separately bind exact new source/audit, full conserved build/payload/tools/evidence and capture paths before selecting fresh four-command proof. Earlier3green titles remain historical; failedworkspace remainsred.",
+    "inventoryClarification": "Retained proof03 ACTIVATION externalEvidenceInputs has30rows, FIXTURE_INPUTS13copied rows; preserve full arrays plus separate recovery/newsource pins. No stale ten-leaf count adopted.",
+    "clock": "Any later proof at most90min, clipped to actual native05 original3h enclosure with3min reserve; original04/proof01-03 clocks are sealed historical facts."
+  },
+  "preservation": [
+    "RC13 builder pin and original RC14 candidate/archive/install unchanged.",
+    "No new Product owner/guard weakening; candidate02/amendment07/S06 execution remains dependent.",
+    "B50 unresolved, no owner ruling inferred. Unrelated untracked review directories preserved."
+  ],
+  "qualified": false,
+  "rawPublished": false
+}
