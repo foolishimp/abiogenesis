@@ -1,5 +1,5 @@
 {
-  "status": "RC14_AMENDMENT_ACCEPTED_FRESH_S06_04_RUNNING",
+  "status": "RC14_AMENDMENT_ACCEPTED_S06_04_BLOCKED_INTENT_TRIAGE",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T05:08:06.286209+00:00",
+  "updatedUtc": "2026-11-16T05:34:29.918834+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1010,7 +1010,7 @@
       "acceptance": "integration-01/amendment-witness-04/ROOT_ACCEPTANCE.json"
     },
     "S06": {
-      "state": "attempt04_running",
+      "state": "attempt04_blocked_Intent_falsified_under_triage",
       "grant": "integration-01/s06-witness-04/ACTIVATION.json",
       "acceptance": "integration-01/s06-witness-04/BINDING_ACCEPTANCE.json",
       "priorFailedDisposition": "integration-01/S06_THIRD_FAILURE_DISPOSITION_01.json"
@@ -1534,7 +1534,7 @@
     "B62": "Confirmed temporary-file effect violation retained"
   },
   "s06Witness04": {
-    "state": "RUNNER_DISPATCHED_ENTRY_ACQUISITION",
+    "state": "BLOCKED_CLOSED_INTENT_ASSESSMENT_FALSIFIED",
     "selection": "integration-01/S06_THIRD_FAILURE_DISPOSITION_01.json",
     "runtimeAuthorized": true,
     "runtimeStarted": true,
@@ -1559,6 +1559,30 @@
     },
     "originalExecutionStopUtc": "2026-11-16T13:00:00.480356+00:00",
     "operatorDispatchObservation": "Operator reports one runner invocation; actual CONTROL_START independently acquired by Root. No final witness result yet.",
-    "qualified": false
+    "qualified": false,
+    "closed": true,
+    "runStoppedUtc": "2026-11-16T05:29:28.224Z",
+    "runStoppedOrdinal": 541,
+    "assessmentOrdinal": 505,
+    "assessmentDisposition": "falsified",
+    "criteria": {
+      "satisfied": 3,
+      "falsified": 1
+    },
+    "runtimeStatus": "blocked",
+    "operatorStatus": "failed",
+    "inputEntryExitByteEqual": true,
+    "eventPrefix": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+      "bytes": 9395463,
+      "sha256": "1046007404641b741b4943cf58503358e19f27eeaec311301e52006a8d34d45d"
+    },
+    "nativeCalls": 2,
+    "timeoutOccurred": false,
+    "ToolAttempts": 0,
+    "D2Dispatched": false,
+    "B61": "Larger allowance reached a genuine adverse Intent assessment; Design capacity not yet reproved.",
+    "B63": "Semantic conflict/modality preservation finding under independent Product/Design and Runtime re-entry triage.",
+    "successorSelected": false
   }
 }
