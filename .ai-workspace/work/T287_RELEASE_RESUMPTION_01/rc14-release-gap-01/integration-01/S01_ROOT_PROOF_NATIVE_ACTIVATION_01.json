@@ -1,0 +1,139 @@
+{
+  "id": "RC14-S01-ROOT-PROOF-NATIVE-ACTIVATION-001",
+  "recordedUtc": "2026-11-16T10:38:42.451281+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner finish RC14 and continue; B65 root proof-gap triage, exact source-only controls preparation and two closed independent controls reviews. One native source call after checkpoint/push.",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": {
+    "outcome": "Unchanged fixed5.0 S01/ABI5-ROOT-001: orderedR1-R10 on one exact candidate, test case and causal episode through installed Public invocation.",
+    "authority": "PRODUCT1554-1605 and REQ-P-SCENARIOS008/74-100; test owns independent declarations/input/oracle, ABG owns actual admission/replay.",
+    "classification": "Test-owned caller/assertion/evidence repair; no new Product authority or demonstrated runtime defect.",
+    "prohibitions": "No private/source ABG imports on root witness, fabricated events, cross-episode result borrowing or retroactive proof reconstruction."
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_ROOT_PROOF_GAP_TRIAGE_01.json",
+    "bytes": 8362,
+    "sha256": "6c649d7ad178ccf0cac9f94e352b963058404466185f97069a8057a8680d32fd"
+  },
+  "preparationGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_ROOT_PROOF_CONTROL_PREPARATION_01.json",
+    "bytes": 8372,
+    "sha256": "ae6f1249e1be130b2ecab2af8ce7c4e86e50bb71fd22af6f8b79c263cc2c8e39"
+  },
+  "controls": {
+    "commit": "985285f6fe1a2ba153fe1ff117ebdce101109b15",
+    "tree": "fa7d72533dfbaad43bc2a40d128be06dd86f3917",
+    "parent": "a8810b29c8c116455ef3e710a3ff8c443e03a15e",
+    "mergeCommit": "f2d18cf93beeaa2a75254dccdd21ac6ff0493b81",
+    "root": "/private/tmp/abg-rc14-s01-proof-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01",
+    "manifest": {
+      "path": "/private/tmp/abg-rc14-s01-proof-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/CONTROL_MANIFEST.json",
+      "bytes": 5058,
+      "sha256": "1500e389e4df8fc66f5713c6b09560918ecfefce6668c2564f20d002ed955ab3"
+    },
+    "manifestMembers": 32,
+    "return": {
+      "path": "/private/tmp/abg-rc14-s01-proof-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/PREPARATION_RETURN.json",
+      "bytes": 7784,
+      "sha256": "a690333cc5649d19c65a690a05e967823581eef241c069574d5a37a2069cef73"
+    }
+  },
+  "closedReviews": [
+    {
+      "actor": "/root/amendment_topology_review",
+      "frame": "Product/Design/Proof",
+      "verdict": "controls_ready",
+      "finding": "No material findings. Fixed S01 R1-R10, test-owned declarations/oracle and three-path scope remain unchanged; exact future candidate/episode proof is separately selected."
+    },
+    {
+      "actor": "/root/rc14_s01_runtime_review",
+      "frame": "Runtime/Integration/Identity/Effect/Proof",
+      "verdict": "controls_ready",
+      "finding": "Reverified32control/379source/11smoke/20evidence pins, seven root inputs, unchanged Python owners and label-only HOST delta, source-only proof exclusion and selected method basis. No material findings; no runtime/import/build/test/provider/probe executed."
+    }
+  ],
+  "rootAcquisition": {
+    "controlRows": 32,
+    "sourceRowsFromFrozenGitAndCurrentMain": 379,
+    "evidenceRows": 20,
+    "mismatches": 0,
+    "sourceInputBase": "a8810b29c8c116455ef3e710a3ff8c443e03a15e",
+    "tenantTree": "a7c47c1ac107fa2cca311f63251d7a926572a42c",
+    "containsUnacceptedB64Native02Partial": true,
+    "futureSourceAndRawAbsent": true
+  },
+  "operatorActivation": {
+    "id": "RC14-S01-ROOT-PROOF-OPERATOR-001",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate execution/evidence Operator Writer; installed RC13 native Worker alone authors test source.",
+    "sourceWorktree": "/private/tmp/abg-rc14-s01-proof-source-20261116-01",
+    "sourceBranch": "codex/rc14-s01-proof-source-20261116-01",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01",
+    "sourceBinding": "Exact pushed main containing this grant and accepted controls; supplied after direct origin parity. All379 source rows and tenant tree must equal reviewed controls. Use that fixed commit even if main later advances.",
+    "effects": [
+      "Materialize only selected fresh isolated source and branch from exact pushed commit using SOURCE_MATERIALIZATION.json in its declared order. Verify all seven root files physically present, regular and byte-equal, exact HEAD/index/tenant and complete source inputs. No read-tree before sparse selection; no repair on failure.",
+      "Create fresh raw/host scratch and distinct empty npm user/global configs. Fill existing LAUNCH.template with exact sourceHead/pushedCheckpoint, this actual Root grant pin, manifest/rows and dispatchAuthorized true. Capture exclusive full SOURCE_PREIMAGE through unchanged freeze-source.py; invoke unchanged operate.py once.",
+      "Actual installedRC13 Public owners perform setup, physical observations, actual canonical Task construction/admission and one Claude Opus5.5 xhigh source call. Preserve actual candidate before canonical construction and same-object ownership. Complete actual source/grant/clock/method acquisition is required as declared.",
+      "Native source Worker may edit only the three declared test-owned paths. No author build, behavioral test, Product import/execution, dependency mutation, install/pack, nested provider/network or Git mutation. Actual read-only STDO status/clock and node --check on W are permitted.",
+      "Retain actual transport, task-matching typed terminal, resource close, fresh same-Run result/closed replay agreement, process absence and complete custody. Freeze source postimage/diff and report immediately for Root review, then complete actual command/content/effect audit.",
+      "Keep source HEAD/index unchanged; no staging/commit there. Preserve primary and secondary failures. Actual request paths come from owner records, not guessed directories. No raw Git, main mutation/push, proof, repair or retry."
+    ],
+    "bounds": {
+      "providerCallsAtMost": 1,
+      "providerConcurrencyGlobal": 2,
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "nativeAbsoluteMs": 2700000,
+      "nativeInactivityMs": 300000,
+      "maxTurns": 360,
+      "enclosingMs": 10800000,
+      "exitReserveMs": 180000,
+      "retry": false
+    },
+    "entry": "One new actual3-hour source-attempt clock at operate.py entry; all B64 clocks and closed resources remain immutable. Actual source/host/provider starts are distinct observations.",
+    "stops": [
+      "First integration/identity/topology/source/terminal/closure/custody failure retains evidence and returns to Root; no autonomous repair/retry.",
+      "Incomplete source or method/command deviation returns without claiming compliance or selecting proof."
+    ],
+    "returnTo": "Root with frozen exact source and sealed actual audit/closure. No proof follows automatically."
+  },
+  "nativeSourceActivation": {
+    "id": "RC14-S01-ROOT-PROOF-SOURCE-WORKER-001",
+    "role": "Actual RC13 native test-source author after Root-authorized dispatch",
+    "writePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+    ],
+    "outcome": "Repair S01 root caller/assertions/evidence to prove unchanged orderedR1-R10 in one exact installed episode.",
+    "obligations": [
+      "Use only already-exported installed Product surfaces on root path; remove unused private contract import/argument without changing Product exports or independent declarations/oracle.",
+      "Retain complete actual setup, publication/catalog/binding, Program/GraphFunction/contracts/leaf, materialized validation, CLI transport, joined causal events and both fresh read receipts before assertions/cleanup.",
+      "Assert ordered same-episode R1-R10, especially validationR7 and joined causal identitiesR9, typed terminal/producer/Run/contract/value equality and closed replay with preserved durable prefix.",
+      "Preserve shared component callers and primary versus separately retained secondary capture failures; capture-only failure fails."
+    ],
+    "readAuthority": "Exact TASK/READ_PLAN, selected Product/requirements/HOW and owning helper/caller sources, actual LAUNCH/rootAcceptance/CONTROL_START and selected immutable method; read roots do not limit material reasoning. Protected B64 territories remain outside this actor."
+  },
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "dispatchAuthorizedAfterPushedBinding": true,
+  "proofAuthorized": false,
+  "candidateBuildAuthorized": false,
+  "proofBoundary": "Later one whole installed-language episode on eventual exact accepted successor archive/fresh source-blind install under a separate grant. Existing prove.py is an unchanged HOST pin only; no campaign is selected.",
+  "preservation": [
+    "RC13 remains pinned unqualified builder.",
+    "B64 frozen source/evidence is separate and no acceptance is implied.",
+    "Candidate02 historical smoke remains1/1 on its own assertions; no fullS01 or successor credit.",
+    "No B50 policy change, qualification, AF25, publication, global pin change or raw Git."
+  ],
+  "qualified": false,
+  "rawPublished": false
+}

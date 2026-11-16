@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B64_RC13_COMPLETION_ACTOR_RUNNING",
+  "status": "RC14_B64_NATIVE03_CLOSED_INCOMPLETE_S01_NATIVE_SOURCE_AUTHORIZED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -64,7 +64,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-15T23:46:44.978702+00:00",
-  "nativeAuthorState": "Selected source authors and affected proof are closed; candidate02 installed witnesses are active under their separate grants. Formal qualification remains unactivated.",
+  "nativeAuthorState": "B64 native03 closed with incomplete composed proof and three method deviations. S01 source-only controls accepted; actual dispatch awaits pushed exact binding.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T09:56:35.931416+00:00",
+  "updatedUtc": "2026-11-16T10:38:42.451281+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1652,7 +1652,7 @@
     "runtimeRetryAuthorized": false
   },
   "b64Repair": {
-    "state": "ACTUAL_NATIVE03_COMPLETION_ACTOR_RUNNING",
+    "state": "NATIVE03_CLOSED_SOURCE_PROOF_INCOMPLETE_METHOD_NONCOMPLIANT",
     "selection": "integration-01/B64_HISTORICAL_CONTEXT_CONJUNCTION_AND_REENTRY_01.json",
     "activation": "integration-01/B64_NATIVE_CONTROL_PREPARATION_ACTIVATION_01.json",
     "actor": "/root",
@@ -1667,7 +1667,7 @@
       "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
       "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
     ],
-    "providerStarted": false,
+    "providerStarted": true,
     "proofAuthorized": false,
     "candidateBuildAuthorized": false,
     "failedControlCommit": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
@@ -1722,14 +1722,14 @@
       "clockDisposition": "Closed failed attempt. Original records/deadline remain unchanged; no continuation or automatic retry."
     },
     "taskCarrierReentry": "integration-01/B64_TASK_CARRIER_REENTRY_ACTIVATION_02.json",
-    "nativeEdits": 6,
+    "nativeEdits": 8,
     "actualDispatch": "integration-01/B64_NATIVE03_EXECUTION_STARTED.json",
     "actorStartedUtc": "2026-11-16T09:54:13.863Z",
     "sourceHead": "60b6d9e28a26115646536ce827162f8e9046c01b",
     "deadlineUtc": "2026-11-16T12:53:08.294229+00:00",
     "sourceAccepted": false,
-    "sourceCompletionSelected": true,
-    "disposition": "integration-01/B64_NATIVE02_PARTIAL_DISPOSITION_01.json",
+    "sourceCompletionSelected": false,
+    "disposition": "integration-01/B64_NATIVE03_DISPOSITION_01.json",
     "partialPreservation": "integration-01/B64_PARTIAL_PRESERVATION_ACTIVATION_01.json",
     "native02Return": {
       "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/OPERATOR_RETURN.json",
@@ -1737,10 +1737,17 @@
       "sha256": "8e6c591206519525e3da17bffd90eac2cc5d674f2d1627934366a836b810aeb4"
     },
     "buildOrBehavioralProofStarted": false,
-    "next": "Same eight-path RC13 completion for inherited binding and C2 contexts, missing owner-path tests and capture; separately selected proof follows.",
+    "next": "Concrete read-only full-assembly fixture construction, then bounded test-source selection; no current build/proof/retry.",
     "native03Started": true,
     "native03PreflightContinuation": "integration-01/B64_NATIVE03_PREFLIGHT_CONTINUATION_01.json",
-    "actorPid": 50590
+    "actorPid": 50590,
+    "native03Return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/OPERATOR_RETURN.json",
+      "bytes": 31293,
+      "sha256": "2b261fb506fbe2c48b170eeb2f5acae33c0877c75f571b2662224e9dc1d78ece"
+    },
+    "actorAbsent": true,
+    "methodCompliant": false
   },
   "releaseGateCensus02": {
     "state": "BOUNDED_EVIDENCE_MAPPING_ACCEPTED_NOT_QUALIFICATION",
@@ -1754,11 +1761,15 @@
     "qualificationPerformed": false
   },
   "s01RootProofGap": {
-    "state": "BOUNDED_PROOF_CALLER_REPAIR_SELECTED_NOT_ACTIVATED",
+    "state": "SOURCE_ONLY_NATIVE_AUTHORIZED_AFTER_PUSH",
     "record": "integration-01/S01_ROOT_PROOF_GAP_TRIAGE_01.json",
     "candidate02SmokePreserved": true,
     "completeS01": false,
-    "preparationActivation": "integration-01/S01_ROOT_PROOF_CONTROL_PREPARATION_01.json"
+    "preparationActivation": "integration-01/S01_ROOT_PROOF_CONTROL_PREPARATION_01.json",
+    "controlsCommit": "985285f6fe1a2ba153fe1ff117ebdce101109b15",
+    "activation": "integration-01/S01_ROOT_PROOF_NATIVE_ACTIVATION_01.json",
+    "providerStarted": false,
+    "proofAuthorized": false
   },
   "s06SuccessorHistoryPreflight": {
     "state": "EXISTING_ROUTE_SUPPORTED_CONDITIONALLY",

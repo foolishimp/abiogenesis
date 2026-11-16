@@ -1,0 +1,222 @@
+{
+  "id": "RC14-B64-NATIVE03-DISPOSITION-001",
+  "recordedUtc": "2026-11-16T10:38:42.451281+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner continue/finish RC14; Executive conjoins closed exact-source frames and preserves incomplete work without acceptance.",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": {
+    "outcome": "Unchanged fixed5.0 F17/S06: complete source/evidence, declared native revision and independent assessment, then D1/application and consequential D2.",
+    "selectedSlice": "Complete the existing historical-context owner/consumer repair; no new Product or Public-family scope.",
+    "classification": "HOW and realization correction plus affected proof; current immutable carrier identities and ABG admission remain authoritative.",
+    "authoritySplit": "Revision authenticates selected historical use; event-prefix/body owner resolves exact held members; instruction assembly derives complete presentation only.",
+    "prohibitions": [
+      "No blanket cross-Run read, fabricated use/sourceResults, generic registry, recursive arbitrary carrier search, producer deduplication rollback or historical carrier rewrite.",
+      "No new qualification policy, copied old stage credit, runtime retry, raw Git or publication."
+    ]
+  },
+  "sourceHead": "60b6d9e28a26115646536ce827162f8e9046c01b",
+  "source": {
+    "postimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/SOURCE_POSTIMAGE.json",
+      "bytes": 366404,
+      "sha256": "9d2f7725f58aff9fee710324b958f969b48c706bdbd9810c13044b5027d079ed"
+    },
+    "diff": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/SOURCE_DIFF.patch",
+      "bytes": 105090,
+      "sha256": "50f1f2488c4c9212dd6ef797ca0fa22217d867434e39aa40b897ee68592d540f"
+    },
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/FROZEN_SOURCE.json",
+      "bytes": 7418,
+      "sha256": "740cc09f9477bc4bdcf9b346824ed27aa570d3c0fa5779dc5eeb75ea2561fa1c"
+    },
+    "rows": 1454,
+    "changedPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs"
+    ],
+    "setupOwnedChangesOnly": [
+      ".abiogenesis/workspace-manifest.json"
+    ],
+    "writesOutsideEightObserved": false
+  },
+  "operatorReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/OPERATOR_RETURN.json",
+    "bytes": 31293,
+    "sha256": "2b261fb506fbe2c48b170eeb2f5acae33c0877c75f571b2662224e9dc1d78ece"
+  },
+  "rootVerifiedReturnPins": 51,
+  "execution": {
+    "clock": {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "/private/tmp/abg-rc14-historical-context-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/HOST.mjs",
+        "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/LAUNCH.json"
+      ],
+      "source": "/private/tmp/abg-rc14-historical-context-source-20261116-03",
+      "sourceHead": "60b6d9e28a26115646536ce827162f8e9046c01b",
+      "launchSha256": "2eebd9ce61c92dde6d35dbd1da2162a0b99c7dda2ed978ccaa66ac77077689d9",
+      "launchInputPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/APPROVED_LAUNCH.json",
+      "stagedLaunchPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/LAUNCH.json",
+      "startedUtc": "2026-11-16T09:53:08.294229+00:00",
+      "deadlineUtc": "2026-11-16T12:53:08.294229+00:00",
+      "hostControlDeadlineMs": 10800000,
+      "executionStopDeadlineUtc": "2026-11-16T12:50:08.294229+00:00",
+      "cleanupReserveMs": 180000,
+      "providerCallsAtMost": 1,
+      "proofRetry": false,
+      "oldCampaignClockReused": false
+    },
+    "actualActor": {
+      "pid": 50590,
+      "startedUtc": "2026-11-16T09:54:13.863Z",
+      "exitedUtc": "2026-11-16T10:14:49.448Z",
+      "exitStatus": 0,
+      "signal": null,
+      "run": {
+        "ref": "run://abiogenesis/07845f04bf59b0982a932a3bb83b4c0d303b6cb895eb0cb3c23997c5bc1f2b22",
+        "digest": "sha256:b251cbcbca2b66e8f2b7e0cb2d3f3b679435823050e30604cbab1f3582c6891a"
+      },
+      "runClosedUtc": "2026-11-16T10:14:52.516Z",
+      "modelProtocolObservation": "claude-opus-5-5",
+      "effort": "xhigh",
+      "effortStanding": "Configured actual maintained transport, not independent remote effort attestation.",
+      "nativeDurationMs": 1234097,
+      "turns": 90,
+      "costUsd": 8.756447000000005,
+      "protocolResult": "success"
+    },
+    "phaseStanding": {
+      "actualTypedTaskMatchingTerminal": true,
+      "actualResourceClose": true,
+      "freshTypedResultEqualsHeld": true,
+      "freshTypedClosedReplayEqualsHeld": true,
+      "sourceTaskComplete": false,
+      "methodCompliant": false,
+      "proofStarted": false
+    },
+    "actualProcessAbsence": "Operator sealed actual host/actor PID and group absence; frozen close and fresh result/replay agree."
+  },
+  "closedReviews": [
+    {
+      "actor": "/root/amendment_topology_review",
+      "frame": "Product/Design/Proof",
+      "verdict": "incomplete_source_proof",
+      "finding": "The named semantic-job test substitutes authentication, ancestry, environment, Program ownership, cover and native Result lookup; it builds presentation sections and calls the renderer directly. No full instruction assembly/plan/manifest/request composition. Inherited-parent and C2 cases remain manually declared lower-owner coverage. No additional demonstrated runtime defect."
+    },
+    {
+      "actor": "/root/b29_vm_triage",
+      "frame": "Runtime/Integration/Identity/Effect/Proof",
+      "verdict": "incomplete_source_proof_and_capture",
+      "finding": "Production use acquisition and exact event-prefix route checks are plausible; no demonstrated additional authority/binding defect. New fold assertions precede complete candidate retention. Secondary capture failures use t.diagnostic, which the selected reporter drops, so the separately retained failure relation remains missing."
+    }
+  ],
+  "decidingSourceLocations": {
+    "componentSubstitutions": "test_env/tests/t287-native-semantic-job.test.mjs:695-708; hand-built presentation727-730; renderer733-735; lower reader748",
+    "actualBoundary": "code/src/abg/instruction_assembly.ts:1065-1129",
+    "earlyAssertions": "test_env/tests/t287-native-semantic-job.test.mjs:644,648",
+    "capture": "semantic-job585-586; event-body1277-1281; analogous assembly helper; scripts/node-test-evidence-reporter.mjs drops diagnostics",
+    "stageReaderConcern": "No lawful foreign-stage-holder counterexample: product/semantic_revision.ts321 rebinds native.context; abg/semantic_revision.ts723-724,738-741 require current construction; instruction_assembly.ts823-830 consumes it."
+  },
+  "methodAudit": {
+    "record": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/AUTHOR_AUDIT.json",
+      "bytes": 10593,
+      "sha256": "1e425cdfbed837f9037bfb9e05751dac0c9bc97acac6132cc73bd1ee32bc3b21"
+    },
+    "toolCount": 88,
+    "filesystemShellTools": 87,
+    "structuredReportSubmissions": 1,
+    "toolNames": {
+      "Bash": 63,
+      "Read": 10,
+      "Grep": 2,
+      "Edit": 12,
+      "StructuredOutput": 1
+    },
+    "sourceWriteCalls": 18,
+    "bodyComparisonsBeforeFirstEdit": 25,
+    "allSelectedControlMethodMaterialSpansMatched": true,
+    "methodDeviations": [
+      {
+        "code": "B64-M03-01",
+        "relation": "Actual complete method status verification",
+        "observed": "Tool11 executes stdo status --verify through head -80; retained JSON is incomplete and the pipeline exit is not the status child exit. No later status reacquisition. Author discloses truncated observation.",
+        "toolOrdinal": 11,
+        "parseRefusal": {
+          "name": "JSONDecodeError",
+          "message": "Expecting value: line 80 column 9 (char 3117)"
+        }
+      },
+      {
+        "code": "B64-M03-02",
+        "relation": "Actual concrete counterexample acquisition",
+        "observed": "All88 actual calls and delivered prompt contain no acquisition of the required physical event rows30/301/316/475/505/577 or referenced body316. The EVIDENCE_INPUTS listing was acquired; it is not the evidence body. Report explicitly discloses omission.",
+        "required": {
+          "pinSource": "EVIDENCE_INPUTS.json",
+          "eventLog": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+          "requiredCoordinates": [
+            30,
+            301,
+            316,
+            475,
+            505,
+            577
+          ],
+          "instruction": "Read physical records and source referenced by bodyReference at316, join the basis Run/binding and member coordinate to actual301 bytes; the source data is not mutable runtime authority. Use read-only JSON parsing, not Product imports or resource reopen. Inspect the full material bodies required by the concrete relation; no whole-history prompt dump."
+        }
+      },
+      {
+        "code": "B64-M03-03",
+        "relation": "Owning HOW before dependent realization edits",
+        "observed": "First runtime source Edit is tool47; first HOW edits are tools61 and62. The actual Task requires HOW reconciliation before realization; report explicitly discloses reversed edit order.",
+        "firstRuntimeEdit": 47,
+        "howEdits": [
+          61,
+          62
+        ]
+      }
+    ],
+    "actualGrantAndClockAcquired": true,
+    "clockExpiryClaim": "Report correctly records about20 minutes within45; no unsupported expiry or host-stop claim. Mandatory source coverage still disclosed incomplete.",
+    "authorBuilds": 0,
+    "authorBehavioralTests": 0,
+    "authorProductImports": 0,
+    "authorNestedProviderCalls": 0,
+    "authorGitMutations": 0,
+    "syntaxOnly": "Six command groups contain Node --check; final tool85 retains all three successful syntax observations. No behavioral proof."
+  },
+  "auditDisposition": "Noncompliant; three observed deviations remain. No waiver, rewrite, proof activation or compliant audit fabrication.",
+  "rootDecision": {
+    "sourceAccepted": false,
+    "productionDefectNewlyEstablished": false,
+    "buildOrBehavioralProofStarted": false,
+    "proofAuthorized": false,
+    "preserveFrozenEightFiles": true,
+    "mainSourceIntegrated": false,
+    "next": "Read-only concrete model-free admitted assessor/adverse-fold/replacement-Run/full-assembly fixture construction first; then select the smallest coherent test repair. Preserve useful production unless a concrete composition counterexample demonstrates a required correction.",
+    "proposedWriteCone": "Three existing test files for genuine assembly proof and primary/secondary capture; no reporter, Product or blanket historical authority expansion established.",
+    "reasonForSequencing": "Repeated author tasks returned component-only tests. A specific executable owner path is needed before another implementation pass; no repeat of the same broad task."
+  },
+  "preserved": {
+    "priorAttempts": "Native01/02 remain closed with original evidence/clocks. Main retains exact unaccepted Native002 partial until a separately declared copy-only preservation grant.",
+    "S01": "Disjoint reviewed source-only repair may proceed from its exact conserved current tenant.",
+    "candidate02": "Historical archive/amendment evidence retains exact subject and scope; no successor credit.",
+    "builder": "RC13 pinned unchanged.",
+    "qualification": "B50 policy/scope unanswered; no AF25, qualification, publication or pin change."
+  },
+  "rawPublished": false,
+  "qualified": false
+}
