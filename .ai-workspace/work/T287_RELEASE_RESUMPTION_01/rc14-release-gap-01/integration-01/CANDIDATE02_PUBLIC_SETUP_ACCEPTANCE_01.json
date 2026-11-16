@@ -1,0 +1,71 @@
+{
+  "id": "RC14-CANDIDATE02-PUBLIC-SETUP-ACCEPTANCE-01",
+  "recordedUtc": "2026-11-16T02:33:20.518801+00:00",
+  "writer": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "productFrame": "STDO 3.0.4 fixed 5.0 S07; actual same-archive Public installation and resource close, not a Run/lifecycle witness or qualification.",
+  "returnCommit": "fec86370fc8c51309aacbf791df66d5b05712d3e",
+  "compactReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/public-setup-03/RETURN.json",
+    "bytes": 25214,
+    "sha256": "6a313d115c0568e00159a146bb736525d26c3efb01ad23ec5b3a00aee2b20924"
+  },
+  "operatorReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-binding-20261116-03/RETURN.json",
+    "bytes": 7310,
+    "sha256": "8e4d08fd7c89f4022a5cfb69716bdb63f28a77c8c6328f69e6686aa114242ea2"
+  },
+  "runnerReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03/RETURN.json",
+    "bytes": 2718,
+    "sha256": "9f0c6499575c01521ebaff671119238dd9fa4fa67cd53ffe5bd9a1d123af2cee"
+  },
+  "actualPublicIdentity": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03/public-setup/installed/0/identity.json",
+    "bytes": 4108509,
+    "sha256": "72b3794d11538191eb652b81b65f78172bf15f587348abfae15ca5049026a67e"
+  },
+  "installedPackage": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03/public-setup/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.14/74058d1e18aaa98e7b5ad0c30f682fe45e82b1c49237dabc4c72e956d0eb918f/1997e30019c64763e87f18b4512d1e95437c8f0fb47eedd5f860809539fe3a55",
+  "admissionEventRef": "event://abiogenesis/d7c480f9ded4b4daa061ce8f448b464a5f7505626e829e21742e6289c4758015",
+  "archiveSha256": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+  "clock": {
+    "startedUtc": "2026-11-16T02:27:32.852557+00:00",
+    "completedUtc": "2026-11-16T02:28:21.422081+00:00",
+    "deadlineUtc": "2026-11-16T02:42:32.852557+00:00",
+    "executionStopUtc": "2026-11-16T02:42:02.852557+00:00",
+    "elapsedMs": 48570,
+    "runnerElapsedMs": 41284,
+    "withinOriginalDeadline": true,
+    "reset": false
+  },
+  "rootVerification": {
+    "all44CompactEvidencePinsMatched": true,
+    "all5302ActualInstalledFilesEqualArchiveBothDirections": true,
+    "all124OriginalEntryExitPinsCurrentlyMatched": true,
+    "all2261SourceRowsEqual": true,
+    "all14OuterCommandStreamHashesMatched": true,
+    "all14ConservationChecksPassed": true,
+    "all16RecordedGroupsIndependentlyAbsent": true,
+    "actualPairedRoleObservationsSeparated": [
+      {
+        "role": "operator-custody",
+        "relations": 51
+      },
+      {
+        "role": "runtime-owner",
+        "relations": 69
+      }
+    ],
+    "actualClosePrefixBytes": 2976317,
+    "actualClosePrefixSha256": "33bebbd2eab98eb3d53a374bc12ccf57a5ba06731acd0ba9b0bb26385cbc8e9c",
+    "actualAdmissionOrdinal": 1,
+    "admittedInstallAndSelectedResolvedLockIdentityMatch": true,
+    "successfulReceiptInvocationMatchesAdmission": true
+  },
+  "readOnlyLookupLimit": "Initial artifactDigest lookup targeted the small event artifact projection; the actual selected resolved-lock row was then reacquired and matched to admitted install identity before acceptance. No runtime retry or source change.",
+  "decision": "Accept authentic Public identity and exact package for C1 derived metadata and freeze under a separate grant. Earlier candidate results retain their original subject.",
+  "qualified": false,
+  "providerCalls": 0,
+  "lifecycleCalls": 0,
+  "rawPublished": false
+}

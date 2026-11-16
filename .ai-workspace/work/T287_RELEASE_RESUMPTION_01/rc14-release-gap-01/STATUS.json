@@ -1,5 +1,5 @@
 {
-  "status": "RC14_CANDIDATE02_INSTALLED_PUBLIC_SETUP_PENDING",
+  "status": "RC14_CANDIDATE02_PUBLIC_SETUP_ACCEPTED_C1_PENDING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -1365,9 +1365,22 @@
     "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/install-host/node_modules/@abiogenesis/typescript-tenant"
   },
   "candidate02PublicSetup": {
-    "state": "AUTHORIZED_AWAITING_PUSHED_BINDING",
+    "state": "ACTUAL_PUBLIC_SETUP_ACCEPTED",
     "activation": "integration-01/CANDIDATE02_PUBLIC_SETUP_ACTIVATION_01.json",
+    "started": true,
+    "qualified": false,
+    "closed": true,
+    "returnCommit": "fec86370fc8c51309aacbf791df66d5b05712d3e",
+    "acceptance": "integration-01/CANDIDATE02_PUBLIC_SETUP_ACCEPTANCE_01.json",
+    "elapsedMs": 48570,
+    "actualIdentitySha256": "72b3794d11538191eb652b81b65f78172bf15f587348abfae15ca5049026a67e",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03/public-setup/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "candidate02Metadata": {
+    "state": "AUTHORIZED_AWAITING_PUSHED_BINDING",
+    "activation": "integration-01/CANDIDATE02_C1_METADATA_ACTIVATION_01.json",
     "started": false,
+    "sourceBaseCommit": "6d34f715cc6eb041678208363bfcf6fbe60c52bc",
     "qualified": false
   }
 }
