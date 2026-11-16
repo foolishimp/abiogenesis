@@ -1,0 +1,50 @@
+{
+  "id": "RC14-B64-NATIVE02-ACTUAL-DISPATCH-001",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "recordedUtc": "2026-11-16T08:49:01.158873+00:00",
+  "operator": "RC14-B64-NATIVE-OPERATOR-002",
+  "sourceHead": "b40041c31cf1bb665cc1bf639483072201d8c92a",
+  "tenantTree": "cbb2a63bf596de71dec609ae7be13da8174f6902",
+  "controls": "499e62fdd380e4ac8221b00c88f75e38236e5d9d",
+  "controlStart": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/CONTROL_START.json",
+    "bytes": 1219,
+    "sha256": "6b1fe8a433153065cf9ee41c446dae5d1f2c87febac0ec7977850606bd913b7c"
+  },
+  "launch": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/LAUNCH.json",
+    "bytes": 6915,
+    "sha256": "91e0963147b085d38de60577fb514a97954bd9ac1222ae0a1bd07140ee2b97c3"
+  },
+  "completeConstructorInput": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/runtime/native-task-constructor-input.json",
+    "bytes": 12334791,
+    "sha256": "f44f626caab28664f190cc36033dff2f58b120221443e495d8dd14cbd230624a"
+  },
+  "startedUtc": "2026-11-16T08:45:05.222089+00:00",
+  "deadlineUtc": "2026-11-16T11:45:05.222089+00:00",
+  "executionStopDeadlineUtc": "2026-11-16T11:42:05.222089+00:00",
+  "hostPidAndGroup": 1776,
+  "setupCompletedUtc": "2026-11-16T08:46:18.641Z",
+  "actualConstruction": "installed_start_call",
+  "dispatchUtc": "2026-11-16T08:46:20.376Z",
+  "actorStartedUtc": "2026-11-16T08:46:25.358Z",
+  "actorPid": 3193,
+  "observedRunIdSuffix": "43c0df53999b595a459d8943841348a897660f4f737ff1cd869483b01e6ceb86",
+  "modelObserved": "claude-opus-5-5",
+  "effortConfigured": "xhigh",
+  "promptReported": {
+    "bytes": 11413,
+    "sha256": "9f2b79ae9b2c507b80deef4f44e77d528812e949b629a729de495bb04bada655"
+  },
+  "progressObservation": {
+    "utc": "2026-11-16T08:48:22Z",
+    "bashCallsObserved": 36,
+    "nativeSourceDiffObserved": "empty",
+    "meaning": "Source/method acquisition progress only, no completed content audit or implemented fix."
+  },
+  "proofAuthorized": false,
+  "qualified": false,
+  "rawPublished": false,
+  "limits": "Actual attempt02 only. Original failed attempt01 stays sealed. Await closed inner terminal/resource/readback, complete source freeze and truthful audit before source review/proof."
+}

@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B64_NATIVE02_SELECTED_AFTER_CANONICAL_TASK_CARRIER_REVIEW",
+  "status": "RC14_B64_RC13_NATIVE_AUTHOR_RUNNING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -1652,7 +1652,7 @@
     "runtimeRetryAuthorized": false
   },
   "b64Repair": {
-    "state": "SOURCE_ATTEMPT02_SELECTED_AFTER_PUSH",
+    "state": "ACTUAL_RC13_NATIVE_AUTHOR_RUNNING",
     "selection": "integration-01/B64_HISTORICAL_CONTEXT_CONJUNCTION_AND_REENTRY_01.json",
     "activation": "integration-01/B64_NATIVE_CONTROL_PREPARATION_ACTIVATION_01.json",
     "actor": "/root/b29_vm_triage",
@@ -1667,7 +1667,7 @@
       "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
       "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
     ],
-    "providerStarted": false,
+    "providerStarted": true,
     "proofAuthorized": false,
     "candidateBuildAuthorized": false,
     "failedControlCommit": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
@@ -1722,7 +1722,12 @@
       "clockDisposition": "Closed failed attempt. Original records/deadline remain unchanged; no continuation or automatic retry."
     },
     "taskCarrierReentry": "integration-01/B64_TASK_CARRIER_REENTRY_ACTIVATION_02.json",
-    "nativeEdits": 0
+    "nativeEdits": 0,
+    "actualDispatch": "integration-01/B64_NATIVE02_EXECUTION_STARTED.json",
+    "actorStartedUtc": "2026-11-16T08:46:25.358Z",
+    "sourceHead": "b40041c31cf1bb665cc1bf639483072201d8c92a",
+    "deadlineUtc": "2026-11-16T11:45:05.222089+00:00",
+    "sourceAccepted": false
   },
   "releaseGateCensus02": {
     "state": "BOUNDED_EVIDENCE_MAPPING_ACCEPTED_NOT_QUALIFICATION",
