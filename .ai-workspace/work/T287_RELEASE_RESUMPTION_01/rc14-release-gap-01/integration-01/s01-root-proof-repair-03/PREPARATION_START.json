@@ -1,0 +1,14 @@
+{
+  "activation": "RC14-S01-EXTERNAL-CONTROLS-WRITER-051",
+  "startedUtc": "2026-11-16T16:26:23.669563+00:00",
+  "deadlineUtc": "2026-11-16T16:46:23.669563+00:00",
+  "sourceBase": "b0e329ca127e3887c400309c9c16692b08afdb72",
+  "acceptedPredecessorControls": "ea06c74e6de4fa458e247fe921b30d3b140fcb91",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_OPERATOR02_DISPOSITION_AND_CONTROL_REENTRY_03.json",
+    "bytes": 9942,
+    "sha256": "58743886910fb51dc03d7c4d22d5975edfc8cfaba7ce33ce135353f6a50f1cf5"
+  },
+  "oldAttemptsAndClocksClosed": true,
+  "runtimeClockStarted": false
+}

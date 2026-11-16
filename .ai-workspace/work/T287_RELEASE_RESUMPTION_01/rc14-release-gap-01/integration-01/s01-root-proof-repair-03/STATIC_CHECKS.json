@@ -1,0 +1,121 @@
+{
+  "checkedUtc": "2026-11-16T16:33:19.918288+00:00",
+  "sourceBase": "b0e329ca127e3887c400309c9c16692b08afdb72",
+  "sourceRows": 380,
+  "sourceRowsConserved": true,
+  "tenantTree": "75ffdc4394da72c2962a12baf63f73a9cae04f04",
+  "nativeTaskOnlyCoordinateDelta": true,
+  "context": {
+    "files": 389,
+    "bytes": 9006476,
+    "maxFiles": 1024,
+    "maxBytes": 25165824
+  },
+  "mechanicalOwners": [
+    {
+      "path": "HOST.mjs",
+      "bytes": 24421,
+      "sha256": "cc41bcdb4e81dff9149002b00aa887b762128bb27174321e39c1cb29b5910ac5",
+      "predecessorBytes": 22284,
+      "predecessorSha256": "7dbe36744086b696b245efe374c7ce4d82b150b68a6839cc3beb7951ebe520bf",
+      "byteIdentical": false
+    },
+    {
+      "path": "operate.py",
+      "bytes": 6980,
+      "sha256": "973f3a3da6846d6d96fd52931f3d5bc094abd1fcac28e339ec218df02e9279da",
+      "predecessorBytes": 6349,
+      "predecessorSha256": "828cdb2f0dccad7ff58e85038f67ca0221d027cb2d752e602d76b7c6928b88e7",
+      "byteIdentical": false
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed",
+      "predecessorBytes": 2786,
+      "predecessorSha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed",
+      "byteIdentical": true
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 3060,
+      "sha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8",
+      "predecessorBytes": 3060,
+      "predecessorSha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8",
+      "byteIdentical": true
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+      "predecessorBytes": 14764,
+      "predecessorSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+      "byteIdentical": true
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39",
+      "predecessorBytes": 3099,
+      "predecessorSha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39",
+      "byteIdentical": true
+    },
+    {
+      "path": "prove.py",
+      "bytes": 21809,
+      "sha256": "78e97df05af7b6fe4b10428d51b6bc560b24bebf48927d043d5fbc767883de7a",
+      "predecessorBytes": 21809,
+      "predecessorSha256": "78e97df05af7b6fe4b10428d51b6bc560b24bebf48927d043d5fbc767883de7a",
+      "byteIdentical": true
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1",
+      "predecessorBytes": 10410,
+      "predecessorSha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1",
+      "byteIdentical": true
+    }
+  ],
+  "threeObserverGates": true,
+  "canonicalCandidateCapturedBeforeSameObjectConstruction": true,
+  "method": {
+    "definition": "/private/tmp/abg-rc14-s01-proof-controls-20261117-03/stdo_abiogenesis.json",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "exitCode": 0,
+    "completeStdoutBytes": 14723,
+    "completeStdoutSha256": "c5f011cd4602cdbc06a38c6e0e13ae09c3fcef85ad88719014b7f3d361de6c30",
+    "completeJSONParsedBeforeFieldSelection": true
+  },
+  "evidenceFiles": 40,
+  "closedOperator02CustodyRows": 28,
+  "layoutBoundCounts": [
+    44,
+    45
+  ],
+  "controlMockCaseCounts": [
+    4,
+    11
+  ],
+  "allJSONParsed": true,
+  "allPythonASTParsed": true,
+  "nodeCheckHOST": 0,
+  "futureSourceRawAbsent": true,
+  "dependencyLedgerStanding": "Inherited exact4576-row ledger; no fresh live dependency tree scan",
+  "nativeProducerStanding": "Inherited196-input declaration; no compilation or fresh native scan",
+  "physicalProbe": false,
+  "ProductImports": false,
+  "runtimeInvoked": false,
+  "providerInvoked": false,
+  "builds": 0,
+  "behavioralTests": 0,
+  "proofInvoked": false,
+  "activeB64Read": false,
+  "historicalMethodStanding": "Native001 truncated status stays noncompliant; Operator02 original observer output/status stay unavailable.",
+  "preparationObservation": "One apply_patch documentation replacement was rejected before changes; corrected with direct bounded writes. No integration failure or effect outside grant."
+}

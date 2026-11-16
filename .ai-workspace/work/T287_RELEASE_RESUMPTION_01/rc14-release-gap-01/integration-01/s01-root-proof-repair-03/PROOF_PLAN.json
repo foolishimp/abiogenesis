@@ -1,0 +1,31 @@
+{
+  "kind": "deferred_installed_candidate_s01_proof",
+  "executionAuthorized": false,
+  "standaloneCampaignAuthorized": false,
+  "builds": 0,
+  "files": [],
+  "eventualTest": "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+  "mode": "One complete whole-file episode, no name filters; eventual exact archive and source-blind fresh install",
+  "requiredObligations": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10"
+  ],
+  "scope": "One later complete R1-R10 episode on the exact eventual accepted successor archive and source-blind fresh install. Require genuine selected setup definition/request calls/receipts and both install/workspace admissions, retain existing R7-R10, complete failures and two equal typed terminal/closed reads. This source-only packet selects no execution.",
+  "preservedTitle": "Hello World is an external minimal GTL program through installed Public execution and fresh reads",
+  "candidateBinding": null,
+  "operatorGrant": null,
+  "firstFailureStops": true,
+  "retries": 0,
+  "retainedProveOwner": "prove.py retained byte-identical only because existing HOST authenticates it as a required pin; do not invoke it. No B64 file population/build plan is selected.",
+  "proofReceiptCapture": "Full actual setup, publication/catalog/view, Program/declaration/leaf resolution, materialized graph validation, initial CLI request/output/raw streams, complete same-Run causal events, both fresh read calls/receipts/projections and prefix/close evidence must be external and retained before assertion/cleanup; exact path is bound by future proof grant.",
+  "requiredCaptureRoot": "Future separately granted fresh absolute ABI5_S01_EPISODE_CAPTURE_ROOT and full capture manifest; no current path or grant.",
+  "failureCustodyDiscriminators": "Bounded test-owned discriminators may accompany the whole-file episode to check child/parse plus capture failure and pre-assert/event-log retention. Component evidence does not replace the installed episode."
+}

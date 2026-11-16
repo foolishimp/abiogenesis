@@ -1,0 +1,221 @@
+{
+  "kind": "immutable_external_control_manifest",
+  "files": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 7130,
+      "sha256": "5c9562d5ceb5ae8e3ccb2454c1731269b2030943b562d707c9bd54851723652b"
+    },
+    {
+      "path": "CHECKOUT_CHECKS.json",
+      "bytes": 2217,
+      "sha256": "4287f8be1f0ecfbba8d89820e9419d875574d07b88d0060fd1658e4ee951faa2"
+    },
+    {
+      "path": "CONTROL_CHECKS.json",
+      "bytes": 3355,
+      "sha256": "cc0e846eefbb5d297773fff37587d1645c012ac127c5ad3bd5209cefe781582f"
+    },
+    {
+      "path": "CONTROL_DELTA.patch",
+      "bytes": 10686,
+      "sha256": "f76275a63d4a6f8ab6095eedbe5d59d6c4377889f89acedea7c2aa9ed6bae210"
+    },
+    {
+      "path": "CONTROL_REENTRY.json",
+      "bytes": 9942,
+      "sha256": "58743886910fb51dc03d7c4d22d5975edfc8cfaba7ce33ce135353f6a50f1cf5"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 1080,
+      "sha256": "997c5c05fa50e86ab57780ec4665e035cbea7ca52cd2c6760c92cc4c215e303f"
+    },
+    {
+      "path": "DESIGN.md",
+      "bytes": 2559,
+      "sha256": "0cc3af8831a433338e21af34726bcb7a4f57c7ca28fc5b506e020d7d3405fbaa"
+    },
+    {
+      "path": "EVIDENCE_INPUTS.json",
+      "bytes": 14376,
+      "sha256": "c02ac7651e4bd6ee6c052e27e7a2aa1f43b11e4fdd9c1f61f21e6ebff31efbcc"
+    },
+    {
+      "path": "FIXTURE_INPUTS.json",
+      "bytes": 5171,
+      "sha256": "05fac0ff3c8d366693fd149d7a4dbc466af8eb1deb0ad7ad04de695d560cc8ae"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 24421,
+      "sha256": "cc41bcdb4e81dff9149002b00aa887b762128bb27174321e39c1cb29b5910ac5"
+    },
+    {
+      "path": "LAUNCH.template.json",
+      "bytes": 739,
+      "sha256": "a182d031ff50d6210a6cebedde1df3d76a33f5d0982526684ea0c2367d6f58b9"
+    },
+    {
+      "path": "LAYOUT.json",
+      "bytes": 1429,
+      "sha256": "8e2d3f7d6fea640ec75bc3bc4fe6b611e096274cba295060312185d1c5d6c8d8"
+    },
+    {
+      "path": "LAYOUT_CHECKS.json",
+      "bytes": 11441,
+      "sha256": "49b5a61618c53630aa0b2268c4775184ccc0846dbfb885bd1a7cab7091f80493"
+    },
+    {
+      "path": "NATIVE_INPUTS.json",
+      "bytes": 819,
+      "sha256": "31d24dae1a9afc09ac406b33771f77f13547ab05615c6eb8c49f3553ff6f5355"
+    },
+    {
+      "path": "OPERATOR02_EVIDENCE.json",
+      "bytes": 3930,
+      "sha256": "46b3ffaee670cce5ee90f0aafb82ef7a3f66baeefa5d0ee76624abd32292be9c"
+    },
+    {
+      "path": "ORIGINAL_CANDIDATE.json",
+      "bytes": 1842,
+      "sha256": "39ab689cba20c20f84f67122f99b57e7b2004cb5ea8dafdb5769e62ddc98045c"
+    },
+    {
+      "path": "ORIGINAL_TRIAGE.json",
+      "bytes": 8362,
+      "sha256": "6c649d7ad178ccf0cac9f94e352b963058404466185f97069a8057a8680d32fd"
+    },
+    {
+      "path": "ORIGINAL_WRITER_ACTIVATION.json",
+      "bytes": 8372,
+      "sha256": "ae6f1249e1be130b2ecab2af8ce7c4e86e50bb71fd22af6f8b79c263cc2c8e39"
+    },
+    {
+      "path": "PREPARATION_START.json",
+      "bytes": 673,
+      "sha256": "1185d35be41beffee85c24a4b597bdf6c2de092c7e9f04269973656ba2cb40df"
+    },
+    {
+      "path": "PRESERVED_SOURCE01.json",
+      "bytes": 1301,
+      "sha256": "1f3137e1e281c2aa4dfca5e00fb4daae21fe9a2a2dc2e963e6f5053c9c227c26"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 2064,
+      "sha256": "6bb87d6845fae850e3abee3cc1268ddd1de0cc2cb96874367bca6b3f17926347"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2274,
+      "sha256": "8d97b3d7ca7ae0b8b9dc76a7ee5c16ca35fb4afc52f63131e992eff0c82134d5"
+    },
+    {
+      "path": "READ_PLAN.json",
+      "bytes": 12607,
+      "sha256": "0cba430ccd8ef95a90f27ac46347d143852949c575a23b22c143d610f59fd799"
+    },
+    {
+      "path": "REUSE.json",
+      "bytes": 3610,
+      "sha256": "c591c82176e15390e2069006c3f93bf3f3eff5b32171e8cf8e9e1cf9624f1879"
+    },
+    {
+      "path": "ROOT_SELECTION.json",
+      "bytes": 7658,
+      "sha256": "f6127933ea5a6bf025b2af9fd75be7a0d7aa97e76cd78680c1d8349e239bdeb8"
+    },
+    {
+      "path": "SOURCE_BINDING.json",
+      "bytes": 529,
+      "sha256": "553ac6d3fc975a5f5fd3f4bb9d95e1829a28d43c7807333e0d24c31496ee746f"
+    },
+    {
+      "path": "SOURCE_INPUTS.json",
+      "bytes": 80672,
+      "sha256": "4c52f1a9917dd95515fa99867f79e2ba4f1fd2f70f6e193238445302b21a18ff"
+    },
+    {
+      "path": "SOURCE_MATERIALIZATION.json",
+      "bytes": 2373,
+      "sha256": "e95a003d7f1fec3076ef0d4206c5269e0c6cad95ad7246c828d80942a969c96d"
+    },
+    {
+      "path": "SOURCE_PRESERVATION_AUTHORITY.json",
+      "bytes": 4081,
+      "sha256": "e1abc2d2a4838f97334d79f63a4e69a8f5790d8a364ebc6ee1ff7f8b45fbe068"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 4512,
+      "sha256": "0108294c7ef60b265e7b9c164da6b50c66f37af15774de8131dead5506f2e498"
+    },
+    {
+      "path": "TASK.json",
+      "bytes": 25342,
+      "sha256": "29d113b9e2e2c22d819a879a1fe4eb64520876a06f72cb828d2daa723055d69d"
+    },
+    {
+      "path": "TOOL_INPUTS.json",
+      "bytes": 1492,
+      "sha256": "e228a81cc6014a92f407b6abdaa858c04a244fadac49ca51a2afd0b0ea2fdcbb"
+    },
+    {
+      "path": "WRITER_ACTIVATION.json",
+      "bytes": 4079,
+      "sha256": "6f670eb0767d3abb707dc2b9b79ed18cdd29011fa857e7d4ddb1c67f0339bea6"
+    },
+    {
+      "path": "control-entry-check.py",
+      "bytes": 3551,
+      "sha256": "1d5c81f4c0e0bd6b5771c3d9285804cd8ddcb67d51dc332bdf95f7456a9374c7"
+    },
+    {
+      "path": "control-topology-check.mjs",
+      "bytes": 6541,
+      "sha256": "20267b1abde12cc8ffccd372fb1c7adb27aefb91ba090a29c7f66e500314f7ef"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 3060,
+      "sha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8"
+    },
+    {
+      "path": "operate.py",
+      "bytes": 6980,
+      "sha256": "973f3a3da6846d6d96fd52931f3d5bc094abd1fcac28e339ec218df02e9279da"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 21809,
+      "sha256": "78e97df05af7b6fe4b10428d51b6bc560b24bebf48927d043d5fbc767883de7a"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ],
+  "excluded": [
+    "CONTROL_MANIFEST.json",
+    "PREPARATION_RETURN.json"
+  ],
+  "executionAuthorized": false,
+  "proofAuthorized": false
+}

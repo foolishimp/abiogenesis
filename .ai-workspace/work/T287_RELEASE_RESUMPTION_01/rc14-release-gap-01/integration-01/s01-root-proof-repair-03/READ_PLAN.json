@@ -1,0 +1,267 @@
+{
+  "kind": "s01_native_content_read_plan",
+  "beforeFirstEdit": true,
+  "statusCommand": [
+    "stdo",
+    "status",
+    "--definition",
+    "stdo_abiogenesis.json",
+    "--verify"
+  ],
+  "statusRequired": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": []
+  },
+  "completeBodies": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/READ_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/WRITER_ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/ROOT_SELECTION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/PROOF_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/EVIDENCE_INPUTS.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/FIXTURE_INPUTS.json",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/ORIGINAL_TRIAGE.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/PRESERVED_SOURCE01.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/SOURCE_PRESERVATION_AUTHORITY.json",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "materialSections": [
+    {
+      "path": "specification/PRODUCT.md",
+      "ranges": [
+        [
+          1554,
+          1605
+        ]
+      ],
+      "reason": "Same-candidate ordered root obligation and explicit failure boundaries"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-SCENARIOS.md",
+      "ranges": [
+        [
+          74,
+          105
+        ]
+      ],
+      "reason": "Selected S01 requirement and independent test ownership"
+    }
+  ],
+  "externalMethodBodies": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          199,
+          352
+        ],
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Construction relation, intake/admission, context acquisition and closed-result reuse: acquire the stated actual source bodies before dependent edits; hashing/paraphrase is not body acquisition."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    }
+  ],
+  "actualSourceAuthority": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-03/LAUNCH.json",
+      "purpose": "Actual source grant pointer and exact launch identity"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-03/CONTROL_START.json",
+      "purpose": "Original enclosing clock; no reset"
+    },
+    {
+      "pathFrom": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-03/LAUNCH.json#rootAcceptance",
+      "purpose": "Complete actual Root source authority before dependent edits"
+    }
+  ],
+  "clock": "Read original CONTROL_START and observe UTC at source entry/early return; preparation deadline is not source clock.",
+  "ownerRoute": [
+    "All three W complete bodies",
+    "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "Follow actual exported installed/public/ABG constructor, graph validation, event and readback contracts needed for this fixture. No source execution.",
+    "test_env/uat/public-setup.mjs explicit exported installed Public operations as an existing caller example; no constructor/runtime execution during authoring.",
+    "Both root setup install admissions and workspace binding must join actual selected definitions, requests, calls and receipts."
+  ],
+  "creditRule": "Only actual returned source bodies count; hashes, wc, truncation and paraphrase do not.",
+  "statusAcquisition": "Capture actual status subprocess exit status and complete stdout/stderr in memory. Parse full stdout JSON before selecting fields. Require actual zero exit and selected installed/valid/basis/manifest/failures predicates; no head pipeline or truncated/hashed-only body credit.",
+  "causalOwnerSections": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "ranges": [
+        [
+          212,
+          337
+        ],
+        [
+          440,
+          480
+        ]
+      ],
+      "reason": "Canonical actual selected-definition/request caller and current call construction"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "ranges": [
+        [
+          285,
+          325
+        ]
+      ],
+      "reason": "Existing install owner selected-definition/request admission handoff"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "ranges": [
+        [
+          690,
+          740
+        ]
+      ],
+      "reason": "Existing environment binding owner handoff"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "reason": "Actual selected-definition authority coordinate law"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "ranges": [
+        [
+          870,
+          915
+        ],
+        [
+          1120,
+          1170
+        ]
+      ],
+      "reason": "Supplied coordinate consistency versus actual provenance; preserve admission law"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "reason": "Actual retained error fields and omitted diagnostics; read complete available file"
+    }
+  ],
+  "fourFindings": [
+    {
+      "id": "S01-S01-01",
+      "relation": "Genuine setup definition/request basis",
+      "evidence": "root-installed-environment.mjs77-118 hashes operation/member names as definitionDigest and {} as invocationPayloadDigest; callers487-503,542-558 submit them. environment_admission.ts892-899 checks self-consistency,1136-1157 persists supplied coordinates. shared/operation_definition_coordinate.ts9-12,44-47 requires actual selected definition authority.",
+      "correction": "Optional root route must use the existing installed selected-definition/request relation and join actual calls/receipts to both install admissions and workspace binding. constructInstalledPublicDefinitionCall229-259,328-337 and install_definition_bindings298-317/environment_definition_bindings709-729 already supply it. Preserve bounded component fixture callers. No new Product exports, runtime guard or universal Public-setup migration."
+    },
+    {
+      "id": "S01-S01-02",
+      "relation": "Capture before asserting admission/validation",
+      "evidence": "root helper requireRawAdmission121-124, requirePublicationValidations127-138 and rawProgramInput143-167 assert before candidate recording597-598 or later program-validation recording.",
+      "correction": "Observe every actual raw/publication/program validation candidate and earlier successful rows before the existing assertion; keep all predicates and independent oracle."
+    },
+    {
+      "id": "S01-S01-03",
+      "relation": "Retain event history/read observations on first failure",
+      "evidence": "language helper rejects CLI exit/stream/parse/transport/receipt before event copy237-246; read failure bypasses after-read274-275; root cleanup895-897 deletes scratch log.",
+      "correction": "Preserve actual available log bytes/read-boundary observations in failure/finalization before cleanup, with primary error intact; partial raw history is not claimed as admitted successful projection."
+    },
+    {
+      "id": "S01-S01-04",
+      "relation": "Original child errors and secondary capture failures survive reporter",
+      "evidence": "language helper143-152 discards actual execFile Error and throws new exit assertion; smoke317 sends simultaneous capture failure only to diagnostic, dropped by selected reporter.",
+      "correction": "Keep unexpected child Error primary while expected-nonzero component behavior remains valid; preserve secondary capture failure through existing retained error/cause or durable owned channel. Preserve existing nonthrowing parse-failure capture and capture-only failure."
+    }
+  ],
+  "historicalMethodStanding": "Truncated stdo status verification remains noncompliant and unwaived; no retroactive compliant AUTHOR_AUDIT. All35 material body comparisons were observed before first edit."
+}
