@@ -1,0 +1,85 @@
+{
+  "kind": "exact_native04_source_recovery_proof_binding",
+  "preparationBase": "9aa8c7d086f0cfeb5b858325286b86571b4c760a",
+  "rootRecovery": {
+    "path": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-03/ROOT_RECOVERY.json",
+    "bytes": 17954,
+    "sha256": "444c331c57494e6667d870ce6c71de1484c2c9c3fad50949251d093bc4564ac6",
+    "originatingPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE04_SOURCE_RECOVERY_AND_PROOF_REENTRY_01.json",
+    "originatingCommit": "33872a37b606aac942674f7c1d56608a176707df"
+  },
+  "nativeControlRoot": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-04",
+  "nativeControlCommit": "e00aa6668e37f336464aed21079c87b91bb5cf6d",
+  "nativeControlManifest": {
+    "path": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-04/CONTROL_MANIFEST.json",
+    "bytes": 5598,
+    "sha256": "7063325b879e1d6c12d3d7dcab2dff423a16cfe237b094722c0589a2cf15d452"
+  },
+  "nativeControlMembers": 35,
+  "nativeSourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+  "nativeSourceRoot": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04",
+  "nativeRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04",
+  "nativeLaunch": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/LAUNCH.json",
+    "bytes": 6289,
+    "sha256": "c8e47addcde8e9e79716848d8d2fcf721fb5e019d8d128ff3e23b3a78af9f634"
+  },
+  "controlStart": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/CONTROL_START.json",
+    "bytes": 1207,
+    "sha256": "483d992a1b5941ba38bcc2b75fac1482ca7eccf4caa633707f5dfd880d920399"
+  },
+  "sourcePreimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_PREIMAGE.json",
+    "bytes": 486897,
+    "sha256": "60f0e052bc6870037a62983bddd77f073321e0dfd923b01cbd73e8510a26b7de"
+  },
+  "audit": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/AUTHOR_AUDIT.json",
+    "bytes": 39361,
+    "sha256": "08afaaf3bc30693007b65b5734a606b3196400014569e35a60e4fafa552cb3e0"
+  },
+  "operatorReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/OPERATOR_RETURN.json",
+    "bytes": 19712,
+    "sha256": "631bda6310a39ea19623de070983052a3881d03ad5962f9ba00d48d1e4838754"
+  },
+  "freeze": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/FROZEN_SOURCE.json",
+    "bytes": 2318,
+    "sha256": "356b31e87d72d710c44d2d18ec753211507db5a653d6c2e7143eb6213b2421e8"
+  },
+  "sourcePostimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_POSTIMAGE.json",
+    "bytes": 392522,
+    "sha256": "d4226a0532c199bf732f3b613bec196b24fd0e427d1e0aa3a12dccdb573f1d1c"
+  },
+  "sourceDiff": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_DIFF.patch",
+    "bytes": 92620,
+    "sha256": "da01b388dd22d51b9069eb845d6ad2428af71bc875dbc56144622ed67f51bdf1"
+  },
+  "frozenFile": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "bytes": 425506,
+    "sha256": "9fef11e5ac9201f154922d03346e33d06ed8c79531d0ebea3b389afbc738f185"
+  },
+  "relativeWritePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+  "postimageRows": 1572,
+  "immutableFiles": 7,
+  "methodResidualIds": [
+    "M04-01",
+    "M04-02",
+    "M04-03"
+  ],
+  "methodCompliance": false,
+  "sameSourceNote": "Recovered-main checkpoint is distinct from original06f1 native preimage HEAD plus frozen one-file postimage. Runtime proof uses original source04; never compare its preimage W with recovered-main W as if equal.",
+  "executionAuthorized": false,
+  "proofSelection": {
+    "path": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-03/ROOT_SELECTION.json",
+    "bytes": 9204,
+    "sha256": "d709b06bf0bbc035b7339c989da248b1aaf08acc2b42b7ec50e0a7c87a81df78",
+    "originatingPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_PROOF02_DISPOSITION_AND_CONTROL03_SELECTION.json",
+    "originatingCommit": "9aa8c7d086f0cfeb5b858325286b86571b4c760a"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "predecessorCommit": "13ca1cf72fced938dde89e83aa76f0de10f336af",
+  "preparationBase": "9aa8c7d086f0cfeb5b858325286b86571b4c760a",
+  "changedExecutable": "prove.py",
+  "changedExistingFunctions": [
+    "recovery_inputs",
+    "require_recovery",
+    "main"
+  ],
+  "addedPureFunctions": [
+    "topology_pairs",
+    "topology_batches",
+    "join_topology"
+  ],
+  "changes": [
+    "Complete protected-leaf batches through unchanged observer; exact union/pairs, positive results, equal complete mounts and stable shared anchor conjunction.",
+    "One shared60s topology allowance; per-batch plus full aggregate capture.",
+    "Fresh proof03/mirror06 and latest failed receipt pins; actual proof01 deadline retained."
+  ],
+  "unchangedFiles": [
+    "ACTIVATION.json",
+    "DEPENDENCY_INPUTS.json",
+    "FIXTURE_INPUTS.json",
+    "IMMUTABLE_RECOVERY.json",
+    "NATIVE_INPUTS.json",
+    "ORIGINAL_CANDIDATE.json",
+    "PROOF_PLAN.json",
+    "ROOT_RECOVERY.json",
+    "SEMANTIC_JOB_POPULATION.json",
+    "TOOL_INPUTS.json",
+    "dependency-inputs.py",
+    "physical-topology.py",
+    "process-owner.py",
+    "setup-custody.py"
+  ],
+  "methodResiduals": [
+    "M04-01",
+    "M04-02",
+    "M04-03"
+  ],
+  "executionAuthorized": false
+}
