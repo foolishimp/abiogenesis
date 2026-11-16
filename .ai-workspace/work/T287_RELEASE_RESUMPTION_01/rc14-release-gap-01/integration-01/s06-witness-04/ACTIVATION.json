@@ -220,5 +220,11 @@
   },
   "sourceDisposition": "integration-01/S06_THIRD_FAILURE_DISPOSITION_01.json",
   "capacityLimit": "60-minute actor allowance and eight-hour enclosure are prospectively selected finite limits, not a predicted completion time or guaranteed capacity.",
-  "effectReminder": "The existing actual renderNativeWorkspaceWorkOrder already requires memory/pipes, no actor scratch and only the selected stage output. Preserve its admitted prompt and restriction unchanged. No extra instruction field, CLI prompt override, new source/control or broader write grant is selected. Actual contrary actions remain material to independent acceptance."
+  "effectReminder": "The existing actual renderNativeWorkspaceWorkOrder already requires memory/pipes, no actor scratch and only the selected stage output. Preserve its admitted prompt and restriction unchanged. No extra instruction field, CLI prompt override, new source/control or broader write grant is selected. Actual contrary actions remain material to independent acceptance.",
+  "capacityPropagation": {
+    "route": "configuration.provider.absoluteTimeoutMs -> HOST.mjs:161 -> inputs.mjs:19 nativeLifecycle.commandExecutionLimits; runner.workerEnvironment -> ABG_TS_FP_ABSOLUTE_TIMEOUT_MS for both selected D1/D2 actor environments.",
+    "meaning": "3600000 is the shared prospective actor/native-lifecycle aggregate allowance, not exclusively an actor-only field. It does not alter immutable Tool280s, command300s or query20s limits.",
+    "outerLifetime": "Actual new START/deadlineUtc govern the eight-hour enclosing lifetime including preparation and audit; proposedTotalMs alone cannot extend it.",
+    "instructionDecision": "The existing candidate renderNativeWorkspaceWorkOrder already includes memory/pipes and no actor scratch. Keep the admitted prompt and appendArgs [--effort,xhigh] unchanged; no extra provider prompt is selected."
+  }
 }
