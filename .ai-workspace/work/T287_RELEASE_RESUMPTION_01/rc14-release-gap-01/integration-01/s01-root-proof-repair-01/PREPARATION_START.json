@@ -1,0 +1,8 @@
+{
+  "activationId": "RC14-S01-ROOT-PROOF-CONTROLS-WRITER-045",
+  "startedUtc": "2026-11-16T09:58:08+00:00",
+  "deadlineUtc": "2026-11-16T10:18:08+00:00",
+  "clockReset": false,
+  "runtimeClockStarted": false,
+  "sourceOrRuntimeEffects": false
+}

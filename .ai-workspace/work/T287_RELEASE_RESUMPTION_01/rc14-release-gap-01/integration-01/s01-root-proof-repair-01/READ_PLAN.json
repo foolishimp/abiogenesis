@@ -1,0 +1,161 @@
+{
+  "kind": "s01_native_content_read_plan",
+  "beforeFirstEdit": true,
+  "statusCommand": [
+    "stdo",
+    "status",
+    "--definition",
+    "stdo_abiogenesis.json",
+    "--verify"
+  ],
+  "statusRequired": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": []
+  },
+  "completeBodies": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/READ_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/WRITER_ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/ROOT_SELECTION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/PROOF_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/EVIDENCE_INPUTS.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/FIXTURE_INPUTS.json",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  ],
+  "materialSections": [
+    {
+      "path": "specification/PRODUCT.md",
+      "ranges": [
+        [
+          1554,
+          1605
+        ]
+      ],
+      "reason": "Same-candidate ordered root obligation and explicit failure boundaries"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-SCENARIOS.md",
+      "ranges": [
+        [
+          74,
+          105
+        ]
+      ],
+      "reason": "Selected S01 requirement and independent test ownership"
+    }
+  ],
+  "externalMethodBodies": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          199,
+          352
+        ],
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Construction relation, intake/admission, context acquisition and closed-result reuse: acquire the stated actual source bodies before dependent edits; hashing/paraphrase is not body acquisition."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    }
+  ],
+  "actualSourceAuthority": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/LAUNCH.json",
+      "purpose": "Actual source grant pointer and exact launch identity"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/CONTROL_START.json",
+      "purpose": "Original enclosing clock; no reset"
+    },
+    {
+      "pathFrom": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/LAUNCH.json#rootAcceptance",
+      "purpose": "Complete actual Root source authority before dependent edits"
+    }
+  ],
+  "clock": "Read original CONTROL_START and observe UTC at source entry/early return; preparation deadline is not source clock.",
+  "ownerRoute": [
+    "All three W complete bodies",
+    "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "Follow actual exported installed/public/ABG constructor, graph validation, event and readback contracts needed for this fixture. No source execution."
+  ],
+  "creditRule": "Only actual returned source bodies count; hashes, wc, truncation and paraphrase do not."
+}

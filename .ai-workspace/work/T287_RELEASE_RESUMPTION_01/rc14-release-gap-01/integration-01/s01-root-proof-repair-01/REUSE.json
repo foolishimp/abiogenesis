@@ -1,0 +1,58 @@
+{
+  "ownerSubject": "c12f6269dab29d0fb8a110e5cdead9ebb803febe",
+  "ownerCarrier": "/private/tmp/abg-rc14-historical-context-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01",
+  "byteIdenticalExecutables": [
+    {
+      "path": "operate.py",
+      "bytes": 6349,
+      "sha256": "828cdb2f0dccad7ff58e85038f67ca0221d027cb2d752e602d76b7c6928b88e7"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 21809,
+      "sha256": "78e97df05af7b6fe4b10428d51b6bc560b24bebf48927d043d5fbc767883de7a"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 3060,
+      "sha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    }
+  ],
+  "HOSTChange": "Only descriptive actor/input/request/correlation coordinate strings historical-context -> s01-root-proof; all ownership/capture/topology/completion/cleanup logic identical.",
+  "unusedProofOwner": "HOST requires its pin; it is retained byte-identical, explicitly unselected and not executable under this packet. No proof launch template.",
+  "closedS01Custody": {
+    "entry": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/INPUTS_ENTRY.json",
+      "bytes": 712209,
+      "sha256": "533521a4d7a8b60b4b0d94dd34623ab34a73b2c6a146d3ca6a0ff8e9831eae12"
+    },
+    "exit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/INPUTS_EXIT.json",
+      "bytes": 712209,
+      "sha256": "c37e64fbe82b5180c67a5b315b7929168b2df0e6bf99a483172d5953185eab19"
+    },
+    "key": "rows.candidateSmokeInputs.smokeInputs",
+    "count": 11
+  },
+  "activeB64": "Path-protected only; no active source/raw inventory or evidence consumption."
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "deferred_installed_candidate_s01_proof",
+  "executionAuthorized": false,
+  "standaloneCampaignAuthorized": false,
+  "builds": 0,
+  "files": [],
+  "eventualTest": "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+  "mode": "One complete whole-file episode, no name filters; eventual exact archive and source-blind fresh install",
+  "requiredObligations": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10"
+  ],
+  "scope": "One complete R1-R10 S01 episode on the eventual exact successor archive, fresh source-blind install, complete retained candidates and two equal typed terminal/closed reads. The minimal test program/declarations/input/output stay fixed.",
+  "preservedTitle": "Hello World is an external minimal GTL program through installed Public execution and fresh reads",
+  "candidateBinding": null,
+  "operatorGrant": null,
+  "firstFailureStops": true,
+  "retries": 0,
+  "retainedProveOwner": "prove.py retained byte-identical only because existing HOST authenticates it as a required pin; do not invoke it. No B64 file population/build plan is selected.",
+  "proofReceiptCapture": "Full actual setup, publication/catalog/view, Program/declaration/leaf resolution, materialized graph validation, initial CLI request/output/raw streams, complete same-Run causal events, both fresh read calls/receipts/projections and prefix/close evidence must be external and retained before assertion/cleanup; exact path is bound by future proof grant."
+}

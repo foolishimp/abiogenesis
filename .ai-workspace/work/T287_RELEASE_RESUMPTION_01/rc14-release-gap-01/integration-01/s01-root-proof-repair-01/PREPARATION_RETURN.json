@@ -1,0 +1,148 @@
+{
+  "status": "prepared_disabled_pending_independent_review",
+  "activation": "RC14-S01-ROOT-PROOF-CONTROLS-WRITER-045",
+  "preparedUtc": "2026-11-16T10:10:16.293203+00:00",
+  "preparationClock": {
+    "activationId": "RC14-S01-ROOT-PROOF-CONTROLS-WRITER-045",
+    "startedUtc": "2026-11-16T09:58:08+00:00",
+    "deadlineUtc": "2026-11-16T10:18:08+00:00",
+    "clockReset": false,
+    "runtimeClockStarted": false,
+    "sourceOrRuntimeEffects": false
+  },
+  "sourceCheckpoint": "a8810b29c8c116455ef3e710a3ff8c443e03a15e",
+  "sourceTenantTree": "a7c47c1ac107fa2cca311f63251d7a926572a42c",
+  "controlsWorktree": "/private/tmp/abg-rc14-s01-proof-controls-20261116-01",
+  "controlsBranch": "codex/rc14-s01-proof-controls-20261116-01",
+  "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01",
+  "productFrame": {
+    "outcome": "Unchanged fixed5.0 S01/ABI5-ROOT-001: orderedR1-R10 on one exact candidate, test case and causal episode through installed Public invocation.",
+    "authority": "PRODUCT1554-1605 and REQ-P-SCENARIOS008/74-100; test owns independent declarations/input/oracle, ABG owns actual admission/replay.",
+    "classification": "Test-owned caller/assertion/evidence repair; no new Product authority or demonstrated runtime defect.",
+    "prohibitions": "No private/source ABG imports on root witness, fabricated events, cross-episode result borrowing or retroactive proof reconstruction."
+  },
+  "sourceWriteScope": [
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "sourceStanding": "Three test-owned paths disjoint from active B64. Selected current tenant contains preserved/unaccepted B64 partial; no acceptance or repair of that source is implied.",
+  "helperReuse": {
+    "subject": "c12f6269dab29d0fb8a110e5cdead9ebb803febe",
+    "byteIdenticalExecutables": [
+      "operate.py",
+      "prove.py",
+      "setup-custody.py",
+      "process-owner.py",
+      "physical-topology.py",
+      "freeze-source.py",
+      "dependency-inputs.py"
+    ],
+    "HOSTExecutableDelta": "Only descriptive actor/input/request/correlation coordinates historical-context -> s01-root-proof; all existing transport/capture/constructor/topology/typed completion/custody/failure/cleanup mechanisms preserved.",
+    "retainedProve": "Existing HOST requires prove.py hash pin. Copied unchanged for that sole dependency, explicitly unselected; PROOF_PLAN has no builds/files and no proof launch template exists."
+  },
+  "custody": {
+    "closedS01Evidence": {
+      "result": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/004-installed-language/result.json",
+        "bytes": 630,
+        "sha256": "b53f8a97905f4cdaff626c8c78fbdebad83559ff96dbdc9d4606048d1ec6b262"
+      },
+      "inputEntry": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/INPUTS_ENTRY.json",
+        "bytes": 712209,
+        "sha256": "533521a4d7a8b60b4b0d94dd34623ab34a73b2c6a146d3ca6a0ff8e9831eae12"
+      },
+      "inputExit": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/INPUTS_EXIT.json",
+        "bytes": 712209,
+        "sha256": "c37e64fbe82b5180c67a5b315b7929168b2df0e6bf99a483172d5953185eab19"
+      },
+      "reviewObserved": "1/1 pass, exit0,34163ms; TAP SHA48ecb874d4c9a4963e843b7157da7d8f29a7d4b8917164dde35322d48a7a53cb; all11 smoke-input bytes conserved at exactSource."
+    },
+    "elevenInputs": {
+      "path": "/private/tmp/abg-rc14-s01-proof-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/FIXTURE_INPUTS.json",
+      "bytes": 5171,
+      "sha256": "05fac0ff3c8d366693fd149d7a4dbc466af8eb1deb0ad7ad04de695d560cc8ae"
+    },
+    "sourceInputs": {
+      "path": "/private/tmp/abg-rc14-s01-proof-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/SOURCE_INPUTS.json",
+      "bytes": 80290,
+      "sha256": "ce45ec10e4b8dd815e7144610d611634473086af51b3b009fee82cda5dc0e16b"
+    },
+    "contextEntries": 376,
+    "contextBytes": 8680831,
+    "activeB64": "Source/raw03 protected by path; never inventoried or read as stationary evidence; old01/02 and relevant historical S06 resources also protected."
+  },
+  "validation": {
+    "checks": {
+      "path": "/private/tmp/abg-rc14-s01-proof-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/STATIC_CHECKS.json",
+      "bytes": 1594,
+      "sha256": "8832b19fb266c36108be897ae760897d27b1ca86a997de66c09d937bdd90cf00"
+    },
+    "layoutChecks": {
+      "path": "/private/tmp/abg-rc14-s01-proof-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/LAYOUT_CHECKS.json",
+      "bytes": 15579,
+      "sha256": "df9a872ee394c173e3e8a0b19222e763474b0efc6602ced6d4d79986b7766344"
+    },
+    "checkout": {
+      "path": "/private/tmp/abg-rc14-s01-proof-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/CHECKOUT_CHECKS.json",
+      "bytes": 1370,
+      "sha256": "eb178f4df550b78ebbaf2a222da1d8a029d97f14ef794ebd97a32f0e806cc297"
+    },
+    "scope": "JSON/plain canonical Task fields, seven Python ASTs, HOST node --check, exact source/control/method/provider/tool/input hashes, pure evaluation of exact HOST layout expressions against authenticated closed02 shape. No Product imports/constructors, setup, runtime, physical probe, build, test or provider.",
+    "layoutEntries": [
+      37,
+      38,
+      38
+    ],
+    "physicalObservation": false,
+    "rootFiles": 7,
+    "sourceRows": 379,
+    "elevenConsumedInputs": 11,
+    "firstFailure": null
+  },
+  "prospectiveEntry": {
+    "freeze": [
+      "python3",
+      "<accepted carrier>/freeze-source.py",
+      "<exact pushed source HEAD>"
+    ],
+    "native": [
+      "python3",
+      "<accepted carrier>/operate.py",
+      "<fresh exact approved LAUNCH.json>"
+    ],
+    "actualGrantRequired": true,
+    "rootMaterialization": "SOURCE_MATERIALIZATION.json",
+    "proofEntry": null,
+    "limits": {
+      "nativeInactivityMs": 300000,
+      "nativeAbsoluteMs": 2700000,
+      "nativeMaxTurns": 360,
+      "terminationGraceMs": 5000,
+      "hostControlDeadlineMs": 10800000,
+      "setupReadbackCommandMs": 300000,
+      "outputBytesPerCommand": 33554432,
+      "reserveBytes": 4294967296,
+      "nativeRetry": false,
+      "cleanupReserveMs": 180000,
+      "proofRetry": false
+    },
+    "globalProviderConcurrency": 2
+  },
+  "remainingBindings": [
+    "Independent frozen-controls review and Root pushed acceptance",
+    "Exact later pushed source HEAD/complete materialized preimage and current source activation/launch",
+    "Actual complete planned/post-setup/immediately-before-dispatch physical observations and global provider slot",
+    "Actual native source result, method/command/effect audit, typed completion/resource closure and fresh readbacks",
+    "Eventual exact accepted successor archive, source-blind fresh install, one complete S01 episode and independent R1-R10 assessment under a separate grant"
+  ],
+  "executionAuthorized": false,
+  "sourceAuthorActivated": false,
+  "proofAuthorized": false,
+  "qualified": false,
+  "rawPublished": false,
+  "mainWritten": false,
+  "pushed": false
+}
