@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_FIXTURE05_NATIVE_RUNNING",
+  "status": "RC14_B56_FIXTURE05_SOURCE_ACCEPTED_PROOF_PENDING_PUSH",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -719,7 +719,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T01:10:02.180043+00:00",
+  "updatedUtc": "2026-11-16T01:36:43.504690+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1310,17 +1310,26 @@
   "b56Fixture05": {
     "selection": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_PROOF03_CONJUNCTION_AND_FIXTURE05_SELECTION.json",
     "executionAuthorized": true,
-    "state": "NATIVE_RUNNING",
+    "state": "SOURCE_ACCEPTED_PROOF_PENDING",
     "activation": "integration-01/B56_NATIVE_ACTIVATION_05.json",
     "nativeStarted": true,
     "controlCommit": "6fdb582b43f93b04da4b108e0d65f19be1e4237c",
     "manifestSha256": "8f943513e265946af947e8536dd15667bdb6d86935a38512c2605a9247691d8b",
     "reviewCorrection": "One stale method definition coordinate fixed; exact successor mechanically rechecked.",
-    "proofAuthorized": false,
+    "proofAuthorized": true,
     "actualStartedUtc": "2026-11-16T01:09:05.055532+00:00",
     "originalDeadlineUtc": "2026-11-16T04:09:05.055532+00:00",
     "hostPid": 1495,
     "launch": "integration-01/B56_NATIVE_LAUNCH_05.json",
-    "preflightDisposition": "integration-01/B56_NATIVE05_PREFLIGHT_DISPOSITION_01.json"
+    "preflightDisposition": "integration-01/B56_NATIVE05_PREFLIGHT_DISPOSITION_01.json",
+    "nativeClosed": true,
+    "nativeClosedUtc": "2026-11-16T01:21:11.550Z",
+    "returnCommit": "9a68712f854fdecaad2bf7dee4d000c528ae7f40",
+    "sourceSha256": "5a72c8f7a9a24aa89c511cd92edd6807122dc056c5d2c87121523185b60785e3",
+    "sourceAccepted": true,
+    "auditSha256": "8597800eb31bb9ab3d14dcbd41ab26c128a4e0bef714c032e977ffb394924e65",
+    "blanketMethodCompliance": false,
+    "proofStarted": false,
+    "sourceAndProofActivation": "integration-01/B56_FIXTURE05_SOURCE_AND_PROOF_ACTIVATION_01.json"
   }
 }

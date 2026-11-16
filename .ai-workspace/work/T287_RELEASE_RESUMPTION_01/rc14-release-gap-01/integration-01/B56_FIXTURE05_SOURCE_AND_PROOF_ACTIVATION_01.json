@@ -1,0 +1,257 @@
+{
+  "id": "RC14-B56-FIXTURE05-SOURCE-AND-RETAINED-BUILD-PROOF-01",
+  "recordedUtc": "2026-11-16T01:36:43.504690+00:00",
+  "recordWriter": "RC14-ROOT-B56-FIXTURE05-RECORDS-WRITER-037",
+  "authority": "Owner continue/finish RC14; B56_NATIVE_ACTIVATION_05.json and closed independent source/capture/method reviews. Root integrates exact frozen bytes only.",
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Fixed5.0 F04/F17/S06; schema-owner and selected Program use remain distinct. Controlled component fixture repair; unchanged Product guards, accepted HOW and ABG runtime authority.",
+    "selection": "B56_PROOF03_CONJUNCTION_AND_FIXTURE05_SELECTION.json"
+  },
+  "closedNative": {
+    "sourceHead": "46375994b2eb1773d055ce8b16fe5bedc62b4ac0",
+    "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-05",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05",
+    "returnCommit": "9a68712f854fdecaad2bf7dee4d000c528ae7f40",
+    "integratedReturnMain": "57fcc73aa833b52e31fe4e8793fa102832e9f0ed",
+    "typedCompletionActualCloseFreshResultAndClosedReplay": true,
+    "namedGroupsAbsent": [
+      1495,
+      2065
+    ],
+    "sdkTurns": 79,
+    "sdkWallMs": 679796,
+    "reportedListCostUsd": 5.3074962,
+    "costIsInvoice": false,
+    "originalHostDeadlineUtc": "2026-11-16T04:09:05.055532+00:00",
+    "evidence": {
+      "AUTHOR_AUDIT.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/AUTHOR_AUDIT.json",
+        "bytes": 47558,
+        "sha256": "8597800eb31bb9ab3d14dcbd41ab26c128a4e0bef714c032e977ffb394924e65"
+      },
+      "ACTUAL_CLOSURE_AUDIT.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/ACTUAL_CLOSURE_AUDIT.json",
+        "bytes": 6935,
+        "sha256": "7e5be9108a48390da5fc3db6096bab477c107e43a46448b65970b8a334b679c8"
+      },
+      "OPERATOR_RETURN.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/OPERATOR_RETURN.json",
+        "bytes": 18658,
+        "sha256": "732537f990bce3f490d05bdc41014d8041a1e4da1a41626363c93f6cefddb849"
+      },
+      "FROZEN_SOURCE.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/FROZEN_SOURCE.json",
+        "bytes": 2986,
+        "sha256": "0ebb5a72e5b7239d0ceaf5806ca672dac47dde2876b3539fe44d10d4829f5f5e"
+      },
+      "SOURCE_PREIMAGE.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/SOURCE_PREIMAGE.json",
+        "bytes": 490986,
+        "sha256": "1f4077e37d0d31db0233a68d307ee3b974ac7a43f014e58cf14d6c7cd7ad372e"
+      },
+      "SOURCE_POSTIMAGE.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/SOURCE_POSTIMAGE.json",
+        "bytes": 396773,
+        "sha256": "f7dda5461d164c3f425486805945b3071fcd6c1de20bd07c880844c83b5d58db"
+      },
+      "SOURCE_DIFF.patch": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/SOURCE_DIFF.patch",
+        "bytes": 18992,
+        "sha256": "b2a7fbf7be178e684cb4e7501c6b2db9ecc2a882394616018a7765c04e2d0e6f"
+      },
+      "NATIVE_AUTHOR_REPORT.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/NATIVE_AUTHOR_REPORT.json",
+        "bytes": 7673,
+        "sha256": "48cb9cba1e3ecc443a5b5fb1a8e26da7175ab4a6a0da6a7dfdf48734e6c5877f"
+      },
+      "INPUT_CONSERVATION_EXIT.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/INPUT_CONSERVATION_EXIT.json",
+        "bytes": 96220,
+        "sha256": "33ff8b98350649edc027c641b3a8fd03be932f42169fccdc44c739fe3e26f72b"
+      },
+      "LAUNCH.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/LAUNCH.json",
+        "bytes": 6862,
+        "sha256": "63acfa3c87321512c41e48ce5bc1ef0177482f1d997022555981b7b065837e05"
+      },
+      "CONTROL_START.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/CONTROL_START.json",
+        "bytes": 1216,
+        "sha256": "f549a575de486be8f97843ea471d9b824163cbb914473f61c92af176bb1aa253"
+      },
+      "runtime/AUTHOR_COMPLETION.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/runtime/AUTHOR_COMPLETION.json",
+        "bytes": 1394,
+        "sha256": "be8193e4ec25aa196020503829fae597a5564aa1dcb9c3ffc6b2462e03184012"
+      },
+      "runtime/FINAL.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/runtime/FINAL.json",
+        "bytes": 897,
+        "sha256": "2eee74e5a23ff597d493a1338a45d6da920f3cbb0f416315259af1c90086dc00"
+      },
+      "HOST_ACTOR_GROUP_ABSENCE.json": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/HOST_ACTOR_GROUP_ABSENCE.json",
+        "bytes": 305,
+        "sha256": "f098accf1bef4f8421e587a68880a2872f62809d968576d66d0f0ed15872c2dc"
+      }
+    }
+  },
+  "sourceAcceptance": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "frozenPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "bytes": 133291,
+    "sha256": "5a72c8f7a9a24aa89c511cd92edd6807122dc056c5d2c87121523185b60785e3",
+    "diffSha256": "b2a7fbf7be178e684cb4e7501c6b2db9ecc2a882394616018a7765c04e2d0e6f",
+    "additions": 131,
+    "deletions": 15,
+    "sevenOtherFilesConserved": true,
+    "sourceRows": 1584,
+    "preimageRows": 1583,
+    "setupOwnedAdditionalPath": ".abiogenesis/workspace-manifest.json",
+    "sourceHeadAndIndexUnchanged": true,
+    "decision": "Accept exact one-file postimage as independently reviewed construction input for bounded proof; copy byte-equal to main. No behavioral acceptance, blanket compliant-authorship or qualification.",
+    "reviews": [
+      {
+        "actor": "/root/amendment_topology_review",
+        "frame": "Product/Design/Identity",
+        "verdict": "Satisfied. Role-aware Program and graph map preserve constructor/member population; execution/authority/assembly coordinates and coupled negatives coherent; actual selection/assembly retained before assertions."
+      },
+      {
+        "actor": "/root/b29_vm_triage",
+        "frame": "Proof/Fixture/actual Method",
+        "verdict": "Bounded source/capture satisfied. All29top-level declaration expressions and one nested declaration unchanged; seven assertions added. OneW/sevenimmutable/payload exclusion hold. Ordinary mutable Error/AssertionError primary survives capture failure through cause/message. Actual capture/behavior unproved."
+      }
+    ],
+    "methodDisposition": {
+      "verified": "Independent44returned-content chunks support22explicit content rows plus8readFirstcontrols before Edit59; complete status,11members and16comparisons pass. Task preview1 incomplete, reacquired4/5 before edit.",
+      "residuals": [
+        "Construction-relation199-352 hashed but not body-acquired; outside Task explicit ACTIVATION body ranges. Preserve unacquired-owner limit, not an invented explicit-range failure.",
+        "Tool1 selected-control ls/wc metadata includes non-readFirst names/lengths; tool39 git log -1 --format=%H exceeds enumerated status/diff/show wording."
+      ],
+      "decision": "Retain literal acquisition/command limits without rewriting audit or retroactively claiming compliance. Independent source reviews support bounded construction-input acceptance; no Product/source validity depends on calling those variants compliant. No second author/source repair selected.",
+      "effects": "Nine Edit calls soleW. No native behavioral test/build/Product import/nestedprovider/Gitmutation observed;14custodycategories pass. No universal filesystem-isolation/global-absence claim."
+    },
+    "rootIntegrationCheck": "Initial patch-byte check used abbreviated Git index headers and refused after exact source copy. Read-only discriminator showed only index header40-to9-character abbreviation; --full-index yields exact18992bytes/b2a7fbf7 patch. Exact pre/post source hashes and all seven immutable rows match. No further source change; no runtime had started."
+  },
+  "retainedBuildSelection": {
+    "readiness": "B56_FIXTURE05_PROOF_REUSE_READINESS_01.json",
+    "readinessSha256": "a1de0c5c89aaa4241f5a2ced87f0fbc328f928807033e6dc1e3bc588ff29be52",
+    "subject": {
+      "mirror": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06",
+      "postimage": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/BUILD_POSTIMAGE.json",
+        "bytes": 542306,
+        "sha256": "0bde47f7b1e98ae4440b0df272e391f29c32221af2d17737224de631ae465ece"
+      },
+      "exit": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/BUILD_EXIT.json",
+        "bytes": 542216,
+        "sha256": "d9b8c5987d73b663dacb5f44d3159a7d63d32b053f05a511726e222667e349ef"
+      },
+      "manifest": {
+        "path": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 3101102,
+        "sha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e"
+      },
+      "tsconfig": {
+        "path": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06/build_tenants/abiogenesis/typescript/tsconfig.json",
+        "bytes": 604,
+        "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e"
+      },
+      "binaryRows": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/build/native/abg_physical_path.node",
+          "bytes": 52264,
+          "sha256": "1b6a1d8944275c98d84ba9b2124fda72b7942285fc7e64930ee00578130edb77",
+          "executable": true
+        }
+      ]
+    },
+    "verifiedReadiness": {
+      "buildRows": 2192,
+      "buildRowSetsEqual": true,
+      "reviewerRehashedAllRetainedFiles": true,
+      "mismatches": 0,
+      "dependencyEntries": 4576,
+      "dependencyBytes": 58290948,
+      "dependencySha256": "dc55a042e47b4119487c1ef1b1288b0de607a9687b6a60e4efbb0443f9584aff",
+      "declaredPayloadLocators": 5300,
+      "generatedPayloadMembers": 2,
+      "productContentDigest": "sha256:74058d1e18aaa98e7b5ad0c30f682fe45e82b1c49237dabc4c72e956d0eb918f",
+      "excludedRepairPath": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "compilation": "tsconfig compiles code/src/**/*.ts only; repair .mjs outside compilation and Product payload.",
+      "payloadOwners": "product-payload.mjs136-159 exact member equality/ignore-scripts pack; root-installed-environment.mjs198/242-248 actual archive identity."
+    },
+    "decision": "Select reuse conditional on complete actual entry/exit conservation and fresh topology. Sole .mjs is outside compilation/payload. All315selected source rows exist in retained mirror; only fixture row is replaced in fresh expected inventory.",
+    "retainedTests": "Proof03 focused1+installed2 remain historical over conserved Product/test/support/candidate/receipt subjects. Earlier workspace15failures stayred. No rerun or relabeling of three green titles."
+  },
+  "operatorActivation": {
+    "id": "RC14-B56-FIXTURE05-PROOF-OPERATOR-001",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate finite external proof/evidence Operator Writer",
+    "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-05",
+    "freshMirror": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-07",
+    "freshProofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01",
+    "nativeRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05",
+    "proofControlRoot": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-03",
+    "proofControlManifestSha256": "f1c6703c9c8f64f2590b8a212ba430b9624d24a5811fb981c7291b5e77a14a80",
+    "nativeControlRoot": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-05/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05",
+    "nativeControlManifestSha256": "8f943513e265946af947e8536dd15667bdb6d86935a38512c2605a9247691d8b",
+    "checkpoint": "Exact pushed main containing this grant and identical reviewed fixture; Root supplies after direct remote equality. Native source HEAD remains46375994b.",
+    "sequence": [
+      "Authenticate this grant, all new source/audit/completion/closure/Return pins, both control manifests and loaded helpers, native05 HEAD/index/preimage/postimage/diff/setup attribution. Old native04 recovery never authorizes new05source.",
+      "Use existing proof03 prove.py as library only: owner.run, deps.inventory, tree, pinned, native_inputs(root), fixtures(root,packet), topology_batches, join_topology, checked_population. Do not call main/old source-recovery-completion gates or rebind globals. No new executable proof runner.",
+      "Conserve entry/exit: complete proof03 ACTIVATION.externalEvidenceInputs30rows, FIXTURE_INPUTS13rows, native05 externalEvidenceInputs13rows, original recovery pins and new source/audit/closure/review/grant pins. Deduplicate only equal paths+identities. Preserve original2192build rows,4576dependencies,315source rows, payload/generated/native196/tool/npm/control inputs and historical3green receipts/candidates.",
+      "Bind complete fresh physical layout before observation: fresh mirror worksite with actual six child W destinations; separate proof archive; original source/mirror, current source, runtime/evidence leaves, controls, declared inputs and installations protected. No protected input inside new archive. Preserve every leaf and preflight complete cardinality (existing two batches allow112protected paths with6W). Observe via owner.run/unchanged observer under shared60s clipped by execution deadline; exact pairs/mounts/shared-anchor join.",
+      "Copy complete retained build once to fresh mirror, preserving dependency links/executable modes; overlay exact5a72c8f7 fixture only. Compare all2192owner tree rows with precisely that row replaced, dependencies separately. Verify315source rows at source and fresh mirror against native05 declared preimage except exact reviewed fixture replacement. No build/regeneration/pack/install.",
+      "Run only four native05 PROOF_PLAN.selectedProspectiveFiles serially through owner.run. Preserve existing Node VM/single-concurrency/timeouts/reporter flags; exact anchored positive nine-title remainder. Use sanitized offline environment, distinct empty npm configs and fresh scratch/observations.",
+      "Retain streams/process receipts/observed events and all actual dynamic preparation captures before interpreting, including finally on failure. Existing checked_population applies; preserve39workspace top-level names and actual nested count. Retainedfocus1 plus freshremainder9 must be exact disjoint10semantic inventory. Only declared Data-alias host-premise skip; actual counts, never old43-total shorthand.",
+      "Close unconditionally: source/setup/original+fresh mirror/dependency/payload/native/tool/control/all evidence/newsource pins compared; named owned groups absent; wall+monotonic deadlines checked after finalization. Preserve primary plus secondary capture/conservation errors separately. First failure stops, no retry.",
+      "After actual close, compact authored Return on separate records branch, raw outside Git. Return to Root; no candidate/provider/install/source repair automatically."
+    ],
+    "bounds": {
+      "providerCalls": 0,
+      "builds": 0,
+      "freshTestSelections": 4,
+      "serial": true,
+      "perSelectionsMs": [
+        1800000,
+        1800000,
+        300000,
+        300000
+      ],
+      "maximumProofMs": 5400000,
+      "exitReserveMs": 180000,
+      "topologySharedMs": 60000,
+      "outputBytesPerCommand": 33554432,
+      "reserveBytes": 4294967296,
+      "retries": 0,
+      "deadline": "Set once min(actual start+90min, original native05 CONTROL_START04:09:05.055532Z), reserve3min; wall+monotonic. No old clock reset."
+    },
+    "captureBinding": {
+      "rootEnvironment": "ABG_REGRESSION_PROOF_ROOT",
+      "filePattern": "t287-native-workspace-prepare.<pid>.<attempt4>.<ordinal2>.<stage>.json",
+      "collection": "Enumerate/hash every actual matching file and join filename/header file/test/pid/attempt/ordinal/stage. Retain partial records in finally. Normal attempts have01.selection,02.assembly,03.prepared; thrown is conditional. Require source-supported ordering and normal records for successful common-prepare attempts; no fixed futurePID/count.",
+      "preparedNull": "realize:false legitimately records prepared:null. Presence never proves owner success.",
+      "override": "Replace only004 requiredCandidateArtifacts prose placeholder with this dynamic collection. Never interpret prose as filename or silently omit capture checks.",
+      "limit": "Actual positive capture/serialization proof, no new synthetic double-failure campaign or universal arbitrary-error guarantee."
+    },
+    "stops": [
+      "Input/source/payload/helper drift, missing evidence, incompatible topology, unsupported effect, test/population/capture failure or deadline returns exact first failure to Root.",
+      "Component proof does not qualify S06/amendment/installed candidate/release."
+    ]
+  },
+  "proofAuthorizedAfterPushedBinding": true,
+  "proofStarted": false,
+  "candidateExecutionAuthorized": false,
+  "qualified": false,
+  "rawPublished": false,
+  "preservation": [
+    "RC13pin and originalRC14archive/install unchanged.",
+    "Native01-04/proof01-03 failures/audits/clocks remain historical.",
+    "Candidate02/amendment07/S06 await separate grant; B50 unresolved.",
+    "RC14-B56-PROOF-SECONDARY-CAPTURE-001 remains bounded registered debt, no unconditional diagnostic-retention claim."
+  ]
+}

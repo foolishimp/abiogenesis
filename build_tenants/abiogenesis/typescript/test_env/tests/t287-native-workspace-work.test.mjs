@@ -304,19 +304,106 @@ function rebind(env, roots) {
   assert.equal(territory.kind, 'worksite_territory');
   return {workspaceBinding, capabilityGrant, executionBasis, cCall, territory};
 }
+// B56 native05 common-prepare evidence: a same-file component capture, not a
+// runner, pass oracle or admitted event. Under ABG_REGRESSION_PROOF_ROOT each
+// prepare() attempt retains its actual deciding inputs and candidate in
+// distinct write-once records before the dependent check or throw. The evidence
+// reporter keeps only error name/message/stack/code/cause, so t.diagnostic is
+// not a retained channel. A capture failure stays visible; once a primary
+// failure exists the capture failure is carried on that primary's cause chain
+// and message and never replaces it.
+let nativePrepareAttempts=0;
+function nativePrepareErrorRecord(error,depth=0){
+  if(error===null||error===undefined)return null;
+  if(typeof error!=='object'&&typeof error!=='function')return {name:'NonErrorThrow',message:String(error),stack:null,code:null,cause:null};
+  const text=v=>v===null||v===undefined?null:String(v);let message;
+  try{message=String(error.message??error);}catch{message='[unprintable]';}
+  return {name:text(error.name)??'Error',message,stack:typeof error.stack==='string'?error.stack:null,code:text(error.code),
+    ...(typeof error.operator==='string'?{operator:error.operator}:{}),cause:depth>=16?null:nativePrepareErrorRecord(error.cause,depth+1)};
+}
+function nativePrepareJson(value){
+  const ancestors=[];
+  return JSON.stringify(value,function(_key,v){
+    if(v===undefined)return '[undefined]';
+    if(typeof v==='bigint'||typeof v==='symbol')return String(v);
+    if(typeof v==='function')return `[function ${v.name||'anonymous'}]`;
+    if(v instanceof Error)return nativePrepareErrorRecord(v);
+    if(typeof v!=='object'||v===null)return v;
+    while(ancestors.length>0&&ancestors.at(-1)!==this)ancestors.pop();
+    if(ancestors.includes(v))return '[circular]';
+    ancestors.push(v);return v;
+  });
+}
+// Carries a secondary capture failure through the reporter-retained channels:
+// the end of the primary's cause chain and a suffix of its message.
+function nativePrepareCarry(primary,captureError){
+  const carried=new Error('B56 native prepare capture failure after the primary failure: '+(nativePrepareErrorRecord(captureError)?.message??'unknown'),{cause:captureError});
+  carried.name='B56CaptureFailure';carried.code='B56_CAPTURE_FAILURE';
+  let link=primary;
+  for(let depth=0;depth<32&&link!==null&&(typeof link==='object'||typeof link==='function');depth++){
+    if(link.cause===undefined||link.cause===null){
+      try{Object.defineProperty(link,'cause',{value:carried,configurable:true,writable:true,enumerable:false});}catch{}
+      break;
+    }
+    link=link.cause;
+  }
+  try{if(primary!==null&&typeof primary==='object')primary.message=String(primary.message)+` [${carried.message}]`;}catch{}
+  return carried;
+}
+function nativePreparationCapture(t){
+  const attempt=++nativePrepareAttempts,root=process.env.ABG_REGRESSION_PROOF_ROOT;
+  const base=root===undefined||root===''?null:join(root,`t287-native-workspace-prepare.${process.pid}.${String(attempt).padStart(4,'0')}`);
+  const header={kind:'b56_native_workspace_prepare_candidate',file:'build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs',
+    test:t.fullName??t.name,attempt,startedAt:new Date().toISOString(),pid:process.pid,nodeVersion:process.version};
+  let records=0;
+  const retain=async(stage,value)=>{
+    const ordinal=++records;if(base===null)return null;
+    await fs.mkdir(root,{recursive:true});const path=`${base}.${String(ordinal).padStart(2,'0')}.${stage}.json`;
+    await fs.writeFile(path,nativePrepareJson({...header,stage,ordinal,observedAt:new Date().toISOString(),value})+'\n',{flag:'wx'});
+    return path;
+  };
+  // Retain first, then run the dependent check. A failing check stays primary
+  // and carries any capture failure; a capture failure alone is thrown.
+  const check=async(stage,value,assertion)=>{
+    let captureError=null;
+    try{await retain(stage,value);}catch(error){captureError=error;}
+    try{assertion();}catch(primary){if(captureError!==null)nativePrepareCarry(primary,captureError);throw primary;}
+    if(captureError!==null)throw captureError;
+  };
+  return {retain,check};
+}
 // These are cold owner coordinates, not ABG admission or installed/native proof.
 // One case-local executing Program publication supplies every dependent
 // coordinate: implementation row, leaf execution authority, execution-basis
 // Program/GraphFunction digests, assembly basis and owner Program. An assessor
 // task's coincident consumer-owned premise uses the declaring publication, whose
-// own Program member declares use of its result contract.
+// assessment Program member declares use of its result contract.
 async function prepare(t, env, realize = true) {
+  const capture=nativePreparationCapture(t),observed={task:env.task,realize};
+  try{return await prepareObserved(t,env,realize,capture,observed);}
+  catch(primary){
+    // The actual primary failure with every input observed before it.
+    try{await capture.retain('thrown',{...observed,primary});}catch(captureError){nativePrepareCarry(primary,captureError);}
+    throw primary;
+  }
+}
+async function prepareObserved(t, env, realize, capture, observed) {
   const graphFunctionRef = native.nativeWorkspaceWorkGraphFunctionRef(env.task);
   const sink = await acquireNewEmptyAppendSinkFixture(t, createNewEmptyAppendSink);
   const a=env.task.assessment,programPublication=a===undefined?publication:declaringAssessmentPublication(a.resultContract);
-  const program=programPublication.programs.find(x=>x.programRef===ids.programRef);
+  // Role-aware exact identities. modulePublication sorts graphFunctions by
+  // name, so position selects no role: an assessor task executes the separate
+  // assessment Program, whose member is the assessment GraphFunction; ordinary
+  // work keeps the constructor Program and GraphFunction.
+  const role=a===undefined?'constructor':'assessor',programRef=a===undefined?ids.programRef:ids.assessmentProgramRef;
+  const program=programPublication.programs.find(x=>x.programRef===programRef);
   const graphFunction=programPublication.graphFunctions.find(g=>g.name===graphFunctionRef);
-  assert.ok(program&&graphFunction,'the case-local Program publication holds the executing Program and GraphFunction');
+  Object.assign(observed,{role,programRef,graphFunctionRef,predecessorPrefix:sink.prefix,productInstalls:env.productInstalls??[],programPublication,
+    publicationGraphFunctionNames:programPublication.graphFunctions.map(g=>g.name),program:program??null,graphFunction:graphFunction??null});
+  await capture.check('selection',observed,()=>{
+    assert.ok(program&&graphFunction,'the case-local Program publication holds the executing Program and GraphFunction');
+    assert.ok(program.callableMembership.includes(graphFunctionRef),'the selected Program has the executing GraphFunction as its member');
+  });
   const programDigest=product.sha256Canonical(program),graphFunctionDigest=product.sha256Canonical(graphFunction);
   const {kind,schemaVersion,disposition,leafResolutionCandidateRef,leafResolutionCandidateDigest,...oldBody}=env.implementationSet.rows[0];
   const body={...oldBody, publicationDigest:product.sha256Canonical(programPublication),graphFunctionRef,graphFunctionDigest,
@@ -327,13 +414,15 @@ async function prepare(t, env, realize = true) {
   const row={kind,schemaVersion,disposition,leafResolutionCandidateRef:`leaf-resolution-candidate://abiogenesis/${rd.slice(7)}`,leafResolutionCandidateDigest:rd,...body};
   const sd=product.sha256Canonical({rows:[row]});
   const set={...env.implementationSet,rows:[row],implementationSetRef:`implementation-set://abiogenesis/${sd.slice(7)}`,implementationSetDigest:sd};
-  const execution={...env.executionBasis,programRef:ids.programRef,programDigest,graphFunctionRef,graphFunctionDigest,
+  const execution={...env.executionBasis,programRef,programDigest,graphFunctionRef,graphFunctionDigest,
     rawInputValue:env.task,rawInputDigest:product.sha256Canonical(env.task),implementationSetRef:set.implementationSetRef,implementationSetDigest:sd};
   const call={...env.cCall,runId:'run://native-owner/test',regime:'F_P',graphFunctionRef,
     inputContractRef:ids.taskContractRef,outputContractRef:ids.observationContractRef,failureContractRef:ids.failureContractRef,
     refusalContractRef:ids.refusalContractRef,implementationSetRef:set.implementationSetRef,
     implementationRef:ids.implementationRef,implementationBindingRef:ids.implementationBindingRef};
   const resolutionDigest=product.sha256Canonical(row);
+  Object.assign(observed,{programDigest,graphFunctionDigest,implementationResolution:row,implementationResolutionDigest:resolutionDigest,
+    implementationSet:set,executionBasis:execution,cCall:call});
   const authority=constructLeafExecutionAuthority({actorRef:execution.actorRef,workspaceBinding:env.workspaceBinding,
     workspaceBindingIdentity:env.workspaceBinding.bindingId,workspaceBindingDigest:env.workspaceBinding.bindingDigest,
     executionBasis:execution,executionBasisRef:execution.basisRef,executionBasisDigest:execution.basisDigest,
@@ -346,6 +435,7 @@ async function prepare(t, env, realize = true) {
     implementationRef:row.implementationRef,implementationOwnerRef:row.implementationOwnerProductId,
     effectUri:ids.effectUri,handlerRef:ids.handlerRef,handlerDigest:native.NATIVE_WORKSPACE_WORK_HANDLER_DIGEST,
     capabilityGrantRef:env.capabilityGrant.grantRef,capabilityGrantDigest:env.capabilityGrant.grantDigest});
+  observed.executionAuthority=authority;
   // The assessor's inner response dependency carries the schema-owner
   // publication under the admitted owner install, lock and this call's admitted
   // resolution row. In this coincident premise it is the same case-local
@@ -356,22 +446,34 @@ async function prepare(t, env, realize = true) {
     await fs.writeFile(join(env.scratch,'native-assessment-schema.json'),schemaBytes);
     const facts=assessmentDependencyFacts(declaring,{installedRoot:env.scratch,path:'native-assessment-schema.json',bytes:schemaBytes,
       contractId:a.schemaAsset.contractId,assessorOwnerProductId:row.graphFunctionOwnerProductId});
+    observed.assessmentDependencyFacts=facts;
     assemblyInstalls=[...assemblyInstalls,facts.install];carried={assessmentPublication:declaring};
     assessmentOwner={resolution:row,resolvedProductLock:facts.resolvedLock};
   }
   const assemblyBasis={publication:programPublication,...carried,graphFunction,
     executionBasis:authority.executionBasis,cCall:call,predecessorPrefix:authority.predecessorPrefix};
   const {resolution:ownerResolution,resolvedProductLock}=assessmentOwner;
-  assemblyOwners.set(assemblyBasis,{row,owner:{inputDigest:product.sha256Canonical(env.task),inputValue:env.task,inputRef:'component:native-work-input',
+  const assemblyOwner={row,owner:{inputDigest:product.sha256Canonical(env.task),inputValue:env.task,inputRef:'component:native-work-input',
     call,execution:authority.executionBasis,program,...(ownerResolution===undefined?{}:{resolution:ownerResolution}),events:[],prefix:authority.predecessorPrefix,
-    environment:{kind:'exact_prefix_workspace_environment',productInstalls:assemblyInstalls,...(resolvedProductLock===undefined?{}:{resolvedProductLock})}}});
+    environment:{kind:'exact_prefix_workspace_environment',productInstalls:assemblyInstalls,...(resolvedProductLock===undefined?{}:{resolvedProductLock})}}};
+  assemblyOwners.set(assemblyBasis,assemblyOwner);
+  Object.assign(observed,{assemblyBasis,assemblyOwnerPremise:assemblyOwner});
   const assembly=instructionAssembly.constructWorksiteNativeInstructionAssembly(assemblyBasis,env.task);
-  assert.equal(assembly?.kind,'native_instruction_assembly','the actual producer assembles the complete native worker request');
+  // The actual assembly return, including null or a typed refusal, precedes its check.
+  observed.assembly=assembly;
+  await capture.check('assembly',observed,()=>
+    assert.equal(assembly?.kind,'native_instruction_assembly','the actual producer assembles the complete native worker request'));
   const request=assembly.request;
   const occurrence={...call,executionAuthority:authority};
-  environments.set(env.workspaceBinding.bindingId,{prefix:sink.prefix,environment:{kind:'exact_prefix_workspace_environment',
-    workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:env.productInstalls??[]}});
+  const workspaceEnvironment={prefix:sink.prefix,environment:{kind:'exact_prefix_workspace_environment',
+    workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:env.productInstalls??[]}};
+  environments.set(env.workspaceBinding.bindingId,workspaceEnvironment);
+  observed.workspaceEnvironmentPremise=workspaceEnvironment;
   const prepared=realize?await realizeNativeWorkspaceWork(env.task,occurrence,()=>assembly):null;
+  // The actual preparation candidate (or null when not realized); its inputs
+  // are the preceding records of this attempt.
+  observed.prepared=prepared;
+  await capture.retain('prepared',{role,programRef,graphFunctionRef,realize,workspaceEnvironmentPremise:workspaceEnvironment,prepared});
   const exchange=(finalOutput,disposition='success')=>({request,observation:{implementationRef:ids.implementationRef,
     inputDigest:request.inputDigest,transportLane:'worker_executes',actorInvocationRef:'actor-invocation://native-owner/test',
     transportBindingRef:'transport-binding://native-owner/test',transportBindingDigest:digest('transport-binding'),
@@ -821,10 +923,16 @@ async function assessmentFixture(t, schema = assessmentSchema) {
 // premises built from these exact coordinates; the actual shared relation runs
 // over them. The lock holds the schema owner, the use owner, the resolution's
 // GraphFunction owner and the use owner's forward `requires` edges.
+// The declaration of use is mapped by GraphFunction identity, never position:
+// modulePublication sorts graphFunctions by name. Every original graph, its
+// name and order and every unrelated declaration are preserved; only the
+// assessment Program's member gains the raw result contract.
 function declaringAssessmentPublication(contract) {
-  const root = publication.graphFunctions[0];
-  return {...publication, contracts:[...publication.contracts, contract], graphFunctions:[{...root,
-    declarations:{...root.declarations, 'abg.raw_result_contract':contract.contractRef}}, ...publication.graphFunctions.slice(1)]};
+  assert.equal(publication.graphFunctions.filter(graph => graph.name === ids.assessmentGraphFunctionRef).length, 1,
+    'the native publication holds exactly one assessment GraphFunction');
+  return {...publication, contracts:[...publication.contracts, contract], graphFunctions:publication.graphFunctions.map(graph =>
+    graph.name !== ids.assessmentGraphFunctionRef ? graph :
+      {...graph, declarations:{...graph.declarations, 'abg.raw_result_contract':contract.contractRef}})};
 }
 function assessmentDependencyFacts(declaring, {installedRoot, path, bytes, contractId, assessorOwnerProductId, use = declaring}) {
   const owner = declaring.owningProductId, user = use.owningProductId;
@@ -1084,9 +1192,13 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
   const schemaBytes=Buffer.from(a.schemaAsset.bytesBase64,'base64');await fs.writeFile(join(env.scratch,'schema.json'),schemaBytes);
   // The case-local executing Program publication from prepare(): coincident
   // consumer-owned schema owner and Program use, with coherent row, authority,
-  // execution-basis digests, GraphFunction and owner Program.
-  const selectedPublication=p.programPublication,rootGraph=selectedPublication.graphFunctions[0];
+  // execution-basis digests, GraphFunction and owner Program. The declaring
+  // member is the executing assessment GraphFunction, selected by identity.
+  const selectedPublication=p.programPublication,rootGraph=selectedPublication.graphFunctions.find(graph=>graph.name===p.graphFunction.name);
   assert.deepEqual(selectedPublication,declaringAssessmentPublication(assessmentContract));
+  assert.equal(rootGraph?.name,ids.assessmentGraphFunctionRef,'the executing GraphFunction is the assessment callable');
+  assert.deepEqual(p.program.callableMembership,[rootGraph.name],'the selected assessment Program has that sole member');
+  assert.equal(rootGraph.declarations['abg.raw_result_contract'],assessmentContract.contractRef,'that member declares use of the selected contract');
   const graphFunction=p.graphFunction;
   const authority=p.occurrence.executionAuthority,resolution=authority.implementationResolution;
   assert.equal(resolution.publicationDigest,product.sha256Canonical(selectedPublication),'row and Program publication agree');
@@ -1190,7 +1302,11 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
   // authentication premise; over facts rebuilt for that exact publication the
   // actual shared relation itself finds no declaration of use.
   const undeclared={...selectedPublication,graphFunctions:selectedPublication.graphFunctions.map(graph=>
-    graph===rootGraph?{...rootGraph,declarations:{...rootGraph.declarations,'abg.raw_result_contract':ids.workerReportContractRef}}:graph)};
+    graph.name===rootGraph.name?{...graph,declarations:{...graph.declarations,'abg.raw_result_contract':ids.workerReportContractRef}}:graph)};
+  assert.deepEqual(undeclared.graphFunctions.map(graph=>graph.name),selectedPublication.graphFunctions.map(graph=>graph.name),
+    'the negative preserves the complete graph population');
+  assert.deepEqual(undeclared.graphFunctions.filter((graph,i)=>!isDeepStrictEqual(graph,selectedPublication.graphFunctions[i])).map(graph=>graph.name),
+    [rootGraph.name],'the negative changes only the executing assessment member');
   assessmentPublication=undeclared;selectedPublicationForCall=undeclared;
   refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation','unselected raw contract refuses before dispatch');
   assessmentPublication=selectedPublication;selectedPublicationForCall=selectedPublication;
