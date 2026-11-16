@@ -1,5 +1,5 @@
 {
-  "status": "RC14_AMENDMENT_ACCEPTED_S06_ADVERSE_REVISION_PUBLIC_SETUP_RUNNING",
+  "status": "RC14_S06_REVISION_RETAINED_BODY_PRESENTATION_FAILURE_TRIAGE",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T07:11:49.998024+00:00",
+  "updatedUtc": "2026-11-16T07:20:58.700763+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1610,7 +1610,7 @@
     "completedUtc": "2026-11-16T06:40:53.917108+00:00"
   },
   "s06AdverseRevision01": {
-    "state": "ACTUAL_RUNNER_PUBLIC_SETUP_RUNNING",
+    "state": "CLOSED_FAILED_BEFORE_PROVIDER_DISPATCH",
     "activation": "integration-01/s06-adverse-revision-01/ACTIVATION.json",
     "actor": "/root/b29_vm_triage",
     "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01",
@@ -1636,6 +1636,19 @@
     "runnerProcessGroup": 37039,
     "operatorToolSession": 19050,
     "dispatchRecord": "integration-01/s06-adverse-revision-01/EXECUTION_STARTED.json",
-    "providerCallsMeaning": "No provider start observed at dispatch checkpoint; update from actual events."
+    "providerCallsMeaning": "Final observed native generation0; credential-free version preflight1 is separate.",
+    "operatorReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/OPERATOR_RETURN.json",
+      "bytes": 118499,
+      "sha256": "84ef00bf58a26cffaa40fb68dcd02e8547adcb1d42a4c8b270310e64d31d686d"
+    },
+    "failureRecord": "integration-01/s06-adverse-revision-01/ROOT_FAILURE_RECORD.json",
+    "actualRun": {
+      "ref": "run://abiogenesis/b44137d262bc79842539cb95a553b5ae44c4dceda72d399961afaa1ed1f77537",
+      "digest": "sha256:9e4deca23d1b8f3d716c0ffbf0a9eef6ebf3de839c4ca2e0cf0bc05c1bcb43a9"
+    },
+    "closedUtc": "2026-11-16T07:15:15.894676+00:00",
+    "sourceRepairSelected": false,
+    "runtimeRetryAuthorized": false
   }
 }

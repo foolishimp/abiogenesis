@@ -1,0 +1,150 @@
+{
+  "id": "RC14-S06-ADVERSE-REVISION-FIRST-FAILURE-001",
+  "recordedUtc": "2026-11-16T07:20:58.700763+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "operatorReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/OPERATOR_RETURN.json",
+    "bytes": 118499,
+    "sha256": "84ef00bf58a26cffaa40fb68dcd02e8547adcb1d42a4c8b270310e64d31d686d"
+  },
+  "candidate": {
+    "sourceCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "archiveSha256": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+    "manifestSha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e",
+    "packageVersion": "5.0.0-rc.14"
+  },
+  "controlsCommit": "cd109c4ec53b8893725e2836883442005deb3ace",
+  "actualDisposition": "failed_closed_no_retry",
+  "actualRun": {
+    "ref": "run://abiogenesis/b44137d262bc79842539cb95a553b5ae44c4dceda72d399961afaa1ed1f77537",
+    "digest": "sha256:9e4deca23d1b8f3d716c0ffbf0a9eef6ebf3de839c4ca2e0cf0bc05c1bcb43a9"
+  },
+  "stop": {
+    "ref": "event://abiogenesis/cd5f0c857fac83cbb191ca9163c678833159dcded219e0801c027ddf8ad92bb2",
+    "digest": "sha256:837003bccc747b9d599814632681ecfbd2b724ae1cafb0f7a60d5cb15ae43273"
+  },
+  "stopEventTime": "2026-11-16T07:11:54.552Z",
+  "originatingFailure": {
+    "owner": "graph-function://odd-glc/native-semantic-revision/select@5",
+    "class": "implementation_exception",
+    "assemblyRefusal": {
+      "cause": "unavailable_required_content",
+      "kind": "native_instruction_assembly_refusal",
+      "policy": null,
+      "role": null,
+      "unresolvedRefs": []
+    },
+    "lastAdmittedProducer": "semantic_revision_selection_input at event577",
+    "nativeProviderDispatched": false,
+    "terminalResult": null,
+    "outerSymptom": "Host correctly refused failed replay where complete closed traversal was required; runner exited1. No timeout."
+  },
+  "boundedPositiveEvidence": {
+    "publicSetup": true,
+    "sameResourceReopen": true,
+    "actualBindingCoverOccurrences": 3,
+    "physicalObservationsPassed": 8,
+    "intakeProducedSelectionInput": true,
+    "semanticsAccepted": false,
+    "D1OrD2Executed": false
+  },
+  "rootReacquisition": {
+    "uniquePinChecks": 246,
+    "bytesChecked": 87189776,
+    "errors": [],
+    "selectedPidsObservedAbsent": 29,
+    "selectedGroupsObservedAbsent": 17,
+    "oldPrefixVerified": true,
+    "eventLogBytes": 13730678,
+    "eventLogSha256": "207b160914a2fea0f0dac745f87bf70a12ee70eb0cf0b992d8e593a0c717bc47",
+    "eventRecords": 638
+  },
+  "conservation": {
+    "inputEntryExitCategories": 116,
+    "inputMismatches": [],
+    "originalWorksiteFiles": 32,
+    "worksiteUnchanged": true,
+    "installedObservationsEqual": true,
+    "originalPrefix": {
+      "bytes": 9395463,
+      "sha256": "1046007404641b741b4943cf58503358e19f27eeaec311301e52006a8d34d45d"
+    },
+    "appendedBytes": 4335215,
+    "appendedRecords": 97,
+    "sameEventInode": true,
+    "actualCloseHandoff": {
+      "prefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/Library/Application%20Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+        "prefixLength": 13730678,
+        "prefixDigest": "sha256:207b160914a2fea0f0dac745f87bf70a12ee70eb0cf0b992d8e593a0c717bc47",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 893980299,
+          "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+        },
+        "coordinateDigest": "sha256:f8c315a1e0321f812c5f2c997b2b12fea48d1deda6c0b2125a4c07fc6c794fae"
+      },
+      "reopenAuthority": {
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0",
+        "eventLogPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+        "device": 16777231,
+        "inode": 893980299,
+        "eventLogDigest": "sha256:207b160914a2fea0f0dac745f87bf70a12ee70eb0cf0b992d8e593a0c717bc47",
+        "durableByteLength": 13730678,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
+        "authorityDigest": "sha256:257dc21ef96433b14b04f8a8c9f8240c04eeecbc937b1f78eb022b1e27e9a920"
+      }
+    }
+  },
+  "readbacks": {
+    "run_result": "held/fresh both not_found",
+    "run_replay": "held/fresh both failed with equal ownerOutput",
+    "resourceClosed": true
+  },
+  "provider": {
+    "actualNativeInvocations": 0,
+    "credentialFreeVersionPreflights": 1,
+    "configuredModel": "claude-opus-5-5",
+    "configuredEffort": "xhigh",
+    "nativeUsageOrCostReceipts": [],
+    "scope": "No substantive provider dispatch reached; one --version command is not native generation or billing evidence"
+  },
+  "tool": {
+    "attempts": 0,
+    "rootsCreatedThenCleaned": true,
+    "groupsAbsent": true
+  },
+  "firstTriangulation": {
+    "ProductDesignReviewer": "/root/amendment_topology_review",
+    "RuntimeIntegrationReviewer": "/root/rc14_release_proof",
+    "sharedConcreteCause": "Current intake context at577 has31 inline base64 files. Historical adverse semantic envelope505 legally retains31 admitted_member files. Selection presentation contextView requires inline base64 and throws on that historical context; outer catch hides the originating relation behind generic unavailable_required_content.",
+    "ownerRoutes": [
+      "abg/instruction_assembly.ts:927-934,974,988,1002,678",
+      "implementation/native_workspace_work.ts:64-70",
+      "product/semantic_job.ts:836,852",
+      "design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md:299-300"
+    ],
+    "scopeStillClosing": "Owning HOW is stale; stage assembly has the same inline-only assumption. Existing member resolver has a bounded foreign-Run policy that must not be bypassed. Close exact historical parent/cause origin authorization and affected proof before selecting repair."
+  },
+  "next": "Conjoin full closed frame results, then select smallest owning HOW and RC13-native source repair with affected reproof. No automatic retry or repair was performed.",
+  "originalClock": {
+    "startedUtc": "2026-11-16T05:03:00.480356+00:00",
+    "deadlineUtc": "2026-11-16T13:03:00.480356+00:00",
+    "executionStopUtc": "2026-11-16T13:00:00.480356+00:00",
+    "monotonicStartedNs": 3623594379871083,
+    "monotonicDeadlineNs": 3652394379871083,
+    "enclosingMs": 28800000,
+    "exitAuditReserveMs": 180000
+  },
+  "sourceRepairSelected": false,
+  "runtimeRetryAuthorized": false,
+  "qualified": false,
+  "AF25Authorized": false,
+  "publicationAuthorized": false,
+  "rawPublished": false
+}
