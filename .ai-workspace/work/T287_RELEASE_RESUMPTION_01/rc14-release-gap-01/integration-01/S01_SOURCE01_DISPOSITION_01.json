@@ -1,0 +1,107 @@
+{
+  "id": "RC14-S01-SOURCE01-DISPOSITION-001",
+  "recordedUtc": "2026-11-16T15:31:03.840308+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner continue/finish RC14; Root conjoins closed exact-source Product and Runtime frames, preserves source and selects smallest test-owned completion.",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": "Unchanged fixed5.0 S01/ABI5-ROOT-001 orderedR1-R10 on one exact installed candidate/test/causal episode, independent declarations/input/oracle and genuine selected-definition/request plus ABG admission/replay authority.",
+  "operatorReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/OPERATOR_RETURN.json",
+    "bytes": 36832,
+    "sha256": "48f329669537a2d4cdd162f5cd4042933694e752b14f1c3ed7b88e4a8d7cc51a"
+  },
+  "verifiedReturnPins": 63,
+  "sourceFreeze": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/FROZEN_SOURCE.json",
+    "bytes": 4334,
+    "sha256": "e0f4fb44c2b43f105e6da7299a77afb2ba10299f64eeee5b8e53dbca9012ec21"
+  },
+  "sourceDiff": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/SOURCE_DIFF.patch",
+    "bytes": 56488,
+    "sha256": "1046e89b48fdbaf9b4eaf347911917f010e277abb6c926d21c20d606a1ceb0bf"
+  },
+  "sourceHead": "5989ec3d458b895609d0446a06b40b4aafe6a0a2",
+  "actualNative": "94turns/860150ms, protocol success; actual typed terminal/resource close/fresh agreement and full custody/absence sealed. No behavioral proof.",
+  "closedReviews": [
+    {
+      "actor": "/root/amendment_topology_review",
+      "frame": "Product/Design/Proof",
+      "verdict": "incomplete setup provenance and failure custody; substantial R7-R10 source relations supported"
+    },
+    {
+      "actor": "/root/rc14_release_proof",
+      "frame": "Runtime/Integration/Identity/Effect/Proof",
+      "verdict": "same setup provenance blocker conjoined with three capture gaps; no necessary assertion weakening or Product/runtime change",
+      "refinement": "Earlier broad source-supported R1-R10 statement was narrowed: real ABG admission did not authenticate the fixture-minted selected-definition/request coordinates."
+    }
+  ],
+  "findings": [
+    {
+      "id": "S01-S01-01",
+      "relation": "Genuine setup definition/request basis",
+      "evidence": "root-installed-environment.mjs77-118 hashes operation/member names as definitionDigest and {} as invocationPayloadDigest; callers487-503,542-558 submit them. environment_admission.ts892-899 checks self-consistency,1136-1157 persists supplied coordinates. shared/operation_definition_coordinate.ts9-12,44-47 requires actual selected definition authority.",
+      "correction": "Optional root route must use the existing installed selected-definition/request relation and join actual calls/receipts to both install admissions and workspace binding. constructInstalledPublicDefinitionCall229-259,328-337 and install_definition_bindings298-317/environment_definition_bindings709-729 already supply it. Preserve bounded component fixture callers. No new Product exports, runtime guard or universal Public-setup migration."
+    },
+    {
+      "id": "S01-S01-02",
+      "relation": "Capture before asserting admission/validation",
+      "evidence": "root helper requireRawAdmission121-124, requirePublicationValidations127-138 and rawProgramInput143-167 assert before candidate recording597-598 or later program-validation recording.",
+      "correction": "Observe every actual raw/publication/program validation candidate and earlier successful rows before the existing assertion; keep all predicates and independent oracle."
+    },
+    {
+      "id": "S01-S01-03",
+      "relation": "Retain event history/read observations on first failure",
+      "evidence": "language helper rejects CLI exit/stream/parse/transport/receipt before event copy237-246; read failure bypasses after-read274-275; root cleanup895-897 deletes scratch log.",
+      "correction": "Preserve actual available log bytes/read-boundary observations in failure/finalization before cleanup, with primary error intact; partial raw history is not claimed as admitted successful projection."
+    },
+    {
+      "id": "S01-S01-04",
+      "relation": "Original child errors and secondary capture failures survive reporter",
+      "evidence": "language helper143-152 discards actual execFile Error and throws new exit assertion; smoke317 sends simultaneous capture failure only to diagnostic, dropped by selected reporter.",
+      "correction": "Keep unexpected child Error primary while expected-nonzero component behavior remains valid; preserve secondary capture failure through existing retained error/cause or durable owned channel. Preserve existing nonthrowing parse-failure capture and capture-only failure."
+    }
+  ],
+  "retainedPositiveSourceFindings": [
+    "Root path conditionally avoids private implementation imports, uses declared exports/abg.cli and preserves component callers.",
+    "Original Program/leaf/fixture builder bytes, independent input/oracle conserved.",
+    "R7 validation branding and actual materialized invocation/input joins agree with owners.",
+    "R9 event field/cause/producer/judgment/closure identities agree with owners.",
+    "R10 fresh typed terminals, closed replay and unchanged selected prefix agree with owners; initial invocation may project at an earlier prefix."
+  ],
+  "method": {
+    "audit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/AUTHOR_AUDIT.json",
+      "bytes": 11239,
+      "sha256": "9eb010d8abe3eba3bc8c68f713d91501f4527a989442cd18906927c2d0e71f34"
+    },
+    "standing": "Truncated stdo status verification remains noncompliant and unwaived; no retroactive compliant AUTHOR_AUDIT. All35 material body comparisons were observed before first edit.",
+    "rootCurrentBasisCheck": {
+      "command": "stdo status --definition stdo_abiogenesis.json --verify",
+      "exitCode": 0,
+      "fullStdoutBytes": 14702,
+      "fullStdoutSha256": "f94aae03c758745017448b790f9c783eaf10430db45c3c96c320290443e07d4c",
+      "fullJsonParsed": true,
+      "installed": true,
+      "valid": true,
+      "basis": "stdo://releases/v3.0.4/",
+      "standing": "Current Root acquisition only; does not rewrite the native historical observation."
+    }
+  },
+  "rootDecision": {
+    "sourceAccepted": false,
+    "proofAccepted": false,
+    "sourceRecoverySelected": true,
+    "writeScope": "Same three test-owned files only. Preserve exact partial source under separate copy-only Writer, then prepare RC13 completion focused on selected setup provenance and four findings.",
+    "sequencing": "Current B64 controls/source binding first fixes its immutable source checkout; then preserve S01 partial on main without invalidating that running subject.",
+    "proof": "After corrected exact source, one whole installed-language episode on eventual exact successor archive/fresh source-blind install, explicit absolute capture root/full manifest and bounded failure-custody discriminators. No broad suite or automatic qualification.",
+    "noNewProductRuntimeDefectEstablished": true
+  },
+  "qualified": false,
+  "rawPublished": false
+}

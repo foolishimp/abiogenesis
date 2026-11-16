@@ -1,5 +1,5 @@
 {
-  "status": "RC14_S01_SOURCE_REVIEW_B64_CONTROL_REENTRY",
+  "status": "RC14_B64_COMPOSITION_NATIVE_AUTHORIZED_S01_COMPLETION_SELECTED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -64,7 +64,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-15T23:46:44.978702+00:00",
-  "nativeAuthorState": "No native author currently running. S01 source returned and independent frozen-source reviews activated. B64 control successor is selected after one-vs-three population mismatch; native source/proof not yet activated.",
+  "nativeAuthorState": "B64 genuine-composition controls accepted and exact native source call authorized after push; actual provider start not yet observed. S01 source reviews closed with setup-provenance/capture defects; three-file completion selected.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -759,7 +759,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T15:10:46.829576+00:00",
+  "updatedUtc": "2026-11-16T15:31:03.840308+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1654,7 +1654,7 @@
     "runtimeRetryAuthorized": false
   },
   "b64Repair": {
-    "state": "COMPOSITION_PREPARATION_CLOSED_RUNNER_CARDINALITY_MISMATCH_SUCCESSOR_SELECTED",
+    "state": "COMPOSITION_CONTROLS_ACCEPTED_NATIVE_AUTHORIZED_AFTER_PUSH",
     "selection": "integration-01/B64_HISTORICAL_CONTEXT_CONJUNCTION_AND_REENTRY_01.json",
     "activation": "integration-01/B64_NATIVE_CONTROL_PREPARATION_ACTIVATION_01.json",
     "actor": "/root",
@@ -1739,7 +1739,7 @@
       "sha256": "8e6c591206519525e3da17bffd90eac2cc5d674f2d1627934366a836b810aeb4"
     },
     "buildOrBehavioralProofStarted": false,
-    "next": "Prepare exact plan-bound population/count successor under Writer048, independent controls review, then separately select native test-source call.",
+    "next": "Launch exact RC13 three-test author, freeze actual source and audit; separate earliest proof afterward.",
     "native03Started": true,
     "native03PreflightContinuation": "integration-01/B64_NATIVE03_PREFLIGHT_CONTINUATION_01.json",
     "actorPid": 50590,
@@ -1754,7 +1754,9 @@
     "sourceStanding": "Eight Native003 postimage files preserved exactly on main; source/proof acceptance remains withheld.",
     "construction": "integration-01/B64_COMPOSITION_CONSTRUCTION_01.json",
     "compositionPreparation": "integration-01/B64_COMPOSITION_CONTROL_PREPARATION_01.json",
-    "controlReentry": "integration-01/B64_COMPOSITION_CONTROL_REENTRY_01.json"
+    "controlReentry": "integration-01/B64_COMPOSITION_CONTROL_REENTRY_01.json",
+    "compositionControlsCommit": "bbaa0694e5e99727b31da18857c1a4329bcfebf4",
+    "compositionActivation": "integration-01/B64_COMPOSITION_NATIVE_ACTIVATION_01.json"
   },
   "releaseGateCensus02": {
     "state": "BOUNDED_EVIDENCE_MAPPING_ACCEPTED_NOT_QUALIFICATION",
@@ -1768,7 +1770,7 @@
     "qualificationPerformed": false
   },
   "s01RootProofGap": {
-    "state": "SOURCE_FROZEN_REVIEW_ACTIVE_METHOD_DEVIATION_RETAINED",
+    "state": "SOURCE01_REVIEW_CLOSED_SETUP_PROVENANCE_AND_CAPTURE_REPAIR_SELECTED",
     "record": "integration-01/S01_ROOT_PROOF_GAP_TRIAGE_01.json",
     "candidate02SmokePreserved": true,
     "completeS01": false,
@@ -1802,7 +1804,8 @@
     "methodCompliant": false,
     "nativeReturnedUtc": "2026-11-16T11:00:30.295Z",
     "actorAbsent": true,
-    "next": "Conjoin independent frozen-source findings, preserve exact source, then select smallest actual source/proof action. No behavioral proof credit."
+    "next": "Preserve exact partial source after B64 binding freezes, prepare same-three-file RC13 completion using actual selected setup definition/request and complete failure capture.",
+    "sourceDisposition": "integration-01/S01_SOURCE01_DISPOSITION_01.json"
   },
   "s06SuccessorHistoryPreflight": {
     "state": "EXISTING_ROUTE_SUPPORTED_CONDITIONALLY",

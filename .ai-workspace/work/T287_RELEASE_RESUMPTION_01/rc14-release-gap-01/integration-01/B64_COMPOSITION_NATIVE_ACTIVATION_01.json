@@ -1,0 +1,144 @@
+{
+  "id": "RC14-B64-COMPOSITION-NATIVE-ACTIVATION-001",
+  "recordedUtc": "2026-11-16T15:31:03.840308+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner continue/finish RC14; frozen Native003 preserved without acceptance, concrete canonical fixture recipe and two independent controls-ready frames. One new test-source attempt after checkpoint/push.",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": {
+    "outcome": "Unchanged fixed5.0 F17/S06: complete source/evidence, declared native revision and independent assessment, then D1/application and consequential D2.",
+    "selectedSlice": "Complete the existing historical-context owner/consumer repair; no new Product or Public-family scope.",
+    "classification": "HOW and realization correction plus affected proof; current immutable carrier identities and ABG admission remain authoritative.",
+    "authoritySplit": "Revision authenticates selected historical use; event-prefix/body owner resolves exact held members; instruction assembly derives complete presentation only.",
+    "prohibitions": [
+      "No blanket cross-Run read, fabricated use/sourceResults, generic registry, recursive arbitrary carrier search, producer deduplication rollback or historical carrier rewrite.",
+      "No new qualification policy, copied old stage credit, runtime retry, raw Git or publication."
+    ]
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPOSITION_CONSTRUCTION_01.json",
+    "bytes": 7064,
+    "sha256": "6c46fd2abea5d44d1e4a448e74bf45e3f1f98e74235bec2303cf6f8fa2826015"
+  },
+  "preparationGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPOSITION_CONTROL_REENTRY_01.json",
+    "bytes": 5621,
+    "sha256": "808bdb7262f392079d959c5d901787895488da1ff24dbebca27382756071eb2d"
+  },
+  "controls": {
+    "commit": "bbaa0694e5e99727b31da18857c1a4329bcfebf4",
+    "tree": "3bc52297687ee788a2323e661bc375a5d517d95d",
+    "parent": "e28c1d1058d822886cf9347a6f63bd34834b8f53",
+    "mergeCommit": "b87d391f441508c8930585c21ce57498ccc21766",
+    "root": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01",
+    "manifest": {
+      "path": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01/CONTROL_MANIFEST.json",
+      "bytes": 5549,
+      "sha256": "c785577a9de0f94eca74863f2ff7fec7558c84840d8b7f91be0982e71a7dd01c"
+    },
+    "manifestMembers": 35,
+    "return": {
+      "path": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01/PREPARATION_RETURN.json",
+      "bytes": 6876,
+      "sha256": "7306f9a25ad0f0c78f0564d2fecbe927e884399a3237a98d91321b73e37765b4"
+    }
+  },
+  "closedReviews": [
+    {
+      "actor": "/root/amendment_topology_review",
+      "frame": "Product/Design/Proof",
+      "verdict": "controls_ready",
+      "finding": "Actual Public/native adverse/member/intake/full-assembly held-cold route, three-test W, capture law and honest remaining obligations. Reversing HOST labels/prove allowed block restores exact predecessor; no material blocker."
+    },
+    {
+      "actor": "/root/rc14_release_proof",
+      "frame": "Runtime/Integration/Identity/Effect/Proof",
+      "verdict": "controls_ready",
+      "finding": "35control/389source/24evidence rows, six unchanged owners, same-object Task capture, exact plan-derived proof membership/order and unchanged source/audit/case/custody/deadline gates. Physical/runtime/source outcomes unexecuted."
+    }
+  ],
+  "rootAcquisition": {
+    "controlRows": 35,
+    "sourceRowsFromGitAndMain": 389,
+    "evidenceRows": 24,
+    "mismatches": 0,
+    "sourceInputBase": "e28c1d1058d822886cf9347a6f63bd34834b8f53",
+    "tenantTree": "90a625d295d74f2a94e20761853ae095b4cc98e0",
+    "Native003PreservationCommit": "a8aab368c4dbd0a7901adc977d4b1d2e3909bc09",
+    "sourceAndRawAbsent": true
+  },
+  "operatorActivation": {
+    "id": "RC14-B64-COMPOSITION-OPERATOR-001",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate execution/evidence Operator Writer; actual installedRC13 native Worker alone edits test source.",
+    "sourceWorktree": "/private/tmp/abg-rc14-b64-composition-source-20261116-01",
+    "sourceBranch": "codex/rc14-b64-composition-source-20261116-01",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01",
+    "sourceBinding": "Exact pushed main containing this grant and accepted controls, supplied after direct origin parity. Conserve389rows and reviewed tenant; freeze that commit even when later main advances.",
+    "effects": [
+      "Materialize only the selected isolated source/branch from supplied pushed commit using SOURCE_PREPARATION.json in its declared sparse-before-read-tree order. Verify all seven root files, exact HEAD/index/tenant/source rows; no source repair on mismatch.",
+      "Create fresh raw/host scratch and empty distinct npm configs. Bind actual exact launch/root grant/manifest/source/push coordinates; exclusive full SOURCE_PREIMAGE via unchanged freeze-source.py; run operate.py exactly once.",
+      "InstalledRC13 Public owners alone perform setup/physical observations/canonical actual Task construction and one real native call. Await complete actual constructor candidate capture before passing the same object to its canonical owner.",
+      "Actual native author may edit only three selected test files. No author build, behavioral test, Product import/execution, install/pack/dependency change, nested provider or Git mutation; syntax-only checks and actual complete read-only method/grant/clock/source/evidence acquisition permitted.",
+      "On return, verify actual task-matching typed terminal, resource close, same-Run fresh result/closed replay, process absence and all custody. Freeze full source postimage/diff/report immediately; notify Root for independent review while completing actual command/content/effect audit.",
+      "Audit truthful completeness and deviations. Preserve source HEAD/index unchanged, all failed attempts and protected source/raw/candidates; no proof/repair/retry/main/push/raw Git. Read exact actual request locations from owner records."
+    ],
+    "bounds": {
+      "providerCallsAtMost": 1,
+      "providerConcurrencyGlobal": 2,
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "nativeAbsoluteMs": 2700000,
+      "nativeInactivityMs": 300000,
+      "maxTurns": 360,
+      "enclosingMs": 10800000,
+      "exitReserveMs": 180000,
+      "retry": false
+    },
+    "entry": "One new source-attempt clock at actual operate.py entry; all old native/source clocks permanently remain closed and unchanged.",
+    "stops": [
+      "First integration/identity/topology/terminal/closure/custody failure retained and returned; no autonomous retry or scope expansion.",
+      "Incomplete source or method deviation returns as such, never activates proof. Routine read-display or literal editor-selector corrections inside the existing exact grant do not constitute new Product integration failures."
+    ],
+    "returnTo": "Root with exact frozen source and sealed custody/audit; no proof follows automatically."
+  },
+  "nativeSourceActivation": {
+    "id": "RC14-B64-COMPOSITION-SOURCE-WORKER-001",
+    "role": "Actual installedRC13 native test-source author",
+    "outcome": "First genuine complete Public admission-to-selector-assembly held/cold regression plus capture/claim repairs, preserving current production/HOW.",
+    "writePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+    ],
+    "obligations": [
+      "Use actual installed Public setup, canonical native lifecycle declarations, genuine observed adverse assessor/fold and admitted_member holder; deterministic actor supplies data only.",
+      "Use actual second-Run intake, actual authentication/ancestry/cover/source membership and complete assembly/plan/manifest/request; no synthetic basis, hand-built historical use, inline-only coverage or renderer substitute.",
+      "Retain actual candidates and first failures before assertions/cleanup; primary and secondary capture errors survive selected reporter; capture-only failure fails.",
+      "Preserve39 original obligations and three named B64 cases, but narrow lower-component comments to their actual coverage. Inherited-parent/C2/other-file full proof stays open after the first discriminator.",
+      "Read actual Root grant/clock/method/body sources and original counterexample; complete status subprocess exit and full-JSON parse precedes selected-field display. Current source is a preserved incomplete predecessor, not accepted proof."
+    ],
+    "readAuthority": "Exact TASK/READ_PLAN/ROOT_SELECTION plus canonical causal owner cone and selected immutable method/evidence; read roots route initial context rather than narrowing reasoning."
+  },
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "dispatchAuthorizedAfterPushedBinding": true,
+  "proofAuthorized": false,
+  "candidateBuildAuthorized": false,
+  "proofBoundary": "Later separate exact grant for one normal build and one whole native-semantic-job file, preserving its10original top-level titles plus first genuine B64 case; <=90min clipped to this source attempt original3h deadline with180s reserve. Other two files and inherited-parent/C2/full B64/S06 obligations remain open. No automatic proof, repeat broad suite or live S06 retry.",
+  "preservation": [
+    "RC13 remains pinned unqualified builder.",
+    "Native001/002/003 and S01 source01 retain exact historical method/failure/source/evidence standing; no retroactive compliance.",
+    "S01 partial source is not part of this fixed source; later main preservation must not move this checkout.",
+    "No B50 policy, qualification, AF25, publication, global pin or raw Git change."
+  ],
+  "qualified": false,
+  "rawPublished": false
+}
