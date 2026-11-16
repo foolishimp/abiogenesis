@@ -1,0 +1,98 @@
+{
+  "id": "RC14-B56-FIXTURE05-PROOF-REUSE-READINESS-01",
+  "recordedUtc": "2026-11-16T00:49:34.654158+00:00",
+  "writer": "RC14-ROOT-B56-FIXTURE05-RECORDS-WRITER-035",
+  "authority": "B56_PROOF03_CONJUNCTION_AND_FIXTURE05_SELECTION.json conditional unchanged-payload/build reuse assessment.",
+  "frame": "Proof/Identity conditional evidence reuse; fixed5.0F04/F17/S06, not qualification.",
+  "reviewer": "/root/b29_vm_triage",
+  "subject": {
+    "mirror": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06",
+    "postimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/BUILD_POSTIMAGE.json",
+      "bytes": 542306,
+      "sha256": "0bde47f7b1e98ae4440b0df272e391f29c32221af2d17737224de631ae465ece"
+    },
+    "exit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/BUILD_EXIT.json",
+      "bytes": 542216,
+      "sha256": "d9b8c5987d73b663dacb5f44d3159a7d63d32b053f05a511726e222667e349ef"
+    },
+    "manifest": {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3101102,
+      "sha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e"
+    },
+    "tsconfig": {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06/build_tenants/abiogenesis/typescript/tsconfig.json",
+      "bytes": 604,
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e"
+    },
+    "binaryRows": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/build/native/abg_physical_path.node",
+        "bytes": 52264,
+        "sha256": "1b6a1d8944275c98d84ba9b2124fda72b7942285fc7e64930ee00578130edb77",
+        "executable": true
+      }
+    ]
+  },
+  "verified": {
+    "buildRows": 2192,
+    "buildRowSetsEqual": true,
+    "reviewerRehashedAllRetainedFiles": true,
+    "mismatches": 0,
+    "dependencyEntries": 4576,
+    "dependencyBytes": 58290948,
+    "dependencySha256": "dc55a042e47b4119487c1ef1b1288b0de607a9687b6a60e4efbb0443f9584aff",
+    "declaredPayloadLocators": 5300,
+    "generatedPayloadMembers": 2,
+    "productContentDigest": "sha256:74058d1e18aaa98e7b5ad0c30f682fe45e82b1c49237dabc4c72e956d0eb918f",
+    "excludedRepairPath": "test_env/tests/t287-native-workspace-work.test.mjs",
+    "compilation": "tsconfig compiles code/src/**/*.ts only; repair .mjs outside compilation and Product payload.",
+    "payloadOwners": "product-payload.mjs136-159 exact member equality/ignore-scripts pack; root-installed-environment.mjs198/242-248 actual archive identity."
+  },
+  "conditionalUse": {
+    "decision": "Readiness facts accepted conditionally; actual reuse not yet selected.",
+    "prerequisites": [
+      "Native05 exact source/audit/frozen result independently reviewed; only sole selected fixture changes, all7otherB56files and full relevant source/support/payload unchanged.",
+      "Fresh mirror equals complete retained build inventory except exact reviewed fixture postimage; copied dependencies retain link/mode/content inventory.",
+      "Original and fresh mirrors, payload/generated/native196inputs, tools/control helpers, sourcepostimage, earliergreen fullcaptures/receipts/candidates all authenticated at entry/exit; fresh physical topology preserves everyprotectedinput.",
+      "Actual new pre-assert capture paths and complete observationrequirements bound after sourcefreeze."
+    ],
+    "retainedEvidence": "Focused1+installed2 stay historical over exact conserved Product and unchangedtest/support inputs. No re-execution/relabeling or automatic prooftransfer. Failed nativeworkspace staysred.",
+    "futureCommands": [
+      {
+        "file": "t287-native-workspace-work.test.mjs",
+        "selection": "whole repaired file; preserve39top-level and nestedcases",
+        "ceilingMs": 1800000
+      },
+      {
+        "file": "t287-native-semantic-job.test.mjs",
+        "selection": "exact anchored positive9-title remainder; conjoin retainedfocus for disjoint10-title union",
+        "ceilingMs": 1800000
+      },
+      {
+        "file": "t287-native-c2-instruction-assembly.test.mjs",
+        "selection": "whole;1preservedtitle",
+        "ceilingMs": 300000
+      },
+      {
+        "file": "t288-instruction-assembly-owner.test.mjs",
+        "selection": "whole;4preservedtitles",
+        "ceilingMs": 300000
+      }
+    ],
+    "route": "Existing authenticated process-owner.run plus existing population/conservation helpers under separate Operator grant; do not invoke prove.py.main or add another executableproofrunner.",
+    "limits": "Serial;32MiBoutput;finite separatelyselected enclosingbound with90minmaximum/3minreserve; alloriginalattemptclockssealed. Only declaredData-aliashostskip, actualpopulationcounts, firstfailure/secondarycaptureerrors andgroupabsence retained.",
+    "invalidators": [
+      "Anyadditional source/payload/build/helper/tool drift",
+      "Missingorchanged source/recovery/candidate/receipt/capture or physicaltopologybinding",
+      "Proposedclaim beyond bounded affected proof"
+    ]
+  },
+  "sourcePostimageReady": false,
+  "executionAuthorized": false,
+  "buildReuseAuthorized": false,
+  "qualified": false,
+  "rawPublished": false
+}
