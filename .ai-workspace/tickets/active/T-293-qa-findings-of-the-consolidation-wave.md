@@ -114,7 +114,7 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | When | Items |
 |---|---|
-| Current | Candidate02 installed/Public/C1 accepted. Amendment04 accepted and B57 closed. S06-03 failed at Design absolute timeout; B61/B62 triaged and fresh complete successor preparation selected. Zero active provider lanes; B50 policy/scope questions unanswered. |
+| Current | Candidate02 installed/Public/C1 accepted; amendment04 accepted and B57 closed. Fresh S06-04 running since05:07:21Z, original deadline13:03Z; one native lane. Original03/B61 capacity and B62 effect deviation preserved. B50 policy/scope questions unanswered. |
 | Dependency-ready sequence | Owner selects finish RC14: B44 control correction and first installed workflow; RC13-native repair/reproof of16 peer-red files B36-B42/B45; reconcile peer coverage; bounded B21 support statement, installed amendment/S06, exact qualification and RC14/S07. Expired attempts stay closed; no duplicate broad campaign |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |

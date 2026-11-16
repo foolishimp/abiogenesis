@@ -1,5 +1,5 @@
 {
-  "status": "RC14_AMENDMENT_ACCEPTED_S06_03_FAILED_SUCCESSOR_PREPARING",
+  "status": "RC14_AMENDMENT_ACCEPTED_FRESH_S06_04_RUNNING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T05:05:36.441585+00:00",
+  "updatedUtc": "2026-11-16T05:08:06.286209+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1010,10 +1010,10 @@
       "acceptance": "integration-01/amendment-witness-04/ROOT_ACCEPTANCE.json"
     },
     "S06": {
-      "state": "attempt03_failed_successor04_preparing",
-      "grant": "integration-01/s06-witness-03/ACTIVATION.json",
-      "acceptance": "integration-01/s06-witness-03/BINDING_ACCEPTANCE.json",
-      "disposition": "integration-01/S06_THIRD_FAILURE_DISPOSITION_01.json"
+      "state": "attempt04_running",
+      "grant": "integration-01/s06-witness-04/ACTIVATION.json",
+      "acceptance": "integration-01/s06-witness-04/BINDING_ACCEPTANCE.json",
+      "priorFailedDisposition": "integration-01/S06_THIRD_FAILURE_DISPOSITION_01.json"
     },
     "formalQualification": "Not activated; B50 policy/route remains open"
   },
@@ -1534,10 +1534,10 @@
     "B62": "Confirmed temporary-file effect violation retained"
   },
   "s06Witness04": {
-    "state": "CONCRETE_BINDING_ACCEPTED_AWAITING_PUSH_AND_DISPATCH",
+    "state": "RUNNER_DISPATCHED_ENTRY_ACQUISITION",
     "selection": "integration-01/S06_THIRD_FAILURE_DISPOSITION_01.json",
-    "runtimeAuthorized": false,
-    "runtimeStarted": false,
+    "runtimeAuthorized": true,
+    "runtimeStarted": true,
     "activation": "integration-01/s06-witness-04/ACTIVATION.json",
     "absoluteTimeoutMs": 3600000,
     "enclosingMs": 28800000,
@@ -1548,6 +1548,17 @@
     "originalStartedUtc": "2026-11-16T05:03:00.480356+00:00",
     "originalDeadlineUtc": "2026-11-16T13:03:00.480356+00:00",
     "runtimeAuthorizedAfterAcceptancePush": true,
-    "executionBindingExpectedSha256": "6995ff4b809243ed19a65febb802a2222c3e4c8b949de7ec5cc12de175bf73e6"
+    "executionBindingExpectedSha256": "6995ff4b809243ed19a65febb802a2222c3e4c8b949de7ec5cc12de175bf73e6",
+    "acceptanceCheckpoint": "e081a7a7c3f93153afd77cae2325cf39b38d43d5",
+    "runnerStartedUtc": "2026-11-16T05:07:21.273023+00:00",
+    "runnerPid": 58293,
+    "executionBinding": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04/EXECUTION_BINDING.json",
+      "bytes": 8932,
+      "sha256": "6995ff4b809243ed19a65febb802a2222c3e4c8b949de7ec5cc12de175bf73e6"
+    },
+    "originalExecutionStopUtc": "2026-11-16T13:00:00.480356+00:00",
+    "operatorDispatchObservation": "Operator reports one runner invocation; actual CONTROL_START independently acquired by Root. No final witness result yet.",
+    "qualified": false
   }
 }
