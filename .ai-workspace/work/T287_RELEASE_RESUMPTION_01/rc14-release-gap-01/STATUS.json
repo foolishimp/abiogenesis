@@ -1,5 +1,5 @@
 {
-  "status": "RC14_CANDIDATE02_AMENDMENT_ACCEPTED_S06_RUNNING",
+  "status": "RC14_AMENDMENT_ACCEPTED_S06_03_FAILED_SUCCESSOR_PREPARING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T04:19:34.268456+00:00",
+  "updatedUtc": "2026-11-16T04:55:34.669454+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1010,9 +1010,10 @@
       "acceptance": "integration-01/amendment-witness-04/ROOT_ACCEPTANCE.json"
     },
     "S06": {
-      "state": "attempt03_running",
+      "state": "attempt03_failed_successor04_preparing",
       "grant": "integration-01/s06-witness-03/ACTIVATION.json",
-      "acceptance": "integration-01/s06-witness-03/BINDING_ACCEPTANCE.json"
+      "acceptance": "integration-01/s06-witness-03/BINDING_ACCEPTANCE.json",
+      "disposition": "integration-01/S06_THIRD_FAILURE_DISPOSITION_01.json"
     },
     "formalQualification": "Not activated; B50 policy/route remains open"
   },
@@ -1489,7 +1490,7 @@
     "reportedSdkCostUsd": 11.4816298
   },
   "s06Witness03": {
-    "state": "INTENT_PRODUCT_REQUIREMENTS_SATISFIED_DESIGN_SELECTED",
+    "state": "FAILED_CLOSED_DESIGN_ABSOLUTE_TIMEOUT",
     "activation": "integration-01/s06-witness-03/ACTIVATION.json",
     "runtimeStarted": true,
     "qualified": false,
@@ -1517,6 +1518,25 @@
       "designSelectedUtc": "2026-11-16T04:18:53.714Z",
       "applicationCoverage": "non_closing; all three declared gaps remain",
       "meaning": "Design selected; executable D1 evidence and consequential D2 remain outstanding. Interim Operator observation, not sealed S06 acceptance."
-    }
+    },
+    "closed": true,
+    "runtimeClosedUtc": "2026-11-16T04:39:13.235Z",
+    "rootDisposition": "integration-01/S06_THIRD_FAILURE_DISPOSITION_01.json",
+    "operatorReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-03/OPERATOR_RETURN.json",
+      "bytes": 68047,
+      "sha256": "df6d264e15c3c270a7f0abb51a88711622d6b100177bbc05bed7152a521e970d"
+    },
+    "nativeCalls": 7,
+    "sdkCompletedCostUsd": "24.7355148",
+    "timedOutCostUnknown": true,
+    "B61": "External actor capacity exhausted; fresh complete successor preparation selected",
+    "B62": "Confirmed temporary-file effect violation retained"
+  },
+  "s06Witness04": {
+    "state": "CAPACITY_REPRICED_BINDING_FEASIBILITY_PREPARING",
+    "selection": "integration-01/S06_THIRD_FAILURE_DISPOSITION_01.json",
+    "runtimeAuthorized": false,
+    "runtimeStarted": false
   }
 }

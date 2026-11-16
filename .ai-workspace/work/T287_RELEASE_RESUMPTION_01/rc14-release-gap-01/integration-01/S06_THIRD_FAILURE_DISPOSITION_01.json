@@ -1,0 +1,246 @@
+{
+  "id": "RC14-S06-THIRD-FAILURE-DISPOSITION-01",
+  "recordedUtc": "2026-11-16T04:55:34.669454+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+    "role": "Separate Root candidate records/integration Writer",
+    "authority": "Owner finish RC14 and continue; accepted B56 source/affected proof and exact accepted candidate02 controls.",
+    "effects": [
+      "Record candidate02 source/build and subsequent separately selected install/Public/C1/witness decisions/results in existing carrier/STATUS/T287/T293; integrate exact authored Returns and adjudicated derived metadata only; checkpoint/push."
+    ],
+    "exclusions": [
+      "No semantic source/Product/claim change, raw Git, qualification/AF25/publication/pin change or invented owner ruling."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "outcome": "Fixed 5.0 F17/S06: complete installed D1 lifecycle, independent semantic assessment, executable application evidence, consequential D2 revision and fresh replay. Full original Data Mapper and other qualification scenarios retain their separate scope.",
+    "category": "External execution capacity and effect observations; ABG alone owns runtime admission and replay. The worksite is not the immutable Product/Program.",
+    "prohibitions": [
+      "No fabricated admission, copied stage completion credit, failed-to-pending relabelling, outside-scope write waiver, new host runtime, weakened oracle or qualification inference."
+    ]
+  },
+  "subject": {
+    "candidate": {
+      "sourceCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+      "sourceTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+      "compileInputTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+      "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+      "archiveSha256": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+      "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+      "manifestSha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e",
+      "packageVersion": "5.0.0-rc.14",
+      "cutRecordPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/CUT_RECORD.json",
+      "cutRecordSha256": "f7aa025826e6732726bf8aedac3ed8305ece21ede83e5ebfc5bc8d321f9388aa",
+      "archiveMembersPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/ARCHIVE_MEMBERS.json",
+      "archiveMembersSha256": "6fbf0d20f29ae5515896455599f50e2f582a2ccbcb5eb7590c0bfb60ab5a7f60"
+    },
+    "sourceFinalization": {
+      "C1Commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+      "C1Tree": "22eed3693976419c6ed63117756294001096a280",
+      "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+      "freeze": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/FREEZE.json",
+        "bytes": 4619,
+        "sha256": "f65eed415da5b31978ffb6fac9f8c2264c5ac554c65c560547e49b1ad51dfc62"
+      },
+      "rootAcceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_C1_FREEZE_ACCEPTANCE_01.json",
+        "bytes": 3979,
+        "sha256": "b39e546d86be9b41ea96f8cf10cea63391bf4988c93f0ecc4d6cc28b672f1c31"
+      }
+    },
+    "controls": {
+      "root": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03",
+      "commit": "6f4c3777cee044a7a9c3de23e18cb7ed3ac4f188",
+      "manifestSha256": "b753febcd89ec78742117fe3abd20da47df49363766901b908f283b59ab7de61",
+      "returnSha256": "4f02b3f63e998b8a6926b8cbd3d2d258d69355c68f285f2dcc2b70a2d24486ac"
+    },
+    "run": {
+      "ref": "run://abiogenesis/92834f75b8f5a317581923394d8e7227da3d796169744c05e8244e58e9df05cd",
+      "digest": "sha256:8aa4d3218716d3f07831a45c7fc27e67d63b1dc1d35ec19244d6ac803e31f806"
+    },
+    "operatorReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-03/OPERATOR_RETURN.json",
+      "bytes": 68047,
+      "sha256": "df6d264e15c3c270a7f0abb51a88711622d6b100177bbc05bed7152a521e970d"
+    },
+    "originalClock": {
+      "kind": "installed_s06_binding_preparation_start",
+      "activation": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-witness-03/ACTIVATION.json",
+        "bytes": 16088,
+        "sha256": "ed30d5c8faad2f8365484c6681ab00433b08a22b5cf717e0b1081bce23ea1b48"
+      },
+      "pushedCheckpoint": "aa9e2f69a7d16cd98cdb5621ff4c70570714cb30",
+      "startedUtc": "2026-11-16T02:55:03.038185+00:00",
+      "deadlineUtc": "2026-11-16T06:55:03.038185+00:00",
+      "executionStopUtc": "2026-11-16T06:52:03.038185+00:00",
+      "startedMonotonic": 3615916.952877583,
+      "deadlineMonotonic": 3630316.952877583,
+      "executionStopMonotonic": 3630136.952877583,
+      "enclosingMs": 14400000,
+      "exitAuditReserveMs": 180000,
+      "preparationOnly": true,
+      "runtimeStarted": false,
+      "providerStarted": false,
+      "credentialValuesAcquired": false,
+      "oldClockReset": false,
+      "freshRootsObservedAbsent": [
+        "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-03",
+        "/private/tmp/abg-rc14-s06-witness-20261116-03",
+        "/private/tmp/as6j2",
+        "/private/tmp/as6r2"
+      ]
+    }
+  },
+  "actualOutcome": {
+    "status": "failed_closed",
+    "timeout": {
+      "admissionOrdinal": 2218,
+      "eventId": "event://abiogenesis/52333d3547aa233cc4047a4c9b7191e047688a28c9cbd3fce9ffefae8049d803",
+      "eventTime": "2026-11-16T04:39:11.024Z",
+      "kind": "actor_process_timeout_observed",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "payloadDigest": "sha256:cd55ee7eb720cc3982ef747c595bc2e3fabc6acb606d56a6f2289ebbcab43cea"
+    },
+    "absoluteTimeoutMs": 1200000,
+    "measuredElapsedMs": 1200003.534,
+    "exitStatus": 143,
+    "runStoppedOrdinal": 2259,
+    "runStoppedUtc": "2026-11-16T04:39:13.235Z",
+    "hostWallMs": 5456187,
+    "admittedSatisfiedAssessmentOrdinals": [
+      493,
+      1047,
+      1771
+    ],
+    "admittedStages": [
+      "Intent",
+      "Product",
+      "Requirements"
+    ],
+    "applicationCoverage": "non_closing with all three declared semantic/application/proof gaps retained",
+    "DesignCandidateWritten": false,
+    "DesignAssessmentReached": false,
+    "ToolAttempts": 0,
+    "D2Started": false,
+    "nativeActorCount": 7,
+    "completedSdkTerminals": 6,
+    "completedSdkReportedCostUsd": "24.7355148",
+    "timedOutActorCost": null,
+    "costLimit": "SDK list cost for six completed actors only; not actual billing or total seven-actor cost.",
+    "apiRetries": 0,
+    "rateLimitEvents": "Two retained informational events both say allowed; no quota denial is established.",
+    "oldClockReset": false
+  },
+  "rootAcquisition": {
+    "uniqueOperatorReturnPinsRehashed": 84,
+    "pinErrors": [],
+    "inputEntryExitByteIdentical": true,
+    "topLevelInventoryRows": 80,
+    "bootstrapMembers": 5302,
+    "frozenToolInputRows": 4862,
+    "heldFreshOwnerOutputsEqual": true,
+    "runResult": "not_found refusal",
+    "runReplay": "failed",
+    "eventLog": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-03/witness/resources/events/runtime.events.jsonl",
+      "bytes": 27015143,
+      "sha256": "d5f4f3b497531cc9d67be4d67251c24611fc373b8b9accb9e6bdb9cd6d706d6b"
+    },
+    "nativePidAndSameNumberedGroupAbsence": 7,
+    "selectedRunnerHostAndNativeIdentityAbsence": 9,
+    "ToolRoots": "Created by the owner, zero Tool attempts, then cleaned; both roots independently absent. No never-created claim.",
+    "physicalLimit": "Selected process identities and declared inventories only; not universal filesystem or machine absence."
+  },
+  "closedFrames": {
+    "ProductDesignIdentity": {
+      "reviewer": "/root/amendment_topology_review",
+      "finding": "Real author capacity exhaustion; no semantic assembly/admission defect established. Five source files 135805 B, three predecessor files 462577 B, 27 active requirements/bindings and application inspection are required. Prompt 111057 B; repeated/truncated acquisitions added work, but full predecessor acquisition cannot simply be removed. At 16 minutes an in-memory setup script returned syntax-ok; tool 49 still inspected application source near 19m39s.",
+      "priorCheckLimit": "The green B56 component proof discriminated contract/dependency/assembly behavior, not whether this live task fits 20 minutes."
+    },
+    "RuntimeIntegrationLifecycle": {
+      "reviewer": "/root/rc14_release_proof",
+      "finding": "The actual dispatched timeout is not an undispatched preparation refusal, adverse assessment or C2 command failure. No existing native revision cause or construction/worksite bridge applies. The Run is failed, not pending. A fresh D1 cannot import the old envelope as current completion credit.",
+      "sources": [
+        "code/src/abg/construction_continuation.ts:55-80,99-107",
+        "code/src/owner_bindings/run_invocation.ts:1589-1593",
+        "code/src/abg/semantic_revision.ts:148-179,209-217,420-433",
+        "code/src/abg/semantic_job.ts:98-155"
+      ],
+      "cleanup": "Actual absolute timeout, exit 143, observed close/group absence, streams disposed and 363.7 ms cleanup. No drain expiry, launch/first error or API retry. Generic transport_failure does not establish a transport defect."
+    },
+    "ProofEffectCustody": {
+      "reviewer": "Root, independently reacquired original evidence",
+      "finding": "The failed Run and closure are supported by the exact retained prefix, equal owner readbacks, conserved entry/exit inventories and independently absent selected groups. A separate actual shell action violated the stage write grant; post-work changedPaths [] does not erase it."
+    }
+  },
+  "effectDeviation": {
+    "id": "B-62",
+    "stdout": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-03/witness/resources/archives/fp-42e07ce2b28a9a5c-stdout.log",
+      "bytes": 3845032,
+      "sha256": "1b727db2cb4ebbf80b085a9ad27f4dcd69d1fdb75a7c41e4a655a18c244677c8"
+    },
+    "writeToolId": "toolu_01ARVp8fu2a2X7F7ZrxCG1eD",
+    "removeToolId": "toolu_019imZooZaUF5CRfYLfvZXs7",
+    "writeLine": 496,
+    "removeLine": 540,
+    "path": "/tmp/claude_stage1_dump.txt",
+    "observedBytes": 40185,
+    "toolResults": "Both tool results non-error; first reports 40185 bytes, second ls reports no such file after rm.",
+    "grant": "Actual prompt permits only semantic-assets/stage-3.json and expressly prohibits undeclared temporary writes including later-deleted files.",
+    "priorPathState": "Unknown. No assertion that an existing file was not overwritten or that removal restored prior state.",
+    "disposition": "Confirmed out-of-scope effect; no blanket method/effect compliance or acceptance credit for this Design author. Preserve evidence. It is separate from the proved timeout cause. A successor must retain the same restriction and use in-memory/piped inspection; no new containment guarantee is claimed.",
+    "boundary": "Existing native work HOW is a trusted-desktop boundary with selected observations and independent judgment. Prompt/observation machinery does not prevent all transient off-scope shell writes."
+  },
+  "conjunction": {
+    "B-61": "P1 external witness capacity mismatch before complete S06. Prepare one fresh complete invocation with prospectively adequate finite actor/enclosing bounds; no repair of unchanged candidate is established by this failure.",
+    "B-62": "Retain confirmed actor effect violation and inspect actual successor actions at acceptance. Do not weaken write territory or interpret [] as universal no-effect evidence.",
+    "B-56": "Real Intent/Product/Requirements assessments now exercise the repaired route on candidate02; bounded component closure stands, full S06 remains incomplete.",
+    "retainedStageReuse": "A new authenticated relation for this dispatched timeout would require an explicit existing-owner HOW/implementation increment and new candidate proof. It is not a binding-only restart. No such source work is selected now; no new Product capability is inferred merely from its absence.",
+    "historicalEvidence": "The three admitted satisfied stages remain historical facts. No completed work is relabelled as current credit in a different invocation."
+  },
+  "selectedReentry": {
+    "class": "external_execution_capacity_reprice",
+    "phase": "preparation_only",
+    "candidateUnchanged": true,
+    "freshCompleteD1ThenD2": true,
+    "provider": {
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "absoluteTimeoutMs": 3600000,
+      "inactivityTimeoutMs": 600000,
+      "maxTurns": 120
+    },
+    "enclosingMs": 28800000,
+    "exitAuditReserveMs": 180000,
+    "capacityBasis": "Prior six completed stages used about 69 minutes and Design was still working at its 20-minute ceiling. One hour per actor and an eight-hour new enclosure permit additional work without claiming any ceiling guarantees success. Preserve turn, capture, Tool and oracle limits.",
+    "concurrency": "One selected S06 lane; at most two actual native provider executions globally. Amendment04 is closed.",
+    "preparation": "Reacquire whether unchanged controls accept these binding coordinates. Reuse frozen Tool and all original source/application inputs. Fresh external binding/raw/worksite, new Run and new original clock; old03 stays closed. No runtime until concrete binding acceptance is checkpointed and pushed.",
+    "effectInstruction": "Only an existing declared caller instruction field may carry a reminder to use memory/pipes and obey the original write grant. If no lawful existing field exists, return that fact; do not invent fields or mutate candidate/runtime.",
+    "sequence": "Exact frozen candidate + fresh binding -> public setup/admission -> D1 real stages and Tool evidence -> consequential D2 -> owned close -> cold readback and independent conjunction. Preserve first failure and stop; zero automatic retries.",
+    "preserved": [
+      "Candidate/source/C1/archive/install",
+      "All semantic/application requirements and assessments",
+      "Tool 280 s / command 300 s / query 20 s",
+      "Original03 clocks, source assets, event log, streams and returns",
+      "B50 pending policy/scope decision and RC13 operational pin"
+    ],
+    "runtimeAuthorized": false
+  },
+  "ownerRoutes": [
+    "specification/PRODUCT.md#live-state-recovery-and-valid-reuse",
+    "specification/PRODUCT.md#release-boundaries",
+    "specification/requirements/product/REQ-P-SCENARIOS.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/PLAN.md"
+  ],
+  "qualified": false,
+  "publicationAuthorized": false,
+  "rawPublished": false,
+  "automaticRetry": false
+}
