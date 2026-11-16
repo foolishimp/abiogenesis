@@ -1,0 +1,142 @@
+{
+  "id": "RC14-S01-OPERATOR02-DISPOSITION-AND-CONTROL-REENTRY-003",
+  "recordedUtc": "2026-11-16T16:24:01.165015+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": {
+    "outcome": "Fixed5.0 S01/ABI5-ROOT-001 ordered R1-R10 on one exact installed candidate/test/causal episode, independent declarations/input/oracle, genuine selected-definition/request setup authority and ABG admission/replay.",
+    "classification": "Test-owned source completion and derived execution/evidence controls; no Product/runtime/HOW/declaration/export/policy change.",
+    "prohibitions": "No fabricated setup provenance, private implementation import on the root episode path, generic event writer or rival authority, copied stage credit, raw Git, qualification or publication."
+  },
+  "priorActivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_COMPLETION_NATIVE_ACTIVATION_02.json",
+    "bytes": 10730,
+    "sha256": "d96abedabb950442a3a9d039a3ac52f3a652105a1d7e887ae620a8d907e2421f"
+  },
+  "return": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/OPERATOR_RETURN.json",
+    "bytes": 3922,
+    "sha256": "48b232485b15518f1e2e6a94c649942d07187ef713deafac6bf21b7bc5a6efa4"
+  },
+  "custody": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/CUSTODY_MANIFEST.json",
+    "bytes": 6258,
+    "sha256": "ce4169d5c656d073dbd1154f69317f86aad5c4f6845bea62fdbc8c06e0cd8194"
+  },
+  "seal": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/CUSTODY_SEAL.json",
+    "bytes": 710,
+    "sha256": "77f84e165392d4736663c4848a20b78ddfa6ee356c8883698292fbaea772a330"
+  },
+  "actual": {
+    "sourceHead": "29e6d5b642ff56782b2c3ab844fdded9d626bfa5",
+    "operateCalls": 1,
+    "hostElapsedMs": 3324,
+    "hostExitCode": 1,
+    "failureBoundary": "HOST99/39 physical topology before setup",
+    "providerCalls": 0,
+    "sourceEdits": 0,
+    "sourceRowsConserved": 1439,
+    "rootVerifiedCustodyFiles": 28,
+    "rootVerifiedCustodyBytes": 891849,
+    "hostPidAndGroup": 724,
+    "absenceObservedUtc": "2026-11-16T16:18:28.608271Z",
+    "nativeRun": null,
+    "actualResourceClose": false,
+    "originalStartUtc": "2026-11-16T16:17:41.776706Z",
+    "originalDeadlineUtc": "2026-11-16T19:17:41.776706Z",
+    "originalClockClosed": true
+  },
+  "conjunction": [
+    {
+      "id": "S01-OP02-01",
+      "frames": [
+        "Product/Design/Proof",
+        "Runtime/Integration/Identity/Effect/Proof"
+      ],
+      "originatingRelation": "Actual operate.py.__file__ was the source-local copy. operate3/68 carries that directory into HOST14/44 protectedRoots; observer246-249 compares the entire source worksite to every protected root. Byte identity did not bind execution location.",
+      "supportedCause": "Source-local controls construct an incompatible worksite/protected-control containment; this is an external invocation defect and no native source finding.",
+      "uncertainty": "Original child stdout/stderr/status are absent; original observer disposition and any co-occurring observation failures are not recovered by static reconstruction.",
+      "missedByPriorChecks": "Static review used external controls and projected layout, leaving actual invocation as an unperformed premise; no entry check authenticated executionControlRoot."
+    },
+    {
+      "id": "S01-OP02-02",
+      "frames": [
+        "Product/Design/Proof",
+        "Runtime/Integration/Identity/Effect/Proof"
+      ],
+      "originatingRelation": "HOST39 execFileSync can throw before HOST99 records the observer result. Outer error strips actual child output/status/signal.",
+      "affectedCone": "Shared wrapper for all three existing topology observations; failure diagnostics, not Product source semantics.",
+      "selectedRepair": "Retain actual input and raw child observations before parse/assert/throw; preserve primary child/parse failure and secondary capture failure. Capture-only failure fails."
+    }
+  ],
+  "closedReviews": [
+    {
+      "actor": "/root/amendment_topology_review",
+      "verdict": "narrow_control_successor_lawful",
+      "standing": "External launch/capture defect; unchanged observer and Product; no source finding."
+    },
+    {
+      "actor": "/root/s01_completion_controls_review",
+      "verdict": "narrow_control_successor_lawful",
+      "standing": "Coordinate guard before clock/raw/host plus shared observer evidence retention selected now; no weakening or retry of consumed grant."
+    }
+  ],
+  "disposition": "Close failed attempt02 unchanged. Select one bounded external-controls successor; source outcome and three W remain exactly selected by S01_SOURCE01_DISPOSITION. No native/proof execution authorized by this preparation record.",
+  "controlWriter": {
+    "id": "RC14-S01-EXTERNAL-CONTROLS-WRITER-051",
+    "actor": "/root/s01_completion_operator",
+    "role": "Separate external controls Writer; actual source author/runtime remains disabled.",
+    "sourceBase": "Exact pushed main containing this record, supplied after direct remote parity; freeze it and preserve reviewed tenant/source rows.",
+    "worktree": "/private/tmp/abg-rc14-s01-proof-controls-20261117-03",
+    "branch": "codex/rc14-s01-proof-controls-20261117-03",
+    "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03",
+    "executionControlRoot": "/private/tmp/abg-rc14-s01-proof-controls-20261117-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03",
+    "prospectiveSourceWorktree": "/private/tmp/abg-rc14-s01-proof-source-20261117-03",
+    "prospectiveSourceBranch": "codex/rc14-s01-proof-source-20261117-03",
+    "prospectiveRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-03",
+    "operations": [
+      "Create only named new controls worktree/carrier from supplied pushed checkpoint. Derive accepted ea06 controls; preserve Task outcome/three native W/all Product, method, canonical constructor, scope, completion, custody and proof-disabled gates.",
+      "Bind exact external executionControlRoot in ACTIVATION and launch template. In operate.py entry before actual attempt clock, raw writes, launch staging or host effects require actual resolved CONTROL equals the accepted coordinate and launch binding agrees. Preserve remaining finite owner/clock/environment/process/cleanup behavior.",
+      "HOST observer wrapper retains each named boundary actual input, raw stdout/stderr, status/signal and execution-error facts before parse/assert/throw. Preserve original child or parse Error as primary; separately expose secondary capture error through retained failure channel; capture-only failure fails. Keep three existing gates and underlying physical-topology.py byte-identical. No lexical substitute for physical separation.",
+      "Change HOST/operate only at these two demonstrated control boundaries and coordinate labels. Other six mechanical Python owners unchanged; preserve same-object actual Task capture before canonical constructor. No generic capture abstraction or Product imports added.",
+      "Update exact new source/raw/attempt/control coordinates, inventories/manifests/layout/read plan and original failed02 evidence pins. All original attempts/clocks remain immutable. Protect active B64 source/raw by path, not stationary inventory.",
+      "Retain source-only mode, zero builds/behavioral files, unchanged prove.py as authenticated HOST input only. Future exact-candidate S01 proof is separately selected; no source/proof/qualification credit.",
+      "Verify JSON, Python AST, node --check HOST and bounded control-only discriminators: wrong control copy rejects before clock/raw/host effects, correct external binding proceeds to ordinary checks, actual observer outputs survive nonzero/parse/capture failures with proper precedence. Use isolated scratch and only standard-library mocks; no Product import/constructor/probe/build/test/provider/runtime effects. Record exact tested control relation and limits.",
+      "Freeze exact controls commit/manifest/Return and stop for independent affected-control review. No main/push/raw Git or subagents. Routine literal editor/display corrections within scope may proceed; actual integration/identity/scope failure returns."
+    ],
+    "bounds": {
+      "minutes": 20,
+      "clock": "Fresh actual preparation start/deadline once; source02 clock remains closed.",
+      "retry": false
+    },
+    "returnTo": "Root for frozen-control review and exact pushed native launch grant."
+  },
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "prospectiveNativeBounds": {
+    "providerCallsAtMost": 1,
+    "providerConcurrencyGlobal": 2,
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "nativeAbsoluteMs": 2700000,
+    "nativeInactivityMs": 300000,
+    "maxTurns": 360,
+    "enclosingMs": 10800000,
+    "exitReserveMs": 180000,
+    "retry": false
+  },
+  "sourceAuthorActivated": false,
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "qualified": false,
+  "rawPublished": false
+}

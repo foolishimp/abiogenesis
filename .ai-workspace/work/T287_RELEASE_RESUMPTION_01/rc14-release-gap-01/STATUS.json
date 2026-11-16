@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B64_COMPOSITION_RUNNING_S01_COMPLETION_AUTHORIZED",
+  "status": "RC14_B64_COMPOSITION_RUNNING_S01_OPERATOR03_PREPARING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -64,7 +64,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-15T23:46:44.978702+00:00",
-  "nativeAuthorState": "B64 genuine-composition native author remains active; S01 completion controls accepted and native launch authorized after this exact checkpoint push.",
+  "nativeAuthorState": "B64 composition author remains active. S01 attempt02 stopped before setup/native due unsupported control invocation location; same source completion awaits narrow external-controls successor.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1778,7 +1778,7 @@
     "qualificationPerformed": false
   },
   "s01RootProofGap": {
-    "state": "COMPLETION_CONTROLS_ACCEPTED_NATIVE_AUTHORIZED_AFTER_PUSH",
+    "state": "ATTEMPT02_CLOSED_BEFORE_NATIVE_EXTERNAL_CONTROLS_SUCCESSOR_SELECTED",
     "record": "integration-01/S01_ROOT_PROOF_GAP_TRIAGE_01.json",
     "candidate02SmokePreserved": true,
     "completeS01": false,
@@ -1812,19 +1812,27 @@
     "methodCompliant": false,
     "nativeReturnedUtc": "2026-11-16T11:00:30.295Z",
     "actorAbsent": true,
-    "next": "Separate Operator fixes exact pushed source and launches one RC13 source-only completion; frozen source review and later installed episode remain required.",
+    "next": "Bind external control invocation location and retain observer failure output, then independently reviewed new source-only attempt. No Product/source repair from this stop.",
     "sourceDisposition": "integration-01/S01_SOURCE01_DISPOSITION_01.json",
     "source01PreservedOnMain": true,
     "preservation": "integration-01/S01_SOURCE01_PRESERVATION_ACTIVATION_01.json",
     "completionPreparation": "integration-01/S01_COMPLETION_CONTROL_PREPARATION_01.json",
     "completionControlsCommit": "ea06c74e6de4fa458e247fe921b30d3b140fcb91",
     "completionActivation": "integration-01/S01_COMPLETION_NATIVE_ACTIVATION_02.json",
-    "completionProviderStarted": false
+    "completionProviderStarted": false,
+    "completion02Return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/OPERATOR_RETURN.json",
+      "bytes": 3922,
+      "sha256": "48b232485b15518f1e2e6a94c649942d07187ef713deafac6bf21b7bc5a6efa4"
+    },
+    "completion02ProviderCalls": 0,
+    "completion02SourceEdits": 0,
+    "completion03Preparation": "integration-01/S01_OPERATOR02_DISPOSITION_AND_CONTROL_REENTRY_03.json"
   },
   "s06SuccessorHistoryPreflight": {
     "state": "EXISTING_ROUTE_SUPPORTED_CONDITIONALLY",
     "record": "integration-01/S06_SUCCESSOR_HISTORY_PREFLIGHT_01.json",
     "executionAuthorized": false
   },
-  "lastUpdatedUtc": "2026-11-16T16:13:18.190610+00:00"
+  "lastUpdatedUtc": "2026-11-16T16:24:01.165015+00:00"
 }
