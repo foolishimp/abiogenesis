@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B64_RECOVERY_REVIEW_S01_COMPLETION03_AUTHORIZED",
+  "status": "RC14_B64_RECOVERED_PROOF_PREPARING_S01_NATIVE03_ACTIVE",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -64,7 +64,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-15T23:46:44.978702+00:00",
-  "nativeAuthorState": "B64 failed source attempt frozen; independent recovery review active. S01 controls03 accepted; fresh native source-only launch authorized after exact checkpoint push.",
+  "nativeAuthorState": "One actual RC13 S01 completion author active. B64 recovered first-discriminator source preserved on main; separate proof controls selected with three explicit capture debts.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1654,7 +1654,7 @@
     "runtimeRetryAuthorized": false
   },
   "b64Repair": {
-    "state": "COMPOSITION_FROZEN_AFTER_ABSOLUTE_TIMEOUT_REVIEW_ACTIVE",
+    "state": "RECOVERED_FIRST_COMPOSITION_SUBJECT_ADOPTED_FULL_ACCEPTANCE_WITHHELD",
     "selection": "integration-01/B64_HISTORICAL_CONTEXT_CONJUNCTION_AND_REENTRY_01.json",
     "activation": "integration-01/B64_NATIVE_CONTROL_PREPARATION_ACTIVATION_01.json",
     "actor": "/root",
@@ -1739,7 +1739,7 @@
       "sha256": "8e6c591206519525e3da17bffd90eac2cc5d674f2d1627934366a836b810aeb4"
     },
     "buildOrBehavioralProofStarted": false,
-    "next": "Review exact frozen source and actual audit, then select lawful recovery or bounded source repair; original completed-author proof gate is unsatisfied.",
+    "next": "Exact-byte preservation and separate recovered-source earliest-proof controls; no new author pass solely for timeout.",
     "native03Started": true,
     "native03PreflightContinuation": "integration-01/B64_NATIVE03_PREFLIGHT_CONTINUATION_01.json",
     "actorPid": 50590,
@@ -1773,7 +1773,25 @@
     },
     "compositionTimeout": "integration-01/B64_COMPOSITION_TIMEOUT_01.json",
     "compositionNativeCompleted": false,
-    "compositionProofExecuted": false
+    "compositionProofExecuted": false,
+    "compositionReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/OPERATOR_RETURN.json",
+      "bytes": 40440,
+      "sha256": "14fe764d4cdb6187a507818ba83e0f41be4209e3bd80b09d79afc1259879a3a7"
+    },
+    "compositionAudit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/AUTHOR_AUDIT.json",
+      "bytes": 8171,
+      "sha256": "eae20856517b28537a074a2a913ad08fe8e47c65a54ec2f385b8b91be5adacfa"
+    },
+    "recoveredSelection": "integration-01/B64_RECOVERED_SOURCE_FIRST_PROOF_SELECTION_01.json",
+    "recoveredProofPreparation": "integration-01/B64_RECOVERED_PROOF_CONTROL_PREPARATION_01.json",
+    "captureDebt": [
+      "B64-TAR-PRIMARY",
+      "B64-SETUP-CLOSE-CAPTURE",
+      "B64-FINAL-CAPTURE-CLEANUP"
+    ],
+    "compositionRecoveredSourcePreservedOnMain": true
   },
   "releaseGateCensus02": {
     "state": "BOUNDED_EVIDENCE_MAPPING_ACCEPTED_NOT_QUALIFICATION",
@@ -1787,7 +1805,7 @@
     "qualificationPerformed": false
   },
   "s01RootProofGap": {
-    "state": "CONTROLS03_ACCEPTED_NATIVE03_AUTHORIZED_AFTER_PUSH",
+    "state": "NATIVE03_ACTOR_RUNNING",
     "record": "integration-01/S01_ROOT_PROOF_GAP_TRIAGE_01.json",
     "candidate02SmokePreserved": true,
     "completeS01": false,
@@ -1839,12 +1857,19 @@
     "completion03Preparation": "integration-01/S01_OPERATOR02_DISPOSITION_AND_CONTROL_REENTRY_03.json",
     "completion03ControlsCommit": "509306cc9393ae8de20f846660ddea921590dc37",
     "completion03Activation": "integration-01/S01_COMPLETION_NATIVE_ACTIVATION_03.json",
-    "completion03ProviderStarted": false
+    "completion03ProviderStarted": true,
+    "completion03HostStartedUtc": "2026-11-16T16:43:19.889993Z",
+    "completion03DeadlineUtc": "2026-11-16T19:43:19.889993Z",
+    "completion03SourceHead": "8415600db23ec63891c2c34274181f505fe7bdb6",
+    "completion03ActorStartedUtc": "2026-11-16T16:45:44.695Z",
+    "completion03ActorPid": 20421,
+    "completion03RunRef": "run://abiogenesis/1de484327c76d78db0a5a79d21e6042c2a12d32267aab0bd14f4fdd5a89e2958",
+    "completion03ActualDispatch": "integration-01/S01_NATIVE03_EXECUTION_STARTED_01.json"
   },
   "s06SuccessorHistoryPreflight": {
     "state": "EXISTING_ROUTE_SUPPORTED_CONDITIONALLY",
     "record": "integration-01/S06_SUCCESSOR_HISTORY_PREFLIGHT_01.json",
     "executionAuthorized": false
   },
-  "lastUpdatedUtc": "2026-11-16T16:40:35.222086+00:00"
+  "lastUpdatedUtc": "2026-11-16T16:46:47.033087+00:00"
 }

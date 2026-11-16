@@ -1263,21 +1263,47 @@ test("RC7 actual current input: the Result task is its own admitted basis input,
   assert.equal(nativeWork.nativeWorkspaceWorkObservationMatchesTask(x.task, coldEvent.payload.value), true);
 });
 
-// B64 capture law: every actual candidate is collected before any assertion
-// and written complete to ABG_REGRESSION_PROOF_ROOT. A collection or assertion
-// failure is primary and stays primary; a capture failure alone fails the case,
-// and beside a primary it is reported as distinct secondary evidence.
+// B64 capture law: every actual candidate is collected and written complete to
+// ABG_REGRESSION_PROOF_ROOT before any dependent assertion. A collection or
+// assertion failure is primary and is rethrown unchanged. A capture failure
+// beside it is secondary and is carried where the selected reporter
+// (scripts/node-test-evidence-reporter.mjs: name, message, stack, code,
+// failureType and cause, recursively) retains it: appended at the end of the
+// primary's cause chain, else to its message, else written to stderr. A
+// capture failure alone fails the case. No t.diagnostic is relied on.
 function writeB64Candidate(file, candidate) {
   const root = process.env.ABG_REGRESSION_PROOF_ROOT;
   if (root === undefined || root === "") return null;
   try { fs.mkdirSync(root, { recursive: true }); fs.writeFileSync(join(root, file), JSON.stringify(candidate, null, 1)); return null; }
   catch (error) { return error; }
 }
+function b64CarryCaptureFailure(primary, captureError) {
+  let detail; try { detail = String(captureError?.stack ?? captureError); } catch { detail = "[unprintable capture failure]"; }
+  const carried = new Error("B64 capture failure after the primary failure: " + detail, { cause: captureError });
+  carried.name = "B64CaptureFailure"; carried.code = "B64_CAPTURE_FAILURE";
+  let link = primary;
+  for (let depth = 0; depth < 32 && link !== null && (typeof link === "object" || typeof link === "function"); depth++) {
+    let next; try { next = link.cause; } catch { break; }
+    if (next === undefined || next === null) {
+      try { Object.defineProperty(link, "cause", { value: carried, configurable: true, writable: true, enumerable: false }); } catch {}
+      if (link.cause === carried) return "primary_cause_chain_end";
+      break;
+    }
+    link = next;
+  }
+  try {
+    if (primary !== null && typeof primary === "object") {
+      const suffix = ` [${carried.message}]`; primary.message = String(primary.message) + suffix;
+      if (String(primary.message).endsWith(suffix)) return "primary_message";
+    }
+  } catch {}
+  try { process.stderr.write(carried.message + "\n"); return "stderr"; } catch { return "not_carried"; }
+}
 async function b64CapturedCase(t, file, candidate, collect, verify) {
   const fail = (phase, primary) => {
-    candidate.primaryError = { phase, error: String(primary?.stack ?? primary) };
+    try { candidate.primaryError = { phase, error: String(primary?.stack ?? primary) }; } catch {}
     const secondary = writeB64Candidate(file, candidate);
-    if (secondary !== null) t.diagnostic(`secondary capture failure beside primary ${phase} failure: ${String(secondary?.stack ?? secondary)}`);
+    if (secondary !== null) b64CarryCaptureFailure(primary, secondary);
     throw primary;
   };
   try { await collect(); } catch (primary) { fail("collect", primary); }
@@ -1286,12 +1312,17 @@ async function b64CapturedCase(t, file, candidate, collect, verify) {
   try { await verify(); } catch (primary) { fail("verify", primary); }
 }
 
-// B64: a native assessor's `after` carries members of its own Run's holder; the
-// semantic fold keeps that context unchanged and C2 names the same observation.
-// A later Run presents those bytes only through a historical use at an exact
-// declared typed route. This file proves the lower held-prefix owner; the use
-// itself is a lower premise here. Acquisition/cover derivation and selector
-// assembly are proved by the native-semantic-job and assembly-owner B64 cases.
+// B64 lower-owner component: a native assessor's `after` carries members of its
+// own Run's holder; the fold keeps that context unchanged and a C2 observation
+// names the same observation. A later Run presents those bytes only through a
+// historical use at an exact declared typed route. This file exercises the
+// lower held-prefix body owner only; every Result here is a case-built value in
+// a real store and every use is a case-supplied lower premise, not an
+// owner-derived use. Owner acquisition/cover derivation and complete selector
+// assembly are the subject of the native-semantic-job B64 Public composition,
+// which covers one same-binding source Run (intake parent, adverse cause) only.
+// The C2 routes and inherited-parent/older-binding uses remain lower-component
+// coverage with no full composition regression.
 test("B64 historical member authority refuses undeclared use and altered coordinates", async t => {
   const candidate = { kind: "b64_member_authority_candidate", premise: null, reads: [], refusals: [], current: null, carriers: null };
   const asJson = read => read.kind === "worksite_context_body" ? { ...read, bytes: read.bytes.toString("base64") } : read;

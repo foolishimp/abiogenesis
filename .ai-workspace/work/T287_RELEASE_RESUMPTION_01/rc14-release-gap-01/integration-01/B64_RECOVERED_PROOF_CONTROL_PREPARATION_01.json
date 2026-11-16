@@ -1,0 +1,53 @@
+{
+  "id": "RC14-B64-RECOVERED-PROOF-CONTROLS-WRITER-053",
+  "recordedUtc": "2026-11-16T16:45:44.308567+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "actor": "/root/rc14_release_proof",
+  "role": "External proof-controls Writer; no Product/source/runtime execution",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_RECOVERED_SOURCE_FIRST_PROOF_SELECTION_01.json",
+    "bytes": 13533,
+    "sha256": "23699cda8867f1aab08e2bb6f0d8307411d8ebb841d631b19c805d34df2b7b38"
+  },
+  "preservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPOSITION_SOURCE_PRESERVATION_01.json",
+    "bytes": 4079,
+    "sha256": "b0d7633dd4c219f759acc401a139f4cfb6c131e0b3abaeccf755757932949ea4"
+  },
+  "sourceBase": "Exact pushed main containing these grants and preserved3testpostimages, supplied after direct remote parity. Behavioral proof still consumes the complete original e0ef frozen source, not a different main tree.",
+  "controlsWorktree": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01",
+  "controlsBranch": "codex/rc14-b64-recovered-proof-controls-20261117-01",
+  "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01",
+  "executionControlRoot": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01",
+  "proofRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-recovered-proof-20261117-01",
+  "proofSubject": "/private/tmp/abg-rc14-b64-recovered-proof-subject-20261117-01",
+  "frozenNativeSource": "/private/tmp/abg-rc14-b64-composition-source-20261116-01",
+  "nativeEvidenceRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01",
+  "originalNativeControls": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01",
+  "operations": [
+    "Prepare a separately named recovered-source proof driver/manifest/launch from existing accepted bbaa proof owners and one-file plan. Original controls/source/native raw remain immutable; no invocation of original ineligible prove.py.",
+    "New admission explicitly verifies Root recovered-source adoption, exact failed native source postimage/diff, honest audit/deviations/actual closure and input custody. Do not require or fabricate author completion, successfulRun/report or admitted empty-deviation audit. Preserve old predicates in their original file.",
+    "Reuse unchanged physical observer, finite process/dependency/setup-custody helpers and existing source inventory, source/build write boundaries, exact plan-derived population, title/skip/candidate checks, source/control/dependency/native/fixture entry-exit identity and process absence. Distinguish recovered proof authority from historical native success.",
+    "Keep old native evidence read-only and place ALL new proof/launch/observation/scratch/build records under new proofRawRoot and fresh proofSubject. Separate native evidence location from proof output location. Require exact accepted external executionControlRoot before effects; no source-local control invocation.",
+    "Select exactly one fresh ordinary build and whole native-semantic-job file with original10titles plus mandatoryB64case, all actual cases recorded, no filters/retries. Existing required complete candidate artifact remains mandatory. Other2files/inherited-parent/C2/S06 remain open.",
+    "Use existing plan maximum90min clipped to original18:39:42.544329Z and180s cleanup reserve; bound build10min/file30min. No resets/extensions/campaign repetition. New proof clock is a new selected observation, not revived author clock.",
+    "Preserve actual failed commands and available output/candidate records before assertions/cleanup, including failures under registered capsules. Capture limitations remain explicit; any failure returns Root for repricing, no silent repair.",
+    "Protect main, frozen original source/control/raw, pinnedRC13/candidate02/oldproof/dependency/method/evidence and activeS01source03/raw03. ActiveS01roots are protections only, never stationary inventory. No candidate replacement/install/provider/native/source edits.",
+    "Mechanical JSON/PythonAST/node syntax and static bound-input checks only during preparation; no physical probe/Product imports/build/test/package/runtime/provider. Freeze one exact controls commit/manifest/Return and stop for independent affected-control review; no main/push/rawGit/subagents."
+  ],
+  "preparationBounds": {
+    "minutes": 20,
+    "retry": false,
+    "clock": "Actual preparation start/deadline once, original18:39:42 proof upper bound unchanged."
+  },
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "qualified": false,
+  "rawPublished": false
+}

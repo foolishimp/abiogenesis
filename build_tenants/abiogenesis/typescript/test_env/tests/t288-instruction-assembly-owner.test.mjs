@@ -346,21 +346,47 @@ test('semantic stage, revision and selection implementations preserve the comple
 // new native run, which is the owner's; no case can be regenerated from
 // retained events.
 
-// B64 capture law: every actual candidate is collected before any assertion
-// and written complete to ABG_REGRESSION_PROOF_ROOT. A collection or assertion
-// failure is primary and stays primary; a capture failure alone fails the case,
-// and beside a primary it is reported as distinct secondary evidence.
+// B64 capture law: every actual candidate is collected and written complete to
+// ABG_REGRESSION_PROOF_ROOT before any dependent assertion. A collection or
+// assertion failure is primary and is rethrown unchanged. A capture failure
+// beside it is secondary and is carried where the selected reporter
+// (scripts/node-test-evidence-reporter.mjs: name, message, stack, code,
+// failureType and cause, recursively) retains it: appended at the end of the
+// primary's cause chain, else to its message, else written to stderr. A
+// capture failure alone fails the case. No t.diagnostic is relied on.
 function writeB64Candidate(file, value) {
   const dir = process.env.ABG_REGRESSION_PROOF_ROOT;
   if (dir === undefined || dir === '') return null;
   try { fs.mkdirSync(dir, { recursive: true }); fs.writeFileSync(join(dir, file), JSON.stringify(value, null, 1)); return null; }
   catch (error) { return error; }
 }
+function b64CarryCaptureFailure(primary, captureError) {
+  let detail; try { detail = String(captureError?.stack ?? captureError); } catch { detail = '[unprintable capture failure]'; }
+  const carried = new Error('B64 capture failure after the primary failure: ' + detail, { cause: captureError });
+  carried.name = 'B64CaptureFailure'; carried.code = 'B64_CAPTURE_FAILURE';
+  let link = primary;
+  for (let depth = 0; depth < 32 && link !== null && (typeof link === 'object' || typeof link === 'function'); depth++) {
+    let next; try { next = link.cause; } catch { break; }
+    if (next === undefined || next === null) {
+      try { Object.defineProperty(link, 'cause', { value: carried, configurable: true, writable: true, enumerable: false }); } catch {}
+      if (link.cause === carried) return 'primary_cause_chain_end';
+      break;
+    }
+    link = next;
+  }
+  try {
+    if (primary !== null && typeof primary === 'object') {
+      const suffix = ` [${carried.message}]`; primary.message = String(primary.message) + suffix;
+      if (String(primary.message).endsWith(suffix)) return 'primary_message';
+    }
+  } catch {}
+  try { process.stderr.write(carried.message + '\n'); return 'stderr'; } catch { return 'not_carried'; }
+}
 async function b64CapturedCase(t, file, candidate, collect, verify) {
   const fail = (phase, primary) => {
-    candidate.primaryError = { phase, error: String(primary?.stack ?? primary) };
+    try { candidate.primaryError = { phase, error: String(primary?.stack ?? primary) }; } catch {}
     const secondary = writeB64Candidate(file, candidate);
-    if (secondary !== null) t.diagnostic(`secondary capture failure beside primary ${phase} failure: ${String(secondary?.stack ?? secondary)}`);
+    if (secondary !== null) b64CarryCaptureFailure(primary, secondary);
     throw primary;
   };
   try { await collect(); } catch (primary) { fail('collect', primary); }
@@ -369,11 +395,14 @@ async function b64CapturedCase(t, file, candidate, collect, verify) {
   try { await verify(); } catch (primary) { fail('verify', primary); }
 }
 
-// B64 presentation: the real event store, real held-prefix carriage and the
-// real body owner serve the real selector decision view. The historical uses
-// here are lower premises in the shape the revision owner derives (its
-// derivation is the native-semantic-job B64 owner-path case): an inherited
-// parent of an older Run and binding, and source-Run causes of the newer one.
+// B64 presentation component: the real event store, real held-prefix carriage
+// and the real body owner serve the real selector decision view renderer. The
+// historical uses and decision sections here are case-supplied lower premises,
+// not owner-derived uses or an owner-built assembly. The native-semantic-job
+// B64 Public composition derives uses only for one same-binding source Run
+// (its intake parent and adverse cause); the inherited parent of an older Run
+// and binding and the C2/evidence/revision-cause routes below remain
+// lower-component coverage with no full composition regression.
 test('B64 historical member presentation preserves complete stage and revision decision material', async t => {
   const candidate = { kind: 'b64_member_presentation_candidate', premise: null, uses: null, views: {}, refusals: [], stageView: null, carriers: null };
   const asJson = read => read.kind === 'worksite_context_body' ? { ...read, bytes: read.bytes.toString('base64') } : read;
@@ -394,6 +423,8 @@ test('B64 historical member presentation preserves complete stage and revision d
     const W0 = await worksite(text), W1 = await worksite({ ...text, 'src/c.bin': binary });
     const dir = fs.mkdtempSync(join(W1.w.scratch, 'b64-store-')), eventLogPath = join(dir, 'events.jsonl');
     const acquired = storeOwner.createNewEmptyAppendSink({ kind: 'new_empty_append_sink_request', schemaVersion: '5.0.0', eventLogPath });
+    // The acquisition outcome is retained in the candidate before its check.
+    candidate.storeAcquisition = acquired.store ? { acquired: true, eventLogPath } : { acquired: false, eventLogPath, refusal: acquired };
     assert.ok(acquired.store, JSON.stringify(acquired)); t.after(() => acquired.store.closeDurableLog());
     const store = acquired.store;
     const envl = (kind, payload, o = {}) => ({ kind, payload, eventTime: '2026-11-16T00:00:00.000Z', aggregateType: 'workspace', aggregateId: 'workspace://b64',
@@ -504,6 +535,6 @@ test('B64 historical member presentation preserves complete stage and revision d
     for (const row of candidate.refusals.slice(0, 3)) assert.equal(row.reads.at(-1).read.kind, 'worksite_context_body_refusal', row.label);
     for (const row of candidate.stageView) { assert.equal(row.read.kind, 'worksite_context_body', JSON.stringify(row)); assert.equal(row.read.holder.eventRef, x.holder1.event.eventId); }
     for (const [k, row] of Object.entries(candidate.carriers)) assert.equal(row.stored, row.original, `the admitted ${k} carrier is unchanged`);
-    t.diagnostic('B64 presentation: real store, held-prefix carriage, body owner and selector decision view; historical uses are lower premises whose owner derivation is the native-semantic-job B64 case.');
+    t.diagnostic('B64 presentation component: real store, held-prefix carriage, body owner and decision-view renderer over case-supplied sections; historical uses are lower premises. Owner derivation of inherited-parent/older-binding and C2-route uses is not exercised by any full composition.');
   });
 });

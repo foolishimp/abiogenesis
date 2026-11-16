@@ -1,0 +1,34 @@
+{
+  "id": "RC14-S01-NATIVE03-EXECUTION-STARTED",
+  "recordedUtc": "2026-11-16T16:46:47.033087+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "sourceHead": "8415600db23ec63891c2c34274181f505fe7bdb6",
+  "sourceWorktree": "/private/tmp/abg-rc14-s01-proof-source-20261117-03",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-03",
+  "executionControlRoot": "/private/tmp/abg-rc14-s01-proof-controls-20261117-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03",
+  "hostStartedUtc": "2026-11-16T16:43:19.889993Z",
+  "originalDeadlineUtc": "2026-11-16T19:43:19.889993Z",
+  "executionStopUtc": "2026-11-16T19:40:19.889993Z",
+  "actorStartedUtc": "2026-11-16T16:45:44.695Z",
+  "actorPid": 20421,
+  "runRef": "run://abiogenesis/1de484327c76d78db0a5a79d21e6042c2a12d32267aab0bd14f4fdd5a89e2958",
+  "taskDigest": "3cf3e02c4f6f2779d4da1e4d4bbd83c454b33999bd67edc39c4149d782c0a620",
+  "contextEntries": 412,
+  "contextBytes": 9006476,
+  "modelObserved": "claude-opus-5-5",
+  "effortConfigured": "xhigh",
+  "threeActualTopologyGatesPassed": true,
+  "sourcePreimage": {
+    "bytes": 445034,
+    "sha256": "4e26f8cb18c2a21f7d0cbbf2374f2513f921426ddd888bf4fee927548779ef29",
+    "files": 1445
+  },
+  "launch": {
+    "bytes": 8354,
+    "sha256": "28417e3e5b5e319ae2124041fdebc47a74100017444547c651aae679331517aa"
+  },
+  "observationStanding": "Reported from actual records by the separate Operator; source success/completion and full exit custody are unperformed.",
+  "sourceAccepted": false,
+  "proofExecuted": false,
+  "qualified": false
+}

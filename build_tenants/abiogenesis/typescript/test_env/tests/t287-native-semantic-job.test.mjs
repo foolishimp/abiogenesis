@@ -8,7 +8,7 @@ import { ordinaryJob } from '../support/t287-generic-job-intake.mjs';
 import { worksiteFixture } from '../support/t287-generic-job-worksite.mjs';
 import fsPromises from 'node:fs/promises';
 import { syncBuiltinESMExports } from 'node:module';
-import { lstatSync, realpathSync, mkdirSync, writeFileSync } from 'node:fs';
+import { lstatSync, realpathSync, mkdirSync, writeFileSync, openSync, writeSync, ftruncateSync, closeSync } from 'node:fs';
 const root = process.env.ABI5_GENERIC_JOB_BUILD_ROOT ?? resolve(import.meta.dirname, '../..');
 const load = name => import(pathToFileURL(join(root, 'build/code/src', name + '.js')).href);
 const [p,g,m,n,ops,effects,owners,prefixes,immutable] = await Promise.all(['product/index','gtl/index','product/semantic_job',
@@ -575,205 +575,701 @@ test('B21 component: the semantic-job bridge observes targets and read dependenc
  t.diagnostic('Component semantic-job bridge proof; upstream authentication, prefix events and predecessors supplied; no actor or installed execution.');
 });
 
-// B64 capture law: every actual candidate is collected before any assertion
-// and written complete to ABG_REGRESSION_PROOF_ROOT. A collection or assertion
-// failure is primary and stays primary; a capture failure alone fails the case,
-// and beside a primary it is reported as distinct secondary evidence.
-function writeB64Candidate(file,value){const dir=process.env.ABG_REGRESSION_PROOF_ROOT;if(dir===undefined||dir==='')return null;
- try{mkdirSync(dir,{recursive:true});writeFileSync(join(dir,file),JSON.stringify(value,null,1));return null;}catch(error){return error;}}
-async function b64CapturedCase(t,file,candidate,collect,verify){
- const fail=(phase,primary)=>{candidate.primaryError={phase,error:String(primary?.stack??primary)};const secondary=writeB64Candidate(file,candidate);
-  if(secondary!==null)t.diagnostic(`secondary capture failure beside primary ${phase} failure: ${String(secondary?.stack??secondary)}`);throw primary;};
- try{await collect();}catch(primary){fail('collect',primary);}
- const captureError=writeB64Candidate(file,candidate);
- if(captureError!==null)throw new Error(`B64 candidate capture failed: ${String(captureError?.stack??captureError)}`,{cause:captureError});
- try{await verify();}catch(primary){fail('verify',primary);}
+// B64 capture law: each actual observation is appended to this case's
+// candidate under ABG_REGRESSION_PROOF_ROOT when it is seen, before any check,
+// parse, strip or cleanup that depends on it; the file stays one complete JSON
+// document after every append and is sealed with the final state. A
+// collection, child, parse or assertion failure is primary and is rethrown
+// unchanged. A capture failure beside it is secondary and is carried where the
+// selected reporter (scripts/node-test-evidence-reporter.mjs: name, message,
+// stack, code, failureType and cause, recursively) retains it: appended at the
+// end of the primary's cause chain, else to its message, else written to
+// stderr. A capture failure alone fails the case. No t.diagnostic is relied on.
+function b64ErrorRecord(error,depth=0){
+ if(error===null||error===undefined)return null;
+ if(typeof error!=='object'&&typeof error!=='function')return {name:'NonErrorThrow',message:String(error),stack:null,code:null,failureType:null,cause:null};
+ const text=v=>v===null||v===undefined?null:String(v);let message;
+ try{message=String(error.message??error);}catch{message='[unprintable]';}
+ return {name:text(error.name)??'Error',message,stack:typeof error.stack==='string'?error.stack:null,code:text(error.code),failureType:text(error.failureType),
+  ...(typeof error.operator==='string'?{operator:error.operator}:{}),cause:depth>=16?null:b64ErrorRecord(error.cause,depth+1)};
+}
+function b64Json(value){
+ const ancestors=[];
+ return JSON.stringify(value,function(_key,v){
+  if(typeof v==='bigint'||typeof v==='symbol')return String(v);
+  if(typeof v==='function')return `[function ${v.name||'anonymous'}]`;
+  if(v instanceof Error)return b64ErrorRecord(v);
+  if(Buffer.isBuffer(v))return {kind:'buffer_base64',base64:v.toString('base64')};
+  if(typeof v!=='object'||v===null)return v;
+  while(ancestors.length>0&&ancestors.at(-1)!==this)ancestors.pop();
+  if(ancestors.includes(v))return '[circular]';
+  ancestors.push(v);return v;
+ })??'null';
+}
+class B64CaptureFailure extends Error{constructor(message,cause){super(message,{cause});this.name='B64CaptureFailure';this.code='B64_CAPTURE_FAILURE';}}
+function b64CarrySecondary(primary,secondary,what='capture'){
+ let detail;try{detail=String(secondary?.stack??secondary);}catch{detail='[unprintable secondary failure]';}
+ const carried=new Error(`B64 ${what} failure after the primary failure: ${detail}`,{cause:secondary});
+ carried.name='B64SecondaryFailure';carried.code='B64_SECONDARY_FAILURE';
+ let link=primary;
+ for(let depth=0;depth<32&&link!==null&&(typeof link==='object'||typeof link==='function');depth++){
+  let next;try{next=link.cause;}catch{break;}
+  if(next===undefined||next===null){
+   try{Object.defineProperty(link,'cause',{value:carried,configurable:true,writable:true,enumerable:false});}catch{}
+   if(link.cause===carried)return 'primary_cause_chain_end';
+   break;
+  }
+  link=next;
+ }
+ try{if(primary!==null&&typeof primary==='object'){const suffix=` [${carried.message}]`;primary.message=String(primary.message)+suffix;if(String(primary.message).endsWith(suffix))return 'primary_message';}}catch{}
+ try{process.stderr.write(carried.message+'\n');return 'stderr';}catch{return 'not_carried';}
+}
+function b64CandidateWriter(file,header){
+ const dir=process.env.ABG_REGRESSION_PROOF_ROOT;if(dir===undefined||dir==='')return null;
+ mkdirSync(dir,{recursive:true});const fd=openSync(join(dir,file),'w');let position=0,count=0;
+ const write=(text,at)=>{const bytes=Buffer.from(text,'utf8');let offset=0;while(offset<bytes.length)offset+=writeSync(fd,bytes,offset,bytes.length-offset,at+offset);return at+bytes.length;};
+ const seal=state=>{const end=write(`\n],"state":${b64Json(state)}}\n`,position);ftruncateSync(fd,end);};
+ position=write(b64Json(header).slice(0,-1)+',"observations":[\n',0);seal({status:'running',observations:0});
+ return {append(entry){position=write((count===0?'':',\n')+b64Json(entry),position);count++;seal({status:'running',observations:count});},seal,close(){closeSync(fd);}};
+}
+async function b64CapturedRun(file,title,body){
+ const header={kind:'b64_historical_revision_candidate',test:title,file:'build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs',
+  startedAt:new Date().toISOString(),pid:process.pid,nodeVersion:process.version};
+ const capture=(action,what)=>{try{return action();}catch(error){throw new B64CaptureFailure(`B64 candidate ${what} failed: ${String(error?.message??error)}`,error);}};
+ const writer=capture(()=>b64CandidateWriter(file,header),'open');let count=0;
+ const seen=(label,value)=>{const entry={ordinal:count++,label,observedAt:new Date().toISOString(),value:value===undefined?null:value};
+  if(writer!==null)capture(()=>writer.append(entry),'append');return value;};
+ // A known child, parse or owner failure stays primary over a later capture failure.
+ const preserving=(primary,label,value)=>{try{return seen(label,value);}catch(captureError){if(primary===null||primary===undefined)throw captureError;b64CarrySecondary(primary,captureError);throw primary;}};
+ let failed=false,primary;
+ try{await body({seen,preserving});}catch(error){failed=true;primary=error;}
+ try{if(writer!==null)try{writer.seal(failed?{status:'thrown',observations:count,primary:b64ErrorRecord(primary)}:{status:'body_returned',observations:count});}finally{writer.close();}}
+ catch(error){if(!failed)throw new B64CaptureFailure(`B64 candidate seal failed: ${String(error?.message??error)}`,error);if(!(primary instanceof B64CaptureFailure))b64CarrySecondary(primary,error);}
+ if(failed)throw primary;
+}
+const B64_ACTOR_KEYS=['ABG_TS_CLAUDE_COMMAND','ABI5_SCRIPTED_ACTOR_LOG','ABI5_SCRIPTED_ACTOR_PHASE'];
+const b64ActorEnvironment=environment=>({keyCount:Object.keys(environment).length,otherKeysOmitted:true,
+ selected:Object.fromEntries(B64_ACTOR_KEYS.map(key=>[key,environment[key]??null]))});
+const b64Ref=(kind,name)=>`${kind}://b64-public-composition.example/${name}@5`;
+const B64_REVISION=name=>`graph-function://odd-glc/native-semantic-revision/${name}@5`;
+const B64_INTAKE_PROGRAM='program://odd-glc/native-semantic-revision/intake@5';
+
+// Deterministic CLI stand-in behind ABG_TS_CLAUDE_COMMAND: a controlled data
+// producer only. It reads only its delivered prompt, response schema and the
+// worksite files the prompt names; it never writes events, bases, covers,
+// uses or acceptance. The author writes the declared candidate path. The
+// assessor rereads the delivered source and candidate, checks their delivered
+// digests and applies one explicit criterion (the source's stated constraint
+// must survive verbatim in a candidate statement), answering the declared
+// assessment schema; criteria it does not check are indeterminate. The
+// selector parses the delivered decision prompt and returns its exact eligible
+// parent/cause coordinates with the declared stage of the presented adverse
+// cause. Every dispatch is logged outside the worksite.
+const B64_ACTOR=`
+import {readFileSync,writeFileSync,appendFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+const args=process.argv.slice(2),at=args.indexOf('--json-schema'),prompt=readFileSync(0,'utf8'),log=process.env.ABI5_SCRIPTED_ACTOR_LOG;
+const digest=bytes=>'sha256:'+createHash('sha256').update(bytes).digest('hex');
+const record=row=>appendFileSync(log,JSON.stringify({pid:process.pid,promptBytesDigest:digest(Buffer.from(prompt,'utf8')),
+ argv:args.map((a,i)=>at>=0&&i===at+1?'[json-schema]':a),...row})+'\\n');
+const fail=m=>{try{record({role:'refused',reason:m});}catch{}process.stderr.write('b64 scripted actor: '+m+'\\n');process.exit(1);};
+const valueAt=s=>{const open=prompt[s],close=open==='{'?'}':open==='['?']':null;if(close===null)return undefined;
+ let depth=0;for(let k=s;k<prompt.length;k++){const ch=prompt[k];if(ch===open)depth++;else if(ch===close&&--depth===0){const raw=prompt.slice(s,k+1);
+  try{return JSON.parse(raw);}catch{try{return JSON.parse(JSON.parse('"'+raw+'"'));}catch{return undefined;}}}}return undefined;};
+const after=label=>{for(let i=prompt.indexOf(label);i>=0;i=prompt.indexOf(label,i+1)){const value=valueAt(i+label.length);if(value!==undefined)return value;}return undefined;};
+const section=name=>{const head='## '+name+'\\n',i=prompt.indexOf(head);if(i<0)return undefined;const start=i+head.length,end=prompt.indexOf('\\n\\n## ',start);
+ try{return JSON.parse(prompt.slice(start,end<0?prompt.length:end));}catch{return undefined;}};
+const schema=at>=0?JSON.parse(args[at+1]):{},props=schema.properties??{};
+const emit=output=>{console.log(JSON.stringify({type:'system',subtype:'init'}));
+ console.log(JSON.stringify({type:'result',subtype:'success',is_error:false,result:JSON.stringify(output),structured_output:output}));};
+const members=after('Source identities and roles: ');
+const firstMember=Array.isArray(members)?members.find(m=>m&&typeof m.memberRef==='string'&&typeof m.path==='string'):undefined;
+let quote=null;if(firstMember!==undefined)try{const line=readFileSync(firstMember.path,'utf8').split('\\n').map(l=>l.trim()).find(l=>l.length>0);if(line!==undefined)quote={memberRef:firstMember.memberRef,quote:line};}catch{}
+const pick=(s,name)=>{
+ if(s===undefined||s===null||typeof s!=='object')return null;
+ if('const' in s)return s.const;
+ if(Array.isArray(s.enum))return s.enum[0];
+ if(Array.isArray(s.anyOf))return pick(s.anyOf.find(x=>x&&x.type==='null')??s.anyOf[0],name);
+ const type=Array.isArray(s.type)?(s.type.includes('null')?'null':s.type[0]):s.type;
+ if(type==='null')return null;
+ if(type==='object'){const o={};for(const key of s.required??Object.keys(s.properties??{}))o[key]=key==='sourceQuotes'?(quote===null?[]:[quote]):pick((s.properties??{})[key],key);return o;}
+ if(type==='array')return (s.minItems??0)>0?[pick(s.items,name)]:[];
+ if(type==='string')return 'Deterministic stand-in '+name+'.';
+ if(type==='integer'||type==='number')return s.minimum??0;
+ if(type==='boolean')return false;
+ return null;};
+if('summary' in props&&'gaps' in props){
+ const m=/Write only ([^ ,]+), as one JSON candidate/.exec(prompt),asset=after('any accumulated envelope: ');
+ if(m===null||asset===undefined)fail('the delivered author task names no candidate path and schema');
+ if(quote===null)fail('the delivered author task names no readable source member');
+ const candidate=pick(asset,'asset');writeFileSync(m[1],JSON.stringify(candidate)+'\\n');
+ record({role:'author',path:m[1],statementTexts:(candidate?.asset?.statements??[]).map(s=>s.text)});
+ emit({...pick(schema,'report'),summary:'Deterministic stand-in wrote the declared candidate path.',gaps:[]});
+}else if(prompt.includes('Exact assessment basis: ')){
+ const declared=at>=0?schema:after('Exact declared response JSON Schema: '),basis=after('Exact assessment basis: '),rubric=after('Rubric: ');
+ if(declared===undefined||basis===undefined||!Array.isArray(rubric))fail('the delivered assessment task names no basis, schema or rubric');
+ const item=declared?.properties?.criteria?.items,keys=item?.required??[];
+ if(declared?.properties?.kind?.const!=='semantic_stage_assessment_candidate'||!Array.isArray(item?.properties?.disposition?.enum)||!item.properties.disposition.enum.includes('falsified'))
+  fail('the delivered response schema is not the declared assessment schema');
+ const criterion=rubric.find(c=>typeof c?.criterionRef==='string'&&c.criterionRef.endsWith('/source-faithfulness@5'));
+ if(criterion===undefined)fail('the delivered rubric declares no source-faithfulness criterion');
+ const read=row=>{const bytes=readFileSync(row.path);return {path:row.path,deliveredDigest:row.digest,observedDigest:digest(bytes),text:bytes.toString('utf8')};};
+ const sources=(Array.isArray(basis.sources)?basis.sources:[]).map(read),candidateFile=read(basis.candidate);
+ if(sources.length===0||sources.some(s=>s.observedDigest!==s.deliveredDigest)||candidateFile.observedDigest!==candidateFile.deliveredDigest)
+  fail('the read source/candidate bytes differ from the delivered assessment basis');
+ const constraintSource=sources.find(s=>s.text.split('\\n').some(l=>l.startsWith('Constraint: ')));
+ const constraint=constraintSource===undefined?undefined:constraintSource.text.split('\\n').find(l=>l.startsWith('Constraint: '));
+ const constraintMember=Array.isArray(members)&&constraintSource!==undefined?members.find(m=>m&&m.path===constraintSource.path):undefined;
+ if(constraint===undefined||constraintMember===undefined)fail('the delivered source states no explicit constraint');
+ let parsed;try{parsed=JSON.parse(candidateFile.text);}catch{fail('the delivered candidate is not JSON');}
+ const required=constraint.slice('Constraint: '.length),texts=(parsed?.asset?.statements??[]).map(s=>String(s?.text??''));
+ const kept=texts.some(text=>text.includes(required));
+ const criteria=rubric.map(c=>c.criterionRef===criterion.criterionRef
+  ?{criterionRef:c.criterionRef,disposition:kept?'satisfied':'falsified',
+    explanation:kept?'A candidate statement restates the explicit source constraint.':'The source states "'+constraint+'"; no candidate statement restates it, so the stated source constraint is lost.',
+    sourceQuotes:[{memberRef:constraintMember.memberRef,quote:constraint}],statementRefs:[]}
+  :{criterionRef:c.criterionRef,disposition:'indeterminate',explanation:'Not assessed by this deterministic stand-in; it checks only the explicit source-faithfulness constraint.',sourceQuotes:[],statementRefs:[]});
+ if(criteria.some(c=>keys.length!==Object.keys(c).length||!keys.every(k=>k in c)))fail('the stand-in criteria do not match the delivered closed schema');
+ const output={kind:'semantic_stage_assessment_candidate',schemaVersion:'5.0.0',criteria,pressure:[]};
+ const top=declared.required??[];if(top.length!==Object.keys(output).length||!top.every(k=>k in output))fail('the stand-in response does not match the delivered closed schema');
+ record({role:'assess',criterion:criterion.criterionRef,constraint,kept,
+  sources:sources.map(s=>({path:s.path,deliveredDigest:s.deliveredDigest,observedDigest:s.observedDigest})),
+  candidate:{path:candidateFile.path,deliveredDigest:candidateFile.deliveredDigest,observedDigest:candidateFile.observedDigest,statementTexts:texts},
+  dispositions:criteria.map(c=>[c.criterionRef,c.disposition])});
+ emit(output);
+}else if(section('task')!==undefined&&(props.kind?.const==='semantic_revision_selection'||section('response')?.properties?.kind?.const==='semantic_revision_selection')){
+ const task=section('task'),evidence=section('evidence'),predecessors=section('predecessors'),obligations=section('obligations'),input=task?.input;
+ if(!input||!Array.isArray(task.stages)||!Array.isArray(input.causes)||input.causes.length!==1||!Array.isArray(evidence?.causes)||evidence.causes.length!==1)
+  fail('the delivered selection names no single admitted cause');
+ const presented=evidence.causes[0],cause=input.causes[0];
+ if(presented?.cCall?.cCallRef!==cause.cCallRef||presented?.result?.resultRef!==cause.resultRef||presented?.result?.resultDigest!==cause.resultDigest||
+  evidence.parent?.cCall?.cCallRef!==input.parent?.cCallRef||evidence.parent?.result?.resultRef!==input.parent?.resultRef)fail('the presented counterevidence is not the eligible parent/cause');
+ const last=presented.result?.value?.assets?.at(-1);
+ const material=typeof last?.stageRef==='string'?last:typeof last?.presentationRef==='string'&&last.presentationRef.startsWith('#/predecessors/materialAssets/')
+  ?predecessors?.materialAssets?.[Number(last.presentationRef.split('/').at(-1))]:undefined;
+ const eligible=task.stages.map(s=>s.declarationRef),stageRef=material?.stageRef;
+ if(typeof stageRef!=='string'||!eligible.includes(stageRef))fail('the adverse cause names no eligible declared stage');
+ if(!material.assessment||material.assessment.disposition==='satisfied')fail('the presented cause is not an adverse assessment');
+ const active=[...new Set((obligations?.activeBindings??[]).map(v=>v?.binding?.obligationRef).filter(r=>typeof r==='string'))];
+ const output={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:input.parent,causes:input.causes,mode:'stage_revision',selectedStageRef:stageRef,
+  selectedObligationRefs:active,selectedTargetRefs:[],reasonRef:'reason://b64-public-composition/adverse-cause-stage@5',...(input.nativePhase===undefined?{}:{nativePhase:input.nativePhase})};
+ record({role:'select',parent:input.parent,causes:input.causes,eligibleStages:eligible,selectedStageRef:stageRef,causeDisposition:material.assessment.disposition,output});
+ emit(output);
+}else fail('the delivered prompt is no declared author, assessor or selector task');
+`;
+
+// Canonical role declarations for every F_P leaf of every Program of the
+// lifecycle publication, after the read-only precedent cd109c4e
+// integration-01/s06-revision-preparation-01/declarations.mjs:18-59 (not a
+// copied runtime authority). Native constructor, assessor and command-executor
+// leaves take their declared default-library rows; revision-stage and intake
+// selector leaves take that posture's template with their own policy and
+// context selectors. That precedent's external constructNativeRevisionEnvironmentRoles
+// owner has no counterpart in this tenant and is not reproduced.
+function b64RunEnvironment({gtl,product,publication,cores}){
+ const template=gtl.defaultLibraryRunEnvironment(),all=[...publication.graphFunctions,...cores.flatMap(p=>p.graphFunctions)];
+ const exactGraph=ref=>{const rows=all.filter(g=>g.name===ref);if(rows.length!==1)throw new TypeError('one declared GraphFunction required: '+ref);return rows[0];};
+ const lifecycle=publication.semanticJobLifecycle,roles=new Map();
+ for(const program of publication.programs)for(const ref of program.callableMembership){const graph=exactGraph(ref);
+  for(const node of graph.template.nodes)for(const leaf of gtl.cLeafTerms(node.term).filter(l=>l.fibre==='F_P')){
+   const key=graph.name+'\0'+leaf.programLocusRef;if(roles.has(key))continue;
+   const role=gtl.nativeContextLeafFamily(graph,leaf);
+   if(!['author','assessor','constructor','command_executor'].includes(role))throw new TypeError('undeclared native family at '+key);
+   const existing=template.roles.filter(r=>r.graphFunctionRef===graph.name&&r.programLocusRef===leaf.programLocusRef&&r.role===role);
+   if(existing.length===1){roles.set(key,structuredClone(existing[0]));continue;}
+   if(role==='constructor'||role==='command_executor')throw new TypeError('native role lacks its declared default-library row: '+key);
+   const posture=template.roles.find(r=>r.role===(role==='author'?'constructor':'assessor'));
+   const stage=lifecycle.stages.find(s=>s.declarationRef===graph.declarations['abg.semantic_revision_stage']);
+   const selection=graph.declarations['abg.semantic_revision_selection']!==undefined;
+   if(posture===undefined||(stage===undefined&&!selection))throw new TypeError('only declared revision stage or selection roles: '+key);
+   const text=role==='author'
+    ?'Derive the declared affected semantic asset from complete source and admitted counterevidence. Preserve source modalities and genuine uncertainty. Return the canonical candidate JSON without tools or file writes.'
+    :'Independently evaluate the actual declared selection or current candidate using complete source and admitted evidence. Preserve actual adverse history, source modalities and genuine gaps. Return the canonical JSON without tools or file writes.';
+   const selectors=selection?['full_source','active_binding_semantics']:['full_source','declared_predecessor_semantics','active_binding_semantics',
+    ...(role==='assessor'?['current_candidate']:[]),...(stage.bodyCapabilities.includes('worksite_design')?['current_worksite']:[]),
+    ...(stage.bodyCapabilities.includes('application_assessment')?['admitted_execution_evidence',...(role==='assessor'?['assessor_evaluation_data']:[])]:[])];
+   roles.set(key,{...structuredClone(posture),graphFunctionRef:graph.name,programLocusRef:leaf.programLocusRef,role,
+    policy:{policyRef:graph.name+'/'+role+'/b64-policy@5',text,digest:product.sha256Bytes(Buffer.from(text,'utf8'))},
+    contextPolicy:{policyRef:graph.name+'/'+role+'/b64-context@5',selectors}});
+  }}
+ return gtl.constructRunEnvironmentDeclaration({...structuredClone(template),declarationRef:b64Ref('environment','lifecycle'),roles:[...roles.values()]});
 }
 
-// B64 owner path: the actual Product native assessor fold folds an `after`
-// whose unchanged bodies the real held-prefix owner carried as admitted members
-// of the real event store; the actual revision intake and subject owner derive
-// the historical use in a new Run; the actual selector decision view presents
-// the complete bytes through the real body owner, held and cold. Upstream
-// execution-basis/invocation/leaf/prefix-index authentication uses the same
-// component premises as the native revision harness; Result coordinates,
-// member holders and every body read are the real store's. No provider runs.
-test('B64 historical revision: admitted assessor context reaches new-Run selector assembly held and cold',async t=>{
- const candidate={kind:'b64_historical_revision_candidate',premise:null,intake:null,subject:null,views:{},refusals:[],current:null,carriers:null};
- const asJson=read=>read.kind==='worksite_context_body'?{...read,bytes:read.bytes.toString('base64')}:read;
- let x=null;
- await b64CapturedCase(t,'b64-historical-revision.candidate.json',candidate,async()=>{
-  const [storeOwner,revisionIds,history,assembly,decl,{SourceTextModule,SyntheticModule}]=await Promise.all([load('abg/event_store'),load('gtl/semantic_revision_identity'),
-   load('abg/runtime_history'),load('abg/instruction_assembly'),import('../fixtures/native-semantic-revision/declarations.mjs'),import('node:vm')]);
-  const R=revisionIds.SEMANTIC_REVISION_IDS,D=g.SEMANTIC_STAGE_IDS;
-  const ids=Object.fromEntries(Object.entries({productId:'product',moduleRef:'module',descriptorRef:'descriptor',contributionManifestRef:'contribution-manifest',
-   lifecycleDeclarationRef:'lifecycle',graphFunctionRef:'graph-function',graphRef:'graph',closureContractRef:'contract',programRef:'program',startRef:'start'}).map(([k,v])=>[k,v+'://component/b64@5']));
-  const revPublication=decl.constructFreshNativeLifecyclePublication({gtl:g,product:p,ids,semanticPublication:publication}),lifecycle=revPublication.semanticJobLifecycle;
-  // Real worksite and real event store.
-  const env=await worksiteFixture({...p,...effects,...ops});t.after(()=>rm(env.scratch,{recursive:true,force:true}));
-  const initial=ordinaryJob(p,g,'Build an application and an independent verifier. Preserve complete source and all unresolved obligations.');
-  const job=p.constructSemanticJobInput({...initial,lifecycleRef:lifecycle.declarationRef,evaluationData:{independentSentinel:'evaluator-only-b64'},taskData:{...initial.taskData,nativeLifecycle:{assets:lifecycle.stages.map((s,i)=>({stageRef:s.declarationRef,path:`assets/${i}.json`})),rubricPath:'assets/rubric.json'}},
-   worksiteScope:{...initial.worksiteScope,readRoots:['.'],writeRoots:['.'],parentWriteRoots:['.'],evidenceWriteRoots:['evidence']}});
-  await mkdir(join(env.canonicalRoot,'assets'));for(const member of job.members){await mkdir(join(env.canonicalRoot,member.path,'..'),{recursive:true});await writeFile(join(env.canonicalRoot,member.path),Buffer.from(member.base64,'base64'));}
-  await writeFile(join(env.canonicalRoot,'assets/rubric.json'),p.canonicalJson(lifecycle)+'\n');
-  const observe=()=>ops.observeWorksiteContext({...env,readRoots:job.worksiteScope.readRoots,maxFiles:lifecycle.bounds.maxContextFiles,maxBytes:lifecycle.bounds.maxContextBytes});
-  const envelope0=p.constructSemanticJobEnvelope(job,lifecycle,{invocationAdmissionRef:'component:invocation',rootExecutionBasisRef:'component:root',rootInputRef:'component:input',rootInputDigest:hash(job),
-   intakeCCallRef:'component:intake',intakeCCallDigest:hash('intake'),intakeExecutionBasisRef:'component:intake-basis'});
-  const dir=await fsPromises.mkdtemp(join(env.scratch,'b64-store-')),eventLogPath=join(dir,'events.jsonl');
-  const acquired=storeOwner.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath});assert.ok(acquired.store,JSON.stringify(acquired));
-  t.after(()=>acquired.store.closeDurableLog());const store=acquired.store;
-  const envl=(kind,payload,o={})=>({kind,payload,eventTime:'2026-11-16T00:00:00.000Z',aggregateType:'workspace',aggregateId:'workspace://b64',parentAggregateId:null,
-   causationEventRefs:[],correlationId:'correlation://b64',workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://b64',...o});
-  // Real store admission of one CCall Result at exact cCallRef/Run coordinates.
-  const storeResult=(cCallRef,runId,value)=>{const extra={aggregateType:'c_call',aggregateId:cCallRef,parentAggregateId:'frame://'+cCallRef,scopeClass:'run',runId,graphCallId:'graph-call://'+cCallRef,frameId:'frame://'+cCallRef};
-   const pair=storeOwner.admitRuntimeEventBatch(store,[()=>envl('c_call_opened',{cCallRef,cCallDigest:hash(cCallRef),callClass:'leaf',batchRef:null,taskOrdinal:null,attempt:1,programLocusRef:'locus://'+cCallRef,retryPath:[]},extra),
-    prior=>envl('c_call_fibre_selected',{cCallRef,callClass:'leaf',armId:'arm://b64',regime:'F_D'},{...extra,causationEventRefs:[prior.at(-1).eventId]})]);
-   const body={cCallRef,resultClass:'success',contractRef:'contract://b64-output',valueKind:value.kind,evidenceRefs:[],value,valueDigest:hash(value)};
-   const resultDigest=hash(body),resultRef='result://b64/'+resultDigest.slice(7);
-   return storeOwner.admitRuntimeEvent(store,envl('c_call_result_admitted',{...body,resultRef,resultDigest},{...extra,causationEventRefs:[pair.at(-1).eventId]}));};
-  const heldPrefix=()=>prefixes.selectRuntimeEventPrefixFromStore(store);
-  // Lifecycle stages through the actual Product folds; stage 2 is assessed adverse.
-  const stageCandidate=(envelope,i)=>{const stage=lifecycle.stages[i],member=envelope.job.members[0],q={memberRef:member.memberRef,quote:Buffer.from(member.base64,'base64').toString()};
-   return {kind:'semantic_job_asset_candidate',schemaVersion:'5.0.0',asset:{kind:'semantic_stage_asset_candidate',schemaVersion:'5.0.0',
-    statements:[{statementRef:stage.declarationRef+'/s',text:q.quote,modality:'supporting',sourceQuotes:[q],requirementRefs:[],obligationRefs:[],predecessorStatementRefs:envelope.assets.flatMap(a=>a.candidate.asset.statements.map(s=>s.statementRef))}],
-    requirementCandidates:[],worksiteDesign:null,pressure:[]},bindings:[],design:null};};
-  const stageVerdict=(authored,i,disposition)=>{const member=authored.job.members[0];return {kind:'semantic_stage_assessment_candidate',schemaVersion:'5.0.0',criteria:lifecycle.stages[i].rubric.map(r=>({criterionRef:r.criterionRef,disposition,
-   explanation:'Mechanical component value only; no semantic acceptance claim',sourceQuotes:[{memberRef:member.memberRef,quote:Buffer.from(member.base64,'base64').toString()}],statementRefs:authored.assets.at(-1).candidate.asset.statements.map(s=>s.statementRef)})),pressure:[]};};
-  const stageAuthor=async(envelope,i)=>{const stage=lifecycle.stages[i],task=m.constructNativeSemanticTask(envelope,stage.declarationRef,'author',env,await observe());
-   await writeFile(join(env.canonicalRoot,`assets/${i}.json`),JSON.stringify(stageCandidate(envelope,i))+'\n');const observation=n.constructNativeWorkspaceWorkObservation(task,await observe(),{summary:'component candidate',gaps:[]},provenance('b64-author-'+i));
-   const authored=m.deriveNativeSemanticAsset(envelope,stage.declarationRef,observation,adapter('b64-author-'+i,p.constructRetainedGraphInput(envelope,observation)));assert(authored,'author fold '+i);return authored;};
-  let parent=envelope0;
-  for(let i=0;i<2;i++){const authored=await stageAuthor(parent,i),task=m.constructNativeSemanticTask(authored,lifecycle.stages[i].declarationRef,'assessor',env,authored.context);
-   const observation=n.constructNativeWorkspaceWorkObservation(task,authored.context,null,provenance('b64-assessor-'+i),stageVerdict(authored,i,'satisfied'));
-   parent=m.deriveNativeSemanticAssessment(authored,lifecycle.stages[i].declarationRef,observation,adapter('b64-assessor-'+i,p.constructRetainedGraphInput(authored,observation)));assert(parent,'assessor fold '+i);}
-  const sourceRun={ref:'component:source-run',digest:hash('public-run')};
-  const authored=await stageAuthor(parent,2),assessorTask=m.constructNativeSemanticTask(authored,lifecycle.stages[2].declarationRef,'assessor',env,authored.context);
-  // The assessor task's admitted inline context is the holder; the real
-  // held-prefix owner then carries the unchanged reobserved after as members.
-  const holder=storeResult('component:b64-assessor-task',sourceRun.ref,assessorTask);
-  const after=prefixes.reuseWorksiteContextBodiesAtPrefix(heldPrefix(),await observe(),{runId:sourceRun.ref});
-  const assessorObservation=n.constructNativeWorkspaceWorkObservation(assessorTask,after,null,provenance('b64-assessor-2'),stageVerdict(authored,2,'falsified'));
-  const adverse=m.deriveNativeSemanticAssessment(authored,lifecycle.stages[2].declarationRef,assessorObservation,adapter('b64-assessor-2',p.constructRetainedGraphInput(authored,assessorObservation)));
-  // The carriage premise is a candidate, retained before any assertion.
-  const files=context=>context.entries.filter(e=>e.state==='file');
-  candidate.premise={holder:{eventRef:holder.eventId,resultRef:holder.payload.resultRef,runId:sourceRun.ref},after,
-   foldContext:adverse?.context??null,entries:files(after).map(e=>({relativePath:e.relativePath,encoding:e.encoding,member:e.member??null,digest:e.digest,byteLength:e.byteLength})),
-   foldDerived:adverse!==null,foldNativeIntakeFoldPredicate:adverse===null?null:m.evaluateNativeSemanticRelation(D.nativeAssessorFoldPredicateRef,p.constructRetainedGraphInput(authored,assessorObservation),adverse)};
-  if(adverse===null)throw new Error('native assessor fold refused its member-carried observation');
-  // Component premises of the existing native revision harness; leaves and holders are real store rows.
-  const events=[],states=new Map(),bases=new Map(),nativeSources=new Map(),runs=new Map(),admittedRoots=[];let ordinal=0;
-  const prefix={events},original={...env.executionBasis,basisRef:adverse.basis.rootExecutionBasisRef,parentExecutionBasisRef:null,rawInputValue:job,rawInputDigest:hash(job),
-   rawInputAdmissionRef:adverse.basis.rootInputRef,invocationAdmissionRef:adverse.basis.invocationAdmissionRef};
-  bases.set(original.basisRef,original);admittedRoots.push(original);runs.set(sourceRun.ref,{run:sourceRun,executionBasis:{ref:original.basisRef}});
-  const environment={kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]};
-  const lifecycleInstallRoot=join(env.scratch,'installed-lifecycle');await mkdir(lifecycleInstallRoot,{recursive:true});const pub=await load('product/publication');
-  environment.productInstalls.push({productId:revPublication.owningProductId,artifactDigest:revPublication.artifactDigest,productContentDigest:revPublication.productContentDigest,
-   manifestDigest:revPublication.productManifestDigest,installedRoot:lifecycleInstallRoot,contributionManifest:{publicationBindings:[{moduleRef:revPublication.moduleRef,publicationDigest:pub.modulePublicationSemanticDigest(revPublication)}]}});
-  const prefixBody={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///component/no-journal',prefixLength:0,prefixDigest:hash('prefix'),storeIdentity:{device:1,inode:1,eventContractDigest:storeOwner.ROOT_EVENT_CONTRACT_DIGEST}};
-  const intake={kind:'native_semantic_revision_intake',schemaVersion:'5.0.0',sourceRun,sourcePrefix:{...prefixBody,coordinateDigest:hash(prefixBody)}};
-  let current,rootBasis,runId;const basis={publication:revPublication,lifecyclePublication:revPublication,sourcePublication:revPublication,predecessorPrefix:intake.sourcePrefix,declarationGraphFunctions:[],graphFunction:{declarations:{}}};
-  const invocation=(name,input)=>{runId='component:run:'+name;rootBasis={...original,basisRef:'component:root:'+name,basisDigest:hash(['basis',name]),admissionEventRef:'component:basis-event:'+name,
-   rawInputValue:input,rawInputDigest:hash(input),rawInputAdmissionRef:'component:input:'+name,invocationAdmissionRef:'component:invocation:'+name,
-   workspaceBindingId:env.workspaceBinding.bindingId,workspaceBindingDigest:env.workspaceBinding.bindingDigest};bases.set(rootBasis.basisRef,rootBasis);admittedRoots.push(rootBasis);
-   runs.set(runId,{run:{ref:runId,digest:hash(['run',name])},executionBasis:{ref:rootBasis.basisRef}});};
-  const call=(impl,input,raw=input,extra={})=>{const execution={...rootBasis,basisRef:'component:basis:'+(++ordinal),parentExecutionBasisRef:rootBasis.basisRef,rawInputValue:raw,rawInputDigest:hash(raw)};
-   bases.set(execution.basisRef,execution);const cCall={...env.cCall,cCallRef:'component:call:'+ordinal,basisId:execution.basisRef,runId,implementationRef:impl,regime:[R.selectionImplementationRef].includes(impl)?'F_P':'F_D',...extra};
-   current={execution,call:cCall,inputValue:input,inputDigest:hash(input),inputRef:'component:input:'+ordinal,prefix,events,environment,program:{}};basis.cCall=cCall;basis.executionBasis=execution;return current;};
-  // Each harness leaf is the real store's Result at the same CCall and Run.
-  const admit=(value,impl,execution,judgment,cCallRef,run)=>{const real=storeResult(cCallRef,run,value),judgmentEventRef='component:judgment:'+(++ordinal);
-   const state={cCall:{...env.cCall,cCallRef,basisId:execution.basisRef,runId:run,implementationRef:impl,graphFunctionRef:current?.call.graphFunctionRef??'component:graph',regime:impl===R.selectionImplementationRef?'F_P':'F_D'},
-    result:{resultClass:'success',resultRef:real.payload.resultRef,resultDigest:real.payload.resultDigest,value,valueKind:value.kind,admissionEventRef:real.eventId},judgment:{judgment,admissionEventRef:judgmentEventRef}};
-   states.set(cCallRef,state);events.push({kind:'c_call_result_admitted',aggregateId:cCallRef,runId:run,eventId:real.eventId,admissionOrdinal:++ordinal,payload:{resultRef:real.payload.resultRef,resultDigest:real.payload.resultDigest,value}},
-    {kind:'c_call_judged',aggregateId:cCallRef,runId:run,eventId:judgmentEventRef,admissionOrdinal:++ordinal,payload:{}});return state;};
-  const coordinate=s=>({cCallRef:s.cCall.cCallRef,resultRef:s.result.resultRef,resultDigest:s.result.resultDigest,resultAdmissionEventRef:s.result.admissionEventRef,judgmentEventRef:s.judgment.admissionEventRef});
-  const lookup=(_prefix,c)=>{const state=states.get(c.cCallRef);return state&&hash(coordinate(state))===hash(c)?state:null;};
-  const selected=(_basis,impl,value)=>{const rows=[...states.values()].filter(s=>s.result.resultClass==='success'&&s.judgment.judgment==='advance'&&s.cCall.implementationRef===impl&&hash(s.result.value)===hash(value)&&bases.get(s.cCall.basisId)?.invocationAdmissionRef===current.execution.invocationAdmissionRef);
-   return rows.length===1?{previous:rows[0],execution:bases.get(rows[0].cCall.basisId),event:events.find(e=>e.eventId===rows[0].result.admissionEventRef)}:null;};
-  async function component(name,overrides){const file=join(root,'build/code/src',name+'.js'),module=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
-   await module.link(async spec=>{const imported=await import(spec.startsWith('node:')?spec:pathToFileURL(resolve(dirname(file),spec)).href),values={...imported,...overrides[spec]};
-    return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});});await module.evaluate();return module.namespace;}
-  const executionOverrides={authenticateNativeInstructionAssemblyBasis:()=>current,authenticateOwnedNativeInstructionAssemblyBasis:()=>current,rehydrateExecutionBasisAtPrefix:(_p,ref)=>bases.get(ref)??null};
-  const invocationOverrides={rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[env.capabilityGrant]})};
-  const rootAdmissions=key=>admittedRoots.filter(b=>'invocation:'+b.invocationRef===key).map(b=>({kind:'basis_admitted',eventId:b.admissionEventRef,
-   payload:{basisClass:'root',basisRef:b.basisRef,invocationAdmissionRef:b.invocationAdmissionRef,implementationSetRef:b.rootImplementationSetRef,rawInputValue:b.rawInputValue}}));
-  const prefixOverrides={validatedRuntimeEventPrefixBeforeEvent:()=>prefix,runtimeEventsFromValidatedPrefix:()=>events,runtimeEventBodiesAtPrefix:()=>new history.RuntimeEventBodyView(events),
-   indexedRuntimeEvents:(_p,key)=>key.startsWith('invocation:')?rootAdmissions(key):events.filter(e=>key==='aggregate:c_call:'+e.aggregateId||key==='id:'+e.eventId||/^(run|related):/.test(key)&&history.runtimeHistorySelectorKeys(e).includes(key)),
-   readOwnedRuntimeEventPrefixAtDurablePrefix:c=>{if(hash(c)!==hash(intake.sourcePrefix))throw new Error('component: no durable cut');return prefix;}};
-  const jobOwner=await component('abg/semantic_job',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./event_prefix.js':prefixOverrides,
-   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup}});
-  const owner=await component('abg/semantic_revision',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./semantic_job.js':jobOwner,
-   './semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>true,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h},
-   './event_prefix.js':prefixOverrides,'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>runs.get(ref)??null},
-   './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>environment},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:()=>[]},
-   './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>nativeSources.get(value.observationRef)??null,worksiteCommandSourcesInvalidatedAfter:()=>false}});
-  // Source Run: the accepted parent and the adverse native assessor fold.
-  const parentState=admit(parent,D.nativeAssessorFoldImplementationRef,original,'advance',parent.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,sourceRun.ref);
-  const causeState=admit(adverse,D.nativeAssessorFoldImplementationRef,original,'stop',adverse.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,sourceRun.ref);
-  // New Run: authenticated revision intake, then the selection leaf.
-  invocation('intake',intake);call(R.nativeIntakeImplementationRef,intake);let reason=null;
-  const limits={inactivityTimeoutMs:300000,absoluteTimeoutMs:900000};
-  const prepared=await owner.prepareNativeSemanticRevisionIntake(basis,intake,limits,r=>reason=r);
-  candidate.intake={prepared,refusal:reason,matches:prepared===null?null:owner.nativeSemanticRevisionIntakeMatches(basis,intake,prepared)};
-  if(prepared===null)throw new Error('authenticated revision intake refused: '+reason);
-  admit(prepared,R.nativeIntakeImplementationRef,current.execution,'advance',current.call.cCallRef,runId);
-  basis.graphFunction={name:'component:selection-graph',declarations:{'abg.semantic_revision_selection':lifecycle.declarationRef}};
-  call(R.selectionImplementationRef,prepared,prepared,{graphFunctionRef:'component:selection-graph'});
-  const subject=owner.projectOwnedJobRevisionSubject(basis,prepared);
-  candidate.subject=subject===null?null:{historicalContexts:subject.historicalContexts,parent:coordinate(subject.parent),causes:subject.causes.map(coordinate),
-   nativeContext:subject.nativeWorksite.context};
-  if(subject===null)throw new Error('authenticated revision subject refused');
-  // Selector decision view over the same subject, with the owner's exact sections.
-  const leaf=s=>({cCall:s.cCall,result:{...s.result,valueKind:s.result.value.kind},judgment:s.judgment});
-  const sections={role:'selection',source:subject.envelope.job.members.map(member=>({memberRef:member.memberRef,path:member.path,text:Buffer.from(member.base64,'base64').toString()})),
-   obligations:{activeBindings:p.projectSemanticJobBindings(subject.envelope),remainingGaps:subject.envelope.remainingGaps},predecessors:subject.envelope.assets,
-   worksite:{context:subject.nativeWorksite.context,construction:null,commandExecutionLimits:subject.nativeWorksite.commandExecutionLimits},
-   evidence:{parent:leaf(subject.parent),causes:subject.causes.map(leaf)},task:{input:{kind:prepared.kind}},response:{}};
-  const cold=prefixes.selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(eventLogPath)));
-  const present=(label,at,uses)=>{const reads=[];let view=null,error=null;
-   try{view=assembly.renderNativeRevisionSelectionDecisionView(sections,subject.envelope,(coordinateAt,context,relativePath)=>{
-    const read=prefixes.resolveHistoricalWorksiteContextBodyAtPrefix(at,coordinateAt,context,relativePath,uses);reads.push({at:coordinateAt,relativePath,read:asJson(read)});
-    if(read.kind!=='worksite_context_body')throw new TypeError(`historical context member ${read.code}: ${read.reason}`);return read.bytes;});}
-   catch(e){error=String(e?.message??e);}
-   candidate.views[label]={reads,view,error};return candidate.views[label];};
-  present('held',heldPrefix(),subject.historicalContexts);present('cold',cold,subject.historicalContexts);
-  // Strict negatives over the same subject: no declared use, an uncovered
-  // binding, another Run and a use naming another Result.
-  const use=subject.historicalContexts.find(u=>u.resultRef===causeState.result.resultRef);
-  for(const [label,uses] of [['no historical use',[]],['uncovered binding',subject.historicalContexts.map(u=>({...u,coveredBinding:{...u.coveredBinding,bindingDigest:hash('other-binding')}}))],
-   ['another Run',subject.historicalContexts.map(u=>({...u,runId:runId}))],['parent use only',subject.historicalContexts.filter(u=>u.resultRef!==causeState.result.resultRef)]])
-   candidate.refusals.push({label,...present('negative: '+label,heldPrefix(),uses)});
-  // A caller-altered request is not the authenticated acquisition.
-  candidate.refusals.push({label:'altered cause coordinate',subject:owner.projectOwnedJobRevisionSubject(basis,{...prepared,causes:[{...prepared.causes[0],resultDigest:hash('other')}]})});
-  // The applicable same-Run semantic-stage member view reads its own envelope.
-  candidate.stageView=files(adverse.context).map(e=>({relativePath:e.relativePath,read:asJson(prefixes.resolveWorksiteContextBodyAtPrefix(heldPrefix(),adverse.context,e.relativePath,{runId:sourceRun.ref}))}));
-  candidate.current={context:subject.nativeWorksite.context};
-  const stored=store.readAll();
-  candidate.carriers={cause:{original:p.canonicalJson(adverse),stored:p.canonicalJson(stored.find(e=>e.eventId===causeState.result.admissionEventRef).payload.value)}};
-  x={holder,causeState,parentState,use,adverse};
- },async()=>{
-  assert.equal(candidate.premise.foldDerived,true);assert.equal(candidate.premise.foldNativeIntakeFoldPredicate,true,'actual native assessor fold relation');
-  assert.ok(candidate.premise.entries.length>0&&candidate.premise.entries.every(e=>e.encoding==='admitted_member'&&e.member.resultRef===candidate.premise.holder.resultRef),JSON.stringify(candidate.premise.entries));
-  assert.deepEqual(candidate.premise.foldContext,candidate.premise.after,'the fold carries the native observation after unchanged');
-  assert.equal(candidate.intake.matches,true);
-  assert.ok(candidate.subject.historicalContexts.some(u=>u.resultRef===x.causeState.result.resultRef&&u.runId===x.causeState.cCall.runId&&u.cCallRef===x.causeState.cCall.cCallRef),
-   'the revision owner derives the cause use from its authenticated subject');
-  assert.ok(candidate.subject.historicalContexts.every(u=>u.coveredBinding.bindingId===candidate.premise.after.workspaceBindingIdentity));
-  for(const label of ['held','cold']){const row=candidate.views[label];
-   assert.equal(row.error,null,`${label}: ${row.error}`);assert.ok(row.reads.length>=candidate.premise.entries.length);
-   for(const r of row.reads){assert.equal(r.read.kind,'worksite_context_body',JSON.stringify(r));assert.equal(r.read.holder.eventRef,x.holder.eventId);assert.deepEqual(r.at.route,['context']);}
-   const causeView=row.view.evidence.causes[0].result.value.context.entries.filter(e=>e.state==='file');
-   for(const e of causeView){assert.equal(e.sourceEncoding,'admitted_member');assert.ok(e.member,'original member coordinate remains beside the view');
-    const body=row.view.worksite.byteBodies[Number(e.textView.presentationRef.split('/').at(-1))]??null;
-    if(e.textView.presentationRef.startsWith('#/worksite/byteBodies/'))assert.equal(body.digest,e.digest);}
+// The installed Public setup of uat/public-setup.mjs (populateInstalledSetup),
+// composed locally for this one case-local consumer: workspace.create, two
+// product.verify, product.resolve, two product.install (the first acquires the
+// new event resource), workspace.bind, Catalog admit, one Catalog view and one
+// Program conformance per started Program, then one close. Every call is the
+// exported installed Public operation through publicCaller; no setup metadata
+// is synthesized and root-installed-environment is not used.
+async function b64PublicSetup({seen,setup,runtime,native,root,packagePath}){
+ const {product,abg,gtl,validator}=runtime,hash=product.sha256Canonical,version='5.0.0',{BoundaryFailure,requireKind}=setup;
+ const decl=await import('../fixtures/native-semantic-revision/declarations.mjs');
+ const {prepareRegisteredSelectionProduct}=await import('../support/registered-graph-selection.mjs');
+ const record=async(path,value)=>{seen('setup record '+path,value);};
+ const caller=setup.publicCaller({root,runtime,native,command:null,record,
+  config:{runId:'b64-public-composition',worksiteRoot:join(root,'sandbox/worksite'),recursionBound:1000,nodePath:process.execPath}});
+ const {state,actor,actorRef,authorize,invoke}=caller,worksiteRoot=caller.config.worksiteRoot;
+ const created=await invoke('workspace-create',await authorize(product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.create.clean,
+  {targetRoot:worksiteRoot,createPolicy:'clean',scaffoldPolicy:'none'},
+  {kind:'workspace_resource_assertion',schemaVersion:version,targetRoot:worksiteRoot,targetRootDigest:hash({kind:'workspace_target',targetRoot:worksiteRoot})},{actor}));
+ const workspaceManifest=seen('workspace manifest',JSON.parse(await readFile(created.receipt.resources.manifest.locator,'utf8')));
+ // 1. One declared native consumer: the full lifecycle (with its Evidence stage)
+ // and the canonical intake/selector/request-sealing revision Programs.
+ const cores=setup.corePublications(gtl,native.verified),semanticPublication=cores.find(p=>p.moduleRef===gtl.SEMANTIC_STAGE_IDS.moduleRef);
+ const ids={productId:b64Ref('product','consumer'),moduleRef:b64Ref('module','consumer'),descriptorRef:b64Ref('descriptor','consumer'),
+  contributionManifestRef:b64Ref('contribution-manifest','consumer'),lifecycleDeclarationRef:b64Ref('lifecycle','generic'),graphFunctionRef:b64Ref('graph-function','root'),
+  graphRef:b64Ref('graph','root'),closureContractRef:b64Ref('contract','root-closure'),programRef:b64Ref('program','lifecycle'),startRef:b64Ref('start','lifecycle')};
+ // 3. Declared roles from the actual leaves of every Program of that publication.
+ const unconfigured=decl.constructFreshNativeLifecyclePublication({gtl,product,ids,semanticPublication});
+ const runEnvironment=seen('declared run environment',b64RunEnvironment({gtl,product,publication:unconfigured,cores}));
+ const prepared=await prepareRegisteredSelectionProduct({scratch:join(root,'consumer'),product,gtl,abiPublication:semanticPublication,abiPackageArchivePath:packagePath,
+  fixtureFiles:[],schemaAssets:[],declarationFactory:g=>decl.constructFreshNativeLifecyclePublication({gtl:g,product,ids,semanticPublication,runEnvironment})});
+ const consumerManifest=JSON.parse(await readFile(join(prepared.sourceRoot,'product-toolchain-manifest.json'),'utf8'));
+ seen('prepared consumer',{artifactPath:prepared.artifactPath,basis:prepared.basis,ids:prepared.ids,manifest:consumerManifest});
+ const consumer=await setup.verifyArtifact(runtime,{artifactPath:prepared.artifactPath,manifest:consumerManifest,expectedArtifactDigest:prepared.basis.artifactDigest},record,'consumer');
+ const actualCore=cores.map(value=>[value.moduleRef,product.modulePublicationSemanticDigest(value)]).sort();
+ const manifestCore=native.verified.contributionManifest.publicationBindings.map(value=>[value.moduleRef,value.publicationDigest]).sort();
+ if(hash(actualCore)!==hash(manifestCore))throw new BoundaryFailure('b64-core-publication-identity',{actualCore,manifestCore});
+ // 2. Explicit installed Public verify, resolve and install.
+ const natives=[native,consumer],verificationRefs=[],packedArtifacts=[],verificationOutputs=[];
+ for(let i=0;i<natives.length;i++){
+  const item=natives[i],v=item.verified;
+  const packed={kind:'product_verification_artifact_resource',schemaVersion:version,artifactPath:item.request.artifactPath,
+   artifact:{ref:v.artifactRef,digest:v.artifactDigest},productContent:{ref:'product-content://abi5-tests/'+v.productContentDigest.slice(7),digest:v.productContentDigest},
+   descriptor:item.verification.coordinates.descriptor,contributionManifest:{ref:v.contributionManifestRef,digest:v.contributionManifestDigest},
+   manifestDigest:v.manifestDigest,productId:v.productId,packageName:v.packageName,packageVersion:v.packageVersion};
+  const checked=await invoke('product-verify-'+i,await authorize(product.PRODUCT_VERIFICATION_SOURCE_DECLARATIONS.verify,
+   {targetKind:'packed_artifact',artifact:packed.artifact,productContent:packed.productContent,descriptor:packed.descriptor,
+    contributionManifest:packed.contributionManifest,declaredDependencies:v.declaredDependencies,
+    compatibilityInputs:v.compatibilityRefs.map(compatibilityRef=>({compatibilityRef,subjectRef:packed.productContent.ref}))},
+   {kind:'product_verification_resources',schemaVersion:version,targetKind:'packed_artifact',packedArtifact:packed,verifiedArtifact:v}));
+  verificationRefs.push({invocation:{ref:checked.call.invocation.invocationRef,digest:checked.call.invocation.invocationDigest},
+   outcome:checked.receipt.ownerOutput.value.verifiedArtifact});packedArtifacts.push(packed);verificationOutputs.push(checked.receipt.ownerOutput);
+ }
+ const resolvedLock=requireKind(product.ProductEnvironmentPort.resolve({kind:'product_resolution_packet',schemaVersion:version,
+  memberKey:'resolve',verifiedArtifacts:natives.map(item=>item.verified)}),'resolved_product_lock','b64-lock-construction');
+ state.resolvedLock=resolvedLock;
+ const lock={ref:resolvedLock.lockId,digest:resolvedLock.lockDigest};
+ const resolved=await invoke('product-resolve',await authorize(product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.resolve,
+  {requirements:natives.map(({verified:v})=>({productId:v.productId,packageVersion:v.packageVersion,requiredContractRefs:[],requiredCapabilityRefs:[]})),verifiedCandidates:verificationRefs},
+  {kind:'product_resolution_resource_assertion',schemaVersion:version,
+   verifiedPreimages:natives.map((item,i)=>({verification:verificationRefs[i],verifiedArtifact:item.verified,verificationOutput:verificationOutputs[i]})),
+   nativeContractClosure:{selectorDispositions:[],occurrences:[],nativeBindings:[]}},{verification_references:verificationRefs}));
+ if(hash(resolved.receipt.ownerOutput.value.resolvedLock)!==hash(lock))throw new BoundaryFailure('b64-resolved-lock-identity',resolved.receipt);
+ const eventLogPath=join(root,'resources/events/runtime.events.jsonl');await mkdir(dirname(eventLogPath),{recursive:true});
+ const installations=[];let acquired=false;
+ try{
+  for(let i=0;i<natives.length;i++){
+   const item=natives[i],packed=packedArtifacts[i],eventResource=i===0?caller.acquire({kind:'new_abg_event_resource',schemaVersion:version,eventLogPath,
+    locatorDigest:hash({kind:'abg_event_log_locator',eventLogPath:resolve(eventLogPath)})}):state.selection;
+   acquired=true;
+   const result=await invoke('product-install-'+i,await authorize(product.PRODUCT_INSTALL_SOURCE_DECLARATIONS.install,
+    {verifiedArtifact:item.verification.coordinates.verifiedArtifact,descriptor:packed.descriptor,contributionManifest:packed.contributionManifest,
+     resolvedLock:lock,targetRoot:join(root,'sandbox/installed',i===0?'abg':'b64-consumer'),installPolicy:'clean'},
+    {kind:'product_install_resource_assertion',schemaVersion:version,eventResource,packedArtifact:packed,verifiedArtifact:item.verified,resolvedLock},
+    {dependency_lock:lock,verification_references:[verificationRefs[i]],actor}));
+   const artifactTruth=abg.projectOwnedPrefixArtifactTruth(caller.prefix());
+   const admitted=seen('installed '+i,abg.projectAdmittedProductInstallByInvocationRef(artifactTruth,result.call.invocation.invocationRef));
+   if(!admitted?.install)throw new BoundaryFailure('b64-installed-event-projection',admitted);
+   const installerManifest=seen('installer manifest '+i,result.receipt.resources.installerManifest??null);
+   if(installerManifest?.ref!==artifactTruth.projectionRef||installerManifest?.digest!==artifactTruth.projectionDigest)throw new BoundaryFailure('b64-installer-manifest-projection',installerManifest);
+   installations.push(admitted.install);
   }
-  assert.deepEqual(candidate.views.cold.view,candidate.views.held.view,'held and cold prefixes yield the same presentation');
-  assert.deepEqual(candidate.views.cold.reads,candidate.views.held.reads);
-  for(const row of candidate.refusals.filter(r=>r.label!=='altered cause coordinate')){assert.notEqual(row.error,null,row.label);assert.equal(row.view,null,row.label);
-   assert.ok(row.reads.length>0&&row.reads.at(-1).read.kind==='worksite_context_body_refusal',row.label);}
-  assert.equal(candidate.refusals.find(r=>r.label==='altered cause coordinate').subject,null);
-  for(const row of candidate.stageView){assert.equal(row.read.kind,'worksite_context_body',JSON.stringify(row));assert.equal(row.read.holder.eventRef,x.holder.eventId);}
-  assert.ok(candidate.current.context.entries.filter(e=>e.state==='file').every(e=>e.encoding==='base64'),'current W is the fresh inline intake observation');
-  assert.equal(candidate.carriers.cause.stored,candidate.carriers.cause.original,'the admitted adverse fold carrier is unchanged');
-  t.diagnostic('B64 owner path: actual Product folds, real store member carriage, real revision intake/subject derivation and real selector decision view; execution-basis/invocation/leaf/prefix-index authentication are the native revision harness premises. No actor, provider or installed Run.');
+  caller.installedRoot=installations[0].installedRoot;
+  const consumerPublication=await prepared.loadInstalledPublication({installedRoot:installations[1].installedRoot,gtl});
+  const consumerDigest=product.modulePublicationSemanticDigest(consumerPublication);
+  const owners=installations.filter(install=>install.productId===consumerPublication.owningProductId&&install.artifactDigest===consumerPublication.artifactDigest&&
+   install.productContentDigest===consumerPublication.productContentDigest&&install.manifestDigest===consumerPublication.productManifestDigest&&
+   install.contributionManifest.publicationBindings.filter(row=>row.moduleRef===consumerPublication.moduleRef&&row.publicationDigest===consumerDigest).length===1);
+  seen('installed consumer publication',{publication:consumerPublication,publicationDigest:consumerDigest,owners:owners.map(owner=>owner.installId)});
+  if(owners.length!==1)throw new BoundaryFailure('b64-program-owner',{moduleRef:consumerPublication.moduleRef,owners:owners.map(owner=>owner.installId)});
+  const publications=cores.concat(consumerPublication);
+  // Workspace binding: productRoot is the started Programs' owner root.
+  const authorityManifest={workspaceId:workspaceManifest.workspaceRef,canonicalRoot:workspaceManifest.canonicalRoot,authorityMode:'trusted_developer',authorizedActorRef:actorRef};
+  const workspaceAuthority=product.constructWorkspaceAuthorityBasis({...authorityManifest,
+   authorityManifestRef:'authority://abi5-tests/b64-public-composition/workspace',authorityManifestDigest:hash(authorityManifest)});
+  caller.workspaceAuthority=workspaceAuthority;
+  const roots={toolchainRoot:join(root,'sandbox/installed','abg'),productRoot:owners[0].installedRoot,eventLogRoot:dirname(eventLogPath),
+   runtimeStateRoot:join(root,'resources/runtime'),projectionRoot:join(root,'resources/projections'),archiveRoot:join(root,'resources/archives')};
+  for(const path of [roots.runtimeStateRoot,roots.projectionRoot,roots.archiveRoot])await mkdir(path,{recursive:true});
+  const fields={toolchain:'toolchainRoot',product:'productRoot',event_log:'eventLogRoot',runtime_state:'runtimeStateRoot',projection:'projectionRoot',archive:'archiveRoot'};
+  const bound=await invoke('workspace-bind',await authorize(product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.bind,
+   {workspaceAuthority:{ref:workspaceAuthority.authorityBasisId,digest:workspaceAuthority.authorityBasisDigest},installedSet:installations.map(product.productInstallCoordinate),
+    resolvedLock:lock,declaredRoots:Object.entries(fields).map(([rootKind,field])=>({rootKind,path:roots[field]}))},
+   {kind:'product_workspace_binding_resource_assertion',schemaVersion:version,eventResource:state.selection,workspaceAuthority,workspaceManifest,
+    admittedInstalls:installations,resolvedLock,declaredRoots:roots},{product_set:installations.map(product.productInstallCoordinate),dependency_lock:lock,actor}));
+  state.binding=bound.receipt.ownerOutput.value.binding;caller.refresh();
+  const published=await invoke('catalog-admit',await authorize(product.CATALOG_OPERATION_SOURCE_DECLARATIONS.admit,
+   {workspaceBinding:state.binding,descriptors:packedArtifacts.map(item=>item.descriptor),contributionManifests:packedArtifacts.map(item=>item.contributionManifest),resolvedLock:lock},
+   {kind:'catalog_admission_resource_assertion',schemaVersion:version,eventResource:state.selection,workspaceBinding:state.environment.workspaceBinding,
+    resolvedLock,verifiedProducts:natives.map(item=>item.verified),admittedInstalls:state.environment.productInstalls,publications},
+   {...caller.boundSlots(),dependency_lock:lock}));
+  caller.refresh();
+  const installedProducts=state.environment.productInstalls.map(install=>abg.projectAdmittedProductInstallByAdmissionEventRef(state.environment.artifactTruth,install.admissionEventRef).candidate);
+  state.catalog=requireKind(product.CatalogOperationPort.admit({kind:'catalog_admit_packet',schemaVersion:version,memberKey:'admit',
+   readinessBasis:{workspaceBinding:state.environment.workspaceBindingCandidate,resolvedLock,verifiedProducts:natives.map(item=>item.verified),installedProducts,publications}}),
+   'graph_function_catalog','b64-catalog-projection');
+  if(published.receipt.ownerOutput.value.catalog.digest!==state.catalog.basisDigest)throw new BoundaryFailure('b64-catalog-public-projection',published.receipt);
+  const boundPublications=state.catalog.boundPublications.filter(value=>value.moduleRef===consumerPublication.moduleRef&&
+   value.owningProductId===consumerPublication.owningProductId&&value.artifactDigest===consumerPublication.artifactDigest&&product.modulePublicationSemanticDigest(value)===consumerDigest);
+  if(boundPublications.length!==1)throw new BoundaryFailure('b64-catalog-publication',{moduleRef:consumerPublication.moduleRef});
+  const catalogPublication=boundPublications[0];
+  const programs={lifecycle:catalogPublication.programs.find(p=>p.programRef===prepared.ids.programRef),intake:catalogPublication.programs.find(p=>p.programRef===B64_INTAKE_PROGRAM)};
+  const environments={},views={};
+  const conformanceLaw={ref:'law://abiogenesis/validator/gtl-program@5',digest:hash({ref:'law://abiogenesis/validator/gtl-program@5'})};
+  for(const [name,program] of Object.entries(programs)){
+   if(program===undefined)throw new BoundaryFailure('b64-catalog-program',{name});
+   environments[name]=catalogPublication.runEnvironments?.find(value=>value.declarationRef===program.policies[gtl.RUN_ENVIRONMENT_POLICY])??null;
+   const allowlist=[...program.callableMembership].sort();
+   await invoke('catalog-view-'+name,await authorize(product.CATALOG_OPERATION_SOURCE_DECLARATIONS.view.allowlist,
+    {catalog:published.receipt.ownerOutput.value.catalog,allowlist},{kind:'catalog_view_resource_assertion',schemaVersion:version,catalog:state.catalog},
+    {...caller.boundSlots(),dependency_lock:lock}));
+   views[name]=requireKind(product.narrowGraphFunctionCatalog(state.catalog,allowlist),'graph_function_catalog_view','b64-catalog-view-'+name);
+   const conformance=await invoke('program-conformance-'+name,await authorize(validator.CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,
+    {program:{ref:program.programRef,digest:hash(program)},conformanceLaw,
+     inventoryBasis:{kind:'declared_inventory',inventory:state.catalog.boundPublications.map(value=>({ref:value.moduleRef,digest:hash(value)})).sort((a,b)=>a.ref.localeCompare(b.ref))}},
+    {kind:'conformance_evaluation_resource_assertion',schemaVersion:version,
+     packet:{kind:'conformance_evaluate_packet',schemaVersion:version,memberKey:'gtl_program',publication:catalogPublication,program},
+     conformanceLaw,declaredInventory:state.catalog.boundPublications,declarationCatalog:{catalog:state.catalog,catalogView:views[name]}},
+    {...caller.boundSlots(),dependency_lock:lock}));
+   if(conformance.receipt.ownerOutput.value.disposition!=='passed')throw new BoundaryFailure('b64-program-conformance-'+name,conformance.receipt);
+  }
+  // The declared stdo-frames inventory of the core install supplies every
+  // Program environment's one dependency.
+  const inventoryPath=await fsPromises.realpath(join(installations[0].installedRoot,gtl.DEFAULT_LIBRARY_CONTEXT_INVENTORY.path)),inventoryDigest=product.sha256Bytes(await readFile(inventoryPath));
+  seen('run environments and inventory',{environments,inventoryPath,inventoryDigest});
+  for(const [name,declaration] of Object.entries(environments))
+   if(declaration===null||declaration.dependencies.length!==1||declaration.dependencies[0].recordDigest!==inventoryDigest)throw new BoundaryFailure('b64-run-environment-'+name,{declaration});
+  const resourcesFor=declaration=>async({authority,program,workspaceBinding,product:owner})=>{
+   const path=join(workspaceBinding.roots.archiveRoot,'b64-run-environment-support');await mkdir(path,{recursive:true});
+   const coordinates={dependencies:declaration.dependencies.map(d=>({dependencyRef:d.dependencyRef,root:dirname(inventoryPath),recordPath:inventoryPath})),
+    pythonPath:null,temporaryRoot:await fsPromises.realpath(path)};
+   return owner.constructRunEnvironmentResources({kind:'run_environment_resources',schemaVersion:version,...coordinates,
+    permission:{authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,actorRef:authority.actorRef,programRef:program.programRef,
+     environmentRef:declaration.declarationRef,environmentDigest:owner.sha256Canonical(declaration),operations:['read_context'],...coordinates}});};
+  seen('setup close',caller.close());
+  return {caller,prepared,consumerPublication,catalogPublication,installations,programs,environments,views,workspaceAuthority,resourcesFor};
+ }catch(primary){
+  // A failed setup closes its own acquisition at the held durable prefix, or
+  // abandons it; the setup failure stays primary.
+  if(acquired&&state.resource!==null){
+   try{const receipt=caller.close(abg.selectHeldEventStoreDurablePrefix(state.resource.store));try{seen('setup failure close',receipt);}catch{}}
+   catch(closeError){try{abg.abandonAbgEventResource(state.resource);}catch{}state.resource=null;state.selection=null;b64CarrySecondary(primary,closeError,'setup close');}
+  }
+  throw primary;
+ }
+}
+
+// The installed Public CLI transport of runInstalledCliRequest
+// (support/registered-graph-selection.mjs): the same request, `--jsonl` argv,
+// cwd and environment, captured completely (request, exit, signal, stdout,
+// stderr, parse) before its checks. Any process exit code is an observation;
+// no process exit at all (spawn, signal or buffer failure) is a genuine child
+// failure, and it or a parse failure stays primary over a later capture failure.
+async function b64InstalledCli({seen,preserving},label,{scratch,installedRoot,acquisition,call,environment}){
+ const {execFile}=await import('node:child_process'),{promisify}=await import('node:util');
+ const requestPath=join(scratch,label.replace(/[^a-z0-9-]+/giu,'-')+'-request.jsonl'),cliPath=join(installedRoot,'build/code/src/public/cli.js');
+ const request={kind:'abg_cli_transport_request',schemaVersion:'5.0.0',acquisition,invocation:call};
+ seen(label+' CLI request',{argv:[process.execPath,cliPath,'--jsonl',requestPath],cwd:scratch,environment:b64ActorEnvironment(environment),request});
+ await writeFile(requestPath,JSON.stringify(request)+'\n');
+ const started=performance.now();let child,thrown=null;
+ try{child=await promisify(execFile)(process.execPath,[cliPath,'--jsonl',requestPath],{cwd:scratch,env:environment,maxBuffer:64*1024*1024});}
+ catch(error){thrown=error;child=error;}
+ const stdout=typeof child?.stdout==='string'?child.stdout:null,stderr=typeof child?.stderr==='string'?child.stderr:null;
+ const exitCode=thrown===null?0:typeof thrown?.code==='number'?thrown.code:null,childFailure=thrown!==null&&exitCode===null?thrown:null;
+ preserving(childFailure,label+' CLI child',{exitCode,genuineChildFailure:childFailure!==null,signal:thrown?.signal??null,killed:thrown?.killed??false,
+  stdout,stderr,error:b64ErrorRecord(thrown),wallMs:performance.now()-started});
+ const lines=(stdout??'').trim().split(/\r?\n/u);let output=null,parseError=null;
+ try{if(lines.length!==1||lines[0]==='')throw new Error(`${label}: expected one CLI output line, observed ${lines.length}`);output=JSON.parse(lines[0]);}
+ catch(error){parseError=error;}
+ preserving(childFailure??parseError,label+' CLI output',{lineCount:lines.length,parseError:b64ErrorRecord(parseError),receiptPresent:Boolean(output?.receipt),output});
+ if(childFailure!==null)throw childFailure;
+ if(parseError!==null)throw parseError;
+ assert.equal(stderr,'',`${label} CLI stderr`);
+ return {exitCode,output};
+}
+
+// B64 genuine Public composition, the ROOT_SELECTION seven-step recipe through
+// current canonical owners. (1) One case-local declared native consumer is
+// packaged by prepareRegisteredSelectionProduct over
+// constructFreshNativeLifecyclePublication (full lifecycle with its Evidence
+// stage; canonical intake/selector/request-sealing revision Programs). (2) The
+// explicit installed Public setup above installs, binds and admits it. (3)
+// Canonical roles are declared for every F_P leaf, including the intake
+// selector GraphFunction/locus assessor role. (4) One actual Public start runs
+// the lifecycle: the deterministic stand-in authors the Intent candidate and
+// assesses it unsatisfied against one explicit criterion; the real native
+// observation and semantic fold admit the adverse envelope, whose context the
+// held-prefix owner carries as admitted members of their actual same-Run
+// holders; that premise (member, holder event, owner read) is retained and
+// checked before going on, and the Run stops
+// before later stages and C2. (5) A second genuine Public start of the revision
+// intake Program names only the actual source Run and its closed prefix, under
+// the same genuine binding. (6) The selector leaf dispatches over its complete
+// assembly; the admitted intake, actor_transport_binding_admitted
+// instructionAssembly, selection and sealed request are retained, and the Run
+// ends before any correction lifecycle. (7) A fresh in-process reader of the
+// closed durable log, through the installed core root's owner modules,
+// reconstructs the complete assembly with constructSemanticStageNativeBasis and
+// constructNativeInstructionAssembly and compares it whole with the held one.
+// Strict negatives keep the current/historical split and exact authority. Not
+// covered here, and still open: an inherited parent of an older Run and
+// binding, older-binding cover, C2/evidence/revision-cause member routes and
+// every later lifecycle stage.
+test('B64 historical revision: admitted assessor context reaches new-Run selector assembly held and cold',{timeout:1_800_000},async t=>{
+ const title='B64 historical revision: admitted assessor context reaches new-Run selector assembly held and cold';
+ let passed=false;
+ await b64CapturedRun('b64-historical-revision.candidate.json',title,async({seen,preserving})=>{
+  const os=await import('node:os'),{execFile}=await import('node:child_process'),{promisify}=await import('node:util');
+  const setup=await import('../uat/public-setup.mjs'),{packProduct}=await import('../../scripts/product-payload.mjs');
+  const {constructInstalledStartCall}=await import('../support/registered-graph-selection.mjs');
+  const scratch=realpathSync(await fsPromises.mkdtemp(join(os.tmpdir(),'abg-b64-public-')));
+  // The scratch (installs, closed event log) is kept for inspection unless the case passes.
+  t.after(()=>passed?rm(scratch,{recursive:true,force:true}):undefined);
+  seen('scratch',{scratch,tenantRoot:root});
+  // The freshly packed built tenant and its bootstrap modules (UAT harness precedent).
+  const packed=join(scratch,'candidate-artifact');await mkdir(packed);
+  const [packResult]=await packProduct(root,packed),packagePath=join(packed,packResult.filename);
+  const bootstrapRoot=join(scratch,'bootstrap/node_modules/@abiogenesis/typescript-tenant');await mkdir(bootstrapRoot,{recursive:true});
+  const extraction=await promisify(execFile)('/usr/bin/tar',['-xzf',packagePath,'--strip-components=1','-C',bootstrapRoot])
+   .then(r=>({exitCode:0,stdout:r.stdout,stderr:r.stderr}),e=>({exitCode:typeof e?.code==='number'?e.code:null,stdout:e?.stdout??null,stderr:e?.stderr??null,error:b64ErrorRecord(e)}));
+  seen('packed tenant',{packResult,packagePath,bootstrapRoot,extraction});
+  if(extraction.exitCode!==0)throw new Error('bootstrap extraction failed: '+JSON.stringify(extraction));
+  const runtime=await setup.installedModules(bootstrapRoot),{product,abg,gtl}=runtime;
+  const manifest=JSON.parse(await readFile(join(bootstrapRoot,'product-toolchain-manifest.json'),'utf8'));
+  const record=async(path,value)=>{seen('setup record '+path,value);};
+  const native=await setup.verifyArtifact(runtime,{artifactPath:packagePath,manifest,expectedArtifactDigest:product.sha256Bytes(await readFile(packagePath))},record,'abg');
+  const env=await b64PublicSetup({seen,setup,runtime,native,root:scratch,packagePath});
+  const {caller,prepared,consumerPublication,installations,programs,environments,views}=env,{state}=caller,coreRoot=installations[0].installedRoot;
+  // The ordinary job over the bound worksite: one source member stating an explicit constraint.
+  const S=gtl.SEMANTIC_STAGE_IDS,Wk=gtl.NATIVE_WORKSPACE_WORK_IDS,lifecycle=consumerPublication.semanticJobLifecycle,intent=lifecycle.stages[0];
+  const worksite=env.workspaceAuthority.canonicalRoot,paths={source:'source/request.txt',rubric:'source/lifecycle.json'};
+  const sourceText='Greet the named user with one short, polite sentence.\nConstraint: keep the stated name unchanged.\n';
+  await mkdir(join(worksite,'source'),{recursive:true});await mkdir(join(worksite,'semantic'),{recursive:true});
+  await writeFile(join(worksite,paths.source),sourceText);await writeFile(join(worksite,paths.rubric),product.canonicalJson(lifecycle)+'\n');
+  const job=product.constructSemanticJobInput({kind:'semantic_job_input',schemaVersion:'5.0.0',lifecycleRef:lifecycle.declarationRef,sourceRoleRef:S.jobSourceContextRoleRef,
+   members:[{memberRef:b64Ref('member','request'),path:paths.source,sourceLocator:'input://b64-public-composition/request',base64:Buffer.from(sourceText).toString('base64')}],
+   taskData:{nativeLifecycle:{assets:lifecycle.stages.map(s=>({stageRef:s.declarationRef,path:'semantic/'+s.declarationRef.split('/').at(-1).replace('@5','')+'.json'})),rubricPath:paths.rubric}},
+   evaluationData:{},worksiteScope:{readRoots:['semantic','source'],writeRoots:['semantic'],parentWriteRoots:['semantic'],evidenceWriteRoots:['proof'],
+    executableCapabilities:[{executable:process.execPath,relativeCwdRoots:['.'],environment:{},maxTimeoutMs:5000,maxTerminationGraceMs:1000}]}});
+  // The deterministic actor and its log live outside the worksite.
+  const proof=join(scratch,'proof');await mkdir(proof);
+  const actorPath=join(proof,'b64-scripted-actor.mjs'),actorLog=join(proof,'b64-scripted-actor.jsonl');
+  await writeFile(actorPath,'#!'+process.execPath+'\n'+B64_ACTOR);await fsPromises.chmod(actorPath,0o755);
+  const actorEnvironment={...process.env,ABG_TS_CLAUDE_COMMAND:actorPath,ABI5_SCRIPTED_ACTOR_LOG:actorLog};delete actorEnvironment.ABI5_SCRIPTED_ACTOR_PHASE;
+  const actorText=async()=>readFile(actorLog,'utf8').catch(error=>error.code==='ENOENT'?'':Promise.reject(error));
+  seen('selected job, worksite and actor',{job,paths,sourceText,worksite,actorPath,actorScript:B64_ACTOR,actorEnvironment:b64ActorEnvironment(actorEnvironment)});
+  // One actual installed Public start per Run, reopening the current close handoff.
+  const startRun=async(label,{program,view,declaration,input,identity})=>{
+   const current=caller.refresh();
+   const start=await constructInstalledStartCall({environment:{product,abg,catalog:state.catalog,catalogView:view,admittedInstalls:current.productInstalls,
+     workspaceBinding:current.workspaceBinding,artifactTruth:current.artifactTruth,verified:native.verified,additionalProducts:[{ids:prepared.ids}]},
+    publicApi:runtime.api,eventResource:caller.reopen(),input,identity,runEnvironmentResourceFactory:env.resourcesFor(declaration),
+    programRef:program.programRef,declaredStartRef:program.starts[0].startRef});
+   seen(label+' Public start call',{call:start.call,resolution:start.resolution??null});
+   const before=(await actorText()).length;
+   const cli=await b64InstalledCli({seen,preserving},label,{scratch:proof,installedRoot:coreRoot,acquisition:setup.transportAcquisition(start.call),call:start.call,environment:actorEnvironment});
+   const logText=(await actorText()).slice(before);seen(label+' actor log',logText);
+   const rows=logText.split('\n').filter(Boolean).map(line=>JSON.parse(line));
+   const receipt=cli.output?.receipt??null,handoff=receipt?.resources?.eventResource?.closeHandoff??null;
+   seen(label+' receipt',{exitCode:cli.exitCode,failure:receipt?.failure??null,ownerOutput:receipt?.ownerOutput??null,closeHandoff:handoff});
+   if(handoff===null)throw new Error(`${label}: the Run published no close handoff: ${JSON.stringify(receipt).slice(0,4000)}`);
+   state.closeHandoff=handoff;
+   const events=abg.readRuntimeEventsAtDurablePrefix(handoff.prefix);
+   return {start,cli,receipt,handoff,rows,events,prefix:abg.selectValidatedRuntimeEventPrefix(events)};
+  };
+  const opened=(events,match)=>events.filter(e=>e.kind==='c_call_opened'&&match(e));
+  const byCall=(events,kind,cCallRef)=>events.filter(e=>e.kind===kind&&e.aggregateId===cCallRef);
+  const kinds=events=>events.map(e=>[e.admissionOrdinal??null,e.kind,e.graphFunctionRef??null,e.aggregateId??null,e.runId??null]);
+  const files=context=>(context?.entries??[]).filter(e=>e.state==='file');
+  const asJson=read=>read?.kind==='worksite_context_body'?{...read,bytes:read.bytes.toString('base64')}:read;
+  const warmPrefixOwner=await import(pathToFileURL(join(bootstrapRoot,'build/code/src/abg/event_prefix.js')).href);
+  const replay=await import(pathToFileURL(join(bootstrapRoot,'build/code/src/abg/replay.js')).href);
+  // (4) The source Run: native author, native assessor, adverse fold, stop.
+  const first=await startRun('b64 source Run',{program:programs.lifecycle,view:views.lifecycle,declaration:environments.lifecycle,input:job,identity:'b64-source'});
+  const ev1=first.events,assessOpened=opened(ev1,e=>e.graphFunctionRef===Wk.assessmentGraphFunctionRef);
+  const foldOpened=opened(ev1,e=>e.graphFunctionRef===intent.graphFunctionRef+'/native-assessment'&&e.payload?.programLocusRef===intent.assessorLocusRef);
+  const laterRefs=[...lifecycle.stages.slice(1).map(s=>s.graphFunctionRef),product.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef],later=opened(ev1,e=>laterRefs.includes(e.graphFunctionRef));
+  const assessResult=assessOpened.length===1?byCall(ev1,'c_call_result_admitted',assessOpened[0].aggregateId):[];
+  const foldResult=foldOpened.length===1?byCall(ev1,'c_call_result_admitted',foldOpened[0].aggregateId):[];
+  const foldJudged=foldOpened.length===1?byCall(ev1,'c_call_judged',foldOpened[0].aggregateId):[];
+  seen('b64 source Run events',{prefix:first.handoff.prefix,eventCount:ev1.length,eventKinds:kinds(ev1),assessOpened,assessResult,foldOpened,foldResult,foldJudged,later,actorRows:first.rows});
+  const foldValue=foldResult[0]?.payload.value??null,foldContext=foldValue?.context??null,sourceRunId=foldResult[0]?.runId??null;
+  const premise=seen('b64 adverse member premise',{sourceRunId,assessorBasisRef:assessOpened[0]?.basisId??null,after:assessResult[0]?.payload.value?.after??null,foldContext,
+   foldAssessment:foldValue?.assets?.at(-1)?.assessment??null,foldJudgment:foldJudged[0]?.payload.judgment??null,
+   entries:files(foldContext).map(e=>{const member=e.member??null,basisMember=member!==null&&Object.hasOwn(member,'basisRef');
+    const holders=member===null?[]:ev1.filter(h=>basisMember?h.kind==='basis_admitted'&&h.payload?.basisRef===member.basisRef&&h.payload?.basisDigest===member.basisDigest
+     :h.kind==='c_call_result_admitted'&&h.payload?.resultRef===member.resultRef&&h.payload?.resultDigest===member.resultDigest);
+    return {relativePath:e.relativePath,encoding:e.encoding,digest:e.digest,byteLength:e.byteLength,member,
+     holders:holders.map(h=>({eventId:h.eventId,kind:h.kind,runId:h.runId??null,basisRef:h.payload?.basisRef??null,basisDigest:h.payload?.basisDigest??null,resultRef:h.payload?.resultRef??null,resultDigest:h.payload?.resultDigest??null})),
+     read:sourceRunId===null?null:asJson(warmPrefixOwner.resolveWorksiteContextBodyAtPrefix(first.prefix,foldContext,e.relativePath,{runId:sourceRunId}))};})});
+  // The genuine adverse admitted-member premise holds before any later Run.
+  assert.equal(assessOpened.length,1,'one actual native assessor call');assert.equal(assessResult.length,1,'its observation is admitted');
+  assert.equal(foldOpened.length,1,'one actual native assessor fold');assert.equal(foldResult.length,1,'the adverse envelope is admitted');assert.equal(foldJudged.length,1);
+  assert.deepEqual(first.rows.map(r=>r.role),['author','assess'],'one deterministic author and one deterministic assessor dispatch');
+  assert.equal(first.rows[1].kept,false,'the assessor compared the delivered source and candidate and found the stated constraint lost');
+  assert.ok(premise.foldAssessment!==null&&premise.foldAssessment.disposition!=='satisfied',JSON.stringify(premise.foldAssessment));
+  assert.notEqual(premise.foldJudgment,'advance','the adverse fold does not advance');
+  assert.deepEqual(later,[],'the source Run stops before later lifecycle stages and C2');
+  assert.deepEqual(premise.foldContext,premise.after,'the fold carries the native observation after unchanged');
+  // The held-prefix owner carries a body as a member of its first same-Run
+  // holder at a declared native context coordinate (a native task basis or a
+  // native Result); the source member is required, and every member is
+  // checked against its one actual holder.
+  const memberEntries=premise.entries.filter(e=>e.encoding==='admitted_member');
+  assert.ok(premise.entries.length>0&&premise.entries.every(e=>e.encoding==='admitted_member'||e.encoding==='base64'),JSON.stringify(premise.entries.map(e=>[e.relativePath,e.encoding])));
+  assert.equal(premise.entries.find(e=>e.relativePath===paths.source)?.encoding,'admitted_member','the adverse fold carries the source as an admitted member');
+  for(const e of memberEntries){
+   assert.equal(e.holders.length,1,`${e.relativePath}: one admitted holder`);
+   assert.ok(['basis_admitted','c_call_result_admitted'].includes(e.holders[0].kind),e.relativePath);
+   assert.equal(e.holders[0].runId,premise.sourceRunId,`${e.relativePath}: the holder is admitted in the source Run`);
+   assert.equal(e.read?.kind,'worksite_context_body',JSON.stringify(e.read));assert.equal(e.read.holder.eventRef,e.holders[0].eventId,`${e.relativePath}: the real holder serves the member`);
+   assert.equal(e.read.digest,e.digest);
+  }
+  // (5) The revision intake Run over the actual source Run and closed prefix.
+  const sourceIdentity=seen('b64 source Run identity',replay.projectRunIdentityAtPrefix(first.prefix,sourceRunId));
+  assert.ok(sourceIdentity,'the source Run identity is admitted');
+  const intakeInput=seen('b64 revision intake input',{kind:'native_semantic_revision_intake',schemaVersion:'5.0.0',sourceRun:sourceIdentity.run,sourcePrefix:first.handoff.prefix});
+  const second=await startRun('b64 revision intake Run',{program:programs.intake,view:views.intake,declaration:environments.intake,input:intakeInput,identity:'b64-revision'});
+  const ev2=second.events,fresh=ev2.slice(ev1.length),selectRef=B64_REVISION('select'),acquireRef=B64_REVISION('acquire'),selectNode=selectRef+'/node';
+  const acquireOpened=opened(fresh,e=>e.graphFunctionRef===acquireRef),selectOpened=opened(fresh,e=>e.graphFunctionRef===selectRef&&e.payload?.programLocusRef===selectNode);
+  const requestOpened=opened(fresh,e=>e.graphFunctionRef===selectRef&&e.payload?.programLocusRef===selectNode+'/request');
+  const intakeResult=acquireOpened.length===1?byCall(fresh,'c_call_result_admitted',acquireOpened[0].aggregateId):[];
+  const selectResult=selectOpened.length===1?byCall(fresh,'c_call_result_admitted',selectOpened[0].aggregateId):[];
+  const requestResult=requestOpened.length===1?byCall(fresh,'c_call_result_admitted',requestOpened[0].aggregateId):[];
+  const artifacts=selectOpened.length===1?fresh.filter(e=>e.kind==='actor_result_artifact_observed'&&e.parentAggregateId===selectOpened[0].aggregateId):[];
+  const bindings=artifacts.length===1?fresh.filter(e=>e.kind==='actor_transport_binding_admitted'&&e.aggregateId===artifacts[0].payload.transportBindingRef):[];
+  const foreignCalls=opened(fresh,e=>!programs.intake.callableMembership.includes(e.graphFunctionRef));
+  seen('b64 revision intake Run events',{prefix:second.handoff.prefix,eventCount:ev2.length,eventKinds:kinds(fresh),acquireOpened,intakeResult,selectOpened,selectResult,
+   artifacts,bindings,requestOpened,requestResult,foreignCalls,actorRows:second.rows});
+  // (6) The held selector assembly, its plan, request and manifest, and the
+  // decision sections of its actual delivered prompt.
+  const held=seen('b64 held selector assembly',bindings.length===1?bindings[0].payload.instructionAssembly??null:null);
+  const promptSection=(prompt,name)=>{const head='## '+name+'\n',i=prompt.indexOf(head);if(i<0)return null;const start=i+head.length,end=prompt.indexOf('\n\n## ',start);
+   return JSON.parse(prompt.slice(start,end<0?undefined:end));};
+  const heldSections=seen('b64 held decision sections',typeof held?.request?.prompt!=='string'?null:
+   {evidence:promptSection(held.request.prompt,'evidence'),worksite:promptSection(held.request.prompt,'worksite'),task:promptSection(held.request.prompt,'task')});
+  assert.equal(second.receipt?.failure??null,null,JSON.stringify(second.receipt).slice(0,4000));assert.equal(second.receipt.ownerOutput?.outcomeKind,'result');
+  for(const [label,rows] of Object.entries({acquireOpened,intakeResult,selectOpened,selectResult,requestOpened,requestResult,artifacts,bindings}))assert.equal(rows.length,1,label);
+  assert.deepEqual(second.rows.map(r=>r.role),['select'],'one deterministic selector dispatch');
+  assert.deepEqual(foreignCalls,[],'the intake Run ends before any correction lifecycle execution');
+  const selectionInput=intakeResult[0].payload.value,selection=selectResult[0].payload.value,sealed=requestResult[0].payload.value,secondRunId=selectResult[0].runId;
+  assert.equal(selectionInput.kind,'semantic_revision_selection_input');
+  assert.deepEqual(selectionInput.causes.map(c=>[c.cCallRef,c.resultRef,c.resultDigest,c.resultAdmissionEventRef]),
+   [[foldOpened[0].aggregateId,foldResult[0].payload.resultRef,foldResult[0].payload.resultDigest,foldResult[0].eventId]],'the intake selects the exact adverse fold as its one cause');
+  const parentEvent=ev1.find(e=>e.eventId===selectionInput.parent.resultAdmissionEventRef);
+  assert.ok(parentEvent?.kind==='c_call_result_admitted'&&parentEvent.runId===sourceRunId&&parentEvent.aggregateId===selectionInput.parent.cCallRef&&
+   parentEvent.payload.resultRef===selectionInput.parent.resultRef&&parentEvent.payload.resultDigest===selectionInput.parent.resultDigest,'the parent is an exact admitted source-Run Result');
+  assert.ok(files(selectionInput.nativeWorksite.context).length>0&&files(selectionInput.nativeWorksite.context).every(e=>e.encoding==='base64'),'current W is the fresh inline intake observation');
+  assert.deepEqual([selection.kind,selection.mode,selection.selectedStageRef],['semantic_revision_selection','stage_revision',intent.declarationRef]);
+  assert.deepEqual([selection.parent,selection.causes],[selectionInput.parent,selectionInput.causes],'the selection names the exact eligible parent and cause');
+  assert.deepEqual(selection,second.rows[0].output,'the admitted selection is the stand-in response to the delivered prompt');
+  assert.deepEqual(heldSections.task.input.causes,selectionInput.causes,'the delivered prompt presents the admitted intake coordinates');
+  assert.equal(held.kind,'native_instruction_assembly');
+  assert.deepEqual([held.plan.graphFunctionRef,held.plan.programLocusRef,held.plan.role,held.plan.rendererRef,held.plan.presentation],
+   [selectRef,selectNode,'selection','renderer://abiogenesis/semantic-revision/selection@5','native_revision_decision_view']);
+  assert.equal(artifacts[0].payload.promptDigest,held.manifest.promptDigest,'the dispatched prompt is the held assembly');
+  assert.deepEqual([sealed.kind,sealed.parent,sealed.causes,sealed.selection.resultRef,sealed.selection.resultDigest],
+   ['semantic_revision_request',selectionInput.parent,selectionInput.causes,selectResult[0].payload.resultRef,selectResult[0].payload.resultDigest],'the sealed native request names the admitted selection');
+  const causeView=files(heldSections.evidence.causes[0].result.value.context);
+  assert.equal(causeView.length,premise.entries.length,'every historical member of the cause is presented');
+  for(const e of causeView){
+   assert.equal(e.sourceEncoding,premise.entries.find(p=>p.relativePath===e.relativePath)?.encoding,e.relativePath);
+   if(e.sourceEncoding==='admitted_member')assert.ok(e.member,'the original member coordinate remains beside the view');
+   const ref=e.textView?.presentationRef??'',body=ref.startsWith('#/worksite/byteBodies/')?heldSections.worksite.byteBodies[Number(ref.split('/').at(-1))]:undefined;
+   if(body!==undefined)assert.equal(body.digest,e.digest,`${e.relativePath}: complete historical member bytes`);
+   if(e.relativePath===paths.source){assert.ok(body,'the source member body is presented');assert.equal(body.text,sourceText);}
+  }
+  assert.ok(files(heldSections.worksite.context).every(e=>e.sourceEncoding==='base64'&&e.member===undefined),'current W context stays inline');
+  // (7) Cold: a fresh reader of the closed durable log through the installed
+  // core root's owner modules, never loaded by setup or by either Run here.
+  const coldLoad=name=>import(pathToFileURL(join(coreRoot,'build/code/src',name+'.js')).href);
+  const [cAbg,cProduct,cGtl,cCalls,cCursor,cStore,cAssembly,cRevision,cPrefix,cPort,cStage]=await Promise.all(['abg/index','product/index','gtl/index','abg/c_call',
+   'abg/traversal_cursor','abg/event_store','abg/instruction_assembly','abg/semantic_revision','abg/event_prefix','implementation/leaf_invocation_port','gtl/semantic_stage'].map(coldLoad));
+  const closed=second.handoff.prefix,coldEvents=cAbg.readRuntimeEventsAtDurablePrefix(closed),coldPrefix=cAbg.selectValidatedRuntimeEventPrefix(coldEvents);
+  const coldSelect=coldEvents.filter(e=>e.kind==='c_call_opened'&&e.graphFunctionRef===selectRef&&e.payload?.programLocusRef===selectNode);
+  const execution=coldSelect.length===1?cAbg.rehydrateExecutionBasisAtPrefix(coldPrefix,coldSelect[0].basisId):null;
+  const coldEnvironment=cAbg.projectExactPrefixWorkspaceEnvironment(closed,{ref:state.binding.bindingId,digest:state.binding.bindingDigest});
+  const loaded=await cProduct.ProductExecutionResolutionPort.resolve({catalog:state.catalog,catalogView:views.intake,admittedInstalls:coldEnvironment.productInstalls,
+   verifyInstallAdmission:install=>cAbg.hasAdmittedProductInstall(coldEnvironment.artifactTruth,install),programRef:programs.intake.programRef,
+   selection:{kind:'start',scope:'program',target:'next',until:'converged',rootMode:'direct'}});
+  seen('b64 cold environment and resolution',{coldEventCount:coldEvents.length,coldSelect,execution,environmentKind:coldEnvironment?.kind??null,loadedKind:loaded?.kind??null,
+   refusal:loaded?.kind==='loaded_product_execution_resolution'?null:loaded,catalogBasisDigest:loaded?.admittedCatalog?.basisDigest??null,
+   programPublication:loaded?.programPublication===undefined?null:{moduleRef:loaded.programPublication.moduleRef,digest:cProduct.sha256Canonical(loaded.programPublication)}});
+  assert.equal(coldSelect.length,1);assert.ok(execution,'the selector execution basis rehydrates from the closed log');
+  assert.equal(coldEnvironment.kind,'exact_prefix_workspace_environment');
+  assert.equal(loaded.kind,'loaded_product_execution_resolution',JSON.stringify(loaded).slice(0,2000));
+  assert.equal(loaded.admittedCatalog.basisDigest,state.catalog.basisDigest,'typed carriage of the authenticated Catalog');
+  const implementationSet=cAbg.rehydrateAdmittedImplementationSetAtPrefix(coldPrefix,execution.rootImplementationSetRef);
+  const port=await cPort.constructAdmittedLeafInvocationPort({prefix:coldPrefix,artifactTruth:coldEnvironment.artifactTruth,implementationSet,executionResolution:loaded,
+   semanticsProjection:cProduct.projectInstalledLeafSemantics(loaded.productSemantics)});
+  const programPublication=loaded.programPublication,program=programPublication.programs.find(p=>p.programRef===execution.programRef);
+  const lifecycleRef=program===undefined?undefined:cStage.semanticLifecycleRefForProgram(programPublication,program);
+  const lifecyclePublication=lifecycleRef===undefined?null:port.semanticPublicationByDeclarationRef(lifecycleRef)??null;
+  const sourcePublication=lifecyclePublication===null?null:lifecyclePublication.semanticJobLifecycle!==undefined?lifecyclePublication
+   :port.sourcePublicationByDeclarationRef(lifecyclePublication.semanticLifecycle.sourceDeclarationRef)??null;
+  const declarationGraphFunctions=port.declarationGraphFunctions();
+  const graphFunction=declarationGraphFunctions.find(g=>g.name===execution.graphFunctionRef&&cProduct.sha256Canonical(g)===execution.graphFunctionDigest)??null;
+  const graph=graphFunction===null?null:cGtl.materializeGraph(graphFunction,{invocationAdmissionRef:execution.invocationAdmissionRef,
+   admittedInputRef:execution.rawInputAdmissionRef,admittedInputDigest:execution.rawInputDigest,admittedInput:execution.rawInputValue});
+  const cCall=graph===null?null:cCalls.projectOpenedCCallCarrierAtPrefix(coldPrefix,graph,coldSelect[0].aggregateId)??null;
+  const traversal=graph===null?null:cCursor.projectOpenedCCallTraversalInputAtPrefix(coldPrefix,graph,coldSelect[0].aggregateId)??null;
+  // The historical cut through the selector opening's fibre selection is the
+  // live basis prefix; the closed tail is not.
+  const predecessorPrefix=cCall===null?null:cStore.durableRuntimeEventPrefixThroughEvent(closed,cCall.fibreSelectedEventRef);
+  const basisFields={publication:programPublication,lifecyclePublication,sourcePublication,graph,graphFunction,executionBasis:execution,cCall,cursor:traversal?.cursor??null,
+   predecessorPrefix,declarationGraphFunctions,commandExecutionLimits:null};
+  const coldBasis=[lifecyclePublication,sourcePublication,graph,cCall,traversal,predecessorPrefix].includes(null)?null:cAbg.constructSemanticStageNativeBasis(basisFields);
+  const coldInput=traversal?.input.value??null,cold=coldBasis===null?null:cAssembly.constructNativeInstructionAssembly(coldBasis,coldInput);
+  seen('b64 cold selector assembly',{basis:{programRef:execution.programRef,lifecycleRef,lifecyclePublication:lifecyclePublication?.moduleRef??null,
+   sourcePublication:sourcePublication?.moduleRef??null,graphFunctionRef:graphFunction?.name??null,graphRef:graph?.materializationRef??null,cCall,cursor:traversal?.cursor??null,
+   predecessorPrefix,heldPredecessorPrefix:held.envelope?.predecessorPrefix??null,constructed:coldBasis!==null},input:coldInput,assembly:cold});
+  // Strict owner negatives and the current/historical split over the same closed log.
+  const subject=coldBasis===null?null:cRevision.projectOwnedJobRevisionSubject(coldBasis,coldInput),uses=subject?.historicalContexts??null;
+  const altered=coldInput===null?null:{...coldInput,causes:[{...coldInput.causes[0],resultDigest:cProduct.sha256Canonical('b64-other-cause')}]};
+  const tailBasis=coldBasis===null?null:cAbg.constructSemanticStageNativeBasis({...basisFields,predecessorPrefix:closed});
+  const causeAt={resultRef:foldResult[0].payload.resultRef,resultDigest:foldResult[0].payload.resultDigest,route:['context']};
+  const memberFiles=files(foldContext).filter(e=>e.encoding==='admitted_member');
+  const readAll=(label,declared)=>({label,reads:memberFiles.map(e=>({relativePath:e.relativePath,
+   read:asJson(cPrefix.resolveHistoricalWorksiteContextBodyAtPrefix(coldPrefix,causeAt,foldContext,e.relativePath,declared))}))});
+  const derived=uses??[],coldFoldEvent=coldEvents.find(e=>e.eventId===foldResult[0].eventId)??null;
+  const intakeAt={resultRef:intakeResult[0].payload.resultRef,resultDigest:intakeResult[0].payload.resultDigest,route:['nativeWorksite','context']};
+  const currentContext=coldInput?.nativeWorksite?.context??null,currentFile=files(currentContext)[0]??null;
+  const checks=seen('b64 cold owner checks',{uses,subjectCoordinates:subject===null?null:{parent:subject.parent?.cCall?.cCallRef??null,causes:(subject.causes??[]).map(c=>c.cCall?.cCallRef??null)},
+   alteredInputAssembly:altered===null?'not_evaluated':cAssembly.constructNativeInstructionAssembly(coldBasis,altered),
+   alteredSubject:altered===null?'not_evaluated':cRevision.projectOwnedJobRevisionSubject(coldBasis,altered),tailBasis:tailBasis===null?null:'constructed',
+   lower:[readAll('owner-derived uses',derived),readAll('no historical use',[]),
+    readAll('uncovered binding',derived.map(u=>({...u,coveredBinding:{...u.coveredBinding,bindingDigest:cProduct.sha256Canonical('b64-other-binding')}}))),
+    readAll('another Run',derived.map(u=>({...u,runId:secondRunId}))),readAll('parent use only',derived.filter(u=>u.resultRef!==causeAt.resultRef))],
+   stageView:memberFiles.map(e=>({relativePath:e.relativePath,read:asJson(cPrefix.resolveWorksiteContextBodyAtPrefix(coldPrefix,foldContext,e.relativePath,{runId:sourceRunId}))})),
+   current:currentFile===null?null:{relativePath:currentFile.relativePath,own:asJson(cPrefix.resolveWorksiteContextBodyAtPrefix(coldPrefix,currentContext,currentFile.relativePath,{runId:secondRunId})),
+    historical:asJson(cPrefix.resolveHistoricalWorksiteContextBodyAtPrefix(coldPrefix,intakeAt,currentContext,currentFile.relativePath,derived))},
+   carriers:{cause:{source:product.canonicalJson(foldResult[0].payload),closed:coldFoldEvent===null?null:cProduct.canonicalJson(coldFoldEvent.payload)}}});
+  // Complete held and cold assembly identity.
+  assert.ok(coldBasis,'the fresh reader authenticates the selector basis at its opening cut');
+  assert.ok(cold,'the fresh reader reconstructs the complete selector assembly');
+  assert.equal(cProduct.canonicalJson(coldInput),product.canonicalJson(selectionInput),'the cold traversal input is the admitted intake Result');
+  for(const field of ['plan','envelope','manifest','request'])assert.equal(cProduct.canonicalJson(cold[field]),product.canonicalJson(held[field]),`complete held and cold ${field}`);
+  assert.equal(cProduct.canonicalJson(cold),product.canonicalJson(held),'complete held and cold assembly');
+  // Owner-derived historical use: the cause of the source Run, same binding.
+  assert.ok(uses,'the revision owner derives its authenticated subject');
+  const causeUses=uses.filter(u=>u.resultRef===causeAt.resultRef);
+  assert.equal(causeUses.length,1,'one owner-derived use of the adverse cause');
+  assert.deepEqual([causeUses[0].resultDigest,causeUses[0].runId,causeUses[0].cCallRef],[causeAt.resultDigest,sourceRunId,foldOpened[0].aggregateId]);
+  assert.deepEqual([causeUses[0].coveredBinding.bindingId,causeUses[0].coveredBinding.bindingDigest],[state.binding.bindingId,state.binding.bindingDigest],'the same genuine binding covers the use');
+  const holderOf=relativePath=>premise.entries.find(e=>e.relativePath===relativePath).holders[0].eventId;
+  for(const row of checks.lower[0].reads){assert.equal(row.read.kind,'worksite_context_body',JSON.stringify(row));assert.equal(row.read.holder.eventRef,holderOf(row.relativePath));}
+  for(const group of checks.lower.slice(1))for(const row of group.reads){
+   assert.equal(row.read.kind,'worksite_context_body_refusal',`${group.label}: ${row.relativePath}`);assert.equal(row.read.code,'foreign',`${group.label}: ${row.read.reason}`);}
+  assert.equal(checks.alteredInputAssembly,null,'an altered cause coordinate assembles nothing');
+  assert.equal(checks.alteredSubject,null,'an altered cause coordinate is not the authenticated acquisition');
+  assert.equal(checks.tailBasis,null,'the closed tail after the selector Result is not its basis');
+  for(const row of checks.stageView){assert.equal(row.read.kind,'worksite_context_body',JSON.stringify(row));assert.equal(row.read.holder.eventRef,holderOf(row.relativePath));}
+  assert.ok(checks.current,'the current intake context has a file');
+  assert.equal(checks.current.own.kind,'worksite_context_body');assert.equal(checks.current.own.holder,null,'current W is its own inline birth');
+  assert.equal(checks.current.historical.kind,'worksite_context_body_refusal');assert.equal(checks.current.historical.code,'foreign','current W has no historical use');
+  assert.equal(checks.carriers.cause.closed,checks.carriers.cause.source,'the admitted adverse fold carrier is unchanged');
+  passed=true;
  });
 });
