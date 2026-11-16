@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B64_CONTROLS_ACCEPTED_NATIVE_OPERATOR_SELECTED",
+  "status": "RC14_B64_NATIVE01_CLOSED_TASK_CARRIER_CONTROL_REENTRY_SELECTED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -1652,7 +1652,7 @@
     "runtimeRetryAuthorized": false
   },
   "b64Repair": {
-    "state": "CONTROLS_ACCEPTED_ONE_NATIVE_PASS_SELECTED_AFTER_PUSH",
+    "state": "SOURCE_ATTEMPT01_FAILED_BEFORE_NATIVE_DISPATCH",
     "selection": "integration-01/B64_HISTORICAL_CONTEXT_CONJUNCTION_AND_REENTRY_01.json",
     "activation": "integration-01/B64_NATIVE_CONTROL_PREPARATION_ACTIVATION_01.json",
     "actor": "/root/b29_vm_triage",
@@ -1674,7 +1674,55 @@
     "controlCorrection": "integration-01/B64_CONTROL_COORDINATE_CORRECTION_ACTIVATION_01.json",
     "controlsCommit": "3ca755e235d89d2f193879d136f45da6bc5667ac",
     "controlManifestSha256": "8de7349337f3a34e305ba4007c39ddbaad1c443141d82dc9c469e9282fff808d",
-    "nativeActivation": "integration-01/B64_NATIVE_ACTIVATION_01.json"
+    "nativeActivation": "integration-01/B64_NATIVE_ACTIVATION_01.json",
+    "native01": {
+      "source": "47b04028010460535e22f08681e62e282e749aaa",
+      "controls": "3ca755e235d89d2f193879d136f45da6bc5667ac",
+      "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
+      "sourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-01",
+      "startedUtc": "2026-11-16T08:14:15.374095+00:00",
+      "deadlineUtc": "2026-11-16T11:14:15.374095+00:00",
+      "executionStopUtc": "2026-11-16T11:11:15.374095+00:00",
+      "elapsedMs": 39276,
+      "publicSetupSucceeded": true,
+      "nativeDispatched": false,
+      "nativeCalls": 0,
+      "nativeSourceEdits": 0,
+      "run": null,
+      "actualResourceClosed": true,
+      "hostPidAndGroup": 78032,
+      "hostAbsent": true,
+      "sourcePreimageRowsConserved": 1437,
+      "onlySourceAddition": "Authenticated setup-owned manifest; no native W changed.",
+      "operatorReturn": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/OPERATOR_RETURN.json",
+        "bytes": 16128,
+        "sha256": "ed52450d1a00b9224f5886a630f9bef90efe6aba854c9cd4eee287578ea7afd6"
+      },
+      "sourcePostimage": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/SOURCE_POSTIMAGE.json",
+        "bytes": 360274,
+        "sha256": "45189466db19204cf23c4576135b629910af6ab68bc5c31dcb600dd1c9734fb0"
+      },
+      "authorAudit": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/AUTHOR_AUDIT.json",
+        "bytes": 3312,
+        "sha256": "115be022688229004cb998a38d84fce0f5738bb5525d96f7312ec62cf6311143"
+      },
+      "firstFailure": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FIRST_FAILURE.json",
+        "bytes": 1697,
+        "sha256": "2dbcdff27f40c035615ce801a23e44cf698ac86170bd022e4952103392779f36"
+      },
+      "final": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FINAL.json",
+        "bytes": 1848,
+        "sha256": "ce503084d2ed9b77088e241d6a366ecfd803dc7e07afabdd12b81e74814e8cf2"
+      },
+      "clockDisposition": "Closed failed attempt. Original records/deadline remain unchanged; no continuation or automatic retry."
+    },
+    "taskCarrierReentry": "integration-01/B64_TASK_CARRIER_REENTRY_ACTIVATION_02.json",
+    "nativeEdits": 0
   },
   "releaseGateCensus02": {
     "state": "BOUNDED_EVIDENCE_MAPPING_ACCEPTED_NOT_QUALIFICATION",

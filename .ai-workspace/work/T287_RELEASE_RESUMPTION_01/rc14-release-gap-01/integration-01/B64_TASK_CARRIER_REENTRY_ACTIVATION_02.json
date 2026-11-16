@@ -1,0 +1,131 @@
+{
+  "id": "RC14-B64-TASK-CARRIER-WRITER-042",
+  "recordedUtc": "2026-11-16T08:22:59.289235+00:00",
+  "recordsWriter": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "actor": "/root/b29_vm_triage",
+  "role": "Separate external task-carrier and capture control Writer",
+  "authority": "Owner finish RC14/continue; conjoined actual failed canonical task handoff under unchanged B64 outcome. Preparation effective only after this record is pushed.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "frameURI": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "productFrame": {
+    "outcome": "Unchanged fixed5.0 F17/S06: preserve complete source/evidence, execute declared revision, independent assessment, complete D1/application and consequential D2.",
+    "classification": "Design correction and realization repair of an existing historical evidence presentation obligation; no new Product feature, Public family or semantic policy.",
+    "authoritySplit": "Revision owner authenticates declared historical use; held-prefix/body owner authenticates retained members; instruction assembly presents complete bytes without changing admitted carriers; ABG remains runtime admission authority.",
+    "prohibitions": [
+      "No fresh-workspace substitution for historical bytes, rewrites of old Result/context/binding, fabricated sourceResults/use grants or copied old stage credit.",
+      "No blanket cross-Run/member permission, generic registry, new semantic runtime, oracle weakening or hidden provider prompt."
+    ]
+  },
+  "failedAttempt": {
+    "source": "47b04028010460535e22f08681e62e282e749aaa",
+    "controls": "3ca755e235d89d2f193879d136f45da6bc5667ac",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
+    "sourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-01",
+    "startedUtc": "2026-11-16T08:14:15.374095+00:00",
+    "deadlineUtc": "2026-11-16T11:14:15.374095+00:00",
+    "executionStopUtc": "2026-11-16T11:11:15.374095+00:00",
+    "elapsedMs": 39276,
+    "publicSetupSucceeded": true,
+    "nativeDispatched": false,
+    "nativeCalls": 0,
+    "nativeSourceEdits": 0,
+    "run": null,
+    "actualResourceClosed": true,
+    "hostPidAndGroup": 78032,
+    "hostAbsent": true,
+    "sourcePreimageRowsConserved": 1437,
+    "onlySourceAddition": "Authenticated setup-owned manifest; no native W changed.",
+    "operatorReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/OPERATOR_RETURN.json",
+      "bytes": 16128,
+      "sha256": "ed52450d1a00b9224f5886a630f9bef90efe6aba854c9cd4eee287578ea7afd6"
+    },
+    "sourcePostimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/SOURCE_POSTIMAGE.json",
+      "bytes": 360274,
+      "sha256": "45189466db19204cf23c4576135b629910af6ab68bc5c31dcb600dd1c9734fb0"
+    },
+    "authorAudit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/AUTHOR_AUDIT.json",
+      "bytes": 3312,
+      "sha256": "115be022688229004cb998a38d84fce0f5738bb5525d96f7312ec62cf6311143"
+    },
+    "firstFailure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FIRST_FAILURE.json",
+      "bytes": 1697,
+      "sha256": "2dbcdff27f40c035615ce801a23e44cf698ac86170bd022e4952103392779f36"
+    },
+    "final": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FINAL.json",
+      "bytes": 1848,
+      "sha256": "ce503084d2ed9b77088e241d6a366ecfd803dc7e07afabdd12b81e74814e8cf2"
+    },
+    "clockDisposition": "Closed failed attempt. Original records/deadline remain unchanged; no continuation or automatic retry."
+  },
+  "closedFrames": [
+    {
+      "actor": "/root/amendment_topology_review",
+      "frame": "Product/Design/canonical-contract Proof",
+      "finding": "Actual installed taskSchema requires instructions v.array(ref), but frozen TASK supplies one string. HOST forwards unchanged. Sufficient cause precedes all deeper identity/scope predicates. Read-first and W paths exist and are unique; complete actual context was not retained."
+    },
+    {
+      "actor": "/root/rc14_release_proof",
+      "frame": "Runtime/Integration/Identity/Effect",
+      "finding": "Exact installed constructor38-40 explains refusal. No second concrete blocker found; deeper context/grant joins remain unproved. Canonical invocation owner540 awaits input.factory, permitting evidence capture through the existing record owner before the constructor."
+    }
+  ],
+  "originatingRelation": "External TASK.instructions has the wrong carrier type for the exact installed constructNativeWorkspaceWorkTask input.",
+  "whyPriorChecksMissed": "Syntax, inventory, layout and coordinate checks did not check the actual projected instructions value against its canonical consumer type. Both source reviews missed that join.",
+  "selectedCorrection": {
+    "instructions": "Replace the string with exactly one array element containing the unchanged original text. No instruction-content, scope or semantic policy change.",
+    "originalInstructionText": {
+      "bytes": 5577,
+      "sha256": "baa567a13c845fe71acf4b5dc30e4575b29308c9c4f27267db4dc2e47263445d"
+    },
+    "capture": "Use the already-awaited async input.factory. Form one local constructor argument from actual authority, factory binding/grant, observed context and Task fields; await existing record(native-task-constructor-input.json, candidate), then pass that same object to the canonical constructor. Capture failure stops before construction. No re-observation or fabricated admission.",
+    "coordinates": "Declare fresh source/raw02 and native activation/task002 in existing controls. Canonical ACTIVATION fields remain sole source/raw owner; HOST checks activation.id instead of an independent activation-id literal. No new owner/normalization mechanism."
+  },
+  "controlBase": "3ca755e235d89d2f193879d136f45da6bc5667ac",
+  "controlWorktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-03",
+  "controlBranch": "codex/rc14-historical-context-controls-20261116-03",
+  "outputRoot": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01",
+  "prospectiveSourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-02",
+  "prospectiveSourceBranch": "codex/rc14-historical-context-source-20261116-02",
+  "prospectiveRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02",
+  "nativeActivation": "RC14-HISTORICAL-CONTEXT-NATIVE-002",
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "permittedEffects": [
+    "Create only the fresh sparse successor controls worktree from exact controlBase; preserve prior controls/source/raw unchanged.",
+    "Change TASK.instructions carrier without changing its text, and make only the selected HOST candidate-capture/canonical-id changes. Rebind declared future coordinates/activation identities and mechanically affected input/delta/custody/check/manifest/Return records inside the new carrier.",
+    "Protect old attempt01 raw and source roots from future W and retain their sealed return/postimage/audit pins. Existing B64 evidence, candidate02, RC13/method/tools/dependency inputs remain conserved.",
+    "Perform bounded syntax, exact canonical source-contract field mapping and pure static shape/text-conservation checks. Demonstrate original string violates installed array contract and successor meets that field shape with identical text. Check all projected plain Task fields against the actual canonical declaration; no duplicate admission schema or claim of full future constructor success.",
+    "Check actual awaited factory/capture/pass sequence and canonical source/raw/id equality, then static layout capacity, all input pins and unchanged scopes/proof/process owners. No Product import/runtime/observation/probe, paid reproduction or source editing.",
+    "Freeze one successor commit/tree/manifest/Return and stop. Root independently reviews, integrates/pushes and separately selects any source attempt."
+  ],
+  "preparationBoundMs": 1200000,
+  "preparationClock": "One new20-minute preparation clock starts on this pushed grant acquisition. Prior040/041 preparation and source-attempt01 clocks stay closed and unchanged.",
+  "futureExecution": "Not authorized here. A later exact changed-subject source02 grant may select one fresh finite source attempt; earlier failed attempt is never reset/relabelled. Keep45-minute native/5-minute inactivity/360-turn limits and separately granted90-minute proof inside its selected3-hour enclosure.",
+  "stops": [
+    "First additional missing contract/authority, broader scope/content change or validation mismatch returns without alternate runtime/retry.",
+    "Preserve unknown deeper constructor predicates; do not infer future success from the repaired field shape."
+  ],
+  "exclusions": [
+    "No Product source/design/test edit, runtime/Public/physical observer/provider/build/test/install, old evidence mutation, new actual source/raw creation, main/push, cleanup, qualification/AF25/publication/pin change or raw Git."
+  ],
+  "implementationAuthorized": false,
+  "runtimeAuthorized": false,
+  "providerAuthorized": false,
+  "qualified": false
+}
