@@ -1,0 +1,389 @@
+{
+  "id": "RC14-ASSESSMENT-DEPENDENCY-NATIVE-004",
+  "role": "Preparation only; separate Root native and proof grants required",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE03_CONJUNCTION_AND_REENTRY_04.json",
+    "bytes": 17810,
+    "sha256": "32b12c6ab037ac30683fc4d1df334cd743055c3b6836a493f6142e9e3843e010"
+  },
+  "sourceBase": "cbb37be84c9ba6a65f14cef670bf55bd0104d60c",
+  "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04",
+  "sourceBranch": "codex/rc14-assessment-dependency-source-20261116-04",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04",
+  "sourceBinding": null,
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+  ],
+  "changeClass": "One installed native-semantic author-to-assessor fixture completion over seven immutable recovered files; coherent read-only code/src and corrected method/capture handoff, no Product/HOW/source-support write.",
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 5769,
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26"
+  },
+  "provider": {
+    "agent": "claude",
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "version": "2.1.322 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "providerCallsAtMost": 1,
+    "protocol": "Use existing actual Claude owner path. No Codex-as-Claude wrapper or new provider feature."
+  },
+  "externalReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ],
+        [
+          281,
+          320
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Intake/execution-unit/admission, context acquisition and closed-result reuse before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/SPEC_METHOD.md",
+      "bytes": 148190,
+      "sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "uri": "stdo://releases/v3.0.4/standards/SPEC_METHOD.md",
+      "sections": [],
+      "role": "Read-only complete-byte and exact selected section verification input under METHOD_VERIFICATION; no whole-owner content dump required."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/FOUNDATIONS.md",
+      "bytes": 131400,
+      "sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "uri": "stdo://releases/v3.0.4/standards/FOUNDATIONS.md",
+      "sections": [],
+      "role": "Read-only complete-byte and exact selected section verification input under METHOD_VERIFICATION; no whole-owner content dump required."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/PRODUCT_DEFINITION.md",
+      "bytes": 85568,
+      "sha256": "7ee46438de5e4cb33cd8920814ecc90cfef95fb5eaee269f6f1a4fa389f4e523",
+      "uri": "stdo://releases/v3.0.4/standards/PRODUCT_DEFINITION.md",
+      "sections": [],
+      "role": "Read-only complete-byte and exact selected section verification input under METHOD_VERIFICATION; no whole-owner content dump required."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/REFERENCE_FRAME.md",
+      "bytes": 103687,
+      "sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "uri": "stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md",
+      "sections": [],
+      "role": "Read-only complete-byte and exact selected section verification input under METHOD_VERIFICATION; no whole-owner content dump required."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/scripts/read_basis.py",
+      "bytes": 11572,
+      "sha256": "df7730a1f661a8be7a3144feff474f83197987ebfd1cce4063aa9c5504e75c41",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/scripts/read_basis.py",
+      "sections": [
+        [
+          40,
+          86
+        ],
+        [
+          169,
+          223
+        ],
+        [
+          230,
+          269
+        ]
+      ],
+      "role": "Existing installed canonical compact source reader; acquire deciding source before permitted read-only invocation; never W."
+    }
+  ],
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 2700000,
+    "nativeMaxTurns": 360,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 10800000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 180000,
+    "perBuildMs": 600000
+  },
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "clockStarted": false,
+  "proof": "One fresh normal build; focused dependency; installed coincident/split owner; affected whole-file partition without repeated focus; two small assembly regressions. No retained campaign credit.",
+  "returnTo": "Root; freeze controls and stop. Actual source and proof remain disabled.",
+  "preparedUtc": "2026-11-15T22:24:46.973301+00:00",
+  "externalEvidenceInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 366807,
+      "sha256": "f8cfb91bc2c873636370bed12177cda526ba3a07c7984163da11f006a5c1c344",
+      "role": "rejected_native01_source_donor",
+      "relativeSourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 121267,
+      "sha256": "f2bc9b64368294f950714a00c67d3c9701bf67caf8716db372a412254c1d3419",
+      "role": "rejected_native01_source_donor",
+      "relativeSourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 5128,
+      "sha256": "6c40051bf0ef640ea45efe9b0863042c442371de6f69958de397d91593e9ed1a",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/AUTHOR_AUDIT.json",
+      "bytes": 3005,
+      "sha256": "f84e882f1c95302c2493ba07fd74ce565295735d2b623864cc5814f583c676c2",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01/SOURCE_DIFF.patch",
+      "bytes": 64786,
+      "sha256": "ad087ba92f97f3a7764fd93cdf09f1e7eadcd28b97f902c1137566a23d37d6fa",
+      "role": "closed_native01_report_audit_or_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/setup/consumer-source/build/d1.json",
+      "bytes": 347765,
+      "sha256": "474b43cb3cd2399ad8399f6de8244c1e3ae10c21a58924f3f825c34d9634d9e8",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/resources/events/runtime.events.jsonl",
+      "bytes": 7550103,
+      "sha256": "2bcb3dc3664abd3e366f1992705504bcdd9633ec5a99c96688d9f6d16174c564",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-02/witness/setup/setup-identity.json",
+      "bytes": 9660711,
+      "sha256": "fa05f1ea58b11525bc97c98d567f46ef7b6a3e82a33acab9524fd8606842ad30",
+      "role": "retained_D1_exact_publication_invocation_or_install_evidence"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/b31-native-01/RETURN.json",
+      "bytes": 39732,
+      "sha256": "c68c2d68ae730d1dcd565a7bfe01e80b42878651d02f2a97f5894131d0bd459f",
+      "role": "prior_B31_positive_population_ruling"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b31-20261115-01/PROOF_POPULATION_AUDIT.json",
+      "bytes": 2422,
+      "sha256": "930b2c3fae5500c324637977935869f9c70299759fc2afee1b313caa67597549",
+      "role": "prior_B31_actual_population_audit"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 366518,
+      "sha256": "debe24eeb01db480efb993414ae514d43e4229d545a679c3ee5378a48094ff34",
+      "role": "rejected_native02_source_donor"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 3433,
+      "sha256": "f764ca46d6983b55e1f1eb5704b9cc11e18737d25561505d0c08a5c8e01cc0ce",
+      "role": "closed_native02_report"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/AUTHOR_AUDIT.json",
+      "bytes": 10214,
+      "sha256": "1a4f5d4e1eb2f5c03aef51dd8f6e33118f7c371a5257c07d604d7efd5e13d8ef",
+      "role": "closed_native02_method_audit"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/SOURCE_DIFF.patch",
+      "bytes": 42779,
+      "sha256": "6a49c49a159fb32ae8a5e8813700feabd80530ef378be7eaa65aaf10ea89abae",
+      "role": "closed_native02_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-02/runtime/resources/archives/fp-8ed731986ecdebbd-prompt.txt",
+      "bytes": 15856,
+      "sha256": "0afde2dbcb2d75a9574efa032af1b3920307b3dd89df68b3b1715d97ccc767cd",
+      "role": "actual_native02_instruction_read_boundary"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/manifest.json",
+      "bytes": 18022,
+      "sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "role": "exact_selected_STDO_read_only_verification_input"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/FRAME_INPUTS.json",
+      "bytes": 105110,
+      "sha256": "3a33acd708e75802c1609e9ce0d1e75dad9bcff2533b5ecb24b5c9659e18b303",
+      "role": "exact_selected_STDO_read_only_verification_input"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 412987,
+      "sha256": "9d5fdd296c39f28470a63928668b7eaf2f37b740b5a81d8db9239b512f4eff4c",
+      "role": "rejected_native03_source_donor"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 7073,
+      "sha256": "165ba9d04e8a822390f22c809a9d6cbb528d74c1dee1e04899783a9c5c010e39",
+      "role": "closed_native03_report"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/AUTHOR_AUDIT.json",
+      "bytes": 13791,
+      "sha256": "280eaee63a9af2ac201c6ee19b20a65794e8d0cbd1a61830de800a42dbc1fc8c",
+      "role": "closed_native03_method_audit"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/SOURCE_DIFF.patch",
+      "bytes": 79968,
+      "sha256": "c6b932cd05760836196a5e7221df39ab888ddb7a5b441f757c941a476d2f8295",
+      "role": "closed_native03_full_authored_patch"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/FROZEN_SOURCE.json",
+      "bytes": 2480,
+      "sha256": "b580a9f264c1cc65526cd3a7b7486ce3cddde3c5af6e931cf69894bf98467316",
+      "role": "closed_native03_frozen_source_binding"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-native-03/RETURN.json",
+      "bytes": 12844,
+      "sha256": "f57798772c756a931754175a91c45fa3e9de0b2de1c514d2c83ea69747372e10",
+      "role": "closed_native03_compact_return"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE03_CONJUNCTION_AND_REENTRY_04.json",
+      "bytes": 17810,
+      "sha256": "32b12c6ab037ac30683fc4d1df334cd743055c3b6836a493f6142e9e3843e010",
+      "role": "root_native03_conjunction_and_control04_selection"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/SPEC_METHOD.md",
+      "bytes": 148190,
+      "sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "role": "selected_method_frame_owner_verification"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/FOUNDATIONS.md",
+      "bytes": 131400,
+      "sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "role": "selected_method_frame_owner_verification"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/PRODUCT_DEFINITION.md",
+      "bytes": 85568,
+      "sha256": "7ee46438de5e4cb33cd8920814ecc90cfef95fb5eaee269f6f1a4fa389f4e523",
+      "role": "selected_method_frame_owner_verification"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/REFERENCE_FRAME.md",
+      "bytes": 103687,
+      "sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "role": "selected_method_frame_owner_verification"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/scripts/read_basis.py",
+      "bytes": 11572,
+      "sha256": "df7730a1f661a8be7a3144feff474f83197987ebfd1cce4063aa9c5504e75c41",
+      "role": "selected_installed_method_projection_tool"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_COMPLETION04_READ_DEPENDENCIES_01.json",
+      "bytes": 3343,
+      "sha256": "416b6500bffe3d388f73581e593ff3319bab24b17d2e274f15ca1041fc687fdd",
+      "role": "root04_exact_read_dependencies_addendum"
+    }
+  ],
+  "readDependencyAddendum": {
+    "commit": "939799735271de68291b4366a45ad160b8f3f8ce",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_COMPLETION04_READ_DEPENDENCIES_01.json",
+    "bytes": 3343,
+    "sha256": "416b6500bffe3d388f73581e593ff3319bab24b17d2e274f15ca1041fc687fdd",
+    "packetCopy": "ROOT_READ_DEPENDENCIES.json"
+  }
+}

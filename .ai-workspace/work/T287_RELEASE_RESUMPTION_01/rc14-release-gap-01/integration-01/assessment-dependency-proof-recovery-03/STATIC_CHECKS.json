@@ -1,0 +1,103 @@
+{
+  "kind": "proof03_delta_static_checks",
+  "atUtc": "2026-11-16T00:18:24.244483+00:00",
+  "syntax": "Python AST and JSON pass",
+  "changedExistingFunctions": [
+    "recovery_inputs",
+    "require_recovery",
+    "main"
+  ],
+  "addedPureFunctions": [
+    "topology_pairs",
+    "topology_batches",
+    "join_topology"
+  ],
+  "byteEqualInheritedFiles": [
+    "ACTIVATION.json",
+    "DEPENDENCY_INPUTS.json",
+    "FIXTURE_INPUTS.json",
+    "IMMUTABLE_RECOVERY.json",
+    "NATIVE_INPUTS.json",
+    "ORIGINAL_CANDIDATE.json",
+    "PROOF_PLAN.json",
+    "ROOT_RECOVERY.json",
+    "SEMANTIC_JOB_POPULATION.json",
+    "TOOL_INPUTS.json",
+    "dependency-inputs.py",
+    "physical-topology.py",
+    "process-owner.py",
+    "setup-custody.py"
+  ],
+  "unchangedAST": [
+    "controls",
+    "source_inventory",
+    "typed completion",
+    "entire finalizer",
+    "owned run",
+    "test selection loop",
+    "generated list",
+    "complete built tree",
+    "mirror exit",
+    "prior-deadline expression"
+  ],
+  "actualLayoutPlans": [
+    {
+      "label": "actual_refused58",
+      "leaves": 58,
+      "batchLeaves": [
+        56,
+        2
+      ],
+      "declaredPaths": [
+        64,
+        10
+      ],
+      "pairs": 465
+    },
+    {
+      "label": "actual_successor",
+      "leaves": 61,
+      "batchLeaves": [
+        56,
+        5
+      ],
+      "declaredPaths": [
+        64,
+        13
+      ],
+      "pairs": 489
+    }
+  ],
+  "pureJoinPositive": true,
+  "directoryLinkChangeAccepted": true,
+  "negativeCasesRejected": [
+    "missing leaf",
+    "duplicate leaf",
+    "different writes",
+    "different archive",
+    "nonpositive result",
+    "missing pair",
+    "duplicate pair",
+    "shared inode changed",
+    "shared mode changed",
+    "shared backing changed",
+    "shared mount changed",
+    "complete mounts changed",
+    "mount digest changed",
+    "regular links changed"
+  ],
+  "sharedTopologyAllowanceMs": 60000,
+  "metadataExclusion": "Directory identity.links only across batches; all other anchor fields and regular-file links remain compared. Individual observers unchanged.",
+  "freshDestinationsAbsent": true,
+  "executionDisabled": true,
+  "staticFixtureStanding": "Synthetic receipt-shaped data only, never actual/current physical evidence. Uses actual58-root predecessor and current actual layout producer as data.",
+  "firstStaticAttempt": {
+    "error": "NameError: NATIVE_CONTROL is not defined",
+    "cause": "Inline actual-expression check omitted that explicit global; corrected check environment only, no control change."
+  },
+  "ProductImports": 0,
+  "physicalProbes": 0,
+  "builds": 0,
+  "behavioralTests": 0,
+  "providers": 0
+}

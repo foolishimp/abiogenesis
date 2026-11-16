@@ -1,0 +1,108 @@
+{
+  "id": "RC14-B56-PROOF-CONTROL-WRITER-033-RETURN",
+  "role": "Separate external control Writer",
+  "preparedUtc": "2026-11-16T00:19:19.532852+00:00",
+  "preparationBase": "9aa8c7d086f0cfeb5b858325286b86571b4c760a",
+  "carrier": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-03",
+  "selection": {
+    "path": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-03/ROOT_SELECTION.json",
+    "bytes": 9204,
+    "sha256": "d709b06bf0bbc035b7339c989da248b1aaf08acc2b42b7ec50e0a7c87a81df78"
+  },
+  "manifest": {
+    "path": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-03/CONTROL_MANIFEST.json",
+    "bytes": 3843,
+    "sha256": "f1c6703c9c8f64f2590b8a212ba430b9624d24a5811fb981c7291b5e77a14a80"
+  },
+  "manifestMembers": 22,
+  "predecessorCommit": "13ca1cf72fced938dde89e83aa76f0de10f336af",
+  "executableDelta": {
+    "file": "prove.py",
+    "sha256": "7a7c7dd1998f68cf1abb668d56ea4fe03388f1ee451c3511618ef568d42aeaec",
+    "caller": "At most two protected-leaf batches through unchanged physical-topology.py; exact W/worksite/archive repeated.",
+    "conjunction": "Exact complete leaf/pair union, each positive separation, equal complete before/after mount snapshots and stable shared anchor identity/backing/mount.",
+    "sharedAllowanceMs": 60000,
+    "metadataExclusion": "Only directory identity.links across observations; expected owned capture changes directory nlink. All other fields and regular links remain compared; per-observer full checks unchanged.",
+    "capture": "Original complete layout, per-batch layout/raw/owner receipts and aggregate conjunction retained, including partial failure.",
+    "coordinates": "fresh raw04/proof-03 and proof-20261116-06 mirror",
+    "originalClock": "Actual proof01 START remains final deadline/reserve cap; latest failed proof02 pins are additional evidence, never credit."
+  },
+  "static": {
+    "record": {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-03/STATIC_CHECKS.json",
+      "bytes": 2652,
+      "sha256": "6e9f453ade94e02709d4d10975b0ed458c1bfcb9deb3d542f08dd22130d74b16"
+    },
+    "delta": {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-03/DELTA.json",
+      "bytes": 1229,
+      "sha256": "35b7ee0f7b5f02ce91cd79e0dfae045cc31cf828a5a99e4b0d985add0b05554f"
+    },
+    "actualPlans": [
+      {
+        "label": "actual_refused58",
+        "leaves": 58,
+        "batchLeaves": [
+          56,
+          2
+        ],
+        "declaredPaths": [
+          64,
+          10
+        ],
+        "pairs": 465
+      },
+      {
+        "label": "actual_successor",
+        "leaves": 61,
+        "batchLeaves": [
+          56,
+          5
+        ],
+        "declaredPaths": [
+          64,
+          13
+        ],
+        "pairs": 489
+      }
+    ],
+    "negativeCasesPassed": 14,
+    "directoryMetadataPositivePassed": true,
+    "sourceInitializerEvaluatedAsData": true,
+    "proofAndOwnerASTConserved": true,
+    "byteEqualInheritedFiles": 14,
+    "checkHarnessResidual": {
+      "error": "NameError: NATIVE_CONTROL is not defined",
+      "cause": "Inline actual-expression check omitted that explicit global; corrected check environment only, no control change."
+    },
+    "fixtureLimits": "Synthetic receipt-shaped data only, never actual/current physical evidence. Uses actual58-root predecessor and current actual layout producer as data."
+  },
+  "unchanged": "Product/source/test/generator semantics, graph build allowance and inclusive post-build/through-tests custody,6selections/5files/43top,positive1+9,10evidence leaves, process ownership/finalizer/first-failure; native35 controls and source/audit unchanged.",
+  "futureProof": {
+    "proofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03",
+    "proofSubject": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06",
+    "originalProofDeadlineUtc": "2026-11-16T01:15:36.678788Z",
+    "executionStopUtc": "2026-11-16T01:12:36.678788Z",
+    "originalEnclosingDeadlineUtc": "2026-11-16T01:47:31.946547Z",
+    "cleanupReserveMs": 180000
+  },
+  "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+  "nativeAuthorshipCompliant": false,
+  "nativeMethodResiduals": [
+    "M04-01",
+    "M04-02",
+    "M04-03"
+  ],
+  "priorProof01And02Preserved": true,
+  "priorBuildCredit": false,
+  "executionAuthorized": false,
+  "physicalProbes": 0,
+  "ProductImports": 0,
+  "builds": 0,
+  "behavioralTests": 0,
+  "providers": 0,
+  "mainChanged": false,
+  "pushed": false,
+  "qualified": false,
+  "returnTo": "Root independent exact delta review and separate execution decision; Writer stopped."
+}

@@ -1,0 +1,22 @@
+{
+  "activationId": "RC14-ASSESSMENT-DEPENDENCY-NATIVE-004",
+  "proofAuthorized": false,
+  "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+  "sourcePostimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_POSTIMAGE.json",
+    "bytes": 392522,
+    "sha256": "d4226a0532c199bf732f3b613bec196b24fd0e427d1e0aa3a12dccdb573f1d1c"
+  },
+  "sourceDiffSha256": "da01b388dd22d51b9069eb845d6ad2428af71bc875dbc56144622ed67f51bdf1",
+  "authorAuditSha256": "08afaaf3bc30693007b65b5734a606b3196400014569e35a60e4fafa552cb3e0",
+  "nativeLaunchSha256": "c8e47addcde8e9e79716848d8d2fcf721fb5e019d8d128ff3e23b3a78af9f634",
+  "controlStartSha256": "483d992a1b5941ba38bcc2b75fac1482ca7eccf4caa633707f5dfd880d920399",
+  "controlManifestSha256": null,
+  "rootAcceptance": null,
+  "pushedCheckpoint": null,
+  "clockStarted": false,
+  "instruction": "Root binds proof03 controls and exact selection independently of native35 controls; actual proof01 deadline remains authoritative. Separate execution grant required.",
+  "recoveryDecisionSha256": "444c331c57494e6667d870ce6c71de1484c2c9c3fad50949251d093bc4564ac6",
+  "nativeControlManifestSha256": "7063325b879e1d6c12d3d7dcab2dff423a16cfe237b094722c0589a2cf15d452",
+  "proofSelectionSha256": "d709b06bf0bbc035b7339c989da248b1aaf08acc2b42b7ec50e0a7c87a81df78"
+}
