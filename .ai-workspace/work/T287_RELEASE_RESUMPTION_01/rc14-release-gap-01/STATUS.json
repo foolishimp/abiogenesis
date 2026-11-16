@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B64_RECOVERED_PROOF_PREPARING_S01_NATIVE03_ACTIVE",
+  "status": "RC14_B64_RECOVERED_PROOF_AUTHORIZED_S01_NATIVE03_ACTIVE",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -1654,7 +1654,7 @@
     "runtimeRetryAuthorized": false
   },
   "b64Repair": {
-    "state": "RECOVERED_FIRST_COMPOSITION_SUBJECT_ADOPTED_FULL_ACCEPTANCE_WITHHELD",
+    "state": "RECOVERED_PROOF_CONTROLS_ACCEPTED_EXECUTION_AUTHORIZED_AFTER_PUSH",
     "selection": "integration-01/B64_HISTORICAL_CONTEXT_CONJUNCTION_AND_REENTRY_01.json",
     "activation": "integration-01/B64_NATIVE_CONTROL_PREPARATION_ACTIVATION_01.json",
     "actor": "/root",
@@ -1739,7 +1739,7 @@
       "sha256": "8e6c591206519525e3da17bffd90eac2cc5d674f2d1627934366a836b810aeb4"
     },
     "buildOrBehavioralProofStarted": false,
-    "next": "Exact-byte preservation and separate recovered-source earliest-proof controls; no new author pass solely for timeout.",
+    "next": "One normalbuild and whole native-semantic-job proof on exact original frozen source; source/native failure and3capturedebts retained.",
     "native03Started": true,
     "native03PreflightContinuation": "integration-01/B64_NATIVE03_PREFLIGHT_CONTINUATION_01.json",
     "actorPid": 50590,
@@ -1791,7 +1791,10 @@
       "B64-SETUP-CLOSE-CAPTURE",
       "B64-FINAL-CAPTURE-CLEANUP"
     ],
-    "compositionRecoveredSourcePreservedOnMain": true
+    "compositionRecoveredSourcePreservedOnMain": true,
+    "recoveredProofControlsCommit": "2b9eb6256a139594807f39d5402d42b7db9b6608",
+    "recoveredProofActivation": "integration-01/B64_RECOVERED_PROOF_ACTIVATION_01.json",
+    "recoveredProofExecuted": false
   },
   "releaseGateCensus02": {
     "state": "BOUNDED_EVIDENCE_MAPPING_ACCEPTED_NOT_QUALIFICATION",
@@ -1871,5 +1874,5 @@
     "record": "integration-01/S06_SUCCESSOR_HISTORY_PREFLIGHT_01.json",
     "executionAuthorized": false
   },
-  "lastUpdatedUtc": "2026-11-16T16:46:47.033087+00:00"
+  "lastUpdatedUtc": "2026-11-16T17:07:01.830515+00:00"
 }
