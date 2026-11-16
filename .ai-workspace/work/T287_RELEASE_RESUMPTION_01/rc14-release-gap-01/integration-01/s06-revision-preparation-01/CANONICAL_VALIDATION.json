@@ -1,0 +1,256 @@
+{
+  "kind": "pure_declaration_preparation",
+  "candidateVersion": "5.0.0-rc.14",
+  "checks": [
+    {
+      "programRef": "program://odd-glc/native-semantic-revision/intake@5",
+      "validation": "program_validation",
+      "roles": [
+        {
+          "graph": "graph-function://odd-glc/native-semantic-revision/select@5",
+          "locus": "graph-function://odd-glc/native-semantic-revision/select@5/node",
+          "role": "assessor",
+          "selectors": [
+            "full_source",
+            "active_binding_semantics"
+          ],
+          "selectedBytes": 95409
+        }
+      ]
+    },
+    {
+      "programRef": "program://odd-glc/native-semantic-revision/from-intent@5",
+      "validation": "program_validation",
+      "roles": [
+        {
+          "graph": "graph-function://abiogenesis/worksite/command-execution@5",
+          "locus": "node://abiogenesis/worksite/command-execution/fp@5",
+          "role": "command_executor",
+          "selectors": [
+            "current_worksite",
+            "admitted_execution_evidence"
+          ],
+          "selectedBytes": 53764
+        },
+        {
+          "graph": "graph-function://abiogenesis/worksite/native-work@5",
+          "locus": "node://abiogenesis/worksite/native-work@5",
+          "role": "constructor",
+          "selectors": [
+            "current_worksite",
+            "admitted_execution_evidence"
+          ],
+          "selectedBytes": 37054
+        },
+        {
+          "graph": "graph-function://odd-glc/native-semantic-revision/stage-0@5",
+          "locus": "locus://odd-glc/generic-lifecycle/intent/author@5",
+          "role": "author",
+          "selectors": [
+            "full_source",
+            "declared_predecessor_semantics",
+            "active_binding_semantics"
+          ],
+          "selectedBytes": 79230
+        },
+        {
+          "graph": "graph-function://odd-glc/native-semantic-revision/stage-0@5",
+          "locus": "locus://odd-glc/generic-lifecycle/intent/assessor@5",
+          "role": "assessor",
+          "selectors": [
+            "full_source",
+            "declared_predecessor_semantics",
+            "active_binding_semantics",
+            "current_candidate"
+          ],
+          "selectedBytes": 95409
+        },
+        {
+          "graph": "graph-function://odd-glc/native-semantic-revision/stage-1@5",
+          "locus": "locus://odd-glc/generic-lifecycle/product/author@5",
+          "role": "author",
+          "selectors": [
+            "full_source",
+            "declared_predecessor_semantics",
+            "active_binding_semantics"
+          ],
+          "selectedBytes": 64902
+        },
+        {
+          "graph": "graph-function://odd-glc/native-semantic-revision/stage-1@5",
+          "locus": "locus://odd-glc/generic-lifecycle/product/assessor@5",
+          "role": "assessor",
+          "selectors": [
+            "full_source",
+            "declared_predecessor_semantics",
+            "active_binding_semantics",
+            "current_candidate"
+          ],
+          "selectedBytes": 81081
+        },
+        {
+          "graph": "graph-function://odd-glc/native-semantic-revision/stage-2@5",
+          "locus": "locus://odd-glc/generic-lifecycle/requirements/author@5",
+          "role": "author",
+          "selectors": [
+            "full_source",
+            "declared_predecessor_semantics",
+            "active_binding_semantics"
+          ],
+          "selectedBytes": 64902
+        },
+        {
+          "graph": "graph-function://odd-glc/native-semantic-revision/stage-2@5",
+          "locus": "locus://odd-glc/generic-lifecycle/requirements/assessor@5",
+          "role": "assessor",
+          "selectors": [
+            "full_source",
+            "declared_predecessor_semantics",
+            "active_binding_semantics",
+            "current_candidate"
+          ],
+          "selectedBytes": 81081
+        },
+        {
+          "graph": "graph-function://odd-glc/native-semantic-revision/stage-3@5",
+          "locus": "locus://odd-glc/generic-lifecycle/design/author@5",
+          "role": "author",
+          "selectors": [
+            "full_source",
+            "declared_predecessor_semantics",
+            "active_binding_semantics",
+            "current_worksite"
+          ],
+          "selectedBytes": 64902
+        },
+        {
+          "graph": "graph-function://odd-glc/native-semantic-revision/stage-3@5",
+          "locus": "locus://odd-glc/generic-lifecycle/design/assessor@5",
+          "role": "assessor",
+          "selectors": [
+            "full_source",
+            "declared_predecessor_semantics",
+            "active_binding_semantics",
+            "current_candidate",
+            "current_worksite"
+          ],
+          "selectedBytes": 81081
+        },
+        {
+          "graph": "graph-function://odd-glc/native-semantic-revision/stage-4@5",
+          "locus": "locus://odd-glc/generic-lifecycle/evidence/author@5",
+          "role": "author",
+          "selectors": [
+            "full_source",
+            "declared_predecessor_semantics",
+            "active_binding_semantics",
+            "admitted_execution_evidence"
+          ],
+          "selectedBytes": 64902
+        },
+        {
+          "graph": "graph-function://odd-glc/native-semantic-revision/stage-4@5",
+          "locus": "locus://odd-glc/generic-lifecycle/evidence/assessor@5",
+          "role": "assessor",
+          "selectors": [
+            "full_source",
+            "declared_predecessor_semantics",
+            "active_binding_semantics",
+            "current_candidate",
+            "admitted_execution_evidence",
+            "assessor_evaluation_data"
+          ],
+          "selectedBytes": 81081
+        }
+      ]
+    }
+  ],
+  "D2ByteEquivalent": true,
+  "lifecycleByteEquivalent": true,
+  "unselectedProgramsByteEquivalent": true,
+  "contextRecords": [
+    {
+      "name": "lifecycle-standards",
+      "bytes": 465,
+      "sha256": "6e9ef04403ef97a0c1c50d10a1bedfab4a1a928e6dfd44fa560d14a6dbf1370a",
+      "dependency": {
+        "dependencyRef": "dependency://s06-adverse-revision/lifecycle-standards@5",
+        "basisRef": "source://s06-adverse-revision/lifecycle-standards@5/",
+        "recordRef": "source://s06-adverse-revision/lifecycle-standards@5/inventory.json",
+        "recordDigest": "sha256:6e9ef04403ef97a0c1c50d10a1bedfab4a1a928e6dfd44fa560d14a6dbf1370a",
+        "recordFormat": "member_inventory@1",
+        "inventoryDigest": "sha256:ec0de2d40b3fef4f29b05fe61d9e7c5b550e15c6954f8aa206833df5423147bc",
+        "members": [
+          {
+            "path": "specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md",
+            "type": "file",
+            "digest": "sha256:23ab6a435eb3ff4c610f73b4a9569b43c24a86a7f160628ee3848a0fe23dc27e",
+            "target": null
+          },
+          {
+            "path": "specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+            "type": "file",
+            "digest": "sha256:895ea02f39bf1ec100e72084229f46ca49ec31cf456eaa0e0addc194cbe6e03b",
+            "target": null
+          }
+        ]
+      },
+      "context": {
+        "contextRef": "context://s06-adverse-revision/lifecycle-standards@5",
+        "sourceLocator": "source://s06-adverse-revision/lifecycle-standards@5/",
+        "inventoryDigest": "sha256:da7f097a9ce361b1b11e22e1b4c43384257bd2e5c7d03451f6fce49d92ca7fa9",
+        "members": [
+          {
+            "memberRef": "source://s06-adverse-revision/lifecycle-standards@5/specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+            "path": "specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+            "byteCount": 13840,
+            "digest": "sha256:895ea02f39bf1ec100e72084229f46ca49ec31cf456eaa0e0addc194cbe6e03b"
+          },
+          {
+            "memberRef": "source://s06-adverse-revision/lifecycle-standards@5/specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md",
+            "path": "specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md",
+            "byteCount": 14008,
+            "digest": "sha256:23ab6a435eb3ff4c610f73b4a9569b43c24a86a7f160628ee3848a0fe23dc27e"
+          }
+        ]
+      }
+    },
+    {
+      "name": "root-review",
+      "bytes": 250,
+      "sha256": "071b19d1b01d0984c240e098fe50bef61978a47935ed796b9e284f0179358b24",
+      "dependency": {
+        "dependencyRef": "dependency://s06-adverse-revision/root-review@5",
+        "basisRef": "source://s06-adverse-revision/root-review@5/",
+        "recordRef": "source://s06-adverse-revision/root-review@5/inventory.json",
+        "recordDigest": "sha256:071b19d1b01d0984c240e098fe50bef61978a47935ed796b9e284f0179358b24",
+        "recordFormat": "member_inventory@1",
+        "inventoryDigest": "sha256:0511761248422ea5e8219cd1c19fd05f1648d86f7405c6b601fad98fa7719120",
+        "members": [
+          {
+            "path": "S06_FOURTH_FAILURE_REVISION_DISPOSITION_01.json",
+            "type": "file",
+            "digest": "sha256:2d4b95cdcd3b94469df3f13253ae6e82bba666e4102744744334465af9ae2abd",
+            "target": null
+          }
+        ]
+      },
+      "context": {
+        "contextRef": "context://s06-adverse-revision/root-review@5",
+        "sourceLocator": "source://s06-adverse-revision/root-review@5/",
+        "inventoryDigest": "sha256:9622ca6182899bccffae8f01f3e4ef117a047a34953387e0cb856da645b04b3e",
+        "members": [
+          {
+            "memberRef": "source://s06-adverse-revision/root-review@5/S06_FOURTH_FAILURE_REVISION_DISPOSITION_01.json",
+            "path": "S06_FOURTH_FAILURE_REVISION_DISPOSITION_01.json",
+            "byteCount": 14328,
+            "digest": "sha256:2d4b95cdcd3b94469df3f13253ae6e82bba666e4102744744334465af9ae2abd"
+          }
+        ]
+      }
+    }
+  ],
+  "runtimeAdmission": false,
+  "provider": false,
+  "qualified": false
+}

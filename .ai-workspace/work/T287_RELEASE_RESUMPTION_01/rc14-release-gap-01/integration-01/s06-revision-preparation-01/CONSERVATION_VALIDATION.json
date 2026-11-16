@@ -1,0 +1,98 @@
+{
+  "kind": "preparation_byte_conservation",
+  "recordedUtc": "2026-11-16T06:38:20.088458+00:00",
+  "unchangedLocalHelpers": [
+    {
+      "path": "bounded.py",
+      "bytes": 4206,
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "path": "command-owner.py",
+      "bytes": 664,
+      "sha256": "ad26e04344dd738384a24d753ed67f67eb572dfda5f5187f5123774ecb0d496a"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "c2-evidence.mjs",
+      "bytes": 8532,
+      "sha256": "97b4550e453b632ded002177c414548fde3fbddfa1c8e16b6e5940982f0bfb44"
+    },
+    {
+      "path": "inputs.mjs",
+      "bytes": 13095,
+      "sha256": "5a82c88ffc946d9593ddef71e686e48b5af0e986371f350b17cca26c6134e87c"
+    },
+    {
+      "path": "observe.py",
+      "bytes": 6318,
+      "sha256": "af9527ab1e00c173aceb009ab4e09eae2e2fdf6181d18b406746ea9535f17f58"
+    },
+    {
+      "path": "D2_RUBRIC.md",
+      "bytes": 1095,
+      "sha256": "58c6a122daeb6c14e74b5ef49f7deb7f368b2b56c07c7b4e54153930b240643e"
+    },
+    {
+      "path": "TOOLCHAIN.json",
+      "bytes": 4844,
+      "sha256": "7fb0213fb32ea8170f0c89fbaabd691400b8c9f613cf7b457bf59d77ff805db3"
+    },
+    {
+      "path": "tool-launcher.py",
+      "bytes": 15213,
+      "sha256": "16c83f445c4378f2e465e93662dff5147350d196732eb93b3b87c796714faf05"
+    },
+    {
+      "path": "INPUTS.json",
+      "bytes": 17655,
+      "sha256": "9a9744c9cc6522ad95b298b5fa76b686a2f75f6cca3f12ec7ac0ca2284ab3673"
+    },
+    {
+      "path": "npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "unchangedHostFunctions": [
+    {
+      "function": "topologyLayouts",
+      "bytes": 1403,
+      "sha256": "5ddcf4e3f837baa75ef8b38884708262402257cb5c5f64a6dda6c80d4b9a512b"
+    },
+    {
+      "function": "readAndClose",
+      "bytes": 1480,
+      "sha256": "f725f5fcdca10ed1545859e24541953e634de825fb16d16ec8a4c09a70c01680"
+    },
+    {
+      "function": "authenticateToolReceipt",
+      "bytes": 2106,
+      "sha256": "3094d4f8460d944776bdc1211d750643143cc8744e230a36d30994d4ef0da59c"
+    },
+    {
+      "function": "observeApplication",
+      "bytes": 1693,
+      "sha256": "1ba2f7328233ecd74bb74716fd2fa259b8d4af3fe5f9a57a784d5efd2aa15449"
+    }
+  ],
+  "closed04ReceiptPins": {
+    "count": 111,
+    "bytes": 79089823,
+    "rowsDigest": "200361584071b01a100850151046f061ef8671014887405b9d4d8d39d9212a61"
+  },
+  "closed04WorksiteRows": 32,
+  "originalEventFileSha256": "1046007404641b741b4943cf58503358e19f27eeaec311301e52006a8d34d45d",
+  "runtime": false,
+  "physicalObserverInvoked": false,
+  "passed": true
+}

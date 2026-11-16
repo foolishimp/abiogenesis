@@ -1,0 +1,186 @@
+{
+  "checks": [
+    {
+      "label": "syntax-declarations",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/declarations.mjs"
+      ],
+      "startedUtc": "2026-11-16T06:04:22.449483+00:00",
+      "exitCode": 0,
+      "wallMs": 27,
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "syntax-canonical",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/canonical-check.mjs"
+      ],
+      "startedUtc": "2026-11-16T06:04:22.476841+00:00",
+      "exitCode": 0,
+      "wallMs": 22,
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "canonical-construction",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/canonical-check.mjs"
+      ],
+      "startedUtc": "2026-11-16T06:04:22.498580+00:00",
+      "exitCode": 0,
+      "wallMs": 546,
+      "stdoutBytes": 7125,
+      "stdoutSha256": "6f35285c6a8c40d305005c73afe8083415b07c95496f1a6f44d645048f7f887e",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "syntax-HOST.mjs",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/HOST.mjs"
+      ],
+      "startedUtc": "2026-11-16T06:32:29.023103+00:00",
+      "exitCode": 0,
+      "wallMs": 20,
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "syntax-setup.mjs",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/setup.mjs"
+      ],
+      "startedUtc": "2026-11-16T06:32:29.043505+00:00",
+      "exitCode": 0,
+      "wallMs": 19,
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "syntax-consumer.mjs",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/consumer.mjs"
+      ],
+      "startedUtc": "2026-11-16T06:32:29.062817+00:00",
+      "exitCode": 0,
+      "wallMs": 19,
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "syntax-revision-source.mjs",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/revision-source.mjs"
+      ],
+      "startedUtc": "2026-11-16T06:32:29.082433+00:00",
+      "exitCode": 0,
+      "wallMs": 19,
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "syntax-caller-contract-check.mjs",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/caller-contract-check.mjs"
+      ],
+      "startedUtc": "2026-11-16T06:32:29.102110+00:00",
+      "exitCode": 0,
+      "wallMs": 19,
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "ast-run.py",
+      "passed": true,
+      "sha256": "10dda58189a897ae7c60fa8e7a2ae5f5367fc56e83d22556b2ee79f4a57242a4"
+    },
+    {
+      "label": "ast-revision-custody.py",
+      "passed": true,
+      "sha256": "64c125116f7c200347b60059c0ad6f7158cc8e493a03b4c3d3412103ea9f438b"
+    },
+    {
+      "label": "pure-caller-contracts",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/caller-contract-check.mjs"
+      ],
+      "startedUtc": "2026-11-16T06:32:29.124276+00:00",
+      "exitCode": 0,
+      "wallMs": 318,
+      "stdoutBytes": 470,
+      "stdoutSha256": "e2c0f5173aa773628932f4d404d67aa121bd93627639e91409d78161b775d22a",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "syntax-layout-shape",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/layout-shape-check.mjs"
+      ],
+      "startedUtc": "2026-11-16T06:38:19.968102+00:00",
+      "exitCode": 0,
+      "wallMs": 22,
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "actual-pure-layout-producer",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/layout-shape-check.mjs"
+      ],
+      "startedUtc": "2026-11-16T06:38:19.990224+00:00",
+      "exitCode": 0,
+      "wallMs": 26,
+      "stdoutBytes": 5049,
+      "stdoutSha256": "a356f44778f813b767d11acc42ce3b4995640d52f3ff90adcf7e5899c46dffa9",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "conservation",
+      "passed": true,
+      "unchangedHelpers": 12,
+      "unchangedHostFunctions": 4,
+      "closed04Pins": 111,
+      "closed04WorksiteRows": 32
+    }
+  ],
+  "runtime": false,
+  "provider": false
+}

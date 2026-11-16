@@ -1,0 +1,117 @@
+{
+  "predecessor": {
+    "commit": "6f4c3777cee044a7a9c3de23e18cb7ed3ac4f188",
+    "root": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03",
+    "manifestSha256": "b753febcd89ec78742117fe3abd20da47df49363766901b908f283b59ab7de61"
+  },
+  "adapted": [
+    {
+      "path": "HOST.mjs",
+      "predecessorBytes": 27524,
+      "predecessorSha256": "67cde66e5fa8a627eb955238fb86485abf9ef53934edb9cc68a06b47b2fbb043",
+      "successorBytes": 28324,
+      "successorSha256": "3d53af45ce4686da76644b212c6c2a95c37e7d369211c5c754d142b058cf3dbd"
+    },
+    {
+      "path": "setup.mjs",
+      "predecessorBytes": 21253,
+      "predecessorSha256": "1c8735c276cf01b95009664a06cf9ae8375448de3337e42f00d1d7b7be311e21",
+      "successorBytes": 20793,
+      "successorSha256": "795ca36c6bd9121afdc1302b01f55fe7901c05058588118b043cf44a31daf9ac"
+    },
+    {
+      "path": "consumer.mjs",
+      "predecessorBytes": 6341,
+      "predecessorSha256": "155cd181b290c7ff70c73af09cd8db176c5b51bc1508bd4a63e491185681ac8d",
+      "successorBytes": 7200,
+      "successorSha256": "c0ad0a62949a54cf770b9e29884d559214f2aebbd7f27a1801fb62ab4a91f2cc"
+    },
+    {
+      "path": "run.py",
+      "predecessorBytes": 10041,
+      "predecessorSha256": "02cdfc4e6a30ae048e4d254b2f49421e0607ba3188ce51ccd2759ccff26a1a07",
+      "successorBytes": 11659,
+      "successorSha256": "10dda58189a897ae7c60fa8e7a2ae5f5367fc56e83d22556b2ee79f4a57242a4"
+    },
+    {
+      "path": "declarations.mjs",
+      "predecessorBytes": 3232,
+      "predecessorSha256": "c37e2e9c68b438510024d68b1c39d7ed36be4b4d4e623d3d4b97033d85b9a529",
+      "successorBytes": 7122,
+      "successorSha256": "86ed31d5187f46f4fed9b52288a4acee1c09f03223bd5b8375fc50047f8f8834"
+    }
+  ],
+  "newExecutableHelpers": [
+    "revision-source.mjs",
+    "revision-custody.py"
+  ],
+  "validationOnly": [
+    "canonical-check.mjs",
+    "caller-contract-check.mjs",
+    "layout-shape-check.mjs"
+  ],
+  "unchangedHelpers": [
+    {
+      "path": "bounded.py",
+      "bytes": 4206,
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "path": "command-owner.py",
+      "bytes": 664,
+      "sha256": "ad26e04344dd738384a24d753ed67f67eb572dfda5f5187f5123774ecb0d496a"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "c2-evidence.mjs",
+      "bytes": 8532,
+      "sha256": "97b4550e453b632ded002177c414548fde3fbddfa1c8e16b6e5940982f0bfb44"
+    },
+    {
+      "path": "inputs.mjs",
+      "bytes": 13095,
+      "sha256": "5a82c88ffc946d9593ddef71e686e48b5af0e986371f350b17cca26c6134e87c"
+    },
+    {
+      "path": "observe.py",
+      "bytes": 6318,
+      "sha256": "af9527ab1e00c173aceb009ab4e09eae2e2fdf6181d18b406746ea9535f17f58"
+    },
+    {
+      "path": "D2_RUBRIC.md",
+      "bytes": 1095,
+      "sha256": "58c6a122daeb6c14e74b5ef49f7deb7f368b2b56c07c7b4e54153930b240643e"
+    },
+    {
+      "path": "TOOLCHAIN.json",
+      "bytes": 4844,
+      "sha256": "7fb0213fb32ea8170f0c89fbaabd691400b8c9f613cf7b457bf59d77ff805db3"
+    },
+    {
+      "path": "tool-launcher.py",
+      "bytes": 15213,
+      "sha256": "16c83f445c4378f2e465e93662dff5147350d196732eb93b3b87c796714faf05"
+    },
+    {
+      "path": "INPUTS.json",
+      "bytes": 17655,
+      "sha256": "9a9744c9cc6522ad95b298b5fa76b686a2f75f6cca3f12ec7ac0ca2284ab3673"
+    },
+    {
+      "path": "npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "tenantChanges": false,
+  "runtimeAuthorized": false
+}

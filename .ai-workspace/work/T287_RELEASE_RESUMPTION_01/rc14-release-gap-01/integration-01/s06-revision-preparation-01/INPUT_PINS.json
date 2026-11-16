@@ -1,0 +1,44 @@
+{
+  "originalControls": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03",
+  "originalManifestSha256": "b753febcd89ec78742117fe3abd20da47df49363766901b908f283b59ab7de61",
+  "originalReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/OPERATOR_RETURN.json",
+    "bytes": 74401,
+    "sha256": "4b5f2556ab4c81fae4a70768fb4f493d24d2d7cc5f40b17753c7ade99b11c2c9"
+  },
+  "nativeAcquisition": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/setup/abg-acquisition.json",
+    "bytes": 15330948,
+    "sha256": "606e633559e4f5f31a8292d670e983240a802d62b2172f4a8ebc090639ebe1d3"
+  },
+  "candidatePackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+  "candidateManifestSha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e",
+  "maintainedTenantRoot": "/private/tmp/abg-rc14-s06-preparation-20261116-03/build_tenants/abiogenesis/typescript",
+  "standards": [
+    {
+      "path": "/Users/jim/src/apps/odd_glc/specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md",
+      "bytes": 13840,
+      "sha256": "895ea02f39bf1ec100e72084229f46ca49ec31cf456eaa0e0addc194cbe6e03b",
+      "relativePath": "specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md",
+      "bytes": 14008,
+      "sha256": "23ab6a435eb3ff4c610f73b4a9569b43c24a86a7f160628ee3848a0fe23dc27e",
+      "relativePath": "specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md"
+    }
+  ],
+  "standardsRoot": "/Users/jim/src/apps/odd_glc",
+  "rootReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S06_FOURTH_FAILURE_REVISION_DISPOSITION_01.json",
+    "bytes": 14328,
+    "sha256": "2d4b95cdcd3b94469df3f13253ae6e82bba666e4102744744334465af9ae2abd",
+    "relativePath": "S06_FOURTH_FAILURE_REVISION_DISPOSITION_01.json"
+  },
+  "rootReviewRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S06_ADVERSE_REVISION_PREPARATION_ACTIVATION_01.json",
+    "bytes": 9302,
+    "sha256": "53c8f8f343f60d525ebcd2db5be8d198c5c8873d50656241c0b8b86dc9ffcc2d"
+  }
+}
