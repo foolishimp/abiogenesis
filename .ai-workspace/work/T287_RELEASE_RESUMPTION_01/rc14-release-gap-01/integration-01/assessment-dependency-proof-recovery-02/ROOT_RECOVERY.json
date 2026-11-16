@@ -1,0 +1,255 @@
+{
+  "id": "RC14-B56-NATIVE04-EXACT-SOURCE-RECOVERY-01",
+  "recordedUtc": "2026-11-15T23:19:22.073779+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-B56-RECOVERY-RECORDS-WRITER-029",
+    "role": "Separate Root mechanical source recovery and records/integration Writer",
+    "authority": "Owner continue/finish RC14; exact closed Product/Design/Identity and Proof/Fixture reviews, sealed native04 effect/method audit and current STDO3.0.4 recovery/landing/reuse law.",
+    "effects": [
+      "Recover exactly the frozen reviewed one-file body into main, byte-equal; preserve full native04 patch as authored source code and its compact Return.",
+      "Record this bounded source-recovery/admission decision, truthful method residuals, current T287/T293/STATUS and prospective external proof-control selection.",
+      "Checkpoint and push named source/records, later integrate exact independently reviewed proof controls/Returns."
+    ],
+    "exclusions": [
+      "No semantic source rewrite, audit rewrite or compliant-authorship claim, native retry, raw logs in Git, old-clock reset, B50 policy, qualification/publication or runtime proof execution from this record."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "outcome": "Fixed5.0 F04/F17/S06 exact installed schema ownership/executing Program-use, assembly, preimage and same-Run cold readback. ABG alone owns runtime facts.",
+    "classification": "One immutable reviewed source construction input and external proof-admission tooling; not admitted Product runtime truth or semantic qualification.",
+    "reentry": "realization_refactor in external proof controls after exact source recovery. Product/requirements/runtime design and all test predicates remain unchanged.",
+    "law": [
+      "Installed STDO EVALUATION section5 Landing, closure and release / When a finding blocks promotion, lines363-444; Root reacquired current bytes.",
+      "Installed STDO ACTIVATION section7 Closed result and reuse, lines1681-1750; Root reacquired current bytes.",
+      "AGENTS Worktree Discipline: recover donor code by exact conforming relation; do not merge rejected branches wholesale.",
+      "Prior B56_NATIVE02_CONJUNCTION_AND_REENTRY_03 recovery preserves failed acquisition while accepting independently reviewed construction inputs."
+    ]
+  },
+  "nativeAttempt": {
+    "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+    "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04",
+    "returnCommit": "362117993be269665ac78c70d25ebba9e4a3a1f3",
+    "compactReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-native-04/RETURN.json",
+      "bytes": 10658,
+      "sha256": "32bbaf1aebc0dbe48c8941844bc42c0748c7871c2feca5309d6ea9507430ec77"
+    },
+    "operatorReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/OPERATOR_RETURN.json",
+      "bytes": 19712,
+      "sha256": "631bda6310a39ea19623de070983052a3881d03ad5962f9ba00d48d1e4838754"
+    },
+    "audit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/AUTHOR_AUDIT.json",
+      "bytes": 39361,
+      "sha256": "08afaaf3bc30693007b65b5734a606b3196400014569e35a60e4fafa552cb3e0"
+    },
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/FROZEN_SOURCE.json",
+      "bytes": 2318,
+      "sha256": "356b31e87d72d710c44d2d18ec753211507db5a653d6c2e7143eb6213b2421e8"
+    },
+    "sourcePostimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_POSTIMAGE.json",
+      "bytes": 392522,
+      "sha256": "d4226a0532c199bf732f3b613bec196b24fd0e427d1e0aa3a12dccdb573f1d1c"
+    },
+    "sourceDiff": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_DIFF.patch",
+      "bytes": 92620,
+      "sha256": "da01b388dd22d51b9069eb845d6ad2428af71bc875dbc56144622ed67f51bdf1"
+    },
+    "nativeReport": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 8900,
+      "sha256": "8bab197561b4d8f303e2cc536f393af798cb641f3161d35568fcbe73c9f5dd70"
+    },
+    "sourcePreimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_PREIMAGE.json",
+      "bytes": 486897,
+      "sha256": "60f0e052bc6870037a62983bddd77f073321e0dfd923b01cbd73e8510a26b7de"
+    },
+    "nativeLaunch": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/LAUNCH.json",
+      "bytes": 6289,
+      "sha256": "c8e47addcde8e9e79716848d8d2fcf721fb5e019d8d128ff3e23b3a78af9f634"
+    },
+    "completion": {
+      "typedTaskMatchingNativeObservation": true,
+      "actualResourceClose": true,
+      "freshResult": true,
+      "freshClosedReplay": true,
+      "hostAndActorPidsAndGroupsAbsent": true,
+      "groupScope": "Only exact owned host/actor groups; no global host absence claim."
+    },
+    "actualNative": {
+      "modelObserved": "claude-opus-5-5",
+      "effortConfiguredAndTransportChecked": "xhigh",
+      "runRef": "run://abiogenesis/9ac0e42adf4bd95bbc9c459562fecbc8bd6f61cf9771fdc027523874a2267afd",
+      "actorPid": 10001,
+      "actorStartUtc": "2026-11-15T22:48:16.242Z",
+      "actorExitUtc": "2026-11-15T23:02:31.782Z",
+      "nativeReturnedUtc": "2026-11-15T23:02:33.384Z",
+      "sdkDurationMs": 854124,
+      "turns": 68,
+      "reportedListCostUSD": 6.576858
+    },
+    "hostWallMs": 909341,
+    "originalStartedUtc": "2026-11-15T22:47:31.946547Z",
+    "originalDeadlineUtc": "2026-11-16T01:47:31.946547Z",
+    "originalExitReserveStartsUtc": "2026-11-16T01:44:31.946547Z",
+    "sourceStageClosed": true,
+    "proofStarted": false
+  },
+  "independentReviews": {
+    "ProductDesignIdentityMethod": {
+      "actor": "/root/amendment_topology_review",
+      "disposition": "Bounded source suitable for exact recovery; no actionable Product/Design/Identity counterexample. No compliant-authorship or behavioral claim.",
+      "findings": [
+        "Frozen test/diff/postimage/report and all7immutable inputs match. Test3059-3115 constructs canonical one-stage intake/native pair/output with distinct schema ownership and executing use.",
+        "3185-3244 supplies actual source/rubric/absent candidate and requires completed execution,2actors, admitted producer tuple and candidate digest;3253-3378 retains installed/cold/preimage/fresh same-Run joins.",
+        "2706-2741 preserves child/parse primary errors through capture failure and distinguishes expected nonzero outcomes.",
+        "Reported cwd and empty statement-reference uncertainty has source support at actor_process935/995 and semantic_stage448-449.",
+        "Method acquisition residuals remain; unchanged prove.py cannot admit the truthful audit. Smallest route is exact recovery plus narrow proof-consumer successor; no automatic fifth author or blanket waiver."
+      ]
+    },
+    "ProofFixture": {
+      "actor": "/root/b29_vm_triage",
+      "disposition": "Bounded source-ready; no actionable Proof/Fixture counterexample. All behavior unobserved.",
+      "findings": [
+        "Canonical local publication/install and scripted candidate/assessment premises align with actual owners; no governance/C2/UAT/intentional failure/fabricated producer remains.",
+        "Same actual Run supplies producer/result/candidate facts; installed resolution/assembly, warm/cold preimage and fresh result/replay assertions remain.",
+        "RC7 body28484bytes exactly matches reviewed03, SHA ddc523760290b61df3c62ca4d755b73b7d3aadc765ce4613dff73621f1b4db50; split negatives preserve all named owner/Program/member/install/lock/schema/constructor/cold boundaries.",
+        "Both capture failure edges corrected through reporter-supported fields.7recovered source inputs match declared digests/HEAD/physical/frozen images.",
+        "Semantic-job positive1+9 top-level partition is distinct from RC7 predicate count; no count-related change selected."
+      ]
+    }
+  },
+  "methodAndEffectDisposition": {
+    "originalAuditDisposition": "held_for_root_method_and_source_disposition",
+    "preservedMethodResiduals": [
+      {
+        "id": "M04-01",
+        "kind": "late_readFirst",
+        "facts": "ACTIVATION, PRIOR_ATTEMPT and D1_COORDINATES acquired only at tool66, after first source edit tool56. D1 complete compact value; first two truncated to2200characters. No earlier actual bodies or prompt-body credit established."
+      },
+      {
+        "id": "M04-02",
+        "kind": "required_body_not_acquired",
+        "facts": "No actual command/body acquisition for abg/semantic_job.ts98\u2013195 or563\u2013605; its coordinates in Task/prompt and field names elsewhere are not that body."
+      },
+      {
+        "id": "M04-03",
+        "kind": "clipped_source_content",
+        "facts": "Selected reads clipped24 line observations across9 paths; exact ranges/line widths are in ACQUISITION_AUDIT. No later full reacquisition observed for those clipped suffixes; do not count full deciding bodies."
+      }
+    ],
+    "methodCompliant": false,
+    "sourceCommands": {
+      "toolUses": 67,
+      "bash": 65,
+      "read": 1,
+      "structuredOutput": 1,
+      "permittedTextEdits": 4,
+      "successfulSyntaxChecks": 4
+    },
+    "observedEffects": {
+      "actualProviderCalls": 1,
+      "nativeMethodToolCalls": "Existing read-only status/resolve and5 grouped compact-reader calls only",
+      "behavioralTests": 0,
+      "builds": 0,
+      "packOrInstallByNative": 0,
+      "ProductImportsByNative": 0,
+      "nestedProviders": 0,
+      "GitMutationsByNative": 0,
+      "nativeAdditionalFiles": 0
+    },
+    "sourceScope": {
+      "allowedWritePaths": [
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+      ],
+      "actualChangedTrackedPaths": [
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+      ],
+      "conservedPreimagePaths": 1570,
+      "setupOwnedUntracked": [
+        ".abiogenesis/workspace-manifest.json"
+      ],
+      "recoveredFilesUnchanged": 7,
+      "sourceHeadAndIndexContentUnchanged": true
+    },
+    "positiveMethodEvidence": "Full actual14733-byte status parsed with true exit and exact identities;5existing-reader calls verify16actual bind/route sections before first edit. This does not cure other acquisition failures.",
+    "nonClosing": "Late/incomplete/clipped or absent content never receives retrospective credit. Old audit/protocol/commands/clocks stay exact. Method-compliant authorship is expressly false.",
+    "decision": "These findings falsify producer acquisition compliance. Both independent exact-source frames now support recovery as construction input under the unchanged Product basis. No observed unauthorized source effect or competing Product authority is established; future behavioral proof remains mandatory and may still fail."
+  },
+  "recovery": {
+    "decision": "accepted_as_independently_reviewed_source_construction_input_only",
+    "nativeAuthorshipCompliant": false,
+    "file": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 425506,
+      "sha256": "9fef11e5ac9201f154922d03346e33d06ed8c79531d0ebea3b389afbc738f185"
+    },
+    "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "mainDestination": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "priorMainFile": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 363159,
+      "sha256": "ceac959e387d421225f50637d9e3e94e04160acc4aa3c297096055df93916670"
+    },
+    "recoveryBaseHead": "6f99de290e4f475c82fc40ee458a6b8b546bebbc",
+    "proofInputSourceRemains": "Original04 source HEAD/index and its1572-row postimage remain unchanged; recover a byte-equal copy into main, never mutate closed native source.",
+    "preservedSourcePatch": "integration-01/assessment-dependency-native-04/SOURCE_DIFF.patch",
+    "sevenEarlierFiles": "Unchanged; reviewed unproved source inputs remain exact.",
+    "compileOrBehaviorClaim": false,
+    "qualificationClaim": false
+  },
+  "proofConsumerReentry": {
+    "originatingRelation": "The source-only producer truthfully returns acquisition residuals; the existing proof consumer admits only a zero-deviation author. This observed audit therefore cannot satisfy its gate even after source recovery.",
+    "affectedCone": [
+      "prove.py controls/native-manifest versus proof-manifest binding",
+      "prove.py audit/recovery admission and source-diff comparison",
+      "exact Root recovery/audit/frozen-source pins and affected static/launch/manifest records"
+    ],
+    "additionalObservedShape": "Actual04 audit uses methodResiduals and sourceScope and has no top-level sourceDiffSha256/deviations keys; use the authenticated freeze/sourceDiff pin for the preserved diff equality, not invented or rewritten audit fields.",
+    "decision": "Prepare an explicit exact-recovery proof path with a narrow reviewed successor. Preserve original native controls and launch; bind successor proof controls separately. Admit only this recovered file/subject and these exact residuals, not arbitrary incomplete or unauthorized work.",
+    "unchangedPredicates": [
+      "Actual typed task-matching completion, resource close and fresh result/closed replay.",
+      "SourceHEAD/index/preimage/postimage/diff/oneW/setup/seven immutable inputs and custody at entry/exit.",
+      "Physical topology, process absence, positive exact1+9 partition,43top-level obligations/5files/6selections, candidate evidence capture, original case/file limits and first-failure/finally.",
+      "One fresh build, no proof retry, at most90min clipped to original04enclosing deadline/reserve; no new or reset clock."
+    ]
+  },
+  "proofControlWriter": {
+    "id": "RC14-B56-RECOVERED-PROOF-CONTROL-WRITER-001",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate external proof-control preparation Writer",
+    "sourceBase": "Exact pushed main containing this source recovery, identified in Root followup. Native proof source remains06f1ea2c6 plus the exact frozen one-file postimage, not a new native author.",
+    "worktree": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-01",
+    "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-01",
+    "maximumMs": 1800000,
+    "effects": [
+      "Reuse accepted04 proof mechanism. Prepare only necessary prove.py admission/control-binding/diff-field adaptations and dependent authored records; retain all other executable helper owners byte-equal. No HOST/operate execution or new native selection.",
+      "Authenticate original04 native manifest/launch against its original35members and separately authenticate the new proof manifest. Never alter native launch/manifest/audit or claim they used successor controls.",
+      "Require exact pinned Root source-recovery disposition, audit, freeze, postimage/diff, source/test hash, allowedW,7immutable inputs and actual native completion/readbacks. Preserve M04-01/02/03 as noncompliance, verify exact expected residuals/effect scope without generic defaults or waiver flags.",
+      "Adapt actual producer-to-consumer fields from authenticated04 audit/freeze; old audit lacks sourceDiffSha256/deviations. Preserve exact source-diff equality via canonical frozen source binding, not a fabricated audit field.",
+      "Keep original04 sourceworktree/rawRoot/prospective proofSubject and original enclosing clock. Proof directory remains raw04/proof-01, absent before execution. No runtime during preparation. All required control/evidence roots/pins remain in physical/custody observations.",
+      "Prepare disabled proof grant and exact static checks for matching/changed recovery,audit,source or native/proof control binding using read-only fixture data; no Product import/behavior/build/test/provider. Do not broaden test population or add framework mechanisms.",
+      "Freeze one compact authored-controls-only commit/Return, stop for independent delta review. First concrete unsupported dependency/effect or failing check returns to Root."
+    ],
+    "exclusions": [
+      "No Product/source/Design/test/support edits, source recompilation, native/provider launch, proof run, main/push, audit rewriting, raw Git, clock reset, B50/qualification/publication."
+    ],
+    "returnTo": "Root for exact independent proof-control review, integration/push and separate finite proof execution grant."
+  },
+  "proofAuthorized": false,
+  "newNativeAuthorized": false,
+  "candidateBuildAuthorized": false,
+  "rawPublished": false,
+  "qualified": false,
+  "preservation": "Original RC14 candidate and failed earlier attempts exact; RC13 stays pinned; candidate02/amendment07/S06 wait for proof and B50 remains unresolved."
+}

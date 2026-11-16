@@ -1,0 +1,87 @@
+{
+  "id": "RC14-B56-PROOF-CONTROL-WRITER-031-RETURN",
+  "role": "Separate external proof-control Writer",
+  "preparedUtc": "2026-11-16T00:03:22.913291+00:00",
+  "preparationBase": "9f2d9c8ce0d1e86f303485baf180796a100fca43",
+  "carrier": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-02",
+  "selection": {
+    "path": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-02/ROOT_SELECTION.json",
+    "bytes": 7731,
+    "sha256": "9f74cbb78720b9089f606e1b371c8bedf7213da591a2e51b915e2cacc150df69"
+  },
+  "controls": {
+    "path": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-02/CONTROL_MANIFEST.json",
+    "bytes": 3843,
+    "sha256": "64751b8f6649365716441e43f198bd981faf45eec1a78ac5d26eebd413d778de"
+  },
+  "manifestMembers": 22,
+  "predecessorControlsCommit": "39117a22f127dff3515f2bba6e57507e1fa3135b",
+  "executableDelta": {
+    "file": "prove.py",
+    "sha256": "d02eb65ae6d90954285754c682d93f57addd9d9ac6473ed51ddda58904b933f2",
+    "generatedAllowanceAddition": "contracts/capabilities/capability-definition-graph.json",
+    "coordinateChange": "raw04/proof-02 and fresh proof-20261116-05 mirror",
+    "deadlineChange": "Read exact preserved proof01 START; end=min(original enclosure,current requested limit,original proof deadline).",
+    "admissionChange": "Pin exact Root selection and prior failed Return/difference/START through existing recovery/control input owner.",
+    "inclusiveBuildPostimageAndThroughTestCustody": true,
+    "allOtherOwnerAndPopulationSemanticsUnchanged": true
+  },
+  "records": {
+    "delta": {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-02/DELTA.json",
+      "bytes": 1071,
+      "sha256": "5d8910669418cd88a538d43fadf5edddc24809234f3aabe221f73151c48cad0e"
+    },
+    "staticChecks": {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-02/STATIC_CHECKS.json",
+      "bytes": 2106,
+      "sha256": "9898b9bac6a9241c4606615c0d739b5aec41b92ed6983043e2ab8ba764fb4f92"
+    }
+  },
+  "verification": {
+    "syntaxAndExactDeltaPassed": true,
+    "onePathClassificationPassed": true,
+    "fiveMismatchNegativesPassed": true,
+    "threeDeadlineCasesPassed": true,
+    "byteEqualInheritedFiles": 14,
+    "sourceInventoryAndPopulationNotRepeated": "Unchanged exact source, population and native recovery reviews retained; no new execution credit.",
+    "priorCheckHarnessErrors": "Two inline AST-check errors retained in STATIC_CHECKS; corrected only check selectors, not control subject."
+  },
+  "basis": {
+    "definition": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "statusExitCode": 0,
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "statusStdoutBytes": 14702,
+    "statusStdoutSha256": "f94aae03c758745017448b790f9c783eaf10430db45c3c96c320290443e07d4c",
+    "nativeSkill": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md"
+  },
+  "futureProof": {
+    "proofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-02",
+    "proofSubject": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-05",
+    "originalProofDeadlineUtc": "2026-11-16T01:15:36.678788Z",
+    "executionStopUtc": "2026-11-16T01:12:36.678788Z",
+    "originalEnclosingDeadlineUtc": "2026-11-16T01:47:31.946547Z",
+    "cleanupReserveMs": 180000
+  },
+  "originalSourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+  "originalNativeMethodResiduals": [
+    "M04-01",
+    "M04-02",
+    "M04-03"
+  ],
+  "nativeAuthorshipCompliant": false,
+  "priorAttemptRetained": "proof01 remains failed; successful build receives no reuse credit. Native35 and exact source/audit/freeze remain unchanged.",
+  "executionAuthorized": false,
+  "ProductImported": false,
+  "builds": 0,
+  "behavioralTests": 0,
+  "providers": 0,
+  "mainChanged": false,
+  "pushed": false,
+  "qualification": false,
+  "returnTo": "Root independent exact delta review and separate execution selection; Writer stopped."
+}
