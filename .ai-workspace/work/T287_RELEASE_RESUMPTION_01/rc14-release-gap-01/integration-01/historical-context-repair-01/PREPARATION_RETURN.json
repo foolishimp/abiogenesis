@@ -1,23 +1,23 @@
 {
   "kind": "closed_external_control_preparation_return",
-  "writerActivation": "RC14-B64-NATIVE-CONTROLS-WRITER-040",
+  "writerActivation": "RC14-B64-CONTROL-COORDINATE-WRITER-041",
   "nativeActivation": "RC14-HISTORICAL-CONTEXT-NATIVE-001",
   "status": "prepared_frozen_for_independent_review",
   "sourceBase": {
     "commit": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
     "tree": "8e5a5194de10f816d95f61b9fcf5e8b19a006211"
   },
-  "controlWorktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-01",
-  "controlBranch": "codex/rc14-historical-context-controls-20261116-01",
+  "controlWorktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-02",
+  "controlBranch": "codex/rc14-historical-context-controls-20261116-02",
   "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01",
   "preparationStartedUtc": "2026-11-16T07:34:42.254257+00:00",
   "preparationDeadlineUtc": "2026-11-16T08:19:42.254257+00:00",
-  "completedUtc": "2026-11-16T07:54:50.437104+00:00",
+  "completedUtc": "2026-11-16T08:05:23.022556+00:00",
   "controlManifest": {
     "path": "CONTROL_MANIFEST.json",
-    "bytes": 5037,
-    "sha256": "e14d70c415889915379045afb89f0c133541f47403d4991a2693107e31d67806",
-    "members": 32
+    "bytes": 5355,
+    "sha256": "8de7349337f3a34e305ba4007c39ddbaad1c443141d82dc9c469e9282fff808d",
+    "members": 34
   },
   "productFrame": {
     "outcome": "Unchanged fixed5.0 F17/S06: preserve complete source/evidence, execute declared revision, independent assessment, complete D1/application and consequential D2.",
@@ -66,8 +66,8 @@
         "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
       }
     ],
-    "operateDelta": "Fresh source/raw coordinate strings only; exclusive launch staging, original clocks, final aggregate cap, first failure and group cleanup unchanged.",
-    "hostDelta": "Fresh source/raw/id/URI coordinates; exact external closed-evidence custody entry/exit; one shared complete protected external set appended at all three topology phases. Actual installed-Public setup/task/terminal/close/fresh-read owners retained.",
+    "operateDelta": "Acquire ACT before coordinates; derive RAW and SOURCE only from ACT.rawRoot/sourceWorktree. All callable ASTs, launch staging, clocks, caps, failure and cleanup remain unchanged.",
+    "hostDelta": "Acquire ACTIVATION before dependent raw/source use and derive both coordinates from it. Preserve previous B64 identity/external protection/evidence custody changes and all actual Public/task/terminal/close/fresh-read contracts.",
     "proveUnchangedCallableASTs": [
       "module",
       "digest",
@@ -85,7 +85,28 @@
       "main"
     ],
     "proofDelta": "B64 read-only evidence pins within existing entry/exit controls; complete source/proof coordinates; three whole-file mandatory positive/title/capture populations; exact generated capability graph build allowance with inclusive built postimage and exit conservation. No name filters or proof reuse.",
-    "notReused": "Old B56 Task/fixture assets/diagnosis/candidate coordinates or incidental editing restrictions; no prior behavioral pass is credited."
+    "notReused": "Old B56 Task/fixture assets/diagnosis/candidate coordinates or incidental editing restrictions; no prior behavioral pass is credited.",
+    "coordinateCorrection": {
+      "authority": {
+        "path": "CORRECTION_ACTIVATION.json",
+        "bytes": 6556,
+        "sha256": "e0a5010c219197553e983792029716e15bdd760f3e9558d9992e211e68b1e411"
+      },
+      "failedControls": {
+        "commit": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
+        "tree": "7bda39f10e96fd855441fb467a2b6df728ef77b2",
+        "worktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-01",
+        "manifestSha256": "e14d70c415889915379045afb89f0c133541f47403d4991a2693107e31d67806",
+        "returnSha256": "8b866ed1c0067cbccfcad4f870ca6d06b462228258144bec2b80fd2dc82b478d"
+      },
+      "cause": "Duplicated raw coordinate in two executable callers was renamed independently of the selected ACT.rawRoot consumed by proof.",
+      "checks": "COORDINATE_CHECKS.json",
+      "executableDeltaFromFailedControls": [
+        "HOST.mjs",
+        "operate.py"
+      ],
+      "taskProofAndHelperMeaningUnchanged": true
+    }
   },
   "checks": {
     "source": "STATIC_CHECKS.json",
@@ -102,7 +123,8 @@
     "nativeToolInputs": 196,
     "dependencyFilesAndLinks": 4576,
     "npmFilesAndLinks": 2326,
-    "preparationControlValidationFailures": []
+    "preparationControlValidationFailures": [],
+    "coordinateDiscriminator": "old-fails/new-passes; exact source/raw expressions and acquisition order"
   },
   "proofMapping": {
     "builds": 1,
@@ -181,5 +203,42 @@
     "Topology results are static layout capacity/source-owner projections, not measured physical separation",
     "Complete-body historical regression constructibility and repair correctness remain native-source/proof obligations"
   ],
-  "returnTo": "Root; one authored-only freeze, then stop. No reviewer activation."
+  "returnTo": "Root; one authored-only freeze, then stop. No reviewer activation.",
+  "coordinateCorrection": {
+    "failedSubject": {
+      "commit": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
+      "tree": "7bda39f10e96fd855441fb467a2b6df728ef77b2",
+      "worktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-01",
+      "manifestSha256": "e14d70c415889915379045afb89f0c133541f47403d4991a2693107e31d67806",
+      "returnSha256": "8b866ed1c0067cbccfcad4f870ca6d06b462228258144bec2b80fd2dc82b478d"
+    },
+    "grant": {
+      "path": "CORRECTION_ACTIVATION.json",
+      "bytes": 6556,
+      "sha256": "e0a5010c219197553e983792029716e15bdd760f3e9558d9992e211e68b1e411"
+    },
+    "acquiredUtc": "2026-11-16T08:02:39+00:00",
+    "originalPreparationClock": {
+      "startedUtc": "2026-11-16T07:34:42.254257+00:00",
+      "deadlineUtc": "2026-11-16T08:19:42.254257+00:00",
+      "newClock": false
+    },
+    "cause": "Duplicated raw coordinate in two executable callers was renamed independently of the selected ACT.rawRoot consumed by proof.",
+    "whyMissed": "Syntax/AST, inventories and layout capacity passed but did not conjoin actual producer and consumer raw coordinates.",
+    "pureCheck": "COORDINATE_CHECKS.json",
+    "result": "Old expressions fail equality; new HOST/operate/prove expressions equal ACT and LAYOUT. No runtime claim.",
+    "unchanged": [
+      "TASK",
+      "PROOF_PLAN",
+      "eight native W",
+      "all limits",
+      "five helpers",
+      "prove.py"
+    ],
+    "executableChangesOnly": [
+      "HOST.mjs",
+      "operate.py"
+    ],
+    "newValidationFailures": []
+  }
 }

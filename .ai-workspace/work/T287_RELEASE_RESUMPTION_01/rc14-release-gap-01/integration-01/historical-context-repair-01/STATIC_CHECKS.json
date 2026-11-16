@@ -97,5 +97,14 @@
   "provider": 0,
   "builds": 0,
   "tests": 0,
-  "qualification": false
+  "qualification": false,
+  "coordinateSuccessor": {
+    "completedUtc": "2026-11-16T08:05:23.020256+00:00",
+    "failedSubject": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
+    "originatingFailure": "Duplicated raw coordinate in two executable callers was renamed independently of the selected ACT.rawRoot consumed by proof.",
+    "whyPriorChecksMissed": "Syntax/AST, inventories and layout capacity passed but did not conjoin actual producer and consumer raw coordinates.",
+    "oldFailsNewPasses": "COORDINATE_CHECKS.json",
+    "preservedChecks": "All unaffected previous checks are retained for unchanged inputs; this is not a fresh runtime/readiness campaign.",
+    "newControlValidationFailures": []
+  }
 }

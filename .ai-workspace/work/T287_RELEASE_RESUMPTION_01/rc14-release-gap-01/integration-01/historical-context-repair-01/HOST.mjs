@@ -12,8 +12,9 @@ const providerCredentials=Object.fromEntries(['CLAUDE_CODE_OAUTH_TOKEN']
 for(const key of Object.keys(providerCredentials))delete process.env[key];
 
 const dir=dirname(fileURLToPath(import.meta.url));
-const source='/private/tmp/abg-rc14-historical-context-source-20261116-01';
-const raw='/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-20261116-01';
+const activation=JSON.parse(await readFile(join(dir,'ACTIVATION.json'),'utf8'));
+const source=activation.sourceWorktree;
+const raw=activation.rawRoot;
 const runtimeRoot=join(raw,'runtime'), tenant=join(source,'build_tenants/abiogenesis/typescript');
 const launchPath=resolve(process.argv[2]??'');
 assert(process.argv.length===3,'one explicit Root launch-packet path required');
@@ -27,7 +28,7 @@ const pinPath='/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_R
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const json=async p=>JSON.parse(await readFile(p,'utf8'));
 const pinBytes=await readFile(pinPath); assert.equal(sha(pinBytes),'52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26');
-const pin=JSON.parse(pinBytes), activation=await json(join(dir,'ACTIVATION.json')), task=await json(join(dir,'TASK.json'));
+const pin=JSON.parse(pinBytes), task=await json(join(dir,'TASK.json'));
 assert.equal(sha(await readFile(join(dir,'physical-topology.py'))),launch.observerSha256);
 assert(Array.isArray(launch.controls)&&launch.controls.length>=6,'exact accepted control digests required');
 const controlManifestBytes=await readFile(join(dir,'CONTROL_MANIFEST.json'));

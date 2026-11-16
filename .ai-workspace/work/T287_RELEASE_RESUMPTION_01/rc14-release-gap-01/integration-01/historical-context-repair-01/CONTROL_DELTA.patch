@@ -1,13 +1,14 @@
 --- accepted-B56/HOST.mjs
-+++ B64/HOST.mjs
-@@ -12,13 +12,13 @@
++++ B64-corrected/HOST.mjs
+@@ -12,13 +12,14 @@
  for(const key of Object.keys(providerCredentials))delete process.env[key];
  
  const dir=dirname(fileURLToPath(import.meta.url));
 -const source='/private/tmp/abg-rc14-assessment-dependency-source-20261116-01';
 -const raw='/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01';
-+const source='/private/tmp/abg-rc14-historical-context-source-20261116-01';
-+const raw='/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-20261116-01';
++const activation=JSON.parse(await readFile(join(dir,'ACTIVATION.json'),'utf8'));
++const source=activation.sourceWorktree;
++const raw=activation.rawRoot;
  const runtimeRoot=join(raw,'runtime'), tenant=join(source,'build_tenants/abiogenesis/typescript');
  const launchPath=resolve(process.argv[2]??'');
  assert(process.argv.length===3,'one explicit Root launch-packet path required');
@@ -17,7 +18,15 @@
  assert.equal(launch.dispatchAuthorized,true,'Root must accept packet and pushed source before launch');
  const head=launch.sourceHead;assert.match(head,/^[0-9a-f]{40}$/);
  const controlClock=JSON.parse(await readFile(join(raw,'CONTROL_START.json'),'utf8'));
-@@ -34,9 +34,13 @@
+@@ -27,16 +28,20 @@
+ const sha=b=>createHash('sha256').update(b).digest('hex');
+ const json=async p=>JSON.parse(await readFile(p,'utf8'));
+ const pinBytes=await readFile(pinPath); assert.equal(sha(pinBytes),'52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26');
+-const pin=JSON.parse(pinBytes), activation=await json(join(dir,'ACTIVATION.json')), task=await json(join(dir,'TASK.json'));
++const pin=JSON.parse(pinBytes), task=await json(join(dir,'TASK.json'));
+ assert.equal(sha(await readFile(join(dir,'physical-topology.py'))),launch.observerSha256);
+ assert(Array.isArray(launch.controls)&&launch.controls.length>=6,'exact accepted control digests required');
+ const controlManifestBytes=await readFile(join(dir,'CONTROL_MANIFEST.json'));
  assert.equal(sha(controlManifestBytes),launch.controlManifestSha256,'accepted control manifest');
  assert.deepEqual(launch.controls,JSON.parse(controlManifestBytes.toString('utf8')).files,'complete accepted controls');
  for(const control of launch.controls){assert(!control.path.includes('..')&&!control.path.startsWith('/'));assert.equal(sha(await readFile(join(dir,control.path))),control.sha256,control.path);}
@@ -32,7 +41,7 @@
  const setupOwner=await import(pathToFileURL(join(tenant,'test_env/uat/public-setup.mjs')));
  const runner=await import(pathToFileURL(join(tenant,'test_env/uat/runner.mjs')));
  const record=(path,value,rawBytes=false)=>runner.exclusiveRecord(runtimeRoot,path,value,rawBytes);
-@@ -79,6 +83,8 @@
+@@ -79,6 +84,8 @@
    await record('run.json',{activation:activation.id,head,launch:{path:launchPath,sha256:sha(await readFile(launchPath))},pin:{path:pinPath,sha256:sha(pinBytes)},pid:process.pid,startedUtc:new Date().toISOString(),limits,source,runtimeRoot,providerCallsAtMost:1});
    await sourceExact(); await reserve();
    for(const row of activation.externalReadOnlyInputs)await pinned(row);
@@ -41,7 +50,7 @@
    await record('external-method-inputs.json',{inputs:activation.externalReadOnlyInputs,scope:'Byte identity only; actual native content-read before edit remains mandatory audit evidence.'});
    for(const row of [pin.archive,pin.rawPackage,pin.rawProductToolchainManifest])await pinned(row);
    assert.equal(sha(await readFile(p.executable)),p.sha256);
-@@ -88,7 +94,7 @@
+@@ -88,7 +95,7 @@
    await record('provider-help.raw',help,true);await record('provider-identity.json',{executable:p.executable,sha256:p.sha256,version,model:p.model,effort:p.effort,measurement:'CLI identity and advertised argument support; no remote model attestation'});
    for(const suffix of ['resources/events','resources/runtime','resources/projections','resources/archives','sandbox/installed'])await mkdir(join(runtimeRoot,suffix),{recursive:true});
    const plannedProtected=[join(runtimeRoot,'sandbox/installed/abg'),join(runtimeRoot,'sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant'),join(runtimeRoot,'sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat'),
@@ -50,7 +59,7 @@
    await record('topology-before-setup.json',await observeTopology({worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots:plannedProtected,archiveRoot:join(runtimeRoot,'resources/archives')}));
    await mark('identity-and-topology-bound');
    const runtime=await setupOwner.installedModules(installed), {product,abg,api}=runtime;
-@@ -101,7 +107,7 @@
+@@ -101,7 +108,7 @@
    assert.deepEqual(args.slice(args.indexOf('--effort'),args.indexOf('--effort')+2),['--effort',p.effort]);
    assert.deepEqual(args.slice(args.indexOf('--max-turns'),args.indexOf('--max-turns')+2),['--max-turns',String(limits.nativeMaxTurns)]);
    await record('provider-transport-selection.json',{contract,args,configured,environmentKeys:Object.keys(worker).sort()});
@@ -59,7 +68,7 @@
      command:runner.commandRecorder(runtimeRoot,{environment:setupEnvironment,timeoutMs:limits.setupReadbackCommandMs,maxOutputBytes:limits.outputBytesPerCommand})});
    const authorize=caller.authorize;let imported=0;
    caller.authorize=(packet,request,resources,slots)=>packet===product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.create.clean
-@@ -115,7 +121,7 @@
+@@ -115,7 +122,7 @@
    for(const suffix of ['worker-tmp','worker-npm-cache'])await mkdir(join(raw,'host-scratch',suffix),{recursive:true});
    const env=caller.refresh(), ids=product.NATIVE_WORKSPACE_WORK_IDS;
    assert.equal(env.workspaceBinding.roots.productRoot,caller.installedRoot);
@@ -68,7 +77,7 @@
    await record('topology-before-dispatch.json',await observeTopology({worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots,archiveRoot:env.workspaceBinding.roots.archiveRoot}));
    const operations=await import(pathToFileURL(join(installed,'build/code/src/product/worksite_operations.js')));
    const writeRefusal=await operations.checkWorksiteWriteRoots({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,protectedInstallRoots:env.productInstalls.map(x=>x.installedRoot),writeRoots:task.writeRoots});
-@@ -128,15 +134,15 @@
+@@ -128,15 +135,15 @@
    const constructed=await api.constructInstalledStartCall({selection:{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'},programRef:ids.programRef,catalog:caller.state.catalog,catalogView:view,applications:[],
      admittedInstalls:env.productInstalls,workspaceBinding:env.workspaceBinding,verifyInstallAdmission:i=>abg.hasAdmittedProductInstall(env.artifactTruth,i),actorRef:caller.actorRef,
      input:{factory:({workspaceBinding,grants})=>{assert.equal(grants.length,1);return input=product.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,capabilityGrant:grants[0],context,outcome:task.outcome,instructions:task.instructions,readFirst:task.readFirst,writeRoots:task.writeRoots,checks:task.checks});}},
@@ -87,7 +96,7 @@
    await record('topology-immediately-before-dispatch.json',await observeTopology({worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots:finalProtected,archiveRoot:finalEnv.workspaceBinding.roots.archiveRoot}));
    await record('setup-owned-custody-at-dispatch.json',custody('preflight'));
    abg.assertAcquiredAbgEventResourceSelectionCurrent(entry);
-@@ -176,6 +182,8 @@
+@@ -176,6 +183,8 @@
    }
      catch(error){readbackFailure={message:error.message,observation:error.observation??null};await record('READBACK_FAILURE.json',readbackFailure);if(failure===null){failure={name:error.name,message:error.message,stage:'fresh-readback-completion',observation:error.observation??null};await record('FIRST_FAILURE.json',{failure,launched,phases});}process.exitCode=1;}}
    if(!nativeCompleted)process.exitCode=1;
@@ -97,20 +106,21 @@
    console.log(JSON.stringify({phase:'operator-return',launched,nativeCompleted,failure:failure?.message??null,readbackFailure,actualResourceClose:close!==null}));
  }
 --- accepted-B56/operate.py
-+++ B64/operate.py
-@@ -1,8 +1,8 @@
++++ B64-corrected/operate.py
+@@ -1,9 +1,9 @@
  import datetime, hashlib, json, os, pathlib, signal, stat, subprocess, sys, time
  
  CONTROL = pathlib.Path(__file__).resolve().parent
 -RAW = pathlib.Path('/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01')
 -SOURCE = pathlib.Path('/private/tmp/abg-rc14-assessment-dependency-source-20261116-01')
-+RAW = pathlib.Path('/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-20261116-01')
-+SOURCE = pathlib.Path('/private/tmp/abg-rc14-historical-context-source-20261116-01')
  ACT = json.loads((CONTROL / 'ACTIVATION.json').read_text())
++RAW = pathlib.Path(ACT['rawRoot'])
++SOURCE = pathlib.Path(ACT['sourceWorktree'])
  CLEANUP_RESERVE = ACT['limits']['cleanupReserveMs'] / 1000
  MAX_BYTES = ACT['limits']['outputBytesPerCommand']
+ 
 --- accepted-B56/prove.py
-+++ B64/prove.py
++++ B64-corrected/prove.py
 @@ -1,5 +1,5 @@
  #!/usr/bin/env python3
 -"""One fresh build and bounded dependency/assembly proof; separate exact Root grant."""

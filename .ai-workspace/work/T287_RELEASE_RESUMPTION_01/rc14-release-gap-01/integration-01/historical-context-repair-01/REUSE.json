@@ -36,8 +36,8 @@
       "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
     }
   ],
-  "operateDelta": "Fresh source/raw coordinate strings only; exclusive launch staging, original clocks, final aggregate cap, first failure and group cleanup unchanged.",
-  "hostDelta": "Fresh source/raw/id/URI coordinates; exact external closed-evidence custody entry/exit; one shared complete protected external set appended at all three topology phases. Actual installed-Public setup/task/terminal/close/fresh-read owners retained.",
+  "operateDelta": "Acquire ACT before coordinates; derive RAW and SOURCE only from ACT.rawRoot/sourceWorktree. All callable ASTs, launch staging, clocks, caps, failure and cleanup remain unchanged.",
+  "hostDelta": "Acquire ACTIVATION before dependent raw/source use and derive both coordinates from it. Preserve previous B64 identity/external protection/evidence custody changes and all actual Public/task/terminal/close/fresh-read contracts.",
   "proveUnchangedCallableASTs": [
     "module",
     "digest",
@@ -55,5 +55,26 @@
     "main"
   ],
   "proofDelta": "B64 read-only evidence pins within existing entry/exit controls; complete source/proof coordinates; three whole-file mandatory positive/title/capture populations; exact generated capability graph build allowance with inclusive built postimage and exit conservation. No name filters or proof reuse.",
-  "notReused": "Old B56 Task/fixture assets/diagnosis/candidate coordinates or incidental editing restrictions; no prior behavioral pass is credited."
+  "notReused": "Old B56 Task/fixture assets/diagnosis/candidate coordinates or incidental editing restrictions; no prior behavioral pass is credited.",
+  "coordinateCorrection": {
+    "authority": {
+      "path": "CORRECTION_ACTIVATION.json",
+      "bytes": 6556,
+      "sha256": "e0a5010c219197553e983792029716e15bdd760f3e9558d9992e211e68b1e411"
+    },
+    "failedControls": {
+      "commit": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
+      "tree": "7bda39f10e96fd855441fb467a2b6df728ef77b2",
+      "worktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-01",
+      "manifestSha256": "e14d70c415889915379045afb89f0c133541f47403d4991a2693107e31d67806",
+      "returnSha256": "8b866ed1c0067cbccfcad4f870ca6d06b462228258144bec2b80fd2dc82b478d"
+    },
+    "cause": "Duplicated raw coordinate in two executable callers was renamed independently of the selected ACT.rawRoot consumed by proof.",
+    "checks": "COORDINATE_CHECKS.json",
+    "executableDeltaFromFailedControls": [
+      "HOST.mjs",
+      "operate.py"
+    ],
+    "taskProofAndHelperMeaningUnchanged": true
+  }
 }

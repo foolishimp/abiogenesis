@@ -1,9 +1,9 @@
 import datetime, hashlib, json, os, pathlib, signal, stat, subprocess, sys, time
 
 CONTROL = pathlib.Path(__file__).resolve().parent
-RAW = pathlib.Path('/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-20261116-01')
-SOURCE = pathlib.Path('/private/tmp/abg-rc14-historical-context-source-20261116-01')
 ACT = json.loads((CONTROL / 'ACTIVATION.json').read_text())
+RAW = pathlib.Path(ACT['rawRoot'])
+SOURCE = pathlib.Path(ACT['sourceWorktree'])
 CLEANUP_RESERVE = ACT['limits']['cleanupReserveMs'] / 1000
 MAX_BYTES = ACT['limits']['outputBytesPerCommand']
 

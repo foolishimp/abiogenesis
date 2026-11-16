@@ -9,8 +9,18 @@
     },
     {
       "path": "CONTROL_DELTA.patch",
-      "bytes": 21389,
-      "sha256": "f95d3b748503631844f34003c2c94d3edd5e28b90570c83356db05ad2ae0aade"
+      "bytes": 21985,
+      "sha256": "c365033a3aca7678dd98a760b9acf48be4a295e055bd99cd00a36833ac2409c4"
+    },
+    {
+      "path": "COORDINATE_CHECKS.json",
+      "bytes": 2970,
+      "sha256": "f62c81aaf43550c6f6ff0c0a95bd7358d7b38c7fe7747d3515791270342e16cb"
+    },
+    {
+      "path": "CORRECTION_ACTIVATION.json",
+      "bytes": 6556,
+      "sha256": "e0a5010c219197553e983792029716e15bdd760f3e9558d9992e211e68b1e411"
     },
     {
       "path": "DEPENDENCY_INPUTS.json",
@@ -34,8 +44,8 @@
     },
     {
       "path": "HOST.mjs",
-      "bytes": 22325,
-      "sha256": "93a2f953de783d9541d02f6bab159896a88e05408048f341b809464daf2a240c"
+      "bytes": 22231,
+      "sha256": "a556f419e92c6543ba73deb2ad0bfd3d7b90e42205ec3e93f724b6d7fa36158e"
     },
     {
       "path": "INPUT_CHECKS.json",
@@ -84,13 +94,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 4327,
-      "sha256": "220278fab37ad73342fd253ff7ba8af4fc01a8508d8e895e49160b710dac9fe5"
+      "bytes": 4915,
+      "sha256": "fcc88dab5fc19fce0b36b6b95916232af6b9426bb1305cf8b89bfb388a93084c"
     },
     {
       "path": "REUSE.json",
-      "bytes": 2660,
-      "sha256": "56a9d080be0a4b65110458d00f2bcabaed7bca874946912d81da56065cb58b1b"
+      "bytes": 3605,
+      "sha256": "1c184a83d9a7f80cc722b79b095151277d90797234c9708526fe4bdea792ba77"
     },
     {
       "path": "ROOT_SELECTION.json",
@@ -109,8 +119,8 @@
     },
     {
       "path": "STATIC_CHECKS.json",
-      "bytes": 3839,
-      "sha256": "b421fcfd32ad9f721161fb43b465abfcff6d1c549ddaf22c8e1319e1a04d69d4"
+      "bytes": 4524,
+      "sha256": "2914141ed9f923e23ac73424bcb4620e70f2eb4e4ee2be12f06c830b424311db"
     },
     {
       "path": "TASK.json",
@@ -139,8 +149,8 @@
     },
     {
       "path": "operate.py",
-      "bytes": 6480,
-      "sha256": "f4387336dbefdfd05f2d5b1b0b2a9df12be454136157b9b3395b2502dbfcdba7"
+      "bytes": 6349,
+      "sha256": "828cdb2f0dccad7ff58e85038f67ca0221d027cb2d752e602d76b7c6928b88e7"
     },
     {
       "path": "physical-topology.py",
