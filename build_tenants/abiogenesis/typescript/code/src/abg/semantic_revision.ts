@@ -1,4 +1,4 @@
-import type { RuntimeEventPrefix } from "./event_prefix.js";
+import type { RuntimeEventPrefix, WorksiteContextBodyHistoricalUse } from "./event_prefix.js";
 import { readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventBodiesAtPrefix } from "./event_prefix.js";
 import { projectWorksiteRevisionOrigins, worksiteRevisionPhysicalMatches, worksiteRevisionSeedMatches,
   worksiteRevisionEntryBindingDisposition, projectWorksiteRevisionBindingOrigin, worksiteRevisionMeaningMatches,
@@ -335,6 +335,30 @@ export function nativeSemanticRevisionIntakeMatches(basis: SemanticStageNativeBa
   const facts = nativeIntakeFacts(basis, input);
   return facts !== null && canonicalEquals(intakeValue(facts, output.nativeWorksite.context, output.nativeWorksite.commandExecutionLimits), output);
 }
+/** Exact historical context use of one authenticated revision subject. The
+ * admitted intake already proved the source binding cover for the cause's
+ * source Run (`binding_cover_absent` otherwise), so the covered binding is the
+ * cause basis's binding; only parent/cause/construction Results whose own
+ * execution basis carries that binding are declared. No caller list or
+ * carrier-shaped search supplies a use; the body owner still authenticates
+ * each read. */
+function nativeRevisionHistoricalContextUses(prefix: RuntimeEventPrefix,
+  states: readonly NonNullable<ReturnType<typeof projectWorksiteRevisionNativeResult>>[],
+  cause: ReturnType<typeof projectWorksiteRevisionNativeResult>): readonly WorksiteContextBodyHistoricalUse[] | null {
+  if (cause === null) return deepFreeze([]);
+  const causeBasis = rehydrateExecutionBasisAtPrefix(prefix, cause.cCall.basisId);
+  if (causeBasis === null) return null;
+  const coveredBinding = { bindingId: causeBasis.workspaceBindingId, bindingDigest: causeBasis.workspaceBindingDigest };
+  const uses: WorksiteContextBodyHistoricalUse[] = [];
+  for (const state of states) {
+    const basis = rehydrateExecutionBasisAtPrefix(prefix, state.cCall.basisId);
+    if (basis === null || basis.workspaceBindingId !== coveredBinding.bindingId || basis.workspaceBindingDigest !== coveredBinding.bindingDigest ||
+      uses.some(use => use.resultRef === state.result.resultRef)) continue;
+    uses.push({ resultRef: state.result.resultRef, resultDigest: state.result.resultDigest, cCallRef: state.cCall.cCallRef,
+      runId: state.cCall.runId, coveredBinding });
+  }
+  return deepFreeze(uses);
+}
 /** The admitted intake is the acquisition proof. Its historical facts are not
  * rediscovered at selection, correction or Evidence leaves. */
 function nativeJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknown, readPhysical: boolean) {
@@ -368,7 +392,10 @@ function nativeJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknow
       worksiteCommandSourcesInvalidatedAfter(owner.prefix, indexedRuntimeEvents(owner.prefix, "id:" + acquired.result.admissionEventRef)[0]!.admissionOrdinal,
         owner.environment.workspaceAuthorityBasis.canonicalRoot, [], current.context.readRoots)) return null;
     const operationalFailure = causes.length === 1 ? operationalPreparationFailure(owner.prefix, causes[0]!, owner.lifecycle) : null;
-    return { owner, request, parent, envelope, nativeWorksite, acquisition: acquired, construction, operationalFailure,
+    const historicalContexts = nativeRevisionHistoricalContextUses(owner.prefix, [parent, ...causes.filter((c): c is NonNullable<typeof c> => c !== null),
+      ...(construction === null ? [] : [construction])], causes[0] ?? null);
+    if (historicalContexts === null) return null;
+    return { owner, request, parent, envelope, nativeWorksite, acquisition: acquired, construction, operationalFailure, historicalContexts,
       priorWorksite: null, currentWorksite: null, origins: construction === null ? [] : [construction],
       causes: causes.filter((c): c is NonNullable<typeof c> => c !== null),
       counterevidenceAssets: causes.flatMap(c => jobEnvelope(c!.result.value)?.assets ?? []) };

@@ -1,0 +1,76 @@
+{
+  "id": "RC14-B64-PARTIAL-PRESERVATION-WRITER-043",
+  "recordedUtc": "2026-11-16T09:15:52.684066+00:00",
+  "actor": "/root",
+  "role": "Explicit separate exact-source preservation Writer; not Executive while applying these effects",
+  "authority": "Owner continue/finish RC14 and checkpoint everything on main/push; Root closed multi-frame disposition selects preservation of incomplete work, not source acceptance.",
+  "disposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_NATIVE02_PARTIAL_DISPOSITION_01.json",
+    "bytes": 9825,
+    "sha256": "9aa6a5d058f2f6d54f44cf94808b83851ebbb5175a8962bb3699b99a18d4110d"
+  },
+  "mainPreimage": "29bc184119b0a925d21c54f3a7850aebe8601cb3",
+  "sourceBase": "b40041c31cf1bb665cc1bf639483072201d8c92a",
+  "sourceFreeze": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/FROZEN_SOURCE.json",
+    "bytes": 6688,
+    "sha256": "7ce99b9cba3f6ca1f47a1e5ac6903f3d7009e3d7f6da6ada08db6adb12666ae6"
+  },
+  "writeTerritory": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "operationGrant": [
+    "Verify each main file still equals exact sourceBase; copy only six frozen postimage files byte-for-byte, without hand edits.",
+    "Stage and commit these six exact files plus compact selected disposition/activation/status/ticket records; push main after exact staged-path and source-pin checks.",
+    "Leave native02 worktree HEAD/index, immutable source-subject, all raw receipts and earlier candidate/install unchanged."
+  ],
+  "files": [
+    {
+      "sourceRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/source-subject/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 72102,
+      "sha256": "4b9be5fe94f92cf3311d2c3e140d9c6691842ca1ff75ab12d27177b51a331613"
+    },
+    {
+      "sourceRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/source-subject/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "bytes": 118720,
+      "sha256": "ca724a9026e73ed43bf4de12e144be8f98aef00ad1371796591f214bc86cdb43"
+    },
+    {
+      "sourceRelativePath": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/source-subject/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "bytes": 98095,
+      "sha256": "037193f0f129b176805993d4e035cb05f698ceec42b41a1f7ab20354537e5b84"
+    },
+    {
+      "sourceRelativePath": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/source-subject/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "bytes": 69255,
+      "sha256": "721bcca99c4bc3a6c38a244b9e364a92da91dd60725e8cce67e14b88a4a5164a"
+    },
+    {
+      "sourceRelativePath": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/source-subject/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "bytes": 42109,
+      "sha256": "c4e3138783b9959e9fecd4fa5d60a11e52e2e2e5f69e3aab8e4cf726540332b2"
+    },
+    {
+      "sourceRelativePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "bytes": 111645,
+      "sha256": "7056600b9db4227c3349a229f5cb9863f3c1a057988fb9d89f8e3fdef1bf2a50"
+    }
+  ],
+  "acceptance": false,
+  "methodCompliance": false,
+  "proofClaim": false,
+  "exclusions": [
+    "No semantic edits beyond exact returned bytes, source deletion, raw publication, qualification, tag, install or pin change."
+  ]
+}

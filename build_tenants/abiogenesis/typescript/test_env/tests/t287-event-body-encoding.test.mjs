@@ -9,7 +9,8 @@ import test from "node:test";
 import * as storeOwner from "../../build/code/src/abg/event_store.js";
 import { persistEventLog } from "../../build/code/src/abg/event_log.js";
 import { selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, resolveWorksiteContextBodyAtPrefix,
-  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix, validatedRuntimeEventPrefixBeforeEvent, indexedRuntimeEvents } from "../../build/code/src/abg/event_prefix.js";
+  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix, validatedRuntimeEventPrefixBeforeEvent, indexedRuntimeEvents,
+  resolveHistoricalWorksiteContextBodyAtPrefix } from "../../build/code/src/abg/event_prefix.js";
 import { replayValidatedRuntimeEventPrefix } from "../../build/code/src/abg/replay.js";
 import { projectExactExecutionBasisAtPrefix, governanceContextBodyUse } from "../../build/code/src/abg/invocation_execution_truth.js";
 import { governanceContract } from "../../build/code/src/product/default_library_identity.js";
@@ -1260,4 +1261,90 @@ test("RC7 actual current input: the Result task is its own admitted basis input,
   const coldRead = resolveWorksiteContextBodyAtPrefix(cold, coldEvent.payload.value.after, "src/a.txt", x.use);
   assert.equal(coldRead.kind, "worksite_context_body"); assert.equal(coldRead.bytes.toString(), x.text["src/a.txt"]);
   assert.equal(nativeWork.nativeWorkspaceWorkObservationMatchesTask(x.task, coldEvent.payload.value), true);
+});
+
+// B64: a native assessor's `after` carries members of its own Run's holder; the
+// semantic fold keeps that context unchanged. A later Run presents those bytes
+// only through the revision-declared historical use. Every actual candidate is
+// retained before any assertion; capture failure is secondary evidence.
+test("B64 historical member authority refuses undeclared use and altered coordinates", async t => {
+  const root = process.env.ABG_REGRESSION_PROOF_ROOT, candidate = { kind: "b64_member_authority_candidate", reads: [], refusals: [] };
+  let captureError = null;
+  const capture = () => {
+    if (root === undefined || root === "") return;
+    try { fs.mkdirSync(root, { recursive: true }); fs.writeFileSync(join(root, "b64-member-authority.candidate.json"), JSON.stringify(candidate, null, 1)); }
+    catch (error) { captureError = String(error?.stack ?? error); }
+  };
+  const asJson = read => read.kind === "worksite_context_body" ? { ...read, bytes: read.bytes.toString("base64") } : read;
+  try {
+    const f = await resource(t), text = { "src/a.txt": "alpha ".repeat(3000), "src/b.txt": "beta ".repeat(3000) };
+    const { observe } = await contextFixture(t, text), A = "run://body-fixture/b64-source", B = "run://body-fixture/b64-revision";
+    const carry = async (use, ctx) => reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), ctx ?? await observe(), use);
+    // Source Run: one holder birth, a native assessor whose after carries its members, then the unchanged fold.
+    const prepare = result(f.store, "b64-prepare", nativeTask("b64-prepare", await carry({ runId: A })), A);
+    const after = await carry({ runId: A });
+    const assessor = result(f.store, "b64-assessor", { kind: "native_workspace_work_observation", schemaVersion: "5.0.0",
+      task: nativeTask("b64-assessor", after), after, assessment: { disposition: "falsified" } }, A);
+    const fold = result(f.store, "b64-adverse-fold", { kind: "semantic_stage_envelope", schemaVersion: "5.0.0", context: after, assets: [], evidence: null }, A);
+    const foldBytes = canonicalJson(fold.payload);
+    assert.ok(fileEntries(after).every(e => e.encoding === "admitted_member"), JSON.stringify(carriage(after)));
+    const coveredBinding = { bindingId: after.workspaceBindingIdentity, bindingDigest: after.workspaceBindingDigest };
+    const use = { resultRef: fold.payload.resultRef, resultDigest: fold.payload.resultDigest, cCallRef: fold.aggregateId, runId: A, coveredBinding };
+    // The revision Run admits its own later Result; the historical prefix is the same committed store.
+    result(f.store, "b64-revision-intake", nativeTask("b64-revision-intake", await observe()), B);
+    const held = selectRuntimeEventPrefixFromStore(f.store);
+    const cold = selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(f.eventLogPath)));
+    for (const [label, prefix] of [["held", held], ["cold", cold]]) for (const e of fileEntries(after)) {
+      candidate.reads.push({ label, relativePath: e.relativePath, read: asJson(resolveHistoricalWorksiteContextBodyAtPrefix(prefix, after, e.relativePath, [use])) });
+    }
+    const attempt = (label, ctx, path, uses, prefix = held) => {
+      const read = resolveHistoricalWorksiteContextBodyAtPrefix(prefix, ctx, path, uses);
+      candidate.refusals.push({ label, relativePath: path, read: asJson(read) });
+      return read;
+    };
+    const withEntry = (ctx, path, change) => ({ ...ctx, entries: ctx.entries.map(e => e.relativePath === path ? change(structuredClone(e)) : e) });
+    const memberOf = (path, change) => withEntry(after, path, e => { change(e.member); return e; });
+    const cases = [
+      ["undeclared use", after, "src/a.txt", [], "foreign"],
+      ["same-Run resolver from the revision Run", null, "src/a.txt", null, "foreign"],
+      ["foreign Run", after, "src/a.txt", [{ ...use, runId: B }], "foreign"],
+      ["foreign CCall", after, "src/a.txt", [{ ...use, cCallRef: "c-call://body-fixture/b64-other" }], "foreign"],
+      ["missing Result", after, "src/a.txt", [{ ...use, resultRef: "result://body-fixture/b64-never-admitted" }], "pending"],
+      ["tampered Result digest", after, "src/a.txt", [{ ...use, resultDigest: sha256Canonical("other") }], "tampered"],
+      ["uncovered binding", after, "src/a.txt", [{ ...use, coveredBinding: { ...coveredBinding, bindingDigest: sha256Canonical("other-binding") } }], "foreign"],
+      ["assessor Result is not the declared fold", after, "src/a.txt", [{ ...use, resultRef: assessor.payload.resultRef, resultDigest: sha256Canonical("x"), cCallRef: assessor.aggregateId }], "tampered"],
+      ["altered context is not held at a declared coordinate", withEntry(after, "src/a.txt", e => ({ ...e, digest: sha256Canonical("v2") })), "src/a.txt", [use], "foreign"],
+      ["wrong path", after, "src/missing.txt", [use], "missing"],
+      ["outside read roots", after, "other/a.txt", [use], "denied"],
+    ];
+    for (const [label, ctx, path, uses, expected] of cases) {
+      const read = ctx === null ? resolveWorksiteContextBodyAtPrefix(held, after, path, { runId: B }) : attempt(label, ctx, path, uses);
+      if (ctx === null) candidate.refusals.push({ label, relativePath: path, read: asJson(read) });
+      candidate.refusals.at(-1).expected = expected;
+    }
+    // Altered member coordinates inside an otherwise declared context are no longer that held context.
+    for (const [label, change] of [["tampered member path", m => { m.path = [...m.path.slice(0, -1), 99]; }],
+      ["forward holder", m => { m.resultRef = "result://body-fixture/b64-forward"; }]]) {
+      attempt(label, memberOf("src/a.txt", change), "src/a.txt", [use]); candidate.refusals.at(-1).expected = "foreign";
+    }
+    candidate.foldAfter = { bytes: canonicalJson(f.store.readAll().find(e => e.eventId === fold.eventId).payload), original: foldBytes };
+    capture();
+    // Assertions after complete capture.
+    for (const row of candidate.reads) {
+      assert.equal(row.read.kind, "worksite_context_body", JSON.stringify(row));
+      assert.equal(Buffer.from(row.read.bytes, "base64").toString(), text[row.relativePath]);
+      assert.equal(row.read.holder.eventRef, prepare.eventId);
+    }
+    const heldReads = candidate.reads.filter(r => r.label === "held").map(r => r.read), coldReads = candidate.reads.filter(r => r.label === "cold").map(r => r.read);
+    assert.deepEqual(coldReads, heldReads, "held and cold prefixes present the same complete historical bytes");
+    for (const row of candidate.refusals) {
+      assert.equal(row.read.kind, "worksite_context_body_refusal", JSON.stringify(row));
+      assert.equal(row.read.code, row.expected, `${row.label}: ${row.read.reason}`);
+    }
+    assert.equal(candidate.foldAfter.bytes, candidate.foldAfter.original, "the admitted fold carrier is unchanged");
+  } catch (error) {
+    candidate.primaryError = String(error?.stack ?? error); capture(); throw error;
+  } finally {
+    if (captureError !== null) t.diagnostic(`secondary capture failure: ${captureError}`);
+  }
 });

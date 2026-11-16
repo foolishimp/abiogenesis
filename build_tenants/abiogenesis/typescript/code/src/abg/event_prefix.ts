@@ -1071,6 +1071,61 @@ export function resolveWorksiteContextBodyAtPrefix(prefix: RuntimeEventPrefix, c
         : { eventRef: event.eventId, resultRef: holderRef, resultDigest: holderDigest as Sha256Digest }) });
   } catch (error) { return refuse("malformed", `native context body read failed: ${String(error)}`); }
 }
+/** One historical context use the revision owner derives from its authenticated
+ * subject: the exact admitted parent/cause/construction Result, its CCall and
+ * genuine historical Run, and the source binding the admitted intake's binding
+ * cover relates to the consumer's current W. It presents historical bytes only;
+ * it grants no source, read, currentness or effect authority. */
+export type WorksiteContextBodyHistoricalUse = Readonly<{ resultRef: string; resultDigest: string; cCallRef: string; runId: string;
+  coveredBinding: Readonly<{ bindingId: string; bindingDigest: string }> }>;
+/** Fixed declared envelope coordinates of a historical context. They are typed
+ * slots of the admitted value kind, never a recursive carrier-shaped search. */
+const HISTORICAL_CONTEXT_POSITIONS: Readonly<Record<string, readonly (readonly string[])[]>> = Object.freeze({
+  semantic_stage_envelope: [["context"], ["evidence", "constructionResult", "after"], ["evidence", "executionObservation", "task", "sourceNativeWork", "after"]],
+  semantic_revision_envelope: [["current", "context"], ["current", "evidence", "constructionResult", "after"],
+    ["current", "evidence", "executionObservation", "task", "sourceNativeWork", "after"], ["revisionBasis", "request", "nativeWorksite", "context"]],
+  native_workspace_work_observation: [["after"], ["task", "context"]],
+  native_workspace_work_failure: [["after"], ["task", "context"]],
+});
+/** @internal Historical member read for a revision presentation. The context
+ * must equal the one held at a declared coordinate of a declared committed
+ * Result and carry its covered source binding; its bytes then resolve under that
+ * Result's own Run through the unchanged resolver (holder admission, digest,
+ * basis, coordinate, scope, path, version, length, read roots and bytes). */
+export function resolveHistoricalWorksiteContextBodyAtPrefix(prefix: RuntimeEventPrefix, context: WorksiteContextObservation,
+  relativePath: string, uses: readonly WorksiteContextBodyHistoricalUse[]): WorksiteContextBodyResolution {
+  const refuse = (code: WorksiteContextBodyRefusalCode, reason: string): WorksiteContextBodyResolution =>
+    Object.freeze({ kind: "worksite_context_body_refusal", code, relativePath, reason });
+  try {
+    const committed = committedBodyPrefix(prefix);
+    if (committed === undefined) return refuse("pending", "no committed predecessor prefix");
+    const record = (x: unknown): x is Readonly<Record<string, JsonValue>> => typeof x === "object" && x !== null && !Array.isArray(x);
+    const held = heldContextBodies(committed);
+    let refusal: WorksiteContextBodyResolution | null = null;
+    for (const use of Array.isArray(uses) ? uses : []) {
+      if (!record(use) || !record(use.coveredBinding) || context.workspaceBindingIdentity !== use.coveredBinding.bindingId ||
+        context.workspaceBindingDigest !== use.coveredBinding.bindingDigest) continue;
+      const rows = admittedHolderEnvelopes(committed, "payload:resultRef:" + use.resultRef);
+      if (rows.length !== 1) { refusal ??= refuse(rows.length === 0 ? "pending" : "tampered", "declared historical Result is not one exact admission at this prefix"); continue; }
+      if (rows[0]!.aggregateId !== use.cCallRef || rows[0]!.runId !== use.runId) { refusal ??= refuse("foreign", "declared historical Result belongs to another CCall or Run"); continue; }
+      const event = heldResultEvent(committed, held, rows[0]!.eventId), payload = event?.payload;
+      if (!record(payload) || payload.resultRef !== use.resultRef || payload.resultDigest !== use.resultDigest ||
+        (payload.resultClass !== "success" && payload.resultClass !== "failure") || !record(payload.value) || typeof payload.value.kind !== "string") {
+        refusal ??= refuse("tampered", "declared historical Result differs from its admission"); continue;
+      }
+      const value: Readonly<Record<string, JsonValue>> = payload.value, kind = value.kind as string;
+      const positions = Object.hasOwn(HISTORICAL_CONTEXT_POSITIONS, kind) ? HISTORICAL_CONTEXT_POSITIONS[kind]! : [];
+      const declared = positions.some(path => {
+        let cursor: unknown = value;
+        for (const step of path) cursor = record(cursor) ? cursor[step] : undefined;
+        return record(cursor) && cursor.kind === "worksite_context_observation" && canonicalEquals(cursor, context as unknown as JsonValue);
+      });
+      if (!declared) { refusal ??= refuse("foreign", "context is not held at a declared coordinate of the declared historical Result"); continue; }
+      return resolveWorksiteContextBodyAtPrefix(committed, context, relativePath, { runId: use.runId });
+    }
+    return refusal ?? refuse("foreign", "no authenticated historical revision use declares this context and binding");
+  } catch (error) { return refuse("malformed", `historical context body read failed: ${String(error)}`); }
+}
 /** @internal One consumer's selected-body reader over one context at this prefix. */
 export function worksiteContextBodyReaderAtPrefix(prefix: RuntimeEventPrefix, context: WorksiteContextObservation,
   use: WorksiteContextBodyUse): (entry: Readonly<{ relativePath: string }>) => Buffer | null {

@@ -136,7 +136,18 @@ native candidate file may present its exact candidate value once only when
 strict JSON parsing proves that value equal; original byte/path/provenance
 coordinates and full admitted carriers remain unchanged. Parent/cause C/J
 outcomes, eligible stage/rubric/obligation/target domains, phase, historical versus
-current observations and binding identities remain explicit. The plan/manifest
+current observations and binding identities remain explicit. A parent/cause or
+construction envelope may legally hold `admitted_member` context entries from
+its native fold ([HOW](./T287_NATIVE_WORKSPACE_WORK_DESIGN.md#context-body-carriage-p1)).
+The view reaches those bytes only through the revision-declared historical use
+and the held-prefix member owner, under the historical Run and covered source
+binding; the presented row keeps its original member coordinate, path, digest
+and length beside the shared byte reference, and the admitted carrier is not
+rewritten. Held and cold prefixes yield the same presentation. The selected
+current W context remains the fresh inline intake observation; a member there,
+an undeclared historical use or a refused read stops assembly as
+`unavailable_required_content`. A same-Run semantic stage view reads its own
+envelope's members through the unchanged same-Run resolver. The plan/manifest
 identify the decision view and its material references; they do not claim a
 full-carrier echo. Ordinary source and task data remain available; separately
 owned evaluator-only job data remains withheld from the selector, with its

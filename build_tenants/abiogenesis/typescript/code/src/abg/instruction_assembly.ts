@@ -19,14 +19,15 @@ import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/diges
 import { deepFreeze } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { reidentifyHistoricalDurablePrefixCoordinate } from "./event_store.js";
-import { indexedRuntimeEvents, worksiteContextBodyReaderAtPrefix } from "./event_prefix.js";
+import { indexedRuntimeEvents, worksiteContextBodyReaderAtPrefix, resolveWorksiteContextBodyAtPrefix, resolveHistoricalWorksiteContextBodyAtPrefix,
+  type WorksiteContextBodyHistoricalUse } from "./event_prefix.js";
 import { governanceContextBodyUse, hasExactInvocationRunBindingAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import type { RecurseApplication } from "../gtl/contracts.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { isSemanticStageDeclaration } from "../gtl/semantic_stage.js";
 import { semanticSourceText, semanticWorkerResultSchema, semanticPredecessorStatementRefs, semanticAssessmentStatementDomain, isSemanticStageEnvelope, type SemanticEvidenceInput } from "../product/semantic_stage.js";
 import { isWorksiteCommandExecutionObservation, isWorksiteRevisionCommandExecutionObservation } from "../product/worksite_command_execution.js";
-import { isWorksiteContextObservation } from "../product/worksite_effect.js";
+import { isWorksiteContextObservation, type WorksiteContextObservation } from "../product/worksite_effect.js";
 import { authenticateOwnedSemanticStageBasis, semanticInputMatchesBasis, semanticWorksiteContextMatchesBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
 import type { ProbabilisticWorkerRequest, LeafInvocationPort } from "../implementation/contracts.js";
 import { projectRunEnvironmentRoleEvidenceAtPrefix } from "./stdo_environment.js";
@@ -821,7 +822,15 @@ function constructJobInstructionAssembly(basis: SemanticStageNativeBasis, suppli
       observation: content === "not_required" ? input.context === null ? null : { observationRef: input.context.observationRef, observationDigest: input.context.observationDigest, bodyDisposition: "omitted_not_required" } :
         input.context === null ? null : { ...input.context, entries: input.context.entries.map(e => {
           if (e.state !== "file") return e;
-          if (e.encoding !== "base64") throw new TypeError("semantic worksite view requires its inline observed body");
+          if (e.encoding !== "base64") {
+            // A native fold carries its observation's member entries unchanged.
+            // The same-Run owner reader rejoins the committed holder; any other
+            // holder, coordinate or version refuses this view.
+            const read = resolveWorksiteContextBodyAtPrefix(owner.prefix, input.context!, e.relativePath, { runId: owner.call.runId });
+            if (read.kind !== "worksite_context_body") throw new TypeError(`semantic worksite member ${read.code}: ${read.reason}`);
+            const { encoding, ...identity } = e;
+            return { ...identity, sourceEncoding: encoding, textView: observedText(read.bytes.toString("base64"), e.digest, e.byteLength) };
+          }
           const { bytes, encoding, ...identity } = e;
           return { ...identity, sourceEncoding: encoding, textView: observedText(bytes, e.digest, e.byteLength) };
         }) } },
@@ -885,6 +894,7 @@ export function requireNativeInstructionAssembly(basis: SemanticStageNativeBasis
 export function renderNativeRevisionSelectionDecisionView(
   sections: Readonly<Record<string, JsonValue>>,
   envelope: import("../product/semantic_job.js").SemanticJobEnvelope,
+  readHistorical?: (holder: Readonly<{ resultRef: string; resultDigest: string }>, context: WorksiteContextObservation, relativePath: string) => Buffer,
 ): Readonly<Record<string, JsonValue>> {
   type Row = Readonly<Record<string, JsonValue>>;
   const row = (value: JsonValue): Row => value as Row;
@@ -924,11 +934,21 @@ export function renderNativeRevisionSelectionDecisionView(
     if (exact.text !== null) byteTexts.set(exact.digest, exact.text);
     return reference;
   };
+  // The admitted parent/cause/construction Result whose value is being viewed.
+  // Only its revision-declared historical use may present member bytes; the
+  // selected current W context has no holder and stays inline-only.
+  let holder: Readonly<{ resultRef: string; resultDigest: string }> | null = null;
   const contextView = (context: Row): Row => ({ ...context,
     entries: (context.entries as readonly Row[]).map(entry => {
       if (entry.state !== "file") return entry;
-      // Semantic evidence contexts are inline births; a member reference refuses this view.
-      if (entry.encoding !== "base64" || typeof entry.bytes !== "string") throw new TypeError("semantic evidence view requires inline context bodies");
+      if (entry.encoding === "admitted_member" && holder !== null && readHistorical !== undefined) {
+        // Historical bytes under their genuine historical scope. The original
+        // member coordinate, path, digest and length remain beside the view.
+        const bytes = readHistorical(holder, context as unknown as WorksiteContextObservation, entry.relativePath as string);
+        const { encoding, ...identity } = entry;
+        return { ...identity, sourceEncoding: encoding!, textView: bytesView(bytes.toString("base64"), entry.digest as Sha256Digest, entry.byteLength as number) };
+      }
+      if (entry.encoding !== "base64" || typeof entry.bytes !== "string") throw new TypeError("semantic evidence view requires inline context bodies or a declared historical use");
       const { bytes, encoding, ...identity } = entry;
       return { ...identity, sourceEncoding: encoding!, textView: bytesView(bytes as string, entry.digest as Sha256Digest, entry.byteLength as number) };
     }) });
@@ -983,6 +1003,12 @@ export function renderNativeRevisionSelectionDecisionView(
   };
   const leafView = (leaf: Row, primaryConstruction = false): Row => {
     const result = row(leaf.result!), value = row(result.value!);
+    const outer = holder;
+    holder = typeof result.resultRef === "string" && typeof result.resultDigest === "string"
+      ? { resultRef: result.resultRef, resultDigest: result.resultDigest } : null;
+    try { return leafDisplay(leaf, result, value, primaryConstruction); } finally { holder = outer; }
+  };
+  const leafDisplay = (leaf: Row, result: Row, value: Row, primaryConstruction: boolean): Row => {
     // The admitted Result's declared value kind owns this alternative. Never
     // dispatch on a nested application's kind, base64, payload or asset keys.
     const displayed = result.valueKind === "semantic_stage_envelope" ? envelopeView(value)
@@ -1069,7 +1095,16 @@ function constructRevisionSelectionAssembly(basis: SemanticStageNativeBasis, inp
         currentTargetRef: currentWorksite?.targets.find(current => current.target.subject.relativePath === row.target.subject.relativePath)?.target.targetRef ?? null })) ?? [] }, response: schema,
   };
   const decisionView = native !== undefined && isSemanticJobEnvelope(envelope);
-  const sections: Readonly<Record<string, JsonValue>> = decisionView ? renderNativeRevisionSelectionDecisionView(fullSections, envelope) : fullSections;
+  // The revision owner's authenticated historical uses are the only route to
+  // member bytes of a parent/cause/construction; the body owner checks each read.
+  const historical: readonly WorksiteContextBodyHistoricalUse[] = "historicalContexts" in subject ? subject.historicalContexts : [];
+  const readHistorical = (held: Readonly<{ resultRef: string; resultDigest: string }>, context: WorksiteContextObservation, relativePath: string): Buffer => {
+    const read = resolveHistoricalWorksiteContextBodyAtPrefix(owner.prefix, context, relativePath,
+      historical.filter(use => use.resultRef === held.resultRef && use.resultDigest === held.resultDigest));
+    if (read.kind !== "worksite_context_body") throw new TypeError(`historical context member ${read.code}: ${read.reason}`);
+    return read.bytes;
+  };
+  const sections: Readonly<Record<string, JsonValue>> = decisionView ? renderNativeRevisionSelectionDecisionView(fullSections, envelope, readHistorical) : fullSections;
   const rendererRef = "renderer://abiogenesis/semantic-revision/selection@5";
   const plan = { ruleRef: "rule://abiogenesis/semantic-revision/selection@5", graphFunctionRef: owner.call.graphFunctionRef,
     programLocusRef: owner.call.programLocusRef, role: "selection", rendererRef, instructionContractRef: owner.call.inputContractRef,

@@ -296,8 +296,30 @@ preparation owner (`abg/default_library.ts`) applies producer carriage to its
 fresh observation; selector source matching, obligation quoting and the
 selector presentation read declared members through the owner reader for their
 own Run and, under admitted retained-source use, for the selected source
-members (`governanceContextBodyUse`). Semantic job/revision contexts remain inline births; their byte
-consumers refuse a member.
+members (`governanceContextBodyUse`). A semantic job fold legally carries the
+native observation's `after` unchanged as its envelope `context`, so an admitted
+semantic envelope may hold `admitted_member` entries; no fold, Result or binding
+is rewritten to inline them and producer carriage is not rolled back. Their byte
+consumers read a member only through the held-prefix owner: a semantic stage
+presentation of its own Run's envelope uses the unchanged same-Run resolver; a
+revision presentation of a historical parent/cause uses the revision-declared
+historical use below. Every other member consumer still refuses.
+
+Historical revision use (B64). The revision owner (`abg/semantic_revision.ts`)
+derives one `WorksiteContextBodyHistoricalUse` per authenticated parent, cause
+and construction Result of its admitted acquisition: exact Result ref/digest,
+CCall and Run, and the source binding the admitted intake's binding cover
+relates to the current W. Only a Result whose own execution basis carries that
+covered binding is declared. Callers supply no list, and no carrier-shaped
+search occurs. `resolveHistoricalWorksiteContextBodyAtPrefix` admits a context
+only when it is exactly equal to the context held at one fixed declared envelope
+coordinate of that committed Result, its binding is the covered binding, and
+then resolves the member under the Result's genuine historical Run through the
+unchanged resolver, retaining holder admission, digest, basis, coordinate,
+scope, path, version, length, read roots and bytes. Undeclared, forward,
+foreign, tampered, wrong-binding or unavailable reads refuse with their typed
+cause. A historical read is never current physical context: the current intake
+observation stays an inline fresh birth with its currentness checks.
 
 Current limits: the observation's `task` is the exact admitted input and the C2
 `sourceNativeWork` is the exact admitted observation, by the exact-equality
@@ -309,7 +331,9 @@ predecessor-Run holder refuses `foreign`. A registered-selection pending
 execution resumes in its own Run, so its selected native context -> member ->
 committed holder resolves through the unchanged same-Run resolver
 ([HOW](./T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md#retained-context-bytes-and-default-library-consumers)).
-The one cross-Run holder relation is retained-source use: the consumer's
+Besides the authenticated historical revision use above, which presents bytes
+only and grants no source, read or effect authority, the one cross-Run holder
+relation is retained-source use: the consumer's
 admitted `sourceResultBasis` state -> a selected native observation Result ->
 its `task.context` member -> committed holder
 ([HOW](./T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md#retained-source-context-bodies-across-runs-r2)).
