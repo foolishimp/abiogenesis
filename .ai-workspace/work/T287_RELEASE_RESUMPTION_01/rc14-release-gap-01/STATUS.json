@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T04:55:34.669454+00:00",
+  "updatedUtc": "2026-11-16T04:57:37.856072+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1534,9 +1534,15 @@
     "B62": "Confirmed temporary-file effect violation retained"
   },
   "s06Witness04": {
-    "state": "CAPACITY_REPRICED_BINDING_FEASIBILITY_PREPARING",
+    "state": "BINDING_PREPARATION_SELECTED",
     "selection": "integration-01/S06_THIRD_FAILURE_DISPOSITION_01.json",
     "runtimeAuthorized": false,
-    "runtimeStarted": false
+    "runtimeStarted": false,
+    "activation": "integration-01/s06-witness-04/ACTIVATION.json",
+    "absoluteTimeoutMs": 3600000,
+    "enclosingMs": 28800000,
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04",
+    "bindingRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04",
+    "operator": "/root/b29_vm_triage"
   }
 }

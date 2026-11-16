@@ -1,0 +1,224 @@
+{
+  "recordedUtc": "2026-11-16T04:57:37.856072+00:00",
+  "authority": "Owner finish RC14 and continue; closed multi-frame S06-03 triage and Root capacity re-entry at 312bec1b90a31733120513885115cca0600f1041. Exact unchanged candidate02 and accepted controls. This pushed grant authorizes concrete binding preparation only; runtime awaits Root acceptance.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "candidate": {
+    "sourceCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "sourceTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+    "compileInputTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "archiveSha256": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+    "manifestSha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e",
+    "packageVersion": "5.0.0-rc.14",
+    "cutRecordPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/CUT_RECORD.json",
+    "cutRecordSha256": "f7aa025826e6732726bf8aedac3ed8305ece21ede83e5ebfc5bc8d321f9388aa",
+    "archiveMembersPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/ARCHIVE_MEMBERS.json",
+    "archiveMembersSha256": "6fbf0d20f29ae5515896455599f50e2f582a2ccbcb5eb7590c0bfb60ab5a7f60"
+  },
+  "sourceFinalization": {
+    "C1Commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+    "C1Tree": "22eed3693976419c6ed63117756294001096a280",
+    "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/FREEZE.json",
+      "bytes": 4619,
+      "sha256": "f65eed415da5b31978ffb6fac9f8c2264c5ac554c65c560547e49b1ad51dfc62"
+    },
+    "rootAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_C1_FREEZE_ACCEPTANCE_01.json",
+      "bytes": 3979,
+      "sha256": "b39e546d86be9b41ea96f8cf10cea63391bf4988c93f0ecc4d6cc28b672f1c31"
+    }
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "executableSha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "versionArgs": [
+      "--version"
+    ],
+    "model": "claude-opus-5-5",
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ],
+    "inactivityTimeoutMs": 600000,
+    "absoluteTimeoutMs": 3600000,
+    "maxTurns": 120
+  },
+  "concurrency": "One selected S06 native lane. At most two actual provider executions globally; amendment04 is closed. This grant authorizes no additional lane.",
+  "credentialRule": "Only named private credential keys may reach the native invocation interval; values remain in memory and are never written into binding, setup, command logs, Git or commentary.",
+  "limitsCommon": {
+    "processTimeoutMs": 300000,
+    "maxProcessOutputBytes": 67108864,
+    "recursionBound": 16,
+    "exitAuditReserveMs": 180000,
+    "captureBytes": 67108864,
+    "firstFailureStops": true,
+    "retries": 0
+  },
+  "exclusions": [
+    "No ABG Product/source/test/control repair, rebuild or repack; no change to source or pinned RC13 builder.",
+    "No manufactured results, forced adverse verdict, caller-owned semantic ordering, dropped assertion, weaker acceptance, automatic repair/retry or old-candidate proof transfer.",
+    "No broad duplicate suite, formal qualification/B50 campaign, AF25/tag/publication/selector/human acceptance.",
+    "No main writes/push, raw Git, deletion of retained evidence, or writes outside declared fresh witness/raw/binding/owned Tool territories."
+  ],
+  "stops": [
+    "Changed input/pin, occupied fresh roots, topology refusal, first failure/typed block/unobserved required coverage, budget/inactivity/capture limit, missing process absence or final conservation. Preserve full first-failure candidate and return to Root without retry."
+  ],
+  "return": "Preparation return first: exact actual binding and any smoke-input pins under one original clock. Runtime return only after separately pushed binding acceptance: admitted results/currentness/replay, complete required behavior, exact input/output custody, actual provider/model/cost observations and process closure. First failure preserves evidence and returns without retry.",
+  "id": "RC14-INSTALLED-S06-OPERATOR-004",
+  "role": "Separate S06 lifecycle witness Operator; fresh complete D1/D2 after closed03",
+  "productFrame": "Fixed5.0 S06 prospectively selected complete lifecycle witness. D1 then consequential D2 revision, actual independent semantic and executable evidence, preservation and closure. Full original Data Mapper T043 and whole Product qualification remain separate.",
+  "controls": {
+    "root": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03",
+    "commit": "6f4c3777cee044a7a9c3de23e18cb7ed3ac4f188",
+    "manifestSha256": "b753febcd89ec78742117fe3abd20da47df49363766901b908f283b59ab7de61",
+    "returnSha256": "4f02b3f63e998b8a6926b8cbd3d2d258d69355c68f285f2dcc2b70a2d24486ac"
+  },
+  "toolchainClosure": "Accepted rc14-s06-toolchain-20261115-03 offline closure; retain all35 external pins, immutable declared Tool/163classpath jars/frozen JDK and complete supplied cache. No new downloads, toolchain replacement or standalone SBT probe.",
+  "runId": "rc14-s06-witness-20261116-04",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04",
+  "worksiteRoot": "/private/tmp/abg-rc14-s06-witness-20261116-04",
+  "bindingRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04",
+  "bindingPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04/BINDING.json",
+  "enclosingMs": 28800000,
+  "entry": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/run.py",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04/BINDING.json"
+  ],
+  "bindingRule": "Fill the accepted successor03 template using the exact unchanged candidate02 C0/archive/bootstrap/manifest, original6f4c3777 control source, fresh04 raw/worksite/runId/cache/TMPDIR and actual new original start/deadline. Change only prospective provider absoluteTimeoutMs to3600000 and proposedTotalMs/enclosing interval to28800000 plus fresh exact coordinates. Keep inactivity600000/maxTurns120, Tool/application/provider/model/effort definitions and D1/D2 declarations unchanged. The original03 attempt and its clocks remain closed. Return binding pins before runner. No readiness/runtime rerun is authorized by preparation.",
+  "protectedRoots": [
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+    "/Users/jim/Library/Application Support/STDO/releases/v3.0.4",
+    "/Users/jim/src/apps/abiogenesis",
+    "/opt/homebrew/lib/node_modules/npm",
+    "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-03",
+    "/Users/jim/src/apps/odd_glc",
+    "/Users/jim/src/apps/odd_sdlc",
+    "/opt/homebrew/Cellar/openjdk@11/11.0.28/libexec/openjdk.jdk/Contents/Home",
+    "/opt/homebrew/Cellar/sbt/1.11.7",
+    "/Users/jim/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.12/scala-library-2.13.12.jar",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/FREEZE_RETURN.json",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/preflight-01/SELECTED_CLOSURE.json",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/preflight-01/RETURN.json",
+    "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-03",
+    "/private/tmp/abg-rc14-s06-witness-20261116-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04"
+  ],
+  "application": {
+    "java": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/jdk/bin/java",
+    "javaHome": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/jdk",
+    "commandExecutable": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/tool-launcher.py",
+    "toolchainPath": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/TOOLCHAIN.json",
+    "toolchainSha256": "7fb0213fb32ea8170f0c89fbaabd691400b8c9f613cf7b457bf59d77ff805db3",
+    "path": "/usr/bin:/bin",
+    "commandTimeoutMs": 300000,
+    "status": "Same accepted offline closure and immutable Tool; S06-03 made zero Tool attempts. Application compile/test/Spark and finite capacity remain unproved."
+  },
+  "tools": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "bytes": 86104016
+    },
+    "python": {
+      "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa",
+      "bytes": 33816
+    },
+    "java": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/jdk/bin/java",
+      "bytes": 69888,
+      "sha256": "a77aaa13441a13405be3018f3c7fc6d4cb7754411a2f51bb8c9004a7bb97bf07"
+    },
+    "provider": {
+      "path": "/Users/jim/.local/share/claude/versions/2.1.322",
+      "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+      "bytes": 323702464
+    },
+    "npm": {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "bytes": 54
+    },
+    "sbtLauncher": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen/sbt-launch.jar",
+      "bytes": 3822332,
+      "sha256": "f92a2095ac75008764fe3b2b793ffe624c4fbef5bfd9b0022e4bc2daf668c651"
+    },
+    "s06Tool": {
+      "path": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/tool-launcher.py",
+      "bytes": 15213,
+      "sha256": "16c83f445c4378f2e465e93662dff5147350d196732eb93b3b87c796714faf05"
+    }
+  },
+  "toolOwnedTerritory": [
+    "/private/tmp/as6j2/attempts/d1-<owned-id>",
+    "/private/tmp/as6j2/attempts/d2-<owned-id>",
+    "/private/tmp/as6r2/attempts"
+  ],
+  "effects": [
+    "Fresh external binding/raw/worksite and declared Tool-owned attempt roots only; one actual native/public specification lifecycle D1 and targeted revision D2.",
+    "Run configured application compile/test/Spark/query only through the already accepted same C2 Tool contract and frozen offline inputs; Tool280s/command300s and query20s remain.",
+    "Keep full actual Result/receipt join, copy private Tool receipts after owned group absence, retain all mandatory selected outcomes/semantic assessments/executable evidence and residuals."
+  ],
+  "claimLimits": "Trusted desktop C2; no hostile host containment, minimal Maven read-set or remote-ingress claim. Earlier01/02 toolchain failures and wildcard-bind observation stay retained. No broader complete-application claim.",
+  "controlAcceptance": "S06_CONTROL_ACCEPTANCE_04.json",
+  "predecessorFailure": {
+    "returnPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-03/OPERATOR_RETURN.json",
+    "returnSha256": "df6d264e15c3c270a7f0abb51a88711622d6b100177bbc05bed7152a521e970d",
+    "originalDeadlineUtc": "2026-11-16T06:55:03.038185+00:00",
+    "closed": true,
+    "reopened": false,
+    "providerCalls": 7,
+    "cause": "B61_Design_absolute_timeout",
+    "separateEffectDeviation": "B62_undeclared_temporary_file_write_and_removal",
+    "nativeProducerCreditTransferred": false
+  },
+  "topologyAcceptanceSelection": "Use this exact pushed activation byte-copy as prospective topology recipe acceptance. It does not supply planned or paired actual role observations, which remain required during later runtime.",
+  "toolRootReuseRule": "Original03 created then cleaned as6j2/as6r2 with zero Tool attempts. Root freshly verified both absent. Require absence again before preparation and runtime. Reuse only those exact vacated coordinates; never delete occupied roots or silently rebind the immutable Tool. Archive new Tool receipts under raw04. Occupancy returns to Root.",
+  "recordsWriter": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "actor": "/root/b29_vm_triage",
+  "executionPhase": "PREPARE_ACTUAL_BINDING_THEN_RETURN_BEFORE_RUNNER",
+  "bindingPreparationAuthorizedAfterPush": true,
+  "runtimeExecutionAuthorized": false,
+  "runtimeCondition": "Root independently reacquires actual binding and any smoke input pins, checkpoints their acceptance, then explicitly dispatches this same original-clock attempt. Do not invoke run.py or any runtime/provider/probe while only binding preparation is active.",
+  "clockRule": "Record actual start/deadline once when binding preparation begins, using enclosingMs including exitAuditReserveMs. Binding review and later runtime consume this same interval; no reset or extension.",
+  "preparationEffects": [
+    "Read existing exact accepted controls, source/C1/cut/install records and full required input identities; use original owning field shapes, no new runner or control source.",
+    "Create only fresh04 binding territory and actual START/BINDING, exact prospective activation byte-copy topology acceptance and preparation return. Credentials are names/presence only; no values. Leave raw/worksite/Tool roots absent.",
+    "Return exact pins, original start/deadline and complete identity joins. No invocation until pushed concrete acceptance."
+  ],
+  "rootCurrentChecks": {
+    "controlsManifestMembersRehashed": 25,
+    "controlMismatches": [],
+    "freshRawBindingWorksiteAndToolRootsAbsent": true,
+    "qualificationStillFalse": true
+  },
+  "bindingTemplate": {
+    "path": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/BINDING.template.json",
+    "bytes": 6549,
+    "sha256": "59466de4baef2dc33b541e895a6317dcbdc1276d8adf23057e469fd507ce50d0"
+  },
+  "sourceDisposition": "integration-01/S06_THIRD_FAILURE_DISPOSITION_01.json",
+  "capacityLimit": "60-minute actor allowance and eight-hour enclosure are prospectively selected finite limits, not a predicted completion time or guaranteed capacity.",
+  "effectReminder": "The existing actual renderNativeWorkspaceWorkOrder already requires memory/pipes, no actor scratch and only the selected stage output. Preserve its admitted prompt and restriction unchanged. No extra instruction field, CLI prompt override, new source/control or broader write grant is selected. Actual contrary actions remain material to independent acceptance."
+}
