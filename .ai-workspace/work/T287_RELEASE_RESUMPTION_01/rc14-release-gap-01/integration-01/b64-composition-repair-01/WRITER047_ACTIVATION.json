@@ -1,0 +1,80 @@
+{
+  "id": "RC14-B64-COMPOSITION-CONTROLS-WRITER-047",
+  "recordedUtc": "2026-11-16T10:53:56.587425+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "actor": "/root/b29_vm_triage",
+  "role": "Separately activated external controls Writer; no Product/runtime/test-source effects or execution.",
+  "authority": "Owner continue/finish RC14; closed Native003 source-frame conjunction and concrete canonical fixture construction. Smallest first complete composition before further hardening; no Product WHAT change.",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": "Unchanged fixed5.0 F17/S06; actual Public/ABG owners admit authority, Results, uses and selector request. Deterministic actor supplies controlled fixture data only, never events/basis/cover/acceptance.",
+  "disposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_NATIVE03_DISPOSITION_01.json",
+    "bytes": 13001,
+    "sha256": "517cbb13cf00bde0a82de99bc9f82896f6d34758214c346bc1a4ebacd2f57203"
+  },
+  "construction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPOSITION_CONSTRUCTION_01.json",
+    "bytes": 7064,
+    "sha256": "6c46fd2abea5d44d1e4a448e74bf45e3f1f98e74235bec2303cf6f8fa2826015"
+  },
+  "preservedSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_NATIVE03_PRESERVATION_ACTIVATION_01.json",
+    "bytes": 6204,
+    "sha256": "57c04a1866a00235dd92eff6e0259b93d50342f52a8cc89de9c5b992631a21ad"
+  },
+  "sourceBase": "Exact pushed checkpoint containing this grant, supplied by Root after direct remote parity; tenant must preserve Native003 eight postimages. No moving-main source adoption.",
+  "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01/",
+  "controlsWorktree": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01",
+  "controlsBranch": "codex/rc14-b64-composition-controls-20261116-01",
+  "prospectiveSourceWorktree": "/private/tmp/abg-rc14-b64-composition-source-20261116-01",
+  "prospectiveSourceBranch": "codex/rc14-b64-composition-source-20261116-01",
+  "prospectiveRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01",
+  "operationGrant": [
+    "Create only new isolated controls checkout and named carrier at supplied pushed checkpoint. Reuse canonical mechanical owners byte-identically from accepted c12f6269dab29d0fb8a110e5cdead9ebb803febe; HOST may change descriptive coordinates/read scope only where material source selection requires. No semantic mechanism fork.",
+    "Prepare canonical Task/instructions array for actual RC13 Claude Opus5.5 xhigh test-source author, with only the three existing B64 test paths writable. Source outcome is genuine first complete assembly regression plus existing capture/claim repairs; not all B64 proof or runtime acceptance.",
+    "Include concrete closed recipe and real source owner routes, full actual old counterexample acquisition, actual Root grant/clock and method status without truncation. Type-check against canonical Task constructor shape; preserve actual same-object input capture in HOST.",
+    "Preserve Product/HOW/runtime and39 original top-level obligations. Replace misleading first component-only B64 case with genuine Public admission-to-complete-assembly held/cold case. Fix primary/secondary capture in three tests; narrow overstated inherited/C2 comments to their actual component coverage. No need to invent HOW edits for this test-only correction.",
+    "Prepare disabled future proof plan for earliest one normal build and one whole native-semantic-job file including its preserved original obligations and complete B64 case. Capture other changed-file obligations as unexecuted follow-up, not dropped/accepted. No proof launch selected now. Preserve original full B64 obligations outside this first discriminator.",
+    "Build exact current source/input/method/evidence/control inventories, complete initial context and three-path W, seven-root sparse materialization and physical-layout projections. Protect all old B64/source/raw and active S01 by path; do not inventory active S01 as immutable evidence.",
+    "Only mechanical checks: JSON/AST, node --check HOST, exact hashes and pure layout computations. No Product imports/constructors/admission, source materialization/probe, runtime/setup/provider, dependencies/build/test or candidate/install mutation.",
+    "Commit only authored controls/Return within carrier, freeze one subject, report exact commit/tree/manifest and remaining runtime bindings, then stop. No main write/push, reviewers or raw Git."
+  ],
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "requiredFirstTitle": "B64 historical revision: admitted assessor context reaches new-Run selector assembly held and cold",
+  "firstCapture": "b64-historical-revision.candidate.json",
+  "preparationBounds": {
+    "minutes": 20,
+    "clock": "Actual preparation start/deadline recorded once; no runtime clock started. Return exact partial/obstruction if bound reached; do not infer expiry from prose.",
+    "retry": false
+  },
+  "prospectiveNativeBounds": {
+    "nativeAbsoluteMs": 2700000,
+    "nativeInactivityMs": 300000,
+    "maxTurns": 360,
+    "enclosingMs": 10800000,
+    "exitReserveMs": 180000,
+    "providerCallsAtMost": 1,
+    "providerConcurrencyGlobal": 2,
+    "proofMaxMs": 5400000,
+    "proofRetry": false
+  },
+  "stops": [
+    "First integration/identity/owner mismatch preserved and returned; no automatic retry/expanded W.",
+    "Concrete fixture obstruction returns actual missing relation, no synthetic admission or assertion weakening."
+  ],
+  "returnTo": "Root for independent frozen-controls frames and exact pushed source/dispatch grant.",
+  "executionAuthorized": false,
+  "sourceAuthorActivated": false,
+  "proofAuthorized": false,
+  "qualified": false,
+  "rawPublished": false
+}

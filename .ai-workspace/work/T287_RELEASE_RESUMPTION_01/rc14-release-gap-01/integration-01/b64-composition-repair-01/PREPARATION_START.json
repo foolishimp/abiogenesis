@@ -1,0 +1,19 @@
+{
+  "activation": "RC14-B64-COMPOSITION-CONTROLS-WRITER-048",
+  "startedUtc": "2026-11-16T15:12:15.841455Z",
+  "deadlineUtc": "2026-11-16T15:32:15.841455Z",
+  "sourceBase": "e28c1d1058d822886cf9347a6f63bd34834b8f53",
+  "runtimeClockStarted": false,
+  "prior047Closed": {
+    "actor": "/root/b29_vm_triage",
+    "activation": "RC14-B64-COMPOSITION-CONTROLS-WRITER-047",
+    "startedUtc": "2026-11-16T10:56:28.985902Z",
+    "deadlineUtc": "2026-11-16T11:16:28.985902Z",
+    "state": "closed at reported integration mismatch; no carrier files authored and no source/runtime effects",
+    "retainedCheckout": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01",
+    "head": "37d71a689fe8952480e23199ac6b5585e0479bb5",
+    "rootReverified": "Clean named branch, empty diff/index and no authored carrier; all original clocks remain historical and are not reset.",
+    "delay": "Workers returned while Root was idle after its status reply. No work advanced to source/proof during that interval."
+  },
+  "priorDisplayError": "Read-only display requested manifest.controls but the canonical manifest has files. Projection-only KeyError does not show malformed controls, identity drift or Product failure. Use observed files member; no executable owner fix needed."
+}

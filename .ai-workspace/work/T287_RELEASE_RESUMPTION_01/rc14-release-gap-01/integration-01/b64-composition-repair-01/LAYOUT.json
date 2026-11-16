@@ -1,0 +1,13 @@
+{
+  "source": "/private/tmp/abg-rc14-b64-composition-source-20261116-01",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01",
+  "proofSubject": "/private/tmp/abg-rc14-b64-composition-proof-20261116-01",
+  "writePaths": [
+    "/private/tmp/abg-rc14-b64-composition-source-20261116-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "/private/tmp/abg-rc14-b64-composition-source-20261116-01/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "/private/tmp/abg-rc14-b64-composition-source-20261116-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "status": "Prospective only; exact finite child W, external inputs and complete actual resource/install roots before setup and twice before dispatch. No physical observation in preparation.",
+  "setupCustody": "Exact imported setup-owned manifest only; no broad .abiogenesis exemption."
+}

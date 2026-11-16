@@ -1,0 +1,71 @@
+{
+  "status": "disabled prospective operator instructions; not an executable owner",
+  "source": "/private/tmp/abg-rc14-b64-composition-source-20261116-01",
+  "branch": "codex/rc14-b64-composition-source-20261116-01",
+  "requiredFinalHead": "Exact later Root-pushed LAUNCH.sourceHead descending from preparationBase with unchanged selected tenant/source. Never use moving main implicitly.",
+  "orderedSteps": [
+    "Require exact Root source activation/remote checkpoint and fresh absent source/raw paths before any setup.",
+    "git worktree add --no-checkout -b the exact named source branch at the exact final checkpoint, with GIT_LFS_SKIP_SMUDGE and filters disabled.",
+    "Set the complete slash-prefixed no-cone sparse selection BEFORE git read-tree -mu HEAD. Do not use the failed read-tree HEAD before sparse ordering.",
+    "Materialize once via git read-tree -mu HEAD; verify symbolic branch, HEAD, empty index/worktree status and all seven root files non-symlink bytes equal the corresponding exact Git blobs.",
+    "Verify SOURCE_BINDING and every SOURCE_INPUTS row plus complete control manifest; then existing freeze-source.py once under separate source grant. Capture full materialized preimage before imported Public setup.",
+    "Exclusively stage exact approved LAUNCH bytes using unchanged operate.py, then actual HOST observations. No provider/proof now."
+  ],
+  "sparseSelections": [
+    "/.gitattributes",
+    "/.gitignore",
+    "/AGENTS.md",
+    "/CLAUDE.md",
+    "/README.md",
+    "/pyproject.toml",
+    "/stdo_abiogenesis.json",
+    "/specification/",
+    "/build_tenants/abiogenesis/typescript/",
+    "/.ai-workspace/tickets/active/",
+    "/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/"
+  ],
+  "sevenRootRowsAtPreparation": [
+    {
+      "path": ".gitattributes",
+      "bytes": 7753,
+      "sha256": "0f9d7db5a66f5b0f05c045a3470f0788f881aa8037db78972bc50a613669e5e6"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 4410,
+      "sha256": "f6364c9967df589fd744e964b1fb17dc31a2b62d3ef2ea64b05ef4b5c4f4d462"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 13754,
+      "sha256": "5038fd003f0bf2ed6c1e079c4e157166961917a37127725147da34eb350210fd"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 7128,
+      "sha256": "e859444d725a3775f876f0ea121cfb54936cca2d4ac1bdb28b7238c0aa653cec"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 422,
+      "sha256": "53f0ccffd83ad00201cde76dd425cce09140afafbaa811941efdcad3d2ed5041"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    }
+  ],
+  "preparationObserved": {
+    "branch": "codex/rc14-b64-composition-controls-20261116-01",
+    "head": "e28c1d1058d822886cf9347a6f63bd34834b8f53",
+    "sameCommitFastForwardOnly": true,
+    "cleanBeforeAuthoring": true
+  },
+  "executionAuthorized": false
+}

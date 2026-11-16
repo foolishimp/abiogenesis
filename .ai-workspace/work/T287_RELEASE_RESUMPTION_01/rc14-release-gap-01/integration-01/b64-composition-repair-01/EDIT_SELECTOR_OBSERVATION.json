@@ -1,0 +1,12 @@
+{
+  "failure": "AssertionError at literal proof.count(oldblock)==1 before prove.py was written",
+  "expectedPrefix": "three leading spaces",
+  "actualPrefix": "two leading spaces",
+  "unchangedOriginalOwner": {
+    "commit": "c12f6269dab29d0fb8a110e5cdead9ebb803febe",
+    "sha256": "78e97df05af7b6fe4b10428d51b6bc560b24bebf48927d043d5fbc767883de7a"
+  },
+  "effectsAtStop": "Six byte-identical helper copies and descriptive-only HOST; no source/runtime effects.",
+  "rootDisposition": "Use exact observed two-space block under existing Writer048 operation grant. Edit-selector assumption, not Product/control integration failure; no reset. Routine display/edit-selector corrections inside granted bytes need no further approval.",
+  "correctedSelector": "Exact source splitlines225-226, with observed fixed3 assertion and report key authenticated before replacing only that block."
+}

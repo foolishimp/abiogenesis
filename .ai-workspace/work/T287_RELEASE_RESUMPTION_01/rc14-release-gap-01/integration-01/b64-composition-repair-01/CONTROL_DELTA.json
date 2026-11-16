@@ -1,0 +1,57 @@
+{
+  "kind": "exact_external_control_delta",
+  "sourceOwnerBase": "c12f6269dab29d0fb8a110e5cdead9ebb803febe",
+  "changedExecutableOwners": [
+    {
+      "path": "HOST.mjs",
+      "baseCommit": "c12f6269dab29d0fb8a110e5cdead9ebb803febe",
+      "beforeBytes": 22300,
+      "beforeSha256": "f42386355ed07ee989f9198c0275156409687970a803a5c040eb06b34e84484c",
+      "afterBytes": 22288,
+      "afterSha256": "4651d6f00c40711c414a0646b6d6dabcb56b0331852b8be3f9125f4aaf6162e9",
+      "unifiedDiff": "--- accepted/HOST.mjs\n+++ successor/HOST.mjs\n@@ -108,7 +108,7 @@\n   assert.deepEqual(args.slice(args.indexOf('--effort'),args.indexOf('--effort')+2),['--effort',p.effort]);\n   assert.deepEqual(args.slice(args.indexOf('--max-turns'),args.indexOf('--max-turns')+2),['--max-turns',String(limits.nativeMaxTurns)]);\n   await record('provider-transport-selection.json',{contract,args,configured,environmentKeys:Object.keys(worker).sort()});\n-  caller=setupOwner.publicCaller({root:runtimeRoot,runtime,native,config,record,actorRef:'actor://abiogenesis/operator/rc14-historical-context',\n+  caller=setupOwner.publicCaller({root:runtimeRoot,runtime,native,config,record,actorRef:'actor://abiogenesis/operator/rc14-b64-composition',\n     command:runner.commandRecorder(runtimeRoot,{environment:setupEnvironment,timeoutMs:limits.setupReadbackCommandMs,maxOutputBytes:limits.outputBytesPerCommand})});\n   const authorize=caller.authorize;let imported=0;\n   caller.authorize=(packet,request,resources,slots)=>packet===product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.create.clean\n@@ -135,8 +135,8 @@\n   const constructed=await api.constructInstalledStartCall({selection:{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'},programRef:ids.programRef,catalog:caller.state.catalog,catalogView:view,applications:[],\n     admittedInstalls:env.productInstalls,workspaceBinding:env.workspaceBinding,verifyInstallAdmission:i=>abg.hasAdmittedProductInstall(env.artifactTruth,i),actorRef:caller.actorRef,\n     input:{factory:async({workspaceBinding,grants})=>{assert.equal(grants.length,1);const candidate={workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,capabilityGrant:grants[0],context,outcome:task.outcome,instructions:task.instructions,readFirst:task.readFirst,writeRoots:task.writeRoots,checks:task.checks};await record('native-task-constructor-input.json',candidate);return input=product.constructNativeWorkspaceWorkTask(candidate);}},\n-    inputValueRef:'value://abiogenesis/rc14/historical-context/input',source:{kind:'none'},eventResource:entry,\n-    envelope:{definitionContractCoordinates:native.verified.definitionContractCoordinates,requestRef:'request://abiogenesis/rc14/historical-context/start',correlationRef:'correlation://abiogenesis/rc14/historical-context',eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(dir,'TASK.json')).href]}});\n+    inputValueRef:'value://abiogenesis/rc14/b64-composition/input',source:{kind:'none'},eventResource:entry,\n+    envelope:{definitionContractCoordinates:native.verified.definitionContractCoordinates,requestRef:'request://abiogenesis/rc14/b64-composition/start',correlationRef:'correlation://abiogenesis/rc14/b64-composition',eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(dir,'TASK.json')).href]}});\n   await record('native-construction-kind.json',{kind:constructed.kind,code:constructed.code??null});assert.equal(constructed.kind,'installed_start_call');assert.strictEqual(constructed.call.resources.eventResource,entry);\n   await record('PREPARED.json',{head,workspaceBinding:caller.state.binding,programRef:ids.programRef,taskDigest:product.sha256Canonical(input),contextDigest:context.observationDigest,contextEntries:context.entries.length,\n     contextBytes:context.entries.reduce((n,e)=>n+(e.state==='file'?e.byteLength:0),0),writeRoots:input.writeRoots,invocationRef:constructed.call.invocation.invocationRef,invocationDigest:constructed.call.invocation.invocationDigest,configured,providerCalls:0});\n"
+    },
+    {
+      "path": "prove.py",
+      "baseCommit": "c12f6269dab29d0fb8a110e5cdead9ebb803febe",
+      "beforeBytes": 21809,
+      "beforeSha256": "78e97df05af7b6fe4b10428d51b6bc560b24bebf48927d043d5fbc767883de7a",
+      "afterBytes": 22191,
+      "afterSha256": "cb6239891bdc0c92b4568169bb3a43738aeac725e9cd721fdbc658ffe18398d4",
+      "unifiedDiff": "--- accepted/prove.py\n+++ successor/prove.py\n@@ -1,5 +1,5 @@\n #!/usr/bin/env python3\n-\"\"\"One fresh build and three whole-file historical-context owner proofs; separate exact Root grant.\"\"\"\n+\"\"\"One fresh build and the bound whole-file composition population; separate exact Root grant.\"\"\"\n import datetime,hashlib,importlib.util,json,os,re,shutil,subprocess,sys,time\n from pathlib import Path\n sys.dont_write_bytecode=True\n@@ -222,8 +222,12 @@\n     p=scratch/'observations'/relative;assert p.is_file() and not p.is_symlink() and p.stat().st_size>0,relative\n     assert isinstance(json.loads(p.read_text()),dict),'complete structured actual candidate required'\n    write(directory/'COUNTS.json',population)\n-  assert len(populations)==3 and len({x['file'] for x in populations})==3\n-  write(proof/'POPULATION.json',{'commands':populations,'threeWholeFiles':True,'actualTopLevel':sum(len(x['topLevelNames']) for x in populations),'actualPasses':sum(x['actualPasses'] for x in populations),'historicalCredit':False})\n+  selected_files=[x['file'] for x in plan['files']]\n+  assert selected_files and all(isinstance(x,str) and x for x in selected_files),'nonempty bound file population required'\n+  assert len(selected_files)==len(set(selected_files)),'duplicate bound file selection'\n+  actual_files=[x['file'] for x in populations]\n+  assert actual_files==selected_files and len(actual_files)==len(set(actual_files)),'actual whole-file population differs from bound plan'\n+  write(proof/'POPULATION.json',{'commands':populations,'wholeFileCount':len(populations),'actualTopLevel':sum(len(x['topLevelNames']) for x in populations),'actualPasses':sum(x['actualPasses'] for x in populations),'historicalCredit':False})\n  except BaseException as error:\n   failure={'name':type(error).__name__,'message':str(error)};write(proof/'FIRST_FAILURE.json',failure)\n  finally:\n"
+    }
+  ],
+  "byteIdenticalOwners": [
+    {
+      "path": "dependency-inputs.py",
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "sha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8"
+    },
+    {
+      "path": "operate.py",
+      "sha256": "828cdb2f0dccad7ff58e85038f67ca0221d027cb2d752e602d76b7c6928b88e7"
+    },
+    {
+      "path": "physical-topology.py",
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "setup-custody.py",
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ],
+  "dataOnlyChanges": [
+    "Task/read plan/three-test W and exact current source inventory",
+    "One whole first proof population with two explicit unexecuted follow-ups",
+    "Native003 preserved inputs and S01 path-only protection",
+    "Fresh disabled source/raw/proof coordinates and current grant/recipe/records"
+  ],
+  "protectedRuntime": "No canonical ABIogenesis owner, Product, HOW, source/test or old runtime changed."
+}
