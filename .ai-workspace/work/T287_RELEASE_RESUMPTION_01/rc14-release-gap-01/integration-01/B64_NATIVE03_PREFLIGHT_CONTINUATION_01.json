@@ -1,0 +1,102 @@
+{
+  "id": "RC14-B64-NATIVE03-PREFLIGHT-CONTINUATION-001",
+  "recordedUtc": "2026-11-16T09:51:51.927616+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner finish/continue; existing exact Native003 grant remains. This is a narrow selected checkout-caller correction and continuation before runtime entry, not a runtime/native retry.",
+  "primaryGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_NATIVE_ACTIVATION_03.json",
+    "bytes": 12578,
+    "sha256": "75515a8a15904462ade80a66c026250b7b2be4b2f756e761d06e28204792f930"
+  },
+  "sourceHead": "60b6d9e28a26115646536ce827162f8e9046c01b",
+  "source": "/private/tmp/abg-rc14-historical-context-source-20261116-03",
+  "raw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03",
+  "failure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/OPERATOR_PREFLIGHT_FAILURE.json",
+    "bytes": 1818,
+    "sha256": "811aeee949e27d9f9007bad9edbe6a5a4316f272487377ecf1c85de8fc6adf43"
+  },
+  "caller": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/OPERATOR_PREFLIGHT_COMMAND.txt",
+    "bytes": 7278,
+    "sha256": "7eaa6d742ed5409b53d59dd6f3065a39c4b43f41a16412da3d5b9fb0b92ac415"
+  },
+  "closedPreflightReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/OPERATOR_PREFLIGHT_CLOSED_RETURN.json",
+    "bytes": 1297,
+    "sha256": "3f375d854459dc95dc0bf39442be3172f57ff198a0372c726e06690cbf9d41ce"
+  },
+  "frames": {
+    "sourceIdentityEffect": "Root independently confirms exact sourceHEAD, unchanged index and only seven selected root paths absent; materialized directories remain. No worktree user edits or provider/runtime work are observed.",
+    "integrationCause": "Failed caller runs read-tree HEAD before sparse init/set and never explicitly updates the root worktree. Prior successful native02 preflight records sparse init/set then read-tree --reset -u HEAD and seven root byte checks. That observed materialization relation was omitted/reordered in the new caller.",
+    "ProductAndProof": "No installed Product or control executable ran/changed. Source tree must physically equal frozen inputs before preimage, setup or provider; clean status alone would be insufficient without exact root equality."
+  },
+  "priorSuccessfulRelation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/OPERATOR_PREFLIGHT.json",
+    "bytes": 224068,
+    "sha256": "20fd5a85342629ae7e47d937956c6f0f97f6581bb49f8b19de4b8a57680e5889"
+  },
+  "operatorContinuation": {
+    "id": "RC14-B64-NATIVE-OPERATOR-003-PREFLIGHT-CONTINUATION-001",
+    "actor": "/root/rc14_release_proof",
+    "role": "Same separately activated execution/evidence Operator; exact checkout materialization only before original planned source pass",
+    "boundMinutesToCompletePreflight": 10,
+    "sourceRootRestoration": [
+      {
+        "path": ".gitattributes",
+        "bytes": 7753,
+        "sha256": "0f9d7db5a66f5b0f05c045a3470f0788f881aa8037db78972bc50a613669e5e6"
+      },
+      {
+        "path": ".gitignore",
+        "bytes": 4410,
+        "sha256": "f6364c9967df589fd744e964b1fb17dc31a2b62d3ef2ea64b05ef4b5c4f4d462"
+      },
+      {
+        "path": "AGENTS.md",
+        "bytes": 13754,
+        "sha256": "5038fd003f0bf2ed6c1e079c4e157166961917a37127725147da34eb350210fd"
+      },
+      {
+        "path": "CLAUDE.md",
+        "bytes": 7128,
+        "sha256": "e859444d725a3775f876f0ea121cfb54936cca2d4ac1bdb28b7238c0aa653cec"
+      },
+      {
+        "path": "README.md",
+        "bytes": 3083,
+        "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236"
+      },
+      {
+        "path": "pyproject.toml",
+        "bytes": 422,
+        "sha256": "53f0ccffd83ad00201cde76dd425cce09140afafbaa811941efdcad3d2ed5041"
+      },
+      {
+        "path": "stdo_abiogenesis.json",
+        "bytes": 3136,
+        "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+      }
+    ],
+    "operations": [
+      "Confirm identical preconditions: exactHEAD/index, exactly seven absent paths and no other changes. Restore only those seven paths from exactHEAD using git restore --source=<sourceHead> --worktree --ignore-skip-worktree-bits -- <seven paths>. Do not reset/recreate/changeHEAD/index or overwrite any present differing file.",
+      "Verify each restored regular file byte-equal to exactHEAD, clean worktree and unchanged index. Retain precise before/caller/after observations and original failure.",
+      "Finish remaining original preflight and fresh exclusive preimage/launch setup in already selected source/raw03; do not replay worktree creation or erase failure records. Reuse unchanged valid input acquisition while rechecking dynamic custody as required.",
+      "Then one existing operate.py invocation under unchanged primaryGrant, accepted controls and exact sourceHead. Approved launch remains bound to primaryGrant and original pushed60b6d9e2 checkpoint; current main may contain only this additional disposition. Native author contract and proof exclusion are unchanged."
+    ],
+    "stops": "Any non-matching root/index/other source change or further integration failure returns preserved evidence; no automatic expansion or reset.",
+    "return": "Report completed checkout and actual CONTROL_START/setup/native dispatch separately, then original frozen source/audit/custody Return."
+  },
+  "runtimeBoundary": {
+    "runtimeStarted": false,
+    "setupCalls": 0,
+    "nativeCalls": 0,
+    "sourcePreimageCreated": false,
+    "launchCreated": false,
+    "clockStarted": false,
+    "newClock": "Original planned Native003 clock starts exactly once at future operate.py entry. Earlier native01/02 clocks remain unchanged."
+  },
+  "proofAuthorized": false,
+  "sourceAcceptance": false,
+  "rawPublished": false
+}

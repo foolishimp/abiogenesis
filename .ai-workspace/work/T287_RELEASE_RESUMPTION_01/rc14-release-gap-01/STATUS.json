@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B64_COMPLETION_NATIVE_SELECTED_AFTER_PUSH",
+  "status": "RC14_B64_NATIVE03_CHECKOUT_CORRECTION_SELECTED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T09:45:43.233754+00:00",
+  "updatedUtc": "2026-11-16T09:51:51.927616+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1652,7 +1652,7 @@
     "runtimeRetryAuthorized": false
   },
   "b64Repair": {
-    "state": "NATIVE03_SELECTED_AFTER_PUSH",
+    "state": "NATIVE03_PREFLIGHT_CALLER_CORRECTION_SELECTED",
     "selection": "integration-01/B64_HISTORICAL_CONTEXT_CONJUNCTION_AND_REENTRY_01.json",
     "activation": "integration-01/B64_NATIVE_CONTROL_PREPARATION_ACTIVATION_01.json",
     "actor": "/root",
@@ -1738,7 +1738,8 @@
     },
     "buildOrBehavioralProofStarted": false,
     "next": "Same eight-path RC13 completion for inherited binding and C2 contexts, missing owner-path tests and capture; separately selected proof follows.",
-    "native03Started": false
+    "native03Started": false,
+    "native03PreflightContinuation": "integration-01/B64_NATIVE03_PREFLIGHT_CONTINUATION_01.json"
   },
   "releaseGateCensus02": {
     "state": "BOUNDED_EVIDENCE_MAPPING_ACCEPTED_NOT_QUALIFICATION",
