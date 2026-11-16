@@ -1,0 +1,134 @@
+{
+  "id": "RC14-B56-PROOF02-DISPOSITION-AND-CONTROL03-SELECTION",
+  "recordedUtc": "2026-11-16T00:11:25.779059+00:00",
+  "recordWriter": "RC14-ROOT-B56-PROOF-RECORDS-WRITER-032",
+  "authority": "Owner continue/finish RC14; proof02 first-failure multi-frame triage under B56_RECOVERED_PROOF_ACTIVATION_02.json.",
+  "basis": {
+    "definition": "stdo_abiogenesis.json",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "productFrame": {
+    "outcome": "Fixed 5.0 F04/F17/S06 affected dependency/assembly proof.",
+    "classification": "External proof-control generated-output classification; unchanged Product, source, test population and native method disposition.",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "firstAttempt": {
+    "status": "stopped_first_failure",
+    "compactReturnCommit": "5633fe0b94367510c9c93051beceb39f0896c98a",
+    "integratedMain": "b0705e082",
+    "return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/RETURN.json",
+      "bytes": 2950,
+      "sha256": "4118a6aaa8223938da199d6c196ea394da8b82f26dd26e130ab5361c065e5d9f"
+    },
+    "difference": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/BUILD_MIRROR_DIFFERENCES.json",
+      "bytes": 3854,
+      "sha256": "546f2ffa4e281e577c1286b38be8ab10cc7ce5754b49f2aecbef9a584230a1e2"
+    },
+    "start": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/START.json",
+      "bytes": 522,
+      "sha256": "57f067f37bc40d5f7b36df67b788ad215bc93e4bf0dac697792e71764df5f507"
+    },
+    "buildElapsedMs": 25188,
+    "testSelectionsRun": 0,
+    "conservation": "10 of 11 checks passed; sole failed check non_generated_mirror_source; driver/topology/build groups absent. No successful proof claim."
+  },
+  "triage": {
+    "originatingRelation": "prove.py expands protected evidence into one observer layout without checking physical-topology.py capacity: len(writePaths)+len(protectedRoots)+2 <= MAX_PATHS//2 (128//2=64).",
+    "actual": "Proof01 6+53+2=61; proof02 6+58+2=66. Five new recovery receipt/selection pins crossed bound; all58 paths distinct. 9013-byte layout below131072-byte limit. Refusal precedes physical acquisition.",
+    "owningRoutes": [
+      "Frozen13ca1cf72/prove.py:115-122,246",
+      "Frozen13ca1cf72/physical-topology.py:24,140-178,236-281"
+    ],
+    "missedByPriorChecks": "Both prior delta reviews omitted expanded producer-layout to observer cardinality composition. Their execution-readiness claim is invalidated; unchanged source/deadline/graph-custody facts remain bounded valid.",
+    "independentResults": [
+      {
+        "actor": "/root/b29_vm_triage",
+        "frame": "Proof/Effect",
+        "result": "Caller capacity mismatch; preserve every leaf through two bounded layouts, exact set union, same W/worksite/archive, positive separation, consistent shared anchors and mount snapshots. No Product or overlap failure observed."
+      },
+      {
+        "actor": "/root/amendment_topology_review",
+        "frame": "Product/Design/Identity",
+        "result": "Parent-root collapsing loses leaf no-symlink/type/inode/nlink observations. Preserve each leaf in bounded batches, full receipts and shared existing topology/campaign time bound; observer unchanged."
+      }
+    ]
+  },
+  "disposition": {
+    "changeClass": "realization_refactor",
+    "reentry": "External proof caller layout composition only",
+    "selected": "Two bounded observations through unchanged physical observer; exact union of all protected inputs, repeat all six writes/worksite/archive, require positive separated results and consistent shared anchors/mount snapshots.",
+    "retained": "Both failures, raw evidence, exact original source/audit, full byte custody and inclusive generated graph post-build check, original proof01 deadline/reserve.",
+    "sourceRepairSelected": false,
+    "newNativeSelected": false,
+    "formalQualification": false,
+    "firstAttemptMeaning": "firstAttempt continues to bind actual proof01 clock. secondAttempt is the latest failed causal evidence; neither transfers build/test credit."
+  },
+  "workerActivation": {
+    "id": "RC14-B56-PROOF-CONTROL-WRITER-033",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate external proof-control Writer; not Executive or semantic author",
+    "sourceCheckpoint": "597c8a1bd7c00b2addbd8b5587f9d00e747d5052",
+    "worktree": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-03",
+    "branch": "codex/rc14-assessment-dependency-proof-controls-20261116-03",
+    "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-03",
+    "inheritedControls": {
+      "commit": "13ca1cf72fced938dde89e83aa76f0de10f336af",
+      "root": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-02",
+      "manifestSha256": "64751b8f6649365716441e43f198bd981faf45eec1a78ac5d26eebd413d778de"
+    },
+    "permittedEffects": [
+      "Create separate sparse controls worktree/branch at pushed selection checkpoint; copy exact inherited controls to successor carrier.",
+      "Replace single oversized layout call with bounded batches through unchanged physical-topology.py. Preserve every protected leaf, exact union/no duplicates or omissions; repeat exact worksite/archive/write list. Require each result separated and consistent shared anchors/mount snapshots; preserve full aggregate and per-batch layouts/results.",
+      "Retain existing shared60000ms topology allowance and original campaign deadline/reserve, first-failure stop and process-absence evidence. No observer or process-owner changes.",
+      "Bind fresh proof03/mirror06 coordinates and this exact selection while retaining proof01 actual START deadline and sealed native04 recovery.",
+      "Static syntax plus data-only construction against actual58-root layout: bound satisfaction, exact union, shared-coordinate equivalence and rejection of omissions/duplicates/conflicting shared observations; no physical probe/build/test/provider.",
+      "Freeze one compact authored controls/Return commit and stop for Root review; no raw execution data in Git."
+    ],
+    "readRoutes": [
+      "Exact inherited controls, current Root selection, proof01 and proof02 layout/receipt evidence",
+      "Original native04 source/recovery/control/audit and dependency pins where needed to preserve existing joins",
+      "Selected STDO work/basis/frame/control routes"
+    ],
+    "exclusions": [
+      "No Product/source/generator/test/population changes or clock reset.",
+      "No parent-root collapsing that drops leaf checks, arbitrary observer bound raise, weakened pin/custody checks or new runtime authority.",
+      "No runtime/build/tests/pack/install/provider/native invocation, original evidence edits, raw Git, main mutation/push or review activation."
+    ],
+    "proofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03",
+    "proofSubject": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06",
+    "originalProofDeadlineUtc": "2026-11-16T01:15:36.678788Z",
+    "executionStopUtc": "2026-11-16T01:12:36.678788Z",
+    "originalEnclosingDeadlineUtc": "2026-11-16T01:47:31.946547Z",
+    "cleanupReserveMs": 180000,
+    "hostBinding": "Existing actor context retained; trusted shared desktop, no clean-room exclusion claimed. Source/test semantic construction remains excluded.",
+    "returnTo": "Root exact narrow control review then separate execution decision."
+  },
+  "executionAuthorized": false,
+  "candidateExecutionAuthorized": false,
+  "secondAttempt": {
+    "status": "stopped_first_failure",
+    "compactReturnCommit": "0e55049592c62fad25f9ef7275600fc9e41298fb",
+    "return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-02/RETURN.json",
+      "bytes": 2410,
+      "sha256": "66799327b00f5a69f1abb708b48a71759fdcc7355ec06064c1ac94d881754a6f"
+    },
+    "layout": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-02/TOPOLOGY_LAYOUT.json",
+      "bytes": 9013,
+      "sha256": "a605349f3b45e13566ff99a6ad2bdc24f7980fdd5fc6dfe260cc38b5818dc17b"
+    },
+    "observer": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-02/000-topology/stdout.raw",
+      "bytes": 150,
+      "sha256": "7933b379da972129827be1c2b7c19c8b300e10e60134135ac11974b74afb7944"
+    },
+    "builds": 0,
+    "testSelections": 0,
+    "conservation": "8/8 matched; driver60542/topology60563 groups absent. No mirror created."
+  }
+}

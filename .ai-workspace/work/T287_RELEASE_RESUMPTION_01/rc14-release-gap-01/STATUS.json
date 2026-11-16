@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_PROOF02_AUTHORIZED_NOT_STARTED",
+  "status": "RC14_B56_PROOF02_CLOSED_CONTROL03_PREPARATION",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -719,7 +719,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T00:06:13.622337+00:00",
+  "updatedUtc": "2026-11-16T00:11:25.779059+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1259,9 +1259,9 @@
     "reportedListCostUsd": 6.576858
   },
   "b56ProofRecovery": {
-    "state": "PROOF02_AUTHORIZED_NOT_STARTED",
+    "state": "PROOF02_CLOSED_CONTROL03_PREPARING",
     "selection": "integration-01/B56_NATIVE04_SOURCE_RECOVERY_AND_PROOF_REENTRY_01.json",
-    "proofAuthorized": true,
+    "proofAuthorized": false,
     "newNativeAuthorized": false,
     "originalDeadlineUtc": "2026-11-16T01:47:31.946547Z",
     "controlCommit": "13ca1cf72fced938dde89e83aa76f0de10f336af",
@@ -1276,13 +1276,19 @@
     "driverPid": 46403,
     "providerCalls": 0,
     "proof01Disposition": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_PROOF01_DISPOSITION_AND_CONTROL02_SELECTION.json",
-    "current": "Both exact control02 delta reviews satisfied; one fresh build and unchanged43top-level proof selected under original proof01 deadline. Proof01 remains stopped; all recovered source and method residuals unchanged.",
+    "current": "Second proof refused before physical acquisition/build:66layout entries exceed64 bound. Two frames conjoined; unchanged observer via bounded batches selected. Both failures and original proof clock preserved.",
     "proof01HistoricalAuthorized": true,
     "proof01DriverGroupAbsent": true,
     "proof01TestSelectionsRun": 0,
     "proof01BuildElapsedMs": 25188,
     "proof01ReturnCommit": "5633fe0b94367510c9c93051beceb39f0896c98a",
     "proof02Selection": "integration-01/B56_PROOF01_DISPOSITION_AND_CONTROL02_SELECTION.json",
-    "proof02Started": false
+    "proof02Started": true,
+    "proof02ActualStartUtc": "2026-11-16T00:08:05.286897Z",
+    "proof02ClosedUtc": "2026-11-16T00:08:07.656086Z",
+    "proof02Builds": 0,
+    "proof02TestSelections": 0,
+    "proof02ConservationChecksPassed": 8,
+    "proof02Disposition": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_PROOF02_DISPOSITION_AND_CONTROL03_SELECTION.json"
   }
 }
