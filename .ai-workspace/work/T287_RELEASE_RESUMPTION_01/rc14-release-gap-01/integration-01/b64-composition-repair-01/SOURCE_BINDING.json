@@ -1,0 +1,11 @@
+{
+  "preparationBase": "e28c1d1058d822886cf9347a6f63bd34834b8f53",
+  "source": "/private/tmp/abg-rc14-b64-composition-source-20261116-01",
+  "branch": "codex/rc14-b64-composition-source-20261116-01",
+  "tenantTree": "90a625d295d74f2a94e20761853ae095b4cc98e0",
+  "finalLaunchHead": null,
+  "finalLaunchBinding": "Root-pushed checkpoint descending from this base with identical selected tenant/source; exclusive fresh complete materialized preimage before setup",
+  "executionAuthorized": false,
+  "clockStarted": false,
+  "preservedSourceCheckpoint": "e28c1d1058d822886cf9347a6f63bd34834b8f53"
+}

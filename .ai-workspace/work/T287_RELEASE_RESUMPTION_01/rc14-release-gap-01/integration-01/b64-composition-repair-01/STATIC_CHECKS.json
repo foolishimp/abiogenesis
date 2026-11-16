@@ -1,0 +1,162 @@
+{
+  "kind": "bounded_control_preparation_checks",
+  "checkedUtc": "2026-11-16T15:20:17.506333+00:00",
+  "checks": [
+    "all authored JSON parses",
+    "all seven Python owners AST parse without execution",
+    "node --check HOST only; no imports",
+    "six mechanical owners byte-identical",
+    "HOST only descriptive labels; awaited exact same-object constructor capture conserved",
+    "prove.py entire source restored by only authorized docstring/final-population reversal; all helper ASTs identical",
+    "nine pure final-population checks, including old one-file rejection/new acceptance and exact-set/order/uniqueness negatives",
+    "canonical native task fields/static array and R/readFirst/W joins; no constructor executed",
+    "all original39 titles and3 B64 titles conserved; first whole file10+1 minima; two unexecuted follow-ups",
+    "389 exact source/context rows unchanged",
+    "named method/evidence/tool/candidate/builder/provider pins current; no executable invoked except syntax node",
+    "196 declared native Tool inputs followed through declared file paths/digests; no blanket no-symlink source rule",
+    "full4576 dependency rows and2326 npm-tool rows exactly conserved",
+    "three complete prospective layout shapes within unchanged64 bound; exact child W; oldB64 and S01 protections retained; no physical probe",
+    "future source/raw/proof roots absent; no runtime clock"
+  ],
+  "purePopulationCases": [
+    {
+      "selected": [
+        "one"
+      ],
+      "actual": [
+        "one"
+      ],
+      "expectedPass": false,
+      "observedPass": false,
+      "owner": "old fixed3"
+    },
+    {
+      "selected": [
+        "one"
+      ],
+      "actual": [
+        "one"
+      ],
+      "expectedPass": true,
+      "observedPass": true,
+      "owner": "successor"
+    },
+    {
+      "selected": [
+        "one",
+        "two",
+        "three"
+      ],
+      "actual": [
+        "one",
+        "two",
+        "three"
+      ],
+      "expectedPass": true,
+      "observedPass": true,
+      "owner": "successor"
+    },
+    {
+      "selected": [],
+      "actual": [],
+      "expectedPass": false,
+      "observedPass": false,
+      "owner": "successor"
+    },
+    {
+      "selected": [
+        "one",
+        "one"
+      ],
+      "actual": [
+        "one",
+        "one"
+      ],
+      "expectedPass": false,
+      "observedPass": false,
+      "owner": "successor"
+    },
+    {
+      "selected": [
+        "one"
+      ],
+      "actual": [],
+      "expectedPass": false,
+      "observedPass": false,
+      "owner": "successor"
+    },
+    {
+      "selected": [
+        "one"
+      ],
+      "actual": [
+        "foreign"
+      ],
+      "expectedPass": false,
+      "observedPass": false,
+      "owner": "successor"
+    },
+    {
+      "selected": [
+        "one",
+        "two"
+      ],
+      "actual": [
+        "one",
+        "one"
+      ],
+      "expectedPass": false,
+      "observedPass": false,
+      "owner": "successor"
+    },
+    {
+      "selected": [
+        "one",
+        "two"
+      ],
+      "actual": [
+        "two",
+        "one"
+      ],
+      "expectedPass": false,
+      "observedPass": false,
+      "owner": "successor"
+    }
+  ],
+  "helperAstCount": 11,
+  "context": {
+    "files": 392,
+    "bytes": 10038379,
+    "maxFiles": 1024,
+    "maxBytes": 25165824
+  },
+  "dependencies": {
+    "filesAndLinks": 4576,
+    "bytes": 58290948,
+    "sha256": "dc55a042e47b4119487c1ef1b1288b0de607a9687b6a60e4efbb0443f9584aff"
+  },
+  "npmToolTree": {
+    "filesAndLinks": 2326,
+    "bytes": 13354162,
+    "sha256": "8245bad3cbdc99d8720c49c1ea829570d304761633405f0c53cb7d7dabb2c2f9"
+  },
+  "sourceRows": 389,
+  "evidenceFiles": 24,
+  "nativeInputs": 196,
+  "layoutBoundCounts": [
+    36,
+    37,
+    34
+  ],
+  "nodeCheck": {
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "ProductImports": false,
+  "runtimeInvoked": false,
+  "physicalProbe": false,
+  "buildOrTests": false,
+  "providerInvoked": false,
+  "earlierEditSelectorPreserved": "EDIT_SELECTOR_OBSERVATION.json"
+}

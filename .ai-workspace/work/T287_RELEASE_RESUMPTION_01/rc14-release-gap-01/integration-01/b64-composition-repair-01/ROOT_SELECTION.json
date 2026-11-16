@@ -1,0 +1,82 @@
+{
+  "id": "RC14-B64-COMPOSITION-CONSTRUCTION-001",
+  "recordedUtc": "2026-11-16T10:53:56.587425+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "actor": "/root/b29_vm_triage",
+  "role": "Closed read-only Runtime/Integration/Proof construction result",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": "Unchanged fixed5.0 F17/S06; actual Public/ABG owners admit authority, Results, uses and selector request. Deterministic actor supplies controlled fixture data only, never events/basis/cover/acceptance.",
+  "subjects": {
+    "sourceFreeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/FROZEN_SOURCE.json",
+      "bytes": 7418,
+      "sha256": "740cc09f9477bc4bdcf9b346824ed27aa570d3c0fa5779dc5eeb75ea2561fa1c"
+    },
+    "unchangedSupportBase": "60b6d9e28a26115646536ce827162f8e9046c01b",
+    "preservedMain": "a8aab368c4dbd0a7901adc977d4b1d2e3909bc09"
+  },
+  "recipe": [
+    {
+      "step": 1,
+      "relation": "Package one declared native consumer",
+      "owner": "test_env/support/registered-graph-selection.mjs:9-20 prepareRegisteredSelectionProduct({scratch,product,gtl,abiPublication,declarationFactory,fixtureFiles:[],abiPackageArchivePath,schemaAssets:[]})",
+      "declaration": "fixtures/native-semantic-revision/declarations.mjs:68-131 constructFreshNativeLifecyclePublication({gtl,product,ids,semanticPublication,runEnvironment}); canonical intake/selector/request sealing152-180. Full lifecycle includes required Evidence stage; one-stage B56 is not a substitute."
+    },
+    {
+      "step": 2,
+      "relation": "Actual Public setup",
+      "owner": "test_env/uat/public-setup.mjs:20-60,88-173 installedModules/verifyArtifact/publicCaller/authorizeInstalledOperation; explicit verify/resolve/install/workspace.create/bind/Catalog208-305",
+      "constraint": "populateSandbox has only fixed consumer/library choices. Compose existing explicit operations locally for case-specific consumer; no imaginary custom-consumer option. Do not use root-installed-environment publicOperationBasis77-118, which synthesizes setup metadata and is under separate S01 repair."
+    },
+    {
+      "step": 3,
+      "relation": "Declare selected roles",
+      "owner": "constructRunEnvironmentDeclaration with canonical constructor/assessor roles/context inventory plus exact intake selector GraphFunction/locus assessor role",
+      "precedent": "Frozen cd109c4ec53b8893725e2836883442005deb3ace integration-01/s06-revision-preparation-01/declarations.mjs:18-59. defaultLibraryRunEnvironment workspace roles alone do not include revision selector."
+    },
+    {
+      "step": 4,
+      "relation": "Genuine native adverse source",
+      "owner": "t287-default-library.test.mjs:3009-3054,3177-3243 deterministic CLI; actor_process.ts:915-925 ABG_TS_CLAUDE_COMMAND boundary",
+      "effect": "Fixture author writes declared candidate; assessor compares delivered source/candidate to one explicit criterion and returns schema-valid unsatisfied assessment. Real observation/fold owners create adverse envelope, then stop before later stages/C2.",
+      "premise": "Capture before asserting a genuine admitted_member plus actual holder; inline-only does not exercise B64."
+    },
+    {
+      "step": 5,
+      "relation": "Second genuine Public intake Run",
+      "owner": "constructInstalledStartCall with explicit programRef/start at registered-graph-selection.mjs:228-287",
+      "input": "Only native_semantic_revision_intake/schemaVersion5.0.0/sourceRun/sourcePrefix from actual closed first Run. Same genuine binding for minimal first case; real identical-binding cover is lawful. For later old/new binding use real Public bind and witness.reprice in accepted revision-source.mjs25-43, with bases derived from history. Never override authentication/ancestry/cover/membership."
+    },
+    {
+      "step": 6,
+      "relation": "Complete actual selector assembly",
+      "owner": "implementation/semantic_revision.ts97-109 calls full assembly before dispatch;118-120 seals selected native request",
+      "effect": "Deterministic selector consumes actual prompt and selects exact admitted parent/cause plus eligible declared selection. Retain actor_transport_binding_admitted instructionAssembly, full request/plan/manifest, admitted intake and sealed request. End before revised lifecycle execution."
+    },
+    {
+      "step": 7,
+      "relation": "Cold complete assembly without replaying effects",
+      "owner": "constructSemanticStageNativeBasis then constructNativeInstructionAssembly(basis,actualInput) in fresh reader; semantic_stage.ts138-143 and execution_basis.ts169-219,244-257 authenticate actual prefix/basis/cursor",
+      "effect": "Compare complete cold request/plan/manifest with live assembly; preserve current/historical split and refusal law."
+    }
+  ],
+  "capture": "Full actual setup, first Run, producer/assessment/fold, close prefix, intake input/result, derived historical uses and full assembly before first dependent assertion/cleanup. Use existing default-library2663-2740 preservation pattern. Primary child/parse failures remain primary, secondary capture failures use retained cause/message or stderr; diagnostics alone are dropped by selected reporter.",
+  "minimalFirstTest": "test_env/tests/t287-native-semantic-job.test.mjs; test-local declarations/caller/actor/capture using unchanged owners. No Product/runtime edit established.",
+  "earlierReadOnlyDiagnostic": {
+    "status": "Concrete optional one-host route, unexecuted and not a durable regression or method-compliance substitute",
+    "source": "Original genuine intake577/cursor613/openedselector614/selectedfibre615 before refusal617; original prepared-call contains actual Catalog and10 bound publications.",
+    "owners": "durableRuntimeEventPrefixThroughEvent(closedPrefix,event615); actual execution-basis/opened-CCall/admitted-cursor projectors; exact admitted publications/material; constructSemanticStageNativeBasis then complete assembly under separately built candidate implementation.",
+    "constraints": "No resource reopen/append/transplant, provider or raw Git; verify unchanged physical dependencies. Requires separate build/diagnostic grant."
+  },
+  "rootDecision": "Select durable first complete Public assembly regression plus narrow capture repair. Reuse exact owners, keep production unchanged. Preserve optional genuine-prefix diagnostic as a bounded fallback; no extra diagnostic/build currently activated. Inherited-parent/C2 full composition remains open and follows the first discriminating result.",
+  "sourceEdited": false,
+  "behaviorExecuted": false,
+  "newProductContractMissing": false,
+  "proofClaim": false,
+  "rawPublished": false
+}

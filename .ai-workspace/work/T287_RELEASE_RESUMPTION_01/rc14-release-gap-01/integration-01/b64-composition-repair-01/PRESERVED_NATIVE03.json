@@ -1,0 +1,61 @@
+{
+  "sourceCheckpoint": "e28c1d1058d822886cf9347a6f63bd34834b8f53",
+  "frozenSource": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/FROZEN_SOURCE.json",
+    "bytes": 7418,
+    "sha256": "740cc09f9477bc4bdcf9b346824ed27aa570d3c0fa5779dc5eeb75ea2561fa1c"
+  },
+  "rows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 75434,
+      "sha256": "eec5cd42ee5a7dcd68176f105980816bf56f0793a66464997b1c23cdd81dd288",
+      "futureWriteAllowed": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "bytes": 119565,
+      "sha256": "67e8b316d318b1d30e6109503fb04c5552ac68cb739df106627102532c6dbf93",
+      "futureWriteAllowed": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "bytes": 101785,
+      "sha256": "3d8f377aef159e40bbd5e5b82979f3579e85fc545db6e5752a32e319abc6cb9a",
+      "futureWriteAllowed": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "bytes": 69775,
+      "sha256": "5e0aad4ca855d220a26f99592cd2caec31e180ace89236c13e7574a6ab57953b",
+      "futureWriteAllowed": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "bytes": 43817,
+      "sha256": "f5c17b41abe4eacc26a9c7e58d561d95fd97dc6dde920e2cceb42082a7fb1a71",
+      "futureWriteAllowed": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "bytes": 117972,
+      "sha256": "7a5f077b75df15828f39d1aed8e296d58d56842c4d4e3ffce895ac55b9106246",
+      "futureWriteAllowed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "bytes": 89557,
+      "sha256": "7fe05f0c559df9490a25896bf9bfdf2ac37eb069e0faad818f1eb83484d8488b",
+      "futureWriteAllowed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "bytes": 43882,
+      "sha256": "e04c414964db7c02c70d73ba0b15c21c40e2b1f8ac064182b3a1c702c6b590ec",
+      "futureWriteAllowed": true
+    }
+  ],
+  "sourceAccepted": false,
+  "immutableProductionAndHow": 5,
+  "selectedTestWritePaths": 3
+}

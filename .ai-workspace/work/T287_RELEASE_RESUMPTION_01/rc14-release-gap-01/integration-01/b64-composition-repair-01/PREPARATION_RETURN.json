@@ -1,0 +1,145 @@
+{
+  "kind": "bounded_external_controls_preparation_return",
+  "writerActivation": "RC14-B64-COMPOSITION-CONTROLS-WRITER-048",
+  "result": "prepared_frozen_pending_independent_review",
+  "sourceBase": "e28c1d1058d822886cf9347a6f63bd34834b8f53",
+  "worktree": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01",
+  "branch": "codex/rc14-b64-composition-controls-20261116-01",
+  "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01",
+  "productFrame": "Fixed5.0F17/S06; real Public/native owners admit authority and outcomes, fixtures supply controlled data. No qualification or runtime acceptance.",
+  "clock": {
+    "activation": "RC14-B64-COMPOSITION-CONTROLS-WRITER-048",
+    "startedUtc": "2026-11-16T15:12:15.841455Z",
+    "deadlineUtc": "2026-11-16T15:32:15.841455Z",
+    "sourceBase": "e28c1d1058d822886cf9347a6f63bd34834b8f53",
+    "runtimeClockStarted": false,
+    "prior047Closed": {
+      "actor": "/root/b29_vm_triage",
+      "activation": "RC14-B64-COMPOSITION-CONTROLS-WRITER-047",
+      "startedUtc": "2026-11-16T10:56:28.985902Z",
+      "deadlineUtc": "2026-11-16T11:16:28.985902Z",
+      "state": "closed at reported integration mismatch; no carrier files authored and no source/runtime effects",
+      "retainedCheckout": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01",
+      "head": "37d71a689fe8952480e23199ac6b5585e0479bb5",
+      "rootReverified": "Clean named branch, empty diff/index and no authored carrier; all original clocks remain historical and are not reset.",
+      "delay": "Workers returned while Root was idle after its status reply. No work advanced to source/proof during that interval."
+    },
+    "priorDisplayError": "Read-only display requested manifest.controls but the canonical manifest has files. Projection-only KeyError does not show malformed controls, identity drift or Product failure. Use observed files member; no executable owner fix needed."
+  },
+  "finishedPreparationUtc": "2026-11-16T15:21:29.755494+00:00",
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 5549,
+    "sha256": "c785577a9de0f94eca74863f2ff7fec7558c84840d8b7f91be0982e71a7dd01c"
+  },
+  "controlFiles": 35,
+  "inputSummary": {
+    "sourceRows": 389,
+    "sourceBytes": 10040870,
+    "initialContext": {
+      "files": 392,
+      "bytes": 10038379,
+      "maxFiles": 1024,
+      "maxBytes": 25165824
+    },
+    "nativeWritePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+    ],
+    "preservedNative003Files": 8,
+    "immutableProductHowFiles": 5,
+    "evidenceFiles": 24,
+    "nativeToolInputs": 196,
+    "dependencyRows": 4576,
+    "npmToolRows": 2326
+  },
+  "checks": [
+    "all authored JSON parses",
+    "all seven Python owners AST parse without execution",
+    "node --check HOST only; no imports",
+    "six mechanical owners byte-identical",
+    "HOST only descriptive labels; awaited exact same-object constructor capture conserved",
+    "prove.py entire source restored by only authorized docstring/final-population reversal; all helper ASTs identical",
+    "nine pure final-population checks, including old one-file rejection/new acceptance and exact-set/order/uniqueness negatives",
+    "canonical native task fields/static array and R/readFirst/W joins; no constructor executed",
+    "all original39 titles and3 B64 titles conserved; first whole file10+1 minima; two unexecuted follow-ups",
+    "389 exact source/context rows unchanged",
+    "named method/evidence/tool/candidate/builder/provider pins current; no executable invoked except syntax node",
+    "196 declared native Tool inputs followed through declared file paths/digests; no blanket no-symlink source rule",
+    "full4576 dependency rows and2326 npm-tool rows exactly conserved",
+    "three complete prospective layout shapes within unchanged64 bound; exact child W; oldB64 and S01 protections retained; no physical probe",
+    "future source/raw/proof roots absent; no runtime clock"
+  ],
+  "pureChecks": {
+    "populationCases": 9,
+    "unchangedHelperASTs": 11,
+    "layoutBoundCounts": [
+      36,
+      37,
+      34
+    ],
+    "actualPhysicalObservation": false
+  },
+  "nativeBounds": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 2700000,
+    "nativeMaxTurns": 360,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 10800000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 180000,
+    "perBuildMs": 600000
+  },
+  "proof": {
+    "selectedWholeFiles": [
+      "t287-native-semantic-job.test.mjs"
+    ],
+    "builds": 1,
+    "requiredFirstCase": "B64 historical revision: admitted assessor context reaches new-Run selector assembly held and cold",
+    "capture": "b64-historical-revision.candidate.json",
+    "unexecutedFollowUpFiles": [
+      "t288-instruction-assembly-owner.test.mjs",
+      "t287-event-body-encoding.test.mjs"
+    ],
+    "all39OriginalObligationsConserved": true,
+    "fullInheritedParentC2AndS06Open": true,
+    "authorized": false
+  },
+  "retainedFailures": [
+    {
+      "attempt": "Writer047",
+      "record": "WRITER_ACTIVATION.json",
+      "status": "Closed unchanged; manifest display-only key error and inherited fixed-three population mismatch retained."
+    },
+    {
+      "attempt": "Writer048 edit selector",
+      "record": "EDIT_SELECTOR_OBSERVATION.json",
+      "status": "Three-space literal replacement matched zero; no prove.py mutation then. Root authorized exact observed two-space selector under same grant/deadline; corrected check completed."
+    }
+  ],
+  "remainingPrerequisites": [
+    "Independent frozen-controls review and Root acceptance/push.",
+    "Exact final pushed source checkpoint/LAUNCH and fresh source/raw preimage; same current tenant bytes.",
+    "Actual installed RC13 source author, full method/command audit, exact frozen three-test postimage and source review.",
+    "Separate Root proof grant; no automatic execution. Actual complete topology and physical separation remain runtime checks.",
+    "First full composition behavior, other changed-file proof, inherited-parent/C2 full proof, new candidate/install/S06 and qualification remain unexecuted."
+  ],
+  "executionAuthorized": false,
+  "providerCalls": 0,
+  "runtimeClockStarted": false,
+  "buildsRun": 0,
+  "testsRun": 0,
+  "ProductImports": false,
+  "sourceEdited": false,
+  "mainMutated": false,
+  "pushed": false,
+  "qualified": false
+}
