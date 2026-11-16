@@ -1,0 +1,178 @@
+{
+  "id": "RC14-CANDIDATE02-C1-METADATA-OPERATOR-002",
+  "recordedUtc": "2026-11-16T02:45:31.570606+00:00",
+  "role": "Separate C1 derived-metadata Operator Writer /root/rc14_release_proof under RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner finish RC14 and continue; accepted candidate02/Public03 plus closed independent B59 triage. One narrowly corrected external inventory caller and previously unrun metadata/freeze sequence, after pushed binding.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "sourceBaseCommit": "6d34f715cc6eb041678208363bfcf6fbe60c52bc",
+  "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+  "branch": "codex/rc14-candidate-metadata-20261116-03",
+  "compileInputCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+  "compileInputTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03",
+  "controls": {
+    "root": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01",
+    "commit": "28983a1e299c707d2f466a4615dc17e195b8c96f",
+    "manifestSha256": "da49f6dc6a36302b106434a7d11ba3f5aab52e94244890849a3600dd05d9380c"
+  },
+  "cutRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/CUT_RECORD.json",
+    "bytes": 10529,
+    "sha256": "f7aa025826e6732726bf8aedac3ed8305ece21ede83e5ebfc5bc8d321f9388aa"
+  },
+  "actualPublicIdentity": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03/public-setup/installed/0/identity.json",
+    "bytes": 4108509,
+    "sha256": "72b3794d11538191eb652b81b65f78172bf15f587348abfae15ca5049026a67e",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03/public-setup/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "writeTerritory": {
+    "tenantRoot": "build_tenants/abiogenesis/typescript",
+    "paths": [
+      "product-toolchain-manifest.json",
+      "contracts/capabilities/capability-definition-graph.json",
+      "test_env/fixtures/abi5-root-candidate-basis.json",
+      "test_env/qualification/classification.json",
+      "test_env/qualification/recipe/expected-output-inventory.json",
+      "test_env/qualification/recipe/declared-commands.json",
+      "test_env/qualification/recipe/verification-recipe.json",
+      "test_env/qualification/tenant-manifest.json",
+      "test_env/qualification/resources.json",
+      "test_env/qualification/inventory.json"
+    ],
+    "additional": "Only Git worktree/index/own C1 commit and fresh external raw records/environment. No authored Return added to C1 after freeze; Root records acceptance separately."
+  },
+  "stageArgv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/stage-qualification-metadata.mjs",
+    "--root",
+    "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+    "--record",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/CUT_RECORD.json",
+    "--package",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03/public-setup/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "--install-record",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03/public-setup/installed/0/identity.json",
+    "--scratch",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/metadata"
+  ],
+  "freezeRule": "After one successful generation and exact allowed diff, commit C1 metadata on own branch, retain clean HEAD/tree, invoke unchanged freeze-candidate-inputs.mjs with actual C1 commit/tree and output rawRoot/FREEZE.json. Leave C1 worktree at that commit.",
+  "captureNamespace": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/commands/<number>-<name>-host",
+  "environment": "Explicit credential-free outer environment with HOME under rawRoot/home. Retain actual metadata child HOME/TMPDIR/LANG/LC_ALL/PATH emitted into recipe; do not substitute older build TMPDIR.",
+  "bounds": {
+    "enclosingSeconds": 1200,
+    "cleanupReserveSeconds": 30,
+    "metadataChildMs": 600000,
+    "otherChildrenMaximumMs": 300000,
+    "captureBytes": 16777216,
+    "firstFailureStops": true,
+    "retries": 0,
+    "originalEnclosureStartedUtc": "2026-11-16T02:39:53.470732+00:00",
+    "absoluteCeilingUtc": "2026-11-16T02:59:53.470732+00:00",
+    "executionStopUtc": "2026-11-16T02:59:23.470732+00:00",
+    "clockRule": "Record actual03 start, but wall and monotonic deadline must end at the preserved02 absolute ceiling; never grant a new20minutes. Refuse if insufficient remaining time."
+  },
+  "inputsAndConservation": "Apply exact accepted candidate02 CUSTODY and effectSequence. Both actually consumed external metadata helpers are pinned and compared at original entry and exit. All actual candidate/source/environment coordinates remain distinct.",
+  "effects": [
+    "Only the declared C1 derived source paths and own worktree/index/commit, plus fresh raw records/environment/captures. No semantic source or claim edit."
+  ],
+  "stops": [
+    "Any changed input/authority/claim, unexpected source or payload delta, missing identity or topology, first command failure/bound, absence/custody failure. Preserve failed subject; no widened allowlist, rebuild or retry."
+  ],
+  "exclusions": [
+    "No semantic Product/test/requirement/design change, compile/native build, pack or install.",
+    "No provider/witness/lifecycle/broad suite/qualification, AF25/publication/tag/selector/pin change or human acceptance.",
+    "No main writes/push, raw Git, old-attempt deletion, old frozen worktree mutation, post-freeze C1 Return append, retry or clock reset."
+  ],
+  "return": "Exact C1 commit/tree kept clean, actual FREEZE receipt and source/env/custody pins; identity correspondence only, qualification remains false.",
+  "productFrame": "STDO 3.0.4 fixed 5.0 S07; actual same-archive Public installation and resource close, not a Run/lifecycle witness or qualification.",
+  "sourceBaseTree": "5d4a47728403a82573e9db76988075b58c4828be",
+  "publicAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_PUBLIC_SETUP_ACCEPTANCE_01.json",
+    "bytes": 3839,
+    "sha256": "79340ac195b7e2b3abea1241f60bca4758dada950f980625b483d4d7e3a8b7e6"
+  },
+  "custody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/candidate-successor-02/CUSTODY.json",
+    "bytes": 3293,
+    "sha256": "e2c774f7f9bc59cb00097d30e730f4beafde92340efa62fb835204f690763aeb"
+  },
+  "candidateControlManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/candidate-successor-02/CONTROL_MANIFEST.json",
+    "bytes": 1302,
+    "sha256": "784761c97b16980176fc9f6a03bc27491e1d9a99e8ba6e8010c3f4d13f0369f3"
+  },
+  "consumedExternalHelpers": [
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39",
+      "entryCustody": true,
+      "exitCustody": true,
+      "purpose": "Existing metadata process/inventory owner; consumed external helper, not copied"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-regression-repair-20261115-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/regression-repair-07/dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed",
+      "entryCustody": true,
+      "exitCustody": true,
+      "purpose": "Existing metadata process/inventory owner; consumed external helper, not copied"
+    }
+  ],
+  "effectSequence": [
+    "Bind exact pushed grant and unchanged sourceBaseCommit/tree. Record actual03 start and the preserved02 absolute deadline02:59:53.470732Z, execution stop02:59:23.470732Z; no clock reset or extension.",
+    "Create fresh C1 worktree/branch from sourceBaseCommit; initialize complete index and materialize all seven root files, specification and full tracked tenant. Verify base tree/index/source clean and compiled-input correspondence; no source build/node_modules is needed. Enumerate exactly the declared root/spec/tenant/integration-carrier cone with the selected Git producer pathspecs; retain global index/diff checks.",
+    "Capture original entry custody for all consumed cut/stage/freeze helpers, BOTH process-owner.py and dependency-inputs.py, accepted controls/authority, exact C0/source/build/source archive/archive/full members/generated outputs/claim, authentic Public identity/package, mechanical install/bootstrap, dependency/npm/tool/native input rows.",
+    "Run existing stage-qualification-metadata.mjs exactly once. It alone copies two generated outputs and actual refreshed basis from buildRoot and derives the other permitted outputs using authentic Public .install. Keep metadata scratch absent until helper creates it. Record actual metadata HOME/TMPDIR/LANG/LC_ALL, not prior build environment.",
+    "Review the complete diff against the declared ten-path write cone (not all ten must change), verify source rows outside it and all protected inputs. Commit derived source only on C1, retain clean exact commit/tree, then run unchanged freeze-candidate-inputs.mjs once with those actual values and external FREEZE.json. No Return appended to frozen C1.",
+    "Complete original exit custody and owned process-group closure within the original bound. Return actual C1 commit/tree, FREEZE and raw closed Return pins, or first failure. Root separately integrates adjudicated metadata and authored records."
+  ],
+  "priorFailureDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_C1_INVENTORY_FAILURE_DISPOSITION_01.json",
+    "bytes": 4505,
+    "sha256": "cb5a45499ff2902d4694636083ac6394e9e07500a4ec41648aa63c3129aa849d"
+  },
+  "priorAttempt": {
+    "source": "/private/tmp/abg-rc14-candidate-metadata-20261116-02",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-02",
+    "closedReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-02/RETURN.json",
+      "bytes": 16719,
+      "sha256": "caccbfb0d9c01c110511d465ca10ebc783158f1b885bedb4b0a1dbe942cce922"
+    },
+    "status": "failed_preflight_closed",
+    "immutable": true
+  },
+  "inventoryCallerCorrection": {
+    "source": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-02/OPERATOR_COMMAND.txt",
+      "bytes": 12186,
+      "sha256": "b00213b5f871c7f9595b09e2947a7ff0013f3658b466f1fe0238bdcff4fcae79"
+    },
+    "producerArgv": [
+      "ls-tree",
+      "-r",
+      "-z",
+      "HEAD",
+      "--",
+      ".gitattributes",
+      ".gitignore",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "README.md",
+      "pyproject.toml",
+      "stdo_abiogenesis.json",
+      "specification",
+      "build_tenants/abiogenesis/typescript",
+      ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01"
+    ],
+    "expectedBaseRowCount": 2268,
+    "expectedBaseListingBytes": 349420,
+    "preserved": "Complete materialized physical set equals all selected tracked rows by path/mode/Git blob and digest, including867 carrier rows. Full index and global diff checks remain. No cap increase, truncation or helper change.",
+    "permittedCallerDelta": "Scope the producer with exact pathspecs; substitute only new grant/raw/source/branch/capture coordinates and bind the preserved earlier deadline. Reuse existing caller computations and owners; no parallel runner or source repair."
+  }
+}

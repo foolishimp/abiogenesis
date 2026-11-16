@@ -1,0 +1,85 @@
+{
+  "id": "RC14-CANDIDATE02-C1-INVENTORY-FAILURE-DISPOSITION-01",
+  "recordedUtc": "2026-11-16T02:45:31.570606+00:00",
+  "writer": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "ticket": "T293/B59",
+  "productFrame": "STDO 3.0.4 fixed 5.0 S07; external source correspondence preparation. No Product or metadata owner defect established.",
+  "exactFailure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-02/FIRST_FAILURE.json",
+    "bytes": 1742,
+    "sha256": "a8f6e5cb3a4df7168b95eebc9414eb305a3886f23b5a3612cae610d85a17b68d"
+  },
+  "closedReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-02/RETURN.json",
+    "bytes": 16719,
+    "sha256": "caccbfb0d9c01c110511d465ca10ebc783158f1b885bedb4b0a1dbe942cce922"
+  },
+  "actualCaller": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-02/OPERATOR_COMMAND.txt",
+    "bytes": 12186,
+    "sha256": "b00213b5f871c7f9595b09e2947a7ff0013f3658b466f1fe0238bdcff4fcae79"
+  },
+  "failedCapture": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-02/commands/009-base-blobs/stdout.raw",
+    "bytes": 27891459,
+    "sha256": "7bfae82e6a5e11ebca93fce3313bd5c9448f983c0d087e11544b73e1f04f57e2"
+  },
+  "sourceExit": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-02/SOURCE_EXIT.json",
+    "bytes": 776636,
+    "sha256": "bb40c4c46cd434d8da4be44202031f719669dac9d5ff732c3f2591563df19c39"
+  },
+  "clock": {
+    "startedUtc": "2026-11-16T02:39:53.470732+00:00",
+    "deadlineUtc": "2026-11-16T02:59:53.470732+00:00",
+    "executionStopUtc": "2026-11-16T02:59:23.470732+00:00",
+    "closedUtc": "2026-11-16T02:41:57.058080+00:00",
+    "elapsedMs": 123582
+  },
+  "conjoinedTriage": {
+    "ProductDesignIdentity": "amendment_topology_review independently reconstructed the exact full materialized cone and matched all rows to SOURCE_EXIT; unchanged Product and helpers.",
+    "ProofEffectIntegration": "b29_vm_triage independently confirmed producer exceeded bound before consumer filtering; exit zero does not waive output_bound.",
+    "origin": "OPERATOR_COMMAND line77 enumerates all HEAD paths; lines82-83 only then restrict to the declared materialized source cone. The consumer scope was applied too late to bound producer output.",
+    "allHeadRows": 137765,
+    "allHeadBytes": 27891459,
+    "requiredRows": 2268,
+    "requiredBytes": 349420,
+    "scope": {
+      "rootFiles": 7,
+      "specification": 99,
+      "tenant": 1295,
+      "integrationCarrier": 867
+    },
+    "completePathspecs": [
+      ".gitattributes",
+      ".gitignore",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "README.md",
+      "pyproject.toml",
+      "stdo_abiogenesis.json",
+      "specification",
+      "build_tenants/abiogenesis/typescript",
+      ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01"
+    ],
+    "priorMiss": "The caller added an unscoped producer although the existing downstream filter and sparse materialization selected a bounded source cone. Metadata and freeze helpers do not contain this enumeration."
+  },
+  "closure": {
+    "metadataCommands": 0,
+    "freezeCommands": 0,
+    "C1CommitCreated": false,
+    "sourceRows": 2268,
+    "entryInventoryWasEmitted": false,
+    "sourceAtBaseAndClean": true,
+    "retainedInputExpectationsRehashed": 157,
+    "checksPassed": 15,
+    "groupsAbsent": 12,
+    "RootFreshAbsolutePinChecks": 162,
+    "RootIndependentlyObservedAll12GroupsAbsent": true,
+    "limitation": "Complete INPUTS_ENTRY did not exist before failure; closure checks use original immutable expected subjects and actual SOURCE_EXIT. Do not relabel the failed command as successful preflight."
+  },
+  "decision": "Select one fresh C1 metadata03 attempt using explicit pathspecs at the Git producer. Keep all rows/modes/blob checks, whole-index identity, complete physical set equality, full global changed-path checks, all non-ten-path custody and original16MiB cap. Preserve failed02 source/raw. No Product/helper change or rebuild.",
+  "successorClock": "Fresh03 actual start with the original02 absolute ceiling02:59:53.470732Z and execution stop02:59:23.470732Z; no extension/reset. Return if the remaining interval is insufficient.",
+  "qualified": false,
+  "rawPublished": false
+}

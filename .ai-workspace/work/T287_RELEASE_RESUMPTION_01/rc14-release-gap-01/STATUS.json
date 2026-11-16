@@ -1,5 +1,5 @@
 {
-  "status": "RC14_CANDIDATE02_PUBLIC_SETUP_ACCEPTED_C1_PENDING",
+  "status": "RC14_CANDIDATE02_C1_INVENTORY_CORRECTION_SELECTED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -1377,10 +1377,17 @@
     "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03/public-setup/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant"
   },
   "candidate02Metadata": {
-    "state": "AUTHORIZED_AWAITING_PUSHED_BINDING",
+    "state": "FAILED_INVENTORY_PREFLIGHT_CLOSED",
     "activation": "integration-01/CANDIDATE02_C1_METADATA_ACTIVATION_01.json",
-    "started": false,
+    "started": true,
     "sourceBaseCommit": "6d34f715cc6eb041678208363bfcf6fbe60c52bc",
-    "qualified": false
+    "qualified": false,
+    "closed": true,
+    "failureDisposition": "integration-01/CANDIDATE02_C1_INVENTORY_FAILURE_DISPOSITION_01.json",
+    "metadataExecuted": false,
+    "failure": "Unscoped Git tree listing exceeded16MiB before source filtering",
+    "successorActivation": "integration-01/CANDIDATE02_C1_METADATA_ACTIVATION_02.json",
+    "successorRaw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03",
+    "originalDeadlineUtc": "2026-11-16T02:59:53.470732+00:00"
   }
 }
