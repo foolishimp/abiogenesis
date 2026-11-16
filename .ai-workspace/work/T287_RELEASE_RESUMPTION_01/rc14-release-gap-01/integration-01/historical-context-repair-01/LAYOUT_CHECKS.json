@@ -1,0 +1,19 @@
+{
+  "kind": "static_producer_layout_shape",
+  "canonicalSource": "/private/tmp/abg-rc14-historical-context-source-20261116-01",
+  "nativeWriteCount": 8,
+  "nativePhaseAnchorCounts": [
+    33,
+    34,
+    34
+  ],
+  "sharedExternalProtectedCount": 14,
+  "sameActualAndFinalProjection": true,
+  "proofWriteCount": 6,
+  "proofAnchorCount": 26,
+  "maximum": 64,
+  "producerSource": "Exact HOST declaration expressions; public-setup.mjs286-287 six root fields plus its two-install route. Actual layouts are reacquired after setup and immediately before dispatch.",
+  "physicalObservation": false,
+  "runtime": false,
+  "limits": "Shape and source-owner projection only; no mount/path separation claim until unchanged observer succeeds."
+}

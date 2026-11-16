@@ -1,0 +1,128 @@
+{
+  "id": "RC14-B64-HISTORICAL-CONTEXT-HOW-AND-REENTRY-001",
+  "recordedUtc": "2026-11-16T07:31:43.190557+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner finish RC14/continue; T287 existing selected S06 outcome; exact B64 failed composition and closed independent frame results.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "frameURI": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "productFrame": {
+    "outcome": "Unchanged fixed5.0 F17/S06: preserve complete source/evidence, execute declared revision, independent assessment, complete D1/application and consequential D2.",
+    "classification": "Design correction and realization repair of an existing historical evidence presentation obligation; no new Product feature, Public family or semantic policy.",
+    "authoritySplit": "Revision owner authenticates declared historical use; held-prefix/body owner authenticates retained members; instruction assembly presents complete bytes without changing admitted carriers; ABG remains runtime admission authority.",
+    "prohibitions": [
+      "No fresh-workspace substitution for historical bytes, rewrites of old Result/context/binding, fabricated sourceResults/use grants or copied old stage credit.",
+      "No blanket cross-Run/member permission, generic registry, new semantic runtime, oracle weakening or hidden provider prompt."
+    ]
+  },
+  "subject": {
+    "mainBase": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
+    "tree": "8e5a5194de10f816d95f61b9fcf5e8b19a006211",
+    "failedCandidateSource": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "failedArchiveSha256": "be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "failedControlsCommit": "cd109c4ec53b8893725e2836883442005deb3ace",
+    "failureRecord": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-adverse-revision-01/ROOT_FAILURE_RECORD.json",
+      "bytes": 7121,
+      "sha256": "f197f413e9c9f1d95517556c360ff27c251d620454787992aa9447a31bbf82c4"
+    },
+    "operatorReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/OPERATOR_RETURN.json",
+      "bytes": 118499,
+      "sha256": "84ef00bf58a26cffaa40fb68dcd02e8547adcb1d42a4c8b270310e64d31d686d"
+    }
+  },
+  "closedFrames": [
+    {
+      "actor": "/root/amendment_topology_review",
+      "frame": "Product/Design/Proof",
+      "result": "falsified",
+      "finding": "Legal retained-member producer and semantic folds contradict inline-only HOW and renderer. Existing complete-material obligation is unsatisfied; current source and permissions are present.",
+      "owningHow": "Native-work HOW299-300 must permit its actual admitted representation; D2 HOW126-145 must bind exact historical presentation to its owner."
+    },
+    {
+      "actor": "/root/rc14_release_proof",
+      "frame": "Runtime/Integration/Identity/Effect",
+      "result": "falsified",
+      "finding": "Actual source-supported sufficient cause: cause505 member view throws at contextView; current577 has31inline bodies. Generic catch678 obscures this relation. Current cross-Run body resolver excludes the semantic cause, so simple caller hydration/old Run substitution is unlawful.",
+      "scope": "Selection context routes and applicable stage view824; revision subject authentication and existing prefix/member validation must compose."
+    }
+  ],
+  "decisiveFacts": {
+    "successfulCurrentIntakeOrdinal": 577,
+    "currentInlineFiles": 31,
+    "historicalAdverseOrdinal": 505,
+    "historicalMemberFiles": 31,
+    "nativeAssessmentProducerOrdinal": 475,
+    "memberBasisPrefix": "a6a35be4",
+    "basisWrapperOrdinal": 316,
+    "storedTaskResultOrdinal": 301,
+    "examplePath": "application/scala_spark/build.sbt",
+    "exampleBytes": 2042,
+    "exampleSha256": "b4d1a944d7d7644be47be455f54e231d746b2083bf2a205efe19a0c04745bb47",
+    "refusalOrdinal": 617,
+    "failedResultOrdinal": 619,
+    "stoppedOrdinal": 638,
+    "historicalBindingPrefix": "ec488129",
+    "currentBindingPrefix": "3166f932",
+    "nativeGeneration": 0,
+    "innerExceptionEvidence": "Source+actual data establish sufficient cause; original inner stack was not retained."
+  },
+  "admittedStructuralDecision": {
+    "path": "Admitted native observation -> unchanged semantic envelope -> authenticated revision parent/cause/use -> owner-bound historical context access -> existing prefix/member verification -> derived byte presentation -> unchanged native instruction request/admission.",
+    "historicalUse": "Revision owner derives exact historical contexts from its authenticated subject/acquisition, original source prefix and selected parent/causes. No caller-created allowlist or arbitrary carrier-shaped search supplies authority.",
+    "bodyOwner": "Retain canonical holder/basis/coordinate/path/digest/length/read-scope checks and binding-cover relation. Authenticate historical evidence under its genuine historical scope and declared use by the current revision. Current physical context remains distinct; retain applicable currentness checks.",
+    "presentation": "Read required historical bytes through that exact owner relation. Preserve all original context/member/Result identities; create only a derived presentation, with existing byte deduplication and complete opaque values. Handle legally referenced contexts in selection and applicable stage assembly. No eager historical rewrite or producer-dedup rollback.",
+    "realizationFreedom": "Private callable names/helper placement and local algorithms are worker choices inside these exact contracts. Reuse established owner facts; no new persistent authority/cache registry or broad capability grant.",
+    "designBeforeCode": "Native author first reconciles the two named HOW passages to this admitted structural decision, then implements within the existing Product/requirements. A discovered structural change outside this decision returns for re-entry."
+  },
+  "selectedWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "sourceRoutes": [
+    "specification/PRODUCT.md:825-860,1480-1498",
+    "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md#REQ-R-ABG3-INSTRUCTION-ASSEMBLY-022",
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts:1738-1750",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts:64-70",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts:836,852",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts:340-374",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts:931-962,1018-1071",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts:678,824,927-934,974,988,1002",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md:299-300",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md:126-145"
+  ],
+  "proofObligations": [
+    "Admitted native assessor -> folded adverse semantic envelope with admitted_member context -> new-Run revision intake -> successful selector assembly, without a paid provider call.",
+    "Held and cold-prefix presentation yield equal complete material with provenance and original admitted carrier bytes conserved.",
+    "Exercise the applicable semantic-stage member view; keep existing inline, changed-current, non-UTF8 and opaque application/C2 payload behavior.",
+    "Refuse missing, forward, foreign or tampered holder/member, wrong path/digest/version/binding, undeclared historical use, uncovered binding and unavailable/denied body reads. Reuse existing exact negative proofs only where unchanged owners and new path coverage justify it.",
+    "Run whole affected three test files and normal build under a separately bounded proof grant; no duplicate broad campaign.",
+    "Build/install a new exact candidate with C0/C1/member correspondence; then resume original04 semantic cause through latest genuine close and fresh admitted binding cover/Run. Complete actual reassessment, remaining D1/C2/Evidence and D2."
+  ],
+  "whyPriorEvidenceMissed": "Canonical validation checked declarations/role coverage. Renderer tests used inline contexts. Static review did not compose real native assessor member-carriage with historical selector presentation. No green check established that relation.",
+  "reentry": {
+    "now": "Prepare one installed-RC13 native source task and external proof controls; no source edit/runtime/provider selected by this record alone.",
+    "next": "Freeze/review controls, push exact Operator grant, run one native source pass, freeze/review source and perform separately selected affected proof.",
+    "futureRuntime": "Use latest closed13,730,678-byte event prefix and actual close authority for acquisition, retaining original04 sourceRun/prefix/parent30/cause505. Fresh new-candidate binding/Run, no reset or relabel of either failure. Exact candidate and finite lifetime are selected later."
+  },
+  "evidenceRepricing": {
+    "candidate02": "Immutable historical subject and all failed evidence retained.",
+    "amendment04": "Accepted only on tested candidate02. No amendment defect shown; reuse requires explicit affected-source conservation, not a repeated paid campaign by default.",
+    "broad": "No duplicate broad run selected; affected tests and exact source-conservation decide retained applicability.",
+    "candidateSuccessor": "Requires new build/install/C0/C1 correspondence after accepted source. No qualified-cut source replacement is claimed.",
+    "qualification": "B50 policy/scope remains unanswered. No qualification/AF25/stable acceptance/publication/pin change."
+  },
+  "sourceImplementationAuthorized": false,
+  "runtimeAuthorized": false,
+  "qualified": false,
+  "rawPublished": false
+}

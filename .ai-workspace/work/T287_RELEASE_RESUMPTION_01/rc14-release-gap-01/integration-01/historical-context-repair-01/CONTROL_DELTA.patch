@@ -1,0 +1,212 @@
+--- accepted-B56/HOST.mjs
++++ B64-corrected/HOST.mjs
+@@ -12,13 +12,14 @@
+ for(const key of Object.keys(providerCredentials))delete process.env[key];
+ 
+ const dir=dirname(fileURLToPath(import.meta.url));
+-const source='/private/tmp/abg-rc14-assessment-dependency-source-20261116-01';
+-const raw='/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01';
++const activation=JSON.parse(await readFile(join(dir,'ACTIVATION.json'),'utf8'));
++const source=activation.sourceWorktree;
++const raw=activation.rawRoot;
+ const runtimeRoot=join(raw,'runtime'), tenant=join(source,'build_tenants/abiogenesis/typescript');
+ const launchPath=resolve(process.argv[2]??'');
+ assert(process.argv.length===3,'one explicit Root launch-packet path required');
+ const launch=JSON.parse(await readFile(launchPath,'utf8'));
+-assert.equal(launch.activationId,'RC14-ASSESSMENT-DEPENDENCY-NATIVE-001');
++assert.equal(launch.activationId,'RC14-HISTORICAL-CONTEXT-NATIVE-001');
+ assert.equal(launch.dispatchAuthorized,true,'Root must accept packet and pushed source before launch');
+ const head=launch.sourceHead;assert.match(head,/^[0-9a-f]{40}$/);
+ const controlClock=JSON.parse(await readFile(join(raw,'CONTROL_START.json'),'utf8'));
+@@ -27,16 +28,20 @@
+ const sha=b=>createHash('sha256').update(b).digest('hex');
+ const json=async p=>JSON.parse(await readFile(p,'utf8'));
+ const pinBytes=await readFile(pinPath); assert.equal(sha(pinBytes),'52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26');
+-const pin=JSON.parse(pinBytes), activation=await json(join(dir,'ACTIVATION.json')), task=await json(join(dir,'TASK.json'));
++const pin=JSON.parse(pinBytes), task=await json(join(dir,'TASK.json'));
+ assert.equal(sha(await readFile(join(dir,'physical-topology.py'))),launch.observerSha256);
+ assert(Array.isArray(launch.controls)&&launch.controls.length>=6,'exact accepted control digests required');
+ const controlManifestBytes=await readFile(join(dir,'CONTROL_MANIFEST.json'));
+ assert.equal(sha(controlManifestBytes),launch.controlManifestSha256,'accepted control manifest');
+ assert.deepEqual(launch.controls,JSON.parse(controlManifestBytes.toString('utf8')).files,'complete accepted controls');
+ for(const control of launch.controls){assert(!control.path.includes('..')&&!control.path.startsWith('/'));assert.equal(sha(await readFile(join(dir,control.path))),control.sha256,control.path);}
+-for(const name of ['HOST.mjs','TASK.json','ACTIVATION.json','physical-topology.py','operate.py','prove.py','setup-custody.py','SOURCE_INPUTS.json','FIXTURE_INPUTS.json','NATIVE_INPUTS.json','DEPENDENCY_INPUTS.json','PROOF_PLAN.json'])assert(launch.controls.some(r=>r.path===name),'missing control pin '+name);
++for(const name of ['HOST.mjs','TASK.json','ACTIVATION.json','physical-topology.py','operate.py','prove.py','setup-custody.py','SOURCE_INPUTS.json','FIXTURE_INPUTS.json','NATIVE_INPUTS.json','DEPENDENCY_INPUTS.json','PROOF_PLAN.json','EVIDENCE_INPUTS.json'])assert(launch.controls.some(r=>r.path===name),'missing control pin '+name);
+ async function observeTopology(layout){const bytes=execFileSync('/usr/bin/python3',[join(dir,'physical-topology.py'),'-'],{input:JSON.stringify(layout),timeout:60000,maxBuffer:4*1024*1024});const result=JSON.parse(bytes.toString('utf8'));assert.equal(result.ok,true,result.reason);assert.equal(result.disposition,'separated',result.reason);return result;}
+ const installed=pin.installedRoot, p=activation.provider, limits=activation.limits;
++const evidence=await json(join(dir,'EVIDENCE_INPUTS.json'));
++const candidate=await json(join(dir,'ORIGINAL_CANDIDATE.json'));
++const dependency=await json(join(dir,'DEPENDENCY_INPUTS.json'));
++const externalProtected=[dir,'/Users/jim/src/apps/abiogenesis',...evidence.protectedRoots,dependency.path,candidate.C1.sourceRoot,dirname(candidate.archive.path),candidate.publicInstalledRoot,...activation.externalReadOnlyInputs.map(r=>r.path)];
+ const setupOwner=await import(pathToFileURL(join(tenant,'test_env/uat/public-setup.mjs')));
+ const runner=await import(pathToFileURL(join(tenant,'test_env/uat/runner.mjs')));
+ const record=(path,value,rawBytes=false)=>runner.exclusiveRecord(runtimeRoot,path,value,rawBytes);
+@@ -79,6 +84,8 @@
+   await record('run.json',{activation:activation.id,head,launch:{path:launchPath,sha256:sha(await readFile(launchPath))},pin:{path:pinPath,sha256:sha(pinBytes)},pid:process.pid,startedUtc:new Date().toISOString(),limits,source,runtimeRoot,providerCallsAtMost:1});
+   await sourceExact(); await reserve();
+   for(const row of activation.externalReadOnlyInputs)await pinned(row);
++  for(const row of evidence.files)await pinned(row);
++  await record('external-evidence-entry.json',{files:evidence.files,standing:evidence.standing});
+   await record('external-method-inputs.json',{inputs:activation.externalReadOnlyInputs,scope:'Byte identity only; actual native content-read before edit remains mandatory audit evidence.'});
+   for(const row of [pin.archive,pin.rawPackage,pin.rawProductToolchainManifest])await pinned(row);
+   assert.equal(sha(await readFile(p.executable)),p.sha256);
+@@ -88,7 +95,7 @@
+   await record('provider-help.raw',help,true);await record('provider-identity.json',{executable:p.executable,sha256:p.sha256,version,model:p.model,effort:p.effort,measurement:'CLI identity and advertised argument support; no remote model attestation'});
+   for(const suffix of ['resources/events','resources/runtime','resources/projections','resources/archives','sandbox/installed'])await mkdir(join(runtimeRoot,suffix),{recursive:true});
+   const plannedProtected=[join(runtimeRoot,'sandbox/installed/abg'),join(runtimeRoot,'sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant'),join(runtimeRoot,'sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat'),
+-    ...['events','runtime','projections','archives'].map(n=>join(runtimeRoot,'resources',n)),installed,pin.releaseRoot];
++    ...['events','runtime','projections','archives'].map(n=>join(runtimeRoot,'resources',n)),installed,pin.releaseRoot,...externalProtected];
+   await record('topology-before-setup.json',await observeTopology({worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots:plannedProtected,archiveRoot:join(runtimeRoot,'resources/archives')}));
+   await mark('identity-and-topology-bound');
+   const runtime=await setupOwner.installedModules(installed), {product,abg,api}=runtime;
+@@ -101,7 +108,7 @@
+   assert.deepEqual(args.slice(args.indexOf('--effort'),args.indexOf('--effort')+2),['--effort',p.effort]);
+   assert.deepEqual(args.slice(args.indexOf('--max-turns'),args.indexOf('--max-turns')+2),['--max-turns',String(limits.nativeMaxTurns)]);
+   await record('provider-transport-selection.json',{contract,args,configured,environmentKeys:Object.keys(worker).sort()});
+-  caller=setupOwner.publicCaller({root:runtimeRoot,runtime,native,config,record,actorRef:'actor://abiogenesis/operator/rc14-assessment-dependency',
++  caller=setupOwner.publicCaller({root:runtimeRoot,runtime,native,config,record,actorRef:'actor://abiogenesis/operator/rc14-historical-context',
+     command:runner.commandRecorder(runtimeRoot,{environment:setupEnvironment,timeoutMs:limits.setupReadbackCommandMs,maxOutputBytes:limits.outputBytesPerCommand})});
+   const authorize=caller.authorize;let imported=0;
+   caller.authorize=(packet,request,resources,slots)=>packet===product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.create.clean
+@@ -115,7 +122,7 @@
+   for(const suffix of ['worker-tmp','worker-npm-cache'])await mkdir(join(raw,'host-scratch',suffix),{recursive:true});
+   const env=caller.refresh(), ids=product.NATIVE_WORKSPACE_WORK_IDS;
+   assert.equal(env.workspaceBinding.roots.productRoot,caller.installedRoot);
+-  const protectedRoots=[...Object.values(env.workspaceBinding.roots),...env.productInstalls.map(x=>x.installedRoot),installed,pin.releaseRoot];
++  const protectedRoots=[...Object.values(env.workspaceBinding.roots),...env.productInstalls.map(x=>x.installedRoot),installed,pin.releaseRoot,...externalProtected];
+   await record('topology-before-dispatch.json',await observeTopology({worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots,archiveRoot:env.workspaceBinding.roots.archiveRoot}));
+   const operations=await import(pathToFileURL(join(installed,'build/code/src/product/worksite_operations.js')));
+   const writeRefusal=await operations.checkWorksiteWriteRoots({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,protectedInstallRoots:env.productInstalls.map(x=>x.installedRoot),writeRoots:task.writeRoots});
+@@ -128,15 +135,15 @@
+   const constructed=await api.constructInstalledStartCall({selection:{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'},programRef:ids.programRef,catalog:caller.state.catalog,catalogView:view,applications:[],
+     admittedInstalls:env.productInstalls,workspaceBinding:env.workspaceBinding,verifyInstallAdmission:i=>abg.hasAdmittedProductInstall(env.artifactTruth,i),actorRef:caller.actorRef,
+     input:{factory:({workspaceBinding,grants})=>{assert.equal(grants.length,1);return input=product.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,capabilityGrant:grants[0],context,outcome:task.outcome,instructions:task.instructions,readFirst:task.readFirst,writeRoots:task.writeRoots,checks:task.checks});}},
+-    inputValueRef:'value://abiogenesis/rc14/assessment-dependency/input',source:{kind:'none'},eventResource:entry,
+-    envelope:{definitionContractCoordinates:native.verified.definitionContractCoordinates,requestRef:'request://abiogenesis/rc14/assessment-dependency/start',correlationRef:'correlation://abiogenesis/rc14/assessment-dependency',eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(dir,'TASK.json')).href]}});
++    inputValueRef:'value://abiogenesis/rc14/historical-context/input',source:{kind:'none'},eventResource:entry,
++    envelope:{definitionContractCoordinates:native.verified.definitionContractCoordinates,requestRef:'request://abiogenesis/rc14/historical-context/start',correlationRef:'correlation://abiogenesis/rc14/historical-context',eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(dir,'TASK.json')).href]}});
+   await record('native-construction-kind.json',{kind:constructed.kind,code:constructed.code??null});assert.equal(constructed.kind,'installed_start_call');assert.strictEqual(constructed.call.resources.eventResource,entry);
+   await record('PREPARED.json',{head,workspaceBinding:caller.state.binding,programRef:ids.programRef,taskDigest:product.sha256Canonical(input),contextDigest:context.observationDigest,contextEntries:context.entries.length,
+     contextBytes:context.entries.reduce((n,e)=>n+(e.state==='file'?e.byteLength:0),0),writeRoots:input.writeRoots,invocationRef:constructed.call.invocation.invocationRef,invocationDigest:constructed.call.invocation.invocationDigest,configured,providerCalls:0});
+   nativeTask=input;
+   await sourceExact(); await reserve();
+   const finalEnv=caller.refresh();
+-  const finalProtected=[...Object.values(finalEnv.workspaceBinding.roots),...finalEnv.productInstalls.map(x=>x.installedRoot),installed,pin.releaseRoot];
++  const finalProtected=[...Object.values(finalEnv.workspaceBinding.roots),...finalEnv.productInstalls.map(x=>x.installedRoot),installed,pin.releaseRoot,...externalProtected];
+   await record('topology-immediately-before-dispatch.json',await observeTopology({worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots:finalProtected,archiveRoot:finalEnv.workspaceBinding.roots.archiveRoot}));
+   await record('setup-owned-custody-at-dispatch.json',custody('preflight'));
+   abg.assertAcquiredAbgEventResourceSelectionCurrent(entry);
+@@ -176,6 +183,8 @@
+   }
+     catch(error){readbackFailure={message:error.message,observation:error.observation??null};await record('READBACK_FAILURE.json',readbackFailure);if(failure===null){failure={name:error.name,message:error.message,stage:'fresh-readback-completion',observation:error.observation??null};await record('FIRST_FAILURE.json',{failure,launched,phases});}process.exitCode=1;}}
+   if(!nativeCompleted)process.exitCode=1;
++  try{for(const row of evidence.files)await pinned(row);await record('external-evidence-exit.json',{files:evidence.files,conserved:true});}
++  catch(error){const conservationFailure={name:error.name,message:error.message,stack:error.stack};await record('EXTERNAL_EVIDENCE_FAILURE.json',conservationFailure);failure=failure??conservationFailure;process.exitCode=1;}
+   await record('FINAL.json',{launched,nativeCompleted,providerCallsAtMost:launched?1:0,failure,readbackFailure,actualResourceClose:close!==null,run:outcome?.receipt?.resources?.run??null,phases,qualified:false});
+   console.log(JSON.stringify({phase:'operator-return',launched,nativeCompleted,failure:failure?.message??null,readbackFailure,actualResourceClose:close!==null}));
+ }
+--- accepted-B56/operate.py
++++ B64-corrected/operate.py
+@@ -1,9 +1,9 @@
+ import datetime, hashlib, json, os, pathlib, signal, stat, subprocess, sys, time
+ 
+ CONTROL = pathlib.Path(__file__).resolve().parent
+-RAW = pathlib.Path('/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-01')
+-SOURCE = pathlib.Path('/private/tmp/abg-rc14-assessment-dependency-source-20261116-01')
+ ACT = json.loads((CONTROL / 'ACTIVATION.json').read_text())
++RAW = pathlib.Path(ACT['rawRoot'])
++SOURCE = pathlib.Path(ACT['sourceWorktree'])
+ CLEANUP_RESERVE = ACT['limits']['cleanupReserveMs'] / 1000
+ MAX_BYTES = ACT['limits']['outputBytesPerCommand']
+ 
+--- accepted-B56/prove.py
++++ B64-corrected/prove.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""One fresh build and bounded dependency/assembly proof; separate exact Root grant."""
++"""One fresh build and three whole-file historical-context owner proofs; separate exact Root grant."""
+ import datetime,hashlib,importlib.util,json,os,re,shutil,subprocess,sys,time
+ from pathlib import Path
+ sys.dont_write_bytecode=True
+@@ -98,6 +98,7 @@
+  assert deps.inventory(tools['npmTree']['path'])['sha256']==tools['npmTree']['inventorySha256']
+  candidate=json.loads((HERE/'ORIGINAL_CANDIDATE.json').read_text())
+  for name in ['acceptance','archive','freeze','publicIdentity']:pinned(candidate[name]['path'],candidate[name])
++ for row in json.loads((HERE/'EVIDENCE_INPUTS.json').read_text())['files']:pinned(row['path'],row)
+  pinned(ACT['builderPin']['path'],ACT['builderPin']);pinned(ACT['authority']['path'],ACT['authority'])
+  return {'manifestSha256':digest(HERE/'CONTROL_MANIFEST.json'),'files':manifest['files']}
+ 
+@@ -118,23 +119,17 @@
+  summaries=[x for x in events if x.get('type')=='summary' and x.get('file') is None]
+  cases=[x for x in events if x.get('type')=='case' and not x.get('suite')]
+  assert len(summaries)==1 and summaries[0]['success'] is True and any(x.get('type')=='end' for x in events),summaries
+- top=[x for x in cases if x.get('nesting')==0];mode=selection['mode'];names=selection.get('titles',[])
+- # Node versions may emit unselected top-level cases as explicit name-filter skips.
+- excluded=[x for x in cases if x.get('skip') and 'test name does not match pattern' in str(x['skip'])]
+- for x in excluded:
+-  if x.get('nesting')==0:
+-   assert mode=='include' and x['name'] not in names or mode=='exclude' and x['name'] in names,('unexpected filtered top-level case',x)
+- executed=[x for x in cases if x not in excluded]
+- actual=[x['name'] for x in top if x not in excluded]
+- required=names if mode=='include' else selection['preservedTitles']
+- assert all(n in actual for n in required),('missing selected case',required,actual)
+- if mode=='include':assert sorted(actual)==sorted(names),('unexpected selected top-level case',actual)
+- if mode=='exclude':assert not set(names)&set(actual),('focused case repeated',actual)
+- optional=selection['optionalSkipReasonIncludes'];skips=[x for x in executed if x.get('skip')]
++ assert selection['mode']=='whole','only whole-file selections are admitted'
++ top=[x for x in cases if x.get('nesting')==0];actual=[x['name'] for x in top]
++ assert len(actual)==len(set(actual)),'duplicate top-level names'
++ required=selection['preservedTitles']+selection['requiredTitles']
++ assert all(n in actual for n in required),('missing required case',required,actual)
++ assert not any(x.get('skip') and 'test name does not match pattern' in str(x['skip']) for x in cases),'whole-file proof cannot contain name-filter exclusions'
++ optional=selection['optionalSkipReasonIncludes'];skips=[x for x in cases if x.get('skip')]
+  assert all(x['name'] in optional and optional[x['name']] in str(x['skip']) for x in skips),('undeclared selected skip',skips)
+  assert all(not x.get('skip') for x in top if x['name'] in required),'required top-level positive skipped'
+- assert executed and all(x['passed'] and not x.get('todo') for x in executed),executed
+- return {'file':selection['file'],'mode':mode,'summary':summaries[0],'executedCases':executed,'topLevelNames':actual,'excludedNameFilterCases':excluded,'declaredHostPremiseSkips':skips,'actualPasses':sum(not x.get('skip') for x in executed),'qualification':False}
++ assert cases and all(x['passed'] and not x.get('todo') for x in cases),cases
++ return {'file':selection['file'],'mode':'whole','summary':summaries[0],'executedCases':cases,'topLevelNames':actual,'excludedNameFilterCases':[],'declaredHostPremiseSkips':skips,'actualPasses':sum(not x.get('skip') for x in cases),'requiredTopLevelMinimum':len(required),'qualification':False}
+ 
+ def main():
+  assert len(sys.argv)==3,'exact native LAUNCH and separate Root PROOF_LAUNCH required'
+@@ -170,7 +165,7 @@
+   subject=Path(json.loads((HERE/'LAYOUT.json').read_text())['proofSubject']);assert not subject.exists(),'fresh isolated proof subject only'
+   pin=bound_json(ACT['builderPin']);candidate=json.loads((HERE/'ORIGINAL_CANDIDATE.json').read_text())
+   layout={'worksite':str(subject),'writePaths':[str(subject/p) for p in ['AGENTS.md','CLAUDE.md','stdo_abiogenesis.json','specification','build_tenants','.ai-workspace']],
+-    'protectedRoots':[str(SOURCE),dependency['path'],str(Path(fixture['sourceRoot'])/'.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness'),pin['installedRoot'],pin['releaseRoot'],candidate['C1']['sourceRoot'],str(Path(candidate['archive']['path']).parent),candidate['publicInstalledRoot'],str(RAW/'runtime')], 'archiveRoot':str(proof)}
++    'protectedRoots':[str(SOURCE),str(HERE),'/Users/jim/src/apps/abiogenesis',dependency['path'],pin['installedRoot'],pin['releaseRoot'],candidate['C1']['sourceRoot'],str(Path(candidate['archive']['path']).parent),candidate['publicInstalledRoot'],str(RAW/'runtime'),*json.loads((HERE/'EVIDENCE_INPUTS.json').read_text())['protectedRoots'],*[r['path'] for r in ACT['externalReadOnlyInputs']]], 'archiveRoot':str(proof)}
+   write(proof/'TOPOLOGY_LAYOUT.json',layout)
+   scratch=proof/'scratch'
+   for suffix in ['tmp','npm-cache','observations']:(scratch/suffix).mkdir(parents=True)
+@@ -193,7 +188,7 @@
+   assert deps.inventory(tenant/'node_modules')['sha256']==dependency['inventorySha256']
+   for row in fixture['files']:
+    dest=subject/row['path'];dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(Path(fixture['sourceRoot'])/row['path'],dest);pinned(dest,row)
+-  generated=[str(REL/x) for x in ['build','artifacts','contracts/schemas/operations','contracts/public-functions','contracts/public-operations','contracts/vocabularies','product-toolchain-manifest.json','node_modules']]
++  generated=[str(REL/x) for x in ['build','artifacts','contracts/schemas/operations','contracts/public-functions','contracts/public-operations','contracts/vocabularies','contracts/capabilities/capability-definition-graph.json','product-toolchain-manifest.json','node_modules']]
+   materialized=tree(subject,generated);write(proof/'MIRROR_SOURCE_ENTRY.json',{'rows':materialized,'allowedBuildWrites':generated})
+   for row in postimage['rows']:
+    p=subject/row['path']
+@@ -206,9 +201,7 @@
+   for selection in plan['files']:
+    name=selection['id'];directory=proof/name
+    args=[NODE,'--experimental-vm-modules','--test','--test-concurrency=1','--test-timeout='+str(max(1000,selection['budgetMs']-15000)),'--test-reporter=./scripts/node-test-evidence-reporter.mjs']
+-   if selection['mode']!='whole':
+-    pattern='(?:'+'|'.join(re.escape(x) for x in selection['titles'])+')'
+-    args.append('--test-name-pattern='+('^'+pattern+'(?:$| > )' if selection['mode']=='include' else '^(?!'+pattern+'(?:$| > )).*'))
++   assert selection['mode']=='whole','no selected-name filter in this plan'
+    args.append('test_env/tests/'+selection['file'])
+    try:run(name,args,selection['budgetMs'],tenant)
+    finally:
+@@ -229,9 +222,8 @@
+     p=scratch/'observations'/relative;assert p.is_file() and not p.is_symlink() and p.stat().st_size>0,relative
+     assert isinstance(json.loads(p.read_text()),dict),'complete structured actual candidate required'
+    write(directory/'COUNTS.json',population)
+-  focus=populations[0]['topLevelNames'];remainder=next(x for x in populations if x['mode']=='exclude')['topLevelNames']
+-  assert not set(focus)&set(remainder),'focus duplicated in whole-file partition'
+-  write(proof/'POPULATION.json',{'commands':populations,'semanticJobWholeFilePartition':focus+remainder,'defaultLibraryPartialOnly':True,'historicalCredit':False})
++  assert len(populations)==3 and len({x['file'] for x in populations})==3
++  write(proof/'POPULATION.json',{'commands':populations,'threeWholeFiles':True,'actualTopLevel':sum(len(x['topLevelNames']) for x in populations),'actualPasses':sum(x['actualPasses'] for x in populations),'historicalCredit':False})
+  except BaseException as error:
+   failure={'name':type(error).__name__,'message':str(error)};write(proof/'FIRST_FAILURE.json',failure)
+  finally:

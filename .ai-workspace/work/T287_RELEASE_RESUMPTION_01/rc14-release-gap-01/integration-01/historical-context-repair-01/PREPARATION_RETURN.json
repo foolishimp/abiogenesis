@@ -1,0 +1,244 @@
+{
+  "kind": "closed_external_control_preparation_return",
+  "writerActivation": "RC14-B64-CONTROL-COORDINATE-WRITER-041",
+  "nativeActivation": "RC14-HISTORICAL-CONTEXT-NATIVE-001",
+  "status": "prepared_frozen_for_independent_review",
+  "sourceBase": {
+    "commit": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
+    "tree": "8e5a5194de10f816d95f61b9fcf5e8b19a006211"
+  },
+  "controlWorktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-02",
+  "controlBranch": "codex/rc14-historical-context-controls-20261116-02",
+  "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01",
+  "preparationStartedUtc": "2026-11-16T07:34:42.254257+00:00",
+  "preparationDeadlineUtc": "2026-11-16T08:19:42.254257+00:00",
+  "completedUtc": "2026-11-16T08:05:23.022556+00:00",
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 5355,
+    "sha256": "8de7349337f3a34e305ba4007c39ddbaad1c443141d82dc9c469e9282fff808d",
+    "members": 34
+  },
+  "productFrame": {
+    "outcome": "Unchanged fixed5.0 F17/S06: preserve complete source/evidence, execute declared revision, independent assessment, complete D1/application and consequential D2.",
+    "classification": "Design correction and realization repair of an existing historical evidence presentation obligation; no new Product feature, Public family or semantic policy.",
+    "authoritySplit": "Revision owner authenticates declared historical use; held-prefix/body owner authenticates retained members; instruction assembly presents complete bytes without changing admitted carriers; ABG remains runtime admission authority.",
+    "prohibitions": [
+      "No fresh-workspace substitution for historical bytes, rewrites of old Result/context/binding, fabricated sourceResults/use grants or copied old stage credit.",
+      "No blanket cross-Run/member permission, generic registry, new semantic runtime, oracle weakening or hidden provider prompt."
+    ]
+  },
+  "allowedDelta": {
+    "predecessor": {
+      "commit": "7ae1bdd4f048d00f642485b9cd70da9909412e14",
+      "tree": "7ad3d04d718dc46dc3560746397f7708efc59bb5",
+      "parent": "86c9caa1c8c46da38410b4b46b6a5004e351d60f",
+      "root": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01",
+      "manifestSha256": "401cce2b6191f4d8d17c1d902fb10b55edbf99cf125c5fbd142c1b9c9e624fee",
+      "manifestMembers": 26,
+      "returnSha256": "d0fe98a207bb5ba148486574cca5b53d23e699bab295e618207e1e4dd9b4aeb3",
+      "sourceTenantTree": "43e8e4fb26a434ecc6b44436ec9c64da368e3bea"
+    },
+    "byteIdenticalHelpers": [
+      {
+        "path": "dependency-inputs.py",
+        "bytes": 2786,
+        "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+      },
+      {
+        "path": "freeze-source.py",
+        "bytes": 3060,
+        "sha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8"
+      },
+      {
+        "path": "physical-topology.py",
+        "bytes": 14764,
+        "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+      },
+      {
+        "path": "process-owner.py",
+        "bytes": 3099,
+        "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+      },
+      {
+        "path": "setup-custody.py",
+        "bytes": 10410,
+        "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+      }
+    ],
+    "operateDelta": "Acquire ACT before coordinates; derive RAW and SOURCE only from ACT.rawRoot/sourceWorktree. All callable ASTs, launch staging, clocks, caps, failure and cleanup remain unchanged.",
+    "hostDelta": "Acquire ACTIVATION before dependent raw/source use and derive both coordinates from it. Preserve previous B64 identity/external protection/evidence custody changes and all actual Public/task/terminal/close/fresh-read contracts.",
+    "proveUnchangedCallableASTs": [
+      "module",
+      "digest",
+      "bound_json",
+      "require_author_completion",
+      "source_inventory",
+      "pinned",
+      "tree",
+      "native_inputs",
+      "fixtures"
+    ],
+    "proveChangedCallableASTs": [
+      "controls",
+      "checked_population",
+      "main"
+    ],
+    "proofDelta": "B64 read-only evidence pins within existing entry/exit controls; complete source/proof coordinates; three whole-file mandatory positive/title/capture populations; exact generated capability graph build allowance with inclusive built postimage and exit conservation. No name filters or proof reuse.",
+    "notReused": "Old B56 Task/fixture assets/diagnosis/candidate coordinates or incidental editing restrictions; no prior behavioral pass is credited.",
+    "coordinateCorrection": {
+      "authority": {
+        "path": "CORRECTION_ACTIVATION.json",
+        "bytes": 6556,
+        "sha256": "e0a5010c219197553e983792029716e15bdd760f3e9558d9992e211e68b1e411"
+      },
+      "failedControls": {
+        "commit": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
+        "tree": "7bda39f10e96fd855441fb467a2b6df728ef77b2",
+        "worktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-01",
+        "manifestSha256": "e14d70c415889915379045afb89f0c133541f47403d4991a2693107e31d67806",
+        "returnSha256": "8b866ed1c0067cbccfcad4f870ca6d06b462228258144bec2b80fd2dc82b478d"
+      },
+      "cause": "Duplicated raw coordinate in two executable callers was renamed independently of the selected ACT.rawRoot consumed by proof.",
+      "checks": "COORDINATE_CHECKS.json",
+      "executableDeltaFromFailedControls": [
+        "HOST.mjs",
+        "operate.py"
+      ],
+      "taskProofAndHelperMeaningUnchanged": true
+    }
+  },
+  "checks": {
+    "source": "STATIC_CHECKS.json",
+    "inputPins": "INPUT_CHECKS.json",
+    "topologyShape": "LAYOUT_CHECKS.json",
+    "syntaxASTHashes": true,
+    "actualOwnerHelpersByteEqual": 5,
+    "nativeWritePaths": 8,
+    "localSourceRows": 378,
+    "initialContextFiles": 373,
+    "initialContextBytes": 9119884,
+    "failureEvidenceLeaves": 6,
+    "failureEvidenceBytes": 13886887,
+    "nativeToolInputs": 196,
+    "dependencyFilesAndLinks": 4576,
+    "npmFilesAndLinks": 2326,
+    "preparationControlValidationFailures": [],
+    "coordinateDiscriminator": "old-fails/new-passes; exact source/raw expressions and acquisition order"
+  },
+  "proofMapping": {
+    "builds": 1,
+    "wholeFiles": [
+      "t287-native-semantic-job.test.mjs",
+      "t288-instruction-assembly-owner.test.mjs",
+      "t287-event-body-encoding.test.mjs"
+    ],
+    "preservedTopLevelMinimum": 39,
+    "newNamedObligations": 3,
+    "fixedTotalClaim": false,
+    "filters": false,
+    "captures": [
+      [
+        "b64-historical-revision.candidate.json"
+      ],
+      [
+        "b64-member-presentation.candidate.json"
+      ],
+      [
+        "b64-member-authority.candidate.json"
+      ]
+    ],
+    "actualRuntimeOrTestEvidence": null
+  },
+  "acquisitionErrors": [
+    {
+      "operation": "stdo verify stdo://releases/v3.0.4/",
+      "result": "CLI syntax rejected before verification; declared stdo status --definition ... --verify subsequently verified exact installed basis."
+    },
+    {
+      "operation": "Display of guessed plugins/spec/references/ACTIVATION.md",
+      "result": "ENOENT read-only display path; exact predecessor declared standards/ACTIVATION.md was acquired. No missing owner or control check was inferred."
+    }
+  ],
+  "effects": {
+    "newControlsCarrierOnly": true,
+    "nativeSourceChanges": 0,
+    "runtimeOrPublicOperations": 0,
+    "physicalObserverCalls": 0,
+    "providerCalls": 0,
+    "builds": 0,
+    "tests": 0,
+    "installs": 0,
+    "oldEvidenceMutation": false,
+    "mainWrites": false,
+    "pushed": false
+  },
+  "remainingPrerequisites": [
+    "Root independent frozen controls review and integration/push",
+    "Exact future source checkpoint/direct remote identity and fresh source/raw creation/preimage by separately activated Operator",
+    "Actual topology and complete entry custody before one installed-RC13 native pass",
+    "Truthful method/command audit, exact source freeze and independent source review before separately selected proof",
+    "Actual affected build/tests; later new candidate C0/C1/archive/install and S06 runtime remain unperformed"
+  ],
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 2700000,
+    "nativeMaxTurns": 360,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 10800000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 180000,
+    "perBuildMs": 600000
+  },
+  "claimLimits": [
+    "Preparation readiness only; no implementation or proof accepted by this Writer",
+    "No paid reproduction, old stage credit, qualification, AF25, candidate repin or release",
+    "Topology results are static layout capacity/source-owner projections, not measured physical separation",
+    "Complete-body historical regression constructibility and repair correctness remain native-source/proof obligations"
+  ],
+  "returnTo": "Root; one authored-only freeze, then stop. No reviewer activation.",
+  "coordinateCorrection": {
+    "failedSubject": {
+      "commit": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
+      "tree": "7bda39f10e96fd855441fb467a2b6df728ef77b2",
+      "worktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-01",
+      "manifestSha256": "e14d70c415889915379045afb89f0c133541f47403d4991a2693107e31d67806",
+      "returnSha256": "8b866ed1c0067cbccfcad4f870ca6d06b462228258144bec2b80fd2dc82b478d"
+    },
+    "grant": {
+      "path": "CORRECTION_ACTIVATION.json",
+      "bytes": 6556,
+      "sha256": "e0a5010c219197553e983792029716e15bdd760f3e9558d9992e211e68b1e411"
+    },
+    "acquiredUtc": "2026-11-16T08:02:39+00:00",
+    "originalPreparationClock": {
+      "startedUtc": "2026-11-16T07:34:42.254257+00:00",
+      "deadlineUtc": "2026-11-16T08:19:42.254257+00:00",
+      "newClock": false
+    },
+    "cause": "Duplicated raw coordinate in two executable callers was renamed independently of the selected ACT.rawRoot consumed by proof.",
+    "whyMissed": "Syntax/AST, inventories and layout capacity passed but did not conjoin actual producer and consumer raw coordinates.",
+    "pureCheck": "COORDINATE_CHECKS.json",
+    "result": "Old expressions fail equality; new HOST/operate/prove expressions equal ACT and LAYOUT. No runtime claim.",
+    "unchanged": [
+      "TASK",
+      "PROOF_PLAN",
+      "eight native W",
+      "all limits",
+      "five helpers",
+      "prove.py"
+    ],
+    "executableChangesOnly": [
+      "HOST.mjs",
+      "operate.py"
+    ],
+    "newValidationFailures": []
+  }
+}

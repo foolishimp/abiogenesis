@@ -1,0 +1,40 @@
+{
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-adverse-revision-01/ROOT_FAILURE_RECORD.json",
+      "bytes": 7121,
+      "sha256": "f197f413e9c9f1d95517556c360ff27c251d620454787992aa9447a31bbf82c4"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/OPERATOR_RETURN.json",
+      "bytes": 118499,
+      "sha256": "84ef00bf58a26cffaa40fb68dcd02e8547adcb1d42a4c8b270310e64d31d686d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+      "bytes": 13730678,
+      "sha256": "207b160914a2fea0f0dac745f87bf70a12ee70eb0cf0b992d8e593a0c717bc47"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/revision-intake/calls/lifecycle-start.outcome.json",
+      "bytes": 27366,
+      "sha256": "0a386e7eae84adab91d65e00fd880ad990cd84e2e91f427580235385487a2c11"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/revision-intake/input.json",
+      "bytes": 960,
+      "sha256": "ffc1b7a6bc17aae5c1bdb4d1fd181331678414a61ce06d7d9e925d0044f0ffe8"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/revision-intake/session-close.json",
+      "bytes": 2263,
+      "sha256": "9470f5cb4c1222a34e741dda6e7914948bc30c339b7c934d646bbbc15796c5fb"
+    }
+  ],
+  "protectedRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-adverse-revision-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01"
+  ],
+  "standing": "Authentic closed counterexample data only; no live resource reopening, copied history authority, paid reproduction or old stage credit. Fixture regression must use actual owner admissions in its own isolated test resource. These exact leaves remain byte conserved before/after source and proof."
+}

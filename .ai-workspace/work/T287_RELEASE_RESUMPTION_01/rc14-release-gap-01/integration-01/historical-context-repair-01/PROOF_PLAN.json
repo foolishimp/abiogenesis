@@ -1,0 +1,106 @@
+{
+  "sourceBase": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
+  "builds": 1,
+  "buildArgv": [
+    "/opt/homebrew/bin/npm",
+    "run",
+    "build"
+  ],
+  "buildBudgetMs": 600000,
+  "files": [
+    {
+      "id": "002-t287-native-semantic-job",
+      "file": "t287-native-semantic-job.test.mjs",
+      "mode": "whole",
+      "preservedTitles": [
+        "native Design command budget retains exact capacity through both roles, readiness and historical correspondence",
+        "command cleanup budget rejects the old one-grace envelope through the semantic owner",
+        "command budget shares HTTP terms and exact existing C2 selector behavior",
+        "native workspace candidate derives through the Product algebra; provenance never becomes cold admission",
+        "independent rejection is retained and cannot advance; changed candidate or protected source refuses",
+        "native author fold preserves exact contract issues for same-response requirement refs outside the incoming domain",
+        "four assessed stages conserve requirement bindings and restrict construction/C2 to current Design",
+        "native typed semantic assessment uses the exact installed schema owner and rejects wrong declarations",
+        "native C2 retains assessed non-target dependencies without granting realization credit",
+        "B21 component: the semantic-job bridge observes targets and read dependencies under the held admitted install roots"
+      ],
+      "requiredTitles": [
+        "B64 historical revision: admitted assessor context reaches new-Run selector assembly held and cold"
+      ],
+      "requiredCandidateArtifacts": [
+        "b64-historical-revision.candidate.json"
+      ],
+      "budgetMs": 1800000,
+      "optionalSkipReasonIncludes": {
+        "Data-aliased held install over the read dependency": "host premise absent: no /System/Volumes/Data alias of the worksite"
+      }
+    },
+    {
+      "id": "003-t288-instruction-assembly-owner",
+      "file": "t288-instruction-assembly-owner.test.mjs",
+      "mode": "whole",
+      "preservedTitles": [
+        "native revision decision view preserves byte identity, non-UTF8 absence and changed candidate observations",
+        "native revision decision view leaves all opaque C2 and application JSON verbatim",
+        "actor owner retains its own assembly, authenticates raw dispatch, and rejects forged return/basis/drift",
+        "semantic stage, revision and selection implementations preserve the complete owner request"
+      ],
+      "requiredTitles": [
+        "B64 historical member presentation preserves complete stage and revision decision material"
+      ],
+      "requiredCandidateArtifacts": [
+        "b64-member-presentation.candidate.json"
+      ],
+      "budgetMs": 1800000,
+      "optionalSkipReasonIncludes": {}
+    },
+    {
+      "id": "004-t287-event-body-encoding",
+      "file": "t287-event-body-encoding.test.mjs",
+      "mode": "whole",
+      "preservedTitles": [
+        "shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays",
+        "shared canonical traversal preserves captured entries, array length and refusal precedence",
+        "incremental canonical hashes preserve independently declared golden bytes and refusal behavior",
+        "typed native definitions share physical rows while complete per-call assembly bytes and v1 remain exact",
+        "native definition references refuse missing, forward, foreign-slot, changed and injected material",
+        "native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append",
+        "physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences",
+        "nearest malformed body references refuse before logical history is exposed",
+        "reused cold bodies still require each new envelope identity, stamp, cause and logical digest",
+        "independently supplied mutable raw input remains detached at event admission",
+        "live body reuse preserves caller isolation, owned prefix and transaction rollback",
+        "literal marker-shaped Product data and small duplicate values remain unambiguous",
+        "failed durable batch discards new inline sources; committed same-batch references survive reopen",
+        "large duplicate Result bodies and complete replay hashing fit a constrained heap",
+        "native context bodies are born inline once, referenced by unchanged handoffs and refused unless exactly held",
+        "a pending execution reads its selected native context through the unchanged same-Run resolver only",
+        "an admitted retained-source use reads exactly the selected native Result's task-context members across Runs",
+        "965-member native context carriage is byte-equivalent to the expanded structural baseline without body multiplication",
+        "RC5 retained route names its exact already-referenced Result and reconstructs full, selected and descriptor reads",
+        "RC5 retained route distinguishes exact consumed Result membership from same-valued basis and foreign occurrences",
+        "RC5 retained route refuses missing, forward, tampered, mixed and uncommitted sources before exposing history",
+        "RC5 retained route mixes inline, v1 and v3 rows and keeps small, unequal or unavailable sources inline",
+        "RC5 retained route publishes nothing on rollback or failed fsync, poisons on failed restoration and keeps committed same-batch sources",
+        "RC7 complete carriage: the admitted basis is the only task and unchanged-body holder; the Result births only changed bytes",
+        "RC7 actual current input: the Result task is its own admitted basis input, held and cold; crossed coordinates refuse"
+      ],
+      "requiredTitles": [
+        "B64 historical member authority refuses undeclared use and altered coordinates"
+      ],
+      "requiredCandidateArtifacts": [
+        "b64-member-authority.candidate.json"
+      ],
+      "budgetMs": 1800000,
+      "optionalSkipReasonIncludes": {}
+    }
+  ],
+  "scope": "Three whole files, no filters/repeated focus or retained test pass credit. Mechanical owner/fixture proof only; installed end-to-end S06 and new-candidate correspondence remain later work.",
+  "caseAccounting": "39 preserved top-level source titles plus the three named B64 obligations are mandatory minima, not a fixed total. Record all actual top-level and nested events. Any selected positive skip refuses; only the existing exact Data-alias child host-premise skip is separately allowed. Root audits final source case inventory before proof; no negative name-regex exclusions.",
+  "candidateRequirement": "Retain the full actual positive and refusal candidates before assertions, parsing/stripping or throwing in the three named JSON files under ABG_REGRESSION_PROOF_ROOT. Preserve primary child/parse errors and secondary capture errors separately.",
+  "buildAllowance": "Exact capability-definition-graph.json is generated by the ordinary build, alongside existing generated paths; complete BUILD_POSTIMAGE and BUILD_EXIT still include it.",
+  "exitReserveMs": 180000,
+  "proofMaximumMs": 5400000,
+  "firstFailureStops": true,
+  "retries": 0
+}
