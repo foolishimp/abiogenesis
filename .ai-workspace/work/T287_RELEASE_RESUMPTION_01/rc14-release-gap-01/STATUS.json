@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B64_NATIVE03_CLOSED_INCOMPLETE_S01_NATIVE_SOURCE_AUTHORIZED",
+  "status": "RC14_S01_NATIVE_ACTIVE_B64_COMPOSITION_CONTROLS_PREPARING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -64,7 +64,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-15T23:46:44.978702+00:00",
-  "nativeAuthorState": "B64 native03 closed with incomplete composed proof and three method deviations. S01 source-only controls accepted; actual dispatch awaits pushed exact binding.",
+  "nativeAuthorState": "One S01 test-source author actually running on RC13; B64 Native003 preserved/unaccepted, concrete first full-assembly controls selected.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -743,7 +743,9 @@
           "No change to pending family-policy/scope choice, no implementation selection and no production eligibility or qualification."
         ]
       }
-    }
+    },
+    "readinessReview": "integration-01/F11_AF22_READINESS_01.json",
+    "readinessStanding": "Existing-owner scenario material bindings and final semantic negatives remain; B50 unanswered. No qualification execution or policy change selected."
   },
   "s06Toolchain": {
     "state": "THIRD_PREFLIGHT_CLOSED_SUCCESS",
@@ -757,7 +759,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T10:42:15.334312+00:00",
+  "updatedUtc": "2026-11-16T10:53:56.587425+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1652,7 +1654,7 @@
     "runtimeRetryAuthorized": false
   },
   "b64Repair": {
-    "state": "NATIVE03_CLOSED_SOURCE_PROOF_INCOMPLETE_METHOD_NONCOMPLIANT",
+    "state": "NATIVE03_PRESERVED_UNACCEPTED_FIRST_FULL_COMPOSITION_PREPARING",
     "selection": "integration-01/B64_HISTORICAL_CONTEXT_CONJUNCTION_AND_REENTRY_01.json",
     "activation": "integration-01/B64_NATIVE_CONTROL_PREPARATION_ACTIVATION_01.json",
     "actor": "/root",
@@ -1737,7 +1739,7 @@
       "sha256": "8e6c591206519525e3da17bffd90eac2cc5d674f2d1627934366a836b810aeb4"
     },
     "buildOrBehavioralProofStarted": false,
-    "next": "Concrete read-only full-assembly fixture construction, then bounded test-source selection; no current build/proof/retry.",
+    "next": "Prepare/review narrow actual Public assembly regression controls, then separately select native source; no current build/proof/diagnostic.",
     "native03Started": true,
     "native03PreflightContinuation": "integration-01/B64_NATIVE03_PREFLIGHT_CONTINUATION_01.json",
     "actorPid": 50590,
@@ -1749,7 +1751,9 @@
     "actorAbsent": true,
     "methodCompliant": false,
     "preservedNative03OnMain": true,
-    "sourceStanding": "Eight Native003 postimage files preserved exactly on main; source/proof acceptance remains withheld."
+    "sourceStanding": "Eight Native003 postimage files preserved exactly on main; source/proof acceptance remains withheld.",
+    "construction": "integration-01/B64_COMPOSITION_CONSTRUCTION_01.json",
+    "compositionPreparation": "integration-01/B64_COMPOSITION_CONTROL_PREPARATION_01.json"
   },
   "releaseGateCensus02": {
     "state": "BOUNDED_EVIDENCE_MAPPING_ACCEPTED_NOT_QUALIFICATION",
@@ -1763,15 +1767,20 @@
     "qualificationPerformed": false
   },
   "s01RootProofGap": {
-    "state": "SOURCE_ONLY_NATIVE_AUTHORIZED_AFTER_PUSH",
+    "state": "ACTUAL_SOURCE_NATIVE_ACTOR_RUNNING",
     "record": "integration-01/S01_ROOT_PROOF_GAP_TRIAGE_01.json",
     "candidate02SmokePreserved": true,
     "completeS01": false,
     "preparationActivation": "integration-01/S01_ROOT_PROOF_CONTROL_PREPARATION_01.json",
     "controlsCommit": "985285f6fe1a2ba153fe1ff117ebdce101109b15",
     "activation": "integration-01/S01_ROOT_PROOF_NATIVE_ACTIVATION_01.json",
-    "providerStarted": false,
-    "proofAuthorized": false
+    "providerStarted": true,
+    "proofAuthorized": false,
+    "actualDispatch": "integration-01/S01_NATIVE_EXECUTION_STARTED_01.json",
+    "sourceHead": "5989ec3d458b895609d0446a06b40b4aafe6a0a2",
+    "actorStartedUtc": "2026-11-16T10:46:06.267Z",
+    "actorPid": 89168,
+    "runRef": "run://abiogenesis/2a441833dcfd1196d293c7f1c9e10efeefc7b3d2754ae1c4ae321dccef56d71d"
   },
   "s06SuccessorHistoryPreflight": {
     "state": "EXISTING_ROUTE_SUPPORTED_CONDITIONALLY",

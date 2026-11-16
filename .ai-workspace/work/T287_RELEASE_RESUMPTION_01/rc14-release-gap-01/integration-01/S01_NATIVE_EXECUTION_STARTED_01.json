@@ -1,0 +1,48 @@
+{
+  "id": "RC14-S01-NATIVE-EXECUTION-STARTED-001",
+  "recordedUtc": "2026-11-16T10:53:56.587425+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_ROOT_PROOF_NATIVE_ACTIVATION_01.json",
+    "bytes": 10356,
+    "sha256": "3a02a38b086bea64f45c70fab93554bf4845813a3fd9adf36c352b1ec04318bf"
+  },
+  "sourceHead": "5989ec3d458b895609d0446a06b40b4aafe6a0a2",
+  "controlStart": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/CONTROL_START.json",
+    "bytes": 1170,
+    "sha256": "ee5e048c0461fcdd452bfb6294aa3dc2aae3eeaa912741f9ced15aa322e15812"
+  },
+  "launch": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/LAUNCH.json",
+    "bytes": 5788,
+    "sha256": "3864064722e049412455b8aa47c34ce9815f53c6ae2a7f67bcd68232c7057e6d"
+  },
+  "sourcePreimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/SOURCE_PREIMAGE.json",
+    "bytes": 441530,
+    "sha256": "ba4bc0fc6db03a38420f7b68b4b140f998a3622d267368bf12d1c3ce5d248fc5"
+  },
+  "host": {
+    "pid": 86871,
+    "startedUtc": "2026-11-16T10:43:06.433506Z",
+    "deadlineUtc": "2026-11-16T13:43:06.433506Z"
+  },
+  "actualActor": {
+    "observation": "Operator observed actual event18 and provider protocol initialization. Root read unchanged actual CONTROL_START and run record.",
+    "startedUtc": "2026-11-16T10:46:06.267Z",
+    "pid": 89168,
+    "run": "run://abiogenesis/2a441833dcfd1196d293c7f1c9e10efeefc7b3d2754ae1c4ae321dccef56d71d",
+    "modelObserved": "claude-opus-5-5",
+    "effortConfigured": "xhigh",
+    "nativeCeilingMs": 2700000
+  },
+  "setupHeldUtc": "2026-11-16T10:45:45.624Z",
+  "dispatchMarkedUtc": "2026-11-16T10:45:50.651Z",
+  "contextEntries": 398,
+  "contextBytes": 8680831,
+  "sourceComplete": false,
+  "proofStarted": false,
+  "qualified": false,
+  "rawPublished": false
+}
