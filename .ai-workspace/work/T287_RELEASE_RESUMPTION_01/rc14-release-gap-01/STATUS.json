@@ -1,5 +1,5 @@
 {
-  "status": "RC14_AMENDMENT_ACCEPTED_S06_REVISION_CONTROLS_ACCEPTED_BINDING_PREPARING",
+  "status": "RC14_AMENDMENT_ACCEPTED_S06_REVISION_BOUND_READY_FOR_DISPATCH",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T06:55:09.637634+00:00",
+  "updatedUtc": "2026-11-16T07:08:43.134793+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1610,13 +1610,26 @@
     "completedUtc": "2026-11-16T06:40:53.917108+00:00"
   },
   "s06AdverseRevision01": {
-    "state": "CONCRETE_BINDING_PREPARATION_SELECTED_AFTER_PUSH",
+    "state": "BINDING_ACCEPTED_EXECUTION_SELECTED_AFTER_PUSH",
     "activation": "integration-01/s06-adverse-revision-01/ACTIVATION.json",
     "actor": "/root/b29_vm_triage",
     "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01",
     "bindingRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01",
     "originalDeadlineUtc": "2026-11-16T13:03:00.480356+00:00",
     "runtimeStarted": false,
-    "providerCalls": 0
+    "providerCalls": 0,
+    "bindingAcceptance": "integration-01/s06-adverse-revision-01/BINDING_ACCEPTANCE.json",
+    "preparationEntryUtc": "2026-11-16T06:56:57.004286+00:00",
+    "preparationCompletedUtc": "2026-11-16T07:05:16.689410+00:00",
+    "preparationReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01/PREPARATION_RETURN.json",
+      "bytes": 87860,
+      "sha256": "f7c11826578130da24ab0408e5ed0092c5f7cc56de27b0e315d1ec10d44b5bb2"
+    },
+    "originalBinding": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01/BINDING.json",
+      "bytes": 9047,
+      "sha256": "3365f37a67dbe4b1f47180dc7fc1b4bc17e7563affec1a42da5299f91c400505"
+    }
   }
 }

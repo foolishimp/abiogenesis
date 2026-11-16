@@ -1,0 +1,211 @@
+{
+  "id": "RC14-S06-ADVERSE-REVISION-BINDING-ACCEPTANCE-001",
+  "recordedUtc": "2026-11-16T07:08:43.134793+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner continue/finish RC14; accepted frozen cd109c4e external controls and exact separately selected Operator binding preparation. No new Product policy.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "frameURI": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "productFrame": {
+    "outcome": "Fixed5.0 F17/S06 complete installed D1, independent semantic and executable evidence, consequential D2 and preserved admitted history.",
+    "category": "External caller/declarations and evidence custody. ABG remains sole runtime/event authority.",
+    "prohibitions": [
+      "No invented cause/parent/selection/verdict, copied03 stage credit, weakened application oracle, host-owned semantic traversal or private event writer."
+    ]
+  },
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-adverse-revision-01/ACTIVATION.json",
+    "bytes": 16583,
+    "sha256": "817a64da5188b15dd6be038a9509113a25fd6df360aa14f744d64c99ce3936d5"
+  },
+  "controlAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S06_ADVERSE_REVISION_CONTROLS_ACCEPTANCE_01.json",
+    "bytes": 6477,
+    "sha256": "e8dc9cdaaa04fad9d54381c17670e83d8ac8c9d462cab3fa4b3611789b338a8f"
+  },
+  "preparationReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01/PREPARATION_RETURN.json",
+    "bytes": 87860,
+    "sha256": "f7c11826578130da24ab0408e5ed0092c5f7cc56de27b0e315d1ec10d44b5bb2"
+  },
+  "originalBinding": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01/BINDING.json",
+    "bytes": 9047,
+    "sha256": "3365f37a67dbe4b1f47180dc7fc1b4bc17e7563affec1a42da5299f91c400505"
+  },
+  "start": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01/START.json",
+    "bytes": 1361,
+    "sha256": "24f22a12e33acb4f9b809f6fe24ae1489e388474eff518d08d056a3d38300ef5"
+  },
+  "topologyAcceptance": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01/TOPOLOGY_ACCEPTANCE.json",
+    "bytes": 16583,
+    "sha256": "817a64da5188b15dd6be038a9509113a25fd6df360aa14f744d64c99ce3936d5"
+  },
+  "controls": {
+    "commit": "cd109c4ec53b8893725e2836883442005deb3ace",
+    "tree": "3ec3859dd742924ba6aab6105b80dd61f71ecd18",
+    "parent": "5eb09d25245eb5954a2b1274fe87450d8853b62f",
+    "worktree": "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01",
+    "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01",
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/CONTROL_MANIFEST.json",
+      "bytes": 7212,
+      "sha256": "964b7f3ff7085264726a76d4af9a5905da4933bcbf0d7747acd41697ba4dc411"
+    },
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/PREPARATION_RETURN.json",
+      "bytes": 7703,
+      "sha256": "568aa3fa2a82ec5e18a3393fed79e9f95790e1e82e399559fcb3994b7f9aa416"
+    },
+    "integrationCommit": "dd824d2400a7bcae04fc591b551b9e7e43063451",
+    "root": "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01",
+    "template": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/BINDING.template.json",
+      "bytes": 8592,
+      "sha256": "33fb20efe6e5713d394341661d5c37300d3abfb6c6d2a0299a15ba75033904ce"
+    }
+  },
+  "candidateProjection": {
+    "sourceCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "archiveSha256": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+    "manifestSha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e",
+    "packageVersion": "5.0.0-rc.14"
+  },
+  "sourceFinalization": {
+    "C1Commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+    "C1Tree": "22eed3693976419c6ed63117756294001096a280",
+    "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/FREEZE.json",
+      "bytes": 4619,
+      "sha256": "f65eed415da5b31978ffb6fac9f8c2264c5ac554c65c560547e49b1ad51dfc62"
+    },
+    "rootAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_C1_FREEZE_ACCEPTANCE_01.json",
+      "bytes": 3979,
+      "sha256": "b39e546d86be9b41ea96f8cf10cea63391bf4988c93f0ecc4d6cc28b672f1c31"
+    }
+  },
+  "sourceRun": {
+    "ref": "run://abiogenesis/c89f6771d3efeed0d4c840b74acbf1a29be01e18d09c4166825f8e5f04a166bf",
+    "digest": "sha256:cfd5f732891500e138ebac6260b5a38efbebca277cc5158019c71244355ec2b0"
+  },
+  "retainedPrefix": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+    "bytes": 9395463,
+    "sha256": "1046007404641b741b4943cf58503358e19f27eeaec311301e52006a8d34d45d",
+    "device": 16777231,
+    "inode": 893980299,
+    "closeReceipt": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/d1/session-close.json",
+      "bytes": 2252,
+      "sha256": "340a5696c8b0c511affa9b7c951af0acd7123b0edf6e1d394c194c7af1136324"
+    },
+    "coordinate": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/Library/Application%20Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+      "prefixLength": 9395463,
+      "prefixDigest": "sha256:1046007404641b741b4943cf58503358e19f27eeaec311301e52006a8d34d45d",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 893980299,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:52cc3212c0c799718110b32096dc2bbb58fba183b91f5a733ec3d2170a748b86"
+    }
+  },
+  "rootVerification": {
+    "uniqueFilePinChecks": 250,
+    "bytesChecked": 513225192,
+    "pinErrors": [],
+    "bindingMatchesExactSelectedFiveFieldCompletion": true,
+    "protectedRootAdditionOnly": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01",
+    "originalProtectedRootOrderPreserved": true,
+    "candidateProjectionExact": true,
+    "providerAndApplicationConfigurationUnchanged": true,
+    "oldEventDeviceAndInodeMatch": true,
+    "freshRawAndToolRootsAbsent": true,
+    "preparationCompletedInsideSubBound": true,
+    "originalClockEqualToSourceGrant": true,
+    "originalMonotonicDeadlineNotReached": true,
+    "operatorFullArchiveBootstrapMembers": 5302,
+    "operatorCompleteToolRows": 4862,
+    "operatorOriginalWorksiteFiles": 32,
+    "physicalObservationClaim": false,
+    "inspectionDiagnostic": "Root first assumed sorting of protectedRoots, which the grant did not require. The concrete binding preserves original order and appends only the selected binding root; exact selected projection passed without input changes."
+  },
+  "originalClock": {
+    "startedUtc": "2026-11-16T05:03:00.480356+00:00",
+    "deadlineUtc": "2026-11-16T13:03:00.480356+00:00",
+    "executionStopUtc": "2026-11-16T13:00:00.480356+00:00",
+    "monotonicStartedNs": 3623594379871083,
+    "monotonicDeadlineNs": 3652394379871083,
+    "enclosingMs": 28800000,
+    "exitAuditReserveMs": 180000
+  },
+  "preparationClock": {
+    "startedUtc": "2026-11-16T06:56:57.004286+00:00",
+    "deadlineUtc": "2026-11-16T07:11:57.004286+00:00",
+    "completedUtc": "2026-11-16T07:05:16.689410+00:00",
+    "monotonicEntryNotRecorded": true,
+    "claim": "Observed wall entry/completion inside15-minute preparation bound; no independent monotonic preparation-duration claim. Original04 monotonic enclosure is retained."
+  },
+  "allowedTransition": {
+    "source": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01/BINDING.json",
+    "destination": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01/EXECUTION_BINDING.json",
+    "onlyChange": "executionAuthorized false -> true; retain original BINDING bytes",
+    "expectedBytes": 9046,
+    "expectedSha256": "e77cfd65e2ffa13be0f5cccf736f5b7005bedb71cf2c8fcc17fe7570c3c78a38"
+  },
+  "dispatch": {
+    "actor": "/root/b29_vm_triage",
+    "authorizedOnlyAfterThisAcceptanceIsPushed": true,
+    "entry": [
+      "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01/run.py",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-binding-20261116-01/EXECUTION_BINDING.json"
+    ],
+    "hostExecutions": 1,
+    "phaseSelection": [
+      "Actual Public reopen/setup/rebind and parent/cause/root witness cover",
+      "One genuine native intake, authenticated request and canonical from-Intent selection",
+      "One declared complete native semantic revision; actual D1 C2/application evidence",
+      "Only after D1 success, one unchanged real D2 amendment and full retained checks"
+    ],
+    "conditions": "Every later phase depends on earlier owner admission and existing assertions/topology. Unexpected selection, refusal, first failed assertion or unproved required closure returns to Root; no alternate route or retry.",
+    "globalMaxNativeConcurrency": 2,
+    "selectedLanes": 1,
+    "automaticRetries": 0,
+    "credentialRule": "Only named private credential keys may reach the native invocation interval; values remain in memory and are never written into binding, setup, command logs, Git or commentary.",
+    "closure": "Retain first failure, full actual Result/currentness and held/fresh readbacks. Preserve original closed prefix and raw inputs, prove owned process absence, perform only owned Tool cleanup and seal Operator Return.",
+    "effects": [
+      "Reopen the actual original04 event resource through its close handoff; preserve exact9395463-byte original prefix and inode. Snapshot is external custody, never replacement authority. The event owner may hold its ordinary transient lock, which must be absent at close.",
+      "Create fresh consumer/install/binding/runtime/projection/archive/context/capture roots under the named new raw root. Preserve original workspace authority and actor. Admit exact old/new binding covers via existing Public witness.reprice for parent/cause/root bases.",
+      "After genuine setup and topology, invoke native revision intake once, use only its admitted request and canonical from-Intent selection, then the declared complete revision chain. Retain whole terminal before explicit current projection.",
+      "On real D1 semantic and application success, submit unchanged real D2 amendment through its existing Program; native Design/Construction own required candidate files. Keep independent impact/UAT, actual C2 evidence, retained D1 durable queries and all original oracle assertions.",
+      "Use only accepted immutable C2 Tool/frozen offline inputs with original finite limits. Only declared native owners change worksite; external host writes the three existing incoming D2 source files.",
+      "Stop at first actual failure/refusal/unexpected selection or capacity/custody gap. Close and prove process absence, conserve inputs and original prefix, copy owned Tool receipts then clean only owned Tool roots. No retry."
+    ],
+    "mainMutation": "No Operator main/Git writes; Root Writer038 records actual outcomes."
+  },
+  "preserved": [
+    "Original04 blocked admission and all earlier failed attempts remain true; no03 accepted stage transplant.",
+    "Exact candidate02 archive/source and C1; global RC14 install and pinned RC13 unchanged.",
+    "Original Tool280s, command300s, query20s, actor3600000/inactivity600000/maxTurns120/Opus5.5/xhigh.",
+    "No new8-hour clock, hidden prompt, weakened oracle or external semantic asset projection.",
+    "B50 owner policy/scope pending; no qualification, AF25, publication or raw Git."
+  ],
+  "runtimeStarted": false,
+  "qualified": false,
+  "AF25Authorized": false,
+  "publicationAuthorized": false,
+  "pinChangeAuthorized": false,
+  "rawPublished": false
+}
