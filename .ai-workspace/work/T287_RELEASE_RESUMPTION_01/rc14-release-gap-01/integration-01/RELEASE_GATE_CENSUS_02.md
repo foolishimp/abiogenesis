@@ -44,3 +44,32 @@ grant. Full original Data Mapper evaluation, mandatory host parity, standalone
 Consensus, dedicated observer/tuner and native human response remain deferred;
 this census does not add them to RC14. No qualification, AF25, human acceptance,
 publication, builder-pin change or raw evidence publication is authorized here.
+
+## Closed S02/S03 receipt reconciliation
+
+The same independent reviewer then inspected the named retained proof on the
+same source subject. Root accepts this bounded mapping; it establishes no
+additional Product defect and no qualification result. Ten cited peer test
+sources are byte-equal from `669704c15` to `6fcb6d395`; their compiled Product
+identity at execution remains unestablished. Four production owners changed:
+`instruction_assembly.ts`, `leaf_invocation_port.ts`, `contracts.ts` and
+`native_workspace_assessment.ts`.
+
+| Predicate | Retained evidence | Limit |
+|---|---|---|
+| GTL constructors, serialization, validation, publication and nested forms | Peer `m5-c-algebra-validation` 19 passes, `t287-gtl-serialization-publication` 10, `m5-installed-graph-edge` two. | Requires the explicit four-fibre/eight-form execution and nearest-invalid coverage join on the qualifying subject. Constructor presence is not execution coverage. |
+| Live F_P | Candidate02 amendment04's 20 real native calls and accepted closure. | Already exercised on exact candidate02; no repeat merely to establish existence. Post-B64 applicability still needs its source relation. |
+| Shape-preserving F_P/F_D substitution | Peer `t287-rp2-fibre-substitution`, one pass, compares installed topology, C-call spine, result, selected fibre and changed-boundary refusal. | Controlled local F_P transport, not probabilistic adequacy. Current build correspondence and sufficiency remain open. |
+| Invalid GTL/F_P refuses before downstream effects/closure | Peer `t287-malformed-gtl-gate`, six passes; `m5-worker-transport`, 39; accepted B12/B56 affected proof separately bound. | Map malformed/incomplete/contradictory/unattributed output to each required refusal boundary. Counts alone do not close the matrix. |
+| Executive correction and affected refresh | Accepted amendment04 with preserved impact verdict, independent preservation/UAT, fresh Testing and actual completion. | Bounded correction is proved; every consequence route, frame-policy variation and continuation mechanism is not. |
+| Truthful blocking and child-failure foldback | Peer `t287-readable-stops`, five passes. Later `t287-readable-stops-foldback`, five passes, accepted in `REMAINING_FIVE_PROOF_CLOSURE_02.json` on source `99d856f1a`. | Later foldback has conserved source/build joins. Earlier peer build-at-run conservation is unestablished. Failed S06 is not the Executive no-lawful-choice proof. |
+| Transparent child, parent obligations and pending continuation | Native06 `t287-recursive-registered-selection`, seven passes, explicitly retained in native08; cold Public `run.continue/pending_execution` and parent pressure included. | Controlled F_D linkage/interruption is not native Executive-selected recursive investigation, default-library pending Testing or parent semantic adequacy. |
+| Remaining disposition/public-control and frame distinctions | Individual retry/Event Calculus, F09, continuation, invocation/read, scoped-authority and prerequisite receipts exist. | Complete current-subject joins for reprice/escalation, required handoff, graph-span re-entry, comparative frame/policy decisions and selected recursive investigation remain unestablished. Multiple review names do not prove comparative frame choice. |
+
+Peer `t287-installed-qualification-conservation` was zero passes/one skip and
+`t287-public-terminal-projection` zero/three skips. The former concerns
+controlled qualification provenance, not the full traversal matrix. Neither
+skipped population supplies proof. Resolve source/build relations and attach
+receipts to existing coverage rows before selecting only unsupported
+predicates for further execution. Yield production and human-response/resume
+remain deferred. No duplicate broad campaign is selected.
