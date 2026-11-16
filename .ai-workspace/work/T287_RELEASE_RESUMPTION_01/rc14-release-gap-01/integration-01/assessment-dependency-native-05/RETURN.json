@@ -1,0 +1,147 @@
+{
+  "id": "RC14-B56-NATIVE05-CLOSED-RETURN",
+  "productFrame": {
+    "scope": "Fixed ABIogenesis5.0 T287/RC14 F04/F17/S06; one semantic-fixture realization repair, no Product or owner change.",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "authority": "B56_NATIVE_ACTIVATION_05.json plus exact B56_NATIVE05_PREFLIGHT_DISPOSITION_01.json"
+  },
+  "role": "Separate RC14-B56-NATIVE-OPERATOR-005 execution/evidence Writer; native Claude alone authored source.",
+  "sourceHead": "46375994b2eb1773d055ce8b16fe5bedc62b4ac0",
+  "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-05",
+  "controls": {
+    "commit": "6fdb582b43f93b04da4b108e0d65f19be1e4237c",
+    "manifest": {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-05/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/CONTROL_MANIFEST.json",
+      "bytes": 5293,
+      "sha256": "8f943513e265946af947e8536dd15667bdb6d86935a38512c2605a9247691d8b"
+    }
+  },
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05",
+  "operatorReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/OPERATOR_RETURN.json",
+    "bytes": 18658,
+    "sha256": "732537f990bce3f490d05bdc41014d8041a1e4da1a41626363c93f6cefddb849"
+  },
+  "clock": {
+    "startedUtc": "2026-11-16T01:09:05.055532+00:00",
+    "deadlineUtc": "2026-11-16T04:09:05.055532+00:00",
+    "executionStopDeadlineUtc": "2026-11-16T04:06:05.055532+00:00",
+    "hostControlDeadlineMs": 10800000,
+    "cleanupReserveMs": 180000,
+    "oldCampaignClockReused": false
+  },
+  "actualNative": {
+    "run": {
+      "ref": "run://abiogenesis/0154e9a5ae8684d23a48fbb96616bd173c84154b1cc0ec1cd818efeb83187a3d",
+      "digest": "sha256:a73c289564384bb8894431db7c25ce3040f1e33dbd8ed5b15dbfc6cd604a8c03"
+    },
+    "hostPid": 1495,
+    "actorPid": 2065,
+    "actorStartedUtc": "2026-11-16T01:09:48.760Z",
+    "actorExitedUtc": "2026-11-16T01:21:09.966Z",
+    "nativeReturnedUtc": "2026-11-16T01:21:11.550Z",
+    "configuredEffort": "xhigh",
+    "protocolObservedModel": "claude-opus-5-5",
+    "cliVersion": "2.1.322",
+    "oneProviderAttempt": true,
+    "typedCompletion": true,
+    "actualResourceClose": true,
+    "freshResultAndClosedReplay": true,
+    "hostExitCode": 0,
+    "hostElapsedMs": 733748,
+    "sdkTurns": 79,
+    "sdkDurationMs": 679796,
+    "sdkApiDurationMs": 667572,
+    "sdkReportedListCostUsd": 5.3074962,
+    "billingNotInferred": true
+  },
+  "source": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "beforeBytes": 125368,
+    "beforeSha256": "8ff9b9bd57e7b73c7c49f64c1a828a49b425130d1d10af415a6de14d92e5bec9",
+    "after": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 133291,
+      "sha256": "5a72c8f7a9a24aa89c511cd92edd6807122dc056c5d2c87121523185b60785e3"
+    },
+    "diff": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/SOURCE_DIFF.patch",
+      "bytes": 18992,
+      "sha256": "b2a7fbf7be178e684cb4e7501c6b2db9ecc2a882394616018a7765c04e2d0e6f"
+    },
+    "postimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/SOURCE_POSTIMAGE.json",
+      "bytes": 396773,
+      "sha256": "f7dda5461d164c3f425486805945b3071fcd6c1de20bd07c880844c83b5d58db"
+    },
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/FROZEN_SOURCE.json",
+      "bytes": 2986,
+      "sha256": "0ebb5a72e5b7239d0ceaf5806ca672dac47dde2876b3539fe44d10d4829f5f5e"
+    },
+    "rows": 1584,
+    "delta": {
+      "insertions": 131,
+      "deletions": 15
+    },
+    "onlyWChanged": true,
+    "sevenImmutableConserved": true,
+    "sourceHeadAndIndexUnchanged": true,
+    "setupManifestOwner": "Exact imported-create receipt/canonical bytes, separately authenticated; not native W."
+  },
+  "audit": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/AUTHOR_AUDIT.json",
+    "bytes": 47558,
+    "sha256": "8597800eb31bb9ab3d14dcbd41ab26c128a4e0bef714c032e977ffb394924e65"
+  },
+  "methodStanding": {
+    "explicitRequiredContentRows": 22,
+    "readFirstControlRows": 8,
+    "allExplicitBeforeFirstMutation": true,
+    "actualStatusParsed": true,
+    "actualFrameComparisons": 16,
+    "constructionRelationBody199to352": "Not separately acquired; only verified by canonical helper digest. Task explicit content ranges differ. Root decides materiality; no blanket compliance claim.",
+    "literalReadOnlyVariances": [
+      {
+        "toolOrdinal": 1,
+        "detail": "ls -la and wc -c over selected control directory expose names/lengths for all controls, including non-readFirst files; no other control body read in the preview. Explicit metadata effect retained for Root scope disposition."
+      },
+      {
+        "toolOrdinal": 39,
+        "detail": "git log -1 --format=%H is read-only HEAD identity acquisition beyond Task enumerated status/diff/show wording; no Git mutation."
+      }
+    ],
+    "initialTaskPreviewRecoveredBeforeEdit": true
+  },
+  "closure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/ACTUAL_CLOSURE_AUDIT.json",
+    "bytes": 6935,
+    "sha256": "7e5be9108a48390da5fc3db6096bab477c107e43a46448b65970b8a334b679c8"
+  },
+  "inputConservation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/INPUT_CONSERVATION_EXIT.json",
+    "bytes": 96220,
+    "sha256": "33ff8b98350649edc027c641b3a8fd03be932f42169fccdc44c739fe3e26f72b"
+  },
+  "actualReport": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/NATIVE_AUTHOR_REPORT.json",
+    "bytes": 7673,
+    "sha256": "48cb9cba1e3ecc443a5b5fb1a8e26da7175ab4a6a0da6a7dfdf48734e6c5877f"
+  },
+  "preservedFailure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/OPERATOR_PREFLIGHT_OR_LAUNCH_FAILURE.json",
+    "bytes": 463,
+    "sha256": "458940a203067d1191d7be89a1c73d53aaf7c0ccc215d639f731537852cd49bf"
+  },
+  "scopeAndLimit": [
+    "Typed completion/actual close/fresh result+replay succeeded. Both named host/actor groups independently absent; no global absence claim.",
+    "All explicit required content22rows+8controls preceded first Edit59; full actual status and16comparisons verified. Construction-relation body omission and read-only variants retained for Root disposition.",
+    "OneW/1584physical rows and7immutable inputs conserved;14input-custody categories passed. Allraw remains external.",
+    "Only native syntax checking ran. Behavioral correctness, capture execution and later4selections remain unexecuted.",
+    "No Operator source acceptance, blanket method-compliance claim, proof, candidate rebuild, witness, qualification, tag or pin change."
+  ],
+  "nextBoundary": "Return to Root for exact-source/method conjunction and any separately bound finite proof. No automatic native retry or proof.",
+  "rawPublished": false,
+  "qualified": false
+}
