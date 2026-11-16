@@ -1,0 +1,165 @@
+{
+  "id": "RC14-B56-RECOVERED-PROOF-ACTIVATION-03",
+  "recordedUtc": "2026-11-16T00:23:01.311359+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-B56-PROOF-RECORDS-WRITER-034",
+    "role": "Separate Root records/integration Writer",
+    "authority": "Owner continue/finish RC14; exact B56_PROOF02_DISPOSITION_AND_CONTROL03_SELECTION and closed independent control03 reviews.",
+    "effects": [
+      "Record exact control03 acceptance, bounded diagnostic debt, Operator003 grant, actual start/return/triage and current T287/T293/STATUS.",
+      "Integrate frozen external controls54be8761b and compact authored Returns; checkpoint and push exact authored records/controls."
+    ],
+    "exclusions": [
+      "No semantic source edit, audit rewrite, raw data in Git, unselected native/candidate execution, automatic retry, clock extension or qualification claim."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "outcome": "Fixed5.0 F04/F17/S06 affected mechanical source/installed dependency proof under unchanged runtime authority.",
+    "classification": "External proof execution over independently recovered exact source; not compliant-native-authorship or qualification.",
+    "selection": "integration-01/B56_PROOF02_DISPOSITION_AND_CONTROL03_SELECTION.json"
+  },
+  "acceptedControls": {
+    "commit": "54be8761b9b660bf7d81b7df3234b2995c72b596",
+    "tree": "ad2d05354dea9b9c82e31e8918665167ad55b627",
+    "root": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-03",
+    "manifestMembers": 22,
+    "manifestSha256": "f1c6703c9c8f64f2590b8a212ba430b9624d24a5811fb981c7291b5e77a14a80",
+    "returnPath": "PREPARATION_RETURN.json",
+    "returnSha256": "a4f3a817b28793e2ce050fd5614b754ecbc2671080f7bb7c75950387591fe969"
+  },
+  "nativeControls": {
+    "commit": "e00aa6668e37f336464aed21079c87b91bb5cf6d",
+    "members": 35,
+    "manifestSha256": "7063325b879e1d6c12d3d7dcab2dff423a16cfe237b094722c0589a2cf15d452",
+    "identity": "Original native manifest/launch unchanged; never relabeled as successor proof controls."
+  },
+  "independentReviews": {
+    "ProductIdentityMethod": {
+      "actor": "/root/amendment_topology_review",
+      "disposition": "Satisfied exact control03 delta; no material finding.",
+      "verified": [
+        "All22members/19recovery-failurepins;14inheritedfiles byte-equal.",
+        "Independently reconstructed61leaves/sixwrites/489pairs ->56+5leaf batches,64/13declaredpaths within unchanged observer bound.",
+        "Exact leaf/pair conjunction, complete mount arrays/digests and stable shared anchor relation. Only directorylinks excluded across batches; individual full observer checks retained.",
+        "Shared60s, proof01 deadline/reserve, complete partial/failure evidence; outer finalizer/source/native/audit/test/graph/custody unchanged."
+      ]
+    },
+    "ProofEffect": {
+      "actor": "/root/b29_vm_triage",
+      "disposition": "Accept bounded composition discriminator with S3 secondary diagnostic residual.",
+      "verified": [
+        "Exact subject/22manifest/Return;61leaves->56+5/489pairs.",
+        "Same W/worksite/archive, all-positive results, equal complete mount populations and stable shared anchors.",
+        "No leaf collapse or observer weakening;60s/common campaign clock, owned process/test/finalizer and graph custody retained.",
+        "Recorded14synthetic negatives/metadata positive inspected without repetition."
+      ],
+      "residual": "If topology/parse/join fails and writing aggregate receipt also fails, the latter can replace primary outer diagnostic. Cannot falsely pass or advance; per-batch raw/layout/owner receipts retained. Does not obstruct selected controlled fresh-directory sunny-day path."
+    }
+  },
+  "rootChecks": {
+    "successorManifestMembers": 22,
+    "manifestMismatches": 0,
+    "cleanFrozenControlWorktree": true,
+    "reviewedDelta": "Bounded complete physical-layout batches and conjunction, protected failure pins, fresh coordinates;22pins verified and whitespace clean.",
+    "futureProofRootAndSubjectAbsent": true,
+    "diffWhitespaceCheckPassed": true,
+    "actualProtectedLeaves": 61,
+    "actualBatchLeaves": [
+      56,
+      5
+    ],
+    "actualRequiredPairs": 489
+  },
+  "operatorActivation": {
+    "id": "RC14-B56-RECOVERED-PROOF-OPERATOR-003",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate bounded proof execution/evidence Writer",
+    "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+    "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04",
+    "proofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03",
+    "proofSubject": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06",
+    "sourceStanding": "Original04frozen postimage, exact reviewed test9fef11e5ac9201f154922d03346e33d06ed8c79531d0ebea3b389afbc738f185; all7earlier source inputs conserved. Main recovery checkpoint separate from unchanged native HEAD/index.",
+    "effects": [
+      "After direct remote parity for checkpoint containing this grant and frozen controls, verify22proof members,35native members and all consumed tools/recovery/source/fixture/dependency/native/prior-proof pins before executing helpers. Native196 inputs use existing is_file+digest semantics; strict non-symlink source/control pins remain.",
+      "Fill existing PROOF_LAUNCH.template.json at fresh rawRoot/PROOF_LAUNCH_03.json with exact Root acceptance pin, pushed checkpoint, proofSelectionSha256 and all unchanged native/recovery joins. Preserve every01/native04 evidence file; fresh preflight/driver/Operator Return coordinates use03.",
+      "Invoke exact frozen prove.py once through pinned Python3.11 -B, original native LAUNCH and separate proof03 grant. One fresh normal build and six declared test selections only; zero providers. No old build credit.",
+      "Use unchanged owned-command/process-group/capture/topology/custody mechanisms. Retain actual start/deadline and each result. First failure stops advancement; no in-run repair/retry.",
+      "Preserve complete source/control/input/built-output conservation and actual physical absence. Raw captures remain external. Return bounded outcome, never qualification.",
+      "After execution closes, freeze compact authored Return in separate fresh records worktree/branch and return to Root before any candidate/witness work; no source/main edits or push.",
+      "Use exact two bounded topology calls under one60000ms allowance; require full61leaf/489pair conjunction before mirror/build. If aggregate capture writing fails, preserve available primary/secondary evidence and stop for Root triage; no in-run repair."
+    ],
+    "limits": {
+      "proofMaximumMs": 5400000,
+      "perBuildMs": 600000,
+      "originalEnclosingDeadlineUtc": "2026-11-16T01:47:31.946547Z",
+      "originalExecutionStopUtc": "2026-11-16T01:44:31.946547Z",
+      "cleanupReserveMs": 180000,
+      "proofEnd": "Minimum of original proof01 deadline, original enclosing deadline and current requested90minutes. Reserve remains180000ms; no clock reset.",
+      "providerCalls": 0,
+      "builds": 1,
+      "testCommands": 6,
+      "testFiles": 5,
+      "topLevelObligations": 43,
+      "semanticPartition": "Exact positive1+9 disjoint union10",
+      "automaticRetries": 0,
+      "originalProofDeadlineUtc": "2026-11-16T01:15:36.678788Z",
+      "proofExecutionStopUtc": "2026-11-16T01:12:36.678788Z",
+      "topologyCalls": 2,
+      "sharedTopologyMs": 60000
+    },
+    "stops": [
+      "First unsupported scope/dependency, identity/custody/topology mismatch, failed build/test/capture or actual bound stops advancement and returns exact original evidence.",
+      "No test/source/runner repair, timeout extension, failure reclassification or unselected population inside this execution grant.",
+      "Successful proof returns to Root before candidate rebuild/installed witnesses; no qualification claim."
+    ],
+    "returnTo": "Root actual proof conjunction or first-failure multi-frame triage."
+  },
+  "proofAuthorized": true,
+  "newNativeAuthorized": false,
+  "candidateBuildAuthorized": false,
+  "nativeAuthorshipCompliant": false,
+  "preservedResiduals": [
+    "M04-01",
+    "M04-02",
+    "M04-03"
+  ],
+  "qualification": false,
+  "rawPublished": false,
+  "executionStarted": false,
+  "deferredAssurance": {
+    "id": "RC14-B56-PROOF-SECONDARY-CAPTURE-001",
+    "status": "DEFERRED_TECHNICAL_DEBT",
+    "severity": "S3",
+    "owner": "Root",
+    "frame": "Proof/Effect diagnostic preservation",
+    "subject": "54be8761b/prove.py:316-319",
+    "evidence": "Independent Proof review identified unconditional aggregate write in finally after primary topology/parse/join failure. Static mechanism finding, not observed runtime failure.",
+    "noBlockRationale": "Requires secondary I/O failure; cannot pass or advance, preserves per-batch captures/receipts, does not prevent selected lawful path. No unconditional primary-diagnostic preservation claim.",
+    "reentry": "realization_refactor of external proof capture caller",
+    "activationTrigger": "Actual TOPOLOGY_BATCH_CONJUNCTION write failure, or proposed claim of unconditional primary diagnostic preservation under secondary capture I/O failure. Stop and triage retained primary and secondary evidence.",
+    "dependentBoundary": "Current composition proof stays fail-closed; actual triggered diagnostic failure must be resolved before dependent advancement.",
+    "closureFalsifier": "Injected primary observer/join error plus secondary receipt-write failure loses the primary diagnostic.",
+    "closureEvidence": "Exact repaired caller retains original error and separately reports capture failure, exercised by that two-failure case.",
+    "repairSelected": false
+  },
+  "previousAttempts": [
+    {
+      "disposition": "stopped_first_failure",
+      "returnCommit": "5633fe0b94367510c9c93051beceb39f0896c98a",
+      "buildPassedMs": 25188,
+      "testSelections": 0,
+      "retainedBuildCredit": false,
+      "record": "integration-01/B56_PROOF01_DISPOSITION_AND_CONTROL02_SELECTION.json"
+    },
+    {
+      "disposition": "stopped_first_failure",
+      "returnCommit": "0e55049592c62fad25f9ef7275600fc9e41298fb",
+      "builds": 0,
+      "testSelections": 0,
+      "conservation": "8/8 matched; both groups absent",
+      "record": "integration-01/B56_PROOF02_DISPOSITION_AND_CONTROL03_SELECTION.json"
+    }
+  ]
+}

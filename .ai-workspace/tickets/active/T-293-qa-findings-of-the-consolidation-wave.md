@@ -122,3 +122,7 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 - A review, a trace or a Writer that finds a defect adds a row here; the Executive assigns severity and priority and a slot in the schedule.
 - No merge waits for a review. A review of merged work is QA; its findings are rows.
 - P1 rows are closed before the cut. A row is closed with the merge commit that fixes it.
+
+## RC14-B56-PROOF-SECONDARY-CAPTURE-001 — deferred technical debt
+
+S3, Proof/Effect, Root owner. At frozen `54be8761b` `prove.py:316–319`, an aggregate receipt-write error after an original topology/parse/join failure can replace its outer diagnostic. Independent static finding; no actual occurrence. It cannot produce a false pass or advance to build, and retained per-batch layouts/raw/owner receipts survive, so it does not block the selected controlled fresh-directory composition proof. Re-entry: external capture caller realization refactor. Trigger: actual aggregate write failure or a proposed unconditional primary-diagnostic retention claim; stop and triage both errors. Closure requires a two-failure discriminator retaining original and secondary errors separately. No repair selected. Exact record: `rc14-release-gap-01/integration-01/B56_RECOVERED_PROOF_ACTIVATION_03.json#deferredAssurance`.
