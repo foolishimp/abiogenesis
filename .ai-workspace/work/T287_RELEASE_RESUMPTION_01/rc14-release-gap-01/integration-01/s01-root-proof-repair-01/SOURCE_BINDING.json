@@ -1,0 +1,10 @@
+{
+  "preparationBase": "a8810b29c8c116455ef3e710a3ff8c443e03a15e",
+  "source": "/private/tmp/abg-rc14-s01-proof-source-20261116-01",
+  "branch": "codex/rc14-s01-proof-source-20261116-01",
+  "tenantTree": "a7c47c1ac107fa2cca311f63251d7a926572a42c",
+  "finalLaunchHead": null,
+  "finalLaunchBinding": "Separately accepted pushed descendant with exact selected tenant and required inputs conserved; full fresh preimage before setup",
+  "executionAuthorized": false,
+  "clockStarted": false
+}

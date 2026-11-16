@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "observedUtc": "2026-11-16T10:08:36.588540+00:00",
+  "sourceHead": "a8810b29c8c116455ef3e710a3ff8c443e03a15e",
+  "sourceRows": 379,
+  "contextEntriesUpperBound": 376,
+  "contextBytesUpperBound": 8680831,
+  "threeSourcePinsMatchTriage": true,
+  "elevenConsumedInputsAuthenticated": true,
+  "externalEvidenceRows": 20,
+  "fiveMethodPins": true,
+  "providerIdentityDigest": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+  "sevenPythonASTsParsed": [
+    "operate.py",
+    "prove.py",
+    "setup-custody.py",
+    "process-owner.py",
+    "physical-topology.py",
+    "freeze-source.py",
+    "dependency-inputs.py"
+  ],
+  "hostSyntaxOnly": {
+    "exitCode": 0,
+    "stderr": ""
+  },
+  "hostOnlyDescriptiveCoordinates": true,
+  "canonicalTaskPlainFields": true,
+  "canonicalConstructorNotInvoked": true,
+  "fullCandidateCaptureBeforeConstructor": true,
+  "requiredHostPins": [
+    "HOST.mjs",
+    "TASK.json",
+    "ACTIVATION.json",
+    "physical-topology.py",
+    "operate.py",
+    "prove.py",
+    "setup-custody.py",
+    "SOURCE_INPUTS.json",
+    "FIXTURE_INPUTS.json",
+    "NATIVE_INPUTS.json",
+    "DEPENDENCY_INPUTS.json",
+    "PROOF_PLAN.json",
+    "EVIDENCE_INPUTS.json"
+  ],
+  "proofUnselected": true,
+  "layoutEntryCounts": [
+    37,
+    38,
+    38
+  ],
+  "layoutPhysicalObservation": false,
+  "sourceOrRuntimeCreated": false,
+  "firstFailure": null,
+  "methodAcquisition": "Existing unchanged3.0.4 native skill/references/project frame acquisition reused in this session; native source author must reacquire actual selected bodies independently."
+}

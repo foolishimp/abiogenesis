@@ -1,0 +1,42 @@
+{
+  "files": [
+    {
+      "invocationPath": "/opt/homebrew/bin/node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "invocationPath": "/opt/homebrew/bin/npm",
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "invocationPath": "/usr/bin/python3",
+      "path": "/usr/bin/python3",
+      "bytes": 118640,
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    },
+    {
+      "invocationPath": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "path": "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "bytes": 33816,
+      "sha256": "679f95648a8e33ce909006767ebddaf961caae05e0a6d8f0ede9d0db491a83fa"
+    },
+    {
+      "invocationPath": "/usr/bin/git",
+      "path": "/usr/bin/git",
+      "bytes": 118640,
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    }
+  ],
+  "npmTree": {
+    "path": "/opt/homebrew/lib/node_modules/npm",
+    "inventorySha256": "8245bad3cbdc99d8720c49c1ea829570d304761633405f0c53cb7d7dabb2c2f9",
+    "filesAndLinks": 2326,
+    "bytes": 13354162
+  },
+  "verifiedUtc": "2026-11-15T19:43:59.525411+00:00",
+  "scope": "External Operator executable identity; no new Product authority or portable-host claim."
+}

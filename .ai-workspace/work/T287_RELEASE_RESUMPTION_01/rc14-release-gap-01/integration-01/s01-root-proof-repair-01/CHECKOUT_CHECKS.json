@@ -1,0 +1,48 @@
+{
+  "head": "a8810b29c8c116455ef3e710a3ff8c443e03a15e",
+  "branch": "codex/rc14-s01-proof-controls-20261116-01",
+  "roots": [
+    {
+      "path": ".gitattributes",
+      "bytes": 7753,
+      "sha256": "0f9d7db5a66f5b0f05c045a3470f0788f881aa8037db78972bc50a613669e5e6"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 4410,
+      "sha256": "f6364c9967df589fd744e964b1fb17dc31a2b62d3ef2ea64b05ef4b5c4f4d462"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 13754,
+      "sha256": "5038fd003f0bf2ed6c1e079c4e157166961917a37127725147da34eb350210fd"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 7128,
+      "sha256": "e859444d725a3775f876f0ea121cfb54936cca2d4ac1bdb28b7238c0aa653cec"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 422,
+      "sha256": "53f0ccffd83ad00201cde76dd425cce09140afafbaa811941efdcad3d2ed5041"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    }
+  ],
+  "sequence": [
+    "worktree add --no-checkout",
+    "sparse-checkout set --no-cone --stdin",
+    "read-tree -mu HEAD"
+  ],
+  "cleanBeforeCarrier": true,
+  "observedUtc": "2026-11-16T10:01:46.097389+00:00"
+}

@@ -1,0 +1,260 @@
+{
+  "id": "RC14-S01-ROOT-PROOF-NATIVE-001",
+  "sourceHead": null,
+  "outcome": "Repair the three test-owned S01 source paths so an eventual exact installed-candidate episode can independently evidence ordered R1-R10 through exported Public surfaces, preserving declarations/oracle and complete failure custody.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/READ_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/WRITER_ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/ROOT_SELECTION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/PROOF_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/EVIDENCE_INPUTS.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/FIXTURE_INPUTS.json",
+    "specification/PRODUCT.md",
+    "specification/requirements/product/REQ-P-SCENARIOS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/code/src",
+    "build_tenants/abiogenesis/typescript/test_env/support",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+    "build_tenants/abiogenesis/typescript/scripts/product-payload.mjs"
+  ],
+  "readFirst": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/READ_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/WRITER_ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/ROOT_SELECTION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/PROOF_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/EVIDENCE_INPUTS.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01/FIXTURE_INPUTS.json",
+    "specification/PRODUCT.md",
+    "specification/requirements/product/REQ-P-SCENARIOS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  ],
+  "externalReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          199,
+          352
+        ],
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Construction relation, intake/admission, context acquisition and closed-result reuse: acquire the stated actual source bodies before dependent edits; hashing/paraphrase is not body acquisition."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    }
+  ],
+  "externalEvidenceReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/004-installed-language/result.json",
+      "bytes": 630,
+      "sha256": "b53f8a97905f4cdaff626c8c78fbdebad83559ff96dbdc9d4606048d1ec6b262"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/INPUTS_ENTRY.json",
+      "bytes": 712209,
+      "sha256": "533521a4d7a8b60b4b0d94dd34623ab34a73b2c6a146d3ca6a0ff8e9831eae12"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/INPUTS_EXIT.json",
+      "bytes": 712209,
+      "sha256": "c37e64fbe82b5180c67a5b315b7929168b2df0e6bf99a483172d5953185eab19"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source/build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+      "bytes": 1831,
+      "sha256": "ecda0215f8dfb85b22332f199482edbfd1ccf164415caaeb776892581e923e77"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "bytes": 4878,
+      "sha256": "9099c80e78261f507288c8597bad0495d70628a9b21990f1e3283c536df70c65"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 50216,
+      "sha256": "3274c5ef23c5fd5b362b42a899bc0d7c9d588f363848e1b033150b968f8a7008"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source/build_tenants/abiogenesis/typescript/scripts/product-payload.mjs",
+      "bytes": 10554,
+      "sha256": "6436442d7db32d2a2c9a7a42cd50d71c159fe45baeac53f57d47b5bac40c9df4"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source/build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+      "bytes": 2973,
+      "sha256": "e8053600a769281634b4b48f2def507d23c1f84f257d95398e8085cfbc24baad"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "bytes": 19702,
+      "sha256": "e0cd2849e76125be6d07c1f819544a69070cf465dfe85015e032b5e65eb8bc7a"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source/build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source/build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+      "bytes": 2656,
+      "sha256": "2b70dfe98899a637c6b9d07e1f3b5daf04e4d8320535e4f434c7a716e343e778"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "bytes": 9826,
+      "sha256": "f2080bdb2b262763aaff1ea6f4897c3fb125e94f8e15a641ab74905ce85dbb8f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 517,
+      "sha256": "223c8b71818b6e4e95f715d852b0ce2778e79f6c5a876c3728f519af4d9e2e50"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_C1_FREEZE_ACCEPTANCE_01.json",
+      "bytes": 3979,
+      "sha256": "b39e546d86be9b41ea96f8cf10cea63391bf4988c93f0ecc4d6cc28b672f1c31"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+      "bytes": 10815210,
+      "sha256": "be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/FREEZE.json",
+      "bytes": 4619,
+      "sha256": "f65eed415da5b31978ffb6fac9f8c2264c5ac554c65c560547e49b1ad51dfc62"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03/public-setup/installed/0/identity.json",
+      "bytes": 4108509,
+      "sha256": "72b3794d11538191eb652b81b65f78172bf15f587348abfae15ca5049026a67e"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/004-installed-language/stdout.raw",
+      "bytes": 390,
+      "sha256": "48ecb874d4c9a4963e843b7157da7d8f29a7d4b8917164dde35322d48a7a53cb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/004-installed-language/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "instructions": [
+    "You are the separately activated RC13 native source author for fixed5.0 S01/ABI5-ROOT-001. This is a test-owned source repair, not Product-runtime authority, source proof, qualification or release. W is exactly the three named files. Preserve the existing minimal Program, independent input/output, declaration identities and oracle; no Product, fixture declaration, contract or runtime edits. Read complete TASK/READ_PLAN and the actual Root source grant named by raw LAUNCH.rootAcceptance plus CONTROL_START before dependent edits. Historical controls preparation authority is not your source execution authority. Observe actual UTC clock at entry and before an early return; never infer expiry from document prose or invent fresh bounds.\nAcquire the actual installed STDO work skill and all READ_PLAN selected bodies as content before first edit, including construction relation199-352, status --verify and exact project frame. Hashing, line counts, metadata, paraphrase and a truncated preview do not replace actual body acquisition. Follow material owner links needed for this narrow outcome. readRoots is context selection, not an exclusive reasoning boundary; all declared additional read authority is read-only. Do not inspect the actively changing B64 source/raw03; it is protected external territory.\nRepair the root witness to consume only already-exported installed Product surfaces. Keep shared component support working, but do not require implementation/private or source ABG imports for the root S01 path. Remove the unused private projection-contract import/argument. Trace package exports and actual installed producer -> public invocation -> admitted ABG events -> fresh read ownership; a file URL to an exported target is not private merely because it is absolute. Do not add a Product export or runtime branch for this test.\nRetain the complete same-episode setup/installation/binding, test publication/catalog/view, exact Program/GraphFunction/contracts/ordinary leaf selection, materialized graph and validation, actual CLI request/transport/raw stdout/stderr, complete causal invocation/C-call/evidence/result/judgment/closure events, and both fresh read requests/receipts/projections/prefix/close facts externally before assertions or cleanup can discard them. Capture actual returned candidates, not fabricated expected values, copied event authority, reconstructed success or only truncated summaries. Ensure a child or parse error remains primary when capture also fails, with secondary capture failure separately reported; capture-only failure must fail. If an existing lower helper asserts/strips before returning, intercept the actual owned receipt at a lawful seam inside W, rather than silently losing the first failure or expanding W. Declare exact capture filenames and future operator-provided capture root in your Return; no raw evidence enters Git.\nProve in source assertions the ordered R1-R10 joins for the same exact candidate/test/causal episode. Explicitly join materialized GTL validation (R7) and causal event identities (R9), not co-presence/counts alone. Require initial CLI result and both fresh read outputs to agree on the admitted typed terminal Result, producer/Run, contract and value; replay must be closed, both projections name that same Run and preserve the selected durable prefix. Retain existing assertions and independent expected input/output; continuation/refusal/gap/missing events/private imports or replay disagreement are not success. Preserve shared component callers through a bounded optional root route when needed; do not weaken their assertions or grant authority from the host.\nNo build, behavioral tests, Product import/execution, npm/install/pack, provider/network/nested agent, Git mutation or automatic retry. Permitted source edits are only W, via ordinary editing or bounded programmatic text edits that write only those paths. Read-only shell inspection, actual stdo status/clock and node --check on the three W are permitted; no custom runtime behavior probes. Do not change the installed RC13 builder, candidate02, dependencies, controls, .abiogenesis setup manifest, active B64, or other source. Report a concrete missing lawful owner relation rather than inventing a stand-in. Do not stop merely because tests cannot run: execution is deliberately separately granted.\nReturn exact changed paths and source-only completion, actual command/content-read audit and residuals; report remaining obligation gaps honestly. Later Root may select one complete installed-language episode on an exact accepted successor archive and fresh source-blind install. There is no standalone prove.py campaign in this grant and no old B64 or candidate02 pass credit. Native host success requires actual typed completion, real resource close and fresh same-Run result/closed replay, not exit0 shorthand."
+  ],
+  "checks": [
+    "Only three test-owned W; independent declarations/input/output/oracle unchanged",
+    "Root path uses exported installed surfaces; shared component support conserved",
+    "Complete same-episode candidates retained before assertion/cleanup with primary and secondary error channels",
+    "Explicit R7/R9 causal identity and initial CLI/two fresh typed terminal/closed-state equality",
+    "Actual method/status/frame/grant/clock content acquired; source-only no execution credit"
+  ],
+  "maxContextFiles": 1024,
+  "maxContextBytes": 25165824,
+  "declaredAdditionalReadAuthority": "Read-only causal source/import/shared-consumer files under the selected tenant and governing specification/design; exact external method and closed evidence listed here. Never the active B64 source/raw03. Narrow W does not narrow material reasoning.",
+  "runtimeMetadataReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/LAUNCH.json",
+      "purpose": "Actual source grant pointer and exact launch identity"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/CONTROL_START.json",
+      "purpose": "Original enclosing clock; no reset"
+    },
+    {
+      "pathFrom": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/LAUNCH.json#rootAcceptance",
+      "purpose": "Complete actual Root source authority before dependent edits"
+    }
+  ]
+}
