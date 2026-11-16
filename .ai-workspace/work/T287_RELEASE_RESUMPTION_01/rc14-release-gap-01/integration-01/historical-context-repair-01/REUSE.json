@@ -144,5 +144,55 @@
     ],
     "unchangedProofPlan": true,
     "validation": "Canonical source field mapping, exact text conservation, pure exact factory sequence and capture-failure discriminator, coordinates/layout/input identities; deeper live owner joins unproved."
+  },
+  "completionSuccessor": {
+    "predecessor": {
+      "commit": "499e62fdd380e4ac8221b00c88f75e38236e5d9d",
+      "tree": "5ea9433c2450c456e6b249c8b98af1f4f02098cd",
+      "parent": "3ca755e235d89d2f193879d136f45da6bc5667ac",
+      "mergeCommit": "ffb0b02c3dcf38fb573259ed8606d61ba6d09b9c",
+      "root": "/private/tmp/abg-rc14-historical-context-controls-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01",
+      "manifest": {
+        "path": "CONTROL_MANIFEST.json",
+        "bytes": 6167,
+        "sha256": "6566f83a2d7624a2a0effc4be74a11c23bfa76d42d25beb497f5a82cc9eabc03",
+        "members": 39
+      },
+      "return": {
+        "path": "PREPARATION_RETURN.json",
+        "bytes": 19311,
+        "sha256": "e0711b8e3e306ccc110310bdc4e2d3d149e7127a73ca47d06f08dbb68efc84a6"
+      }
+    },
+    "checkpoint": "999301134aace961800fecd2ed7930e85e623936",
+    "partialSourceCommit": "eebb5c89cd78c717c23a68b24f302b9eee69906e",
+    "authority": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPLETION_CONTROL_PREPARATION_01.json",
+      "bytes": 9554,
+      "sha256": "f0f401638ffc52089f04a3139d1817da0b8076a1e4a854bae8c1df0265ddbe71"
+    },
+    "disposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_NATIVE02_PARTIAL_DISPOSITION_01.json",
+      "bytes": 9825,
+      "sha256": "9aa6a5d058f2f6d54f44cf94808b83851ebbb5175a8962bb3699b99a18d4110d"
+    },
+    "executableDelta": [],
+    "byteIdenticalExecutables": [
+      "HOST.mjs",
+      "operate.py",
+      "prove.py",
+      "dependency-inputs.py",
+      "freeze-source.py",
+      "physical-topology.py",
+      "process-owner.py",
+      "setup-custody.py"
+    ],
+    "dataDelta": [
+      "ACT003/source/raw/proof03 coordinates",
+      "Current source input pins from preserved partial",
+      "Old02 immutable evidence/protected roots",
+      "Completion task/read plan/required coverage and capture rules"
+    ],
+    "unchanged": "Actual canonical async awaited same-object constructor capture, typed completion/fresh replay/close, source/custody, finite clocks, proof population processing and first-failure/finally owners. No runtime or proof performed."
   }
 }

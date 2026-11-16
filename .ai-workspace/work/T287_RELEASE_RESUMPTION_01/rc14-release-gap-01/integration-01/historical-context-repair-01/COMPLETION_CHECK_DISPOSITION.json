@@ -1,0 +1,13 @@
+{
+  "authority": "Root Writer044 message following independent exact full-constructor binding verification",
+  "originalFailure": {
+    "path": "/private/tmp/abg-rc14-historical-context-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/COMPLETION_PREPARATION_FAILURE.json",
+    "bytes": 334,
+    "sha256": "1c32c523102dadb6b3db5e46f4393617187ddbc3e19e8f8a0b3f97c1c190977c"
+  },
+  "failedExpression": "old=json.loads(PREPARED.read_text())['workspaceBinding']; old['roots']",
+  "cause": "PREPARED carries caller.state.binding coordinate {ref,digest}, not the complete WorkspaceBinding. Pure check did not evaluate the prospective HOST layout.",
+  "selectedCorrection": "Acquire existing native-task-constructor-input.json.workspaceBinding, authenticate exact bytes and join bindingId/bindingDigest to PREPARED ref/digest and retained topology; no executable or control predicate change.",
+  "originalDeadlineUtc": "2026-11-16T09:38:49+00:00",
+  "scope": "Remaining pure-layout/static checks and existing preparation/freeze only; no runtime, source, provider or clock reset."
+}

@@ -1,0 +1,23 @@
+{
+  "authority": "Root Writer044 message independently verifies exact patch and six literal context-marker lines",
+  "failure": "COMPLETION_CHECKPOINT_FAILURE.json",
+  "patch": {
+    "path": "/private/tmp/abg-rc14-historical-context-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/COMPLETION_DELTA.patch",
+    "bytes": 61207,
+    "sha256": "68e632de20777f9da12533719cf4c3b11e1e3416c9cd1df41fbc3b0e34c5231b"
+  },
+  "decision": "Preserve patch bytes. Whitespace check applies to actual authored control/source files excluding this patch representation; no source/proof-predicate waiver.",
+  "selectedCheck": [
+    "git",
+    "diff",
+    "--cached",
+    "--check",
+    "--",
+    ".",
+    ":(exclude).ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/COMPLETION_DELTA.patch"
+  ],
+  "exitCode": 0,
+  "originalDeadlineUtc": "2026-11-16T09:38:49+00:00",
+  "runtime": false,
+  "reset": false
+}

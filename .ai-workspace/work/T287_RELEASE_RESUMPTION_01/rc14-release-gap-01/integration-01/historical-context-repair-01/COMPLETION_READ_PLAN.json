@@ -1,0 +1,216 @@
+{
+  "kind": "bounded_native_content_read_plan",
+  "beforeFirstEdit": true,
+  "statusCommand": [
+    "stdo",
+    "status",
+    "--definition",
+    "stdo_abiogenesis.json",
+    "--verify"
+  ],
+  "statusRequired": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": []
+  },
+  "completeBodies": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/PROOF_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/EVIDENCE_INPUTS.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/ROOT_SELECTION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/COMPLETION_WRITER_ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/NATIVE02_PARTIAL_DISPOSITION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/COMPLETION_READ_PLAN.json"
+  ],
+  "materialSections": [
+    {
+      "path": "specification/GOALS.md",
+      "ranges": [
+        [
+          1,
+          5
+        ],
+        [
+          851,
+          878
+        ]
+      ],
+      "reason": "Current selection, mandatory F17/S06 witness and no transfer of historical release standing."
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "ranges": [
+        [
+          825,
+          860
+        ],
+        [
+          1480,
+          1498
+        ]
+      ],
+      "reason": "Full-source/recovery/currentness and selected S06 outcomes."
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-SCENARIOS.md",
+      "ranges": [
+        [
+          156,
+          191
+        ],
+        [
+          224,
+          248
+        ]
+      ],
+      "reason": "S06 and pre-RC applicability."
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "reason": "Whole applicable requirements including022/023."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "ranges": [
+        [
+          255,
+          342
+        ]
+      ],
+      "reason": "Current incomplete B64 HOW and all existing holder/source-use relations."
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "ranges": [
+        [
+          87,
+          164
+        ]
+      ],
+      "reason": "Current revision acquisition/presentation law; follow material owning links."
+    }
+  ],
+  "externalMethodBodies": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          199,
+          352
+        ],
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Construction relation, intake/admission, context acquisition and closed-result reuse: acquire the stated actual source bodies before dependent edits; hashing/paraphrase is not body acquisition."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    }
+  ],
+  "runtimeMetadataReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/LAUNCH.json",
+      "purpose": "Actual source grant pointer and immutable launch identity, supplied by existing Operator at execution."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/CONTROL_START.json",
+      "purpose": "Original enclosing clock and actual launch observation, not a new clock."
+    },
+    {
+      "pathFrom": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/LAUNCH.json#rootAcceptance",
+      "purpose": "Read exact pinned actual Root source grant. Historical controls grants do not own source execution."
+    }
+  ],
+  "actualCounterexample": {
+    "pinSource": "EVIDENCE_INPUTS.json",
+    "eventLog": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+    "requiredCoordinates": [
+      30,
+      301,
+      316,
+      475,
+      505,
+      577
+    ],
+    "instruction": "Read physical records and source referenced by bodyReference at316, join the basis Run/binding and member coordinate to actual301 bytes; the source data is not mutable runtime authority. Use read-only JSON parsing, not Product imports or resource reopen. Inspect the full material bodies required by the concrete relation; no whole-history prompt dump."
+  },
+  "acquisitionLaw": "Content ranges and complete control/method bodies must be actually returned/acquired, not merely hashed, counted or paraphrased. If a tool previews persisted output, acquire the remainder in bounded chunks. Additional material owner/source reads remain lawful within declared causal cone. Report exact omitted material; do not invent universal compliance."
+}

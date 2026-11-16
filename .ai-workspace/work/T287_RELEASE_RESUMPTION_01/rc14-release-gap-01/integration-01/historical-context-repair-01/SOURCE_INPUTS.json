@@ -1,7 +1,7 @@
 {
-  "sourceBase": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
-  "sourceRoot": "/private/tmp/abg-rc14-historical-context-source-20261116-02",
-  "tenantTree": "cbb2a63bf596de71dec609ae7be13da8174f6902",
+  "sourceBase": "999301134aace961800fecd2ed7930e85e623936",
+  "sourceRoot": "/private/tmp/abg-rc14-historical-context-source-20261116-03",
+  "tenantTree": "a7c47c1ac107fa2cca311f63251d7a926572a42c",
   "rows": [
     {
       "path": "AGENTS.md",
@@ -125,8 +125,8 @@
     },
     {
       "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
-      "bytes": 67214,
-      "sha256": "164fa06ce7a8ad87fa809d037ec8593d614c3e6ab386882899a799f6e80ee500"
+      "bytes": 72102,
+      "sha256": "4b9be5fe94f92cf3311d2c3e140d9c6691842ca1ff75ab12d27177b51a331613"
     },
     {
       "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
@@ -170,8 +170,8 @@
     },
     {
       "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
-      "bytes": 115704,
-      "sha256": "7d525fdc954b228b5eaa2fc5f4cdde9b11b51c43d698a478901d08feb51b639e"
+      "bytes": 118720,
+      "sha256": "ca724a9026e73ed43bf4de12e144be8f98aef00ad1371796591f214bc86cdb43"
     },
     {
       "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
@@ -315,8 +315,8 @@
     },
     {
       "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
-      "bytes": 96118,
-      "sha256": "8a92248a1e3af54757efe1cc046e5588b12a27179111424d393faf16a0e236c0"
+      "bytes": 98095,
+      "sha256": "037193f0f129b176805993d4e035cb05f698ceec42b41a1f7ab20354537e5b84"
     },
     {
       "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
@@ -1435,13 +1435,13 @@
     },
     {
       "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
-      "bytes": 68400,
-      "sha256": "dea8c0442b0f3fe71d4d4e02a41a66dfd44fc63ee3e7b069f383d42a80c2a7a7"
+      "bytes": 69255,
+      "sha256": "721bcca99c4bc3a6c38a244b9e364a92da91dd60725e8cce67e14b88a4a5164a"
     },
     {
       "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
-      "bytes": 40332,
-      "sha256": "31938a2f0eb2d858f881c48c7214daeb3859e124239b64a98e69729f76f66dca"
+      "bytes": 42109,
+      "sha256": "c4e3138783b9959e9fecd4fa5d60a11e52e2e2e5f69e3aab8e4cf726540332b2"
     },
     {
       "path": "build_tenants/abiogenesis/typescript/package-lock.json",
@@ -1830,8 +1830,8 @@
     },
     {
       "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
-      "bytes": 104530,
-      "sha256": "db76ed6ad9c2a4eed0e98a9efe7c12609b73b50602ee34880ce7ed65a143a295"
+      "bytes": 111645,
+      "sha256": "7056600b9db4227c3349a229f5cb9863f3c1a057988fb9d89f8e3fdef1bf2a50"
     },
     {
       "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
@@ -1894,5 +1894,6 @@
       "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
     }
   ],
-  "scope": "Exact selected source/initial context and build/setup dependency rows; final full materialized preimage remains mandatory. Control-carrier rows are bound by CONTROL_MANIFEST."
+  "scope": "Exact selected source/initial context and build/setup dependency rows; final full materialized preimage remains mandatory. Control-carrier rows are bound by CONTROL_MANIFEST.",
+  "partialSourceCommit": "eebb5c89cd78c717c23a68b24f302b9eee69906e"
 }

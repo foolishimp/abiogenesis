@@ -1,0 +1,115 @@
+{
+  "kind": "writer044_static_data_successor_checks",
+  "completedUtc": "2026-11-16T09:31:24.255901+00:00",
+  "checkpoint": "999301134aace961800fecd2ed7930e85e623936",
+  "partialSourceCommit": "eebb5c89cd78c717c23a68b24f302b9eee69906e",
+  "tenantTree": "a7c47c1ac107fa2cca311f63251d7a926572a42c",
+  "tenantEqualsPreservedPartial": true,
+  "sourceRows": 378,
+  "sourceRowsDerivation": "Exact Git blobs from checkpoint; final full physical preimage remains future Operator-owned.",
+  "evidenceRows": 18,
+  "priorPinsVerified": 39,
+  "evidenceMethodAndBuilderPinsVerified": 24,
+  "byteIdenticalExecutables": [
+    {
+      "path": "HOST.mjs",
+      "bytes": 22300,
+      "sha256": "f42386355ed07ee989f9198c0275156409687970a803a5c040eb06b34e84484c"
+    },
+    {
+      "path": "operate.py",
+      "bytes": 6349,
+      "sha256": "828cdb2f0dccad7ff58e85038f67ca0221d027cb2d752e602d76b7c6928b88e7"
+    },
+    {
+      "path": "prove.py",
+      "bytes": 21809,
+      "sha256": "78e97df05af7b6fe4b10428d51b6bc560b24bebf48927d043d5fbc767883de7a"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 3060,
+      "sha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ],
+  "syntax": {
+    "pythonAST": 7,
+    "nodeCheckHOST": true,
+    "json": true,
+    "standing": "Completed before retained projection-only failure; executable/control bytes unchanged thereafter."
+  },
+  "canonicalTask": {
+    "instructionsStringArray": true,
+    "instructionsCount": 1,
+    "instructionsUtf8Bytes": 9187,
+    "sameAwaitedCapturedConstructorObject": true,
+    "canonicalConstructorExecuted": false,
+    "writeScope": 8,
+    "sourceHeadStillUnbound": true,
+    "runtimeGrantAndClockReadOnlyPathsDeclared": true
+  },
+  "contextProjection": {
+    "files": 376,
+    "bytes": 9182401,
+    "maxFiles": 1024,
+    "maxBytes": 25165824,
+    "scope": "File-only initial selection projection; observation also enumerates directory entries, and actual owner limits remain enforced. No native prompt or completed acquisition claim. Final TASK-only wording clarification updates its exact bytes and digest; file population unchanged.",
+    "finalTaskSha256": "23b65d4ce6eebb243770a4a5d39ffcf829980a7190b2f3ec3daf8f47df66f1bf"
+  },
+  "layoutChecks": "COMPLETION_LAYOUT_CHECKS.json",
+  "proof": {
+    "wholeFiles": 3,
+    "normalBuilds": 1,
+    "preservedTitles": 39,
+    "requiredB64Titles": 3,
+    "fixedTotalClaim": false,
+    "originalFileRowsByteValueEqual": true,
+    "executed": false
+  },
+  "method": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "statusVerifyObserved": {
+      "installed": true,
+      "valid": true,
+      "failures": []
+    },
+    "standardsAcquisition": "Current skill/grant/Definition and selected frame/refs reacquired; unaffected exact prior owner judgments reused. Native Worker must perform its own declared content acquisition; this is not transferable read credit."
+  },
+  "initialStaticFailure": "COMPLETION_PREPARATION_FAILURE.json",
+  "rootProjectionDisposition": "COMPLETION_CHECK_DISPOSITION.json",
+  "sourceRuntimeRootsAbsent": true,
+  "runtime": 0,
+  "providers": 0,
+  "tests": 0,
+  "builds": 0,
+  "physicalProbes": 0,
+  "sourceAcceptance": false,
+  "finalTaskClarification": "Existing event-body B64 title is retained/completed; only the two missing mandatory owner-path cases are added.",
+  "checkpointWhitespace": {
+    "failure": "COMPLETION_CHECKPOINT_FAILURE.json",
+    "rootDisposition": "COMPLETION_CHECKPOINT_DISPOSITION.json",
+    "actualAuthoredControlsCheckExit": 0,
+    "patchBytesPreserved": true
+  }
+}

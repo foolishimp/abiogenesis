@@ -1,0 +1,45 @@
+{
+  "kind": "writer044_checkpoint_whitespace_check_failure",
+  "utc": "2026-11-16T09:34:58.209767+00:00",
+  "command": [
+    "git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "exitCode": 2,
+  "file": "COMPLETION_DELTA.patch",
+  "patchBytes": 61207,
+  "patchSha256": "68e632de20777f9da12533719cf4c3b11e1e3416c9cd1df41fbc3b0e34c5231b",
+  "flaggedLines": [
+    {
+      "line": 52,
+      "literal": " "
+    },
+    {
+      "line": 224,
+      "literal": " "
+    },
+    {
+      "line": 227,
+      "literal": " "
+    },
+    {
+      "line": 230,
+      "literal": " "
+    },
+    {
+      "line": 233,
+      "literal": " "
+    },
+    {
+      "line": 236,
+      "literal": " "
+    }
+  ],
+  "causeProposed": "Whole-file whitespace check treats unified-diff blank context markers as source whitespace. Original code/data diff whitespace check passed.",
+  "commitCreated": false,
+  "head": "999301134aace961800fecd2ed7930e85e623936",
+  "runtime": false,
+  "deadlineUtc": "2026-11-16T09:38:49+00:00"
+}

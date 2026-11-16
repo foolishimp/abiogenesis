@@ -38,3 +38,22 @@ Every test candidate is retained in full before assertion/parse/stripping. Prima
 The later source attempt has one original3h enclosure,45min native ceiling,5min inactivity,360turns and180s exit reserve. Proof is at most90min clipped to that original enclosure; no retry or reset. A method deviation remains an actual deviation and needs explicit Root disposition before a successor proof entry, not `deviations:[]` fabrication. This preparation starts no source/runtime clock and grants no execution. New candidate C0/C1/archive/install correspondence and actual S06 remain future selected work.
 
 Task-carrier re-entry02 preserves the same structural plan after actual source-attempt01 refused before dispatch. Its external string failed the installed taskSchema array(ref) field. Writer042 wraps the identical text once, maps all five plain Task fields against their exact canonical owner and retains actual authority/binding/grant/context as opaque owner values. The existing async-awaited factory first records the complete local constructor candidate and only then invokes the same canonical constructor on it; record failure stops, and no context is observed again. Fresh ACT coordinates02 and old-attempt protections are declaration changes only. All deeper constructor/admission predicates still await genuine runtime evidence. Earlier failed roots and clocks remain closed.
+
+
+## Completion successor003
+
+Root completion disposition -> preserved native02 source plus actual retained505/basis316 evidence -> actual Worker003 grant/clock/content intake -> exact eight-file source completion -> independent affected source review -> separately granted one build/three-whole-file proof. All runtime/ABG authority stays at its existing owner.
+
+```mermaid
+sequenceDiagram
+  participant R as Root grant
+  participant T as Task and read plan
+  participant N as Installed RC13 native author
+  participant P as Existing proof owner
+  R->>T: Exact partial plus completion obligations
+  T->>N: Canonical instructions array and actual launch authority
+  N-->>R: Frozen eight-W candidate and truthful audit
+  R->>P: Separate proof grant only after review
+```
+
+Only carrier data changes. Revision derives each historical use through its actual chain; the held-prefix owner rejoins bytes; assembly presents only. The next author resolves algorithm/helper shape within existing eight W. Current-root substitution, arbitrary cross-Run permission and old proof credit remain prohibited. Same-object constructor capture and all executable owners are unchanged. Both prior attempts remain protected; stage coverage and original audit failures are not erased.
