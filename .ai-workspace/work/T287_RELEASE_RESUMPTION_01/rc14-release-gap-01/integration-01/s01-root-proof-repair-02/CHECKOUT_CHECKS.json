@@ -1,0 +1,90 @@
+{
+  "head": "d000272aa7dce9df46e3ed8bc3d232dac63cb2f1",
+  "branch": "codex/rc14-s01-proof-controls-20261117-02",
+  "cleanBeforeAuthoring": true,
+  "orderedCommands": [
+    [
+      "git",
+      "-C",
+      "/Users/jim/src/apps/abiogenesis",
+      "-c",
+      "filter.lfs.process=",
+      "-c",
+      "filter.lfs.smudge=",
+      "-c",
+      "filter.lfs.required=false",
+      "worktree",
+      "add",
+      "--no-checkout",
+      "-b",
+      "codex/rc14-s01-proof-controls-20261117-02",
+      "/private/tmp/abg-rc14-s01-proof-controls-20261117-02",
+      "d000272aa7dce9df46e3ed8bc3d232dac63cb2f1"
+    ],
+    [
+      "git",
+      "sparse-checkout",
+      "set",
+      "--no-cone",
+      "--stdin"
+    ],
+    [
+      "git",
+      "read-tree",
+      "-mu",
+      "HEAD"
+    ]
+  ],
+  "sparseSelections": [
+    "/.gitattributes",
+    "/.gitignore",
+    "/AGENTS.md",
+    "/CLAUDE.md",
+    "/README.md",
+    "/pyproject.toml",
+    "/stdo_abiogenesis.json",
+    "/specification/",
+    "/build_tenants/abiogenesis/typescript/",
+    "/.ai-workspace/tickets/active/",
+    "/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/"
+  ],
+  "sevenRootRows": [
+    {
+      "path": ".gitattributes",
+      "bytes": 7753,
+      "sha256": "0f9d7db5a66f5b0f05c045a3470f0788f881aa8037db78972bc50a613669e5e6"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 4410,
+      "sha256": "f6364c9967df589fd744e964b1fb17dc31a2b62d3ef2ea64b05ef4b5c4f4d462"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 13754,
+      "sha256": "5038fd003f0bf2ed6c1e079c4e157166961917a37127725147da34eb350210fd"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 7128,
+      "sha256": "e859444d725a3775f876f0ea121cfb54936cca2d4ac1bdb28b7238c0aa653cec"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 422,
+      "sha256": "53f0ccffd83ad00201cde76dd425cce09140afafbaa811941efdcad3d2ed5041"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    }
+  ],
+  "observedUtc": "2026-11-16T15:50:56.600031+00:00",
+  "sourceRuntimeCreated": false
+}

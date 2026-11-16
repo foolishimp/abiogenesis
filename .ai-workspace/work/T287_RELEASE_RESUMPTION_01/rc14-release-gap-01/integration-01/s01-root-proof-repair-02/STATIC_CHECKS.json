@@ -1,0 +1,192 @@
+{
+  "checkedUtc": "2026-11-16T15:57:09.115977+00:00",
+  "checks": [
+    "all authored JSON parses",
+    "seven Python owners and HOST byte-identical to985285; Python AST only, no owner imports",
+    "node --check HOST only, no Product import",
+    "canonical same-object candidate capture before constructor and ACT source/raw consumers preserved",
+    "canonical Task array/R/W/readFirst structural joins; context fits1024/25MiB without Product constructor",
+    "allR1-R10/original title preserved; prove.py explicitly unselected; no proof launch or campaign",
+    "380 exact source/context rows and all3 recovered postimages match pushed d000272",
+    "current named method/26closed evidence/11historical fixture/tool/candidate/builder/provider byte pins match; provider not invoked",
+    "retained native declaration/source and dependency lock identities unchanged; prior196input standing remains historical",
+    "existing4576 dependency-row ledger authenticates selected inventory; no fresh live-tree scan claim",
+    "active B64 source/raw only protection strings, absent from stationary input inventories",
+    "complete planned/actual-shape native layouts within unchanged64bound; all old and active protections retained, no physical observer",
+    "future source/raw absent and proof subject null; no runtime/preparation-clock confusion",
+    "five current independent fixture/declaration/input-oracle owners byte-equal prior accepted controls source"
+  ],
+  "context": {
+    "files": 389,
+    "bytes": 9005456,
+    "maxFiles": 1024,
+    "maxBytes": 25165824
+  },
+  "sourceRows": 380,
+  "evidenceFiles": 26,
+  "historicalFixtureRows": 11,
+  "dependencyLedger": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/DEPENDENCY_PREIMAGE.json",
+    "bytes": 987915,
+    "sha256": "d5963980b0d8ce53b85847a547f44d308757bf4766aadd0f3dda49dad401a8ef"
+  },
+  "dependencyRows": 4576,
+  "independentFixtureRows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+      "bytes": 2656,
+      "sha256": "2b70dfe98899a637c6b9d07e1f3b5daf04e4d8320535e4f434c7a716e343e778"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "bytes": 9826,
+      "sha256": "f2080bdb2b262763aaff1ea6f4897c3fb125e94f8e15a641ab74905ce85dbb8f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 517,
+      "sha256": "223c8b71818b6e4e95f715d852b0ce2778e79f6c5a876c3728f519af4d9e2e50"
+    }
+  ],
+  "ownerBodyRanges": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "lines": 684,
+      "ranges": [
+        [
+          212,
+          337
+        ],
+        [
+          440,
+          480
+        ]
+      ],
+      "draftRanges": [
+        [
+          212,
+          337
+        ],
+        [
+          440,
+          480
+        ]
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "lines": 419,
+      "ranges": [
+        [
+          285,
+          325
+        ]
+      ],
+      "draftRanges": [
+        [
+          285,
+          325
+        ]
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "lines": 825,
+      "ranges": [
+        [
+          690,
+          740
+        ]
+      ],
+      "draftRanges": [
+        [
+          690,
+          740
+        ]
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "lines": 110,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "draftRanges": [
+        [
+          1,
+          80
+        ]
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "lines": 1515,
+      "ranges": [
+        [
+          870,
+          915
+        ],
+        [
+          1120,
+          1170
+        ]
+      ],
+      "draftRanges": [
+        [
+          870,
+          915
+        ],
+        [
+          1120,
+          1170
+        ]
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+      "lines": 28,
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "draftRanges": [
+        [
+          1,
+          200
+        ]
+      ]
+    }
+  ],
+  "layoutBoundCounts": [
+    41,
+    42
+  ],
+  "nodeSyntax": {
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "methodStanding": "Actual installed stdo-work acquired; exact unchanged material references and current Root basis check reused, method pins reacquired. This is not retrospective native001 compliance.",
+  "ProductImports": false,
+  "runtimeInvoked": false,
+  "physicalProbe": false,
+  "buildOrTests": false,
+  "providerInvoked": false,
+  "activeB64Read": false,
+  "intakeDisplay": "An overlong read-only predecessor display was truncated; needed Task/Proof/Read/shape bodies were reacquired separately. No status or semantic proof credit inferred from truncation."
+}

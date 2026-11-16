@@ -1,0 +1,81 @@
+{
+  "id": "RC14-S01-COMPLETION-CONTROLS-WRITER-050",
+  "recordedUtc": "2026-11-16T15:47:00.853395+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "actor": "/root/b29_vm_triage",
+  "role": "Separate external controls Writer; source author and all runtime effects remain disabled.",
+  "authority": "Owner continue/finish RC14; Root conjoins both S01 source frames and selects recovery of exact preserved source plus narrow completion under unchanged Product.",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": "Unchanged fixed5.0 S01/ABI5-ROOT-001 orderedR1-R10 on one exact installed candidate/test/causal episode, independent declarations/input/oracle and genuine selected-definition/request plus ABG admission/replay authority.",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_SOURCE01_DISPOSITION_01.json",
+    "bytes": 7658,
+    "sha256": "f6127933ea5a6bf025b2af9fd75be7a0d7aa97e76cd78680c1d8349e239bdeb8"
+  },
+  "preservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_SOURCE01_PRESERVATION_ACTIVATION_01.json",
+    "bytes": 4081,
+    "sha256": "e1abc2d2a4838f97334d79f63a4e69a8f5790d8a364ebc6ee1ff7f8b45fbe068"
+  },
+  "preservationCommit": "26a7a643d",
+  "priorSourceFreeze": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/FROZEN_SOURCE.json",
+    "bytes": 4334,
+    "sha256": "e0f4fb44c2b43f105e6da7299a77afb2ba10299f64eeee5b8e53dbca9012ec21"
+  },
+  "priorReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/OPERATOR_RETURN.json",
+    "bytes": 36832,
+    "sha256": "48f329669537a2d4cdd162f5cd4042933694e752b14f1c3ed7b88e4a8d7cc51a"
+  },
+  "sourceBase": "Exact pushed main containing this grant and preserved three S01 postimages, supplied after direct remote parity. No moving-main adoption.",
+  "controlsWorktree": "/private/tmp/abg-rc14-s01-proof-controls-20261117-02",
+  "controlsBranch": "codex/rc14-s01-proof-controls-20261117-02",
+  "writeTerritory": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-02/",
+  "prospectiveSourceWorktree": "/private/tmp/abg-rc14-s01-proof-source-20261117-02",
+  "prospectiveSourceBranch": "codex/rc14-s01-proof-source-20261117-02",
+  "prospectiveRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02",
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "operationGrant": [
+    "Create only the new named controls worktree/carrier from supplied pushed checkpoint. Reuse source-only S01 controls985285f6fe1a2ba153fe1ff117ebdce101109b15 and its seven mechanical Python owners byte-identically; HOST descriptive coordinates only. Preserve actual canonical candidate-before-constructor capture.",
+    "Prepare one canonical Task/instructions array for actual RC13 Opus5.5 xhigh native author from the preserved three-file partial source. Only those three paths writable; Product/HOW/runtime/declarations/oracle/exports remain unchanged.",
+    "Bind four exact Root findings. Optional root setup must carry genuine selected installed-definition/request coordinates through existing canonical owners and join calls/receipts to both install admissions and workspace binding. Preserve bounded legacy component fixtures; do not simply change a hash formula or invent Public authority.",
+    "Capture each actual raw/publication/program validation candidate before its existing assertion. Retain actual available event bytes/read-boundary observations on CLI/read failure before cleanup, without relabeling raw partial history as closed admitted truth. Preserve unexpected child Error as primary, expected-nonzero component behavior, parse failure, separately retained secondary capture failure and capture-only failure.",
+    "Require R3 assertions on genuine selected setup coordinates, keeping supported R7-R10/independent input/oracle/fixture bytes intact. Include bounded failure-custody discriminators where needed within the same test-owned W; they are component evidence, not a substitute for the full installed episode. No broad campaign or new generic runtime/capture framework.",
+    "Bind actual role/grant/CONTROL_START/clock and complete status subprocess exit/full JSON parsing before selected-field display. Read exact material method and causal owner sources; reuse closed unchanged source-frame facts where applicable. Prior noncompliance remains historical, not silently repaired.",
+    "Prepare exact source/control/tool/method/evidence inventories and complete read plan, preserving three source01 postimages. Protect active B64 composition source/raw by path only, never stationary inventory; preserve all old S01/B64/candidates/resources. Seven-root source materialization and complete projected physical layout remain mandatory.",
+    "Source-only controls: unchanged prove.py remains HOST-required authenticated input, explicitly unselected. No proof launch template/campaign; later one whole installed-language episode on eventual exact accepted successor archive/fresh source-blind install, explicit fresh absolute capture root and complete manifest will need separate grant. Retain actual failed attempts and source review findings.",
+    "Mechanical JSON/AST/node --check HOST and pure static layout/hash checks only; no Product import/constructor/setup, physical probe, source materialization, native/provider, build/test/pack/install, candidate mutation or runtime.",
+    "Freeze one exact controls commit/manifest/Return and stop. No main write/push, raw Git, other agents or reviewer activation. Routine display/editor-selector corrections inside granted scope may proceed with retained observation; actual contract/identity/effect mismatches return to Root."
+  ],
+  "preparationBounds": {
+    "minutes": 20,
+    "clock": "Actual new preparation start/deadline once; all old source/control clocks remain closed, no reset.",
+    "retries": 0
+  },
+  "prospectiveNativeBounds": {
+    "nativeAbsoluteMs": 2700000,
+    "nativeInactivityMs": 300000,
+    "maxTurns": 360,
+    "enclosingMs": 10800000,
+    "exitReserveMs": 180000,
+    "providerCallsAtMost": 1,
+    "providerConcurrencyGlobal": 2,
+    "retry": false
+  },
+  "returnTo": "Root for independent frozen-controls frames and exact pushed launch grant.",
+  "sourceAuthorActivated": false,
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "qualified": false,
+  "rawPublished": false
+}

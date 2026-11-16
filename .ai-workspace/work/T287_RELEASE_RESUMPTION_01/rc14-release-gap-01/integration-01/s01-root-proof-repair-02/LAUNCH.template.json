@@ -1,0 +1,12 @@
+{
+  "activationId": "RC14-S01-ROOT-PROOF-NATIVE-002",
+  "dispatchAuthorized": false,
+  "sourceHead": null,
+  "pushedCheckpoint": null,
+  "rootAcceptance": null,
+  "controlManifestSha256": null,
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "controls": null,
+  "clockStarted": false,
+  "instruction": "Disabled. Root must bind accepted controls and pushed exact source, actual grant and global slot. Operator freezes clean full preimage and one source-only launch; no proof dispatch."
+}

@@ -1,0 +1,72 @@
+{
+  "baseControls": "985285f6fe1a2ba153fe1ff117ebdce101109b15",
+  "preservedSourceCommit": "26a7a643de3ab5a56e6a12bc337eb8e8a3528b6a",
+  "currentSourceCheckpoint": "d000272aa7dce9df46e3ed8bc3d232dac63cb2f1",
+  "mechanicalOwners": [
+    {
+      "path": "HOST.mjs",
+      "bytes": 22284,
+      "sha256": "7dbe36744086b696b245efe374c7ce4d82b150b68a6839cc3beb7951ebe520bf",
+      "byteIdentical": true
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed",
+      "byteIdentical": true
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 3060,
+      "sha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8",
+      "byteIdentical": true
+    },
+    {
+      "path": "operate.py",
+      "bytes": 6349,
+      "sha256": "828cdb2f0dccad7ff58e85038f67ca0221d027cb2d752e602d76b7c6928b88e7",
+      "byteIdentical": true
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+      "byteIdentical": true
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39",
+      "byteIdentical": true
+    },
+    {
+      "path": "prove.py",
+      "bytes": 21809,
+      "sha256": "78e97df05af7b6fe4b10428d51b6bc560b24bebf48927d043d5fbc767883de7a",
+      "byteIdentical": true
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1",
+      "byteIdentical": true
+    }
+  ],
+  "unchangedInputPackets": [
+    "DEPENDENCY_INPUTS.json",
+    "NATIVE_INPUTS.json",
+    "TOOL_INPUTS.json",
+    "FIXTURE_INPUTS.json",
+    "ORIGINAL_CANDIDATE.json"
+  ],
+  "executableChanges": [],
+  "dataChanges": [
+    "Fresh disabled ACT/source/raw/branch and source binding at exact pushed checkpoint",
+    "Task/Read plan binds the four closed findings, actual Root runtime authority and complete status child exit/full JSON parsing",
+    "Three source01 postimages preserved, original fixtures/input/oracle and R7-R10 retained",
+    "26closed evidence leaves and path-only active B64 protection",
+    "Seven-root materialization order and complete prospective layouts",
+    "prove.py remains an authenticated input only; no proof template/campaign selected"
+  ],
+  "sourceBehaviorClaim": false
+}

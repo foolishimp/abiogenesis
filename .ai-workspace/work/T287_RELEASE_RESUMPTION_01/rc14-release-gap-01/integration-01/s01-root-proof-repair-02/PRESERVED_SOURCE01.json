@@ -1,0 +1,29 @@
+{
+  "sourceCheckpoint": "d000272aa7dce9df46e3ed8bc3d232dac63cb2f1",
+  "preservationCommit": "26a7a643d",
+  "frozenSource": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/FROZEN_SOURCE.json",
+    "bytes": 4334,
+    "sha256": "e0f4fb44c2b43f105e6da7299a77afb2ba10299f64eeee5b8e53dbca9012ec21"
+  },
+  "rows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 54284,
+      "sha256": "d7d46d75e87502d287a4b8f2d2a0176e0b14d271cab30c162590c1b63fced614"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "bytes": 15940,
+      "sha256": "765946d26b25bca48ed9de1f38914f7d72a968083eb278e9745592d97ecf4300"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+      "bytes": 22209,
+      "sha256": "91211cd69f62a469d7bec380115a076efe83be511fa5595000ab5ab99d83b73a"
+    }
+  ],
+  "sourceAccepted": false,
+  "proofExecuted": false,
+  "historicalMethodResidual": "Truncated stdo status verification remains noncompliant and unwaived; no retroactive compliant AUTHOR_AUDIT. All35 material body comparisons were observed before first edit."
+}
