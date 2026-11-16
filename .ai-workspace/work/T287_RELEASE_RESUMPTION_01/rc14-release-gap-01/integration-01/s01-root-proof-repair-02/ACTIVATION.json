@@ -1,0 +1,155 @@
+{
+  "id": "RC14-S01-ROOT-PROOF-NATIVE-002",
+  "role": "Disabled prospective source-only RC13 native pass; separate Root activation required",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_SOURCE01_DISPOSITION_01.json",
+    "bytes": 7658,
+    "sha256": "f6127933ea5a6bf025b2af9fd75be7a0d7aa97e76cd78680c1d8349e239bdeb8"
+  },
+  "preparationAuthority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_COMPLETION_CONTROL_PREPARATION_01.json",
+    "bytes": 7235,
+    "sha256": "f3a3e785fd93eaeb6d09af47f1dbc18ccf5081d6f37f34f89817d3fbc3b27c0a"
+  },
+  "sourceBase": "d000272aa7dce9df46e3ed8bc3d232dac63cb2f1",
+  "sourceWorktree": "/private/tmp/abg-rc14-s01-proof-source-20261117-02",
+  "sourceBranch": "codex/rc14-s01-proof-source-20261117-02",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02",
+  "sourceBinding": null,
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "changeClass": "Test-owned completion of preserved S01 source: genuine selected-definition/request setup provenance and complete failure custody; no Product/runtime/HOW/declaration/oracle edits.",
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 5769,
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26"
+  },
+  "provider": {
+    "agent": "claude",
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "sha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "version": "2.1.322 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "providerCallsAtMost": 1,
+    "protocol": "Use existing actual Claude owner path. No Codex-as-Claude wrapper or new provider feature."
+  },
+  "externalReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          199,
+          352
+        ],
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Construction relation, intake/admission, context acquisition and closed-result reuse: acquire the stated actual source bodies before dependent edits; hashing/paraphrase is not body acquisition."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    }
+  ],
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 2700000,
+    "nativeMaxTurns": 360,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 10800000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "cleanupReserveMs": 180000,
+    "proofRetry": false
+  },
+  "globalProviderConcurrency": 2,
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "clockStarted": false,
+  "proof": "Deferred: one whole installed-language episode on the eventual exact successor archive under a separate installed-candidate grant; no standalone campaign",
+  "returnTo": "Root; freeze actual source and complete native audit, no automatic proof",
+  "preparedUtc": "2026-11-16T15:54:21.402514+00:00",
+  "sourceStanding": "Three exact Native001 postimages preserved in26a7a643d and this source checkpoint, unaccepted and unproved. Historical truncated status remains noncompliant and unwaived.",
+  "preservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_SOURCE01_PRESERVATION_ACTIVATION_01.json",
+    "bytes": 4081,
+    "sha256": "e1abc2d2a4838f97334d79f63a4e69a8f5790d8a364ebc6ee1ff7f8b45fbe068"
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "kind": "bounded_external_controls_preparation_return",
+  "writerActivation": "RC14-S01-COMPLETION-CONTROLS-WRITER-050",
+  "result": "prepared_frozen_pending_independent_review",
+  "sourceBase": "d000272aa7dce9df46e3ed8bc3d232dac63cb2f1",
+  "preservedSourceCommit": "26a7a643de3ab5a56e6a12bc337eb8e8a3528b6a",
+  "worktree": "/private/tmp/abg-rc14-s01-proof-controls-20261117-02",
+  "branch": "codex/rc14-s01-proof-controls-20261117-02",
+  "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-02",
+  "productFrame": "Fixed5.0 S01/ABI5-ROOT-001 orderedR1-R10 on one exact installed episode, genuine selected-definition/request and ABG admission/replay authority. Test/Operator controls are derived evidence.",
+  "clock": {
+    "activation": "RC14-S01-COMPLETION-CONTROLS-WRITER-050",
+    "startedUtc": "2026-11-16T15:49:47.779660Z",
+    "deadlineUtc": "2026-11-16T16:09:47.779660Z",
+    "sourceBase": "d000272aa7dce9df46e3ed8bc3d232dac63cb2f1",
+    "oldAttemptsAndClocksClosed": true,
+    "runtimeClockStarted": false
+  },
+  "finishedPreparationUtc": "2026-11-16T15:58:27.606859+00:00",
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 5709,
+    "sha256": "8e5f8ba490008dda44cd85d0c1a795ccfa3019e747e44273419c584aabfc4c73"
+  },
+  "controlFiles": 36,
+  "scope": {
+    "nativeWritePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+    ],
+    "recoveredSourceFiles": 3,
+    "fourFindings": [
+      "S01-S01-01",
+      "S01-S01-02",
+      "S01-S01-03",
+      "S01-S01-04"
+    ],
+    "immutableProductRuntimeHow": true,
+    "independentDeclarationsInputOraclePreserved": true,
+    "supportedR7R10Conserved": true,
+    "R3RequiresActualSelectedSetupCallsReceipts": true
+  },
+  "inputSummary": {
+    "sourceRows": 380,
+    "sourceBytes": 8973482,
+    "initialContext": {
+      "files": 389,
+      "bytes": 9005456,
+      "maxFiles": 1024,
+      "maxBytes": 25165824
+    },
+    "closedEvidenceLeaves": 26,
+    "historicalFixtureLeaves": 11,
+    "currentIndependentFixtureOwners": 5,
+    "dependencyLedgerRows": 4576,
+    "nativeProducerInputsStanding": "Historical196-input declaration only; no compilation or fresh196-input scan selected or claimed."
+  },
+  "checks": [
+    "all authored JSON parses",
+    "seven Python owners and HOST byte-identical to985285; Python AST only, no owner imports",
+    "node --check HOST only, no Product import",
+    "canonical same-object candidate capture before constructor and ACT source/raw consumers preserved",
+    "canonical Task array/R/W/readFirst structural joins; context fits1024/25MiB without Product constructor",
+    "allR1-R10/original title preserved; prove.py explicitly unselected; no proof launch or campaign",
+    "380 exact source/context rows and all3 recovered postimages match pushed d000272",
+    "current named method/26closed evidence/11historical fixture/tool/candidate/builder/provider byte pins match; provider not invoked",
+    "retained native declaration/source and dependency lock identities unchanged; prior196input standing remains historical",
+    "existing4576 dependency-row ledger authenticates selected inventory; no fresh live-tree scan claim",
+    "active B64 source/raw only protection strings, absent from stationary input inventories",
+    "complete planned/actual-shape native layouts within unchanged64bound; all old and active protections retained, no physical observer",
+    "future source/raw absent and proof subject null; no runtime/preparation-clock confusion",
+    "five current independent fixture/declaration/input-oracle owners byte-equal prior accepted controls source"
+  ],
+  "mechanics": {
+    "sevenPythonOwnersByteIdentical": true,
+    "HOSTByteIdentical": true,
+    "sameObjectPreConstructorCapture": true,
+    "prospectiveLayoutBoundCounts": [
+      41,
+      42
+    ],
+    "physicalMeasurement": false,
+    "futureSourceAndRawAbsent": true
+  },
+  "proof": {
+    "selected": false,
+    "builds": 0,
+    "files": [],
+    "provePy": "Unchanged authenticated HOST-required input only; must not be invoked.",
+    "proofLaunchTemplatePresent": false,
+    "future": "Separate exact accepted successor archive/fresh source-blind install, one whole installed-language episode, explicit fresh absolute ABI5_S01_EPISODE_CAPTURE_ROOT/full manifest and bounded failure-custody discriminators."
+  },
+  "preservedFailures": {
+    "source01Accepted": false,
+    "historicalMethod": "Truncated stdo status verification remains noncompliant and unwaived; no retroactive compliant AUTHOR_AUDIT. All35 material body comparisons were observed before first edit.",
+    "oldClocksUnchanged": true,
+    "currentPreparationActualContractMismatches": [],
+    "displayObservation": "An overlong read-only predecessor display was truncated; needed Task/Proof/Read/shape bodies were reacquired separately. No status or semantic proof credit inferred from truncation."
+  },
+  "remainingPrerequisites": [
+    "Independent exact frozen-control reviews, Root acceptance and pushed final source/launch.",
+    "One actual RC13-native source-only completion; genuine method/command/typed-terminal/close/fresh-replay audit and frozen source review.",
+    "Actual three native topology observations and complete runtime root/custody checks; projections do not claim separation.",
+    "Later separately bound exact candidate build/archive/install and whole S01 proof. Source-only controls provide no behavior or qualification credit."
+  ],
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "runtimeClockStarted": false,
+  "providerCalls": 0,
+  "buildsRun": 0,
+  "testsRun": 0,
+  "ProductImports": false,
+  "physicalProbe": false,
+  "sourceEdited": false,
+  "activeB64Read": false,
+  "mainMutated": false,
+  "pushed": false,
+  "qualified": false
+}

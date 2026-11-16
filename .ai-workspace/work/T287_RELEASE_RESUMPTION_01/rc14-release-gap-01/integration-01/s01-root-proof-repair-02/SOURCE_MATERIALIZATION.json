@@ -1,0 +1,37 @@
+{
+  "status": "Disabled prospective Operator recipe; no source checkout created",
+  "source": "/private/tmp/abg-rc14-s01-proof-source-20261117-02",
+  "branch": "codex/rc14-s01-proof-source-20261117-02",
+  "pushedHead": null,
+  "rootFiles": [
+    ".gitattributes",
+    ".gitignore",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "README.md",
+    "pyproject.toml",
+    "stdo_abiogenesis.json"
+  ],
+  "sparseSelectors": [
+    "/.gitattributes",
+    "/.gitignore",
+    "/AGENTS.md",
+    "/CLAUDE.md",
+    "/README.md",
+    "/pyproject.toml",
+    "/stdo_abiogenesis.json",
+    "/specification/",
+    "/build_tenants/abiogenesis/typescript/",
+    "/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-02/"
+  ],
+  "order": [
+    "Verify separately accepted exact final pushed checkpoint and absence of new source/raw roots",
+    "git worktree add --no-checkout -b <exact source branch> <exact source root> <accepted pushed HEAD>, with GIT_LFS_SKIP_SMUDGE=1",
+    "git -C <source> sparse-checkout set --no-cone --stdin using declared slash-prefixed selectors",
+    "git -C <source> read-tree -mu HEAD only after sparse selection",
+    "Verify named branch/HEAD/index and clean status; all seven roots physically regular non-symlink and byte-equal to git show HEAD:<path>; conserve tenantTree and SOURCE_INPUTS",
+    "Create only separately granted fresh raw/scratch; freeze-source.py <HEAD> once; bind exact complete launch and let operate.py stage LAUNCH.json exclusively"
+  ],
+  "noReadTreeBeforeSparse": true,
+  "noCleanupOrRepairOnMismatch": true
+}
