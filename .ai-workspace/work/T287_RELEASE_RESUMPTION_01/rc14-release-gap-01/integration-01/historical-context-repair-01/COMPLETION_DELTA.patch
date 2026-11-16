@@ -1,0 +1,548 @@
+diff --git a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/ACTIVATION.json b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/ACTIVATION.json
+index 865e5f9d3..edbb64508 100644
+--- a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/ACTIVATION.json
++++ b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/ACTIVATION.json
+@@ -1,5 +1,5 @@
+ {
+-  "id": "RC14-HISTORICAL-CONTEXT-NATIVE-002",
++  "id": "RC14-HISTORICAL-CONTEXT-NATIVE-003",
+   "role": "Preparation only; separate Root native and proof grants required",
+   "basis": {
+     "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+@@ -12,10 +12,10 @@
+     "bytes": 10750,
+     "sha256": "3c9facbe9c60953afb02e212d0cce5def400708c8f8767b4a90a23fd36e0debd"
+   },
+-  "sourceBase": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
+-  "sourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-02",
+-  "sourceBranch": "codex/rc14-historical-context-source-20261116-02",
+-  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02",
++  "sourceBase": "999301134aace961800fecd2ed7930e85e623936",
++  "sourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-03",
++  "sourceBranch": "codex/rc14-historical-context-source-20261116-03",
++  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03",
+   "sourceBinding": null,
+   "nativeWriteScope": [
+     "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+@@ -148,5 +148,17 @@
+   "clockStarted": false,
+   "proof": "One fresh normal build and three whole affected files; authentic retained-carrier producer-to-revision assembly, held/cold parity, applicable stage view and strict negatives. No live semantic or qualification credit.",
+   "returnTo": "Root; freeze controls and stop. Actual source and proof remain disabled.",
+-  "preparedUtc": "2026-11-16T08:24:59.049839+00:00"
++  "preparedUtc": "2026-11-16T09:25:18.579870+00:00",
++  "partialSourceCommit": "eebb5c89cd78c717c23a68b24f302b9eee69906e",
++  "completionAuthority": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_NATIVE02_PARTIAL_DISPOSITION_01.json",
++    "bytes": 9825,
++    "sha256": "9aa6a5d058f2f6d54f44cf94808b83851ebbb5175a8962bb3699b99a18d4110d"
++  },
++  "preparationAuthority": {
++    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPLETION_CONTROL_PREPARATION_01.json",
++    "bytes": 9554,
++    "sha256": "f0f401638ffc52089f04a3139d1817da0b8076a1e4a854bae8c1df0265ddbe71"
++  },
++  "sourceStanding": "Six-file native02 partial is preserved and unaccepted; this successor author must complete all original and conjoined obligations."
+ }
+diff --git a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/DESIGN.md b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/DESIGN.md
+index 370417b64..b7d04ea71 100644
+--- a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/DESIGN.md
++++ b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/DESIGN.md
+@@ -38,3 +38,22 @@ Every test candidate is retained in full before assertion/parse/stripping. Prima
+ The later source attempt has one original3h enclosure,45min native ceiling,5min inactivity,360turns and180s exit reserve. Proof is at most90min clipped to that original enclosure; no retry or reset. A method deviation remains an actual deviation and needs explicit Root disposition before a successor proof entry, not `deviations:[]` fabrication. This preparation starts no source/runtime clock and grants no execution. New candidate C0/C1/archive/install correspondence and actual S06 remain future selected work.
+ 
+ Task-carrier re-entry02 preserves the same structural plan after actual source-attempt01 refused before dispatch. Its external string failed the installed taskSchema array(ref) field. Writer042 wraps the identical text once, maps all five plain Task fields against their exact canonical owner and retains actual authority/binding/grant/context as opaque owner values. The existing async-awaited factory first records the complete local constructor candidate and only then invokes the same canonical constructor on it; record failure stops, and no context is observed again. Fresh ACT coordinates02 and old-attempt protections are declaration changes only. All deeper constructor/admission predicates still await genuine runtime evidence. Earlier failed roots and clocks remain closed.
++
++
++## Completion successor003
++
++Root completion disposition -> preserved native02 source plus actual retained505/basis316 evidence -> actual Worker003 grant/clock/content intake -> exact eight-file source completion -> independent affected source review -> separately granted one build/three-whole-file proof. All runtime/ABG authority stays at its existing owner.
++
++```mermaid
++sequenceDiagram
++  participant R as Root grant
++  participant T as Task and read plan
++  participant N as Installed RC13 native author
++  participant P as Existing proof owner
++  R->>T: Exact partial plus completion obligations
++  T->>N: Canonical instructions array and actual launch authority
++  N-->>R: Frozen eight-W candidate and truthful audit
++  R->>P: Separate proof grant only after review
++```
++
++Only carrier data changes. Revision derives each historical use through its actual chain; the held-prefix owner rejoins bytes; assembly presents only. The next author resolves algorithm/helper shape within existing eight W. Current-root substitution, arbitrary cross-Run permission and old proof credit remain prohibited. Same-object constructor capture and all executable owners are unchanged. Both prior attempts remain protected; stage coverage and original audit failures are not erased.
+diff --git a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/EVIDENCE_INPUTS.json b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/EVIDENCE_INPUTS.json
+index c6a27952e..434c1c445 100644
+--- a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/EVIDENCE_INPUTS.json
++++ b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/EVIDENCE_INPUTS.json
+@@ -54,6 +54,41 @@
+       "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FINAL.json",
+       "bytes": 1848,
+       "sha256": "ce503084d2ed9b77088e241d6a366ecfd803dc7e07afabdd12b81e74814e8cf2"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/FROZEN_SOURCE.json",
++      "bytes": 6688,
++      "sha256": "7ce99b9cba3f6ca1f47a1e5ac6903f3d7009e3d7f6da6ada08db6adb12666ae6"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/SOURCE_POSTIMAGE.json",
++      "bytes": 362702,
++      "sha256": "fcb61a2405a72eb68d5f5b401aeae433e42765647e2d356f311fd657f9b933b5"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/SOURCE_DIFF.patch",
++      "bytes": 33951,
++      "sha256": "81f719e7e04de70109ea40e45220a725e4e9a14beba5d4ad05cc27a4e2a5713d"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/OPERATOR_RETURN.json",
++      "bytes": 35482,
++      "sha256": "8e6c591206519525e3da17bffd90eac2cc5d674f2d1627934366a836b810aeb4"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/AUTHOR_AUDIT.json",
++      "bytes": 7489,
++      "sha256": "cfdccb47338374beafa97d6c81bce1a974ecd3f0274679497b7c689462e3e90b"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/EARLY_STOP_OBSERVATION.json",
++      "bytes": 20020,
++      "sha256": "e705fd29bd7961183fe9558a02da64b2c473b1e3c2c24deddf6f63107e53d1da"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/NATIVE_AUTHOR_REPORT.json",
++      "bytes": 8395,
++      "sha256": "4e9409f0ec058edceb0e65d96d6d4b2f7f34b21c1cefc2ee4bcb03e86cc63b57"
+     }
+   ],
+   "protectedRoots": [
+@@ -61,7 +96,9 @@
+     "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04",
+     "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01",
+     "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
+-    "/private/tmp/abg-rc14-historical-context-source-20261116-01"
++    "/private/tmp/abg-rc14-historical-context-source-20261116-01",
++    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02",
++    "/private/tmp/abg-rc14-historical-context-source-20261116-02"
+   ],
+-  "standing": "Authentic closed counterexample data only; no live resource reopening, copied history authority, paid reproduction or old stage credit. Fixture regression must use actual owner admissions in its own isolated test resource. These exact leaves remain byte conserved before/after source and proof. The closed source-attempt01 failed before any native call/Run/source edit; its sealed records are custody only, not completion."
++  "standing": "Authentic closed counterexample data only; no live resource reopening, copied history authority, paid reproduction or old stage credit. Fixture regression must use actual owner admissions in its own isolated test resource. These exact leaves remain byte conserved before/after source and proof. The closed source-attempt01 failed before any native call/Run/source edit; its sealed records are custody only, not completion. Native02 partial source, report, audit, early-stop observation and exact closed evidence are added as immutable inputs only; source is not accepted, no proof occurred, and its old clock remains closed."
+ }
+diff --git a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/LAUNCH.template.json b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/LAUNCH.template.json
+index 9cad2696b..e365c611e 100644
+--- a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/LAUNCH.template.json
++++ b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/LAUNCH.template.json
+@@ -1,5 +1,5 @@
+ {
+-  "activationId": "RC14-HISTORICAL-CONTEXT-NATIVE-002",
++  "activationId": "RC14-HISTORICAL-CONTEXT-NATIVE-003",
+   "dispatchAuthorized": false,
+   "sourceHead": null,
+   "pushedCheckpoint": null,
+diff --git a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/LAYOUT.json b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/LAYOUT.json
+index e6ca0cd26..b31e851bc 100644
+--- a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/LAYOUT.json
++++ b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/LAYOUT.json
+@@ -1,16 +1,16 @@
+ {
+-  "source": "/private/tmp/abg-rc14-historical-context-source-20261116-02",
+-  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02",
+-  "proofSubject": "/private/tmp/abg-rc14-historical-context-proof-20261116-02",
++  "source": "/private/tmp/abg-rc14-historical-context-source-20261116-03",
++  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03",
++  "proofSubject": "/private/tmp/abg-rc14-historical-context-proof-20261116-03",
+   "writePaths": [
+-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
++    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
++    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
++    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
++    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
++    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
++    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
++    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
++    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+   ],
+   "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+   "status": "Prospective only; exact finite child W, external inputs and complete actual resource/install roots before setup and twice before dispatch. No physical observation in preparation.",
+diff --git a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/PROOF_LAUNCH.template.json b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/PROOF_LAUNCH.template.json
+index 47976c2d8..6d26fb29a 100644
+--- a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/PROOF_LAUNCH.template.json
++++ b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/PROOF_LAUNCH.template.json
+@@ -1,5 +1,5 @@
+ {
+-  "activationId": "RC14-HISTORICAL-CONTEXT-NATIVE-002",
++  "activationId": "RC14-HISTORICAL-CONTEXT-NATIVE-003",
+   "proofAuthorized": false,
+   "sourceHead": null,
+   "sourcePostimage": null,
+diff --git a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/PROOF_PLAN.json b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/PROOF_PLAN.json
+index 3bcc47591..c00c0d7d8 100644
+--- a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/PROOF_PLAN.json
++++ b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/PROOF_PLAN.json
+@@ -1,5 +1,5 @@
+ {
+-  "sourceBase": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
++  "sourceBase": "999301134aace961800fecd2ed7930e85e623936",
+   "builds": 1,
+   "buildArgv": [
+     "/opt/homebrew/bin/npm",
+@@ -97,10 +97,18 @@
+   ],
+   "scope": "Three whole files, no filters/repeated focus or retained test pass credit. Mechanical owner/fixture proof only; installed end-to-end S06 and new-candidate correspondence remain later work.",
+   "caseAccounting": "39 preserved top-level source titles plus the three named B64 obligations are mandatory minima, not a fixed total. Record all actual top-level and nested events. Any selected positive skip refuses; only the existing exact Data-alias child host-premise skip is separately allowed. Root audits final source case inventory before proof; no negative name-regex exclusions.",
+-  "candidateRequirement": "Retain the full actual positive and refusal candidates before assertions, parsing/stripping or throwing in the three named JSON files under ABG_REGRESSION_PROOF_ROOT. Preserve primary child/parse errors and secondary capture errors separately.",
++  "candidateRequirement": "Retain the full actual positive and refusal candidates before assertions, parsing/stripping or throwing in the three named JSON files under ABG_REGRESSION_PROOF_ROOT. Preserve primary child/parse errors and secondary capture errors separately. The carriage premise itself is a candidate: retain after/context/entry membership before assertions. A capture-only failure must fail the case; preserve an existing primary error and expose capture failure separately.",
+   "buildAllowance": "Exact capability-definition-graph.json is generated by the ordinary build, alongside existing generated paths; complete BUILD_POSTIMAGE and BUILD_EXIT still include it.",
+   "exitReserveMs": 180000,
+   "proofMaximumMs": 5400000,
+   "firstFailureStops": true,
+-  "retries": 0
++  "retries": 0,
++  "partialSourceCommit": "eebb5c89cd78c717c23a68b24f302b9eee69906e",
++  "completionCoverage": [
++    "Actual admitted native assessor -> unchanged adverse semantic fold members -> authenticated new-Run intake -> derived historical use -> selector assembly held and cold; no manually manufactured historical-use list as sole proof.",
++    "Inherited parent with older binding via its authenticated prior acquisition/cover chain, with a newer cause binding.",
++    "Every already-supported typed renderer context route: C2 sourceNativeWork.after; applicable task/before/after retained native forms; sourceReacquisition.request.sourceNativeWork and currentContext; nested envelope evidence; applicable same-Run and existing declared sourceResults relations. No generic recursive carrier search.",
++    "Applicable semantic-stage view, immutable source carriers, selected current inline context separation, byte-dedup, non-UTF8 and opaque application/C2 conservation.",
++    "Retain complete carriage premise and all positive/refusal/assembly outputs before any assertion or stripping. Capture-only error fails the test; simultaneous primary and capture errors preserve the primary and expose secondary evidence."
++  ]
+ }
+diff --git a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/README.md b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/README.md
+index 325c8edb3..399d43547 100644
+--- a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/README.md
++++ b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/README.md
+@@ -1,25 +1,11 @@
+-# B64 native historical-context controls
++# B64 source completion controls003
+ 
+-Prepared from exact source15e85803fdb9683ef3afdd79b0678ec5cc37bff3 under `WRITER_ACTIVATION.json`. Only this new external carrier was authored. Source, runtime, provider and proof are disabled. Initial040 preparation and its records remain historical. Current Writer042 uses the separate20-minute bound in `TASK_CARRIER_START.json`; it does not reopen prior preparation or failed source-attempt01 clocks.
++Prepared by separate Writer044 from checkpoint `999301134aace961800fecd2ed7930e85e623936`; exact native02 partial `eebb5c89cd78c717c23a68b24f302b9eee69906e` remains unaccepted. ACT003 names fresh source/raw/proof03. No runtime clock or execution is activated here.
+ 
+-Read `DESIGN.md`, `ROOT_SELECTION.json`, `ACTIVATION.json`, `TASK.json`, `PROOF_PLAN.json` and `REUSE.json`. The eight native W paths are exactly Root's3owners/2HOW/3tests. Bounded programmatic edits inside W are explicitly permitted; there is no inherited B56 incidental editing-tool ban. Actual method acquisition and commands remain audited.
++`COMPLETION_WRITER_ACTIVATION.json` and `NATIVE02_PARTIAL_DISPOSITION.json` own the bounded completion. `COMPLETION_READ_PLAN.json` states actual status/frame/control/authority/clock and material source acquisition; Task instructions remain one canonical string-array element. Existing HOST, operate, prove and five helpers are byte-identical to accepted499e62f controls.
+ 
+-The declared controls root is the frozen external worktree's `historical-context-repair-01` directory. Invoke controls from that root, not from a carrier inside the future native source worksite: the controls directory is a protected external input. Future source/checkpoint binding is deliberately null. Root merges/pushes reviewed controls and selects a source Operator before anything below is permitted.
++Completion covers the authenticated inherited binding chain, every already-traversed typed C2/context route and applicable sourceResults relation, both missing real owner-path tests, and complete capture before assertions. It preserves the eight W,39 existing top-level titles plus3 B64 obligations, all negative/currentness/identity laws and model/finite limits.
+ 
+-Prospective native entry (after exact separate pushed grant):
++Both old source/raw01 and02 are protected and unchanged. Historical controls, failures, method deviations and clocks remain in ancestry and immutable external evidence; none is relabelled successful. The three whole-file proof and one fresh build still need separate Root authorization after actual source closure/audit/review.
+ 
+-1. Materialize the named source worktree from Root's final pushed checkpoint, with selected tenant and all SOURCE_INPUTS identical to the preparation base. Verify branch/HEAD/index, actual source/control/provider/Node/dependency/native-input/method/evidence pins, free-space reserve and absence of fresh raw/proof roots. The native SDK declaration owns `inputFiles`196 and its is_file+digest rule for lawful SDK symlinks; do not replace that Tool rule with source-file predicates.
+-2. Create only the fresh raw scratch directories and two distinct empty npm config files expected by HOST. Run existing `freeze-source.py FINAL_HEAD` once into raw/SOURCE_PREIMAGE.json. Preserve all original failed campaign/raw subjects.
+-3. Root's concrete launch binds exact manifest and all rows, source HEAD/direct remote evidence, observer and acceptance. Invoke `/usr/bin/python3 CONTROLS/operate.py APPROVED_LAUNCH.json` once. It stages exclusive exact raw/LAUNCH.json and matches CONTROL_START before Public setup; no backfill.
+-4. Actual installed RC13 verifies its artifact, makes fresh imported workspace authority/binding/resources/Catalog and observes all actual physical roots. Original typed terminal/close/fresh replay rules are unchanged. Credentials are inherited privately only by the single native call; no values in records or setup.
+-5. After closure, preserve complete source postimage/diff, report and actual command/content-read audit. Root independently reviews and issues a separate proof grant. No automatic proof or next author.
+-
+-Prospective affected proof uses `/usr/bin/python3 CONTROLS/prove.py RAW/LAUNCH.json EXACT_PROOF_LAUNCH.json` only after that grant. It creates raw/proof-01 and the distinct LAYOUT proofSubject; uses one ordinary build and three serial whole files. It verifies source/setup custody, complete dependency/native tools, all control/authority/candidate/evidence pins, source and built-mirror entry/exit, actual case populations/captures and both wall/monotonic final deadline. One existing nested Data-alias absent-host skip remains a named skip; all required positive top-level titles execute. No test-name exclusion regex exists. Future new source/build outputs are not candidate02 or installedRC13 proof.
+-
+-`EVIDENCE_INPUTS.json` holds six exact external counterexample leaves. Do not stage their bytes, import old Run authority, reopen old stores or reproduce the paid failure. `FIXTURE_INPUTS.json` is empty because old B56 default-library witness assets are unrelated; these three files construct their own local genuine owner fixtures. Full actual dependency/material closure still follows source imports inside the admitted read authority.
+-
+-Checks are static/syntax/hash and exact read-only input inventories only. The actual preparation had two read-only acquisition display/CLI mistakes, disclosed in STATIC_CHECKS; neither was an owner/control/runtime mismatch. No Product import, physical probe, test, build, setup, provider, archive/install, main/push or qualification occurred. The manifest excludes itself and Return to avoid self-reference. Root reviews the frozen subject separately; this Writer does not self-approve it.
+-
+-Writer041 coordinate successor: the frozen3636b0f3 controls had HOST/operate raw literals without `-repair`, while ACT/LAYOUT/prove selected the correct `-repair` root. Original01 and its failed review remain immutable. This successor derives source/raw from ACT in both callers before dependent I/O. `COORDINATE_CHECKS.json` evaluates only the actual declaration expressions and proves old mismatch/new equality across HOST, operate, prove and LAYOUT. No runtime ran. Task/proof plan and all other executable owners are unchanged; original08:19:42.254257Z preparation deadline remains.
+-
+-Writer042 Task-carrier successor: actual attempt01 completed setup but stopped before native dispatch because `instructions` was a string. The installed canonical task owner requires `string[]`; the exact5577-byte instruction text is now its sole array element. HOST retains the full actual constructor input at `runtime/native-task-constructor-input.json` through the existing awaited record before passing the same object to the canonical constructor. No re-observation occurs; capture failure prevents construction. The awaited invocation factory is canonical, not a new admission mechanism. `TASK_CARRIER_CHECKS.json` maps all projected plain fields and preserves unknown live authority/grant/context joins. Source/raw/proof02 and activation002 are prospective only; old attempt01 source/raw are protected and sealed Return/postimage/audit/failure/final pins retained. Future source02 needs a separate exact pushed grant and fresh finite clock; none starts here.
++Root must bind a pushed source checkpoint with this tenant, materialize the complete preimage and exact launch controls, then select at most one native author. LAUNCH/PROOF templates stay disabled. No Product/source/test/helper edit, import, setup, build, test, provider or physical probe occurred in preparation. See the sealed manifest and Return for exact checks and limits.
+diff --git a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/REUSE.json b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/REUSE.json
+index 32aec8ce5..667da1b89 100644
+--- a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/REUSE.json
++++ b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/REUSE.json
+@@ -144,5 +144,55 @@
+     ],
+     "unchangedProofPlan": true,
+     "validation": "Canonical source field mapping, exact text conservation, pure exact factory sequence and capture-failure discriminator, coordinates/layout/input identities; deeper live owner joins unproved."
++  },
++  "completionSuccessor": {
++    "predecessor": {
++      "commit": "499e62fdd380e4ac8221b00c88f75e38236e5d9d",
++      "tree": "5ea9433c2450c456e6b249c8b98af1f4f02098cd",
++      "parent": "3ca755e235d89d2f193879d136f45da6bc5667ac",
++      "mergeCommit": "ffb0b02c3dcf38fb573259ed8606d61ba6d09b9c",
++      "root": "/private/tmp/abg-rc14-historical-context-controls-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01",
++      "manifest": {
++        "path": "CONTROL_MANIFEST.json",
++        "bytes": 6167,
++        "sha256": "6566f83a2d7624a2a0effc4be74a11c23bfa76d42d25beb497f5a82cc9eabc03",
++        "members": 39
++      },
++      "return": {
++        "path": "PREPARATION_RETURN.json",
++        "bytes": 19311,
++        "sha256": "e0711b8e3e306ccc110310bdc4e2d3d149e7127a73ca47d06f08dbb68efc84a6"
++      }
++    },
++    "checkpoint": "999301134aace961800fecd2ed7930e85e623936",
++    "partialSourceCommit": "eebb5c89cd78c717c23a68b24f302b9eee69906e",
++    "authority": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPLETION_CONTROL_PREPARATION_01.json",
++      "bytes": 9554,
++      "sha256": "f0f401638ffc52089f04a3139d1817da0b8076a1e4a854bae8c1df0265ddbe71"
++    },
++    "disposition": {
++      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_NATIVE02_PARTIAL_DISPOSITION_01.json",
++      "bytes": 9825,
++      "sha256": "9aa6a5d058f2f6d54f44cf94808b83851ebbb5175a8962bb3699b99a18d4110d"
++    },
++    "executableDelta": [],
++    "byteIdenticalExecutables": [
++      "HOST.mjs",
++      "operate.py",
++      "prove.py",
++      "dependency-inputs.py",
++      "freeze-source.py",
++      "physical-topology.py",
++      "process-owner.py",
++      "setup-custody.py"
++    ],
++    "dataDelta": [
++      "ACT003/source/raw/proof03 coordinates",
++      "Current source input pins from preserved partial",
++      "Old02 immutable evidence/protected roots",
++      "Completion task/read plan/required coverage and capture rules"
++    ],
++    "unchanged": "Actual canonical async awaited same-object constructor capture, typed completion/fresh replay/close, source/custody, finite clocks, proof population processing and first-failure/finally owners. No runtime or proof performed."
+   }
+ }
+diff --git a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/SOURCE_BINDING.json b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/SOURCE_BINDING.json
+index 0ecc58e29..9241ac5bf 100644
+--- a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/SOURCE_BINDING.json
++++ b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/SOURCE_BINDING.json
+@@ -1,10 +1,11 @@
+ {
+-  "preparationBase": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
+-  "source": "/private/tmp/abg-rc14-historical-context-source-20261116-02",
+-  "branch": "codex/rc14-historical-context-source-20261116-02",
+-  "tenantTree": "cbb2a63bf596de71dec609ae7be13da8174f6902",
++  "preparationBase": "999301134aace961800fecd2ed7930e85e623936",
++  "source": "/private/tmp/abg-rc14-historical-context-source-20261116-03",
++  "branch": "codex/rc14-historical-context-source-20261116-03",
++  "tenantTree": "a7c47c1ac107fa2cca311f63251d7a926572a42c",
+   "finalLaunchHead": null,
+   "finalLaunchBinding": "Root-pushed checkpoint descending from this base with identical selected tenant/source; exclusive fresh complete materialized preimage before setup",
+   "executionAuthorized": false,
+-  "clockStarted": false
++  "clockStarted": false,
++  "partialSourceCommit": "eebb5c89cd78c717c23a68b24f302b9eee69906e"
+ }
+diff --git a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/SOURCE_INPUTS.json b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/SOURCE_INPUTS.json
+index a3e3126ba..d8cdddd96 100644
+--- a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/SOURCE_INPUTS.json
++++ b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/SOURCE_INPUTS.json
+@@ -1,7 +1,7 @@
+ {
+-  "sourceBase": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
+-  "sourceRoot": "/private/tmp/abg-rc14-historical-context-source-20261116-02",
+-  "tenantTree": "cbb2a63bf596de71dec609ae7be13da8174f6902",
++  "sourceBase": "999301134aace961800fecd2ed7930e85e623936",
++  "sourceRoot": "/private/tmp/abg-rc14-historical-context-source-20261116-03",
++  "tenantTree": "a7c47c1ac107fa2cca311f63251d7a926572a42c",
+   "rows": [
+     {
+       "path": "AGENTS.md",
+@@ -125,8 +125,8 @@
+     },
+     {
+       "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+-      "bytes": 67214,
+-      "sha256": "164fa06ce7a8ad87fa809d037ec8593d614c3e6ab386882899a799f6e80ee500"
++      "bytes": 72102,
++      "sha256": "4b9be5fe94f92cf3311d2c3e140d9c6691842ca1ff75ab12d27177b51a331613"
+     },
+     {
+       "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+@@ -170,8 +170,8 @@
+     },
+     {
+       "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+-      "bytes": 115704,
+-      "sha256": "7d525fdc954b228b5eaa2fc5f4cdde9b11b51c43d698a478901d08feb51b639e"
++      "bytes": 118720,
++      "sha256": "ca724a9026e73ed43bf4de12e144be8f98aef00ad1371796591f214bc86cdb43"
+     },
+     {
+       "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+@@ -315,8 +315,8 @@
+     },
+     {
+       "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+-      "bytes": 96118,
+-      "sha256": "8a92248a1e3af54757efe1cc046e5588b12a27179111424d393faf16a0e236c0"
++      "bytes": 98095,
++      "sha256": "037193f0f129b176805993d4e035cb05f698ceec42b41a1f7ab20354537e5b84"
+     },
+     {
+       "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+@@ -1435,13 +1435,13 @@
+     },
+     {
+       "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+-      "bytes": 68400,
+-      "sha256": "dea8c0442b0f3fe71d4d4e02a41a66dfd44fc63ee3e7b069f383d42a80c2a7a7"
++      "bytes": 69255,
++      "sha256": "721bcca99c4bc3a6c38a244b9e364a92da91dd60725e8cce67e14b88a4a5164a"
+     },
+     {
+       "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+-      "bytes": 40332,
+-      "sha256": "31938a2f0eb2d858f881c48c7214daeb3859e124239b64a98e69729f76f66dca"
++      "bytes": 42109,
++      "sha256": "c4e3138783b9959e9fecd4fa5d60a11e52e2e2e5f69e3aab8e4cf726540332b2"
+     },
+     {
+       "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+@@ -1830,8 +1830,8 @@
+     },
+     {
+       "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+-      "bytes": 104530,
+-      "sha256": "db76ed6ad9c2a4eed0e98a9efe7c12609b73b50602ee34880ce7ed65a143a295"
++      "bytes": 111645,
++      "sha256": "7056600b9db4227c3349a229f5cb9863f3c1a057988fb9d89f8e3fdef1bf2a50"
+     },
+     {
+       "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+@@ -1894,5 +1894,6 @@
+       "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+     }
+   ],
+-  "scope": "Exact selected source/initial context and build/setup dependency rows; final full materialized preimage remains mandatory. Control-carrier rows are bound by CONTROL_MANIFEST."
++  "scope": "Exact selected source/initial context and build/setup dependency rows; final full materialized preimage remains mandatory. Control-carrier rows are bound by CONTROL_MANIFEST.",
++  "partialSourceCommit": "eebb5c89cd78c717c23a68b24f302b9eee69906e"
+ }
+diff --git a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/STATIC_CHECKS.json b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/STATIC_CHECKS.json
+index ad9383844..49f26c8fa 100644
+--- a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/STATIC_CHECKS.json
++++ b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/STATIC_CHECKS.json
+@@ -119,5 +119,13 @@
+     "fullFutureConstructorSuccessClaim": false,
+     "currentValidationFailures": [],
+     "acquisitionObservation": "Read-only lookup assumed an api directory and returned ENOENT; actual installed product/run_invocation_operation.js/.d.ts were located and acquired. No missing contract or runtime action inferred."
++  },
++  "completionSuccessor": {
++    "currentChecks": "COMPLETION_CHECKS.json",
++    "layoutChecks": "COMPLETION_LAYOUT_CHECKS.json",
++    "preservedFailure": "COMPLETION_PREPARATION_FAILURE.json",
++    "rootDisposition": "COMPLETION_CHECK_DISPOSITION.json",
++    "originalPreparationDeadlineUtc": "2026-11-16T09:38:49+00:00",
++    "sourceAcceptance": false
+   }
+ }
+diff --git a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/TASK.json b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/TASK.json
+index 46ad37ac7..f6f9e6d5a 100644
+--- a/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/TASK.json
++++ b/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/TASK.json
+@@ -1,7 +1,7 @@
+ {
+-  "id": "RC14-HISTORICAL-CONTEXT-NATIVE-002-TASK",
++  "id": "RC14-HISTORICAL-CONTEXT-NATIVE-003-TASK",
+   "sourceHead": null,
+-  "outcome": "Repair B64 authenticated historical parent/cause context presentation across native revision and applicable semantic-stage assembly while retaining all original carriers and strict prefix/body authority.",
++  "outcome": "Complete the preserved B64 partial historical-context repair through authentic acquisition/cover chains and all already-consumed typed context routes, with the two missing real owner-path tests and complete capture; preserve Product and runtime authority.",
+   "readRoots": [
+     "AGENTS.md",
+     "stdo_abiogenesis.json",
+@@ -22,11 +22,17 @@
+     "build_tenants/abiogenesis/typescript/test_env/support",
+     "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+     "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+-    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
++    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
++    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/COMPLETION_WRITER_ACTIVATION.json",
++    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/NATIVE02_PARTIAL_DISPOSITION.json",
++    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/COMPLETION_READ_PLAN.json"
+   ],
+   "readFirst": [
+     "AGENTS.md",
+     "stdo_abiogenesis.json",
++    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/COMPLETION_READ_PLAN.json",
++    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/NATIVE02_PARTIAL_DISPOSITION.json",
++    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/COMPLETION_WRITER_ACTIVATION.json",
+     ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/WRITER_ACTIVATION.json",
+     ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/ROOT_SELECTION.json",
+     ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/ACTIVATION.json",
+@@ -179,6 +185,41 @@
+       "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FINAL.json",
+       "bytes": 1848,
+       "sha256": "ce503084d2ed9b77088e241d6a366ecfd803dc7e07afabdd12b81e74814e8cf2"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/FROZEN_SOURCE.json",
++      "bytes": 6688,
++      "sha256": "7ce99b9cba3f6ca1f47a1e5ac6903f3d7009e3d7f6da6ada08db6adb12666ae6"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/SOURCE_POSTIMAGE.json",
++      "bytes": 362702,
++      "sha256": "fcb61a2405a72eb68d5f5b401aeae433e42765647e2d356f311fd657f9b933b5"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/SOURCE_DIFF.patch",
++      "bytes": 33951,
++      "sha256": "81f719e7e04de70109ea40e45220a725e4e9a14beba5d4ad05cc27a4e2a5713d"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/OPERATOR_RETURN.json",
++      "bytes": 35482,
++      "sha256": "8e6c591206519525e3da17bffd90eac2cc5d674f2d1627934366a836b810aeb4"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/AUTHOR_AUDIT.json",
++      "bytes": 7489,
++      "sha256": "cfdccb47338374beafa97d6c81bce1a974ecd3f0274679497b7c689462e3e90b"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/EARLY_STOP_OBSERVATION.json",
++      "bytes": 20020,
++      "sha256": "e705fd29bd7961183fe9558a02da64b2c473b1e3c2c24deddf6f63107e53d1da"
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/NATIVE_AUTHOR_REPORT.json",
++      "bytes": 8395,
++      "sha256": "4e9409f0ec058edceb0e65d96d6d4b2f7f34b21c1cefc2ee4bcb03e86cc63b57"
+     }
+   ],
+   "writeRoots": [
+@@ -192,16 +233,33 @@
+     "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+   ],
+   "instructions": [
+-    "You are the sole actual installed RC13 native source author for B64 under the exact Root selection and future launch. Start with a compact Product Frame: unchanged fixed5.0 F17/S06 complete source/evidence, declared revision and independent assessment; this source repair is not qualification or stage completion. The live source, pinned RC13 builder and historical candidate02/evidence are distinct subjects.\n\nBefore dependent edits acquire actual content, not counts/hashes/paraphrases: the complete installed stdo-work skill and selected sections of its exact external references in externalReadOnlyInputs (including ACTIVATION construction relation199-352); all readFirst records; Product825-860 and1480-1498; requirement INSTRUCTION-ASSEMBLY022/023; project exact basis; both owning HOW passages and their necessary source/requirement links. Full readFirst control JSON must be acquired even if a tool previews a persisted result. Report actual missing material; do not pretend a digest is a content read.\n\nFirst reconcile T287_NATIVE_WORKSPACE_WORK_DESIGN299-300 and T287_D2_REQUIREMENT_LIFECYCLE_DESIGN126-145 to ROOT_SELECTION.admittedStructuralDecision. Then implement that existing-owner relation inside exact W. Native assessment producer475 legally folds admitted_member contexts into adverse semantic cause505; current intake577 has31 inline files. Current inline-only renderer and generic sourceResults cross-Run predicate cannot represent that legitimate historical use. Do not simply pass505 as a native-work source Result or substitute current worksite bytes.\n\nTrace actual Product worksite_effect1738-1750, implementation/native_workspace_work64-70, Product semantic_job folds, abg/semantic_revision340-374 authenticated subject/acquisition/parent/causes, event_prefix931-962 and1018-1071 held/member authority, instruction_assembly678/824/927-1002 selection and applicable stage views. Revision owner derives exact historical use from its authenticated subject and source prefix. Held-prefix/body owner retains holder/basis/coordinate/path/digest/length/read-scope/binding-cover checks. Historical bytes retain genuine historical scope; current physical context remains distinct and currentness checks remain. Instruction assembly creates only derived complete presentation with existing byte deduplication/opaque payloads. No carrier rewrite, fresh-W substitution, producer dedup rollback, caller allowlist, arbitrary recursive carrier search, fabricated sourceResults, generic registry or blanket foreign-Run permission.\n\nAdd meaningful regressions inside the three W tests using their existing actual owner/store/fixture seams. Mandatory first relation is real admitted native assessor -> folded adverse semantic envelope with admitted_member context -> authenticated new-Run revision intake -> successful selector assembly without a paid provider. Show held and cold-prefix equivalent complete material and unchanged admitted carrier bytes/provenance; exercise applicable semantic-stage member view. Preserve existing inline, changed-current, non-UTF8 and opaque application/C2 cases. Negatives cover missing/forward/foreign/tampered holder/member, wrong path/digest/version/binding, undeclared historical use, uncovered binding and unavailable/denied body. Existing negatives may remain only when their unchanged premises and new-path coverage are explained. No unconditional trusted predicates or fabricated admission.\n\nUse the three exact new top-level titles and candidate filenames in PROOF_PLAN. Retain complete actual candidate observations/refusals/assembly or body outputs before any test assertion or helper stripping. Capture primary child/execution or parse failure and secondary capture failure as distinct evidence; never mask the primary. JSON may summarize identity but must retain the complete material under test, not slice/truncate it. Capture directory is supplied later as ABG_REGRESSION_PROOF_ROOT. Preserve all39 existing top-level titles/assertions and meaningful nested negatives; new tests may add cases. Whole-file proof runs later, one build plus these three files. Do not execute tests yourself.\n\nAuthority: only the eight exact writeRoots may change, no deletes or generated files. ReadRoots select bounded initial context, not exclusive reasoning authority: material reads across the full tenant source/test/support and declared governing specification/design/method are permitted, including causal imports; unrelated project/history scans are not. EVIDENCE_INPUTS supplies immutable closed failure data, not permission to reopen or append its event resource, copy stages or claim old execution credit. Do not alter it.\n\nSource construction only: file tools or bounded programmatic edits are permitted within exact W. Read-only shell/Git inspection and Node --version/--check metadata/syntax are permitted; no build, test, npm/install/pack, Product imports, behavioral probes, nested provider, Git mutation or main/push. Use memory/pipes for transformation; no undeclared temporary/source files. Any required change outside W or structural decision returns an explicit gap. One45-minute/360-turn pass, five-minute inactivity, no retry.\n\nReturn truthful typed native completion report: exact changed files; HOW/owner/consumer mapping; unchanged guards/assertions; tests authored but unexecuted; candidate capture coordinates; command/read deviations and remaining uncertainty. Do not relabel method compliance or infer source acceptance from your own report. Root owns independent review, proof and later candidate/witness.\n"
++    "CURRENT SOURCE ROLE AND CLOCK. You are the actual installed RC13 native source Worker003, not a historical controls Writer or Reviewer. The six-file native02 partial is current input, explicitly incomplete/unaccepted. Historical preparation-role stop-to-Root clauses are provenance, not your source execution contract. Before editing, read the complete current TASK, ACTIVATION, PROOF_PLAN, COMPLETION_READ_PLAN, NATIVE02_PARTIAL_DISPOSITION and copied preparation grant; then read /Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/LAUNCH.json, its actual rootAcceptance record at the declared pinned path, and /Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/CONTROL_START.json. Those external runtime metadata reads are explicitly authorized read-only, are produced by existing owners after preparation and are not pre-execution evidence. The actual native grant owns this source pass. Record an actual UTC and monotonic observation at entry and before any time-based early-return claim. Forty-five minutes is capacity, not observed elapsed time. Continue until all selected source obligations are authored or a genuine unresolved blocker or observed bound requires a truthful incomplete return. Do not infer a private cause for native02's early report.\n\nYou are the sole actual installed RC13 native source author for B64 under the exact Root selection and future launch. Start with a compact Product Frame: unchanged fixed5.0 F17/S06 complete source/evidence, declared revision and independent assessment; this source repair is not qualification or stage completion. The live source, pinned RC13 builder and historical candidate02/evidence are distinct subjects.\n\nBefore dependent edits acquire actual content, not counts/hashes/paraphrases: the complete installed stdo-work skill and selected sections of its exact external references in externalReadOnlyInputs (including ACTIVATION construction relation199-352); all readFirst records; Product825-860 and1480-1498; requirement INSTRUCTION-ASSEMBLY022/023; project exact basis; both owning HOW passages and their necessary source/requirement links. Full readFirst control JSON must be acquired even if a tool previews a persisted result. Report actual missing material; do not pretend a digest is a content read.\n\nFirst reconcile the current partial owning HOW passages to ROOT_SELECTION.admittedStructuralDecision and NATIVE02_PARTIAL_DISPOSITION.completionObligations; the partial HOW/code do not supersede Product or existing admitted revision laws. Then implement that existing-owner relation inside exact W. Native assessment producer475 legally folds admitted_member contexts into adverse semantic cause505; current intake577 has31 inline files. The originating inline-only renderer and generic sourceResults cross-Run predicate could not represent that legitimate historical use; the current partial addresses only part of the causal cone. Do not simply pass505 as a native-work source Result or substitute current worksite bytes.\n\nTrace actual Product worksite_effect1738-1750, implementation/native_workspace_work64-70, Product semantic_job folds, abg/semantic_revision340-374 authenticated subject/acquisition/parent/causes, event_prefix931-962 and1018-1071 held/member authority, instruction_assembly678/824/927-1002 selection and applicable stage views. Revision owner derives exact historical use from its authenticated subject and source prefix. Held-prefix/body owner retains holder/basis/coordinate/path/digest/length/read-scope/binding-cover checks. Historical bytes retain genuine historical scope; current physical context remains distinct and currentness checks remain. Instruction assembly creates only derived complete presentation with existing byte deduplication/opaque payloads. No carrier rewrite, fresh-W substitution, producer dedup rollback, caller allowlist, arbitrary recursive carrier search, fabricated sourceResults, generic registry or blanket foreign-Run permission.\n\nAdd meaningful regressions inside the three W tests using their existing actual owner/store/fixture seams. Mandatory first relation is real admitted native assessor -> folded adverse semantic envelope with admitted_member context -> authenticated new-Run revision intake -> successful selector assembly without a paid provider. Show held and cold-prefix equivalent complete material and unchanged admitted carrier bytes/provenance; exercise applicable semantic-stage member view. Preserve existing inline, changed-current, non-UTF8 and opaque application/C2 cases. Negatives cover missing/forward/foreign/tampered holder/member, wrong path/digest/version/binding, undeclared historical use, uncovered binding and unavailable/denied body. Existing negatives may remain only when their unchanged premises and new-path coverage are explained. No unconditional trusted predicates or fabricated admission.\n\nUse the three exact B64 top-level titles and candidate filenames in PROOF_PLAN: retain and complete the existing event-body B64 case, and add the two missing owner-path/presentation cases without duplicate titles. Retain complete actual candidate observations/refusals/assembly or body outputs before any test assertion or helper stripping. Capture primary child/execution or parse failure and secondary capture failure as distinct evidence; never mask the primary. JSON may summarize identity but must retain the complete material under test, not slice/truncate it. Capture directory is supplied later as ABG_REGRESSION_PROOF_ROOT. Preserve all39 existing top-level titles/assertions and meaningful nested negatives; new tests may add cases. Whole-file proof runs later, one build plus these three files. Do not execute tests yourself.\n\nAuthority: only the eight exact writeRoots may change, no deletes or generated files. ReadRoots select bounded initial context, not exclusive reasoning authority: material reads across the full tenant source/test/support and declared governing specification/design/method are permitted, including causal imports; unrelated project/history scans are not. EVIDENCE_INPUTS supplies immutable closed failure data, not permission to reopen or append its event resource, copy stages or claim old execution credit. Do not alter it.\n\nSource construction only: file tools or bounded programmatic edits are permitted within exact W. Read-only shell/Git inspection and Node --version/--check metadata/syntax are permitted; no build, test, npm/install/pack, Product imports, behavioral probes, nested provider, Git mutation or main/push. Use memory/pipes for transformation; no undeclared temporary/source files. Any required change outside W or structural decision returns an explicit gap. One45-minute/360-turn pass, five-minute inactivity, no retry.\n\nReturn truthful typed native completion report: exact changed files; HOW/owner/consumer mapping; unchanged guards/assertions; tests authored but unexecuted; candidate capture coordinates; command/read deviations and remaining uncertainty. Do not relabel method compliance or infer source acceptance from your own report. Root owns independent review, proof and later candidate/witness.\n\nCOMPLETE THE CONJOINED SOURCE CONE. Preserve valid native02 changes. Derive each historical use through its actual authenticated acquisition/cover chain: conservedNativeRevisionParent can retain an older parent whose binding differs from the newest cause. Do not replace that chain with the first cause's binding or an arbitrary allowlist. Cover the exact typed context routes already traversed by renderNativeRevisionSelectionDecisionView and applicable stage views: direct C2 worksite_command_execution_observation.task.sourceNativeWork; sourceReacquisition.request.sourceNativeWork and currentContext; native-work task/context, before and after where the accepted retained form carries them; nested semantic/revision evidence and request contexts. Preserve existing holder/sourceResults cross-Run relations where applicable; passing an old Run alone supplies no authority. The route is not just a new C2 table arm and not a generic recursive resolver. Align both HOWs.\n\nMANDATORY COMPLETION PROOF SOURCE. Add the currently missing real owner-path tests in t287-native-semantic-job and t288-instruction-assembly-owner, using their existing owner/store/fixture contracts, plus complete the event-body capture. Include real admitted assessor/fold/new-Run/assembly, held/cold parity, inherited older-binding parent, C2 member-backed cause, current-context separation and strict negatives. A manually supplied WorksiteContextBodyHistoricalUse is only a lower-owner premise and cannot replace acquisition/cover/selector evidence. Retain the full carriage premise before its first assertion and every actual assembly/refusal before assertions or helper stripping. Capture-only failure must fail the case; with a primary child/parse/assertion failure preserve that primary and report the secondary capture failure distinctly. Keep all39 preserved titles and the three exact B64 titles/candidate filenames. No new test execution is granted.\n\n"
+   ],
+   "checks": [
+     "Both owning HOW passages reconciled before realization",
+     "Actual admitted member producer -> authenticated new-Run revision -> complete selector and applicable stage presentation",
+     "Held/cold identity, original carriers, strict historical/current and negative authority conservation",
+     "Complete candidates retained before assertions with primary and secondary error channels",
+-    "Only eight W; no behavioral execution; exact method body reads and truthful audit"
++    "Only eight W; no behavioral execution; exact method body reads and truthful audit",
++    "Inherited older-binding parent and all already-traversed typed C2/context routes remain constructible through actual owner relations",
++    "Both missing owner-path tests authored; carriage premise retained before first assertion; capture-only failures fail",
++    "Actual STDO status/frame/content and current Root source grant acquired; actual entry/early-return clock observations retained"
+   ],
+   "maxContextFiles": 1024,
+   "maxContextBytes": 25165824,
+-  "declaredAdditionalReadAuthority": "Full tenant source/test/support and governing specification/design/method material needed for this owner cone; readRoots is context selection, not a narrower reasoning boundary."
++  "declaredAdditionalReadAuthority": "Full tenant source/test/support and governing specification/design/method material needed for this owner cone; readRoots is context selection, not a narrower reasoning boundary.",
++  "runtimeMetadataReadOnlyInputs": [
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/LAUNCH.json",
++      "purpose": "Actual source grant pointer and immutable launch identity, supplied by existing Operator at execution."
++    },
++    {
++      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/CONTROL_START.json",
++      "purpose": "Original enclosing clock and actual launch observation, not a new clock."
++    },
++    {
++      "pathFrom": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/LAUNCH.json#rootAcceptance",
++      "purpose": "Read exact pinned actual Root source grant. Historical controls grants do not own source execution."
++    }
++  ]
+ }

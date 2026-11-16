@@ -1,0 +1,9 @@
+{
+  "kind": "writer044_first_static_check_failure",
+  "utc": "2026-11-16T09:27:49.978529+00:00",
+  "error": "KeyError('roots')",
+  "trace": "Traceback (most recent call last):\n  File \"<stdin>\", line 47, in <module>\nKeyError: 'roots'\n",
+  "runtime": false,
+  "sourceEffects": false,
+  "deadlineUtc": "2026-11-16T09:38:49+00:00"
+}

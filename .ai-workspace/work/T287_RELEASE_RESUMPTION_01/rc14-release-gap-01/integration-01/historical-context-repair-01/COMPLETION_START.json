@@ -1,0 +1,14 @@
+{
+  "writer": "RC14-B64-COMPLETION-CONTROLS-WRITER-044",
+  "startedUtc": "2026-11-16T09:18:49+00:00",
+  "deadlineUtc": "2026-11-16T09:38:49+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPLETION_CONTROL_PREPARATION_01.json",
+    "bytes": 9554,
+    "sha256": "f0f401638ffc52089f04a3139d1817da0b8076a1e4a854bae8c1df0265ddbe71"
+  },
+  "checkpoint": "999301134aace961800fecd2ed7930e85e623936",
+  "worktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-04",
+  "runtimeClockStarted": false,
+  "effects": "Controls preparation only; no source/raw03 created."
+}

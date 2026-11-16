@@ -1,16 +1,16 @@
 {
-  "source": "/private/tmp/abg-rc14-historical-context-source-20261116-02",
-  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02",
-  "proofSubject": "/private/tmp/abg-rc14-historical-context-proof-20261116-02",
+  "source": "/private/tmp/abg-rc14-historical-context-source-20261116-03",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03",
+  "proofSubject": "/private/tmp/abg-rc14-historical-context-proof-20261116-03",
   "writePaths": [
-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
-    "/private/tmp/abg-rc14-historical-context-source-20261116-02/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "/private/tmp/abg-rc14-historical-context-source-20261116-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
   ],
   "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
   "status": "Prospective only; exact finite child W, external inputs and complete actual resource/install roots before setup and twice before dispatch. No physical observation in preparation.",

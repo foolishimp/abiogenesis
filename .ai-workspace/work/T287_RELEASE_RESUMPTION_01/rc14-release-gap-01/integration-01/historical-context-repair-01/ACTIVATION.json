@@ -1,5 +1,5 @@
 {
-  "id": "RC14-HISTORICAL-CONTEXT-NATIVE-002",
+  "id": "RC14-HISTORICAL-CONTEXT-NATIVE-003",
   "role": "Preparation only; separate Root native and proof grants required",
   "basis": {
     "definition": "repo://abiogenesis/stdo_abiogenesis.json",
@@ -12,10 +12,10 @@
     "bytes": 10750,
     "sha256": "3c9facbe9c60953afb02e212d0cce5def400708c8f8767b4a90a23fd36e0debd"
   },
-  "sourceBase": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
-  "sourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-02",
-  "sourceBranch": "codex/rc14-historical-context-source-20261116-02",
-  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02",
+  "sourceBase": "999301134aace961800fecd2ed7930e85e623936",
+  "sourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-03",
+  "sourceBranch": "codex/rc14-historical-context-source-20261116-03",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03",
   "sourceBinding": null,
   "nativeWriteScope": [
     "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
@@ -148,5 +148,17 @@
   "clockStarted": false,
   "proof": "One fresh normal build and three whole affected files; authentic retained-carrier producer-to-revision assembly, held/cold parity, applicable stage view and strict negatives. No live semantic or qualification credit.",
   "returnTo": "Root; freeze controls and stop. Actual source and proof remain disabled.",
-  "preparedUtc": "2026-11-16T08:24:59.049839+00:00"
+  "preparedUtc": "2026-11-16T09:25:18.579870+00:00",
+  "partialSourceCommit": "eebb5c89cd78c717c23a68b24f302b9eee69906e",
+  "completionAuthority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_NATIVE02_PARTIAL_DISPOSITION_01.json",
+    "bytes": 9825,
+    "sha256": "9aa6a5d058f2f6d54f44cf94808b83851ebbb5175a8962bb3699b99a18d4110d"
+  },
+  "preparationAuthority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPLETION_CONTROL_PREPARATION_01.json",
+    "bytes": 9554,
+    "sha256": "f0f401638ffc52089f04a3139d1817da0b8076a1e4a854bae8c1df0265ddbe71"
+  },
+  "sourceStanding": "Six-file native02 partial is preserved and unaccepted; this successor author must complete all original and conjoined obligations."
 }

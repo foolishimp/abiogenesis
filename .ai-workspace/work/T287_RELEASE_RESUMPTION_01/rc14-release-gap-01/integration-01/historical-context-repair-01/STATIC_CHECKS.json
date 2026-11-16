@@ -119,5 +119,13 @@
     "fullFutureConstructorSuccessClaim": false,
     "currentValidationFailures": [],
     "acquisitionObservation": "Read-only lookup assumed an api directory and returned ENOENT; actual installed product/run_invocation_operation.js/.d.ts were located and acquired. No missing contract or runtime action inferred."
+  },
+  "completionSuccessor": {
+    "currentChecks": "COMPLETION_CHECKS.json",
+    "layoutChecks": "COMPLETION_LAYOUT_CHECKS.json",
+    "preservedFailure": "COMPLETION_PREPARATION_FAILURE.json",
+    "rootDisposition": "COMPLETION_CHECK_DISPOSITION.json",
+    "originalPreparationDeadlineUtc": "2026-11-16T09:38:49+00:00",
+    "sourceAcceptance": false
   }
 }

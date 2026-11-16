@@ -1,10 +1,11 @@
 {
-  "preparationBase": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
-  "source": "/private/tmp/abg-rc14-historical-context-source-20261116-02",
-  "branch": "codex/rc14-historical-context-source-20261116-02",
-  "tenantTree": "cbb2a63bf596de71dec609ae7be13da8174f6902",
+  "preparationBase": "999301134aace961800fecd2ed7930e85e623936",
+  "source": "/private/tmp/abg-rc14-historical-context-source-20261116-03",
+  "branch": "codex/rc14-historical-context-source-20261116-03",
+  "tenantTree": "a7c47c1ac107fa2cca311f63251d7a926572a42c",
   "finalLaunchHead": null,
   "finalLaunchBinding": "Root-pushed checkpoint descending from this base with identical selected tenant/source; exclusive fresh complete materialized preimage before setup",
   "executionAuthorized": false,
-  "clockStarted": false
+  "clockStarted": false,
+  "partialSourceCommit": "eebb5c89cd78c717c23a68b24f302b9eee69906e"
 }
