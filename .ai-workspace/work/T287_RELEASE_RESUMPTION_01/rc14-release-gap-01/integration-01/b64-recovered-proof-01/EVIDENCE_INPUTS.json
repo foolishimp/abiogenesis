@@ -1,0 +1,138 @@
+{
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-adverse-revision-01/ROOT_FAILURE_RECORD.json",
+      "bytes": 7121,
+      "sha256": "f197f413e9c9f1d95517556c360ff27c251d620454787992aa9447a31bbf82c4"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/OPERATOR_RETURN.json",
+      "bytes": 118499,
+      "sha256": "84ef00bf58a26cffaa40fb68dcd02e8547adcb1d42a4c8b270310e64d31d686d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+      "bytes": 13730678,
+      "sha256": "207b160914a2fea0f0dac745f87bf70a12ee70eb0cf0b992d8e593a0c717bc47"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/revision-intake/calls/lifecycle-start.outcome.json",
+      "bytes": 27366,
+      "sha256": "0a386e7eae84adab91d65e00fd880ad990cd84e2e91f427580235385487a2c11"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/revision-intake/input.json",
+      "bytes": 960,
+      "sha256": "ffc1b7a6bc17aae5c1bdb4d1fd181331678414a61ce06d7d9e925d0044f0ffe8"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/revision-intake/session-close.json",
+      "bytes": 2263,
+      "sha256": "9470f5cb4c1222a34e741dda6e7914948bc30c339b7c934d646bbbc15796c5fb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/OPERATOR_RETURN.json",
+      "bytes": 16128,
+      "sha256": "ed52450d1a00b9224f5886a630f9bef90efe6aba854c9cd4eee287578ea7afd6"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/SOURCE_POSTIMAGE.json",
+      "bytes": 360274,
+      "sha256": "45189466db19204cf23c4576135b629910af6ab68bc5c31dcb600dd1c9734fb0"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/AUTHOR_AUDIT.json",
+      "bytes": 3312,
+      "sha256": "115be022688229004cb998a38d84fce0f5738bb5525d96f7312ec62cf6311143"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FIRST_FAILURE.json",
+      "bytes": 1697,
+      "sha256": "2dbcdff27f40c035615ce801a23e44cf698ac86170bd022e4952103392779f36"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FINAL.json",
+      "bytes": 1848,
+      "sha256": "ce503084d2ed9b77088e241d6a366ecfd803dc7e07afabdd12b81e74814e8cf2"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/FROZEN_SOURCE.json",
+      "bytes": 6688,
+      "sha256": "7ce99b9cba3f6ca1f47a1e5ac6903f3d7009e3d7f6da6ada08db6adb12666ae6"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/SOURCE_POSTIMAGE.json",
+      "bytes": 362702,
+      "sha256": "fcb61a2405a72eb68d5f5b401aeae433e42765647e2d356f311fd657f9b933b5"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/SOURCE_DIFF.patch",
+      "bytes": 33951,
+      "sha256": "81f719e7e04de70109ea40e45220a725e4e9a14beba5d4ad05cc27a4e2a5713d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/OPERATOR_RETURN.json",
+      "bytes": 35482,
+      "sha256": "8e6c591206519525e3da17bffd90eac2cc5d674f2d1627934366a836b810aeb4"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/AUTHOR_AUDIT.json",
+      "bytes": 7489,
+      "sha256": "cfdccb47338374beafa97d6c81bce1a974ecd3f0274679497b7c689462e3e90b"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/EARLY_STOP_OBSERVATION.json",
+      "bytes": 20020,
+      "sha256": "e705fd29bd7961183fe9558a02da64b2c473b1e3c2c24deddf6f63107e53d1da"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 8395,
+      "sha256": "4e9409f0ec058edceb0e65d96d6d4b2f7f34b21c1cefc2ee4bcb03e86cc63b57"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/FROZEN_SOURCE.json",
+      "bytes": 7418,
+      "sha256": "740cc09f9477bc4bdcf9b346824ed27aa570d3c0fa5779dc5eeb75ea2561fa1c"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/SOURCE_POSTIMAGE.json",
+      "bytes": 366404,
+      "sha256": "9d2f7725f58aff9fee710324b958f969b48c706bdbd9810c13044b5027d079ed"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/SOURCE_DIFF.patch",
+      "bytes": 105090,
+      "sha256": "50f1f2488c4c9212dd6ef797ca0fa22217d867434e39aa40b897ee68592d540f"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/OPERATOR_RETURN.json",
+      "bytes": 31293,
+      "sha256": "2b261fb506fbe2c48b170eeb2f5acae33c0877c75f571b2662224e9dc1d78ece"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/AUTHOR_AUDIT.json",
+      "bytes": 10593,
+      "sha256": "1e425cdfbed837f9037bfb9e05751dac0c9bc97acac6132cc73bd1ee32bc3b21"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/NATIVE_AUTHOR_REPORT.json",
+      "bytes": 7364,
+      "sha256": "5724c749090532c63d4ca97b8482b35b77ba2135103235f19f17d0ee169eb47c"
+    }
+  ],
+  "protectedRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-adverse-revision-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
+    "/private/tmp/abg-rc14-historical-context-source-20261116-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02",
+    "/private/tmp/abg-rc14-historical-context-source-20261116-02",
+    "/private/tmp/abg-rc14-historical-context-source-20261116-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03",
+    "/private/tmp/abg-rc14-s01-proof-source-20261116-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01"
+  ],
+  "standing": "Authentic closed counterexample data only; no live resource reopening, copied history authority, paid reproduction or old stage credit. Fixture regression must use actual owner admissions in its own isolated test resource. These exact leaves remain byte conserved before/after source and proof. The closed source-attempt01 failed before any native call/Run/source edit; its sealed records are custody only, not completion. Native02 partial source, report, audit, early-stop observation and exact closed evidence are added as immutable inputs only; source is not accepted, no proof occurred, and its old clock remains closed. Native003 exact frozen source/audit/report are closed data, not completion credit. S01 source/raw are protected by path only and never acquired as immutable inputs; use this exact source checkpoint, not unintegrated S01 files."
+}

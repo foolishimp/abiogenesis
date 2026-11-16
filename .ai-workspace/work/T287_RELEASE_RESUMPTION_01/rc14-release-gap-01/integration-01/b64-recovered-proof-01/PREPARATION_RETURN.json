@@ -1,0 +1,147 @@
+{
+  "kind": "closed_external_recovered_proof_preparation_return",
+  "writer": "RC14-B64-RECOVERED-PROOF-CONTROLS-WRITER-053",
+  "startedUtc": "2026-11-16T16:47:28Z",
+  "completedUtc": "2026-11-16T17:00:34.170089+00:00",
+  "deadlineUtc": "2026-11-16T17:07:28Z",
+  "controlsBase": "9288d06044a63030fbad277dd25d487dc1162e8d",
+  "worktree": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01",
+  "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01",
+  "manifest": {
+    "path": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/CONTROL_MANIFEST.json",
+    "bytes": 4233,
+    "sha256": "f7a9aed978706a7ce7528867240a83ef633584682147822aa92cb40d7aa22b4c"
+  },
+  "controlMembers": 24,
+  "driver": {
+    "path": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/recovered-proof.py",
+    "bytes": 25469,
+    "sha256": "959e5dce29b6b9f73de9fc80c88a5d3e359827d55ad1f095c4129bc6eb3d467e"
+  },
+  "delta": {
+    "path": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/CONTROL_DELTA.json",
+    "bytes": 2232,
+    "sha256": "c1c176700013212e7b80e805a02cf33bbc0ce115040eebba1fcc218df366be28"
+  },
+  "staticChecks": {
+    "path": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/STATIC_CHECKS.json",
+    "bytes": 5442,
+    "sha256": "34de84d5bea06f91c088f89f167dcbb635a3b0a5b12195d93ad070e114a778b0"
+  },
+  "selection": {
+    "path": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/ROOT_SELECTION.json",
+    "bytes": 13533,
+    "sha256": "23699cda8867f1aab08e2bb6f0d8307411d8ebb841d631b19c805d34df2b7b38"
+  },
+  "preservation": {
+    "path": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/SOURCE_PRESERVATION.json",
+    "bytes": 4079,
+    "sha256": "b0d7633dd4c219f759acc401a139f4cfb6c131e0b3abaeccf755757932949ea4"
+  },
+  "preparationGrant": {
+    "path": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/ROOT_PREPARATION.json",
+    "bytes": 5461,
+    "sha256": "1e5f1ce641d0104371e78ccdbe4eda88b4efd9256d49c29488618baea91ee538"
+  },
+  "proofInput": {
+    "sourceRoot": "/private/tmp/abg-rc14-b64-composition-source-20261116-01",
+    "head": "e0ef262bb51d6f7aa36b4a3adeffe40ae1f255b5",
+    "nativeRawReadOnly": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01",
+    "originalManifest": {
+      "path": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01/CONTROL_MANIFEST.json",
+      "bytes": 5549,
+      "sha256": "c785577a9de0f94eca74863f2ff7fec7558c84840d8b7f91be0982e71a7dd01c"
+    },
+    "originalProofUnchangedAndIneligible": {
+      "path": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01/prove.py",
+      "bytes": 22191,
+      "sha256": "cb6239891bdc0c92b4568169bb3a43738aeac725e9cd721fdbc658ffe18398d4"
+    },
+    "postimageRows": 2485,
+    "writePaths": "none in frozen source; only future fresh proof mirror/build/scratch"
+  },
+  "newOutput": {
+    "proofRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-recovered-proof-20261117-01",
+    "proofDirectory": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-recovered-proof-20261117-01/proof-01",
+    "proofSubject": "/private/tmp/abg-rc14-b64-recovered-proof-subject-20261117-01",
+    "proofLaunch": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-recovered-proof-20261117-01/PROOF_LAUNCH.json",
+    "allAbsentAtPreparation": true
+  },
+  "futureArgv": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "-B",
+    "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/recovered-proof.py",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/LAUNCH.json",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-recovered-proof-20261117-01/PROOF_LAUNCH.json"
+  ],
+  "gate": "Exact failed native records, Root recovery adoption/preservation and all3registered deferrals; no report/completion/successfulRun or empty-deviation fiction. Exact existing source inventory and separate native/newproof manifest ownership.",
+  "preserved": [
+    "four byte-equal finite/process/dependency/setup/physical helpers",
+    "seven byte-equal existing input/plan packets",
+    "nine inherited function ASTs",
+    "whole-file title/skip/candidate/first-failure checks",
+    "full generated-build inventory including exact capability graph",
+    "entry and exit original source/index/setup, native196 declared inputs, dependencies/fixtures, all original35controls and109consumedReturn pins",
+    "actual process group closure and original final deadline cap"
+  ],
+  "static": {
+    "pureAdmissionAndRootChecks": 14,
+    "requiredTestDeclarations": 11,
+    "protectedRoots": 29,
+    "writePaths": 6,
+    "observerBoundCount": 37,
+    "observerBoundMaximum": 64,
+    "physicalObservation": false,
+    "activeS01StationaryReads": false
+  },
+  "budgets": {
+    "buildMs": 600000,
+    "testFileMs": 1800000,
+    "maximumMs": 5400000,
+    "hardNotAfterUtc": "2026-11-16T18:39:42.544329Z",
+    "cleanupReserveMs": 180000,
+    "firstFailureStops": true,
+    "retries": 0
+  },
+  "preparationCorrections": {
+    "titleSelector": {
+      "originalExpression": "text.count(title)==1",
+      "originalFailureTitle": "native typed semantic assessment uses the exact installed schema owner and rejects wrong declarations",
+      "actualTwoOccurrences": [
+        "source331 actual test declaration",
+        "source406 candidate metadata string"
+      ],
+      "correctedExpression": "count exact test declaration prefixes",
+      "sourceOrPlanChanged": false
+    },
+    "localToolInput": "Two functions JavaScript quoting/parse failures occurred before any nested tool call; corrected only local tool input. No source/control behavior/runtime failure was suppressed.",
+    "staging": {
+      "originalExpected": 27,
+      "actualStaged": 26,
+      "excluded": "CONTROL_DELTA.patch",
+      "rule": ".gitignore:133 .ai-workspace/**/*.patch",
+      "disposition": "Removed the newly authored derived patch from the publication packet; no ignore bypass, executable change or original evidence deletion. Actual driver and original prove.py remain independently pinned."
+    }
+  },
+  "remainingBindings": [
+    "pushed Root proof acceptance and its exact pin",
+    "newproof manifest hash in actual external launch",
+    "actual proof clock bounded by original18:39:42.544329Z; no execution clock started"
+  ],
+  "limits": {
+    "proofExecuted": false,
+    "providerCalls": 0,
+    "ProductImports": false,
+    "builds": 0,
+    "tests": 0,
+    "physicalProbes": 0,
+    "sourceEdits": false,
+    "originalNativeControlOrRawMutation": false,
+    "mainMutation": false,
+    "push": false,
+    "sourceTaskAccepted": false,
+    "fullCaptureAccepted": false,
+    "qualification": false
+  },
+  "returnTo": "Root independent affected-control review; stop before any proof execution."
+}

@@ -1,0 +1,189 @@
+{
+  "id": "RC14-B64-RECOVERED-PROOF-001",
+  "role": "Disabled recovered-source proof controls; no native/provider execution",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPOSITION_CONSTRUCTION_01.json",
+    "bytes": 7064,
+    "sha256": "6c46fd2abea5d44d1e4a448e74bf45e3f1f98e74235bec2303cf6f8fa2826015"
+  },
+  "sourceBase": "e0ef262bb51d6f7aa36b4a3adeffe40ae1f255b5",
+  "sourceWorktree": "/private/tmp/abg-rc14-b64-composition-source-20261116-01",
+  "sourceBranch": "codex/rc14-b64-composition-source-20261116-01",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01",
+  "sourceBinding": "e0ef262bb51d6f7aa36b4a3adeffe40ae1f255b5",
+  "nativeWriteScope": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "changeClass": "Test-only genuine first historical-context composition and primary/secondary capture corrections; all Product/HOW/runtime files remain immutable.",
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 5769,
+    "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26"
+  },
+  "provider": {
+    "providerCallsAtMost": 0
+  },
+  "externalReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          199,
+          352
+        ],
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Construction relation, intake/admission, context acquisition and closed-result reuse: acquire the stated actual source bodies before dependent edits; hashing/paraphrase is not body acquisition."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    }
+  ],
+  "limits": {
+    "nativeInactivityMs": 300000,
+    "nativeAbsoluteMs": 2700000,
+    "nativeMaxTurns": 360,
+    "terminationGraceMs": 5000,
+    "hostControlDeadlineMs": 10800000,
+    "setupReadbackCommandMs": 300000,
+    "outputBytesPerCommand": 33554432,
+    "reserveBytes": 4294967296,
+    "nativeRetry": false,
+    "proofRetry": false,
+    "proofCampaignMs": 5400000,
+    "perTestFileMs": 1800000,
+    "perStaticMs": 60000,
+    "cleanupReserveMs": 180000,
+    "perBuildMs": 600000
+  },
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "clockStarted": false,
+  "proof": "One fresh ordinary build and one whole native-semantic-job file under separate future Root proof grant.",
+  "returnTo": "Root independent control review; no preparation execution.",
+  "preparedUtc": "2026-11-16T16:47:28Z",
+  "completionAuthority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_NATIVE03_DISPOSITION_01.json",
+    "bytes": 13001,
+    "sha256": "517cbb13cf00bde0a82de99bc9f82896f6d34758214c346bc1a4ebacd2f57203"
+  },
+  "preparationAuthority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPOSITION_CONTROL_REENTRY_01.json",
+    "bytes": 5621,
+    "sha256": "808bdb7262f392079d959c5d901787895488da1ff24dbebca27382756071eb2d"
+  },
+  "sourceStanding": "Recovered exact failed native source adequate only for first composition discriminator; failed author, content residual and3registered capture debts remain.",
+  "preservedSourceCheckpoint": "e28c1d1058d822886cf9347a6f63bd34834b8f53",
+  "nativeActivationId": "RC14-B64-COMPOSITION-NATIVE-001",
+  "executionControlRoot": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01",
+  "originalNativeControls": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01",
+  "originalNativeManifest": {
+    "path": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01/CONTROL_MANIFEST.json",
+    "bytes": 5549,
+    "sha256": "c785577a9de0f94eca74863f2ff7fec7558c84840d8b7f91be0982e71a7dd01c"
+  },
+  "originalProof": {
+    "path": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01/prove.py",
+    "bytes": 22191,
+    "sha256": "cb6239891bdc0c92b4568169bb3a43738aeac725e9cd721fdbc658ffe18398d4"
+  },
+  "proofRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-recovered-proof-20261117-01",
+  "proofSubject": "/private/tmp/abg-rc14-b64-recovered-proof-subject-20261117-01",
+  "nativeEvidenceRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01",
+  "recoverySelection": {
+    "path": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/ROOT_SELECTION.json",
+    "bytes": 13533,
+    "sha256": "23699cda8867f1aab08e2bb6f0d8307411d8ebb841d631b19c805d34df2b7b38"
+  },
+  "sourcePreservation": {
+    "path": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/SOURCE_PRESERVATION.json",
+    "bytes": 4079,
+    "sha256": "b0d7633dd4c219f759acc401a139f4cfb6c131e0b3abaeccf755757932949ea4"
+  },
+  "rootPreparation": {
+    "path": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/ROOT_PREPARATION.json",
+    "bytes": 5461,
+    "sha256": "1e5f1ce641d0104371e78ccdbe4eda88b4efd9256d49c29488618baea91ee538"
+  },
+  "controlSourceCheckpoint": "9288d06044a63030fbad277dd25d487dc1162e8d",
+  "activeProtectedRoots": [
+    "/private/tmp/abg-rc14-s01-proof-source-20261117-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-03"
+  ],
+  "hardNotAfterUtc": "2026-11-16T18:39:42.544329Z"
+}

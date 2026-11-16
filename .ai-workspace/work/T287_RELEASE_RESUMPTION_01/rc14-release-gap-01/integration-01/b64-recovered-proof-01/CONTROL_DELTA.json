@@ -1,0 +1,54 @@
+{
+  "kind": "affected_external_control_delta",
+  "rootPreparation": {
+    "path": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/ROOT_PREPARATION.json",
+    "bytes": 5461,
+    "sha256": "1e5f1ce641d0104371e78ccdbe4eda88b4efd9256d49c29488618baea91ee538"
+  },
+  "base": "9288d06044a63030fbad277dd25d487dc1162e8d",
+  "originalProofUnchanged": {
+    "path": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01/prove.py",
+    "bytes": 22191,
+    "sha256": "cb6239891bdc0c92b4568169bb3a43738aeac725e9cd721fdbc658ffe18398d4"
+  },
+  "newDriver": {
+    "path": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/recovered-proof.py",
+    "bytes": 25469,
+    "sha256": "959e5dce29b6b9f73de9fc80c88a5d3e359827d55ad1f095c4129bc6eb3d467e"
+  },
+  "allowedChanges": [
+    "separate recovered failed-source gate with explicit Root adoption, exact records and3deferrals",
+    "separate original35/newproof manifests and raw-output routing",
+    "exact external control-root guard before helper imports/effects",
+    "activeS01 path-only protections",
+    "return explicitly retains failed native/capture-debt standing",
+    "Recheck all109 consumed immutable native Return pins through the existing controls entry/exit call, without stationary active-S01 reads"
+  ],
+  "unchangedFunctionAst": [
+    "module",
+    "digest",
+    "bound_json",
+    "source_inventory",
+    "pinned",
+    "tree",
+    "native_inputs",
+    "fixtures",
+    "checked_population"
+  ],
+  "unchangedCopiedFiles": [
+    "process-owner.py",
+    "dependency-inputs.py",
+    "setup-custody.py",
+    "physical-topology.py",
+    "DEPENDENCY_INPUTS.json",
+    "TOOL_INPUTS.json",
+    "ORIGINAL_CANDIDATE.json",
+    "NATIVE_INPUTS.json",
+    "FIXTURE_INPUTS.json",
+    "EVIDENCE_INPUTS.json",
+    "PROOF_PLAN.json"
+  ],
+  "deadline": "2026-11-16T18:39:42.544329Z",
+  "proofExecutionAuthorized": false,
+  "sourceTaskAccepted": false
+}

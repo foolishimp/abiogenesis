@@ -1,0 +1,174 @@
+{
+  "kind": "bounded_recovered_proof_control_static_checks",
+  "checkedUtc": "2026-11-16T16:56:43.925861+00:00",
+  "pythonAstAndSyntax": true,
+  "json": true,
+  "unchangedFunctionAst": [
+    "module",
+    "digest",
+    "bound_json",
+    "source_inventory",
+    "pinned",
+    "tree",
+    "native_inputs",
+    "fixtures",
+    "checked_population"
+  ],
+  "unchangedCopiedFiles": [
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 895,
+      "sha256": "2de0b14967eb409e8d8dec21ea0c3b750efcf0edd2c88640841c977cb07b82b5"
+    },
+    {
+      "path": "TOOL_INPUTS.json",
+      "bytes": 1492,
+      "sha256": "e228a81cc6014a92f407b6abdaa858c04a244fadac49ca51a2afd0b0ea2fdcbb"
+    },
+    {
+      "path": "ORIGINAL_CANDIDATE.json",
+      "bytes": 1783,
+      "sha256": "9703849426432fa35bd358d7e61392505c86bd158b51bb17b785017d7845ed36"
+    },
+    {
+      "path": "NATIVE_INPUTS.json",
+      "bytes": 717,
+      "sha256": "8d8c79b881c6662ed733445518170576e722b48e8d01d955f6a57c84da5da312"
+    },
+    {
+      "path": "FIXTURE_INPUTS.json",
+      "bytes": 385,
+      "sha256": "d6e2fa50924084f0af6b22b060bf29778ca4b028b2fd32612eabd0f9eca4e5dd"
+    },
+    {
+      "path": "EVIDENCE_INPUTS.json",
+      "bytes": 8502,
+      "sha256": "289997931567ccdbf196577b50c9af55dbfd1c310251ec501c36fe83a860357e"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 9036,
+      "sha256": "f4ffca0732f8e8316207abbefd7658e88b0e2ad41cce847356f0fe4087d9ac37"
+    }
+  ],
+  "originalProof": {
+    "path": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01/prove.py",
+    "bytes": 22191,
+    "sha256": "cb6239891bdc0c92b4568169bb3a43738aeac725e9cd721fdbc658ffe18398d4"
+  },
+  "nativeManifestRows": 35,
+  "recoveryRows": 25,
+  "operatorReturnPins": 109,
+  "pureRecordedDataChecks": [
+    {
+      "name": "exact_closed_failed_source_and_Root_adoption",
+      "passed": true
+    },
+    {
+      "name": "foreign_source_head",
+      "rejected": true
+    },
+    {
+      "name": "empty_native_deviations",
+      "rejected": true
+    },
+    {
+      "name": "missing_deferral",
+      "rejected": true
+    },
+    {
+      "name": "fabricated_native_completion",
+      "rejected": true
+    },
+    {
+      "name": "changed_frozen_file",
+      "rejected": true
+    },
+    {
+      "name": "duplicate_postimage_path",
+      "rejected": true
+    },
+    {
+      "name": "unconserved_inputs",
+      "rejected": true
+    },
+    {
+      "name": "missing_resource_close",
+      "rejected": true
+    },
+    {
+      "name": "falsely_successful_original_host",
+      "rejected": true
+    },
+    {
+      "name": "missing_actual_failure",
+      "rejected": true
+    },
+    {
+      "name": "unchanged_original_gate_remains_ineligible",
+      "rejected": true
+    },
+    {
+      "name": "exact_external_root",
+      "accepted": true
+    },
+    {
+      "name": "source_local_controls",
+      "accepted": false
+    }
+  ],
+  "layoutProjection": {
+    "path": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01/LAYOUT_PROJECTION.json",
+    "bytes": 4074,
+    "sha256": "9161936a30c0e8b86e036e5b25beccfb37df457d0c27b9ac947e95750dbbdfc2"
+  },
+  "selectedWholeFiles": 1,
+  "requiredTopLevelTitles": 11,
+  "actualCandidateMandatory": true,
+  "allRuntimeAndProviderExecution": false,
+  "activeS01StationaryReads": false,
+  "titleCheckCorrection": {
+    "originalExpression": "text.count(title)==1",
+    "originalFailureTitle": "native typed semantic assessment uses the exact installed schema owner and rejects wrong declarations",
+    "actualTwoOccurrences": [
+      "source331 actual test declaration",
+      "source406 candidate metadata string"
+    ],
+    "correctedExpression": "count exact test declaration prefixes",
+    "sourceOrPlanChanged": false
+  },
+  "localPreparationCorrection": "First functions JavaScript input failed parsing on an unescaped Markdown backtick before any tool/filesystem call; same authoring input reissued with plain text. No control/runtime failure or subject retry.",
+  "lateRecoveryCustody": {
+    "all109ConsumedReturnPins": "same controls() entry and finally exit route",
+    "purePredicateUnchanged": true,
+    "sourceInventoryAndAllNineInheritedFunctionASTsUnchanged": true,
+    "syntaxRechecked": true
+  },
+  "stagingCorrection": {
+    "originalExpected": 27,
+    "actualStaged": 26,
+    "excluded": "CONTROL_DELTA.patch",
+    "rule": ".gitignore:133 .ai-workspace/**/*.patch",
+    "disposition": "Removed the newly authored derived patch from the publication packet; no ignore bypass, executable change or original evidence deletion. Actual driver and original prove.py remain independently pinned."
+  }
+}

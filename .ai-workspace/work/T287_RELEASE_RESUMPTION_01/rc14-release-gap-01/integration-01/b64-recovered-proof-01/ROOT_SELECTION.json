@@ -1,0 +1,207 @@
+{
+  "id": "RC14-B64-RECOVERED-SOURCE-FIRST-PROOF-001",
+  "recordedUtc": "2026-11-16T16:45:44.308567+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner continue/finish RC14; AGENTS evidence ordering/deferred-assurance and exact conforming donor recovery. Root conjoins closed Product/Design/Proof and Runtime/Integration/Identity/Effect/Proof source frames.",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": "Fixed5.0 F17/S06 actual admitted historical assessor context through authenticated new-Run selector/full held-cold assembly; ABG retains admission, identity, binding, ancestry, membership and replay authority. Tests/controls are derived evidence.",
+  "freeze": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/FROZEN_SOURCE.json",
+    "bytes": 5603,
+    "sha256": "ca6b97ab3553aefe811fd9b800654638ab01f95100ecb085403cd3c81a40c095"
+  },
+  "operatorReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/OPERATOR_RETURN.json",
+    "bytes": 40440,
+    "sha256": "14fe764d4cdb6187a507818ba83e0f41be4209e3bd80b09d79afc1259879a3a7"
+  },
+  "authorAudit": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/AUTHOR_AUDIT.json",
+    "bytes": 8171,
+    "sha256": "eae20856517b28537a074a2a913ad08fe8e47c65a54ec2f385b8b91be5adacfa"
+  },
+  "inputExit": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/INPUTS_EXIT.json",
+    "bytes": 77337,
+    "sha256": "e87b10fa3847049981136888b828221ea0745f066caa6f813b466e58100f7de7"
+  },
+  "runtimeClosure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/RUNTIME_CLOSURE.json",
+    "bytes": 869529,
+    "sha256": "83e466270723c887f568b892158d7e38e9971c7e6021a22371e560da92ac3e07"
+  },
+  "sourceFiles": [
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "bytes": 135542,
+      "sha256": "b941ee9905066fb2d29b1c5dd29d961830605786f86d59e0126af9fce1e0bf1e",
+      "executable": false
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "bytes": 45883,
+      "sha256": "37c5f9d8a9cee5f378456a7736c6ce1f6f217c18f4e0cd08334376b745a81dc2",
+      "executable": false
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "bytes": 119802,
+      "sha256": "8090a9e9b6ccb7b4e7f8e408d6f5ee2256ffed0d0b0fa3289ff4d479fbab80a6",
+      "executable": false
+    }
+  ],
+  "rootPinVerification": {
+    "uniqueAbsoluteReturnPins": 111,
+    "allThreeFrozenCopies": true
+  },
+  "closedReviews": [
+    {
+      "actor": "/root/amendment_topology_review",
+      "frame": "Product/Design/Proof",
+      "verdict": "adequate_for_first_composition_discriminator_with_explicit_capture_deferrals"
+    },
+    {
+      "actor": "/root/s01_completion_controls_review",
+      "frame": "Runtime/Integration/Identity/Effect/Proof",
+      "verdict": "adequate_for_first_composition_discriminator_with_explicit_capture_deferrals"
+    }
+  ],
+  "supportedRelation": "Actual Public setup, genuine observed adverse native fold/admitted_member holder, actual secondRun intake/authentication, retained complete selector binding/request and whole held/cold assembly; all39original+3B64top-level titles retained. No additional source counterexample to normal-path constructability established.",
+  "historicalFailureStanding": {
+    "nativeRun": "failed",
+    "result": "not_found",
+    "replay": "failed",
+    "terminal": null,
+    "authorCompleted": false,
+    "reportPresent": false,
+    "resourceClosed": true,
+    "processGroupsAbsent": true,
+    "methodDeviations": [
+      "CONTENT-01 required historical member bodies not actually returned before dependent edits",
+      "COMPLETION-01 actual45min absolute timeout and absent report/completion"
+    ],
+    "retroactiveCompliance": false
+  },
+  "rootAdditionalAcquisition": {
+    "scope": "Read-only original counterexample physical reference316 and selected301/505/577 member coordinates plus full decoded2042B application/scala_spark/build.sbt body; this is Root current acquisition, not author remediation.",
+    "eventResourceBytes": 13730678,
+    "eventResourceSha256": "207b160914a2fea0f0dac745f87bf70a12ee70eb0cf0b992d8e593a0c717bc47",
+    "memberSha256": "b4d1a944d7d7644be47be455f54e231d746b2083bf2a205efe19a0c04745bb47",
+    "relation": "316 references301 exact native task;505 retains context.entries[1] by admitted_member under historical basis;577 has same bytes inline in current context under differentRun. Read/parsing is not event admission or proof."
+  },
+  "deferrals": [
+    {
+      "id": "B64-TAR-PRIMARY",
+      "owningFrames": [
+        "Product/Design/Proof",
+        "Runtime/Integration/Identity/Effect/Proof"
+      ],
+      "source": {
+        "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+        "bytes": 135542,
+        "sha256": "b941ee9905066fb2d29b1c5dd29d961830605786f86d59e0126af9fce1e0bf1e",
+        "executable": false
+      },
+      "lines": "1035-1038",
+      "counterexample": "Original tar child Error replaced; simultaneous capture failure can become primary.",
+      "noBlockRationale": "Affects failure provenance/custody, not actual normal-path admission or assembly joins. Test stays fail-closed; actual positive candidate checks remain mandatory. No complete-capture or full-B64 claim.",
+      "lawfulReentry": "One test-owned source correction through separately activated native Worker under existing outcome; no Product/runtime/HOW change.",
+      "repair": "Retain actual Error, preserve secondary capture and rethrow original.",
+      "activationTrigger": "Before complete B64 capture/source acceptance or final5.0 qualification; any encounter with this failure during the first discriminator returns immediately for Root disposition.",
+      "dependentBoundary": "First composition proof may proceed with this explicit limitation; complete capture and release closure remain blocked.",
+      "closureFalsifier": "Observed primary/secondary loss or scratch deletion in its declared failure case.",
+      "closureEvidence": "Child failure with and without capture failure retains actual primary.",
+      "owner": "Root Executive selects bounded Worker and independent affected proof",
+      "status": "DEFERRED_REGISTERED_TECHNICAL_DEBT"
+    },
+    {
+      "id": "B64-SETUP-CLOSE-CAPTURE",
+      "owningFrames": [
+        "Product/Design/Proof",
+        "Runtime/Integration/Identity/Effect/Proof"
+      ],
+      "source": {
+        "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+        "bytes": 135542,
+        "sha256": "b941ee9905066fb2d29b1c5dd29d961830605786f86d59e0126af9fce1e0bf1e",
+        "executable": false
+      },
+      "lines": "957",
+      "counterexample": "Secondary setup-close receipt capture failure silently discarded.",
+      "noBlockRationale": "Affects failure provenance/custody, not actual normal-path admission or assembly joins. Test stays fail-closed; actual positive candidate checks remain mandatory. No complete-capture or full-B64 claim.",
+      "lawfulReentry": "One test-owned source correction through separately activated native Worker under existing outcome; no Product/runtime/HOW change.",
+      "repair": "Attach/report capture failure through existing retained failure channel.",
+      "activationTrigger": "Before complete B64 capture/source acceptance or final5.0 qualification; any encounter with this failure during the first discriminator returns immediately for Root disposition.",
+      "dependentBoundary": "First composition proof may proceed with this explicit limitation; complete capture and release closure remain blocked.",
+      "closureFalsifier": "Observed primary/secondary loss or scratch deletion in its declared failure case.",
+      "closureEvidence": "Setup primary plus successful close plus capture failure retains both failures.",
+      "owner": "Root Executive selects bounded Worker and independent affected proof",
+      "status": "DEFERRED_REGISTERED_TECHNICAL_DEBT"
+    },
+    {
+      "id": "B64-FINAL-CAPTURE-CLEANUP",
+      "owningFrames": [
+        "Product/Design/Proof",
+        "Runtime/Integration/Identity/Effect/Proof"
+      ],
+      "source": {
+        "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+        "bytes": 135542,
+        "sha256": "b941ee9905066fb2d29b1c5dd29d961830605786f86d59e0126af9fce1e0bf1e",
+        "executable": false
+      },
+      "lines": "1029,646,1273",
+      "counterexample": "Success flag precedes final seal, permitting scratch/event-log deletion after final capture failure.",
+      "noBlockRationale": "Affects failure provenance/custody, not actual normal-path admission or assembly joins. Test stays fail-closed; actual positive candidate checks remain mandatory. No complete-capture or full-B64 claim.",
+      "lawfulReentry": "One test-owned source correction through separately activated native Worker under existing outcome; no Product/runtime/HOW change.",
+      "repair": "Mark successful cleanup eligible only after wrapper/final capture succeeds.",
+      "activationTrigger": "Before complete B64 capture/source acceptance or final5.0 qualification; any encounter with this failure during the first discriminator returns immediately for Root disposition.",
+      "dependentBoundary": "First composition proof may proceed with this explicit limitation; complete capture and release closure remain blocked.",
+      "closureFalsifier": "Observed primary/secondary loss or scratch deletion in its declared failure case.",
+      "closureEvidence": "Final seal failure fails case and preserves scratch/event resource.",
+      "owner": "Root Executive selects bounded Worker and independent affected proof",
+      "status": "DEFERRED_REGISTERED_TECHNICAL_DEBT"
+    }
+  ],
+  "adoption": "Adopt exact frozen bytes only as a recovered source subject adequate for one earliest composition discriminator. Full source-task/capture/B64 acceptance remains withheld; failed author and original proof predicate remain unchanged.",
+  "selectedProof": {
+    "builds": 1,
+    "build": "One fresh ordinary npm run build on an isolated exact source mirror",
+    "files": [
+      "t287-native-semantic-job.test.mjs"
+    ],
+    "mode": "whole",
+    "fileBudgetMs": 1800000,
+    "buildBudgetMs": 600000,
+    "maximumMs": 5400000,
+    "hardNotAfterUtc": "2026-11-16T18:39:42.544329Z",
+    "cleanupReserveMs": 180000,
+    "firstFailureStops": true,
+    "retries": 0,
+    "candidateArtifact": "b64-historical-revision.candidate.json",
+    "acceptance": "Existing complete actual candidate/population/identity/custody checks; no filtered pass credit, no old successful author/completed report assumption."
+  },
+  "proofGate": "A separately reviewed and activated recovered-source proof gate must bind this adoption, exact failed source/audit/close/custody and actual deferrals. Original prove.py remains unchanged and ineligible. No forged AUTHOR_COMPLETION, empty-deviation audit or reclassification of old failure.",
+  "remaining": [
+    "Three registered capture debts",
+    "Inherited-parent/older-binding and C2 composition",
+    "Other two changed whole files",
+    "Installed S06",
+    "Candidate replacement/qualification/final release"
+  ],
+  "proofExecutionAuthorized": false,
+  "sourceTaskAccepted": false,
+  "qualified": false,
+  "rawPublished": false
+}
