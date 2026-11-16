@@ -50,8 +50,22 @@
     }
   ],
   "state": "ACTUAL_NATIVE_DISPATCH_PHASE_REACHED",
-  "actorObservationPending": true,
+  "actorObservationPending": false,
   "proofAuthorized": false,
   "qualified": false,
-  "rawPublished": false
+  "rawPublished": false,
+  "actor": {
+    "observedBy": "/root/rc14_release_proof",
+    "startedUtc": "2026-11-16T01:09:48.760Z",
+    "pid": 2065,
+    "run": "run://abiogenesis/0154e9a5ae8684d23a48fbb96616bd173c84154b1cc0ec1cd818efeb83187a3d",
+    "eventOrdinal": 18,
+    "observedProtocolModel": "claude-opus-5-5",
+    "observedCliVersion": "2.1.322",
+    "effort": "xhigh configured transport argument; no extra provider-internal inference",
+    "actualPromptBytes": 13017,
+    "contextEntries": 411,
+    "contextBytes": 9922403,
+    "protocolRelativePath": "runtime/resources/archives/fp-16260a972327dc29-stdout.log"
+  }
 }
