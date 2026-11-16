@@ -1,0 +1,53 @@
+{
+  "kind": "static_actual_expression_projection",
+  "layout": {
+    "worksite": "/private/tmp/abg-rc14-b64-recovered-proof-subject-20261117-01",
+    "writePaths": [
+      "/private/tmp/abg-rc14-b64-recovered-proof-subject-20261117-01/AGENTS.md",
+      "/private/tmp/abg-rc14-b64-recovered-proof-subject-20261117-01/CLAUDE.md",
+      "/private/tmp/abg-rc14-b64-recovered-proof-subject-20261117-01/stdo_abiogenesis.json",
+      "/private/tmp/abg-rc14-b64-recovered-proof-subject-20261117-01/specification",
+      "/private/tmp/abg-rc14-b64-recovered-proof-subject-20261117-01/build_tenants",
+      "/private/tmp/abg-rc14-b64-recovered-proof-subject-20261117-01/.ai-workspace"
+    ],
+    "protectedRoots": [
+      "/private/tmp/abg-rc14-b64-composition-source-20261116-01",
+      "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01",
+      "/private/tmp/abg-rc14-b64-composition-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01",
+      "/Users/jim/src/apps/abiogenesis",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+      "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant",
+      "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.13",
+      "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03/public-setup/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01",
+      "/private/tmp/abg-rc14-s01-proof-source-20261117-03",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-03",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-adverse-revision-01",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
+      "/private/tmp/abg-rc14-historical-context-source-20261116-01",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02",
+      "/private/tmp/abg-rc14-historical-context-source-20261116-02",
+      "/private/tmp/abg-rc14-historical-context-source-20261116-03",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03",
+      "/private/tmp/abg-rc14-s01-proof-source-20261116-01",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01",
+      "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md"
+    ],
+    "archiveRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-recovered-proof-20261117-01/proof-01"
+  },
+  "writeCount": 6,
+  "protectedCount": 29,
+  "observerBoundCount": 37,
+  "maximum": 64,
+  "lexicallyDisjoint": true,
+  "physicalObservation": false,
+  "activeS01PathsOnly": true
+}

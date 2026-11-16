@@ -1,0 +1,71 @@
+{
+  "id": "RC14-B64-COMPOSITION-PRESERVATION-WRITER-052",
+  "recordedUtc": "2026-11-16T16:45:44.308567+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "actor": "/root",
+  "role": "Separate exact-byte preservation Writer, not semantic source author",
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_RECOVERED_SOURCE_FIRST_PROOF_SELECTION_01.json",
+    "bytes": 13533,
+    "sha256": "23699cda8867f1aab08e2bb6f0d8307411d8ebb841d631b19c805d34df2b7b38"
+  },
+  "mainPreimageCommit": "8415600db23ec63891c2c34274181f505fe7bdb6",
+  "preimages": [
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "bytes": 89557,
+      "sha256": "7fe05f0c559df9490a25896bf9bfdf2ac37eb069e0faad818f1eb83484d8488b"
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "bytes": 43882,
+      "sha256": "e04c414964db7c02c70d73ba0b15c21c40e2b1f8ac064182b3a1c702c6b590ec"
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "bytes": 117972,
+      "sha256": "7a5f077b75df15828f39d1aed8e296d58d56842c4d4e3ffce895ac55b9106246"
+    }
+  ],
+  "postimages": [
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "bytes": 135542,
+      "sha256": "b941ee9905066fb2d29b1c5dd29d961830605786f86d59e0126af9fce1e0bf1e",
+      "executable": false
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "bytes": 45883,
+      "sha256": "37c5f9d8a9cee5f378456a7736c6ce1f6f217c18f4e0cd08334376b745a81dc2",
+      "executable": false
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "bytes": 119802,
+      "sha256": "8090a9e9b6ccb7b4e7f8e408d6f5ee2256ffed0d0b0fa3289ff4d479fbab80a6",
+      "executable": false
+    }
+  ],
+  "precondition": {
+    "S01SourceFixed": "8415600db23ec63891c2c34274181f505fe7bdb6",
+    "S01SourcePreimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-03/SOURCE_PREIMAGE.json",
+      "bytes": 445034,
+      "sha256": "4e26f8cb18c2a21f7d0cbbf2374f2513f921426ddd888bf4fee927548779ef29"
+    },
+    "observedByOperator": true
+  },
+  "effects": [
+    "Verify exact three preimages and frozen postimages; copy only those three files byte-for-byte to main; stage/commit/push with compact records.",
+    "No edits/repairs/formatting, no test/build, no source HEAD/index change in old frozen or activeS01checkout, no raw Git."
+  ],
+  "standing": "Preserves recovered first-discriminator subject, not complete source/capture/B64 acceptance.",
+  "qualified": false
+}

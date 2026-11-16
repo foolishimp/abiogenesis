@@ -1,0 +1,132 @@
+{
+  "kind": "recovered_source_proof_control_manifest",
+  "files": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 9410,
+      "sha256": "375fea1f4e8f5c8567507cfdfc20d8d7c1eb5fe1a2068231f934da587ed8875c"
+    },
+    {
+      "path": "CONTROL_DELTA.json",
+      "bytes": 2232,
+      "sha256": "c1c176700013212e7b80e805a02cf33bbc0ce115040eebba1fcc218df366be28"
+    },
+    {
+      "path": "DEPENDENCY_INPUTS.json",
+      "bytes": 895,
+      "sha256": "2de0b14967eb409e8d8dec21ea0c3b750efcf0edd2c88640841c977cb07b82b5"
+    },
+    {
+      "path": "EVIDENCE_INPUTS.json",
+      "bytes": 8502,
+      "sha256": "289997931567ccdbf196577b50c9af55dbfd1c310251ec501c36fe83a860357e"
+    },
+    {
+      "path": "FIXTURE_INPUTS.json",
+      "bytes": 385,
+      "sha256": "d6e2fa50924084f0af6b22b060bf29778ca4b028b2fd32612eabd0f9eca4e5dd"
+    },
+    {
+      "path": "LAYOUT.json",
+      "bytes": 1019,
+      "sha256": "0553c287b9d6feef7937c490db9dfa919f533f98c5355a20ce7f330f2de32461"
+    },
+    {
+      "path": "LAYOUT_PROJECTION.json",
+      "bytes": 4074,
+      "sha256": "9161936a30c0e8b86e036e5b25beccfb37df457d0c27b9ac947e95750dbbdfc2"
+    },
+    {
+      "path": "NATIVE_INPUTS.json",
+      "bytes": 717,
+      "sha256": "8d8c79b881c6662ed733445518170576e722b48e8d01d955f6a57c84da5da312"
+    },
+    {
+      "path": "ORIGINAL_CANDIDATE.json",
+      "bytes": 1783,
+      "sha256": "9703849426432fa35bd358d7e61392505c86bd158b51bb17b785017d7845ed36"
+    },
+    {
+      "path": "PREPARATION_START.json",
+      "bytes": 210,
+      "sha256": "4ef06051e12f1af4d179841668ae74f14b62cb65fbec0913cb9e19869a9105c8"
+    },
+    {
+      "path": "PROOF_LAUNCH.template.json",
+      "bytes": 1748,
+      "sha256": "fcf637bff78c3ad2833e15a94982b5594eb9a9ec2d7bbc26a331d55ad1ac531f"
+    },
+    {
+      "path": "PROOF_PLAN.json",
+      "bytes": 9036,
+      "sha256": "f4ffca0732f8e8316207abbefd7658e88b0e2ad41cce847356f0fe4087d9ac37"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1591,
+      "sha256": "43de4d488c82cbc27b8a9c14628dd0fb5d20efa6f9b47ea406eefcea3994f5ee"
+    },
+    {
+      "path": "RECOVERY_INPUTS.json",
+      "bytes": 7213,
+      "sha256": "20f13586c53f4169ed5caa92eac0a14e6fc0052dd18916f584ec2e7f88c3534c"
+    },
+    {
+      "path": "ROOT_PREPARATION.json",
+      "bytes": 5461,
+      "sha256": "1e5f1ce641d0104371e78ccdbe4eda88b4efd9256d49c29488618baea91ee538"
+    },
+    {
+      "path": "ROOT_SELECTION.json",
+      "bytes": 13533,
+      "sha256": "23699cda8867f1aab08e2bb6f0d8307411d8ebb841d631b19c805d34df2b7b38"
+    },
+    {
+      "path": "SOURCE_PRESERVATION.json",
+      "bytes": 4079,
+      "sha256": "b0d7633dd4c219f759acc401a139f4cfb6c131e0b3abaeccf755757932949ea4"
+    },
+    {
+      "path": "STATIC_CHECKS.json",
+      "bytes": 5442,
+      "sha256": "34de84d5bea06f91c088f89f167dcbb635a3b0a5b12195d93ad070e114a778b0"
+    },
+    {
+      "path": "TOOL_INPUTS.json",
+      "bytes": 1492,
+      "sha256": "e228a81cc6014a92f407b6abdaa858c04a244fadac49ca51a2afd0b0ea2fdcbb"
+    },
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "recovered-proof.py",
+      "bytes": 25469,
+      "sha256": "959e5dce29b6b9f73de9fc80c88a5d3e359827d55ad1f095c4129bc6eb3d467e"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ],
+  "executionAuthorized": false,
+  "originalNativeManifest": {
+    "path": "/private/tmp/abg-rc14-b64-composition-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-composition-repair-01/CONTROL_MANIFEST.json",
+    "bytes": 5549,
+    "sha256": "c785577a9de0f94eca74863f2ff7fec7558c84840d8b7f91be0982e71a7dd01c"
+  },
+  "standing": "Frozen external controls only; Root must bind and separately authorize actual proof."
+}

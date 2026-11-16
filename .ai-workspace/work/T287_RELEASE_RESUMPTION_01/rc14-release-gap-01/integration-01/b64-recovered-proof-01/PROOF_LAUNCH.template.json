@@ -1,0 +1,27 @@
+{
+  "activationId": "RC14-B64-RECOVERED-PROOF-001",
+  "proofAuthorized": false,
+  "executionAuthorized": false,
+  "executionControlRoot": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01",
+  "sourceHead": "e0ef262bb51d6f7aa36b4a3adeffe40ae1f255b5",
+  "nativeLaunchSha256": "1fd6f6f8b36b10223a3cd6eefd55a6795c66836d34ee6b2a90c127f87fa3f3d7",
+  "controlStartSha256": "4417615e29b7f82c0a038e98373605e32fd33874dbee92fec77a1a79b8006eb9",
+  "nativeControlManifestSha256": "c785577a9de0f94eca74863f2ff7fec7558c84840d8b7f91be0982e71a7dd01c",
+  "controlManifestSha256": null,
+  "rootAcceptance": null,
+  "pushedCheckpoint": null,
+  "sourcePostimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/SOURCE_POSTIMAGE.json",
+    "bytes": 658734,
+    "sha256": "a876a213a1147da5edb68a6adefda84212c8c92e56eb4373c2adcfb52e2dbc3e"
+  },
+  "sourceDiffSha256": "8b1f25ca88d04ab6211cb49881eb9c9d1c564e858f2647c8e98460ca1f50d566",
+  "authorAuditSha256": "eae20856517b28537a074a2a913ad08fe8e47c65a54ec2f385b8b91be5adacfa",
+  "recoverySelectionSha256": "23699cda8867f1aab08e2bb6f0d8307411d8ebb841d631b19c805d34df2b7b38",
+  "originalHardDeadlineUtc": "2026-11-16T18:39:42.544329Z",
+  "nativeEvidenceRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01",
+  "proofRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-recovered-proof-20261117-01",
+  "proofSubject": "/private/tmp/abg-rc14-b64-recovered-proof-subject-20261117-01",
+  "actualProofClock": null,
+  "qualified": false
+}

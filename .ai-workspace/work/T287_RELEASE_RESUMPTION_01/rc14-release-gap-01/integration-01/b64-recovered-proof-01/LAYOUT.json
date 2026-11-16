@@ -1,0 +1,13 @@
+{
+  "source": "/private/tmp/abg-rc14-b64-composition-source-20261116-01",
+  "nativeEvidenceRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01",
+  "proofRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-recovered-proof-20261117-01",
+  "proofSubject": "/private/tmp/abg-rc14-b64-recovered-proof-subject-20261117-01",
+  "executionControlRoot": "/private/tmp/abg-rc14-b64-recovered-proof-controls-20261117-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/b64-recovered-proof-01",
+  "activeProtectedRoots": [
+    "/private/tmp/abg-rc14-s01-proof-source-20261117-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-03"
+  ],
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "standing": "Prospective coordinate recipe only; no physical observation or stationary read of active S01 roots."
+}
