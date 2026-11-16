@@ -1,0 +1,41 @@
+{
+  "id": "RC14-B56-NATIVE05-PREFLIGHT-DISPOSITION-01",
+  "recordedUtc": "2026-11-16T01:07:17.178044+00:00",
+  "writerActivation": "RC14-ROOT-B56-FIXTURE05-RECORDS-WRITER-037",
+  "governingGrant": "B56_NATIVE_ACTIVATION_05.json",
+  "sourceHead": "46375994b2eb1773d055ce8b16fe5bedc62b4ac0",
+  "failure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/OPERATOR_PREFLIGHT_OR_LAUNCH_FAILURE.json",
+    "bytes": 463,
+    "sha256": "458940a203067d1191d7be89a1c73d53aaf7c0ccc215d639f731537852cd49bf"
+  },
+  "triage": {
+    "ProductDesignIdentity": "Reuse exact native SDK Tool-versus-source/control classification and accepted native_inputs owner from independent Product/Design/Identity review in B56_PROOF_PREFLIGHT_DISPOSITION_01.json. Current declaration and consumer remain unchanged; this caller key has no Product or test semantic effect.",
+    "ProofEffect": {
+      "actor": "/root/b29_vm_triage",
+      "verdict": "Actual declaration has inputFiles196 and no inputs. Accepted native_inputs219-224 consumes inputFiles, count/row-set digest and each path.is_file()+digest. Caller-only KeyError before runtime; one-key correction closes its cause.",
+      "declarationBytes": 51233,
+      "declarationSha256": "f0073d316c1c2ca67c7d7672830162633b3067001dbcb4df0370b6718694cad7",
+      "inputFiles": 196,
+      "rowsSha256": "31cddc493fb30f9271f4d457467a411bc7f3ed9a2e4931d047114fe31a442e14"
+    },
+    "rootAcquisition": "Exact failure record, declaration keys/count/rows digest and accepted native_inputs217-225 read; raw directory contains only failure receipt and no clock.",
+    "recurrence": "Inline preflight re-expressed a stable native-input owner and selected a nonexistent key. Consume exact declared inputFiles shape and existing row predicate; do not infer a generic pinned-input schema."
+  },
+  "disposition": "After this record is pushed, Operator005 continues the unperformed native05 preflight from existing clean source/raw. Correct only nativeDecl[inputs] to nativeDecl[inputFiles]; all196 count/row-set/native-source/digest checks remain. Existing native-file predicate follows admitted SDK symlinks. No source/control/helper change or new runtime attempt.",
+  "preservation": {
+    "failureRetained": true,
+    "sourceRoot7And315SourceAnd7ImmutableChecksPassed": true,
+    "sourceHeadUnchanged": true,
+    "helperImportsBeforeFailure": 0,
+    "sourcePreimageBeforeFailure": false,
+    "operateInvocations": 0,
+    "providers": 0,
+    "clockStarted": false,
+    "clockReset": false,
+    "newSourceMaterialization": false
+  },
+  "operatorContinuation": "RC14-B56-NATIVE-OPERATOR-005, same finite one-provider grant and source46375994b. Record this exact disposition pin and pushed checkpoint in external preflight/launch/Return; preserve failure and all historical clocks. No proof/build/test/candidate effects.",
+  "qualified": false,
+  "rawPublished": false
+}
