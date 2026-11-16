@@ -1,0 +1,409 @@
+{
+  "id": "RC14-CANDIDATE02-INSTALL-RETURN-001",
+  "role": "Separate finite mechanical install Operator",
+  "status": "closed_same_archive_mechanical_install_passed",
+  "recordedUtc": "2026-11-16T02:22:53.638241+00:00",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_INSTALL_ACTIVATION_01.json",
+    "bytes": 15079,
+    "sha256": "651f6d2dfb13616d2c65b1a15dffa4eb48f2cd110d23777fb5ef9b80e4252ed6"
+  },
+  "pushedCheckpoint": "c5184aa7d36abd400f566e8a0b3aad67a2d7c5b1",
+  "acceptedBuild": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_BUILD_ACCEPTANCE_01.json",
+    "bytes": 4010,
+    "sha256": "c848098f471a2b19dfbc2e976970668d2b2bf9d77c4261f22762739540d9af6b"
+  },
+  "source": {
+    "commit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "tree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+    "tenantTree": "f4cdd7aaa099ed80de34ead41e0cb73f451f92d3",
+    "C0": "/private/tmp/abg-rc14-candidate-source-20261116-02",
+    "cleanAndUnchanged": true
+  },
+  "candidate": {
+    "cutRecord": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/CUT_RECORD.json",
+      "bytes": 10529,
+      "sha256": "f7aa025826e6732726bf8aedac3ed8305ece21ede83e5ebfc5bc8d321f9388aa"
+    },
+    "archive": {
+      "name": "abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+      "bytes": 10815210,
+      "sha256": "be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz"
+    },
+    "members": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/ARCHIVE_MEMBERS.json",
+      "bytes": 1094277,
+      "sha256": "6fbf0d20f29ae5515896455599f50e2f582a2ccbcb5eb7590c0bfb60ab5a7f60"
+    },
+    "identity": {
+      "artifactDigest": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+      "productContentDigest": "sha256:74058d1e18aaa98e7b5ad0c30f682fe45e82b1c49237dabc4c72e956d0eb918f",
+      "manifestDigest": "sha256:1d694d8b04776bd081a4f48bdefe5199d79b3cd6f885ed5718fe59d1e7e097fb"
+    },
+    "buildRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source/build_tenants/abiogenesis/typescript"
+  },
+  "clock": {
+    "startedUtc": "2026-11-16T02:21:15.240263+00:00",
+    "completedUtc": "2026-11-16T02:21:45.194926+00:00",
+    "deadlineUtc": "2026-11-16T02:36:15.240263+00:00",
+    "executionStopUtc": "2026-11-16T02:35:45.240263+00:00",
+    "elapsedMs": 29955,
+    "withinOriginalDeadline": true,
+    "reset": false
+  },
+  "installation": {
+    "installRecord": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/INSTALL_RECORD.json",
+      "bytes": 6910,
+      "sha256": "91e616261fd75da4848c129d8d8ab3a6cb351538bd6669e98559c08becd25021"
+    },
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.14/74058d1e18aaa98e7b5ad0c30f682fe45e82b1c49237dabc4c72e956d0eb918f/06ab2de5335a17a626d7e76a210120b53c1c208b7d397f1a48febe53d81686a2",
+    "host": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/install-host",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/install-host/node_modules/@abiogenesis/typescript-tenant",
+    "bootstrapRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+    "bootstrapManifest": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package/product-toolchain-manifest.json",
+      "bytes": 3101102,
+      "sha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e"
+    },
+    "installedManifest": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/install-host/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3101102,
+      "sha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e"
+    },
+    "members": 5302,
+    "installedFiles": 5302,
+    "bootstrapFiles": 5302,
+    "bothFullTreesEqualArchiveBothDirections": true,
+    "owners": {
+      "imported": "archive bootstrap extraction",
+      "verification": "verified",
+      "lock": "resolved_product_lock",
+      "installation": "materialized",
+      "installCandidateInLock": true,
+      "installedContentMatches": true
+    },
+    "ProductInstallWallMs": 3328,
+    "helperWallMs": 25835,
+    "records": [
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/verification.json",
+        "bytes": 14682927,
+        "sha256": "65585c2467784d1b6da79a2d1bccbcf30a42fcd5a43029e890ded27aba9d6f45"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/resolved-lock.json",
+        "bytes": 4256559,
+        "sha256": "5a3ccfc962718826a66505a4976a30a83e59c6c957dd382e2b6fa96f4531ab67"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/installation.json",
+        "bytes": 3947922,
+        "sha256": "6d0108a36ebb1b514979d339b6001eb229a344e14d5154b06f83126336eec758"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/payload-correspondence.json",
+        "bytes": 1030818,
+        "sha256": "9a92c145a981b63586004fcff35f6c333b2611eaef0f9db881c6e7f4798d2181"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/INSTALL_RECORD.json",
+        "bytes": 6910,
+        "sha256": "91e616261fd75da4848c129d8d8ab3a6cb351538bd6669e98559c08becd25021"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/SHA256SUMS",
+        "bytes": 433,
+        "sha256": "f535d36db9916a85d0026964f7bfab9e79f66a6ebf0ba4dd1c88d88e293be7a0"
+      }
+    ],
+    "claims": {
+      "local": true,
+      "unqualified": true,
+      "published": false,
+      "providerCalls": 0,
+      "nativeRuns": 0,
+      "tagsCreated": false,
+      "selectorChanged": false,
+      "pinChanged": false,
+      "qualificationTransferredFromEarlierCandidates": false
+    }
+  },
+  "custody": {
+    "sourceRows": 2261,
+    "sourceEntryExitByteEqual": true,
+    "fullOriginalBuildRows": 6654,
+    "completePinnedInputs": 83,
+    "pinsEntryExitEqual": true,
+    "originalAndCopiedDependencyRows": 4576,
+    "npmRows": 2326,
+    "nativeHostInputs": 196,
+    "checks": [
+      {
+        "name": "full_C0_source2261",
+        "matched": true
+      },
+      {
+        "name": "C0_HEAD",
+        "matched": true
+      },
+      {
+        "name": "C0_index",
+        "matched": true
+      },
+      {
+        "name": "C0_clean",
+        "matched": true
+      },
+      {
+        "name": "all_original_and_current_control_tool_build_output_pins",
+        "matched": true
+      },
+      {
+        "name": "complete_original_build_tree",
+        "matched": true
+      },
+      {
+        "name": "original_dependencies4576",
+        "matched": true
+      },
+      {
+        "name": "copied_build_dependencies4576",
+        "matched": true
+      },
+      {
+        "name": "npm2326",
+        "matched": true
+      },
+      {
+        "name": "native196_and_C_source",
+        "matched": true
+      },
+      {
+        "name": "installed_full_both_directions",
+        "matched": true
+      },
+      {
+        "name": "bootstrap_full_both_directions",
+        "matched": true
+      },
+      {
+        "name": "owned_process_groups_absent",
+        "matched": true
+      }
+    ],
+    "ownedGroups": [
+      {
+        "command": "001-c0-head",
+        "pid": 47321,
+        "processGroup": 47321,
+        "absent": true
+      },
+      {
+        "command": "002-c0-index",
+        "pid": 47323,
+        "processGroup": 47323,
+        "absent": true
+      },
+      {
+        "command": "003-c0-status",
+        "pid": 47325,
+        "processGroup": 47325,
+        "absent": true
+      },
+      {
+        "command": "004-install-candidate",
+        "pid": 47357,
+        "processGroup": 47357,
+        "absent": true
+      },
+      {
+        "command": "005-exit-c0-head",
+        "pid": 47657,
+        "processGroup": 47657,
+        "absent": true
+      },
+      {
+        "command": "006-exit-c0-index",
+        "pid": 47658,
+        "processGroup": 47658,
+        "absent": true
+      },
+      {
+        "command": "007-exit-c0-status",
+        "pid": 47659,
+        "processGroup": 47659,
+        "absent": true
+      }
+    ],
+    "allNamedGroupsAbsentAtReturn": true,
+    "globalAbsenceClaim": false
+  },
+  "environment": {
+    "outer": {
+      "HOME": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/environment/home",
+      "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "LANG": "en_US.UTF-8",
+      "LC_ALL": "en_US.UTF-8",
+      "TMPDIR": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/environment/tmp",
+      "GIT_TERMINAL_PROMPT": "0",
+      "GIT_OPTIONAL_LOCKS": "0",
+      "CI": "1",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "actualInstallChild": {
+      "HOME": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/environment/home",
+      "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "LANG": "en_US.UTF-8",
+      "LC_ALL": "en_US.UTF-8",
+      "CI": "1",
+      "GIT_TERMINAL_PROMPT": "0",
+      "GIT_OPTIONAL_LOCKS": "0",
+      "TMPDIR": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/scratch/install-apply-20261116T022116860Z-47357/tmp",
+      "NODE_OPTIONS": "--max-old-space-size=8192",
+      "npm_config_userconfig": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/scratch/install-apply-20261116T022116860Z-47357/npm/npm-user.npmrc",
+      "npm_config_globalconfig": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/scratch/install-apply-20261116T022116860Z-47357/npm/npm-global.npmrc",
+      "npm_config_cache": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/scratch/install-apply-20261116T022116860Z-47357/npm/cache",
+      "npm_config_offline": "true",
+      "npm_config_ignore_scripts": "true",
+      "npm_config_audit": "false",
+      "npm_config_fund": "false",
+      "npm_config_update_notifier": "false"
+    },
+    "credentialFreeExplicitConstruction": true
+  },
+  "commands": [
+    {
+      "name": "001-c0-head",
+      "exitCode": 0,
+      "elapsedMs": 107,
+      "ownedGroupAbsent": true
+    },
+    {
+      "name": "002-c0-index",
+      "exitCode": 0,
+      "elapsedMs": 107,
+      "ownedGroupAbsent": true
+    },
+    {
+      "name": "003-c0-status",
+      "exitCode": 0,
+      "elapsedMs": 107,
+      "ownedGroupAbsent": true
+    },
+    {
+      "name": "004-install-candidate",
+      "exitCode": 0,
+      "elapsedMs": 25835,
+      "ownedGroupAbsent": true
+    },
+    {
+      "name": "005-exit-c0-head",
+      "exitCode": 0,
+      "elapsedMs": 108,
+      "ownedGroupAbsent": true
+    },
+    {
+      "name": "006-exit-c0-index",
+      "exitCode": 0,
+      "elapsedMs": 107,
+      "ownedGroupAbsent": true
+    },
+    {
+      "name": "007-exit-c0-status",
+      "exitCode": 0,
+      "elapsedMs": 107,
+      "ownedGroupAbsent": true
+    }
+  ],
+  "evidence": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/START.json",
+      "bytes": 1535,
+      "sha256": "1d5daa08df828b297057dc4d641d1f85f1b1461e60ed6f07be9224bcc149f68d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/LAUNCH.json",
+      "bytes": 2914,
+      "sha256": "be7980769df48f9dfcc8effbcd25a277ba17eba3f778bd635f105d21c298f36a"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/INPUTS_ENTRY.json",
+      "bytes": 3923492,
+      "sha256": "dc0b5c3792a207c2f3ea73b7d5844164bffcbb0839e6b554f583c53c0c3121c4"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/INPUTS_EXIT.json",
+      "bytes": 798269,
+      "sha256": "b98cd1e72722596ea7578a26ffb8aa458440cd698e45ee00b0f0b4d3d7a68ec0"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/RETURN.json",
+      "bytes": 6807,
+      "sha256": "65eb3b1bd1bf55b55df1b89c80f02e31e8e3cbeed522f7cc4ebb4a0082cdb9fa"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/OUTPUTS.json",
+      "bytes": 3119,
+      "sha256": "d169f6482fdc2fc8ddae3577f63d0c6051016cdc3601d698803a2b4b0f11c5f0"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/CORRESPONDENCE.json",
+      "bytes": 2571862,
+      "sha256": "fb545a58e0f54d861e716c0fd6d633de2a1b7159a56494135757cb5a38877f64"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/GROUP_ABSENCE.json",
+      "bytes": 888,
+      "sha256": "3a9d2bb15fb32330e2ef830c7572f1430aeb4bbcf7e2bb3c5fe2827550860d4a"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/OPERATOR_COMMAND.txt",
+      "bytes": 14687,
+      "sha256": "e4e29edbdb59e3c9d46df7e81f01a8d1007c73048fca9ba3795cbfec27a813af"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/commands/004-install-candidate/START.json",
+      "bytes": 1371,
+      "sha256": "4b9037b8aef59cc946dc85ac6c4fc4533e6cd4e1021a512af3cd17131b354ead"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/commands/004-install-candidate/PID.json",
+      "bytes": 44,
+      "sha256": "fbc6e7030a6ac8e0f9fde45cd28f36bd62cba4e2ff33af2d47e4bb2b9f6dbd50"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/commands/004-install-candidate/RETURN.json",
+      "bytes": 459,
+      "sha256": "b3aebd3e4c75de33ad5bbf437c550e8b74f808e982a69fc41934a275bacc0acd"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/commands/004-install-candidate/stdout.raw",
+      "bytes": 760,
+      "sha256": "2565bfc49b83b1d592a43a8ad6b04237df7ff4100fa3ce6e1c955233de01b615"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/commands/004-install-candidate/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "nextBoundary": "Return to Root for independent acceptance and a separately bound actual Public setup. This install record is not the Public installed/0/identity.json carrier.",
+  "limits": [
+    "Mechanical installation of the exact unqualified archive only; no Public setup/runtime admission or lifecycle witness was invoked.",
+    "C0, full original build, archive, original global RC14 install and operational RC13 pin were preserved.",
+    "No metadata/C1, build, provider, qualification, AF25, publication or selector change.",
+    "Exact bootstrap is available for the separate Public setup using this same archive; no prior candidate witness credit transfers."
+  ],
+  "builds": 0,
+  "providers": 0,
+  "retries": 0,
+  "qualified": false,
+  "publicSetupInvoked": false,
+  "rawPublished": false,
+  "mainChanged": false,
+  "pushed": false
+}
