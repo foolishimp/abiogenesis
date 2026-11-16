@@ -759,7 +759,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T15:31:03.840308+00:00",
+  "updatedUtc": "2026-11-16T15:40:51.255685+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1654,7 +1654,7 @@
     "runtimeRetryAuthorized": false
   },
   "b64Repair": {
-    "state": "COMPOSITION_CONTROLS_ACCEPTED_NATIVE_AUTHORIZED_AFTER_PUSH",
+    "state": "COMPOSITION_ACTUAL_HOST_SETUP_STARTED",
     "selection": "integration-01/B64_HISTORICAL_CONTEXT_CONJUNCTION_AND_REENTRY_01.json",
     "activation": "integration-01/B64_NATIVE_CONTROL_PREPARATION_ACTIVATION_01.json",
     "actor": "/root",
@@ -1756,7 +1756,11 @@
     "compositionPreparation": "integration-01/B64_COMPOSITION_CONTROL_PREPARATION_01.json",
     "controlReentry": "integration-01/B64_COMPOSITION_CONTROL_REENTRY_01.json",
     "compositionControlsCommit": "bbaa0694e5e99727b31da18857c1a4329bcfebf4",
-    "compositionActivation": "integration-01/B64_COMPOSITION_NATIVE_ACTIVATION_01.json"
+    "compositionActivation": "integration-01/B64_COMPOSITION_NATIVE_ACTIVATION_01.json",
+    "compositionSourceHead": "e0ef262bb51d6f7aa36b4a3adeffe40ae1f255b5",
+    "compositionHostStartedUtc": "2026-11-16T15:39:42.544329Z",
+    "compositionDeadlineUtc": "2026-11-16T18:39:42.544329Z",
+    "compositionActorStarted": false
   },
   "releaseGateCensus02": {
     "state": "BOUNDED_EVIDENCE_MAPPING_ACCEPTED_NOT_QUALIFICATION",
@@ -1805,7 +1809,9 @@
     "nativeReturnedUtc": "2026-11-16T11:00:30.295Z",
     "actorAbsent": true,
     "next": "Preserve exact partial source after B64 binding freezes, prepare same-three-file RC13 completion using actual selected setup definition/request and complete failure capture.",
-    "sourceDisposition": "integration-01/S01_SOURCE01_DISPOSITION_01.json"
+    "sourceDisposition": "integration-01/S01_SOURCE01_DISPOSITION_01.json",
+    "source01PreservedOnMain": true,
+    "preservation": "integration-01/S01_SOURCE01_PRESERVATION_ACTIVATION_01.json"
   },
   "s06SuccessorHistoryPreflight": {
     "state": "EXISTING_ROUTE_SUPPORTED_CONDITIONALLY",

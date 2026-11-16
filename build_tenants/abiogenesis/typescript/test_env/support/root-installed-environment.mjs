@@ -179,12 +179,48 @@ export function rawProgramInput(validator, publicationAdmission, program) {
 
 // Options that select what is installed. They belong to the install phase; a
 // case opened on a shared install may repeat them only with the same value.
+// `exportedSurfacesOnly` selects the bounded root-witness owner surface: every
+// installed owner is loaded through the installed package's own `exports` map
+// and no unexported implementation module is imported. Component callers keep
+// the default surface, which also loads the implementation leaf-port owners.
 const INSTALL_OPTION_KEYS = Object.freeze([
   "frozenArtifact",
   "candidateBasisSource",
   "rootPublicationKind",
   "prepareAdditionalProducts",
+  "exportedSurfacesOnly",
 ]);
+
+// Optional same-episode custody: an `episodeSink` with `record(name, value)`
+// receives each actual owner-returned setup candidate before support asserts
+// on it, so a failed or later-cleaned case cannot discard it. Absent sink
+// records nothing.
+function recordSetup(options, name, value) {
+  options.episodeSink?.record(name, value);
+}
+
+/** The exact `import` target the installed package exports for `subpath`. */
+export async function exportedImportHref(packageRootPath, subpath) {
+  const packageJson = JSON.parse(await readFile(join(packageRootPath, "package.json"), "utf8"));
+  const entry = packageJson.exports?.[subpath];
+  const target = typeof entry === "string" ? entry : entry?.import;
+  assert.equal(typeof target, "string", `${packageJson.name} exports no import target for ${subpath}`);
+  assert.equal(target.startsWith("./"), true, `${packageJson.name} ${subpath} export is not package-relative`);
+  return pathToFileURL(join(packageRootPath, target)).href;
+}
+
+async function loadInstalledOwners(packageRootPath, subpaths, query, exportedOnly, defaultTargets) {
+  const ownerModules = [];
+  const owners = {};
+  for (const [name, subpath] of Object.entries(subpaths)) {
+    const href = exportedOnly
+      ? await exportedImportHref(packageRootPath, subpath)
+      : pathToFileURL(join(packageRootPath, defaultTargets[name])).href;
+    ownerModules.push(Object.freeze({ owner: name, subpath, exported: exportedOnly, href }));
+    owners[name] = await import(`${href}?${query}`);
+  }
+  return { owners, ownerModules };
+}
 
 async function provisionInstalledTenant(scratch, packageRoot, options) {
   const frozenArtifact = selectedFrozenArtifact(options);
@@ -221,9 +257,16 @@ async function provisionInstalledTenant(scratch, packageRoot, options) {
     consumerRoot = join(scratch, "consumer");
   }
   phaseStarted = performance.now();
-  const bootstrapProduct = await import(
-    `${pathToFileURL(join(bootstrapPackage, "build/code/src/product/index.js")).href}?artifact=${Date.now()}`
-  );
+  const exportedOnly = options.exportedSurfacesOnly === true;
+  const bootstrapOwnerModules = [];
+  const bootstrapImport = async (owner, subpath, target) => {
+    const href = exportedOnly
+      ? await exportedImportHref(bootstrapPackage, subpath)
+      : pathToFileURL(join(bootstrapPackage, target)).href;
+    bootstrapOwnerModules.push(Object.freeze({ owner, subpath, exported: exportedOnly, href }));
+    return import(`${href}?artifact=${Date.now()}`);
+  };
+  const bootstrapProduct = await bootstrapImport("product", "./product", "build/code/src/product/index.js");
   if (frozenArtifact !== null) {
     assert.equal(
       await bootstrapProduct.sha256File(artifactPath),
@@ -250,9 +293,7 @@ async function provisionInstalledTenant(scratch, packageRoot, options) {
         packageVersion: candidateManifest.packageVersion,
       }
     : persistedCandidateBasis;
-  const bootstrapGtl = await import(
-    `${pathToFileURL(join(bootstrapPackage, "build/code/src/gtl/index.js")).href}?artifact=${Date.now()}`
-  );
+  const bootstrapGtl = await bootstrapImport("gtl", "./gtl", "build/code/src/gtl/index.js");
   const bootstrapRootPublication = constructRootPublication(
     bootstrapGtl,
     candidateBasis,
@@ -282,19 +323,25 @@ async function provisionInstalledTenant(scratch, packageRoot, options) {
     artifactRef: basename(artifactPath),
     ...expectedVerificationIdentity(candidateBasis),
   });
+  recordSetup(options, "setup-candidate-basis", { artifactPath, candidateBasis,
+    bootstrapOwnerModules, additionalProducts: additionalProducts.map(({ artifactPath: path, artifactRef, basis, ids }) =>
+      ({ artifactPath: path, artifactRef, basis, ids })) });
+  recordSetup(options, "setup-verified", verified);
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
   const additionalVerified = [];
-  for (const prepared of additionalProducts) {
+  for (const [index, prepared] of additionalProducts.entries()) {
     const value = await bootstrapProduct.verifyProduct({
       artifactPath: prepared.artifactPath,
       artifactRef: prepared.artifactRef,
       ...expectedVerificationIdentity(prepared.basis),
     });
+    recordSetup(options, `setup-additional-verified-${index}`, value);
     assert.equal(value.disposition, "verified", JSON.stringify(value));
     additionalVerified.push(value);
   }
   const verifiedProducts = [verified, ...additionalVerified];
   const lock = bootstrapProduct.constructResolvedProductLock(verifiedProducts);
+  recordSetup(options, "setup-lock", lock);
   assert.equal(lock.kind, "resolved_product_lock", JSON.stringify(lock));
   accountSetupPhase(options, "provisioning_verify_artifact", phaseStarted);
   phaseStarted = performance.now();
@@ -304,6 +351,7 @@ async function provisionInstalledTenant(scratch, packageRoot, options) {
     verifiedArtifact: verified,
     resolvedLock: lock,
   });
+  recordSetup(options, "setup-install-candidate", installCandidate);
   assert.equal(installCandidate.disposition, "materialized", JSON.stringify(installCandidate));
   accountSetupPhase(options, "provisioning_install", phaseStarted);
   phaseStarted = performance.now();
@@ -327,6 +375,7 @@ async function provisionInstalledTenant(scratch, packageRoot, options) {
       verifiedArtifact: additionalVerified[index],
       resolvedLock: lock,
     });
+    recordSetup(options, `setup-additional-install-candidate-${index}`, candidate);
     assert.equal(candidate.disposition, "materialized", JSON.stringify(candidate));
     assert.equal(
       bootstrapProduct.isProductInstallCandidate(candidate, lock),
@@ -345,23 +394,36 @@ async function provisionInstalledTenant(scratch, packageRoot, options) {
   const installedRoot = installCandidate.installedRoot;
   const nonce = Date.now();
   phaseStarted = performance.now();
-  const product = await import(`${pathToFileURL(join(installedRoot, "build/code/src/product/index.js")).href}?env=${nonce}`);
-  const abg = await import(`${pathToFileURL(join(installedRoot, "build/code/src/abg/index.js")).href}?env=${nonce}`);
-  const gtl = await import(`${pathToFileURL(join(installedRoot, "build/code/src/gtl/index.js")).href}?env=${nonce}`);
-  const hog = await import(`${pathToFileURL(join(installedRoot, "build/code/src/hog/index.js")).href}?env=${nonce}`);
-  const implementationLeafPort = await import(
+  const { owners: { product, abg, gtl, hog, validator }, ownerModules } = await loadInstalledOwners(
+    installedRoot,
+    { product: "./product", abg: "./abg", gtl: "./gtl", hog: "./hog", validator: "./validator" },
+    `env=${nonce}`,
+    exportedOnly,
+    {
+      product: "build/code/src/product/index.js",
+      abg: "build/code/src/abg/index.js",
+      gtl: "build/code/src/gtl/index.js",
+      hog: "build/code/src/hog/index.js",
+      validator: "build/code/src/validator/index.js",
+    },
+  );
+  // The implementation modules are not package exports. Only the default
+  // component surface loads them, for callers that construct a leaf port.
+  const implementationLeafPort = exportedOnly ? undefined : await import(
     `${pathToFileURL(join(installedRoot, "build/code/src/implementation/leaf_invocation_port.js")).href}?env=${nonce}`
   );
-  const implementation = await import(
+  const implementation = exportedOnly ? undefined : await import(
     `${pathToFileURL(join(installedRoot, "build/code/src/implementation/index.js")).href}?env=${nonce}`
   );
-  const validator = await import(`${pathToFileURL(join(installedRoot, "build/code/src/validator/index.js")).href}?env=${nonce}`);
   accountSetupPhase(options, "installed_owner_loading", phaseStarted);
   return {
     kind: "installed_tenant",
     installOptions: Object.freeze(Object.fromEntries(
       INSTALL_OPTION_KEYS.map((key) => [key, options[key]]),
     )),
+    ownerSurface: exportedOnly ? "exported" : "component",
+    ownerModules: Object.freeze([...bootstrapOwnerModules.map((row) => Object.freeze({ ...row, root: "bootstrap" })),
+      ...ownerModules.map((row) => Object.freeze({ ...row, root: "installed" }))]),
     rootPublicationKind: options.rootPublicationKind,
     usesLanguageFixture,
     scratch,
@@ -438,6 +500,7 @@ async function openInstalledCaseEnvironment(scratch, install, options, storeHold
       },
       lock,
     );
+    recordSetup(options, `setup-install-admission-${index}`, admitted);
     assert.equal(admitted.kind, "artifact_owner_result", JSON.stringify(admitted));
     admittedInstallResults.push(admitted);
     installPrefix = admitted.successorPrefix;
@@ -492,6 +555,7 @@ async function openInstalledCaseEnvironment(scratch, install, options, storeHold
     },
     workspaceAuthority,
   );
+  recordSetup(options, "setup-workspace-binding", { productSet, workspaceAuthority, bindingCandidate, workspaceBindingResult });
   assert.equal(
     workspaceBindingResult.kind,
     "artifact_owner_result",
@@ -529,7 +593,9 @@ async function openInstalledCaseEnvironment(scratch, install, options, storeHold
       packageName: candidateBasis.packageName, packageVersion: candidateBasis.packageVersion });
   });
   const publications = [rootPublication, ...corePublications, ...additionalPublications];
+  recordSetup(options, "setup-publications", publications);
   const publicationChecks = requirePublicationValidations(validator, publications);
+  recordSetup(options, "setup-publication-validations", publicationChecks);
   const selectedPublications = options.programRef === undefined ? [usesLanguageFixture ? additionalPublications[0] : rootPublication]
     : publications.filter(p => p.programs.some(program => program.programRef === options.programRef));
   assert.equal(selectedPublications.length, 1, "one exact selected Program publication");
@@ -571,6 +637,7 @@ async function openInstalledCaseEnvironment(scratch, install, options, storeHold
     (program) => program.programRef === rootProgramRef,
   );
   let programValidation = rootValidationIndex === -1 ? undefined : programValidations[rootValidationIndex];
+  recordSetup(options, "setup-program-validations", programValidations);
   assert.equal(publicationValidation.kind, "publication_validation", JSON.stringify(publicationValidation));
   if (!semanticPrograms.some((program) => program.programRef === rootProgramRef) && !crossPublicationProgram)
     assert.equal(programValidation?.kind, "program_validation", JSON.stringify(programValidation));
@@ -616,6 +683,7 @@ async function openInstalledCaseEnvironment(scratch, install, options, storeHold
     installedProducts: catalogInstalledProducts,
     publications,
   });
+  recordSetup(options, "setup-catalog", catalog);
   assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
   const workspaceAdditionalProduct = additionalProducts[
     (options.workspaceProductIndex ?? (usesLanguageFixture ? 1 : 0)) - 1
@@ -628,6 +696,7 @@ async function openInstalledCaseEnvironment(scratch, install, options, storeHold
         LANGUAGE_TEST_IDS.graphFunctionRef,
     ],
   );
+  recordSetup(options, "setup-catalog-view", catalogView);
   assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
   if (crossPublicationProgram) {
     // The Product closure owner resolves the Program over the genuine Catalog;
@@ -663,6 +732,9 @@ async function openInstalledCaseEnvironment(scratch, install, options, storeHold
     implementationLeafPort,
     implementation,
     validator,
+    ownerSurface: install.ownerSurface,
+    ownerModules: install.ownerModules,
+    candidateBasis,
     store,
     artifactTruth: workspaceBindingResult.artifactTruth,
     durablePrefix: workspaceBindingResult.successorPrefix,
@@ -682,8 +754,10 @@ async function openInstalledCaseEnvironment(scratch, install, options, storeHold
     workspaceAuthority,
     bindingCandidate,
     workspaceBinding,
+    workspaceBindingResult,
     publication,
     publications,
+    publicationChecks,
     additionalPublications,
     additionalProducts,
     publicationAdmission,
@@ -1310,6 +1384,8 @@ export async function setupInstalledRootExecutionBasis(
   const semantics = environment.executionResolution.productSemantics;
   const semanticsProjection =
     environment.product.projectInstalledLeafSemantics(semantics);
+  assert.ok(environment.implementationLeafPort,
+    "a leaf-port component route requires the default installed owner surface; the exported-only root route loads no implementation module");
   const leafPort = await environment.implementationLeafPort.constructAdmittedLeafInvocationPort({
     prefix: abg.selectValidatedRuntimeEventPrefix(
       abg.readRuntimeEventsAtDurablePrefix(
