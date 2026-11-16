@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B64_FROZEN_AFTER_TIMEOUT_S01_OPERATOR03_PREPARING",
+  "status": "RC14_B64_RECOVERY_REVIEW_S01_COMPLETION03_AUTHORIZED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -64,7 +64,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-15T23:46:44.978702+00:00",
-  "nativeAuthorState": "No native author currently running. B64 frozen after45min timeout, independent source review active; S01 external-controls successor preparing after pre-dispatch stop.",
+  "nativeAuthorState": "B64 failed source attempt frozen; independent recovery review active. S01 controls03 accepted; fresh native source-only launch authorized after exact checkpoint push.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1787,7 +1787,7 @@
     "qualificationPerformed": false
   },
   "s01RootProofGap": {
-    "state": "ATTEMPT02_CLOSED_BEFORE_NATIVE_EXTERNAL_CONTROLS_SUCCESSOR_SELECTED",
+    "state": "CONTROLS03_ACCEPTED_NATIVE03_AUTHORIZED_AFTER_PUSH",
     "record": "integration-01/S01_ROOT_PROOF_GAP_TRIAGE_01.json",
     "candidate02SmokePreserved": true,
     "completeS01": false,
@@ -1821,7 +1821,7 @@
     "methodCompliant": false,
     "nativeReturnedUtc": "2026-11-16T11:00:30.295Z",
     "actorAbsent": true,
-    "next": "Bind external control invocation location and retain observer failure output, then independently reviewed new source-only attempt. No Product/source repair from this stop.",
+    "next": "Use exact accepted external control executable, freeze pushed source03 and launch one RC13 source-only completion; eventual frozen review and installed episode remain separate.",
     "sourceDisposition": "integration-01/S01_SOURCE01_DISPOSITION_01.json",
     "source01PreservedOnMain": true,
     "preservation": "integration-01/S01_SOURCE01_PRESERVATION_ACTIVATION_01.json",
@@ -1836,12 +1836,15 @@
     },
     "completion02ProviderCalls": 0,
     "completion02SourceEdits": 0,
-    "completion03Preparation": "integration-01/S01_OPERATOR02_DISPOSITION_AND_CONTROL_REENTRY_03.json"
+    "completion03Preparation": "integration-01/S01_OPERATOR02_DISPOSITION_AND_CONTROL_REENTRY_03.json",
+    "completion03ControlsCommit": "509306cc9393ae8de20f846660ddea921590dc37",
+    "completion03Activation": "integration-01/S01_COMPLETION_NATIVE_ACTIVATION_03.json",
+    "completion03ProviderStarted": false
   },
   "s06SuccessorHistoryPreflight": {
     "state": "EXISTING_ROUTE_SUPPORTED_CONDITIONALLY",
     "record": "integration-01/S06_SUCCESSOR_HISTORY_PREFLIGHT_01.json",
     "executionAuthorized": false
   },
-  "lastUpdatedUtc": "2026-11-16T16:29:29.240303+00:00"
+  "lastUpdatedUtc": "2026-11-16T16:40:35.222086+00:00"
 }
