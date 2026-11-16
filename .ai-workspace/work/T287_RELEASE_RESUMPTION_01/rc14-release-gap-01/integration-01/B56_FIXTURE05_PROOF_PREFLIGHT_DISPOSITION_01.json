@@ -1,0 +1,50 @@
+{
+  "id": "RC14-B56-FIXTURE05-PROOF-PREFLIGHT-DISPOSITION-01",
+  "recordedUtc": "2026-11-16T01:49:31.307002+00:00",
+  "writer": "RC14-ROOT-B56-FIXTURE05-RECORDS-WRITER-037",
+  "grant": "B56_FIXTURE05_SOURCE_AND_PROOF_ACTIVATION_01.json",
+  "grantSha256": "460d99a8208c36f1c71f1839514cfd3c3f7777dcc49c5e08fd6037fd1f1035fd",
+  "failure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/FIXTURE05_PROOF_PREFLIGHT_FAILURE_01.json",
+    "bytes": 644,
+    "sha256": "203ae6e8174a9e8843657d19358090ae761ab195d63e1785ef1ef9d314801164"
+  },
+  "closedReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/FIXTURE05_PROOF_PREFLIGHT_RETURN_01.json",
+    "bytes": 4096,
+    "sha256": "8677431852ddb5f76a947e674ef68cc8cf86cc0f70093651cea9331da0f510cc"
+  },
+  "actualCallerText": {
+    "bytes": 26402,
+    "sha256": "a2bb7e49cac2ce7bc98b60a13fe55eaf14aef628bb6c6c7150270231d1776433",
+    "route": "Closed Return binds the retained actual inline command; raw evidence only."
+  },
+  "triage": {
+    "ProductDesignIdentity": "Prior independently closed source/owner relation remains unchanged: fixture5a72c8f7, sevenimmutable, no source/helper/Product change. Failure is external comparison projection only.",
+    "ProofIdentity": {
+      "actor": "/root/b29_vm_triage",
+      "verdict": "Confirmed caller-only ordering mismatch. Frozen1584unique rows are string-path ordered; accepted tree()82-89 sorts pathlib.Path components. Four displaced positions only; frozen inventory/digest must stay unchanged.",
+      "rootAcquisition": "Root independently reproduced exact four displaced positions at225/226 and1043/1044 from frozen SOURCE_POSTIMAGE; actual fixture and full-index patch remain exact.",
+      "actualInventoryComparison": "Operator closed read-only comparison found1584identical paths, zero missing/extra rows and zero byte/hash/executable differences."
+    },
+    "cause": "Caller projected mode fields but sorted by a different order from the existing destination inventory owner. Existing complete row identities were not changed.",
+    "affectedCone": "source_inventory caller expected-row ordering only. Built postimage/exit and fresh mirror use existing tree order; source315 are per-path pins; dependencies/native use their own unchanged owner outputs."
+  },
+  "correction": {
+    "before": "expected.sort(key=lambda x:x['path']);assert rows==expected",
+    "after": "expected.sort(key=lambda x:P(x['path']));assert rows==expected",
+    "preserve": "All count/unique-path/byte/hash/executable checks; frozen postimage raw bytes and digest f7dda546 remain unchanged; no helper edit or deduplication."
+  },
+  "continuation": "After this record is pushed, same RC14-B56-FIXTURE05-PROOF-OPERATOR-001 continues unperformed preflight with only comparator correction. Preserve failure, closed Return and original inline text. Bind this disposition and failed/closed preflight records as protected input pins; preflight complete actual topology cardinality. No new source, runner, build, provider, scope or clock reset.",
+  "stateAtFailure": {
+    "proofClockStarted": false,
+    "topologyCommands": 0,
+    "mirrorCreated": false,
+    "testCommands": 0,
+    "providers": 0,
+    "sourceHeadAndIndexUnchanged": true,
+    "originalHostDeadlineUtc": "2026-11-16T04:09:05.055532+00:00"
+  },
+  "qualified": false,
+  "rawPublished": false
+}
