@@ -1,0 +1,54 @@
+{
+  "id": "RC14-B64-COMPOSITION-EXECUTION-STARTED-001",
+  "recordedUtc": "2026-11-16T15:47:00.853395+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_COMPOSITION_NATIVE_ACTIVATION_01.json",
+    "bytes": 11068,
+    "sha256": "bb9573fedd4ff409a73e772314490531866ee1cbad6b66075f7665e6f6e6b11a"
+  },
+  "sourceHead": "e0ef262bb51d6f7aa36b4a3adeffe40ae1f255b5",
+  "sourceMaterialization": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/SOURCE_MATERIALIZATION.json",
+    "bytes": 123322,
+    "sha256": "717a0246354b16fd733851ca0f11e3e2a65af0f16205deb58e80aee5c510aa5d"
+  },
+  "sourcePreimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/SOURCE_PREIMAGE.json",
+    "bytes": 801070,
+    "sha256": "7c4f92f7ecc04cdfa56269a7cad50f51168605f8086907cb46b8c2383eec1f61"
+  },
+  "launch": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/LAUNCH.json",
+    "bytes": 6309,
+    "sha256": "1fd6f6f8b36b10223a3cd6eefd55a6795c66836d34ee6b2a90c127f87fa3f3d7"
+  },
+  "controlStart": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/CONTROL_START.json",
+    "bytes": 1201,
+    "sha256": "4417615e29b7f82c0a038e98373605e32fd33874dbee92fec77a1a79b8006eb9"
+  },
+  "host": {
+    "pid": 72806,
+    "startedUtc": "2026-11-16T15:39:42.544329Z",
+    "deadlineUtc": "2026-11-16T18:39:42.544329Z"
+  },
+  "actualActor": {
+    "observation": "Operator observed actor event18 and actual protocol model initialization.",
+    "startedUtc": "2026-11-16T15:40:56.816Z",
+    "pid": 73959,
+    "run": "run://abiogenesis/1508608b14d21385ce97061ece4c39096b8434fb1e03942b5f037483572c3ddf",
+    "modelObserved": "claude-opus-5-5",
+    "effortConfigured": "xhigh",
+    "nativeCeilingMs": 2700000,
+    "maxTurns": 360
+  },
+  "setupHeldUtc": "2026-11-16T15:40:50.052Z",
+  "dispatchUtc": "2026-11-16T15:40:51.902Z",
+  "contextEntries": 416,
+  "contextBytes": 10038379,
+  "sourceComplete": false,
+  "proofStarted": false,
+  "qualified": false,
+  "rawPublished": false
+}

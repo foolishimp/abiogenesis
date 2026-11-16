@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B64_COMPOSITION_NATIVE_AUTHORIZED_S01_COMPLETION_SELECTED",
+  "status": "RC14_B64_COMPOSITION_ACTOR_RUNNING_S01_COMPLETION_PREPARING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -64,7 +64,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-15T23:46:44.978702+00:00",
-  "nativeAuthorState": "B64 genuine-composition controls accepted and exact native source call authorized after push; actual provider start not yet observed. S01 source reviews closed with setup-provenance/capture defects; three-file completion selected.",
+  "nativeAuthorState": "One B64 genuine-composition test author is actually active through pinned RC13. S01 exact partial is preserved on main; targeted three-file completion controls selected.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -759,7 +759,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T15:40:51.255685+00:00",
+  "updatedUtc": "2026-11-16T15:47:00.853395+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1654,7 +1654,7 @@
     "runtimeRetryAuthorized": false
   },
   "b64Repair": {
-    "state": "COMPOSITION_ACTUAL_HOST_SETUP_STARTED",
+    "state": "COMPOSITION_ACTUAL_NATIVE_ACTOR_RUNNING",
     "selection": "integration-01/B64_HISTORICAL_CONTEXT_CONJUNCTION_AND_REENTRY_01.json",
     "activation": "integration-01/B64_NATIVE_CONTROL_PREPARATION_ACTIVATION_01.json",
     "actor": "/root",
@@ -1760,7 +1760,11 @@
     "compositionSourceHead": "e0ef262bb51d6f7aa36b4a3adeffe40ae1f255b5",
     "compositionHostStartedUtc": "2026-11-16T15:39:42.544329Z",
     "compositionDeadlineUtc": "2026-11-16T18:39:42.544329Z",
-    "compositionActorStarted": false
+    "compositionActorStarted": true,
+    "compositionActualDispatch": "integration-01/B64_COMPOSITION_EXECUTION_STARTED_01.json",
+    "compositionActorPid": 73959,
+    "compositionActorStartedUtc": "2026-11-16T15:40:56.816Z",
+    "compositionRunRef": "run://abiogenesis/1508608b14d21385ce97061ece4c39096b8434fb1e03942b5f037483572c3ddf"
   },
   "releaseGateCensus02": {
     "state": "BOUNDED_EVIDENCE_MAPPING_ACCEPTED_NOT_QUALIFICATION",
@@ -1774,7 +1778,7 @@
     "qualificationPerformed": false
   },
   "s01RootProofGap": {
-    "state": "SOURCE01_REVIEW_CLOSED_SETUP_PROVENANCE_AND_CAPTURE_REPAIR_SELECTED",
+    "state": "SOURCE01_PRESERVED_UNACCEPTED_COMPLETION_CONTROLS_PREPARING",
     "record": "integration-01/S01_ROOT_PROOF_GAP_TRIAGE_01.json",
     "candidate02SmokePreserved": true,
     "completeS01": false,
@@ -1808,10 +1812,11 @@
     "methodCompliant": false,
     "nativeReturnedUtc": "2026-11-16T11:00:30.295Z",
     "actorAbsent": true,
-    "next": "Preserve exact partial source after B64 binding freezes, prepare same-three-file RC13 completion using actual selected setup definition/request and complete failure capture.",
+    "next": "Prepare/review narrow source-only successor controls, then real RC13 three-file setup-provenance/capture completion. Later exact installed episode remains separate.",
     "sourceDisposition": "integration-01/S01_SOURCE01_DISPOSITION_01.json",
     "source01PreservedOnMain": true,
-    "preservation": "integration-01/S01_SOURCE01_PRESERVATION_ACTIVATION_01.json"
+    "preservation": "integration-01/S01_SOURCE01_PRESERVATION_ACTIVATION_01.json",
+    "completionPreparation": "integration-01/S01_COMPLETION_CONTROL_PREPARATION_01.json"
   },
   "s06SuccessorHistoryPreflight": {
     "state": "EXISTING_ROUTE_SUPPORTED_CONDITIONALLY",
