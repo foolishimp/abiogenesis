@@ -1,0 +1,135 @@
+{
+  "id": "RC14-B64-NATIVE-ACTIVATION-001",
+  "recordedUtc": "2026-11-16T08:10:39.868125+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner finish RC14/continue; exact B64 owning HOW selection; conjoined independent frozen controls and coordinate-correction reviews. Dispatch only after this record and controls are pushed and the exact source binding is returned.",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": {
+    "outcome": "Unchanged fixed5.0 F17/S06: preserve complete source/evidence, execute declared revision, independent assessment, complete D1/application and consequential D2.",
+    "classification": "Design correction and realization repair of an existing historical evidence presentation obligation; no new Product feature, Public family or semantic policy.",
+    "authoritySplit": "Revision owner authenticates declared historical use; held-prefix/body owner authenticates retained members; instruction assembly presents complete bytes without changing admitted carriers; ABG remains runtime admission authority.",
+    "prohibitions": [
+      "No fresh-workspace substitution for historical bytes, rewrites of old Result/context/binding, fabricated sourceResults/use grants or copied old stage credit.",
+      "No blanket cross-Run/member permission, generic registry, new semantic runtime, oracle weakening or hidden provider prompt."
+    ]
+  },
+  "controls": {
+    "commit": "3ca755e235d89d2f193879d136f45da6bc5667ac",
+    "tree": "901efdb09cf34cdb2cc55b972c8e2d4a1b59735a",
+    "parent": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
+    "mergeCommit": "55ab03ff3b15e448dbc7d87bdff7091c753b2c47",
+    "root": "/private/tmp/abg-rc14-historical-context-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01",
+    "manifest": {
+      "path": "CONTROL_MANIFEST.json",
+      "bytes": 5355,
+      "sha256": "8de7349337f3a34e305ba4007c39ddbaad1c443141d82dc9c469e9282fff808d",
+      "members": 34
+    },
+    "return": {
+      "path": "PREPARATION_RETURN.json",
+      "bytes": 10917,
+      "sha256": "6b0c82c80586223703f57785623953109925642c4b8c70e6f88e80e26aa6a43f"
+    }
+  },
+  "closedReviews": [
+    {
+      "actor": "/root/amendment_topology_review",
+      "frame": "Product/Design/Proof",
+      "verdict": "controls_ready",
+      "finding": "Exact historical-use decision, original carriers, eight W with sufficient R, real admitted-producer regression and whole-file proof are coherent. Former raw-coordinate mismatch closed; Task/proof/source authority unchanged. No source or runtime success claimed."
+    },
+    {
+      "actor": "/root/rc14_release_proof",
+      "frame": "Runtime/Integration/Identity/Effect/Proof",
+      "verdict": "controls_ready",
+      "finding": "HOST and operate acquire canonical ACTIVATION source/raw before dependent use; prove and LAYOUT agree. All34 manifest rows,17 named conserved inputs and five helpers match. Actual typed completion/close/readback, evidence custody, three topology phases, original clocks and separate proof remain."
+    }
+  ],
+  "rootAcquisition": {
+    "manifestRows": 34,
+    "sourceRowsFromFrozenGit": 378,
+    "initialEvidenceRows": 6,
+    "methodRows": 5,
+    "authorityAndBuilderRows": 2,
+    "originalCandidateRows": 4,
+    "tenantTree": "cbb2a63bf596de71dec609ae7be13da8174f6902",
+    "mismatches": 0,
+    "nativeSourceStillUnchanged": true
+  },
+  "capacity": {
+    "initialContextFiles": 373,
+    "initialContextBytes": 9119884,
+    "declaredContextMaxFiles": 1024,
+    "declaredContextMaxBytes": 25165824,
+    "meaning": "Filesystem-observation population. Pinned RC13 native_workspace_work renderer96-107 presents outcome/path lists/instructions/checks and requires filesystem reads; instruction assembly151-168 binds context identity without embedding all bodies.",
+    "limit": "Direct native-work root has no governance maxPromptBytes declaration; actual semantic/prompt capacity is not proved by this static check."
+  },
+  "preservedFailure": {
+    "controlSubject": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
+    "correction": "B64_CONTROL_COORDINATE_CORRECTION_ACTIVATION_01.json",
+    "standing": "No runtime occurred. Original control worktree/commit and its failed claim remain; successor completed within original preparation deadline."
+  },
+  "operatorActivation": {
+    "id": "RC14-B64-NATIVE-OPERATOR-001",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate execution/evidence Operator Writer; semantic source author remains actual installed RC13 native worker",
+    "sourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-01",
+    "sourceBranch": "codex/rc14-historical-context-source-20261116-01",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
+    "sourceBinding": "Exact pushed main checkpoint containing this record and accepted controls, supplied after direct origin parity. Tenant tree and all378 SOURCE_INPUTS rows must equal the accepted frozen controls. No moving main basis.",
+    "effects": [
+      "Create only the selected isolated sparse source checkout from that exact pushed commit. Materialize the full tenant/specification, selected root/method/control inputs; no generated build or dependency tree. Verify source/control equality.",
+      "Create fresh external raw/host scratch and distinct empty npm user/global configuration files. Fill existing LAUNCH.template with exact sourceHead/pushedCheckpoint, this Root acceptance pin, accepted manifest hash/rows and dispatchAuthorized true for one attempt. Preserve disabled committed template.",
+      "Capture exclusive complete SOURCE_PREIMAGE through frozen freeze-source.py. Invoke frozen operate.py once with explicit approved launch path. Actual installed RC13 Public owners perform setup, physical observation, task admission and the one native author call.",
+      "Actual Claude Opus5.5 xhigh native author alone changes selected eight W under the accepted Task and current method. Programmatic edits within W are permitted; no inherited B56 editing-tool ban. No author build/test/pack/install/Git mutation.",
+      "After closed native return, verify actual inner task-matching terminal, resource close, fresh result/closed replay and all custody. Audit every native command and required method/content acquisition, preserving deviations. Freeze full postimage and exact diff, retain original failure if any, and report to Root immediately for source review.",
+      "Keep native checkout HEAD/index unchanged for proof guard; no staging/commit there before proof disposition. A compact authored Return may be committed on a separate records branch after closure. No raw Git or main/push."
+    ],
+    "bounds": {
+      "providerCallsAtMost": 1,
+      "providerConcurrencyGlobal": 2,
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "nativeAbsoluteMs": 2700000,
+      "nativeInactivityMs": 300000,
+      "maxTurns": 360,
+      "enclosingMs": 10800000,
+      "exitReserveMs": 180000,
+      "retry": false
+    },
+    "entry": "The source-attempt original clock begins once on actual operate.py entry. Earlier control-preparation and S06 clocks remain sealed, not reset. Report actual setup/provider entry timestamps and boundaries separately.",
+    "stops": [
+      "First source/control/method identity mismatch, occupied target, missing dependency, actual failure, unsupported terminal, failed physical close or fresh-read mismatch stops advancement and returns preserved evidence.",
+      "Any command/method/scope deviation remains explicit; do not manufacture a compliant audit or automatically activate proof."
+    ],
+    "returnTo": "Root after actual closed source or first failure, with immediate exact source freeze and audit. Independent source review and separate exact proof grant still required."
+  },
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "dispatchAuthorizedAfterPushedBinding": true,
+  "proofAuthorized": false,
+  "proofBoundary": "At most90 minutes clipped to this original3-hour source-attempt deadline with180-second exit reserve. One normal build plus three whole files; mandatory original39 and three named B64 obligations. No automatic proof, clock reset or broad rerun.",
+  "futureCandidate": "Only after accepted source/affected proof: new exact C0/C1/archive/install. No candidate build or S06 retry granted here; latest genuine event close remains mandatory for later re-entry.",
+  "preservation": [
+    "RC13 remains the pinned unqualified builder.",
+    "All previous candidate/archive/install/source/event/failure identities remain historical and immutable.",
+    "Amendment04 remains bounded accepted candidate02 evidence; successor applicability requires explicit source-conservation assessment.",
+    "B50 owner policy/scope remains unanswered; no qualification/AF25/publication/pin change."
+  ],
+  "qualified": false,
+  "rawPublished": false,
+  "newCandidateBuildAuthorized": false
+}
