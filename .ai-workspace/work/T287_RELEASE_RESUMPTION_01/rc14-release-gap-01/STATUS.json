@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B64_COMPOSITION_RUNNING_S01_OPERATOR03_PREPARING",
+  "status": "RC14_B64_FROZEN_AFTER_TIMEOUT_S01_OPERATOR03_PREPARING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -64,7 +64,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-15T23:46:44.978702+00:00",
-  "nativeAuthorState": "B64 composition author remains active. S01 attempt02 stopped before setup/native due unsupported control invocation location; same source completion awaits narrow external-controls successor.",
+  "nativeAuthorState": "No native author currently running. B64 frozen after45min timeout, independent source review active; S01 external-controls successor preparing after pre-dispatch stop.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1654,7 +1654,7 @@
     "runtimeRetryAuthorized": false
   },
   "b64Repair": {
-    "state": "COMPOSITION_ACTUAL_NATIVE_ACTOR_RUNNING",
+    "state": "COMPOSITION_FROZEN_AFTER_ABSOLUTE_TIMEOUT_REVIEW_ACTIVE",
     "selection": "integration-01/B64_HISTORICAL_CONTEXT_CONJUNCTION_AND_REENTRY_01.json",
     "activation": "integration-01/B64_NATIVE_CONTROL_PREPARATION_ACTIVATION_01.json",
     "actor": "/root",
@@ -1739,7 +1739,7 @@
       "sha256": "8e6c591206519525e3da17bffd90eac2cc5d674f2d1627934366a836b810aeb4"
     },
     "buildOrBehavioralProofStarted": false,
-    "next": "Launch exact RC13 three-test author, freeze actual source and audit; separate earliest proof afterward.",
+    "next": "Review exact frozen source and actual audit, then select lawful recovery or bounded source repair; original completed-author proof gate is unsatisfied.",
     "native03Started": true,
     "native03PreflightContinuation": "integration-01/B64_NATIVE03_PREFLIGHT_CONTINUATION_01.json",
     "actorPid": 50590,
@@ -1764,7 +1764,16 @@
     "compositionActualDispatch": "integration-01/B64_COMPOSITION_EXECUTION_STARTED_01.json",
     "compositionActorPid": 73959,
     "compositionActorStartedUtc": "2026-11-16T15:40:56.816Z",
-    "compositionRunRef": "run://abiogenesis/1508608b14d21385ce97061ece4c39096b8434fb1e03942b5f037483572c3ddf"
+    "compositionRunRef": "run://abiogenesis/1508608b14d21385ce97061ece4c39096b8434fb1e03942b5f037483572c3ddf",
+    "compositionActorAbsent": true,
+    "compositionSourceFreeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/FROZEN_SOURCE.json",
+      "bytes": 5603,
+      "sha256": "ca6b97ab3553aefe811fd9b800654638ab01f95100ecb085403cd3c81a40c095"
+    },
+    "compositionTimeout": "integration-01/B64_COMPOSITION_TIMEOUT_01.json",
+    "compositionNativeCompleted": false,
+    "compositionProofExecuted": false
   },
   "releaseGateCensus02": {
     "state": "BOUNDED_EVIDENCE_MAPPING_ACCEPTED_NOT_QUALIFICATION",
@@ -1834,5 +1843,5 @@
     "record": "integration-01/S06_SUCCESSOR_HISTORY_PREFLIGHT_01.json",
     "executionAuthorized": false
   },
-  "lastUpdatedUtc": "2026-11-16T16:24:01.165015+00:00"
+  "lastUpdatedUtc": "2026-11-16T16:29:29.240303+00:00"
 }

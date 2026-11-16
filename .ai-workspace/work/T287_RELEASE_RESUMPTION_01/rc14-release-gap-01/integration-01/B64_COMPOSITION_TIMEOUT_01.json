@@ -1,0 +1,88 @@
+{
+  "id": "RC14-B64-COMPOSITION-TIMEOUT-001",
+  "recordedUtc": "2026-11-16T16:29:29.240303+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "sourceHead": "e0ef262bb51d6f7aa36b4a3adeffe40ae1f255b5",
+  "source": "/private/tmp/abg-rc14-b64-composition-source-20261116-01",
+  "freeze": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/FROZEN_SOURCE.json",
+    "bytes": 5603,
+    "sha256": "ca6b97ab3553aefe811fd9b800654638ab01f95100ecb085403cd3c81a40c095"
+  },
+  "sourcePostimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/SOURCE_POSTIMAGE.json",
+    "bytes": 658734,
+    "sha256": "a876a213a1147da5edb68a6adefda84212c8c92e56eb4373c2adcfb52e2dbc3e"
+  },
+  "diff": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/SOURCE_DIFF.patch",
+    "bytes": 115781,
+    "sha256": "8b1f25ca88d04ab6211cb49881eb9c9d1c564e858f2647c8e98460ca1f50d566"
+  },
+  "nativeReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/runtime/NATIVE_RETURN.json",
+    "bytes": 330915,
+    "sha256": "9a3990219eaf1d2fd66634a7788232b6879ca848831fa53dd0bdc22c19d041df"
+  },
+  "firstFailure": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/runtime/FIRST_FAILURE.json",
+    "bytes": 1279,
+    "sha256": "7c971c4e66e5a1dfc386524babc0f981ce14767ee4b5ec8451ff368a473f7899"
+  },
+  "reportAbsence": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/NATIVE_REPORT_ABSENCE.json",
+    "bytes": 595,
+    "sha256": "92d5aa01a14279b7b810ce0a65798ab1f705910aceea24ba6c629a576ef1f0a6"
+  },
+  "hostReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/HOST_RETURN.json",
+    "bytes": 625,
+    "sha256": "485c3d2a8a3f14af8be80a57f94bbebe7de25057a56a0a974e33cf1113af1869"
+  },
+  "files": [
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "bytes": 135542,
+      "sha256": "b941ee9905066fb2d29b1c5dd29d961830605786f86d59e0126af9fce1e0bf1e",
+      "executable": false
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "bytes": 45883,
+      "sha256": "37c5f9d8a9cee5f378456a7736c6ce1f6f217c18f4e0cd08334376b745a81dc2",
+      "executable": false
+    },
+    {
+      "sourcePath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "bytes": 119802,
+      "sha256": "8090a9e9b6ccb7b4e7f8e408d6f5ee2256ffed0d0b0fa3289ff4d479fbab80a6",
+      "executable": false
+    }
+  ],
+  "actual": {
+    "nativeTimeoutUtc": "2026-11-16T16:25:56.842Z",
+    "timeoutEventSequence": 1483,
+    "actorExitUtc": "2026-11-16T16:25:57.434Z",
+    "actorExitStatus": 143,
+    "stoppedRunEventSequence": 1499,
+    "nativeAbsoluteMs": 2700000,
+    "hostExitCode": 1,
+    "actualResourceClose": true,
+    "freshReadbackFailure": null,
+    "actorPidAndGroupAbsent": true,
+    "hostProcessGroupAbsent": true,
+    "sourceHeadIndexConserved": true,
+    "nativeChangedFiles": 3,
+    "sourceAccepted": false,
+    "proofExecuted": false,
+    "completedAuthorReport": false
+  },
+  "originalEnclosingDeadlineUtc": "2026-11-16T18:39:42.544329Z",
+  "standing": "Frozen unaccepted test source after actual absolute timeout; no source defect inferred solely from timeout, no completion record fabricated. Actual command/method/input custody audit still closing.",
+  "next": "Independent Product/Design/Proof and Runtime/Integration/Identity/Effect/Proof assess exact source constructability, remaining defects and lawful recovery. Original prove.py completed-author predicate is unsatisfied; no proof under that grant. Any recovered-source adoption/proof or source repair requires explicit Root re-entry.",
+  "qualified": false,
+  "rawPublished": false
+}
