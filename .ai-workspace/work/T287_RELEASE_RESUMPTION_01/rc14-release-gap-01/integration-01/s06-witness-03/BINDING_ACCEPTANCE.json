@@ -1,0 +1,113 @@
+{
+  "id": "RC14-S06-03-CONCRETE-BINDING-ACCEPTANCE-001",
+  "recordedUtc": "2026-11-16T03:06:17.433929+00:00",
+  "recordsWriter": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "productFrame": "Fixed5.0 S06 prospectively selected complete lifecycle witness. D1 then consequential D2 revision, actual independent semantic and executable evidence, preservation and closure. Full original Data Mapper T043 and whole Product qualification remain separate.",
+  "sourceRoutes": [
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "integration-01/S06_CONTROL_ACCEPTANCE_04.json",
+    "integration-01/CANDIDATE02_C1_FREEZE_ACCEPTANCE_01.json"
+  ],
+  "authority": "Owner finish RC14 and continue; concrete runtime phase of unchanged pushed S06-03 activation. All original effects, limits, stops and return obligations remain.",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-witness-03/ACTIVATION.json",
+    "bytes": 16088,
+    "sha256": "ed30d5c8faad2f8365484c6681ab00433b08a22b5cf717e0b1081bce23ea1b48"
+  },
+  "preparedBinding": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-03/BINDING.json",
+    "bytes": 8672,
+    "sha256": "77c38686884c59d91772a6de9b164ae8c43d7ad9bce7fb66dca3293b7d81ce40"
+  },
+  "preparationReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-03/PREPARATION_RETURN.json",
+    "bytes": 35224,
+    "sha256": "6709aa5ebc4d11f64f956fe6bf0d97a8d36b0903714b95ab15abc29dae79f22d"
+  },
+  "start": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-03/START.json",
+    "bytes": 1147,
+    "sha256": "be1cb2df459936dc7d1adc2e0ccd0c5bc0e55b13025b29f39997d1e6932aaa39"
+  },
+  "topologyAcceptance": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-03/TOPOLOGY_ACCEPTANCE.json",
+    "bytes": 16088,
+    "sha256": "ed30d5c8faad2f8365484c6681ab00433b08a22b5cf717e0b1081bce23ea1b48"
+  },
+  "candidate": {
+    "sourceCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "sourceTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+    "compileInputTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "archiveSha256": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+    "manifestSha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e",
+    "packageVersion": "5.0.0-rc.14",
+    "cutRecordPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/CUT_RECORD.json",
+    "cutRecordSha256": "f7aa025826e6732726bf8aedac3ed8305ece21ede83e5ebfc5bc8d321f9388aa",
+    "archiveMembersPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/ARCHIVE_MEMBERS.json",
+    "archiveMembersSha256": "6fbf0d20f29ae5515896455599f50e2f582a2ccbcb5eb7590c0bfb60ab5a7f60"
+  },
+  "sourceFinalization": {
+    "C1Commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+    "C1Tree": "22eed3693976419c6ed63117756294001096a280",
+    "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/FREEZE.json",
+      "bytes": 4619,
+      "sha256": "f65eed415da5b31978ffb6fac9f8c2264c5ac554c65c560547e49b1ad51dfc62"
+    },
+    "rootAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_C1_FREEZE_ACCEPTANCE_01.json",
+      "bytes": 3979,
+      "sha256": "b39e546d86be9b41ea96f8cf10cea63391bf4988c93f0ecc4d6cc28b672f1c31"
+    }
+  },
+  "rootVerification": {
+    "absolutePreparationPinsRehashed": 96,
+    "pinMismatches": 0,
+    "acceptedTemplateConfigurationApplicationToolsEqual": true,
+    "candidateSixFieldProjectionExact": true,
+    "grantControlAndProtectedRootsExact": true,
+    "setupEnvironmentOnlyApprovedRawCacheAndTmpSubstitution": true,
+    "topologyAcceptanceByteEqualsGrant": true,
+    "rawWorksiteAndBothToolRootsAbsent": true,
+    "bootstrap5302MembersMatchedDuringPriorRootInstallReviewAndOperatorPreparation": true,
+    "toolLeafEntryAndExitRehashOwnedByUnchangedRunner": true
+  },
+  "activationTransition": {
+    "kind": "separate exact execution binding; original preparation bytes retained",
+    "from": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-03/BINDING.json",
+      "bytes": 8672,
+      "sha256": "77c38686884c59d91772a6de9b164ae8c43d7ad9bce7fb66dca3293b7d81ce40"
+    },
+    "to": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-03/EXECUTION_BINDING.json",
+      "bytes": 8671,
+      "sha256": "02344fe1ee853569fa421dd4ea894dea23a4650952dff1fa2dd4e52bfb7dc3af"
+    },
+    "onlyChange": "Exactly one byte substitution of JSON executionAuthorized false to true; all other bytes unchanged. Do not rewrite original BINDING.json, START.json, PREPARATION_RETURN.json or topology packet."
+  },
+  "clock": {
+    "startedUtc": "2026-11-16T02:55:03.038185+00:00",
+    "deadlineUtc": "2026-11-16T06:55:03.038185+00:00",
+    "executionStopUtc": "2026-11-16T06:52:03.038185+00:00"
+  },
+  "runtimeExecutionAuthorizedAfterPush": true,
+  "operator": "/root/b29_vm_triage",
+  "entry": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/run.py",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-03/EXECUTION_BINDING.json"
+  ],
+  "concurrency": "At most two actual provider executions globally: one amendment lane and one S06 lane. Each lane follows its admitted sequential owner path; monitor actual actor starts/closes and do not launch another lane.",
+  "preflight": "Rehash this pushed acceptance and original grant/START/BINDING/Return/topology; create exact prospective EXECUTION_BINDING once, rehash it, require all original entry/custody/topology checks and fresh roots, then invoke unchanged runner under original clock. No credential values in records.",
+  "firstFailure": "Stop and preserve the first failure plus exit custody/process absence; no repair/retry. Return to Root multi-frame triage.",
+  "return": "Preparation return first: exact actual binding and any smoke-input pins under one original clock. Runtime return only after separately pushed binding acceptance: admitted results/currentness/replay, complete required behavior, exact input/output custody, actual provider/model/cost observations and process closure. First failure preserves evidence and returns without retry.",
+  "qualified": false,
+  "published": false,
+  "rawPublished": false
+}

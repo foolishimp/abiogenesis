@@ -1,0 +1,99 @@
+{
+  "id": "RC14-B60-AMENDMENT04-PREPARATION-CALLER-DISPOSITION-001",
+  "recordedUtc": "2026-11-16T03:06:17.433929+00:00",
+  "recordsWriter": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "productFrame": "Fixed5.0 S03/F17 amendment and selective currentness, real installed Public owner. Actual admitted Testing/correction/review/acceptance and replay are required; application success alone does not satisfy missing currentness coverage.",
+  "authority": "Owner finish RC14 and continue; preparation-only re-entry under unchanged amendment04 activation. No runtime activation or Product/control change.",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-witness-04/ACTIVATION.json",
+    "bytes": 15486,
+    "sha256": "68a2265b1e695fa9c85ecc386d22d18323c70cb9d707aec9b9252ff77c5a2c05"
+  },
+  "failure": {
+    "START.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04/START.json",
+      "bytes": 932,
+      "sha256": "6298bb492c153715a5b21f5de240421462a0eb862caf9d6f2cddfb9014e4f752"
+    },
+    "PREPARATION_FAILURE.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04/PREPARATION_FAILURE.json",
+      "bytes": 295,
+      "sha256": "92ebca683a8c825e70195ba523ef179acffa96782867ef58d82bf69cff7a8b19"
+    },
+    "OPERATOR_PREPARATION_COMMAND.txt": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04/OPERATOR_PREPARATION_COMMAND.txt",
+      "bytes": 13417,
+      "sha256": "ab6831c7a3b2a8031ab8fefd01d0697c0b982696a4427d711e3015d53c9d7ab9"
+    },
+    "PREPARATION_STOP_RETURN.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04/PREPARATION_STOP_RETURN.json",
+      "bytes": 2810,
+      "sha256": "8e9b66d195f4770fb3b1fa12ce7ed7766d28bf9271e9e75a533adfbdcf0afb30"
+    }
+  },
+  "exactSubject": {
+    "cut": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/CUT_RECORD.json",
+      "bytes": 10529,
+      "sha256": "f7aa025826e6732726bf8aedac3ed8305ece21ede83e5ebfc5bc8d321f9388aa"
+    },
+    "install": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/INSTALL_RECORD.json",
+      "bytes": 6910,
+      "sha256": "91e616261fd75da4848c129d8d8ab3a6cb351538bd6669e98559c08becd25021"
+    },
+    "archiveIdentityFields": [
+      "path",
+      "bytes",
+      "sha256"
+    ],
+    "archiveIdentity": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+      "bytes": 10815210,
+      "sha256": "be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65"
+    }
+  },
+  "triangulation": {
+    "independentProductDesignIdentity": {
+      "reviewer": "/root/amendment_topology_review",
+      "finding": "Install producer intentionally records pin(archive): path, bytes, sha256. Cut additionally records name. Whole-object comparison rejects valid different owner shapes; no Product/candidate defect established. Existing smoke-custody.py already owns the exact three-field projection.",
+      "sourceRoutes": [
+        "rc14-cut-preparation-01/install-candidate-rc14.mjs:54",
+        "rc14-cut-preparation-01/cut-common.mjs:51",
+        "amendment-successor-07/smoke-custody.py:99"
+      ],
+      "protectionRetained": "Helper separately verifies actual archive bytes, cut name against members, all bootstrap members and all installed files."
+    },
+    "rootProofEffect": {
+      "allFailurePinsFreshlyMatched": true,
+      "allThreeArchiveIdentityFieldsMatch": true,
+      "originalStartPreserved": true,
+      "noBindingSmokeHelperRuntimeProviderOrCredentialsExecuted": true,
+      "rawAndWorksiteAbsent": true
+    },
+    "originatingViolatedRelation": "Preparation caller compared distinct owner-defined receipt shapes instead of their shared archive identity projection.",
+    "downstreamSymptom": "Assertion before remaining custody/helper work and before any binding/runtime.",
+    "whyPriorChecksMissed": "Pinned receipts and archive bytes were valid; this new inline preparation caller used an unproved whole-object equivalence, unlike the existing accepted custody helper.",
+    "uncertainty": "Remaining preparation and runtime checks still unperformed; no broader success or defect claim."
+  },
+  "decision": "Resume only binding preparation in same binding directory and original clock. Compare required path, bytes and sha256 explicitly, retaining host/package joins and every subsequent custody check unchanged. No new control-source cycle.",
+  "permittedChanges": [
+    "Replace the single whole archive-object equality with all(install[archive][key] == cut[archive][key] for key in [path, bytes, sha256]), using proper literal JSON/Python keys.",
+    "Load and rehash original START instead of mkdir/new START; require only the four already sealed files in existing binding directory and keep raw/worksite absent. Retain original UTC and monotonic deadline/stop.",
+    "Preserve failed command/failure/stop Return. Write a separately named continuation command and new binding/smoke/topology/preparation Return; any second failure receives a distinct sealed record."
+  ],
+  "clock": {
+    "startedUtc": "2026-11-16T02:57:09.962433+00:00",
+    "deadlineUtc": "2026-11-16T05:57:09.962433+00:00",
+    "executionStopUtc": "2026-11-16T05:54:09.962433+00:00",
+    "startedMonotonic": 3616043.91566075,
+    "deadlineMonotonic": 3626843.91566075,
+    "executionStopMonotonic": 3626663.91566075
+  },
+  "runtimeExecutionAuthorized": false,
+  "operator": "/root/rc14_release_proof",
+  "return": "Return concrete false BINDING and SMOKE_INPUTS/topology pins plus all joins to Root; wait for separately pushed binding acceptance before runner.",
+  "firstFailure": "Stop without repair/retry and preserve first failure and original interval.",
+  "qualified": false,
+  "rawPublished": false
+}

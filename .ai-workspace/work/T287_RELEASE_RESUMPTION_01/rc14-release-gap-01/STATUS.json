@@ -1,5 +1,5 @@
 {
-  "status": "RC14_CANDIDATE02_FROZEN_WITNESS_BINDINGS_PENDING",
+  "status": "RC14_CANDIDATE02_S06_BINDING_ACCEPTED_AMENDMENT_PREPARATION_REENTRY",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -719,7 +719,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T02:03:43.854245+00:00",
+  "updatedUtc": "2026-11-16T03:06:17.433929+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1400,15 +1400,19 @@
     "changedDerivedFiles": 8
   },
   "amendmentWitness04": {
-    "state": "BINDING_PREPARATION_AUTHORIZED_AFTER_PUSH",
+    "state": "B60_PROJECTION_ONLY_PREPARATION_REENTRY_SELECTED",
     "activation": "integration-01/amendment-witness-04/ACTIVATION.json",
     "runtimeStarted": false,
-    "qualified": false
+    "qualified": false,
+    "failureDisposition": "integration-01/amendment-witness-04/PREPARATION_CALLER_DISPOSITION.json",
+    "originalDeadlineUtc": "2026-11-16T05:57:09.962433+00:00"
   },
   "s06Witness03": {
-    "state": "BINDING_PREPARATION_AUTHORIZED_AFTER_PUSH",
+    "state": "BINDING_ACCEPTED_RUNTIME_AUTHORIZED_AFTER_PUSH",
     "activation": "integration-01/s06-witness-03/ACTIVATION.json",
     "runtimeStarted": false,
-    "qualified": false
+    "qualified": false,
+    "bindingAcceptance": "integration-01/s06-witness-03/BINDING_ACCEPTANCE.json",
+    "originalDeadlineUtc": "2026-11-16T06:55:03.038185+00:00"
   }
 }
