@@ -1,5 +1,5 @@
 {
-  "status": "RC14_S06_REVISION_RETAINED_BODY_PRESENTATION_FAILURE_TRIAGE",
+  "status": "RC14_B64_HISTORICAL_CONTEXT_REPAIR_CONTROLS_PREPARING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T07:20:58.700763+00:00",
+  "updatedUtc": "2026-11-16T07:31:43.190557+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1650,5 +1650,25 @@
     "closedUtc": "2026-11-16T07:15:15.894676+00:00",
     "sourceRepairSelected": false,
     "runtimeRetryAuthorized": false
+  },
+  "b64Repair": {
+    "state": "OWNING_HOW_CONJOINED_NATIVE_CONTROLS_PREPARATION_SELECTED",
+    "selection": "integration-01/B64_HISTORICAL_CONTEXT_CONJUNCTION_AND_REENTRY_01.json",
+    "activation": "integration-01/B64_NATIVE_CONTROL_PREPARATION_ACTIVATION_01.json",
+    "actor": "/root/b29_vm_triage",
+    "sourceBase": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
+    "nativeWritePaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+    ],
+    "providerStarted": false,
+    "proofAuthorized": false,
+    "candidateBuildAuthorized": false
   }
 }
