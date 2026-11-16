@@ -29,12 +29,39 @@
       "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/revision-intake/session-close.json",
       "bytes": 2263,
       "sha256": "9470f5cb4c1222a34e741dda6e7914948bc30c339b7c934d646bbbc15796c5fb"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/OPERATOR_RETURN.json",
+      "bytes": 16128,
+      "sha256": "ed52450d1a00b9224f5886a630f9bef90efe6aba854c9cd4eee287578ea7afd6"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/SOURCE_POSTIMAGE.json",
+      "bytes": 360274,
+      "sha256": "45189466db19204cf23c4576135b629910af6ab68bc5c31dcb600dd1c9734fb0"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/AUTHOR_AUDIT.json",
+      "bytes": 3312,
+      "sha256": "115be022688229004cb998a38d84fce0f5738bb5525d96f7312ec62cf6311143"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FIRST_FAILURE.json",
+      "bytes": 1697,
+      "sha256": "2dbcdff27f40c035615ce801a23e44cf698ac86170bd022e4952103392779f36"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FINAL.json",
+      "bytes": 1848,
+      "sha256": "ce503084d2ed9b77088e241d6a366ecfd803dc7e07afabdd12b81e74814e8cf2"
     }
   ],
   "protectedRoots": [
     "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-adverse-revision-01",
     "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04",
-    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01"
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
+    "/private/tmp/abg-rc14-historical-context-source-20261116-01"
   ],
-  "standing": "Authentic closed counterexample data only; no live resource reopening, copied history authority, paid reproduction or old stage credit. Fixture regression must use actual owner admissions in its own isolated test resource. These exact leaves remain byte conserved before/after source and proof."
+  "standing": "Authentic closed counterexample data only; no live resource reopening, copied history authority, paid reproduction or old stage credit. Fixture regression must use actual owner admissions in its own isolated test resource. These exact leaves remain byte conserved before/after source and proof. The closed source-attempt01 failed before any native call/Run/source edit; its sealed records are custody only, not completion."
 }

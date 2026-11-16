@@ -1,0 +1,64 @@
+{
+  "kind": "canonical_task_field_and_capture_preparation_check",
+  "completedUtc": "2026-11-16T08:27:25.811015+00:00",
+  "canonicalOwners": {
+    "build/code/src/product/native_workspace_work.js": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+      "bytes": 22624,
+      "sha256": "de6b56ba0bb967fd06c8ea42d7f06eacaa53c65954bc33594a553ec6520661fe"
+    },
+    "build/code/src/product/worksite_effect.js": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_effect.js",
+      "bytes": 75018,
+      "sha256": "403dbbb11dfeb3c14e07c0811eba5372a367282cb2e6e715eddd7c6ccf426089"
+    },
+    "build/code/src/product/run_invocation_operation.js": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/run_invocation_operation.js",
+      "bytes": 39563,
+      "sha256": "2afed953dc48824c6938b12e50fa2c66432a2818cc9404b053034e08f65cad59"
+    },
+    "build/code/src/product/run_invocation_operation.d.ts": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/run_invocation_operation.d.ts",
+      "bytes": 12701,
+      "sha256": "5d3b85238c2a7f4ec57920a53f6db27c94ead15a98d77a764099d9317ed80c82"
+    }
+  },
+  "instructions": {
+    "oldCarrier": "string",
+    "oldFailsCanonicalArrayField": true,
+    "newCarrier": "string[]",
+    "elements": 1,
+    "textBytes": 5577,
+    "textSha256": "baa567a13c845fe71acf4b5dc30e4575b29308c9c4f27267db4dc2e47263445d",
+    "textExactlyConserved": true
+  },
+  "plainTaskFields": {
+    "outcome": "canonical ref: nonempty NUL-free string",
+    "instructions": "canonical array(ref), exact preserved one element",
+    "checks": "canonical array(ref), unchanged",
+    "readFirst": "actual canonical path normalization and uniqueness, unchanged",
+    "writeRoots": "actual canonical path normalization and uniqueness, same eight W",
+    "assessment": "omitted; ordinary source author unchanged"
+  },
+  "factory": {
+    "plainPathsCanonical": true,
+    "captureBeforeSameObjectConstructor": true,
+    "captureFailurePreventsConstructor": true,
+    "contextObservedOnce": true,
+    "opaqueSentinelsNotRuntimeEvidence": true
+  },
+  "fieldMapping": "Same actual env authority + factory binding/grants[0] + once-observed context + exact Task fields; nine constructor-input keys. The installed invocation owner awaits factory.",
+  "opaqueOwnerPredicatesStillUnproved": [
+    "actual authority/binding exact join",
+    "actual grant/direct use",
+    "actual context identity and readFirst entries",
+    "actual constructed input admission"
+  ],
+  "syntax": {
+    "pythonAST": true,
+    "HOSTNodeCheck": 0
+  },
+  "ProductImports": false,
+  "runtime": false,
+  "captureOutput": "Future raw02/runtime/native-task-constructor-input.json through existing exclusiveRecord; no capture manufactured during preparation."
+}

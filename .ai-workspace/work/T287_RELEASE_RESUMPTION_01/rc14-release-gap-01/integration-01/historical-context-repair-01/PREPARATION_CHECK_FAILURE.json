@@ -1,0 +1,14 @@
+{
+  "writer": "RC14-B64-TASK-CARRIER-WRITER-042",
+  "observedUtc": "2026-11-16T08:31:31+00:00",
+  "phase": "pure actual proof layout AST expression check",
+  "exception": "NameError: name str is not defined",
+  "cause": "The external checker supplied str/subject/other scalar bindings as eval locals; comprehension scopes resolve globals. No Product/control runtime was imported or invoked.",
+  "statement": "eval(compile(ast.Expression(assign[0].value),...), {__builtins__:{}}, scope)",
+  "effectBeforeFailure": "Read-only parsing; no layout record/manifest/Return update in the failed checker invocation. Prior preparation drafts and successful checks remain.",
+  "proposedCallerCorrection": "Supply the same exact selected scalar bindings as eval globals; no executable control change. Root disposition pending.",
+  "originalPreparationDeadlineUtc": "2026-11-16T08:43:34+00:00",
+  "runtime": false,
+  "provider": false,
+  "sourceOrRaw02Created": false
+}

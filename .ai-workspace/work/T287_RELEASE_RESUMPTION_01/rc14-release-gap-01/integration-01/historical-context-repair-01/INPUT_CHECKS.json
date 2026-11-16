@@ -19,5 +19,22 @@
   "nativeToolInputs": 196,
   "nativePredicate": "is_file plus exact declared digest, including lawful SDK symlink; source/control regular-file predicates unchanged",
   "writes": "None except this compact check record in authorized controls carrier",
-  "productOrRuntimeExecution": false
+  "productOrRuntimeExecution": false,
+  "currentTaskCarrierSuccessor": {
+    "checkedUtc": "2026-11-16T08:28:54.779240+00:00",
+    "externalPinnedLeaves": 27,
+    "B64AndAttempt01EvidenceLeaves": 11,
+    "B64AndAttempt01EvidenceBytes": 14270146,
+    "actualDependencyAndNpmInventoriesMatched": true,
+    "actualNativeToolInputsMatched": 196,
+    "providerDigestMatched": true,
+    "oldAttempt01ProtectedRoots": [
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
+      "/private/tmp/abg-rc14-historical-context-source-20261116-01"
+    ],
+    "sourceRowsConservedByExactUnchangedGitObjects": 378,
+    "runtime": false,
+    "oldSourceAndRawWrites": 0,
+    "sealedOldAttemptPinsMatched": true
+  }
 }

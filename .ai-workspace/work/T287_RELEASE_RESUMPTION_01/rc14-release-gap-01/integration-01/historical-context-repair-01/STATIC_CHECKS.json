@@ -64,7 +64,7 @@
   },
   "initialContext": {
     "files": 373,
-    "bytes": 9119884,
+    "bytes": 9122877,
     "maxFiles": 1024,
     "maxBytes": 25165824,
     "includesSixControlBodies": true,
@@ -106,5 +106,18 @@
     "oldFailsNewPasses": "COORDINATE_CHECKS.json",
     "preservedChecks": "All unaffected previous checks are retained for unchanged inputs; this is not a fresh runtime/readiness campaign.",
     "newControlValidationFailures": []
+  },
+  "taskCarrierSuccessor": {
+    "completedUtc": "2026-11-16T08:30:34.038335+00:00",
+    "controlBase": "3ca755e235d89d2f193879d136f45da6bc5667ac",
+    "failedAttempt": "47b04028010460535e22f08681e62e282e749aaa",
+    "originatingFailure": "External TASK.instructions has the wrong carrier type for the exact installed constructNativeWorkspaceWorkTask input.",
+    "canonicalFieldAndCaptureChecks": "TASK_CARRIER_CHECKS.json",
+    "coordinates": "COORDINATE_CHECKS.json",
+    "layout": "LAYOUT_CHECKS.json",
+    "plainFieldsMatchCanonicalSource": true,
+    "fullFutureConstructorSuccessClaim": false,
+    "currentValidationFailures": [],
+    "acquisitionObservation": "Read-only lookup assumed an api directory and returned ENOENT; actual installed product/run_invocation_operation.js/.d.ts were located and acquired. No missing contract or runtime action inferred."
   }
 }

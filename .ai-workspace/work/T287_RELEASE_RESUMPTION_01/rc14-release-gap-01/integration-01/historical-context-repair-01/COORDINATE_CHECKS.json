@@ -1,70 +1,28 @@
 {
-  "kind": "pure_producer_consumer_coordinate_check",
-  "completedUtc": "2026-11-16T08:04:25.069242+00:00",
-  "sourceControlBase": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
-  "canonicalOwner": "ACTIVATION.json rawRoot/sourceWorktree",
+  "kind": "successor02_canonical_coordinate_check",
+  "completedUtc": "2026-11-16T08:28:54.775264+00:00",
   "expected": {
-    "RAW": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
-    "SOURCE": "/private/tmp/abg-rc14-historical-context-source-20261116-01"
+    "RAW": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02",
+    "SOURCE": "/private/tmp/abg-rc14-historical-context-source-20261116-02"
   },
-  "layoutMatches": true,
-  "oldActualExpressions": {
-    "HOST": {
-      "RAW": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-20261116-01",
-      "SOURCE": "/private/tmp/abg-rc14-historical-context-source-20261116-01"
-    },
-    "operate": {
-      "RAW": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-20261116-01",
-      "SOURCE": "/private/tmp/abg-rc14-historical-context-source-20261116-01"
-    },
-    "prove": {
-      "SOURCE": "/private/tmp/abg-rc14-historical-context-source-20261116-01",
-      "RAW": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01"
-    }
+  "HOST": {
+    "RAW": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02",
+    "SOURCE": "/private/tmp/abg-rc14-historical-context-source-20261116-02"
   },
-  "oldDiscriminator": "fails: HOST and operate omit -repair; prove and declaration agree",
-  "successorActualExpressions": {
-    "HOST": {
-      "RAW": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
-      "SOURCE": "/private/tmp/abg-rc14-historical-context-source-20261116-01"
-    },
-    "operate": {
-      "RAW": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
-      "SOURCE": "/private/tmp/abg-rc14-historical-context-source-20261116-01"
-    },
-    "prove": {
-      "SOURCE": "/private/tmp/abg-rc14-historical-context-source-20261116-01",
-      "RAW": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01"
-    }
+  "operate": {
+    "RAW": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02",
+    "SOURCE": "/private/tmp/abg-rc14-historical-context-source-20261116-02"
   },
-  "newDiscriminator": "passes: all three actual expressions equal canonical declaration and LAYOUT",
-  "acquisitionBeforeDependentUse": true,
-  "operateCallableASTUnchanged": true,
-  "byteIdenticalPreservedFiles": [
-    "TASK.json",
-    "PROOF_PLAN.json",
-    "ACTIVATION.json",
-    "LAYOUT.json",
-    "SOURCE_BINDING.json",
-    "SOURCE_INPUTS.json",
-    "DEPENDENCY_INPUTS.json",
-    "NATIVE_INPUTS.json",
-    "TOOL_INPUTS.json",
-    "EVIDENCE_INPUTS.json",
-    "ORIGINAL_CANDIDATE.json",
-    "prove.py",
-    "dependency-inputs.py",
-    "freeze-source.py",
-    "physical-topology.py",
-    "process-owner.py",
-    "setup-custody.py"
-  ],
-  "syntax": {
-    "pythonAST": true,
-    "nodeCheckHOST": 0
+  "prove": {
+    "SOURCE": "/private/tmp/abg-rc14-historical-context-source-20261116-02",
+    "RAW": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02"
   },
-  "effects": "Only selected coordinate expressions evaluated in memory; no HOST/module import, Product operation or filesystem runtime creation.",
-  "runtimeRootsAbsent": true,
-  "originalPreparationDeadlineUtc": "2026-11-16T08:19:42.254257+00:00",
-  "newClock": false
+  "LAYOUTMatches": true,
+  "canonicalActivationId": "RC14-HISTORICAL-CONTEXT-NATIVE-002",
+  "HOSTUsesActivationId": true,
+  "taskAndBothLaunchTemplatesMatch": true,
+  "sourceAndRawAndProofRootsAbsent": true,
+  "effects": "Only actual scalar expressions evaluated; no runtime or observations.",
+  "priorCoordinateFailurePreservedAt": "3636b0f3b78bc93e5709f76f5258a8d1f5f1333e",
+  "priorCorrectionPreservedAt": "3ca755e235d89d2f193879d136f45da6bc5667ac"
 }

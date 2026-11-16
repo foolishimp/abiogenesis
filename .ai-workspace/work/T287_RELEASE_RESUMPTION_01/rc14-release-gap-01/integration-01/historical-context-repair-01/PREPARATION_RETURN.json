@@ -1,23 +1,23 @@
 {
   "kind": "closed_external_control_preparation_return",
-  "writerActivation": "RC14-B64-CONTROL-COORDINATE-WRITER-041",
-  "nativeActivation": "RC14-HISTORICAL-CONTEXT-NATIVE-001",
+  "writerActivation": "RC14-B64-TASK-CARRIER-WRITER-042",
+  "nativeActivation": "RC14-HISTORICAL-CONTEXT-NATIVE-002",
   "status": "prepared_frozen_for_independent_review",
   "sourceBase": {
     "commit": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
     "tree": "8e5a5194de10f816d95f61b9fcf5e8b19a006211"
   },
-  "controlWorktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-02",
-  "controlBranch": "codex/rc14-historical-context-controls-20261116-02",
+  "controlWorktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-03",
+  "controlBranch": "codex/rc14-historical-context-controls-20261116-03",
   "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01",
-  "preparationStartedUtc": "2026-11-16T07:34:42.254257+00:00",
-  "preparationDeadlineUtc": "2026-11-16T08:19:42.254257+00:00",
-  "completedUtc": "2026-11-16T08:05:23.022556+00:00",
+  "preparationStartedUtc": "2026-11-16T08:23:34+00:00",
+  "preparationDeadlineUtc": "2026-11-16T08:43:34+00:00",
+  "completedUtc": "2026-11-16T08:35:05.843604+00:00",
   "controlManifest": {
     "path": "CONTROL_MANIFEST.json",
-    "bytes": 5355,
-    "sha256": "8de7349337f3a34e305ba4007c39ddbaad1c443141d82dc9c469e9282fff808d",
-    "members": 34
+    "bytes": 6167,
+    "sha256": "6566f83a2d7624a2a0effc4be74a11c23bfa76d42d25beb497f5a82cc9eabc03",
+    "members": 39
   },
   "productFrame": {
     "outcome": "Unchanged fixed5.0 F17/S06: preserve complete source/evidence, execute declared revision, independent assessment, complete D1/application and consequential D2.",
@@ -106,6 +106,74 @@
         "operate.py"
       ],
       "taskProofAndHelperMeaningUnchanged": true
+    },
+    "taskCarrierCorrection": {
+      "authority": {
+        "path": "TASK_CARRIER_ACTIVATION.json",
+        "bytes": 10429,
+        "sha256": "03518a613405952b799a4e2a4295078de175eb16a1bf5d4496c3be7b01432637"
+      },
+      "controlBase": "3ca755e235d89d2f193879d136f45da6bc5667ac",
+      "failedAttempt01": {
+        "source": "47b04028010460535e22f08681e62e282e749aaa",
+        "controls": "3ca755e235d89d2f193879d136f45da6bc5667ac",
+        "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
+        "sourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-01",
+        "startedUtc": "2026-11-16T08:14:15.374095+00:00",
+        "deadlineUtc": "2026-11-16T11:14:15.374095+00:00",
+        "executionStopUtc": "2026-11-16T11:11:15.374095+00:00",
+        "elapsedMs": 39276,
+        "publicSetupSucceeded": true,
+        "nativeDispatched": false,
+        "nativeCalls": 0,
+        "nativeSourceEdits": 0,
+        "run": null,
+        "actualResourceClosed": true,
+        "hostPidAndGroup": 78032,
+        "hostAbsent": true,
+        "sourcePreimageRowsConserved": 1437,
+        "onlySourceAddition": "Authenticated setup-owned manifest; no native W changed.",
+        "operatorReturn": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/OPERATOR_RETURN.json",
+          "bytes": 16128,
+          "sha256": "ed52450d1a00b9224f5886a630f9bef90efe6aba854c9cd4eee287578ea7afd6"
+        },
+        "sourcePostimage": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/SOURCE_POSTIMAGE.json",
+          "bytes": 360274,
+          "sha256": "45189466db19204cf23c4576135b629910af6ab68bc5c31dcb600dd1c9734fb0"
+        },
+        "authorAudit": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/AUTHOR_AUDIT.json",
+          "bytes": 3312,
+          "sha256": "115be022688229004cb998a38d84fce0f5738bb5525d96f7312ec62cf6311143"
+        },
+        "firstFailure": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FIRST_FAILURE.json",
+          "bytes": 1697,
+          "sha256": "2dbcdff27f40c035615ce801a23e44cf698ac86170bd022e4952103392779f36"
+        },
+        "final": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FINAL.json",
+          "bytes": 1848,
+          "sha256": "ce503084d2ed9b77088e241d6a366ecfd803dc7e07afabdd12b81e74814e8cf2"
+        },
+        "clockDisposition": "Closed failed attempt. Original records/deadline remain unchanged; no continuation or automatic retry."
+      },
+      "taskDelta": "Exactly unchanged5577-byte text in one string[] element; native id002 and five sealed old-attempt read-only pins. All other task content and eight W unchanged.",
+      "hostDelta": "Use activation.id; existing awaited async factory forms one actual candidate, awaits exclusive complete capture, passes identical object to canonical constructor. No new context observation.",
+      "coordinateDelta": "ACT source/raw02 and sourceBranch, LAYOUT/proof mirror02, task/launch/manifest activation002; consumers use canonical ACT fields.",
+      "unchangedExecutables": [
+        "operate.py",
+        "prove.py",
+        "dependency-inputs.py",
+        "freeze-source.py",
+        "physical-topology.py",
+        "process-owner.py",
+        "setup-custody.py"
+      ],
+      "unchangedProofPlan": true,
+      "validation": "Canonical source field mapping, exact text conservation, pure exact factory sequence and capture-failure discriminator, coordinates/layout/input identities; deeper live owner joins unproved."
     }
   },
   "checks": {
@@ -117,14 +185,21 @@
     "nativeWritePaths": 8,
     "localSourceRows": 378,
     "initialContextFiles": 373,
-    "initialContextBytes": 9119884,
-    "failureEvidenceLeaves": 6,
-    "failureEvidenceBytes": 13886887,
+    "initialContextBytes": 9122877,
+    "failureEvidenceLeaves": 11,
+    "failureEvidenceBytes": 14270146,
     "nativeToolInputs": 196,
     "dependencyFilesAndLinks": 4576,
     "npmFilesAndLinks": 2326,
     "preparationControlValidationFailures": [],
-    "coordinateDiscriminator": "old-fails/new-passes; exact source/raw expressions and acquisition order"
+    "coordinateDiscriminator": "ACT002/source/raw02 equality across HOST/operate/prove/LAYOUT/task/launch",
+    "canonicalTaskFieldAndCapture": "TASK_CARRIER_CHECKS.json",
+    "nativeLayouts": [
+      35,
+      36,
+      36
+    ],
+    "proofLayout": 28
   },
   "proofMapping": {
     "builds": 1,
@@ -158,6 +233,10 @@
     {
       "operation": "Display of guessed plugins/spec/references/ACTIVATION.md",
       "result": "ENOENT read-only display path; exact predecessor declared standards/ACTIVATION.md was acquired. No missing owner or control check was inferred."
+    },
+    {
+      "operation": "Read-only assumed installed api directory lookup",
+      "result": "ENOENT; resolved and acquired actual product/run_invocation_operation.js/.d.ts owner before validation; no missing canonical contract or runtime attempt."
     }
   ],
   "effects": {
@@ -201,7 +280,8 @@
     "Preparation readiness only; no implementation or proof accepted by this Writer",
     "No paid reproduction, old stage credit, qualification, AF25, candidate repin or release",
     "Topology results are static layout capacity/source-owner projections, not measured physical separation",
-    "Complete-body historical regression constructibility and repair correctness remain native-source/proof obligations"
+    "Complete-body historical regression constructibility and repair correctness remain native-source/proof obligations",
+    "Canonical plain Task fields and async capture ordering passed; no claim that uncreated live authority/grant/context will satisfy the constructor."
   ],
   "returnTo": "Root; one authored-only freeze, then stop. No reviewer activation.",
   "coordinateCorrection": {
@@ -240,5 +320,77 @@
       "operate.py"
     ],
     "newValidationFailures": []
+  },
+  "taskCarrierReentry": {
+    "grant": {
+      "path": "TASK_CARRIER_ACTIVATION.json",
+      "bytes": 10429,
+      "sha256": "03518a613405952b799a4e2a4295078de175eb16a1bf5d4496c3be7b01432637"
+    },
+    "controlBase": "3ca755e235d89d2f193879d136f45da6bc5667ac",
+    "failedAttempt": {
+      "source": "47b04028010460535e22f08681e62e282e749aaa",
+      "controls": "3ca755e235d89d2f193879d136f45da6bc5667ac",
+      "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
+      "sourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-01",
+      "startedUtc": "2026-11-16T08:14:15.374095+00:00",
+      "deadlineUtc": "2026-11-16T11:14:15.374095+00:00",
+      "executionStopUtc": "2026-11-16T11:11:15.374095+00:00",
+      "elapsedMs": 39276,
+      "publicSetupSucceeded": true,
+      "nativeDispatched": false,
+      "nativeCalls": 0,
+      "nativeSourceEdits": 0,
+      "run": null,
+      "actualResourceClosed": true,
+      "hostPidAndGroup": 78032,
+      "hostAbsent": true,
+      "sourcePreimageRowsConserved": 1437,
+      "onlySourceAddition": "Authenticated setup-owned manifest; no native W changed.",
+      "operatorReturn": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/OPERATOR_RETURN.json",
+        "bytes": 16128,
+        "sha256": "ed52450d1a00b9224f5886a630f9bef90efe6aba854c9cd4eee287578ea7afd6"
+      },
+      "sourcePostimage": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/SOURCE_POSTIMAGE.json",
+        "bytes": 360274,
+        "sha256": "45189466db19204cf23c4576135b629910af6ab68bc5c31dcb600dd1c9734fb0"
+      },
+      "authorAudit": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/AUTHOR_AUDIT.json",
+        "bytes": 3312,
+        "sha256": "115be022688229004cb998a38d84fce0f5738bb5525d96f7312ec62cf6311143"
+      },
+      "firstFailure": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FIRST_FAILURE.json",
+        "bytes": 1697,
+        "sha256": "2dbcdff27f40c035615ce801a23e44cf698ac86170bd022e4952103392779f36"
+      },
+      "final": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FINAL.json",
+        "bytes": 1848,
+        "sha256": "ce503084d2ed9b77088e241d6a366ecfd803dc7e07afabdd12b81e74814e8cf2"
+      },
+      "clockDisposition": "Closed failed attempt. Original records/deadline remain unchanged; no continuation or automatic retry."
+    },
+    "oldInstructionBytes": {
+      "bytes": 5577,
+      "sha256": "baa567a13c845fe71acf4b5dc30e4575b29308c9c4f27267db4dc2e47263445d"
+    },
+    "instructionsExactlyPreservedAsSingleArrayElement": true,
+    "capture": "Same complete local candidate retained by awaited existing record before canonical constructor; no re-observation.",
+    "staticFieldChecks": "Actual installed canonical owners and pure control expression/factory checks; no duplicated admission schema.",
+    "livePredicatesRemainUnproved": [
+      "authority/binding/context joins",
+      "factory direct grant and input admission",
+      "native source/proof outcomes"
+    ],
+    "newSourceRawAndProofRootsAbsent": true,
+    "nativeClockStarted": false,
+    "priorClocks": "040/041 preparation and failed source01 clocks preserved closed; this new20min preparation grants no runtime.",
+    "validationFailures": [],
+    "checkHarnessFailurePreserved": "PREPARATION_CHECK_FAILURE.json",
+    "rootDispositionAndCorrectedEvaluation": "CHECK_EVALUATOR_DISPOSITION.json; exact pure layout expression now evaluates and28anchors fit unchanged64bound"
   }
 }

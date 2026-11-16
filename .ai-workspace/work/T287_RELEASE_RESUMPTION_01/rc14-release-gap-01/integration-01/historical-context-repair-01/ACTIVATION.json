@@ -1,5 +1,5 @@
 {
-  "id": "RC14-HISTORICAL-CONTEXT-NATIVE-001",
+  "id": "RC14-HISTORICAL-CONTEXT-NATIVE-002",
   "role": "Preparation only; separate Root native and proof grants required",
   "basis": {
     "definition": "repo://abiogenesis/stdo_abiogenesis.json",
@@ -13,9 +13,9 @@
     "sha256": "3c9facbe9c60953afb02e212d0cce5def400708c8f8767b4a90a23fd36e0debd"
   },
   "sourceBase": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
-  "sourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-01",
-  "sourceBranch": "codex/rc14-historical-context-source-20261116-01",
-  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
+  "sourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-02",
+  "sourceBranch": "codex/rc14-historical-context-source-20261116-02",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02",
   "sourceBinding": null,
   "nativeWriteScope": [
     "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
@@ -148,5 +148,5 @@
   "clockStarted": false,
   "proof": "One fresh normal build and three whole affected files; authentic retained-carrier producer-to-revision assembly, held/cold parity, applicable stage view and strict negatives. No live semantic or qualification credit.",
   "returnTo": "Root; freeze controls and stop. Actual source and proof remain disabled.",
-  "preparedUtc": "2026-11-16T07:45:50.183906+00:00"
+  "preparedUtc": "2026-11-16T08:24:59.049839+00:00"
 }

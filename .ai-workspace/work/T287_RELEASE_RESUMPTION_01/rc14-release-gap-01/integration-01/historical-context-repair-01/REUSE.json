@@ -76,5 +76,73 @@
       "operate.py"
     ],
     "taskProofAndHelperMeaningUnchanged": true
+  },
+  "taskCarrierCorrection": {
+    "authority": {
+      "path": "TASK_CARRIER_ACTIVATION.json",
+      "bytes": 10429,
+      "sha256": "03518a613405952b799a4e2a4295078de175eb16a1bf5d4496c3be7b01432637"
+    },
+    "controlBase": "3ca755e235d89d2f193879d136f45da6bc5667ac",
+    "failedAttempt01": {
+      "source": "47b04028010460535e22f08681e62e282e749aaa",
+      "controls": "3ca755e235d89d2f193879d136f45da6bc5667ac",
+      "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01",
+      "sourceWorktree": "/private/tmp/abg-rc14-historical-context-source-20261116-01",
+      "startedUtc": "2026-11-16T08:14:15.374095+00:00",
+      "deadlineUtc": "2026-11-16T11:14:15.374095+00:00",
+      "executionStopUtc": "2026-11-16T11:11:15.374095+00:00",
+      "elapsedMs": 39276,
+      "publicSetupSucceeded": true,
+      "nativeDispatched": false,
+      "nativeCalls": 0,
+      "nativeSourceEdits": 0,
+      "run": null,
+      "actualResourceClosed": true,
+      "hostPidAndGroup": 78032,
+      "hostAbsent": true,
+      "sourcePreimageRowsConserved": 1437,
+      "onlySourceAddition": "Authenticated setup-owned manifest; no native W changed.",
+      "operatorReturn": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/OPERATOR_RETURN.json",
+        "bytes": 16128,
+        "sha256": "ed52450d1a00b9224f5886a630f9bef90efe6aba854c9cd4eee287578ea7afd6"
+      },
+      "sourcePostimage": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/SOURCE_POSTIMAGE.json",
+        "bytes": 360274,
+        "sha256": "45189466db19204cf23c4576135b629910af6ab68bc5c31dcb600dd1c9734fb0"
+      },
+      "authorAudit": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/AUTHOR_AUDIT.json",
+        "bytes": 3312,
+        "sha256": "115be022688229004cb998a38d84fce0f5738bb5525d96f7312ec62cf6311143"
+      },
+      "firstFailure": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FIRST_FAILURE.json",
+        "bytes": 1697,
+        "sha256": "2dbcdff27f40c035615ce801a23e44cf698ac86170bd022e4952103392779f36"
+      },
+      "final": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-01/runtime/FINAL.json",
+        "bytes": 1848,
+        "sha256": "ce503084d2ed9b77088e241d6a366ecfd803dc7e07afabdd12b81e74814e8cf2"
+      },
+      "clockDisposition": "Closed failed attempt. Original records/deadline remain unchanged; no continuation or automatic retry."
+    },
+    "taskDelta": "Exactly unchanged5577-byte text in one string[] element; native id002 and five sealed old-attempt read-only pins. All other task content and eight W unchanged.",
+    "hostDelta": "Use activation.id; existing awaited async factory forms one actual candidate, awaits exclusive complete capture, passes identical object to canonical constructor. No new context observation.",
+    "coordinateDelta": "ACT source/raw02 and sourceBranch, LAYOUT/proof mirror02, task/launch/manifest activation002; consumers use canonical ACT fields.",
+    "unchangedExecutables": [
+      "operate.py",
+      "prove.py",
+      "dependency-inputs.py",
+      "freeze-source.py",
+      "physical-topology.py",
+      "process-owner.py",
+      "setup-custody.py"
+    ],
+    "unchangedProofPlan": true,
+    "validation": "Canonical source field mapping, exact text conservation, pure exact factory sequence and capture-failure discriminator, coordinates/layout/input identities; deeper live owner joins unproved."
   }
 }

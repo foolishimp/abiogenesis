@@ -1,19 +1,24 @@
 {
   "kind": "static_producer_layout_shape",
-  "canonicalSource": "/private/tmp/abg-rc14-historical-context-source-20261116-01",
+  "canonicalSource": "/private/tmp/abg-rc14-historical-context-source-20261116-02",
   "nativeWriteCount": 8,
   "nativePhaseAnchorCounts": [
-    33,
-    34,
-    34
+    35,
+    36,
+    36
   ],
-  "sharedExternalProtectedCount": 14,
+  "sharedExternalProtectedCount": 16,
   "sameActualAndFinalProjection": true,
   "proofWriteCount": 6,
-  "proofAnchorCount": 26,
+  "proofAnchorCount": 28,
   "maximum": 64,
   "producerSource": "Exact HOST declaration expressions; public-setup.mjs286-287 six root fields plus its two-install route. Actual layouts are reacquired after setup and immediately before dispatch.",
   "physicalObservation": false,
   "runtime": false,
-  "limits": "Shape and source-owner projection only; no mount/path separation claim until unchanged observer succeeds."
+  "limits": "Shape and source-owner projection only; no mount/path separation claim until unchanged observer succeeds.",
+  "canonicalRaw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02",
+  "completedUtc": "2026-11-16T08:30:34.037827+00:00",
+  "oldAttempt01SourceAndRawProtected": true,
+  "proofExpressionEvaluatedFromActualAST": true,
+  "evaluatorCorrection": "CHECK_EVALUATOR_DISPOSITION.json"
 }
