@@ -1,0 +1,119 @@
+{
+  "id": "RC14-B56-RECOVERED-PROOF-LAUNCH-03",
+  "recordedUtc": "2026-11-16T00:26:36.861031+00:00",
+  "writer": "RC14-ROOT-B56-PROOF-RECORDS-WRITER-034",
+  "activation": "integration-01/B56_RECOVERED_PROOF_ACTIVATION_03.json",
+  "pushedCheckpoint": "792106d9d7b3efeb3d2e25e359827225d836c90b",
+  "launch": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_LAUNCH_03.json",
+    "bytes": 1796,
+    "sha256": "ab2589065f9b81e028629853686c82588415d7553481362c1ff9019787411d94"
+  },
+  "preflight": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_PREFLIGHT_03.json",
+    "bytes": 1099,
+    "sha256": "6fae327ba2cd1c726b1a04467c0ba1652c59b2edf385adc4d4713ed24d466ff0"
+  },
+  "start": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/START.json",
+    "bytes": 522,
+    "sha256": "4e64f753e055725deb8674769b0f2fb2b59ce13dd8f584ec7965fd689acfb9e9"
+  },
+  "actualStart": {
+    "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+    "startedUtc": "2026-11-16T00:25:37.735747+00:00",
+    "originalHostDeadlineUtc": "2026-11-16T01:47:31.946547+00:00",
+    "requestedProofDeadlineUtc": "2026-11-16T01:55:37.735747+00:00",
+    "deadlineUtc": "2026-11-16T01:15:36.678788+00:00",
+    "executionStopDeadlineUtc": "2026-11-16T01:12:36.678788+00:00",
+    "cleanupReserveMs": 180000,
+    "noRetry": true,
+    "qualified": false,
+    "grantSha256": "ab2589065f9b81e028629853686c82588415d7553481362c1ff9019787411d94"
+  },
+  "driverPidAndPgid": 71361,
+  "topology": {
+    "record": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/TOPOLOGY_BATCH_CONJUNCTION.json",
+      "bytes": 417857,
+      "sha256": "037fc47fdbf80e5afa3e91b168ca6d32dbdd3720a7d8400a0b1c901c26672a26"
+    },
+    "result": {
+      "ok": true,
+      "disposition": "separated",
+      "batchCount": 2,
+      "protectedLeaves": 61,
+      "requiredPairs": 489,
+      "observedPairs": 489,
+      "sharedAnchorPaths": [
+        "/",
+        "/Library/Developer/CoreSimulator/Cryptex/Images/bundle",
+        "/Library/Developer/CoreSimulator/Volumes",
+        "/System/Volumes",
+        "/System/Volumes/Data",
+        "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03",
+        "/Volumes",
+        "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06",
+        "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06/.ai-workspace",
+        "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06/AGENTS.md",
+        "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06/CLAUDE.md",
+        "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06/build_tenants",
+        "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06/specification",
+        "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-06/stdo_abiogenesis.json",
+        "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/AppTranslocation"
+      ],
+      "completeMountSnapshotSha256": "7e7a3a876229bceb5ffb87c650ae446fa32e6dbd01f376675cf9c8b3f9eefddd",
+      "metadataExclusion": "Only directory identity.links across observations: owned capture creation changes directory link counts. Every observer retains its own full identity/recheck; regular-file links, all mode/type/device/inode/backing/missing-suffix/mount fields remain compared.",
+      "atomicMountLockClaim": false,
+      "qualified": false
+    }
+  },
+  "observedCommands": [
+    {
+      "name": "000-topology-01",
+      "exitCode": 0,
+      "elapsedMs": 107,
+      "receipt": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/000-topology-01/RETURN.json",
+        "bytes": 460,
+        "sha256": "521e7df2d0bab11cc561d294dce676dbb9e4969deff7c5e8d5a28e260a0f44b5"
+      }
+    },
+    {
+      "name": "000-topology-02",
+      "exitCode": 0,
+      "elapsedMs": 107,
+      "receipt": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/000-topology-02/RETURN.json",
+        "bytes": 459,
+        "sha256": "141d5f6388d018b8528fa1ff9cacb27298895775f9298807d9a8c90df67a90a3"
+      }
+    },
+    {
+      "name": "001-build",
+      "exitCode": 0,
+      "elapsedMs": 25390,
+      "receipt": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/001-build/RETURN.json",
+        "bytes": 459,
+        "sha256": "761327e7caefec741fe014ac3c71cc8fb4647ea371e241e47ac234c17e585bd8"
+      }
+    },
+    {
+      "name": "002-dependency-focused",
+      "exitCode": 0,
+      "elapsedMs": 828,
+      "receipt": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/002-dependency-focused/RETURN.json",
+        "bytes": 457,
+        "sha256": "69a8014878e87a85546221841e15d06dece31582af6bf804cd43bb385fad1b06"
+      }
+    }
+  ],
+  "providerCalls": 0,
+  "snapshotOnly": true,
+  "proofClosed": false,
+  "qualification": false,
+  "sourceMutated": false,
+  "rawPublished": false
+}
