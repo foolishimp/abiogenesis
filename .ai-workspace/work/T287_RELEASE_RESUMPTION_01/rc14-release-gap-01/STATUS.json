@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B64_NATIVE03_CHECKOUT_CORRECTION_SELECTED",
+  "status": "RC14_B64_RC13_COMPLETION_ACTOR_RUNNING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T09:51:51.927616+00:00",
+  "updatedUtc": "2026-11-16T09:56:35.931416+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1652,7 +1652,7 @@
     "runtimeRetryAuthorized": false
   },
   "b64Repair": {
-    "state": "NATIVE03_PREFLIGHT_CALLER_CORRECTION_SELECTED",
+    "state": "ACTUAL_NATIVE03_COMPLETION_ACTOR_RUNNING",
     "selection": "integration-01/B64_HISTORICAL_CONTEXT_CONJUNCTION_AND_REENTRY_01.json",
     "activation": "integration-01/B64_NATIVE_CONTROL_PREPARATION_ACTIVATION_01.json",
     "actor": "/root",
@@ -1723,10 +1723,10 @@
     },
     "taskCarrierReentry": "integration-01/B64_TASK_CARRIER_REENTRY_ACTIVATION_02.json",
     "nativeEdits": 6,
-    "actualDispatch": "integration-01/B64_NATIVE02_EXECUTION_STARTED.json",
-    "actorStartedUtc": "2026-11-16T08:46:25.358Z",
-    "sourceHead": "b40041c31cf1bb665cc1bf639483072201d8c92a",
-    "deadlineUtc": "2026-11-16T11:45:05.222089+00:00",
+    "actualDispatch": "integration-01/B64_NATIVE03_EXECUTION_STARTED.json",
+    "actorStartedUtc": "2026-11-16T09:54:13.863Z",
+    "sourceHead": "60b6d9e28a26115646536ce827162f8e9046c01b",
+    "deadlineUtc": "2026-11-16T12:53:08.294229+00:00",
     "sourceAccepted": false,
     "sourceCompletionSelected": true,
     "disposition": "integration-01/B64_NATIVE02_PARTIAL_DISPOSITION_01.json",
@@ -1738,8 +1738,9 @@
     },
     "buildOrBehavioralProofStarted": false,
     "next": "Same eight-path RC13 completion for inherited binding and C2 contexts, missing owner-path tests and capture; separately selected proof follows.",
-    "native03Started": false,
-    "native03PreflightContinuation": "integration-01/B64_NATIVE03_PREFLIGHT_CONTINUATION_01.json"
+    "native03Started": true,
+    "native03PreflightContinuation": "integration-01/B64_NATIVE03_PREFLIGHT_CONTINUATION_01.json",
+    "actorPid": 50590
   },
   "releaseGateCensus02": {
     "state": "BOUNDED_EVIDENCE_MAPPING_ACCEPTED_NOT_QUALIFICATION",
@@ -1756,7 +1757,8 @@
     "state": "BOUNDED_PROOF_CALLER_REPAIR_SELECTED_NOT_ACTIVATED",
     "record": "integration-01/S01_ROOT_PROOF_GAP_TRIAGE_01.json",
     "candidate02SmokePreserved": true,
-    "completeS01": false
+    "completeS01": false,
+    "preparationActivation": "integration-01/S01_ROOT_PROOF_CONTROL_PREPARATION_01.json"
   },
   "s06SuccessorHistoryPreflight": {
     "state": "EXISTING_ROUTE_SUPPORTED_CONDITIONALLY",

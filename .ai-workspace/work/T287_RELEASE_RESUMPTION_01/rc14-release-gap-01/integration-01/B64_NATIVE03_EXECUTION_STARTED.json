@@ -1,0 +1,60 @@
+{
+  "id": "RC14-B64-NATIVE03-EXECUTION-STARTED",
+  "recordedUtc": "2026-11-16T09:56:35.931416+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "sourceHead": "60b6d9e28a26115646536ce827162f8e9046c01b",
+  "nativeActivation": "B64_NATIVE_ACTIVATION_03.json",
+  "preflightContinuation": "B64_NATIVE03_PREFLIGHT_CONTINUATION_01.json",
+  "controlStart": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/CONTROL_START.json",
+    "bytes": 1219,
+    "sha256": "67810559ce5e69bc79f1143e506c00dc53e0b6e9578590821fa89597fc550d3b"
+  },
+  "launch": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/LAUNCH.json",
+    "bytes": 8723,
+    "sha256": "2eebd9ce61c92dde6d35dbd1da2162a0b99c7dda2ed978ccaa66ac77077689d9"
+  },
+  "sourcePreimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/SOURCE_PREIMAGE.json",
+    "bytes": 448121,
+    "sha256": "c791de2a1db36507112cf02d721a41f3c888e0c22d24971d5c192f50c1a9c3bd"
+  },
+  "originalClock": {
+    "command": [
+      "/opt/homebrew/bin/node",
+      "/private/tmp/abg-rc14-historical-context-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/HOST.mjs",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/LAUNCH.json"
+    ],
+    "source": "/private/tmp/abg-rc14-historical-context-source-20261116-03",
+    "sourceHead": "60b6d9e28a26115646536ce827162f8e9046c01b",
+    "launchSha256": "2eebd9ce61c92dde6d35dbd1da2162a0b99c7dda2ed978ccaa66ac77077689d9",
+    "launchInputPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/APPROVED_LAUNCH.json",
+    "stagedLaunchPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/LAUNCH.json",
+    "startedUtc": "2026-11-16T09:53:08.294229+00:00",
+    "deadlineUtc": "2026-11-16T12:53:08.294229+00:00",
+    "hostControlDeadlineMs": 10800000,
+    "executionStopDeadlineUtc": "2026-11-16T12:50:08.294229+00:00",
+    "cleanupReserveMs": 180000,
+    "providerCallsAtMost": 1,
+    "proofRetry": false,
+    "oldCampaignClockReused": false
+  },
+  "operatorObserved": {
+    "hostPid": 49825,
+    "publicSetupUtc": "2026-11-16T09:54:06.532Z",
+    "dispatchUtc": "2026-11-16T09:54:08.433Z",
+    "actorPid": 50590,
+    "actorStartedUtc": "2026-11-16T09:54:13.863Z",
+    "actorEvent": 18,
+    "runRef": "run://abiogenesis/07845f04bf59b0982a932a3bb83b4c0d303b6cb895eb0cb3c23997c5bc1f2b22",
+    "modelObserved": "claude-opus-5-5",
+    "effortConfigured": "xhigh"
+  },
+  "state": "actual_native_actor_running",
+  "sourceAcceptance": false,
+  "auditComplete": false,
+  "proofStarted": false,
+  "qualified": false,
+  "rawPublished": false
+}
