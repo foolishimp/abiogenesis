@@ -1,0 +1,57 @@
+{
+  "id": "RC14-B56-NATIVE-LAUNCH-05",
+  "recordedUtc": "2026-11-16T01:10:02.180043+00:00",
+  "writer": "RC14-ROOT-B56-FIXTURE05-RECORDS-WRITER-037",
+  "activation": "B56_NATIVE_ACTIVATION_05.json",
+  "continuation": "B56_NATIVE05_PREFLIGHT_DISPOSITION_01.json",
+  "sourceHead": "46375994b2eb1773d055ce8b16fe5bedc62b4ac0",
+  "pushedContinuationCheckpoint": "65c92b213b84361fd155d84507f4039016b8f576",
+  "evidence": {
+    "CONTROL_START.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/CONTROL_START.json",
+      "bytes": 1216,
+      "sha256": "f549a575de486be8f97843ea471d9b824163cbb914473f61c92af176bb1aa253"
+    },
+    "LAUNCH.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/LAUNCH.json",
+      "bytes": 6862,
+      "sha256": "63acfa3c87321512c41e48ce5bc1ef0177482f1d997022555981b7b065837e05"
+    },
+    "SOURCE_PREIMAGE.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/SOURCE_PREIMAGE.json",
+      "bytes": 490986,
+      "sha256": "1f4077e37d0d31db0233a68d307ee3b974ac7a43f014e58cf14d6c7cd7ad372e"
+    },
+    "HOST_PID.json": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/HOST_PID.json",
+      "bytes": 42,
+      "sha256": "3a705055d8c63febab72cfc23cb8ff3666fc5ad882daec20d2640ae7c4195f14"
+    }
+  },
+  "actualStartedUtc": "2026-11-16T01:09:05.055532+00:00",
+  "originalDeadlineUtc": "2026-11-16T04:09:05.055532+00:00",
+  "executionStopDeadlineUtc": "2026-11-16T04:06:05.055532+00:00",
+  "hostPid": 1495,
+  "observedPhases": [
+    {
+      "phase": "identity-and-topology-bound",
+      "utc": "2026-11-16T01:09:05.528Z",
+      "wallMs": 426.61020900000005
+    },
+    {
+      "phase": "fresh-public-setup-held",
+      "utc": "2026-11-16T01:09:42.500Z",
+      "wallMs": 37397.8435
+    },
+    {
+      "phase": "one-author-dispatch",
+      "utc": "2026-11-16T01:09:44.059Z",
+      "wallMs": 38957.035792
+    }
+  ],
+  "state": "ACTUAL_NATIVE_DISPATCH_PHASE_REACHED",
+  "actorObservationPending": true,
+  "proofAuthorized": false,
+  "qualified": false,
+  "rawPublished": false
+}
