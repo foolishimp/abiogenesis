@@ -37,7 +37,7 @@
     {
       "relation": "S01/S02/S03/S06 joins",
       "owners": [
-        "code/src/contracts/qualification_contracts.ts:283-309",
+        "code/src/validator/qualification_contracts.ts:283-309",
         "code/src/abg/qualification_proof.ts:832-875,914-982"
       ],
       "remaining": "Existing multiple execution selections/executionSources authenticate original prefixes/declarations/C/J/Result and exact same immutable candidate, allowing different install/workspace locations. External driver/assessment-plan currently supplies only single C2. Wire actual original scenario selections and owner-resolved material into existing arm/coverage tasks, preserving designated C2 selection; no new union/reducer/runtime authority needed."
