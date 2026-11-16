@@ -1,0 +1,117 @@
+{
+  "kind": "native05_disabled_control_static_checks",
+  "checkedUtc": "2026-11-16T00:51:27.291479+00:00",
+  "sourceBase": "7806efb2c3fb55a2af90533e4b5ebe8e830bbe21",
+  "nativeSourceMaterialized": false,
+  "ownGrant": {
+    "path": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-05/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/ROOT_SELECTION.json",
+    "bytes": 10705,
+    "sha256": "6396135e581d6080be1066fb3505f173abe8e3551a52f9392491b4dcda2b8e2d"
+  },
+  "pinAdaptation": {
+    "path": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-05/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/ROOT_READ_DEPENDENCIES.json",
+    "bytes": 1276,
+    "sha256": "3e8e2297f0fc0f1b08d420b6658c6ca167fbe82bcddc9fb684c026f12e2111af"
+  },
+  "jsonSyntaxFiles": [
+    "ACTIVATION.json",
+    "CONTEXT_CHECK.json",
+    "D1_COORDINATES.json",
+    "DEPENDENCY_INPUTS.json",
+    "FIXTURE_INPUTS.json",
+    "IMMUTABLE_RECOVERY.json",
+    "LAUNCH.template.json",
+    "LAYOUT.json",
+    "METHOD_VERIFICATION.json",
+    "NATIVE_INPUTS.json",
+    "ORIGINAL_CANDIDATE.json",
+    "PRIOR_ATTEMPT.json",
+    "PROOF_PLAN.json",
+    "READ_ONLY_EVIDENCE.json",
+    "REUSE.json",
+    "ROOT_READ_DEPENDENCIES.json",
+    "ROOT_SELECTION.json",
+    "ROOT_TRIAGE.json",
+    "SEMANTIC_JOB_POPULATION.json",
+    "SOURCE_BINDING.json",
+    "SOURCE_INPUTS.json",
+    "STATIC_CHECKS.json",
+    "TASK.json",
+    "TOOL_INPUTS.json"
+  ],
+  "pythonAstSyntaxFiles": [
+    "dependency-inputs.py",
+    "freeze-source.py",
+    "operate.py",
+    "physical-topology.py",
+    "process-owner.py",
+    "setup-custody.py"
+  ],
+  "nodeSyntax": {
+    "argv": [
+      "/opt/homebrew/bin/node",
+      "--check",
+      "HOST.mjs"
+    ],
+    "exitCode": 0,
+    "stdoutBytes": 0,
+    "stderrBytes": 0,
+    "sourceImport": false
+  },
+  "fiveHelperBytesEqual04": true,
+  "operateDelta": "05 source/raw coordinates only",
+  "hostDelta": [
+    "05 source/raw/activation/actor/value/request coordinate literals",
+    "Remove sole unused prove.py required-name pin; full manifest admission and other required pins unchanged"
+  ],
+  "completeSourcePins": 315,
+  "immutableB56Files": 7,
+  "externalEvidenceLeaves": 13,
+  "methodInputPins": 10,
+  "contextCheck": {
+    "path": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-05/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/CONTEXT_CHECK.json",
+    "bytes": 2578,
+    "sha256": "70c25e3349813f436ef96e240aecf1d6af48b9533071129d77031392d02d6f15"
+  },
+  "declaredNativeBeforeSetupPathCount": 25,
+  "observerBound": 64,
+  "actualTopologyNotObserved": true,
+  "disabledLaunchAndNoClock": true,
+  "noExecutableProofRunner": true,
+  "inheritedInventoryStanding": "Native196/tool/dependency/fixture metadata are byte-equal accepted04 records, not relabelled new measurements; actual native/proof Operators reverify their consumed inputs under a separate grant.",
+  "productBasisVerification": {
+    "command": [
+      "/Users/jim/.local/bin/stdo",
+      "--store",
+      "/Users/jim/Library/Application Support/STDO",
+      "status",
+      "--definition",
+      "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "--verify"
+    ],
+    "actualExitCode": 0,
+    "stdoutBytes": 14702,
+    "stdoutSha256": "f94aae03c758745017448b790f9c783eaf10430db45c3c96c320290443e07d4c",
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": [],
+    "standing": "Writer current basis verification only; native05 must independently acquire its prescribed method/content."
+  },
+  "priorFailedInlineCheck": {
+    "kind": "inline_check_literal_extraction",
+    "error": "JSONDecodeError Invalid control character at line1 column3",
+    "cause": "Check discarded the first opening quote before regex parsing; retained source and controls were not the cause.",
+    "correction": "Keep complete author return array prefix in static literal extraction; no Product execution or control executable change."
+  },
+  "notRun": [
+    "native/provider/setup",
+    "Product imports/functions",
+    "observer",
+    "build/test/proof",
+    "source materialization",
+    "main/push"
+  ]
+}

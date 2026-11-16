@@ -1,0 +1,15 @@
+{
+  "id": "RC14-B56-NATIVE05-NATIVE-ONLY-PIN-ADAPTATION",
+  "recordedUtc": "2026-11-16T00:44:10.225108+00:00",
+  "writer": "RC14-ROOT-B56-FIXTURE05-RECORDS-WRITER-035",
+  "parentSelection": "B56_PROOF03_CONJUNCTION_AND_FIXTURE05_SELECTION.json",
+  "parentSha256": "6396135e581d6080be1066fb3505f173abe8e3551a52f9392491b4dcda2b8e2d",
+  "question": "Native04 HOST.mjs37 requires prove.py in pin names, but selected native05 packet contains no executable proof runner.",
+  "evidence": "Root read exact native04 HOST20-48 and all prove.py/proof references in HOST.mjs/operate.py. prove.py is mentioned only as required pinned filename, never invoked by native host/Operator.",
+  "decision": "Admit removal of only prove.py from HOST required control-name list, alongside already selected05 coordinate adaptations. All remaining required members and complete manifest digest/equality/member checks stay.",
+  "classification": "Native-only external control membership adaptation; no source/Product/host setup/dispatch/close semantic change.",
+  "workerGrant": "RC14-B56-NATIVE05-CONTROL-WRITER-036 may make this exact local HOST list delta and record it separately in frozen diff/Return.",
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "newRunnerAuthorized": false
+}

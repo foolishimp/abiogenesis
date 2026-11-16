@@ -1,0 +1,42 @@
+{
+  "sourceBase": "7806efb2c3fb55a2af90533e4b5ebe8e830bbe21",
+  "standing": "Seven other recovered B56 files immutable for native05. Component test W is a new scoped repair; default-library native04 exact recovered source is now immutable.",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "bytes": 115704,
+      "sha256": "7d525fdc954b228b5eaa2fc5f4cdde9b11b51c43d698a478901d08feb51b639e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 77659,
+      "sha256": "b30a90884a9107fd680b0cb2e4621f24d7dab402e6a72c18125fd057b3750c79"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "bytes": 14276,
+      "sha256": "305f979128822bcc6ce7a3ebac25eb005bec5dad1b137726427aa479505d8bbd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "bytes": 40332,
+      "sha256": "31938a2f0eb2d858f881c48c7214daeb3859e124239b64a98e69729f76f66dca"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "bytes": 62319,
+      "sha256": "0bdfc1911188c3244187892082232966fe82054ccbbbe4de8538b2e1b008e173"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 207588,
+      "sha256": "ab08b50f6fef9b894bcdc4f11aae906b50c819c507133997137fe325f736356d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 425506,
+      "sha256": "9fef11e5ac9201f154922d03346e33d06ed8c79531d0ebea3b389afbc738f185"
+    }
+  ],
+  "scope": "No Product/HOW/runtime/other-test edit; earlier three green cases remain bounded proof03 evidence pending Root causal conservation decision."
+}

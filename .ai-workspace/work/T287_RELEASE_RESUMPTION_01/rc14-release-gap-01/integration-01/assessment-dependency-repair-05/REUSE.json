@@ -1,0 +1,47 @@
+{
+  "nativeDonorCommit": "e00aa6668e37f336464aed21079c87b91bb5cf6d",
+  "nativeDonorManifestSha256": "7063325b879e1d6c12d3d7dcab2dff423a16cfe237b094722c0589a2cf15d452",
+  "unchangedExecutableOwners": [
+    {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-04/freeze-source.py",
+      "bytes": 3060,
+      "sha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-04/process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-04/physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-04/setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    },
+    {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-04/dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    }
+  ],
+  "adapted": {
+    "operate.py": "05 source/raw coordinate literals only",
+    "HOST.mjs": "05 identity/source/raw coordinate literals plus sole approved removal of unused prove.py required pin; full manifest equality and all other required pins unchanged"
+  },
+  "pinAdaptation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE05_NATIVE_ONLY_PIN_ADAPTATION.json",
+    "bytes": 1276,
+    "sha256": "3e8e2297f0fc0f1b08d420b6658c6ca167fbe82bcddc9fb684c026f12e2111af",
+    "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+  },
+  "notCopied": [
+    "prove.py",
+    "PROOF_LAUNCH.template.json"
+  ],
+  "proofReuseAuthorized": false,
+  "historicalNativeComplianceRewritten": false
+}

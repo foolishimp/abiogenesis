@@ -1,0 +1,12 @@
+{
+  "activationId": "RC14-ASSESSMENT-DEPENDENCY-NATIVE-005",
+  "dispatchAuthorized": false,
+  "sourceHead": null,
+  "pushedCheckpoint": null,
+  "rootAcceptance": null,
+  "controlManifestSha256": null,
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "controls": null,
+  "clockStarted": false,
+  "instruction": "Root binds exact accepted manifest rows and pushed source. Native Operator creates fresh raw scratch and exclusive preimage; operate stages approved packet itself. No clock in preparation."
+}

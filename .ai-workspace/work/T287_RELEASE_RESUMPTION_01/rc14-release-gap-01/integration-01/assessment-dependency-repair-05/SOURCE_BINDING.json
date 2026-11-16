@@ -1,0 +1,10 @@
+{
+  "preparationBase": "7806efb2c3fb55a2af90533e4b5ebe8e830bbe21",
+  "source": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-05",
+  "branch": "codex/rc14-assessment-dependency-source-20261116-05",
+  "tenantTree": "6cd0a3474915e0bd87fe602488ffbe41c6129900",
+  "finalLaunchHead": null,
+  "finalLaunchBinding": "Root later pushed checkpoint descended from this exact selection with identical tenant and SOURCE_INPUTS; fully materialized root/index and exclusive fresh preimage required.",
+  "executionAuthorized": false,
+  "clockStarted": false
+}

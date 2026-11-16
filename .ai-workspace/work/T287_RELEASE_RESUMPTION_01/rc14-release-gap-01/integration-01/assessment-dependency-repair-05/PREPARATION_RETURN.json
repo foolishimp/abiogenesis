@@ -1,0 +1,184 @@
+{
+  "id": "RC14-B56-NATIVE05-CONTROL-WRITER-036-RETURN",
+  "status": "frozen_disabled_preparation",
+  "recordedUtc": "2026-11-16T00:52:32.040945+00:00",
+  "sourceBase": "7806efb2c3fb55a2af90533e4b5ebe8e830bbe21",
+  "controlRoot": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-05/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05",
+  "authority": {
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/ROOT_SELECTION.json",
+    "bytes": 10705,
+    "sha256": "6396135e581d6080be1066fb3505f173abe8e3551a52f9392491b4dcda2b8e2d"
+  },
+  "exactNativeOnlyAdaptation": {
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/ROOT_READ_DEPENDENCIES.json",
+    "bytes": 1276,
+    "sha256": "3e8e2297f0fc0f1b08d420b6658c6ca167fbe82bcddc9fb684c026f12e2111af"
+  },
+  "productFrame": {
+    "fixed": "ABIogenesis5.0 F04/F17/S06; selectedSTDO3.0.4 empty composition",
+    "classification": "External source-author controls for one component fixture realization repair; no Product/HOW change",
+    "ownerRelation": "Unique authenticated schema owner and exact selected Program use remain separate; fixture must supply coherent role/identity premises."
+  },
+  "subject": {
+    "prospectiveSource": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-05",
+    "prospectiveRaw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05",
+    "tenantTree": "6cd0a3474915e0bd87fe602488ffbe41c6129900",
+    "sourcePins": 315,
+    "sourcePinAcquisition": "Exact Git blobs at preparationBase; prospective source worktree not materialized.",
+    "nativeW": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "immutableFiles": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+        "bytes": 115704,
+        "sha256": "7d525fdc954b228b5eaa2fc5f4cdde9b11b51c43d698a478901d08feb51b639e"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "bytes": 77659,
+        "sha256": "b30a90884a9107fd680b0cb2e4621f24d7dab402e6a72c18125fd057b3750c79"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+        "bytes": 14276,
+        "sha256": "305f979128822bcc6ce7a3ebac25eb005bec5dad1b137726427aa479505d8bbd"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+        "bytes": 40332,
+        "sha256": "31938a2f0eb2d858f881c48c7214daeb3859e124239b64a98e69729f76f66dca"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+        "bytes": 62319,
+        "sha256": "0bdfc1911188c3244187892082232966fe82054ccbbbe4de8538b2e1b008e173"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 207588,
+        "sha256": "ab08b50f6fef9b894bcdc4f11aae906b50c819c507133997137fe325f736356d"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 425506,
+        "sha256": "9fef11e5ac9201f154922d03346e33d06ed8c79531d0ebea3b389afbc738f185"
+      }
+    ],
+    "finalSourceHead": null,
+    "executionAuthorized": false,
+    "clockStarted": false
+  },
+  "controlManifest": {
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/CONTROL_MANIFEST.json",
+    "bytes": 5293,
+    "sha256": "6d563a6a5b3ab7aa21c65f573844599d9127f47705fd4af7b09856e545a56f09"
+  },
+  "manifestRows": 33,
+  "task": {
+    "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/TASK.json",
+    "bytes": 29415,
+    "sha256": "c491926513797b5305a46fc8b99ab912ac5011bf4e9b9e052454efa5be476d64"
+  },
+  "delta": {
+    "nativeFixtureObligation": [
+      "Role-aware Program and GraphFunction identities throughout execution/authority/assembly",
+      "Identity map preserves both graphs; complete-path negative mutates exact assessment member",
+      "Full actual common-prepare input/candidate capture before assertions and primary-error preservation",
+      "Preserve original39 top-level/43 actual workspace tests and all negative predicates"
+    ],
+    "executableOwners": "Five helpers byte-equal04: freeze-source, process-owner, physical-topology, setup-custody, dependency-inputs. HOST/operate05 coordinate literals only except exact approved removal of unused prove.py required pin. Complete manifest admission and every other mandatory pin preserved.",
+    "noExecutableProof": [
+      "prove.py",
+      "PROOF_LAUNCH.template.json"
+    ],
+    "futureProof": "Declarative only: whole repaired workspace plus three unrun selections; Root must decide exact prior-green/build/payload conservation. No rerun or reuse selected.",
+    "readEvidence": "13 current exact native04 audit/freeze/proof03/installed contrast/addendum leaves, protected in all inherited host observations. Historical D1/fixture/tool metadata retained byte-equal as lineage, not a new execution obligation."
+  },
+  "checks": {
+    "staticChecks": {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/STATIC_CHECKS.json",
+      "bytes": 4474,
+      "sha256": "9e2df832e53305df402e09c8db10db27f173ee97e5f7e959650c88f63e3dfb97"
+    },
+    "contextCheck": {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/CONTEXT_CHECK.json",
+      "bytes": 2578,
+      "sha256": "70c25e3349813f436ef96e240aecf1d6af48b9533071129d77031392d02d6f15"
+    },
+    "jsonParsed": true,
+    "pythonAstParsed": true,
+    "hostNodeCheckExit": 0,
+    "exactHostAndOperateDelta": true,
+    "fiveHelperByteEquality": true,
+    "allSourceAndImmutablePinsBound": true,
+    "allCurrentExternalEvidenceAndMethodPinsMatched": true,
+    "context": {
+      "entries": 411,
+      "maxEntries": 1024,
+      "bytes": 9922403,
+      "maxBytes": 25165824,
+      "promptProjectionBytes": 13017,
+      "actualRetained03PromptEquality": true,
+      "pathListsAreNotDeliveredContent": true
+    },
+    "nativeBeforeSetupDeclaredPathCount": 25,
+    "observerBound": 64,
+    "physicalObserverExecuted": false,
+    "ownBasisVerification": {
+      "command": [
+        "/Users/jim/.local/bin/stdo",
+        "--store",
+        "/Users/jim/Library/Application Support/STDO",
+        "status",
+        "--definition",
+        "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+        "--verify"
+      ],
+      "actualExitCode": 0,
+      "stdoutBytes": 14702,
+      "stdoutSha256": "f94aae03c758745017448b790f9c783eaf10430db45c3c96c320290443e07d4c",
+      "definitionId": "urn:stdo:product-definition:abiogenesis",
+      "basis": "stdo://releases/v3.0.4/",
+      "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "installed": true,
+      "valid": true,
+      "failures": [],
+      "standing": "Writer current basis verification only; native05 must independently acquire its prescribed method/content."
+    },
+    "retainedFailedInlineCheck": {
+      "kind": "inline_check_literal_extraction",
+      "error": "JSONDecodeError Invalid control character at line1 column3",
+      "cause": "Check discarded the first opening quote before regex parsing; retained source and controls were not the cause.",
+      "correction": "Keep complete author return array prefix in static literal extraction; no Product execution or control executable change."
+    }
+  },
+  "prospectiveLimits": {
+    "nativeAbsoluteMs": 2700000,
+    "nativeInactivityMs": 300000,
+    "nativeMaxTurns": 360,
+    "hostControlDeadlineMs": 10800000,
+    "cleanupReserveMs": 180000,
+    "retry": false,
+    "original04AndProof03ClocksPermanentlyPreserved": true
+  },
+  "limitsAndResiduals": [
+    "Actual native controls are disabled pending exact review, pushed source/control checkpoint and separate Root execution grant.",
+    "Actual source/materialized context, full topology, setup, native method/body acquisition, task completion, close/fresh result/replay and source audit remain unexecuted.",
+    "Native04 M04-01/02/03 remain false/noncompliant; proof03 remains first-red. No retrospective compliance or full B56/S06/qualification claim.",
+    "Inherited native196/tool/dependency/fixture records retain original measurements; actual Operators must reverify consumed inputs.",
+    "Later proof runner/build-reuse/population/candidate output paths require separate Root selection after frozen native05 source review."
+  ],
+  "effects": {
+    "sourceOrProductEdits": false,
+    "nativeSourceMaterialization": false,
+    "ProductImports": false,
+    "setupOrProvider": false,
+    "buildOrTests": false,
+    "proofExecution": false,
+    "rawPublished": false,
+    "mainWrites": false,
+    "push": false
+  },
+  "returnTo": "Root; one frozen control subject, stop editing. No Reviewer activated."
+}

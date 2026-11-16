@@ -1,0 +1,85 @@
+{
+  "files": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/AUTHOR_AUDIT.json",
+      "bytes": 39361,
+      "sha256": "08afaaf3bc30693007b65b5734a606b3196400014569e35a60e4fafa552cb3e0",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/OPERATOR_RETURN.json",
+      "bytes": 19712,
+      "sha256": "631bda6310a39ea19623de070983052a3881d03ad5962f9ba00d48d1e4838754",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/FROZEN_SOURCE.json",
+      "bytes": 2318,
+      "sha256": "356b31e87d72d710c44d2d18ec753211507db5a653d6c2e7143eb6213b2421e8",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_DIFF.patch",
+      "bytes": 92620,
+      "sha256": "da01b388dd22d51b9069eb845d6ad2428af71bc875dbc56144622ed67f51bdf1",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/RETURN.json",
+      "bytes": 5600,
+      "sha256": "8c0e490844a38dc84fb83779a5b0b825cdf54b70596004b9bb216f2e89c4a5d4",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/004-native-workspace/stdout.raw",
+      "bytes": 32398,
+      "sha256": "d91d9939c421ef3e5803343e4aae9f40ca86fcd101ece71ae927862772ef7e5f",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/004-native-workspace/OBSERVED_CASES.json",
+      "bytes": 39301,
+      "sha256": "e9a44390a98f86695f77b317bc49ee070ccce5a569be9ffd655e2e03112ba9b0",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/002-dependency-focused/COUNTS.json",
+      "bytes": 1074,
+      "sha256": "328423b506347b376c3d3a8c4ba26164f7284f28bb70a19a2149922a14d2081b",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/003-installed-dependency/COUNTS.json",
+      "bytes": 1534,
+      "sha256": "cfd7861e3573ca1032ec8f3c3cc1c7fdc7f126e8fac81400cfd2da75bdc554de",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/scratch/observations/b56-dependency.candidate.json",
+      "bytes": 1686599,
+      "sha256": "c087bcf634cb2e768606eda2e8ad776c0a49cb56af46028b7fa79ca1639ea0ce",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/scratch/observations/b56-installed-coincident.candidate.json",
+      "bytes": 43763331,
+      "sha256": "0ab00db9d0281e71a3ba3652f3b855205099f9f2fa4290943b95513db5f30f56",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/scratch/observations/b56-installed-split.candidate.json",
+      "bytes": 51659440,
+      "sha256": "163cec15524c1f9b2bf36c6d64a2d2043665e331bcb1140dc8928cdc38c20503",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE05_NATIVE_ONLY_PIN_ADAPTATION.json",
+      "bytes": 1276,
+      "sha256": "3e8e2297f0fc0f1b08d420b6658c6ca167fbe82bcddc9fb684c026f12e2111af",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    }
+  ],
+  "standing": "Exact historical native04 recovery/audit and proof03 facts; no source or method acceptance transfer. Original01-04 attempts remain preserved.",
+  "nativeReading": "Bounded JSON/text extraction within these exact named files; no Product imports, event reopening, broad raw inventory or source authority transfer. Candidate values may be inspected as read-only evidence; whole large dumps are unnecessary.",
+  "scope": "Current fixture defect and proven installed contrast only; old D1 coordinate metadata retained separately, not a new source obligation."
+}

@@ -1,0 +1,524 @@
+{
+  "id": "RC14-B56-COMPONENT-FIXTURE-IDENTITY-005",
+  "sourceHead": null,
+  "outcome": "Repair native-workspace assessment fixture Program/GraphFunction identity and coupled negatives, retaining full actual preparation inputs/results before assertions; preserve all other B56 source and Product behavior.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/ROOT_SELECTION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/ROOT_TRIAGE.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    "specification/requirements/product/REQ-P-CATALOG.md",
+    "specification/requirements/product/REQ-P-SCENARIOS.md",
+    "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product",
+    "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/PROOF_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/FIXTURE_INPUTS.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/SOURCE_INPUTS.json",
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/IMMUTABLE_RECOVERY.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/READ_ONLY_EVIDENCE.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/PRIOR_ATTEMPT.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/SEMANTIC_JOB_POPULATION.json",
+    "build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/ROOT_READ_DEPENDENCIES.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/METHOD_VERIFICATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/CONSTRUCTION_GUIDANCE.md"
+  ],
+  "readFirst": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/ROOT_SELECTION.json",
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/ROOT_READ_DEPENDENCIES.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/ROOT_TRIAGE.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/PRIOR_ATTEMPT.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/METHOD_VERIFICATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/CONSTRUCTION_GUIDANCE.md",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    "specification/requirements/product/REQ-P-CATALOG.md",
+    "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/declarations.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/canonicalization.ts",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs"
+  ],
+  "externalReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ],
+        [
+          281,
+          320
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Intake/execution-unit/admission, context acquisition and closed-result reuse before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/SPEC_METHOD.md",
+      "bytes": 148190,
+      "sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "uri": "stdo://releases/v3.0.4/standards/SPEC_METHOD.md",
+      "sections": [],
+      "role": "Read-only complete-byte and exact selected section verification input under METHOD_VERIFICATION; no whole-owner content dump required."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/FOUNDATIONS.md",
+      "bytes": 131400,
+      "sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "uri": "stdo://releases/v3.0.4/standards/FOUNDATIONS.md",
+      "sections": [],
+      "role": "Read-only complete-byte and exact selected section verification input under METHOD_VERIFICATION; no whole-owner content dump required."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/PRODUCT_DEFINITION.md",
+      "bytes": 85568,
+      "sha256": "7ee46438de5e4cb33cd8920814ecc90cfef95fb5eaee269f6f1a4fa389f4e523",
+      "uri": "stdo://releases/v3.0.4/standards/PRODUCT_DEFINITION.md",
+      "sections": [],
+      "role": "Read-only complete-byte and exact selected section verification input under METHOD_VERIFICATION; no whole-owner content dump required."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/REFERENCE_FRAME.md",
+      "bytes": 103687,
+      "sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "uri": "stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md",
+      "sections": [],
+      "role": "Read-only complete-byte and exact selected section verification input under METHOD_VERIFICATION; no whole-owner content dump required."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/scripts/read_basis.py",
+      "bytes": 11572,
+      "sha256": "df7730a1f661a8be7a3144feff474f83197987ebfd1cce4063aa9c5504e75c41",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/scripts/read_basis.py",
+      "sections": [
+        [
+          40,
+          86
+        ],
+        [
+          169,
+          223
+        ],
+        [
+          230,
+          269
+        ]
+      ],
+      "role": "Existing installed canonical compact source reader; acquire deciding source before permitted read-only invocation; never W."
+    }
+  ],
+  "externalFixtureReadOnlyInputs": [],
+  "externalEvidenceReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/AUTHOR_AUDIT.json",
+      "bytes": 39361,
+      "sha256": "08afaaf3bc30693007b65b5734a606b3196400014569e35a60e4fafa552cb3e0",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/OPERATOR_RETURN.json",
+      "bytes": 19712,
+      "sha256": "631bda6310a39ea19623de070983052a3881d03ad5962f9ba00d48d1e4838754",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/FROZEN_SOURCE.json",
+      "bytes": 2318,
+      "sha256": "356b31e87d72d710c44d2d18ec753211507db5a653d6c2e7143eb6213b2421e8",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_DIFF.patch",
+      "bytes": 92620,
+      "sha256": "da01b388dd22d51b9069eb845d6ad2428af71bc875dbc56144622ed67f51bdf1",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/RETURN.json",
+      "bytes": 5600,
+      "sha256": "8c0e490844a38dc84fb83779a5b0b825cdf54b70596004b9bb216f2e89c4a5d4",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/004-native-workspace/stdout.raw",
+      "bytes": 32398,
+      "sha256": "d91d9939c421ef3e5803343e4aae9f40ca86fcd101ece71ae927862772ef7e5f",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/004-native-workspace/OBSERVED_CASES.json",
+      "bytes": 39301,
+      "sha256": "e9a44390a98f86695f77b317bc49ee070ccce5a569be9ffd655e2e03112ba9b0",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/002-dependency-focused/COUNTS.json",
+      "bytes": 1074,
+      "sha256": "328423b506347b376c3d3a8c4ba26164f7284f28bb70a19a2149922a14d2081b",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/003-installed-dependency/COUNTS.json",
+      "bytes": 1534,
+      "sha256": "cfd7861e3573ca1032ec8f3c3cc1c7fdc7f126e8fac81400cfd2da75bdc554de",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/scratch/observations/b56-dependency.candidate.json",
+      "bytes": 1686599,
+      "sha256": "c087bcf634cb2e768606eda2e8ad776c0a49cb56af46028b7fa79ca1639ea0ce",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/scratch/observations/b56-installed-coincident.candidate.json",
+      "bytes": 43763331,
+      "sha256": "0ab00db9d0281e71a3ba3652f3b855205099f9f2fa4290943b95513db5f30f56",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/scratch/observations/b56-installed-split.candidate.json",
+      "bytes": 51659440,
+      "sha256": "163cec15524c1f9b2bf36c6d64a2d2043665e331bcb1140dc8928cdc38c20503",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_NATIVE05_NATIVE_ONLY_PIN_ADAPTATION.json",
+      "bytes": 1276,
+      "sha256": "3e8e2297f0fc0f1b08d420b6658c6ca167fbe82bcddc9fb684c026f12e2111af",
+      "role": "Closed04/proof03 or exact native-only adaptation; read-only evidence, no current admission, compliance, source authority or proof credit."
+    }
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+  ],
+  "maxContextFiles": 1024,
+  "maxContextBytes": 25165824,
+  "instructions": [
+    "Invoke the exact installed STDO3.0.4 stdo-work skill as recipient. Read this TASK and ROOT_SELECTION first. This is a separately selected native05 one-file fixture repair after permanently closed native04/proof03; no old clock, source acceptance or method-compliance transfer.",
+    "Before the first edit, actually acquire every readFirst control and requiredOwningContent range plus the externalReadOnlyInputs method ranges. Full actual content is required: path lists, hashes, summaries or a truncated tool response are not acquisition. Use bounded sections and reacquire clipped suffixes; do not dump entire long owners. Perform METHOD_VERIFICATION through the existing installed reader: complete actual status exit/stdout parse, exact basis/member identities and all16 bootstrap bind/route comparisons, then deciding content separately. No improvised parser or vacuous defaults.",
+    "W is solely build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs. Seven IMMUTABLE_RECOVERY files, all runtime/Product/HOW/support/reporter and other tests remain byte-equal. Coherent code/src R authorizes needed causal owner/caller reads, not reading all source or other repositories. Fixed5.0 schema owner versus executing Program use remains unchanged; no guard relaxation, new feature, synthetic admitted authority or provider verdict.",
+    "Apply ROOT_TRIAGE and CONSTRUCTION_GUIDANCE. modulePublication canonically sorts graphFunctions by name: assessment sorts before constructor, so positional index0 is not constructor identity. prepare currently selects constructor Program even for assessment while the assessment graph declares use; real dependency correctly finds zero selected members. Select role-aware exact Program and GraphFunction identities, propagate matching Program ref/digest, graph ref/digest, execution/authority/resolution/assembly premises. Ordinary constructor Program and short-report behavior must remain unchanged.",
+    "Change declaringAssessmentPublication by identity-based mapping that preserves both original graphs, their names and unrelated declarations; do not duplicate/drop graphs or swap an index as a substitute for identity. Correct the coupled complete-path rootGraph selection around1088 and raw-contract mutation around1192-1205 so the negative changes the actual assessment member. Preserve the existing absence-of-declared-use refusal and precise owner/call/row/lock/schema/role negatives. No Product guard, early refusal or expected-success assertion may be weakened.",
+    "Retain full actual deciding inputs and preparation candidate under ABG_REGRESSION_PROOF_ROOT before every relevant assertion or throw in common prepare. Include actual task, selected Program/graph/publication and identity coordinates, row/authority/assembly inputs and actual assembly return (including null/refusal). Use distinct case/attempt records where necessary; do not overwrite or fabricate booleans, fake success or event authority. Capture failures remain visible, and if a primary preparation/assertion error has already occurred it must survive a secondary capture error through the actual reporter error/cause channels. Existing default-library capture is read-only guidance; t.diagnostic alone is dropped.",
+    "Preserve all existing test meanings, titles, ordinary path, independent-negative predicates and strict cleanup. Actual proof03 native-workspace population was39 top-level/43 tests with15 failures at prepare369;26 preservedTitles is a minimum list, not total count. No assertion/title removal, skip, generic acceptance of null/refusal, or changed error precedence merely to turn green.",
+    "Operational native grant: scoped native Read/Edit/Write and text-only Bash/Python reads/edits inside W; standard-library text/JSON/hash and read-only Git status/diff/show; exact selected STDO manager status/resolve/member and installed read_basis.py; actual host date/time reads; syntax-only node --check on W. No Product import/behavioral probe/build/test/pack/install/network/provider nesting/Git mutation/out-of-W or temporary files. External evidence paths in READ_ONLY_EVIDENCE and externalReadOnlyInputs are explicit read-only exceptions; no widening from examples.",
+    "One prospective45min absolute/5min inactivity/360turn pass within a new3h enclosure/3min reserve, actual grant and clock still pending. Unfinished scoped source is an obligation to complete, not itself a reason to stop; use actual observed bounds, not invented expiry. Stop on a concrete missing W dependency, unsupported effect or actual failed check and retain partial source truthfully. Return actual changed path, commands, method/content acquisition and unresolved obligations; Operator then freezes after typed close/fresh reads. No proof is authorized here.",
+    "Later proof is Root-owned and disabled: whole repaired workspace file plus three unrun selections; possible exact payload/build reuse and earlier focused/installed3green titles require explicit conservation decision. Do not copy a proof runner or run earlier green titles automatically. Source syntax or native typed completion is not behavioral acceptance, S06 witness completion or qualification."
+  ],
+  "checks": [
+    "Role-aware exact Program/graph/authority/assembly coordinates; constructor path unchanged",
+    "Identity map preserves complete graph population and exact negative target",
+    "All original negative assertions and39 top-level cases preserved",
+    "Actual common-prepare inputs/candidate retained before assertion, primary errors survive capture failure",
+    "Seven immutable B56 inputs conserved; only W syntax checked",
+    "Actual complete method verification and deciding content acquired before first edit"
+  ],
+  "requiredOwningContent": [
+    {
+      "path": "AGENTS.md",
+      "ranges": [
+        [
+          1,
+          222
+        ]
+      ],
+      "purpose": "Current project authority and effect limits"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "purpose": "Selected Product/basis, empty composition"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "ranges": [
+        [
+          29,
+          75
+        ],
+        [
+          702,
+          733
+        ],
+        [
+          914,
+          955
+        ],
+        [
+          1353,
+          1385
+        ],
+        [
+          1463,
+          1498
+        ]
+      ],
+      "purpose": "Fixed source/runtime/admission and F04/F17/S06 boundary"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "ranges": [
+        [
+          1,
+          9
+        ],
+        [
+          152,
+          171
+        ]
+      ],
+      "purpose": "Current selected wave only"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-CATALOG.md",
+      "ranges": [
+        [
+          11,
+          148
+        ]
+      ],
+      "purpose": "Publication, installed/lock, forward dependency law"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "purpose": "Actual assembly owner and complete request"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "ranges": [
+        [
+          1,
+          97
+        ],
+        [
+          165,
+          329
+        ]
+      ],
+      "purpose": "Selected frame and evidence ordering"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "ranges": [
+        [
+          407,
+          476
+        ]
+      ],
+      "purpose": "Separate constructor/assessment Program and schema-owner/use relation"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/declarations.ts",
+      "ranges": [
+        [
+          190,
+          235
+        ]
+      ],
+      "purpose": "modulePublication canonicalizes authored inventory"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/canonicalization.ts",
+      "ranges": [
+        [
+          60,
+          87
+        ],
+        [
+          131,
+          155
+        ]
+      ],
+      "purpose": "Identity sorting and graph/Program inventory"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/native_workspace_work.ts",
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "purpose": "Exact constructor and assessment Program/GraphFunction identities"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "ranges": [
+        [
+          107,
+          204
+        ]
+      ],
+      "purpose": "Exact Program member/use and owner/install/lock dependency joins"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "ranges": [
+        [
+          108,
+          206
+        ]
+      ],
+      "purpose": "Authenticated assembly and actual assessment dependency refusal"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "ranges": [
+        [
+          1,
+          394
+        ],
+        [
+          774,
+          855
+        ],
+        [
+          908,
+          1270
+        ]
+      ],
+      "purpose": "Fixture owners, all affected assessment cases and coupled complete-path negatives"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "ranges": [
+        [
+          2625,
+          2750
+        ]
+      ],
+      "purpose": "Existing actual preassert capture and primary/secondary-error preservation example; read-only"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "purpose": "Actual retained error/cause channels; diagnostic-only output is not retained"
+    }
+  ],
+  "methodVerification": {
+    "recipe": "Read METHOD_VERIFICATION.json and COORDINATED_HANDOFF.md Compact Source Acquisition; use existing installed read_basis.py, never a new section parser.",
+    "status": "Capture full exact stdo status --verify stdout/stderr and actual child returncode with bounded subprocess.run, parse whole JSON before validation. Retain stdout bytes/hash plus all exact identity/validity fields and actual exit; no head/sed-prefix/pipeline exit. No full manager inventory dump into actor context.",
+    "requiredStatus": {
+      "definition": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04/stdo_abiogenesis.json",
+      "definition_id": "urn:stdo:product-definition:abiogenesis",
+      "basis": "stdo://releases/v3.0.4/",
+      "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "installed": true,
+      "valid": true,
+      "failures": []
+    },
+    "frameInputs": "Exactly1 bootstrap row,1bind+15routes and16completed exact owner/section comparisons, using required actual keys and declared selector set. No absent-field defaults or empty success. Results selected0 excerpt rows does not mean zero routes.",
+    "permission": "Read-only manager status/resolve and exact installed helper check/read/list-headings via pinned Python3.11 -B with explicit store and PYTHONDONTWRITEBYTECODE=1. Standard-library bounded wrapper may capture/parse/hash results only in memory. No Product imports, sync/install/repair/fallback or file writes outside W.",
+    "actualRecords": "Actual full commands and compact non-vacuous results remain in native protocol. Content acquisition of required method/Product sections is separate and must occur before edits."
+  }
+}
