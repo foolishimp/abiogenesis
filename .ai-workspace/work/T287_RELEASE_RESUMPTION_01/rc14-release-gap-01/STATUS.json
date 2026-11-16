@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T10:38:42.451281+00:00",
+  "updatedUtc": "2026-11-16T10:42:15.334312+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1730,7 +1730,7 @@
     "sourceAccepted": false,
     "sourceCompletionSelected": false,
     "disposition": "integration-01/B64_NATIVE03_DISPOSITION_01.json",
-    "partialPreservation": "integration-01/B64_PARTIAL_PRESERVATION_ACTIVATION_01.json",
+    "partialPreservation": "integration-01/B64_NATIVE03_PRESERVATION_ACTIVATION_01.json",
     "native02Return": {
       "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-02/OPERATOR_RETURN.json",
       "bytes": 35482,
@@ -1747,7 +1747,9 @@
       "sha256": "2b261fb506fbe2c48b170eeb2f5acae33c0877c75f571b2662224e9dc1d78ece"
     },
     "actorAbsent": true,
-    "methodCompliant": false
+    "methodCompliant": false,
+    "preservedNative03OnMain": true,
+    "sourceStanding": "Eight Native003 postimage files preserved exactly on main; source/proof acceptance remains withheld."
   },
   "releaseGateCensus02": {
     "state": "BOUNDED_EVIDENCE_MAPPING_ACCEPTED_NOT_QUALIFICATION",

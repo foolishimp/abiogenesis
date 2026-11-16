@@ -1263,88 +1263,140 @@ test("RC7 actual current input: the Result task is its own admitted basis input,
   assert.equal(nativeWork.nativeWorkspaceWorkObservationMatchesTask(x.task, coldEvent.payload.value), true);
 });
 
-// B64: a native assessor's `after` carries members of its own Run's holder; the
-// semantic fold keeps that context unchanged. A later Run presents those bytes
-// only through the revision-declared historical use. Every actual candidate is
-// retained before any assertion; capture failure is secondary evidence.
-test("B64 historical member authority refuses undeclared use and altered coordinates", async t => {
-  const root = process.env.ABG_REGRESSION_PROOF_ROOT, candidate = { kind: "b64_member_authority_candidate", reads: [], refusals: [] };
-  let captureError = null;
-  const capture = () => {
-    if (root === undefined || root === "") return;
-    try { fs.mkdirSync(root, { recursive: true }); fs.writeFileSync(join(root, "b64-member-authority.candidate.json"), JSON.stringify(candidate, null, 1)); }
-    catch (error) { captureError = String(error?.stack ?? error); }
+// B64 capture law: every actual candidate is collected before any assertion
+// and written complete to ABG_REGRESSION_PROOF_ROOT. A collection or assertion
+// failure is primary and stays primary; a capture failure alone fails the case,
+// and beside a primary it is reported as distinct secondary evidence.
+function writeB64Candidate(file, candidate) {
+  const root = process.env.ABG_REGRESSION_PROOF_ROOT;
+  if (root === undefined || root === "") return null;
+  try { fs.mkdirSync(root, { recursive: true }); fs.writeFileSync(join(root, file), JSON.stringify(candidate, null, 1)); return null; }
+  catch (error) { return error; }
+}
+async function b64CapturedCase(t, file, candidate, collect, verify) {
+  const fail = (phase, primary) => {
+    candidate.primaryError = { phase, error: String(primary?.stack ?? primary) };
+    const secondary = writeB64Candidate(file, candidate);
+    if (secondary !== null) t.diagnostic(`secondary capture failure beside primary ${phase} failure: ${String(secondary?.stack ?? secondary)}`);
+    throw primary;
   };
+  try { await collect(); } catch (primary) { fail("collect", primary); }
+  const captureError = writeB64Candidate(file, candidate);
+  if (captureError !== null) throw new Error(`B64 candidate capture failed: ${String(captureError?.stack ?? captureError)}`, { cause: captureError });
+  try { await verify(); } catch (primary) { fail("verify", primary); }
+}
+
+// B64: a native assessor's `after` carries members of its own Run's holder; the
+// semantic fold keeps that context unchanged and C2 names the same observation.
+// A later Run presents those bytes only through a historical use at an exact
+// declared typed route. This file proves the lower held-prefix owner; the use
+// itself is a lower premise here. Acquisition/cover derivation and selector
+// assembly are proved by the native-semantic-job and assembly-owner B64 cases.
+test("B64 historical member authority refuses undeclared use and altered coordinates", async t => {
+  const candidate = { kind: "b64_member_authority_candidate", premise: null, reads: [], refusals: [], current: null, carriers: null };
   const asJson = read => read.kind === "worksite_context_body" ? { ...read, bytes: read.bytes.toString("base64") } : read;
-  try {
-    const f = await resource(t), text = { "src/a.txt": "alpha ".repeat(3000), "src/b.txt": "beta ".repeat(3000) };
+  const text = { "src/a.txt": "alpha ".repeat(3000), "src/b.txt": "beta ".repeat(3000) };
+  let x = null;
+  await b64CapturedCase(t, "b64-member-authority.candidate.json", candidate, async () => {
+    const f = await resource(t);
     const { observe } = await contextFixture(t, text), A = "run://body-fixture/b64-source", B = "run://body-fixture/b64-revision";
     const carry = async (use, ctx) => reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), ctx ?? await observe(), use);
-    // Source Run: one holder birth, a native assessor whose after carries its members, then the unchanged fold.
+    // Source Run: one holder birth, a native assessor whose after carries its
+    // members, the unchanged adverse fold and a C2 observation of that work.
     const prepare = result(f.store, "b64-prepare", nativeTask("b64-prepare", await carry({ runId: A })), A);
     const after = await carry({ runId: A });
-    const assessor = result(f.store, "b64-assessor", { kind: "native_workspace_work_observation", schemaVersion: "5.0.0",
-      task: nativeTask("b64-assessor", after), after, assessment: { disposition: "falsified" } }, A);
+    // The carriage premise is itself a candidate, retained before any assertion.
+    candidate.premise = { holderEventRef: prepare.eventId, holderResultRef: prepare.payload.resultRef, after,
+      entries: fileEntries(after).map(e => ({ relativePath: e.relativePath, encoding: e.encoding, member: e.member ?? null, digest: e.digest, byteLength: e.byteLength })) };
+    const assessorValue = { kind: "native_workspace_work_observation", schemaVersion: "5.0.0",
+      task: nativeTask("b64-assessor", after), after, assessment: { disposition: "falsified" } };
+    const assessor = result(f.store, "b64-assessor", assessorValue, A);
     const fold = result(f.store, "b64-adverse-fold", { kind: "semantic_stage_envelope", schemaVersion: "5.0.0", context: after, assets: [], evidence: null }, A);
-    const foldBytes = canonicalJson(fold.payload);
-    assert.ok(fileEntries(after).every(e => e.encoding === "admitted_member"), JSON.stringify(carriage(after)));
+    const c2 = result(f.store, "b64-c2-observation", { kind: "worksite_command_execution_observation", schemaVersion: "5.0.0",
+      task: { kind: "native_worksite_command_execution_task", sourceNativeWork: assessorValue,
+        sourceReacquisition: { request: { sourceNativeWork: assessorValue, currentContext: after } } }, commandResults: [] }, A);
+    const original = Object.fromEntries([["fold", fold], ["c2", c2], ["assessor", assessor]].map(([k, e]) => [k, canonicalJson(e.payload)]));
     const coveredBinding = { bindingId: after.workspaceBindingIdentity, bindingDigest: after.workspaceBindingDigest };
-    const use = { resultRef: fold.payload.resultRef, resultDigest: fold.payload.resultDigest, cCallRef: fold.aggregateId, runId: A, coveredBinding };
-    // The revision Run admits its own later Result; the historical prefix is the same committed store.
-    result(f.store, "b64-revision-intake", nativeTask("b64-revision-intake", await observe()), B);
+    const useOf = (event, extra = {}) => ({ resultRef: event.payload.resultRef, resultDigest: event.payload.resultDigest, cCallRef: event.aggregateId, runId: A, coveredBinding, ...extra });
+    const at = (event, route) => ({ resultRef: event.payload.resultRef, resultDigest: event.payload.resultDigest, route });
+    const use = useOf(fold);
+    // The revision Run admits its own later fresh context; it is a holder of Run B.
+    const current = await observe();
+    const intake = result(f.store, "b64-revision-intake", nativeTask("b64-revision-intake", current), B);
+    // Admitted Results whose declared context is held but whose member is bad:
+    // forward holder, crossed member path, other version, another Run's holder.
+    const withEntry = (ctx, path, change) => ({ ...ctx, entries: ctx.entries.map(e => e.relativePath === path ? change(structuredClone(e)) : e) });
+    const badFold = (label, ctx) => { const event = result(f.store, label, { kind: "semantic_stage_envelope", schemaVersion: "5.0.0", context: ctx, assets: [], evidence: null }, A); return { event, ctx }; };
+    const forward = badFold("b64-forward-member", withEntry(after, "src/a.txt", e => ({ ...e, member: { ...e.member, resultRef: "result://body-fixture/b64-forward" } })));
+    const crossed = badFold("b64-crossed-member", withEntry(after, "src/a.txt", e => ({ ...e, member: { ...e.member, path: [...e.member.path.slice(0, -1), 99] } })));
+    const version = badFold("b64-other-version", withEntry(after, "src/a.txt", e => ({ ...e, digest: sha256Canonical("v2") })));
+    const foreignCtx = await carry({ runId: B });
+    const foreign = badFold("b64-foreign-holder", foreignCtx);
+    candidate.premise.foreignHolder = { eventRef: intake.eventId, entries: fileEntries(foreignCtx).map(e => ({ relativePath: e.relativePath, encoding: e.encoding, member: e.member ?? null })) };
     const held = selectRuntimeEventPrefixFromStore(f.store);
     const cold = selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(f.eventLogPath)));
-    for (const [label, prefix] of [["held", held], ["cold", cold]]) for (const e of fileEntries(after)) {
-      candidate.reads.push({ label, relativePath: e.relativePath, read: asJson(resolveHistoricalWorksiteContextBodyAtPrefix(prefix, after, e.relativePath, [use])) });
-    }
-    const attempt = (label, ctx, path, uses, prefix = held) => {
-      const read = resolveHistoricalWorksiteContextBodyAtPrefix(prefix, ctx, path, uses);
-      candidate.refusals.push({ label, relativePath: path, read: asJson(read) });
-      return read;
+    // Every typed route the selector traverses for these kinds.
+    const routes = [["fold context", fold, ["context"]], ["assessor after", assessor, ["after"]], ["assessor task context", assessor, ["task", "context"]],
+      ["C2 sourceNativeWork after", c2, ["task", "sourceNativeWork", "after"]], ["C2 sourceNativeWork task context", c2, ["task", "sourceNativeWork", "task", "context"]],
+      ["C2 reacquisition sourceNativeWork after", c2, ["task", "sourceReacquisition", "request", "sourceNativeWork", "after"]],
+      ["C2 reacquisition currentContext", c2, ["task", "sourceReacquisition", "request", "currentContext"]]];
+    for (const [label, prefix] of [["held", held], ["cold", cold]]) for (const [route, event, path] of routes) for (const e of fileEntries(after))
+      candidate.reads.push({ label, route, path, relativePath: e.relativePath,
+        read: asJson(resolveHistoricalWorksiteContextBodyAtPrefix(prefix, at(event, path), after, e.relativePath, [useOf(event)])) });
+    const attempt = (label, coordinate, ctx, path, uses, expected, prefix = held) => {
+      candidate.refusals.push({ label, coordinate, relativePath: path, expected, read: asJson(resolveHistoricalWorksiteContextBodyAtPrefix(prefix, coordinate, ctx, path, uses)) });
     };
-    const withEntry = (ctx, path, change) => ({ ...ctx, entries: ctx.entries.map(e => e.relativePath === path ? change(structuredClone(e)) : e) });
-    const memberOf = (path, change) => withEntry(after, path, e => { change(e.member); return e; });
-    const cases = [
-      ["undeclared use", after, "src/a.txt", [], "foreign"],
-      ["same-Run resolver from the revision Run", null, "src/a.txt", null, "foreign"],
-      ["foreign Run", after, "src/a.txt", [{ ...use, runId: B }], "foreign"],
-      ["foreign CCall", after, "src/a.txt", [{ ...use, cCallRef: "c-call://body-fixture/b64-other" }], "foreign"],
-      ["missing Result", after, "src/a.txt", [{ ...use, resultRef: "result://body-fixture/b64-never-admitted" }], "pending"],
-      ["tampered Result digest", after, "src/a.txt", [{ ...use, resultDigest: sha256Canonical("other") }], "tampered"],
-      ["uncovered binding", after, "src/a.txt", [{ ...use, coveredBinding: { ...coveredBinding, bindingDigest: sha256Canonical("other-binding") } }], "foreign"],
-      ["assessor Result is not the declared fold", after, "src/a.txt", [{ ...use, resultRef: assessor.payload.resultRef, resultDigest: sha256Canonical("x"), cCallRef: assessor.aggregateId }], "tampered"],
-      ["altered context is not held at a declared coordinate", withEntry(after, "src/a.txt", e => ({ ...e, digest: sha256Canonical("v2") })), "src/a.txt", [use], "foreign"],
-      ["wrong path", after, "src/missing.txt", [use], "missing"],
-      ["outside read roots", after, "other/a.txt", [use], "denied"],
-    ];
-    for (const [label, ctx, path, uses, expected] of cases) {
-      const read = ctx === null ? resolveWorksiteContextBodyAtPrefix(held, after, path, { runId: B }) : attempt(label, ctx, path, uses);
-      if (ctx === null) candidate.refusals.push({ label, relativePath: path, read: asJson(read) });
-      candidate.refusals.at(-1).expected = expected;
-    }
-    // Altered member coordinates inside an otherwise declared context are no longer that held context.
-    for (const [label, change] of [["tampered member path", m => { m.path = [...m.path.slice(0, -1), 99]; }],
-      ["forward holder", m => { m.resultRef = "result://body-fixture/b64-forward"; }]]) {
-      attempt(label, memberOf("src/a.txt", change), "src/a.txt", [use]); candidate.refusals.at(-1).expected = "foreign";
-    }
-    candidate.foldAfter = { bytes: canonicalJson(f.store.readAll().find(e => e.eventId === fold.eventId).payload), original: foldBytes };
-    capture();
-    // Assertions after complete capture.
+    const foldAt = at(fold, ["context"]);
+    attempt("undeclared use", foldAt, after, "src/a.txt", [], "foreign");
+    attempt("use of another Result than the coordinate", foldAt, after, "src/a.txt", [useOf(assessor)], "foreign");
+    attempt("foreign Run", foldAt, after, "src/a.txt", [{ ...use, runId: B }], "foreign");
+    attempt("foreign CCall", foldAt, after, "src/a.txt", [{ ...use, cCallRef: "c-call://body-fixture/b64-other" }], "foreign");
+    attempt("missing Result", { ...foldAt, resultRef: "result://body-fixture/b64-never-admitted" }, after, "src/a.txt", [{ ...use, resultRef: "result://body-fixture/b64-never-admitted" }], "pending");
+    attempt("tampered Result digest", { ...foldAt, resultDigest: sha256Canonical("other") }, after, "src/a.txt", [{ ...use, resultDigest: sha256Canonical("other") }], "tampered");
+    attempt("uncovered binding", foldAt, after, "src/a.txt", [{ ...use, coveredBinding: { ...coveredBinding, bindingDigest: sha256Canonical("other-binding") } }], "foreign");
+    attempt("undeclared route of the kind", at(fold, ["assets"]), after, "src/a.txt", [use], "foreign");
+    attempt("C2 route on an envelope kind", at(fold, ["task", "sourceNativeWork", "after"]), after, "src/a.txt", [use], "foreign");
+    attempt("declared route holding another value", at(fold, ["evidence", "constructionResult", "after"]), after, "src/a.txt", [use], "tampered");
+    attempt("altered context at its declared route", foldAt, withEntry(after, "src/a.txt", e => ({ ...e, digest: sha256Canonical("v2") })), "src/a.txt", [use], "tampered");
+    attempt("malformed coordinate", { resultRef: use.resultRef, resultDigest: use.resultDigest, route: "context" }, after, "src/a.txt", [use], "malformed");
+    attempt("wrong path", foldAt, after, "src/missing.txt", [use], "missing");
+    attempt("outside read roots", foldAt, after, "other/a.txt", [use], "denied");
+    attempt("forward holder of a held context", at(forward.event, ["context"]), forward.ctx, "src/a.txt", [useOf(forward.event)], "pending");
+    attempt("crossed member path of a held context", at(crossed.event, ["context"]), crossed.ctx, "src/a.txt", [useOf(crossed.event)], "tampered");
+    attempt("other version of a held context", at(version.event, ["context"]), version.ctx, "src/a.txt", [useOf(version.event)], "stale");
+    attempt("another Run's holder without retained-source use", at(foreign.event, ["context"]), foreign.ctx, "src/a.txt", [useOf(foreign.event)], "foreign");
+    attempt("another Run's holder with an undeclaring retained-source use", at(foreign.event, ["context"]), foreign.ctx, "src/a.txt", [useOf(foreign.event, { sourceResults: [] })], "foreign");
+    attempt("cold undeclared route", at(c2, ["task", "commandResults"]), after, "src/a.txt", [useOf(c2)], "foreign", cold);
+    // The same-Run resolver of the revision Run cannot read the historical members.
+    candidate.refusals.push({ label: "same-Run resolver from the revision Run", relativePath: "src/a.txt", expected: "foreign",
+      read: asJson(resolveWorksiteContextBodyAtPrefix(held, after, "src/a.txt", { runId: B })) });
+    // Current W stays the fresh inline intake observation, distinct from history.
+    candidate.current = { context: current, ownRead: asJson(resolveWorksiteContextBodyAtPrefix(held, current, "src/a.txt", { runId: B })),
+      historicalRead: asJson(resolveHistoricalWorksiteContextBodyAtPrefix(held, at(intake, ["context"]), current, "src/a.txt", [use])) };
+    const stored = f.store.readAll();
+    candidate.carriers = Object.fromEntries(Object.entries({ fold, c2, assessor }).map(([k, e]) =>
+      [k, { original: original[k], after: canonicalJson(stored.find(row => row.eventId === e.eventId).payload) }]));
+    x = { prepare };
+  }, async () => {
+    assert.ok(candidate.premise.entries.length === Object.keys(text).length && candidate.premise.entries.every(e => e.encoding === "admitted_member" && e.member.resultRef === candidate.premise.holderResultRef),
+      JSON.stringify(candidate.premise.entries));
+    assert.ok(candidate.premise.foreignHolder.entries.every(e => e.encoding === "admitted_member"), JSON.stringify(candidate.premise.foreignHolder));
     for (const row of candidate.reads) {
       assert.equal(row.read.kind, "worksite_context_body", JSON.stringify(row));
       assert.equal(Buffer.from(row.read.bytes, "base64").toString(), text[row.relativePath]);
-      assert.equal(row.read.holder.eventRef, prepare.eventId);
+      assert.equal(row.read.holder.eventRef, x.prepare.eventId);
     }
     const heldReads = candidate.reads.filter(r => r.label === "held").map(r => r.read), coldReads = candidate.reads.filter(r => r.label === "cold").map(r => r.read);
+    assert.equal(heldReads.length, 14);
     assert.deepEqual(coldReads, heldReads, "held and cold prefixes present the same complete historical bytes");
     for (const row of candidate.refusals) {
       assert.equal(row.read.kind, "worksite_context_body_refusal", JSON.stringify(row));
       assert.equal(row.read.code, row.expected, `${row.label}: ${row.read.reason}`);
     }
-    assert.equal(candidate.foldAfter.bytes, candidate.foldAfter.original, "the admitted fold carrier is unchanged");
-  } catch (error) {
-    candidate.primaryError = String(error?.stack ?? error); capture(); throw error;
-  } finally {
-    if (captureError !== null) t.diagnostic(`secondary capture failure: ${captureError}`);
-  }
+    assert.ok(fileEntries(candidate.current.context).every(e => e.encoding === "base64"), "the current intake context is a fresh inline birth");
+    assert.equal(candidate.current.ownRead.kind, "worksite_context_body"); assert.equal(candidate.current.ownRead.holder, null);
+    assert.equal(candidate.current.historicalRead.kind, "worksite_context_body_refusal");
+    assert.equal(candidate.current.historicalRead.code, "foreign", "current W has no historical use");
+    for (const [k, row] of Object.entries(candidate.carriers)) assert.equal(row.after, row.original, `the admitted ${k} carrier is unchanged`);
+  });
 });

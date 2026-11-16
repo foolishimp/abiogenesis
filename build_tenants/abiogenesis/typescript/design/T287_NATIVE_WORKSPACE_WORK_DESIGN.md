@@ -307,16 +307,44 @@ historical use below. Every other member consumer still refuses.
 
 Historical revision use (B64). The revision owner (`abg/semantic_revision.ts`)
 derives one `WorksiteContextBodyHistoricalUse` per authenticated parent, cause
-and construction Result of its admitted acquisition: exact Result ref/digest,
-CCall and Run, and the source binding the admitted intake's binding cover
-relates to the current W. Only a Result whose own execution basis carries that
-covered binding is declared. Callers supply no list, and no carrier-shaped
-search occurs. `resolveHistoricalWorksiteContextBodyAtPrefix` admits a context
-only when it is exactly equal to the context held at one fixed declared envelope
-coordinate of that committed Result, its binding is the covered binding, and
-then resolves the member under the Result's genuine historical Run through the
-unchanged resolver, retaining holder admission, digest, basis, coordinate,
-scope, path, version, length, read roots and bytes. Undeclared, forward,
+and construction Result of its admitted acquisition, each through its own
+admitted acquisition/cover chain: exact Result ref/digest, CCall and genuine
+historical Run, and the covered binding. Causes, the construction and a parent
+of the acquisition's source Run carry the source binding that the admitted
+intake's binding cover relates to the current W (the construction source
+task's binding when present, otherwise the source root's). A conserved parent
+of an older Run is reached only through the admitted revision
+request/acquisition chain from an authenticated cause
+(`conservedNativeRevisionParent`); it carries the source binding of the earlier
+admitted acquisition that conserved it, which may differ from the newest
+cause's. Only a Result whose own execution basis carries its covered binding is
+declared. When that historical Run's own admitted invocation already declared
+retained-source use, the use copies those `sourceResults` from the invocation
+admission; passing a Run alone grants nothing. Callers supply no list, and no
+carrier-shaped search occurs.
+
+```text
+admitted acquisition --source cover--> cause / construction / same-Run parent
+cause.revisionBasis.request.acquisition --earlier cover--> conserved parent
+```
+
+The presentation reader names the declared Result and the exact typed route at
+which it reached a context. `resolveHistoricalWorksiteContextBodyAtPrefix`
+requires that route to be declared for the admitted value kind, the value held
+there to equal the context, and the context binding to be the use's covered
+binding. The declared routes compose fixed typed slots, not a recursive search:
+native work `task.context`/`before`/`after` (where the retained form carries
+them); a C2 command task's `sourceNativeWork` and, for a reacquisition proof,
+`sourceReacquisition.request.sourceNativeWork` and `currentContext`; a C2
+observation's `task`; a semantic envelope's `context`,
+`evidence.constructionResult` and `evidence.executionObservation`; and a
+revision envelope's `current` envelope and
+`revisionBasis.request.nativeWorksite.context`. The admitted kinds are the
+semantic stage and revision envelopes, the C2 observation and native work
+observation/failure. The member then resolves under the Result's genuine
+historical Run (and its copied retained-source use) through the unchanged
+resolver, retaining holder admission, digest, basis, coordinate, scope, path,
+version, length, read roots and bytes. Undeclared, undeclared-route, forward,
 foreign, tampered, wrong-binding or unavailable reads refuse with their typed
 cause. A historical read is never current physical context: the current intake
 observation stays an inline fresh birth with its currentness checks.

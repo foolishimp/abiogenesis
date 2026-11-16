@@ -1,0 +1,91 @@
+{
+  "id": "RC14-B64-NATIVE03-PRESERVATION-WRITER-046",
+  "recordedUtc": "2026-11-16T10:41:57.487078+00:00",
+  "actor": "/root",
+  "role": "Separately activated exact-copy preservation Writer; not Executive while applying effects.",
+  "authority": "Owner checkpoint everything on main/push and continue RC14; closed source-frame conjunction selects preservation, not acceptance.",
+  "disposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B64_NATIVE03_DISPOSITION_01.json",
+    "bytes": 13001,
+    "sha256": "517cbb13cf00bde0a82de99bc9f82896f6d34758214c346bc1a4ebacd2f57203"
+  },
+  "mainPreimage": "5989ec3d458b895609d0446a06b40b4aafe6a0a2",
+  "sourceBase": "60b6d9e28a26115646536ce827162f8e9046c01b",
+  "sourceFreeze": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/FROZEN_SOURCE.json",
+    "bytes": 7418,
+    "sha256": "740cc09f9477bc4bdcf9b346824ed27aa570d3c0fa5779dc5eeb75ea2561fa1c"
+  },
+  "writeTerritory": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs"
+  ],
+  "files": [
+    {
+      "relative": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/source-subject/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 75434,
+      "sha256": "eec5cd42ee5a7dcd68176f105980816bf56f0793a66464997b1c23cdd81dd288"
+    },
+    {
+      "relative": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/source-subject/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "bytes": 119565,
+      "sha256": "67e8b316d318b1d30e6109503fb04c5552ac68cb739df106627102532c6dbf93"
+    },
+    {
+      "relative": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/source-subject/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "bytes": 101785,
+      "sha256": "3d8f377aef159e40bbd5e5b82979f3579e85fc545db6e5752a32e319abc6cb9a"
+    },
+    {
+      "relative": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/source-subject/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "bytes": 69775,
+      "sha256": "5e0aad4ca855d220a26f99592cd2caec31e180ace89236c13e7574a6ab57953b"
+    },
+    {
+      "relative": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/source-subject/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "bytes": 43817,
+      "sha256": "f5c17b41abe4eacc26a9c7e58d561d95fd97dc6dde920e2cceb42082a7fb1a71"
+    },
+    {
+      "relative": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "bytes": 117972,
+      "sha256": "7a5f077b75df15828f39d1aed8e296d58d56842c4d4e3ffce895ac55b9106246"
+    },
+    {
+      "relative": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "bytes": 89557,
+      "sha256": "7fe05f0c559df9490a25896bf9bfdf2ac37eb069e0faad818f1eb83484d8488b"
+    },
+    {
+      "relative": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-historical-context-repair-20261116-03/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "bytes": 43882,
+      "sha256": "e04c414964db7c02c70d73ba0b15c21c40e2b1f8ac064182b3a1c702c6b590ec"
+    }
+  ],
+  "operationGrant": [
+    "Verify eight main files still equal sourceBase and each frozen postimage pin; copy those exact eight authored source files byte-for-byte, no hand edits.",
+    "Checkpoint and push exact source plus this activation and existing authorized compact status records. Verify exact staged paths and bytes.",
+    "Preserve source03 HEAD/index, immutable source-subject, all raw receipts/candidates/installs and unrelated work."
+  ],
+  "concurrentWriter": "S01 source-only author owns isolated source at fixed5989ec3d4, disjoint three test paths; its source inputs and grant remain unchanged as main advances.",
+  "acceptance": false,
+  "methodCompliance": false,
+  "proofClaim": false,
+  "exclusions": [
+    "No semantic edits beyond returned bytes, source deletion, raw publication, build/test, qualification, tag, install or pin change."
+  ]
+}

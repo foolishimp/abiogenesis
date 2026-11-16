@@ -140,10 +140,16 @@ current observations and binding identities remain explicit. A parent/cause or
 construction envelope may legally hold `admitted_member` context entries from
 its native fold ([HOW](./T287_NATIVE_WORKSPACE_WORK_DESIGN.md#context-body-carriage-p1)).
 The view reaches those bytes only through the revision-declared historical use
-and the held-prefix member owner, under the historical Run and covered source
-binding; the presented row keeps its original member coordinate, path, digest
-and length beside the shared byte reference, and the admitted carrier is not
-rewritten. Held and cold prefixes yield the same presentation. The selected
+and the held-prefix member owner, under the historical Run and the binding its
+own acquisition/cover chain covers: the intake's source cover for the source
+Run's Results, and the earlier conserving acquisition's source cover for a
+conserved older parent. Each read names the exact typed route the view
+traversed (parent/cause/construction envelope context, construction and C2
+`sourceNativeWork`, reacquisition `sourceNativeWork`/`currentContext`, revision
+`current` and request context); the body owner accepts only declared routes
+([HOW](./T287_NATIVE_WORKSPACE_WORK_DESIGN.md#context-body-carriage-p1)). The
+presented row keeps its original member coordinate, path, digest and length
+beside the shared byte reference, and the admitted carrier is not rewritten. Held and cold prefixes yield the same presentation. The selected
 current W context remains the fresh inline intake observation; a member there,
 an undeclared historical use or a refused read stops assembly as
 `unavailable_required_content`. A same-Run semantic stage view reads its own

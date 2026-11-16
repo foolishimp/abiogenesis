@@ -20,7 +20,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { reidentifyHistoricalDurablePrefixCoordinate } from "./event_store.js";
 import { indexedRuntimeEvents, worksiteContextBodyReaderAtPrefix, resolveWorksiteContextBodyAtPrefix, resolveHistoricalWorksiteContextBodyAtPrefix,
-  type WorksiteContextBodyHistoricalUse } from "./event_prefix.js";
+  type WorksiteContextBodyHistoricalUse, type WorksiteContextBodyHistoricalCoordinate } from "./event_prefix.js";
 import { governanceContextBodyUse, hasExactInvocationRunBindingAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import type { RecurseApplication } from "../gtl/contracts.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
@@ -894,7 +894,7 @@ export function requireNativeInstructionAssembly(basis: SemanticStageNativeBasis
 export function renderNativeRevisionSelectionDecisionView(
   sections: Readonly<Record<string, JsonValue>>,
   envelope: import("../product/semantic_job.js").SemanticJobEnvelope,
-  readHistorical?: (holder: Readonly<{ resultRef: string; resultDigest: string }>, context: WorksiteContextObservation, relativePath: string) => Buffer,
+  readHistorical?: (at: WorksiteContextBodyHistoricalCoordinate, context: WorksiteContextObservation, relativePath: string) => Buffer,
 ): Readonly<Record<string, JsonValue>> {
   type Row = Readonly<Record<string, JsonValue>>;
   const row = (value: JsonValue): Row => value as Row;
@@ -938,13 +938,17 @@ export function renderNativeRevisionSelectionDecisionView(
   // Only its revision-declared historical use may present member bytes; the
   // selected current W context has no holder and stays inline-only.
   let holder: Readonly<{ resultRef: string; resultDigest: string }> | null = null;
-  const contextView = (context: Row): Row => ({ ...context,
+  // The exact typed route, relative to that Result's admitted value, at which
+  // a context is reached. `null` outside a historical Result (current W).
+  type Route = readonly string[] | null;
+  const under = (at: Route, ...steps: string[]): Route => at === null ? null : [...at, ...steps];
+  const contextView = (context: Row, at: Route): Row => ({ ...context,
     entries: (context.entries as readonly Row[]).map(entry => {
       if (entry.state !== "file") return entry;
-      if (entry.encoding === "admitted_member" && holder !== null && readHistorical !== undefined) {
+      if (entry.encoding === "admitted_member" && holder !== null && at !== null && readHistorical !== undefined) {
         // Historical bytes under their genuine historical scope. The original
         // member coordinate, path, digest and length remain beside the view.
-        const bytes = readHistorical(holder, context as unknown as WorksiteContextObservation, entry.relativePath as string);
+        const bytes = readHistorical({ ...holder, route: at }, context as unknown as WorksiteContextObservation, entry.relativePath as string);
         const { encoding, ...identity } = entry;
         return { ...identity, sourceEncoding: encoding!, textView: bytesView(bytes.toString("base64"), entry.digest as Sha256Digest, entry.byteLength as number) };
       }
@@ -962,65 +966,66 @@ export function renderNativeRevisionSelectionDecisionView(
   };
   // These routes are slots of the already authenticated subject, not a
   // recursive search for carrier-like property names in application JSON.
-  const nativeWorkView = (value: Row): Row => isCompleted(value) ? {
+  const nativeWorkView = (value: Row, at: Route): Row => isCompleted(value) ? {
     observationRef: value.observationRef!, observationDigest: value.observationDigest!,
     presentationRef: "#/worksite/construction/result/value", disposition: "same_admitted_construction_evidence" } : ({ ...value,
-      ...(Object.hasOwn(value, "task") ? { task: { ...row(value.task!), context: contextView(row(row(value.task!).context!)) } } : {}),
-      ...(Object.hasOwn(value, "before") ? { before: contextView(row(value.before!)) } : {}),
-      after: value.after === null ? null : contextView(row(value.after!)) });
-  const commandTaskView = (task: Row): Row => ({ ...task,
-    ...(task.sourceNativeWork === undefined ? {} : { sourceNativeWork: nativeWorkView(row(task.sourceNativeWork)) }),
+      ...(Object.hasOwn(value, "task") ? { task: { ...row(value.task!), context: contextView(row(row(value.task!).context!), under(at, "task", "context")) } } : {}),
+      ...(Object.hasOwn(value, "before") ? { before: contextView(row(value.before!), under(at, "before")) } : {}),
+      after: value.after === null ? null : contextView(row(value.after!), under(at, "after")) });
+  const commandTaskView = (task: Row, at: Route): Row => ({ ...task,
+    ...(task.sourceNativeWork === undefined ? {} : { sourceNativeWork: nativeWorkView(row(task.sourceNativeWork), under(at, "sourceNativeWork")) }),
     ...(task.sourceReacquisition === undefined ? {} : { sourceReacquisition: (() => {
       const reacquisition = row(task.sourceReacquisition), request = row(reacquisition.request!);
       return { ...reacquisition, request: { ...request,
-        sourceNativeWork: nativeWorkView(row(request.sourceNativeWork!)), currentContext: contextView(row(request.currentContext!)) } };
+        sourceNativeWork: nativeWorkView(row(request.sourceNativeWork!), under(at, "sourceReacquisition", "request", "sourceNativeWork")),
+        currentContext: contextView(row(request.currentContext!), under(at, "sourceReacquisition", "request", "currentContext")) } };
     })() }) });
   const streamView = (stream: Row): Row => {
     const { payload, encoding, ...identity } = stream;
     return { ...identity, sourceEncoding: encoding!, textView: bytesView(payload as string, stream.digest as Sha256Digest, stream.byteLength as number) };
   };
-  const executionView = (value: Row): Row => ({ ...value, task: commandTaskView(row(value.task!)),
+  const executionView = (value: Row, at: Route): Row => ({ ...value, task: commandTaskView(row(value.task!), under(at, "task")),
     commandResults: (value.commandResults as readonly Row[]).map(command => ({ ...command,
       stdout: streamView(row(command.stdout!)), stderr: streamView(row(command.stderr!)) })) });
-  const evidenceView = (value: Row): Row => ({ ...value,
+  const evidenceView = (value: Row, at: Route): Row => ({ ...value,
     constructionResult: row(value.constructionResult!).kind === "native_workspace_work_observation"
-      ? nativeWorkView(row(value.constructionResult!)) : value.constructionResult!,
-    executionObservation: executionView(row(value.executionObservation!)),
+      ? nativeWorkView(row(value.constructionResult!), under(at, "constructionResult")) : value.constructionResult!,
+    executionObservation: executionView(row(value.executionObservation!), under(at, "executionObservation")),
     artifacts: (value.artifacts as readonly Row[]).map(({ base64, ...identity }) => ({ ...identity, textView: bytesView(base64 as string) })) });
-  const envelopeView = (value: Row): Row => ({ ...value,
+  const envelopeView = (value: Row, at: Route): Row => ({ ...value,
     rawEnvelopeDigest: sha256Canonical(value),
     job: { presentationRef: "#/task/originalJob", digest: sha256Canonical(value.job!) },
     declaration: { declarationRef: row(value.declaration!).declarationRef!, digest: sha256Canonical(value.declaration!), eligibleStagesRef: "#/task/stages" },
-    context: value.context === null ? null : contextView(row(value.context!)),
-    evidence: value.evidence === null ? null : evidenceView(row(value.evidence!)),
+    context: value.context === null ? null : contextView(row(value.context!), under(at, "context")),
+    evidence: value.evidence === null ? null : evidenceView(row(value.evidence!), under(at, "evidence")),
     assets: (value.assets as readonly Row[]).map(assetView) });
-  const revisionView = (value: Row): Row => {
+  const revisionView = (value: Row, at: Route): Row => {
     const basis = row(value.revisionBasis!), request = row(basis.request!);
-    return { ...value, current: envelopeView(row(value.current!)), revisionBasis: { ...basis,
+    return { ...value, current: envelopeView(row(value.current!), under(at, "current")), revisionBasis: { ...basis,
       historicalAssets: (basis.historicalAssets as readonly Row[]).map(assetView),
       request: { ...request, ...(request.nativeWorksite === undefined ? {} : { nativeWorksite: {
-        ...row(request.nativeWorksite), context: contextView(row(row(request.nativeWorksite).context!)) } }) } } };
+        ...row(request.nativeWorksite), context: contextView(row(row(request.nativeWorksite).context!), under(at, "revisionBasis", "request", "nativeWorksite", "context")) } }) } } };
   };
   const leafView = (leaf: Row, primaryConstruction = false): Row => {
     const result = row(leaf.result!), value = row(result.value!);
     const outer = holder;
     holder = typeof result.resultRef === "string" && typeof result.resultDigest === "string"
       ? { resultRef: result.resultRef, resultDigest: result.resultDigest } : null;
-    try { return leafDisplay(leaf, result, value, primaryConstruction); } finally { holder = outer; }
+    try { return leafDisplay(leaf, result, value, primaryConstruction, holder === null ? null : []); } finally { holder = outer; }
   };
-  const leafDisplay = (leaf: Row, result: Row, value: Row, primaryConstruction: boolean): Row => {
+  const leafDisplay = (leaf: Row, result: Row, value: Row, primaryConstruction: boolean, at: Route): Row => {
     // The admitted Result's declared value kind owns this alternative. Never
     // dispatch on a nested application's kind, base64, payload or asset keys.
-    const displayed = result.valueKind === "semantic_stage_envelope" ? envelopeView(value)
-      : result.valueKind === "semantic_revision_envelope" ? revisionView(value)
-      : result.valueKind === "worksite_command_execution_observation" ? executionView(value)
+    const displayed = result.valueKind === "semantic_stage_envelope" ? envelopeView(value, at)
+      : result.valueKind === "semantic_revision_envelope" ? revisionView(value, at)
+      : result.valueKind === "worksite_command_execution_observation" ? executionView(value, at)
       : result.valueKind === "native_workspace_work_observation" && primaryConstruction && isCompleted(value)
         ? nativeEvidenceWorkView(value as unknown as import("../product/native_workspace_work.js").NativeWorkspaceWorkObservation) as unknown as Row
-      : result.valueKind === "native_workspace_work_observation" || result.valueKind === "native_workspace_work_failure" ? nativeWorkView(value)
+      : result.valueKind === "native_workspace_work_observation" || result.valueKind === "native_workspace_work_failure" ? nativeWorkView(value, at)
       : result.value;
     return { ...leaf, result: { ...result, value: displayed! } };
   };
-  const worksite = { ...originalWorksite, context: contextView(row(originalWorksite.context!)),
+  const worksite = { ...originalWorksite, context: contextView(row(originalWorksite.context!), null),
     construction: originalWorksite.construction === null ? null : leafView(row(originalWorksite.construction!), true),
     ...(completedDigest === null ? {} : { completedConstructionDisposition: "selected_evidence_material_historical_input_and_inventory_bodies_not_selected" }) };
   const evidence = { ...originalEvidence,
@@ -1098,9 +1103,8 @@ function constructRevisionSelectionAssembly(basis: SemanticStageNativeBasis, inp
   // The revision owner's authenticated historical uses are the only route to
   // member bytes of a parent/cause/construction; the body owner checks each read.
   const historical: readonly WorksiteContextBodyHistoricalUse[] = "historicalContexts" in subject ? subject.historicalContexts : [];
-  const readHistorical = (held: Readonly<{ resultRef: string; resultDigest: string }>, context: WorksiteContextObservation, relativePath: string): Buffer => {
-    const read = resolveHistoricalWorksiteContextBodyAtPrefix(owner.prefix, context, relativePath,
-      historical.filter(use => use.resultRef === held.resultRef && use.resultDigest === held.resultDigest));
+  const readHistorical = (at: WorksiteContextBodyHistoricalCoordinate, context: WorksiteContextObservation, relativePath: string): Buffer => {
+    const read = resolveHistoricalWorksiteContextBodyAtPrefix(owner.prefix, at, context, relativePath, historical);
     if (read.kind !== "worksite_context_body") throw new TypeError(`historical context member ${read.code}: ${read.reason}`);
     return read.bytes;
   };

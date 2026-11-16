@@ -345,3 +345,165 @@ test('semantic stage, revision and selection implementations preserve the comple
 // holds those events. A truthful coordinate under the current profile needs a
 // new native run, which is the owner's; no case can be regenerated from
 // retained events.
+
+// B64 capture law: every actual candidate is collected before any assertion
+// and written complete to ABG_REGRESSION_PROOF_ROOT. A collection or assertion
+// failure is primary and stays primary; a capture failure alone fails the case,
+// and beside a primary it is reported as distinct secondary evidence.
+function writeB64Candidate(file, value) {
+  const dir = process.env.ABG_REGRESSION_PROOF_ROOT;
+  if (dir === undefined || dir === '') return null;
+  try { fs.mkdirSync(dir, { recursive: true }); fs.writeFileSync(join(dir, file), JSON.stringify(value, null, 1)); return null; }
+  catch (error) { return error; }
+}
+async function b64CapturedCase(t, file, candidate, collect, verify) {
+  const fail = (phase, primary) => {
+    candidate.primaryError = { phase, error: String(primary?.stack ?? primary) };
+    const secondary = writeB64Candidate(file, candidate);
+    if (secondary !== null) t.diagnostic(`secondary capture failure beside primary ${phase} failure: ${String(secondary?.stack ?? secondary)}`);
+    throw primary;
+  };
+  try { await collect(); } catch (primary) { fail('collect', primary); }
+  const captureError = writeB64Candidate(file, candidate);
+  if (captureError !== null) throw new Error(`B64 candidate capture failed: ${String(captureError?.stack ?? captureError)}`, { cause: captureError });
+  try { await verify(); } catch (primary) { fail('verify', primary); }
+}
+
+// B64 presentation: the real event store, real held-prefix carriage and the
+// real body owner serve the real selector decision view. The historical uses
+// here are lower premises in the shape the revision owner derives (its
+// derivation is the native-semantic-job B64 owner-path case): an inherited
+// parent of an older Run and binding, and source-Run causes of the newer one.
+test('B64 historical member presentation preserves complete stage and revision decision material', async t => {
+  const candidate = { kind: 'b64_member_presentation_candidate', premise: null, uses: null, views: {}, refusals: [], stageView: null, carriers: null };
+  const asJson = read => read.kind === 'worksite_context_body' ? { ...read, bytes: read.bytes.toString('base64') } : read;
+  const text = { 'src/a.txt': 'alpha '.repeat(2000), 'src/b.json': JSON.stringify({ meaning: 'historical candidate' }) };
+  const binary = Buffer.from([0xff, 0x00, 0xfe]);
+  let x = null;
+  await b64CapturedCase(t, 'b64-member-presentation.candidate.json', candidate, async () => {
+    const storeOwner = await load('abg/event_store'), prefixes = await load('abg/event_prefix'), canonical = await load('shared/canonical_json');
+    const { renderNativeRevisionSelectionDecisionView: render } = await load('abg/instruction_assembly');
+    const { sha256Bytes } = await load('shared/digests');
+    const { loadWorksiteOwner, worksiteFixture } = await import('../support/t287-generic-job-worksite.mjs');
+    const product = await loadWorksiteOwner();
+    const worksite = async files => {
+      const w = await worksiteFixture(product); t.after(() => fs.promises.rm(w.scratch, { force: true, recursive: true }));
+      for (const [path, bytes] of Object.entries(files)) { fs.mkdirSync(join(w.canonicalRoot, path, '..'), { recursive: true }); fs.writeFileSync(join(w.canonicalRoot, path), bytes); }
+      return { w, observe: async () => product.observeWorksiteContext({ ...w, readRoots: ['src'], maxFiles: 4096, maxBytes: 64 * 1024 * 1024 }) };
+    };
+    const W0 = await worksite(text), W1 = await worksite({ ...text, 'src/c.bin': binary });
+    const dir = fs.mkdtempSync(join(W1.w.scratch, 'b64-store-')), eventLogPath = join(dir, 'events.jsonl');
+    const acquired = storeOwner.createNewEmptyAppendSink({ kind: 'new_empty_append_sink_request', schemaVersion: '5.0.0', eventLogPath });
+    assert.ok(acquired.store, JSON.stringify(acquired)); t.after(() => acquired.store.closeDurableLog());
+    const store = acquired.store;
+    const envl = (kind, payload, o = {}) => ({ kind, payload, eventTime: '2026-11-16T00:00:00.000Z', aggregateType: 'workspace', aggregateId: 'workspace://b64',
+      parentAggregateId: null, causationEventRefs: [], correlationId: 'correlation://b64', workflowVersion: '5.0.0', scopeClass: 'workspace', basisId: 'basis://b64', ...o });
+    const admit = (label, runId, value) => {
+      const cCallRef = 'c-call://b64-presentation/' + label;
+      const extra = { aggregateType: 'c_call', aggregateId: cCallRef, parentAggregateId: 'frame://' + label, scopeClass: 'run', runId, graphCallId: 'graph-call://' + label, frameId: 'frame://' + label };
+      const pair = storeOwner.admitRuntimeEventBatch(store, [() => envl('c_call_opened', { cCallRef, cCallDigest: hash(label), callClass: 'leaf', batchRef: null, taskOrdinal: null, attempt: 1, programLocusRef: 'locus://' + label, retryPath: [] }, extra),
+        prior => envl('c_call_fibre_selected', { cCallRef, callClass: 'leaf', armId: 'arm://b64', regime: 'F_D' }, { ...extra, causationEventRefs: [prior.at(-1).eventId] })]);
+      const body = { cCallRef, resultClass: 'success', contractRef: 'contract://b64-output', valueKind: value.kind, evidenceRefs: [], value, valueDigest: hash(value) };
+      const resultDigest = hash(body), resultRef = 'result://b64-presentation/' + resultDigest.slice(7);
+      const event = storeOwner.admitRuntimeEvent(store, envl('c_call_result_admitted', { ...body, resultRef, resultDigest }, { ...extra, causationEventRefs: [pair.at(-1).eventId] }));
+      return { event, leaf: { cCall: { cCallRef, runId }, result: { resultRef, resultDigest, resultClass: 'success', valueKind: value.kind, value }, judgment: { judgment: 'advance' } } };
+    };
+    const held = () => prefixes.selectRuntimeEventPrefixFromStore(store);
+    const O = 'run://b64-presentation/older', A = 'run://b64-presentation/source';
+    const task = (label, context) => ({ kind: 'native_workspace_work_task', schemaVersion: '5.0.0', handoff: label, context });
+    const envelopeOf = (context, evidence = null) => ({ kind: 'semantic_stage_envelope', job: { members: [], taskData: {}, evaluationData: { secret: 'withheld' } },
+      declaration: { declarationRef: 'lifecycle://b64' }, assets: [], context, evidence, worksite: null });
+    // Older Run under the older binding: one holder and the inherited parent.
+    const holder0 = admit('older-holder', O, task('older-holder', await W0.observe()));
+    const after0 = prefixes.reuseWorksiteContextBodiesAtPrefix(held(), await W0.observe(), { runId: O });
+    const parent = admit('inherited-parent', O, envelopeOf(after0));
+    // Source Run under the newer binding: holder, native observation, folds and C2.
+    const holder1 = admit('source-holder', A, task('source-holder', await W1.observe()));
+    const after1 = prefixes.reuseWorksiteContextBodiesAtPrefix(held(), await W1.observe(), { runId: A });
+    const nativeObservation = { kind: 'native_workspace_work_observation', schemaVersion: '5.0.0', observationRef: after1.observationRef, observationDigest: after1.observationDigest,
+      after: after1, changedPaths: [], report: { opaque: { base64: 'not a carrier' } }, assessment: { disposition: 'falsified' } };
+    const streamBytes = Buffer.from('actual command output\r\n');
+    const stream = { encoding: 'base64', payload: streamBytes.toString('base64'), digest: sha256Bytes(streamBytes), byteLength: streamBytes.length };
+    const c2Value = { kind: 'worksite_command_execution_observation', schemaVersion: '5.0.0',
+      task: { sourceNativeWork: nativeObservation, sourceReacquisition: { request: { sourceNativeWork: nativeObservation, currentContext: after1 } } },
+      commandResults: [{ stdout: stream, stderr: stream }] };
+    const adverse = admit('adverse-fold', A, envelopeOf(after1));
+    const c2 = admit('c2-observation', A, c2Value);
+    const evidenceFold = admit('evidence-fold', A, envelopeOf(after1, { constructionResult: nativeObservation, executionObservation: c2Value, artifacts: [] }));
+    const current = await W1.observe();
+    const revisionCause = admit('revision-cause', A, { kind: 'semantic_revision_envelope', current: envelopeOf(after1),
+      revisionBasis: { historicalAssets: [], request: { nativeWorksite: { context: current } } } });
+    const files = context => context.entries.filter(e => e.state === 'file');
+    // The complete carriage premise, retained before any assertion.
+    candidate.premise = { older: { holderEventRef: holder0.event.eventId, after: after0 }, source: { holderEventRef: holder1.event.eventId, after: after1 }, current,
+      binding: { older: after0.workspaceBindingIdentity, source: after1.workspaceBindingIdentity } };
+    const useOf = (row, context) => ({ resultRef: row.leaf.result.resultRef, resultDigest: row.leaf.result.resultDigest, cCallRef: row.leaf.cCall.cCallRef, runId: row.leaf.cCall.runId,
+      coveredBinding: { bindingId: context.workspaceBindingIdentity, bindingDigest: context.workspaceBindingDigest } });
+    const uses = [useOf(parent, after0), ...[adverse, c2, evidenceFold, revisionCause].map(row => useOf(row, after1))];
+    candidate.uses = uses;
+    const envelope = envelopeOf(after0);
+    const sections = { role: 'selection', source: [], predecessors: [], worksite: { context: current, construction: null },
+      evidence: { parent: parent.leaf, causes: [adverse.leaf, c2.leaf, evidenceFold.leaf, revisionCause.leaf] }, task: {} };
+    const cold = prefixes.selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(fs.readFileSync(eventLogPath)));
+    const present = (label, prefix, declared, chosen = sections) => {
+      const reads = []; let view = null, error = null;
+      try {
+        view = render(chosen, envelope, (at, context, relativePath) => {
+          const read = prefixes.resolveHistoricalWorksiteContextBodyAtPrefix(prefix, at, context, relativePath, declared);
+          reads.push({ at, relativePath, read: asJson(read) });
+          if (read.kind !== 'worksite_context_body') throw new TypeError(`historical context member ${read.code}: ${read.reason}`);
+          return read.bytes;
+        });
+      } catch (e) { error = String(e?.message ?? e); }
+      return (candidate.views[label] = { reads, view, error });
+    };
+    present('held', held(), uses); present('cold', cold, uses);
+    const refusal = (label, ...args) => candidate.refusals.push({ label, ...present('negative: ' + label, ...args) });
+    refusal('inherited parent under the newest cause binding', held(), uses.map((u, i) => i === 0 ? { ...u, coveredBinding: uses[1].coveredBinding } : u));
+    refusal('undeclared C2 historical use', held(), uses.filter(u => u.resultRef !== c2.leaf.result.resultRef));
+    refusal('older parent under the source Run', held(), uses.map((u, i) => i === 0 ? { ...u, runId: A } : u));
+    const memberCurrent = structuredClone(sections); memberCurrent.worksite.context = after1;
+    refusal('member-backed current W context', held(), uses, memberCurrent);
+    const tampered = structuredClone(sections); tampered.evidence.causes[0].result.value.context.entries.find(e => e.state === 'file').digest = hash('other');
+    refusal('presented context differs from its admitted Result', held(), uses, tampered);
+    // The applicable same-Run semantic-stage member view of the fold's own envelope.
+    candidate.stageView = files(after1).map(e => ({ relativePath: e.relativePath, read: asJson(prefixes.resolveWorksiteContextBodyAtPrefix(held(), after1, e.relativePath, { runId: A })) }));
+    const stored = store.readAll();
+    candidate.carriers = Object.fromEntries(Object.entries({ parent, adverse, c2, evidenceFold, revisionCause }).map(([k, row]) =>
+      [k, { original: canonical.canonicalJson(row.leaf.result.value), stored: canonical.canonicalJson(stored.find(e => e.eventId === row.event.eventId).payload.value) }]));
+    x = { holder0, holder1, files };
+  }, async () => {
+    const premise = candidate.premise;
+    assert.notEqual(premise.binding.older, premise.binding.source, 'the inherited parent has an older binding than the newest cause');
+    for (const side of ['older', 'source']) assert.ok(x.files(premise[side].after).every(e => e.encoding === 'admitted_member'), side);
+    assert.ok(x.files(premise.current).every(e => e.encoding === 'base64'), 'current W is a fresh inline observation');
+    for (const label of ['held', 'cold']) {
+      const row = candidate.views[label];
+      assert.equal(row.error, null, `${label}: ${row.error}`);
+      for (const r of row.reads) assert.equal(r.read.kind, 'worksite_context_body', JSON.stringify(r));
+      const routes = new Set(row.reads.map(r => r.at.resultRef + ' ' + r.at.route.join('.')));
+      for (const route of ['context', 'task.sourceNativeWork.after', 'task.sourceReacquisition.request.sourceNativeWork.after', 'task.sourceReacquisition.request.currentContext',
+        'evidence.constructionResult.after', 'evidence.executionObservation.task.sourceNativeWork.after', 'current.context'])
+        assert.ok([...routes].some(r => r.endsWith(' ' + route)), `${label}: route ${route}`);
+      assert.ok(row.reads.filter(r => r.at.resultRef === candidate.uses[0].resultRef).every(r => r.read.holder.eventRef === x.holder0.event.eventId));
+      assert.ok(row.reads.filter(r => r.at.resultRef !== candidate.uses[0].resultRef).every(r => r.read.holder.eventRef === x.holder1.event.eventId));
+      const view = row.view, body = ref => view.worksite.byteBodies[Number(ref.presentationRef.split('/').at(-1))];
+      const parentEntries = x.files(view.evidence.parent.result.value.context);
+      for (const e of parentEntries) { assert.equal(e.sourceEncoding, 'admitted_member'); assert.ok(e.member); assert.equal(body(e.textView).digest, e.digest); }
+      assert.equal(body(parentEntries.find(e => e.relativePath === 'src/a.txt').textView).text, text['src/a.txt']);
+      const c2Entries = x.files(view.evidence.causes[1].result.value.task.sourceNativeWork.after);
+      assert.equal(body(c2Entries.find(e => e.relativePath === 'src/c.bin').textView).disposition, 'text_unavailable_non_utf8');
+      assert.equal(body(c2Entries.find(e => e.relativePath === 'src/c.bin').textView).text, null);
+      assert.deepEqual(view.evidence.causes[1].result.value.task.sourceNativeWork.report, { opaque: { base64: 'not a carrier' } }, 'opaque application JSON verbatim');
+      assert.ok(x.files(view.worksite.context).every(e => e.sourceEncoding === 'base64' && e.member === undefined), 'current W context stays inline');
+      const digests = view.worksite.byteBodies.map(b => b.digest);
+      assert.equal(new Set(digests).size, digests.length, 'each distinct byte body is presented once');
+    }
+    assert.deepEqual(candidate.views.cold.view, candidate.views.held.view, 'held and cold prefixes yield the same presentation');
+    for (const row of candidate.refusals) { assert.notEqual(row.error, null, row.label); assert.equal(row.view, null, row.label); }
+    for (const row of candidate.refusals.slice(0, 3)) assert.equal(row.reads.at(-1).read.kind, 'worksite_context_body_refusal', row.label);
+    for (const row of candidate.stageView) { assert.equal(row.read.kind, 'worksite_context_body', JSON.stringify(row)); assert.equal(row.read.holder.eventRef, x.holder1.event.eventId); }
+    for (const [k, row] of Object.entries(candidate.carriers)) assert.equal(row.stored, row.original, `the admitted ${k} carrier is unchanged`);
+    t.diagnostic('B64 presentation: real store, held-prefix carriage, body owner and selector decision view; historical uses are lower premises whose owner derivation is the native-semantic-job B64 case.');
+  });
+});

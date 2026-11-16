@@ -8,7 +8,7 @@ import { ordinaryJob } from '../support/t287-generic-job-intake.mjs';
 import { worksiteFixture } from '../support/t287-generic-job-worksite.mjs';
 import fsPromises from 'node:fs/promises';
 import { syncBuiltinESMExports } from 'node:module';
-import { lstatSync, realpathSync } from 'node:fs';
+import { lstatSync, realpathSync, mkdirSync, writeFileSync } from 'node:fs';
 const root = process.env.ABI5_GENERIC_JOB_BUILD_ROOT ?? resolve(import.meta.dirname, '../..');
 const load = name => import(pathToFileURL(join(root, 'build/code/src', name + '.js')).href);
 const [p,g,m,n,ops,effects,owners,prefixes,immutable] = await Promise.all(['product/index','gtl/index','product/semantic_job',
@@ -573,4 +573,207 @@ test('B21 component: the semantic-job bridge observes targets and read dependenc
  });
  assert.equal(await readFile(dependencyPath,'utf8'),'export const value = 7;\n');
  t.diagnostic('Component semantic-job bridge proof; upstream authentication, prefix events and predecessors supplied; no actor or installed execution.');
+});
+
+// B64 capture law: every actual candidate is collected before any assertion
+// and written complete to ABG_REGRESSION_PROOF_ROOT. A collection or assertion
+// failure is primary and stays primary; a capture failure alone fails the case,
+// and beside a primary it is reported as distinct secondary evidence.
+function writeB64Candidate(file,value){const dir=process.env.ABG_REGRESSION_PROOF_ROOT;if(dir===undefined||dir==='')return null;
+ try{mkdirSync(dir,{recursive:true});writeFileSync(join(dir,file),JSON.stringify(value,null,1));return null;}catch(error){return error;}}
+async function b64CapturedCase(t,file,candidate,collect,verify){
+ const fail=(phase,primary)=>{candidate.primaryError={phase,error:String(primary?.stack??primary)};const secondary=writeB64Candidate(file,candidate);
+  if(secondary!==null)t.diagnostic(`secondary capture failure beside primary ${phase} failure: ${String(secondary?.stack??secondary)}`);throw primary;};
+ try{await collect();}catch(primary){fail('collect',primary);}
+ const captureError=writeB64Candidate(file,candidate);
+ if(captureError!==null)throw new Error(`B64 candidate capture failed: ${String(captureError?.stack??captureError)}`,{cause:captureError});
+ try{await verify();}catch(primary){fail('verify',primary);}
+}
+
+// B64 owner path: the actual Product native assessor fold folds an `after`
+// whose unchanged bodies the real held-prefix owner carried as admitted members
+// of the real event store; the actual revision intake and subject owner derive
+// the historical use in a new Run; the actual selector decision view presents
+// the complete bytes through the real body owner, held and cold. Upstream
+// execution-basis/invocation/leaf/prefix-index authentication uses the same
+// component premises as the native revision harness; Result coordinates,
+// member holders and every body read are the real store's. No provider runs.
+test('B64 historical revision: admitted assessor context reaches new-Run selector assembly held and cold',async t=>{
+ const candidate={kind:'b64_historical_revision_candidate',premise:null,intake:null,subject:null,views:{},refusals:[],current:null,carriers:null};
+ const asJson=read=>read.kind==='worksite_context_body'?{...read,bytes:read.bytes.toString('base64')}:read;
+ let x=null;
+ await b64CapturedCase(t,'b64-historical-revision.candidate.json',candidate,async()=>{
+  const [storeOwner,revisionIds,history,assembly,decl,{SourceTextModule,SyntheticModule}]=await Promise.all([load('abg/event_store'),load('gtl/semantic_revision_identity'),
+   load('abg/runtime_history'),load('abg/instruction_assembly'),import('../fixtures/native-semantic-revision/declarations.mjs'),import('node:vm')]);
+  const R=revisionIds.SEMANTIC_REVISION_IDS,D=g.SEMANTIC_STAGE_IDS;
+  const ids=Object.fromEntries(Object.entries({productId:'product',moduleRef:'module',descriptorRef:'descriptor',contributionManifestRef:'contribution-manifest',
+   lifecycleDeclarationRef:'lifecycle',graphFunctionRef:'graph-function',graphRef:'graph',closureContractRef:'contract',programRef:'program',startRef:'start'}).map(([k,v])=>[k,v+'://component/b64@5']));
+  const revPublication=decl.constructFreshNativeLifecyclePublication({gtl:g,product:p,ids,semanticPublication:publication}),lifecycle=revPublication.semanticJobLifecycle;
+  // Real worksite and real event store.
+  const env=await worksiteFixture({...p,...effects,...ops});t.after(()=>rm(env.scratch,{recursive:true,force:true}));
+  const initial=ordinaryJob(p,g,'Build an application and an independent verifier. Preserve complete source and all unresolved obligations.');
+  const job=p.constructSemanticJobInput({...initial,lifecycleRef:lifecycle.declarationRef,evaluationData:{independentSentinel:'evaluator-only-b64'},taskData:{...initial.taskData,nativeLifecycle:{assets:lifecycle.stages.map((s,i)=>({stageRef:s.declarationRef,path:`assets/${i}.json`})),rubricPath:'assets/rubric.json'}},
+   worksiteScope:{...initial.worksiteScope,readRoots:['.'],writeRoots:['.'],parentWriteRoots:['.'],evidenceWriteRoots:['evidence']}});
+  await mkdir(join(env.canonicalRoot,'assets'));for(const member of job.members){await mkdir(join(env.canonicalRoot,member.path,'..'),{recursive:true});await writeFile(join(env.canonicalRoot,member.path),Buffer.from(member.base64,'base64'));}
+  await writeFile(join(env.canonicalRoot,'assets/rubric.json'),p.canonicalJson(lifecycle)+'\n');
+  const observe=()=>ops.observeWorksiteContext({...env,readRoots:job.worksiteScope.readRoots,maxFiles:lifecycle.bounds.maxContextFiles,maxBytes:lifecycle.bounds.maxContextBytes});
+  const envelope0=p.constructSemanticJobEnvelope(job,lifecycle,{invocationAdmissionRef:'component:invocation',rootExecutionBasisRef:'component:root',rootInputRef:'component:input',rootInputDigest:hash(job),
+   intakeCCallRef:'component:intake',intakeCCallDigest:hash('intake'),intakeExecutionBasisRef:'component:intake-basis'});
+  const dir=await fsPromises.mkdtemp(join(env.scratch,'b64-store-')),eventLogPath=join(dir,'events.jsonl');
+  const acquired=storeOwner.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath});assert.ok(acquired.store,JSON.stringify(acquired));
+  t.after(()=>acquired.store.closeDurableLog());const store=acquired.store;
+  const envl=(kind,payload,o={})=>({kind,payload,eventTime:'2026-11-16T00:00:00.000Z',aggregateType:'workspace',aggregateId:'workspace://b64',parentAggregateId:null,
+   causationEventRefs:[],correlationId:'correlation://b64',workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://b64',...o});
+  // Real store admission of one CCall Result at exact cCallRef/Run coordinates.
+  const storeResult=(cCallRef,runId,value)=>{const extra={aggregateType:'c_call',aggregateId:cCallRef,parentAggregateId:'frame://'+cCallRef,scopeClass:'run',runId,graphCallId:'graph-call://'+cCallRef,frameId:'frame://'+cCallRef};
+   const pair=storeOwner.admitRuntimeEventBatch(store,[()=>envl('c_call_opened',{cCallRef,cCallDigest:hash(cCallRef),callClass:'leaf',batchRef:null,taskOrdinal:null,attempt:1,programLocusRef:'locus://'+cCallRef,retryPath:[]},extra),
+    prior=>envl('c_call_fibre_selected',{cCallRef,callClass:'leaf',armId:'arm://b64',regime:'F_D'},{...extra,causationEventRefs:[prior.at(-1).eventId]})]);
+   const body={cCallRef,resultClass:'success',contractRef:'contract://b64-output',valueKind:value.kind,evidenceRefs:[],value,valueDigest:hash(value)};
+   const resultDigest=hash(body),resultRef='result://b64/'+resultDigest.slice(7);
+   return storeOwner.admitRuntimeEvent(store,envl('c_call_result_admitted',{...body,resultRef,resultDigest},{...extra,causationEventRefs:[pair.at(-1).eventId]}));};
+  const heldPrefix=()=>prefixes.selectRuntimeEventPrefixFromStore(store);
+  // Lifecycle stages through the actual Product folds; stage 2 is assessed adverse.
+  const stageCandidate=(envelope,i)=>{const stage=lifecycle.stages[i],member=envelope.job.members[0],q={memberRef:member.memberRef,quote:Buffer.from(member.base64,'base64').toString()};
+   return {kind:'semantic_job_asset_candidate',schemaVersion:'5.0.0',asset:{kind:'semantic_stage_asset_candidate',schemaVersion:'5.0.0',
+    statements:[{statementRef:stage.declarationRef+'/s',text:q.quote,modality:'supporting',sourceQuotes:[q],requirementRefs:[],obligationRefs:[],predecessorStatementRefs:envelope.assets.flatMap(a=>a.candidate.asset.statements.map(s=>s.statementRef))}],
+    requirementCandidates:[],worksiteDesign:null,pressure:[]},bindings:[],design:null};};
+  const stageVerdict=(authored,i,disposition)=>{const member=authored.job.members[0];return {kind:'semantic_stage_assessment_candidate',schemaVersion:'5.0.0',criteria:lifecycle.stages[i].rubric.map(r=>({criterionRef:r.criterionRef,disposition,
+   explanation:'Mechanical component value only; no semantic acceptance claim',sourceQuotes:[{memberRef:member.memberRef,quote:Buffer.from(member.base64,'base64').toString()}],statementRefs:authored.assets.at(-1).candidate.asset.statements.map(s=>s.statementRef)})),pressure:[]};};
+  const stageAuthor=async(envelope,i)=>{const stage=lifecycle.stages[i],task=m.constructNativeSemanticTask(envelope,stage.declarationRef,'author',env,await observe());
+   await writeFile(join(env.canonicalRoot,`assets/${i}.json`),JSON.stringify(stageCandidate(envelope,i))+'\n');const observation=n.constructNativeWorkspaceWorkObservation(task,await observe(),{summary:'component candidate',gaps:[]},provenance('b64-author-'+i));
+   const authored=m.deriveNativeSemanticAsset(envelope,stage.declarationRef,observation,adapter('b64-author-'+i,p.constructRetainedGraphInput(envelope,observation)));assert(authored,'author fold '+i);return authored;};
+  let parent=envelope0;
+  for(let i=0;i<2;i++){const authored=await stageAuthor(parent,i),task=m.constructNativeSemanticTask(authored,lifecycle.stages[i].declarationRef,'assessor',env,authored.context);
+   const observation=n.constructNativeWorkspaceWorkObservation(task,authored.context,null,provenance('b64-assessor-'+i),stageVerdict(authored,i,'satisfied'));
+   parent=m.deriveNativeSemanticAssessment(authored,lifecycle.stages[i].declarationRef,observation,adapter('b64-assessor-'+i,p.constructRetainedGraphInput(authored,observation)));assert(parent,'assessor fold '+i);}
+  const sourceRun={ref:'component:source-run',digest:hash('public-run')};
+  const authored=await stageAuthor(parent,2),assessorTask=m.constructNativeSemanticTask(authored,lifecycle.stages[2].declarationRef,'assessor',env,authored.context);
+  // The assessor task's admitted inline context is the holder; the real
+  // held-prefix owner then carries the unchanged reobserved after as members.
+  const holder=storeResult('component:b64-assessor-task',sourceRun.ref,assessorTask);
+  const after=prefixes.reuseWorksiteContextBodiesAtPrefix(heldPrefix(),await observe(),{runId:sourceRun.ref});
+  const assessorObservation=n.constructNativeWorkspaceWorkObservation(assessorTask,after,null,provenance('b64-assessor-2'),stageVerdict(authored,2,'falsified'));
+  const adverse=m.deriveNativeSemanticAssessment(authored,lifecycle.stages[2].declarationRef,assessorObservation,adapter('b64-assessor-2',p.constructRetainedGraphInput(authored,assessorObservation)));
+  // The carriage premise is a candidate, retained before any assertion.
+  const files=context=>context.entries.filter(e=>e.state==='file');
+  candidate.premise={holder:{eventRef:holder.eventId,resultRef:holder.payload.resultRef,runId:sourceRun.ref},after,
+   foldContext:adverse?.context??null,entries:files(after).map(e=>({relativePath:e.relativePath,encoding:e.encoding,member:e.member??null,digest:e.digest,byteLength:e.byteLength})),
+   foldDerived:adverse!==null,foldNativeIntakeFoldPredicate:adverse===null?null:m.evaluateNativeSemanticRelation(D.nativeAssessorFoldPredicateRef,p.constructRetainedGraphInput(authored,assessorObservation),adverse)};
+  if(adverse===null)throw new Error('native assessor fold refused its member-carried observation');
+  // Component premises of the existing native revision harness; leaves and holders are real store rows.
+  const events=[],states=new Map(),bases=new Map(),nativeSources=new Map(),runs=new Map(),admittedRoots=[];let ordinal=0;
+  const prefix={events},original={...env.executionBasis,basisRef:adverse.basis.rootExecutionBasisRef,parentExecutionBasisRef:null,rawInputValue:job,rawInputDigest:hash(job),
+   rawInputAdmissionRef:adverse.basis.rootInputRef,invocationAdmissionRef:adverse.basis.invocationAdmissionRef};
+  bases.set(original.basisRef,original);admittedRoots.push(original);runs.set(sourceRun.ref,{run:sourceRun,executionBasis:{ref:original.basisRef}});
+  const environment={kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]};
+  const lifecycleInstallRoot=join(env.scratch,'installed-lifecycle');await mkdir(lifecycleInstallRoot,{recursive:true});const pub=await load('product/publication');
+  environment.productInstalls.push({productId:revPublication.owningProductId,artifactDigest:revPublication.artifactDigest,productContentDigest:revPublication.productContentDigest,
+   manifestDigest:revPublication.productManifestDigest,installedRoot:lifecycleInstallRoot,contributionManifest:{publicationBindings:[{moduleRef:revPublication.moduleRef,publicationDigest:pub.modulePublicationSemanticDigest(revPublication)}]}});
+  const prefixBody={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///component/no-journal',prefixLength:0,prefixDigest:hash('prefix'),storeIdentity:{device:1,inode:1,eventContractDigest:storeOwner.ROOT_EVENT_CONTRACT_DIGEST}};
+  const intake={kind:'native_semantic_revision_intake',schemaVersion:'5.0.0',sourceRun,sourcePrefix:{...prefixBody,coordinateDigest:hash(prefixBody)}};
+  let current,rootBasis,runId;const basis={publication:revPublication,lifecyclePublication:revPublication,sourcePublication:revPublication,predecessorPrefix:intake.sourcePrefix,declarationGraphFunctions:[],graphFunction:{declarations:{}}};
+  const invocation=(name,input)=>{runId='component:run:'+name;rootBasis={...original,basisRef:'component:root:'+name,basisDigest:hash(['basis',name]),admissionEventRef:'component:basis-event:'+name,
+   rawInputValue:input,rawInputDigest:hash(input),rawInputAdmissionRef:'component:input:'+name,invocationAdmissionRef:'component:invocation:'+name,
+   workspaceBindingId:env.workspaceBinding.bindingId,workspaceBindingDigest:env.workspaceBinding.bindingDigest};bases.set(rootBasis.basisRef,rootBasis);admittedRoots.push(rootBasis);
+   runs.set(runId,{run:{ref:runId,digest:hash(['run',name])},executionBasis:{ref:rootBasis.basisRef}});};
+  const call=(impl,input,raw=input,extra={})=>{const execution={...rootBasis,basisRef:'component:basis:'+(++ordinal),parentExecutionBasisRef:rootBasis.basisRef,rawInputValue:raw,rawInputDigest:hash(raw)};
+   bases.set(execution.basisRef,execution);const cCall={...env.cCall,cCallRef:'component:call:'+ordinal,basisId:execution.basisRef,runId,implementationRef:impl,regime:[R.selectionImplementationRef].includes(impl)?'F_P':'F_D',...extra};
+   current={execution,call:cCall,inputValue:input,inputDigest:hash(input),inputRef:'component:input:'+ordinal,prefix,events,environment,program:{}};basis.cCall=cCall;basis.executionBasis=execution;return current;};
+  // Each harness leaf is the real store's Result at the same CCall and Run.
+  const admit=(value,impl,execution,judgment,cCallRef,run)=>{const real=storeResult(cCallRef,run,value),judgmentEventRef='component:judgment:'+(++ordinal);
+   const state={cCall:{...env.cCall,cCallRef,basisId:execution.basisRef,runId:run,implementationRef:impl,graphFunctionRef:current?.call.graphFunctionRef??'component:graph',regime:impl===R.selectionImplementationRef?'F_P':'F_D'},
+    result:{resultClass:'success',resultRef:real.payload.resultRef,resultDigest:real.payload.resultDigest,value,valueKind:value.kind,admissionEventRef:real.eventId},judgment:{judgment,admissionEventRef:judgmentEventRef}};
+   states.set(cCallRef,state);events.push({kind:'c_call_result_admitted',aggregateId:cCallRef,runId:run,eventId:real.eventId,admissionOrdinal:++ordinal,payload:{resultRef:real.payload.resultRef,resultDigest:real.payload.resultDigest,value}},
+    {kind:'c_call_judged',aggregateId:cCallRef,runId:run,eventId:judgmentEventRef,admissionOrdinal:++ordinal,payload:{}});return state;};
+  const coordinate=s=>({cCallRef:s.cCall.cCallRef,resultRef:s.result.resultRef,resultDigest:s.result.resultDigest,resultAdmissionEventRef:s.result.admissionEventRef,judgmentEventRef:s.judgment.admissionEventRef});
+  const lookup=(_prefix,c)=>{const state=states.get(c.cCallRef);return state&&hash(coordinate(state))===hash(c)?state:null;};
+  const selected=(_basis,impl,value)=>{const rows=[...states.values()].filter(s=>s.result.resultClass==='success'&&s.judgment.judgment==='advance'&&s.cCall.implementationRef===impl&&hash(s.result.value)===hash(value)&&bases.get(s.cCall.basisId)?.invocationAdmissionRef===current.execution.invocationAdmissionRef);
+   return rows.length===1?{previous:rows[0],execution:bases.get(rows[0].cCall.basisId),event:events.find(e=>e.eventId===rows[0].result.admissionEventRef)}:null;};
+  async function component(name,overrides){const file=join(root,'build/code/src',name+'.js'),module=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+   await module.link(async spec=>{const imported=await import(spec.startsWith('node:')?spec:pathToFileURL(resolve(dirname(file),spec)).href),values={...imported,...overrides[spec]};
+    return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});});await module.evaluate();return module.namespace;}
+  const executionOverrides={authenticateNativeInstructionAssemblyBasis:()=>current,authenticateOwnedNativeInstructionAssemblyBasis:()=>current,rehydrateExecutionBasisAtPrefix:(_p,ref)=>bases.get(ref)??null};
+  const invocationOverrides={rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[env.capabilityGrant]})};
+  const rootAdmissions=key=>admittedRoots.filter(b=>'invocation:'+b.invocationRef===key).map(b=>({kind:'basis_admitted',eventId:b.admissionEventRef,
+   payload:{basisClass:'root',basisRef:b.basisRef,invocationAdmissionRef:b.invocationAdmissionRef,implementationSetRef:b.rootImplementationSetRef,rawInputValue:b.rawInputValue}}));
+  const prefixOverrides={validatedRuntimeEventPrefixBeforeEvent:()=>prefix,runtimeEventsFromValidatedPrefix:()=>events,runtimeEventBodiesAtPrefix:()=>new history.RuntimeEventBodyView(events),
+   indexedRuntimeEvents:(_p,key)=>key.startsWith('invocation:')?rootAdmissions(key):events.filter(e=>key==='aggregate:c_call:'+e.aggregateId||key==='id:'+e.eventId||/^(run|related):/.test(key)&&history.runtimeHistorySelectorKeys(e).includes(key)),
+   readOwnedRuntimeEventPrefixAtDurablePrefix:c=>{if(hash(c)!==hash(intake.sourcePrefix))throw new Error('component: no durable cut');return prefix;}};
+  const jobOwner=await component('abg/semantic_job',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./event_prefix.js':prefixOverrides,
+   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup}});
+  const owner=await component('abg/semantic_revision',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./semantic_job.js':jobOwner,
+   './semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>true,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h},
+   './event_prefix.js':prefixOverrides,'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>runs.get(ref)??null},
+   './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>environment},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:()=>[]},
+   './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>nativeSources.get(value.observationRef)??null,worksiteCommandSourcesInvalidatedAfter:()=>false}});
+  // Source Run: the accepted parent and the adverse native assessor fold.
+  const parentState=admit(parent,D.nativeAssessorFoldImplementationRef,original,'advance',parent.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,sourceRun.ref);
+  const causeState=admit(adverse,D.nativeAssessorFoldImplementationRef,original,'stop',adverse.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,sourceRun.ref);
+  // New Run: authenticated revision intake, then the selection leaf.
+  invocation('intake',intake);call(R.nativeIntakeImplementationRef,intake);let reason=null;
+  const limits={inactivityTimeoutMs:300000,absoluteTimeoutMs:900000};
+  const prepared=await owner.prepareNativeSemanticRevisionIntake(basis,intake,limits,r=>reason=r);
+  candidate.intake={prepared,refusal:reason,matches:prepared===null?null:owner.nativeSemanticRevisionIntakeMatches(basis,intake,prepared)};
+  if(prepared===null)throw new Error('authenticated revision intake refused: '+reason);
+  admit(prepared,R.nativeIntakeImplementationRef,current.execution,'advance',current.call.cCallRef,runId);
+  basis.graphFunction={name:'component:selection-graph',declarations:{'abg.semantic_revision_selection':lifecycle.declarationRef}};
+  call(R.selectionImplementationRef,prepared,prepared,{graphFunctionRef:'component:selection-graph'});
+  const subject=owner.projectOwnedJobRevisionSubject(basis,prepared);
+  candidate.subject=subject===null?null:{historicalContexts:subject.historicalContexts,parent:coordinate(subject.parent),causes:subject.causes.map(coordinate),
+   nativeContext:subject.nativeWorksite.context};
+  if(subject===null)throw new Error('authenticated revision subject refused');
+  // Selector decision view over the same subject, with the owner's exact sections.
+  const leaf=s=>({cCall:s.cCall,result:{...s.result,valueKind:s.result.value.kind},judgment:s.judgment});
+  const sections={role:'selection',source:subject.envelope.job.members.map(member=>({memberRef:member.memberRef,path:member.path,text:Buffer.from(member.base64,'base64').toString()})),
+   obligations:{activeBindings:p.projectSemanticJobBindings(subject.envelope),remainingGaps:subject.envelope.remainingGaps},predecessors:subject.envelope.assets,
+   worksite:{context:subject.nativeWorksite.context,construction:null,commandExecutionLimits:subject.nativeWorksite.commandExecutionLimits},
+   evidence:{parent:leaf(subject.parent),causes:subject.causes.map(leaf)},task:{input:{kind:prepared.kind}},response:{}};
+  const cold=prefixes.selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(eventLogPath)));
+  const present=(label,at,uses)=>{const reads=[];let view=null,error=null;
+   try{view=assembly.renderNativeRevisionSelectionDecisionView(sections,subject.envelope,(coordinateAt,context,relativePath)=>{
+    const read=prefixes.resolveHistoricalWorksiteContextBodyAtPrefix(at,coordinateAt,context,relativePath,uses);reads.push({at:coordinateAt,relativePath,read:asJson(read)});
+    if(read.kind!=='worksite_context_body')throw new TypeError(`historical context member ${read.code}: ${read.reason}`);return read.bytes;});}
+   catch(e){error=String(e?.message??e);}
+   candidate.views[label]={reads,view,error};return candidate.views[label];};
+  present('held',heldPrefix(),subject.historicalContexts);present('cold',cold,subject.historicalContexts);
+  // Strict negatives over the same subject: no declared use, an uncovered
+  // binding, another Run and a use naming another Result.
+  const use=subject.historicalContexts.find(u=>u.resultRef===causeState.result.resultRef);
+  for(const [label,uses] of [['no historical use',[]],['uncovered binding',subject.historicalContexts.map(u=>({...u,coveredBinding:{...u.coveredBinding,bindingDigest:hash('other-binding')}}))],
+   ['another Run',subject.historicalContexts.map(u=>({...u,runId:runId}))],['parent use only',subject.historicalContexts.filter(u=>u.resultRef!==causeState.result.resultRef)]])
+   candidate.refusals.push({label,...present('negative: '+label,heldPrefix(),uses)});
+  // A caller-altered request is not the authenticated acquisition.
+  candidate.refusals.push({label:'altered cause coordinate',subject:owner.projectOwnedJobRevisionSubject(basis,{...prepared,causes:[{...prepared.causes[0],resultDigest:hash('other')}]})});
+  // The applicable same-Run semantic-stage member view reads its own envelope.
+  candidate.stageView=files(adverse.context).map(e=>({relativePath:e.relativePath,read:asJson(prefixes.resolveWorksiteContextBodyAtPrefix(heldPrefix(),adverse.context,e.relativePath,{runId:sourceRun.ref}))}));
+  candidate.current={context:subject.nativeWorksite.context};
+  const stored=store.readAll();
+  candidate.carriers={cause:{original:p.canonicalJson(adverse),stored:p.canonicalJson(stored.find(e=>e.eventId===causeState.result.admissionEventRef).payload.value)}};
+  x={holder,causeState,parentState,use,adverse};
+ },async()=>{
+  assert.equal(candidate.premise.foldDerived,true);assert.equal(candidate.premise.foldNativeIntakeFoldPredicate,true,'actual native assessor fold relation');
+  assert.ok(candidate.premise.entries.length>0&&candidate.premise.entries.every(e=>e.encoding==='admitted_member'&&e.member.resultRef===candidate.premise.holder.resultRef),JSON.stringify(candidate.premise.entries));
+  assert.deepEqual(candidate.premise.foldContext,candidate.premise.after,'the fold carries the native observation after unchanged');
+  assert.equal(candidate.intake.matches,true);
+  assert.ok(candidate.subject.historicalContexts.some(u=>u.resultRef===x.causeState.result.resultRef&&u.runId===x.causeState.cCall.runId&&u.cCallRef===x.causeState.cCall.cCallRef),
+   'the revision owner derives the cause use from its authenticated subject');
+  assert.ok(candidate.subject.historicalContexts.every(u=>u.coveredBinding.bindingId===candidate.premise.after.workspaceBindingIdentity));
+  for(const label of ['held','cold']){const row=candidate.views[label];
+   assert.equal(row.error,null,`${label}: ${row.error}`);assert.ok(row.reads.length>=candidate.premise.entries.length);
+   for(const r of row.reads){assert.equal(r.read.kind,'worksite_context_body',JSON.stringify(r));assert.equal(r.read.holder.eventRef,x.holder.eventId);assert.deepEqual(r.at.route,['context']);}
+   const causeView=row.view.evidence.causes[0].result.value.context.entries.filter(e=>e.state==='file');
+   for(const e of causeView){assert.equal(e.sourceEncoding,'admitted_member');assert.ok(e.member,'original member coordinate remains beside the view');
+    const body=row.view.worksite.byteBodies[Number(e.textView.presentationRef.split('/').at(-1))]??null;
+    if(e.textView.presentationRef.startsWith('#/worksite/byteBodies/'))assert.equal(body.digest,e.digest);}
+  }
+  assert.deepEqual(candidate.views.cold.view,candidate.views.held.view,'held and cold prefixes yield the same presentation');
+  assert.deepEqual(candidate.views.cold.reads,candidate.views.held.reads);
+  for(const row of candidate.refusals.filter(r=>r.label!=='altered cause coordinate')){assert.notEqual(row.error,null,row.label);assert.equal(row.view,null,row.label);
+   assert.ok(row.reads.length>0&&row.reads.at(-1).read.kind==='worksite_context_body_refusal',row.label);}
+  assert.equal(candidate.refusals.find(r=>r.label==='altered cause coordinate').subject,null);
+  for(const row of candidate.stageView){assert.equal(row.read.kind,'worksite_context_body',JSON.stringify(row));assert.equal(row.read.holder.eventRef,x.holder.eventId);}
+  assert.ok(candidate.current.context.entries.filter(e=>e.state==='file').every(e=>e.encoding==='base64'),'current W is the fresh inline intake observation');
+  assert.equal(candidate.carriers.cause.stored,candidate.carriers.cause.original,'the admitted adverse fold carrier is unchanged');
+  t.diagnostic('B64 owner path: actual Product folds, real store member carriage, real revision intake/subject derivation and real selector decision view; execution-basis/invocation/leaf/prefix-index authentication are the native revision harness premises. No actor, provider or installed Run.');
+ });
 });

@@ -1073,38 +1073,73 @@ export function resolveWorksiteContextBodyAtPrefix(prefix: RuntimeEventPrefix, c
 }
 /** One historical context use the revision owner derives from its authenticated
  * subject: the exact admitted parent/cause/construction Result, its CCall and
- * genuine historical Run, and the source binding the admitted intake's binding
- * cover relates to the consumer's current W. It presents historical bytes only;
+ * genuine historical Run, and the binding that the admitted acquisition/cover
+ * chain relates to the consumer's current W. A Result of the acquisition's
+ * source Run carries that intake's covered source binding; a conserved parent
+ * carries the source binding of the earlier admitted acquisition that conserved
+ * it. `sourceResults` is present only when that historical Run's own admitted
+ * invocation already declared retained-source use; it is copied from that
+ * admission, never supplied by a caller. A use presents historical bytes only;
  * it grants no source, read, currentness or effect authority. */
 export type WorksiteContextBodyHistoricalUse = Readonly<{ resultRef: string; resultDigest: string; cCallRef: string; runId: string;
-  coveredBinding: Readonly<{ bindingId: string; bindingDigest: string }> }>;
-/** Fixed declared envelope coordinates of a historical context. They are typed
- * slots of the admitted value kind, never a recursive carrier-shaped search. */
-const HISTORICAL_CONTEXT_POSITIONS: Readonly<Record<string, readonly (readonly string[])[]>> = Object.freeze({
-  semantic_stage_envelope: [["context"], ["evidence", "constructionResult", "after"], ["evidence", "executionObservation", "task", "sourceNativeWork", "after"]],
-  semantic_revision_envelope: [["current", "context"], ["current", "evidence", "constructionResult", "after"],
-    ["current", "evidence", "executionObservation", "task", "sourceNativeWork", "after"], ["revisionBasis", "request", "nativeWorksite", "context"]],
-  native_workspace_work_observation: [["after"], ["task", "context"]],
-  native_workspace_work_failure: [["after"], ["task", "context"]],
+  coveredBinding: Readonly<{ bindingId: string; bindingDigest: string }>; sourceResults?: readonly WorksiteContextBodySourceResult[] }>;
+/** The presentation coordinate of one historical context: the declared Result
+ * and the exact typed route, relative to its admitted value, at which the
+ * reader reached the context. */
+export type WorksiteContextBodyHistoricalCoordinate = Readonly<{ resultRef: string; resultDigest: string; route: readonly string[] }>;
+type ContextRoutes = readonly (readonly string[])[];
+const routesUnder = (prefix: readonly string[], routes: ContextRoutes): ContextRoutes => routes.map(route => Object.freeze([...prefix, ...route]));
+/** Typed context slots of a native work observation/failure: the task context
+ * of a retained form, `before` where a retained form carries it, and `after`. */
+const NATIVE_WORK_CONTEXT_ROUTES: ContextRoutes = Object.freeze([["task", "context"], ["before"], ["after"]].map(r => Object.freeze(r)));
+/** A C2 command task names its exact admitted native observation and, for a
+ * reacquisition proof, that request's native observation and fresh context. */
+const COMMAND_TASK_CONTEXT_ROUTES: ContextRoutes = Object.freeze([...routesUnder(["sourceNativeWork"], NATIVE_WORK_CONTEXT_ROUTES),
+  ...routesUnder(["sourceReacquisition", "request", "sourceNativeWork"], NATIVE_WORK_CONTEXT_ROUTES),
+  Object.freeze(["sourceReacquisition", "request", "currentContext"])]);
+const COMMAND_OBSERVATION_CONTEXT_ROUTES: ContextRoutes = Object.freeze(routesUnder(["task"], COMMAND_TASK_CONTEXT_ROUTES));
+/** A semantic envelope's own context, its construction Result and its C2 observation. */
+const SEMANTIC_ENVELOPE_CONTEXT_ROUTES: ContextRoutes = Object.freeze([Object.freeze(["context"]),
+  ...routesUnder(["evidence", "constructionResult"], NATIVE_WORK_CONTEXT_ROUTES),
+  ...routesUnder(["evidence", "executionObservation"], COMMAND_OBSERVATION_CONTEXT_ROUTES)]);
+/** Exact typed context routes of each admitted Result kind that a revision
+ * presentation traverses. They compose the typed slots above; they are never a
+ * recursive carrier-shaped search, and an unlisted kind declares no route. */
+const HISTORICAL_CONTEXT_ROUTES: Readonly<Record<string, ContextRoutes>> = Object.freeze({
+  semantic_stage_envelope: SEMANTIC_ENVELOPE_CONTEXT_ROUTES,
+  semantic_revision_envelope: Object.freeze([...routesUnder(["current"], SEMANTIC_ENVELOPE_CONTEXT_ROUTES),
+    Object.freeze(["revisionBasis", "request", "nativeWorksite", "context"])]),
+  worksite_command_execution_observation: COMMAND_OBSERVATION_CONTEXT_ROUTES,
+  native_workspace_work_observation: NATIVE_WORK_CONTEXT_ROUTES,
+  native_workspace_work_failure: NATIVE_WORK_CONTEXT_ROUTES,
 });
-/** @internal Historical member read for a revision presentation. The context
- * must equal the one held at a declared coordinate of a declared committed
- * Result and carry its covered source binding; its bytes then resolve under that
- * Result's own Run through the unchanged resolver (holder admission, digest,
- * basis, coordinate, scope, path, version, length, read roots and bytes). */
-export function resolveHistoricalWorksiteContextBodyAtPrefix(prefix: RuntimeEventPrefix, context: WorksiteContextObservation,
-  relativePath: string, uses: readonly WorksiteContextBodyHistoricalUse[]): WorksiteContextBodyResolution {
+/** @internal Historical member read for a revision presentation. The reader
+ * names the declared Result and the exact typed route at which it reached the
+ * context; the route must be declared for that admitted value kind, and the
+ * value held there must equal the context and carry the use's covered binding.
+ * Its bytes then resolve under that Result's own Run, with that Run's own
+ * admitted retained-source use when present, through the unchanged resolver
+ * (holder admission, digest, basis, coordinate, scope, path, version, length,
+ * read roots and bytes). */
+export function resolveHistoricalWorksiteContextBodyAtPrefix(prefix: RuntimeEventPrefix, at: WorksiteContextBodyHistoricalCoordinate,
+  context: WorksiteContextObservation, relativePath: string, uses: readonly WorksiteContextBodyHistoricalUse[]): WorksiteContextBodyResolution {
   const refuse = (code: WorksiteContextBodyRefusalCode, reason: string): WorksiteContextBodyResolution =>
     Object.freeze({ kind: "worksite_context_body_refusal", code, relativePath, reason });
   try {
     const committed = committedBodyPrefix(prefix);
     if (committed === undefined) return refuse("pending", "no committed predecessor prefix");
     const record = (x: unknown): x is Readonly<Record<string, JsonValue>> => typeof x === "object" && x !== null && !Array.isArray(x);
+    if (!record(at) || typeof at.resultRef !== "string" || typeof at.resultDigest !== "string" || !Array.isArray(at.route) ||
+      !at.route.every(step => typeof step === "string")) return refuse("malformed", "historical context coordinate is malformed");
     const held = heldContextBodies(committed);
+    const declaredUses = (Array.isArray(uses) ? uses : []).filter(use => record(use) && use.resultRef === at.resultRef && use.resultDigest === at.resultDigest);
+    if (declaredUses.length === 0) return refuse("foreign", "no authenticated historical revision use declares this Result");
     let refusal: WorksiteContextBodyResolution | null = null;
-    for (const use of Array.isArray(uses) ? uses : []) {
-      if (!record(use) || !record(use.coveredBinding) || context.workspaceBindingIdentity !== use.coveredBinding.bindingId ||
-        context.workspaceBindingDigest !== use.coveredBinding.bindingDigest) continue;
+    for (const use of declaredUses) {
+      if (!record(use.coveredBinding) || context.workspaceBindingIdentity !== use.coveredBinding.bindingId ||
+        context.workspaceBindingDigest !== use.coveredBinding.bindingDigest) {
+        refusal ??= refuse("foreign", "context binding is not the covered binding of its historical use"); continue;
+      }
       const rows = admittedHolderEnvelopes(committed, "payload:resultRef:" + use.resultRef);
       if (rows.length !== 1) { refusal ??= refuse(rows.length === 0 ? "pending" : "tampered", "declared historical Result is not one exact admission at this prefix"); continue; }
       if (rows[0]!.aggregateId !== use.cCallRef || rows[0]!.runId !== use.runId) { refusal ??= refuse("foreign", "declared historical Result belongs to another CCall or Run"); continue; }
@@ -1114,14 +1149,17 @@ export function resolveHistoricalWorksiteContextBodyAtPrefix(prefix: RuntimeEven
         refusal ??= refuse("tampered", "declared historical Result differs from its admission"); continue;
       }
       const value: Readonly<Record<string, JsonValue>> = payload.value, kind = value.kind as string;
-      const positions = Object.hasOwn(HISTORICAL_CONTEXT_POSITIONS, kind) ? HISTORICAL_CONTEXT_POSITIONS[kind]! : [];
-      const declared = positions.some(path => {
-        let cursor: unknown = value;
-        for (const step of path) cursor = record(cursor) ? cursor[step] : undefined;
-        return record(cursor) && cursor.kind === "worksite_context_observation" && canonicalEquals(cursor, context as unknown as JsonValue);
-      });
-      if (!declared) { refusal ??= refuse("foreign", "context is not held at a declared coordinate of the declared historical Result"); continue; }
-      return resolveWorksiteContextBodyAtPrefix(committed, context, relativePath, { runId: use.runId });
+      const routes = Object.hasOwn(HISTORICAL_CONTEXT_ROUTES, kind) ? HISTORICAL_CONTEXT_ROUTES[kind]! : [];
+      if (!routes.some(route => route.length === at.route.length && route.every((step, i) => step === at.route[i]))) {
+        refusal ??= refuse("foreign", "route is not a declared typed context route of the historical Result kind"); continue;
+      }
+      let cursor: unknown = value;
+      for (const step of at.route) cursor = record(cursor) && Object.hasOwn(cursor, step) ? cursor[step] : undefined;
+      if (!record(cursor) || cursor.kind !== "worksite_context_observation" || !canonicalEquals(cursor, context as unknown as JsonValue)) {
+        refusal ??= refuse("tampered", "context differs from the one held at its declared route of the historical Result"); continue;
+      }
+      return resolveWorksiteContextBodyAtPrefix(committed, context, relativePath,
+        use.sourceResults === undefined ? { runId: use.runId } : { runId: use.runId, sourceResults: use.sourceResults });
     }
     return refusal ?? refuse("foreign", "no authenticated historical revision use declares this context and binding");
   } catch (error) { return refuse("malformed", `historical context body read failed: ${String(error)}`); }
