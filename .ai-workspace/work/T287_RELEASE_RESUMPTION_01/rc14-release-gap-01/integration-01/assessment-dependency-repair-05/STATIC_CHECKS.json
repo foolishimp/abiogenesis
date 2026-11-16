@@ -71,7 +71,7 @@
   "contextCheck": {
     "path": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-05/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/CONTEXT_CHECK.json",
     "bytes": 2578,
-    "sha256": "70c25e3349813f436ef96e240aecf1d6af48b9533071129d77031392d02d6f15"
+    "sha256": "57d8415a3236cf3029f762a693cf39e553edc0b10d0986ed46d30b1e81ea1509"
   },
   "declaredNativeBeforeSetupPathCount": 25,
   "observerBound": 64,
@@ -113,5 +113,23 @@
     "build/test/proof",
     "source materialization",
     "main/push"
-  ]
+  ],
+  "coordinateRepairR1": {
+    "authority": "RC14-B56-NATIVE05-CONTROL-WRITER-036-R1; Root exact reviewed-coordinate successor instruction",
+    "priorFrozenCommit": "7248f2954467e6e433374017cf83b7b36e4c4b54",
+    "finding": "TASK.methodVerification.requiredStatus.definition selected source04 while METHOD_VERIFICATION and activation selected05.",
+    "jsonPath": "methodVerification.requiredStatus.definition",
+    "before": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04/stdo_abiogenesis.json",
+    "after": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-05/stdo_abiogenesis.json",
+    "exactTaskByteDelta": "One definition path04\u219205, same byte count, all other Task bytes identical.",
+    "allDefinitionSelectorsAgree": true,
+    "syntax": "TASK and dependent records parsed as JSON; no Product import or execution.",
+    "promptFieldsIdentical": true,
+    "promptProjectionReusedUnchanged": true,
+    "contextCountsAndBytesIdentical": true,
+    "contextRowsDigestBefore": "41515b8a4d6763b68296729dc406a314806cf8c27af44d3405a9b2dbd832d86c",
+    "contextRowsDigestAfter": "51cd738b5a3f8cca73d9d2d9760d373c661842ccfbd1521e865e42d50bacf2f7",
+    "unchangedExecutableChecks": "Prior frozen byte/syntax review retained; no helper/runtime change or repeated runtime check.",
+    "nonblockingReaderRange": "Installed read_basis.py ends262;230\u2013EOF is actual acquired interval. No nonexistent lines claimed and no range/code change selected."
+  }
 }

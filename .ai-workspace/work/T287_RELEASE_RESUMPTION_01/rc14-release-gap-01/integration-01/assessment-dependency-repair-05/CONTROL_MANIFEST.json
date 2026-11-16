@@ -16,7 +16,7 @@
     {
       "path": "CONTEXT_CHECK.json",
       "bytes": 2578,
-      "sha256": "70c25e3349813f436ef96e240aecf1d6af48b9533071129d77031392d02d6f15"
+      "sha256": "57d8415a3236cf3029f762a693cf39e553edc0b10d0986ed46d30b1e81ea1509"
     },
     {
       "path": "D1_COORDINATES.json",
@@ -125,13 +125,13 @@
     },
     {
       "path": "STATIC_CHECKS.json",
-      "bytes": 4474,
-      "sha256": "9e2df832e53305df402e09c8db10db27f173ee97e5f7e959650c88f63e3dfb97"
+      "bytes": 5957,
+      "sha256": "922c52afcfd3b44d14fcd188f3dcc6b18dcc7fc31b2a0b0757cf9c8c5305efdb"
     },
     {
       "path": "TASK.json",
       "bytes": 29415,
-      "sha256": "c491926513797b5305a46fc8b99ab912ac5011bf4e9b9e052454efa5be476d64"
+      "sha256": "c6fad4ecba5edadd9f228b6e838f9f93ae703f656a3780610b67c4bbb0181c8a"
     },
     {
       "path": "TOOL_INPUTS.json",

@@ -509,7 +509,7 @@
     "recipe": "Read METHOD_VERIFICATION.json and COORDINATED_HANDOFF.md Compact Source Acquisition; use existing installed read_basis.py, never a new section parser.",
     "status": "Capture full exact stdo status --verify stdout/stderr and actual child returncode with bounded subprocess.run, parse whole JSON before validation. Retain stdout bytes/hash plus all exact identity/validity fields and actual exit; no head/sed-prefix/pipeline exit. No full manager inventory dump into actor context.",
     "requiredStatus": {
-      "definition": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04/stdo_abiogenesis.json",
+      "definition": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-05/stdo_abiogenesis.json",
       "definition_id": "urn:stdo:product-definition:abiogenesis",
       "basis": "stdo://releases/v3.0.4/",
       "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",

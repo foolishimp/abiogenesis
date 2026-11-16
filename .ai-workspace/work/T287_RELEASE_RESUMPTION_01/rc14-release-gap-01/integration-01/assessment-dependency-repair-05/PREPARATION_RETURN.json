@@ -1,7 +1,7 @@
 {
   "id": "RC14-B56-NATIVE05-CONTROL-WRITER-036-RETURN",
   "status": "frozen_disabled_preparation",
-  "recordedUtc": "2026-11-16T00:52:32.040945+00:00",
+  "recordedUtc": "2026-11-16T01:00:25.485187+00:00",
   "sourceBase": "7806efb2c3fb55a2af90533e4b5ebe8e830bbe21",
   "controlRoot": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-05/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05",
   "authority": {
@@ -72,13 +72,13 @@
   "controlManifest": {
     "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/CONTROL_MANIFEST.json",
     "bytes": 5293,
-    "sha256": "6d563a6a5b3ab7aa21c65f573844599d9127f47705fd4af7b09856e545a56f09"
+    "sha256": "8f943513e265946af947e8536dd15667bdb6d86935a38512c2605a9247691d8b"
   },
   "manifestRows": 33,
   "task": {
     "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/TASK.json",
     "bytes": 29415,
-    "sha256": "c491926513797b5305a46fc8b99ab912ac5011bf4e9b9e052454efa5be476d64"
+    "sha256": "c6fad4ecba5edadd9f228b6e838f9f93ae703f656a3780610b67c4bbb0181c8a"
   },
   "delta": {
     "nativeFixtureObligation": [
@@ -98,13 +98,13 @@
   "checks": {
     "staticChecks": {
       "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/STATIC_CHECKS.json",
-      "bytes": 4474,
-      "sha256": "9e2df832e53305df402e09c8db10db27f173ee97e5f7e959650c88f63e3dfb97"
+      "bytes": 5957,
+      "sha256": "922c52afcfd3b44d14fcd188f3dcc6b18dcc7fc31b2a0b0757cf9c8c5305efdb"
     },
     "contextCheck": {
       "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05/CONTEXT_CHECK.json",
       "bytes": 2578,
-      "sha256": "70c25e3349813f436ef96e240aecf1d6af48b9533071129d77031392d02d6f15"
+      "sha256": "57d8415a3236cf3029f762a693cf39e553edc0b10d0986ed46d30b1e81ea1509"
     },
     "jsonParsed": true,
     "pythonAstParsed": true,
@@ -180,5 +180,38 @@
     "mainWrites": false,
     "push": false
   },
-  "returnTo": "Root; one frozen control subject, stop editing. No Reviewer activated."
+  "returnTo": "Root; one frozen control subject, stop editing. No Reviewer activated.",
+  "reviewSuccessorR1": {
+    "role": "RC14-B56-NATIVE05-CONTROL-WRITER-036-R1",
+    "priorFrozenCommit": "7248f2954467e6e433374017cf83b7b36e4c4b54",
+    "priorSubjectStanding": "Preserved; one activation-blocking stale Task coordinate found by independent Product/Design/Method review. Other reviewed source/control/effect judgments retained.",
+    "findingAndRepair": {
+      "authority": "RC14-B56-NATIVE05-CONTROL-WRITER-036-R1; Root exact reviewed-coordinate successor instruction",
+      "priorFrozenCommit": "7248f2954467e6e433374017cf83b7b36e4c4b54",
+      "finding": "TASK.methodVerification.requiredStatus.definition selected source04 while METHOD_VERIFICATION and activation selected05.",
+      "jsonPath": "methodVerification.requiredStatus.definition",
+      "before": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04/stdo_abiogenesis.json",
+      "after": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-05/stdo_abiogenesis.json",
+      "exactTaskByteDelta": "One definition path04\u219205, same byte count, all other Task bytes identical.",
+      "allDefinitionSelectorsAgree": true,
+      "syntax": "TASK and dependent records parsed as JSON; no Product import or execution.",
+      "promptFieldsIdentical": true,
+      "promptProjectionReusedUnchanged": true,
+      "contextCountsAndBytesIdentical": true,
+      "contextRowsDigestBefore": "41515b8a4d6763b68296729dc406a314806cf8c27af44d3405a9b2dbd832d86c",
+      "contextRowsDigestAfter": "51cd738b5a3f8cca73d9d2d9760d373c661842ccfbd1521e865e42d50bacf2f7",
+      "unchangedExecutableChecks": "Prior frozen byte/syntax review retained; no helper/runtime change or repeated runtime check.",
+      "nonblockingReaderRange": "Installed read_basis.py ends262;230\u2013EOF is actual acquired interval. No nonexistent lines claimed and no range/code change selected."
+    },
+    "changedFiles": [
+      "TASK.json",
+      "CONTEXT_CHECK.json",
+      "STATIC_CHECKS.json",
+      "CONTROL_MANIFEST.json",
+      "PREPARATION_RETURN.json"
+    ],
+    "impactedCopies": "Task pin in manifest and Return; full context row digest and its pins in Static/manifest/Return; dependent Static and manifest pins. No copies of the native/helper source or SOURCE_INPUTS changed.",
+    "executionAuthorized": false,
+    "sourceMaterialized": false
+  }
 }
