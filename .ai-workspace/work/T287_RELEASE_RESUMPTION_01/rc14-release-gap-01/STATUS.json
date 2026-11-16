@@ -723,7 +723,26 @@
       "implementationSelectedByThisObservation": false,
       "policyChoiceAnswered": false,
       "positiveProductionEligibilityEstablished": false,
-      "limits": "Sufficient existing external attribution is already permitted by HOW; missing attribution stays unknown and deferred F_H is not restored. Complete live witnesses would not close this separate implementation/policy gap."
+      "limits": "Sufficient existing external attribution is already permitted by HOW; missing attribution stays unknown and deferred F_H is not restored. Complete live witnesses would not close this separate implementation/policy gap.",
+      "originalD5DocumentarySupport": {
+        "existingAcceptedDisposition": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_SOURCE_ROOT_DISPOSITION.json",
+          "bytes": 2110,
+          "sha256": "9ecb421ac5d9bcc2d2360dca5205930e9ab95533d97ecfba83f58392777fe4c8"
+        },
+        "existingSourceResult": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/QR02_ORIGINAL_D5_SOURCE_RESULT.json",
+          "bytes": 20561,
+          "sha256": "eeb520bfd1598adef50ffef7fa80323b1158d6741938255c17b1d963dd491233"
+        },
+        "independentReacquisition": "The reviewer verified the four direct-parent original commits, five cited blobs and source spans; Root freshly verified these two existing result/disposition files.",
+        "decision": "Original documentary source-location gap was already closed by the later accepted disposition. Reuse that evidence; no additional archive recovery is needed for this transition.",
+        "limits": [
+          "No inherited-contributor census or complete semantic-survival judgment.",
+          "External record sufficiency remains with its existing owner; lack of historical native transport evidence creates no new native-invocation prerequisite.",
+          "No change to pending family-policy/scope choice, no implementation selection and no production eligibility or qualification."
+        ]
+      }
     }
   },
   "s06Toolchain": {
@@ -738,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T03:50:06.449091+00:00",
+  "updatedUtc": "2026-11-16T04:19:34.268456+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1470,7 +1489,7 @@
     "reportedSdkCostUsd": 11.4816298
   },
   "s06Witness03": {
-    "state": "INTENT_AND_PRODUCT_SATISFIED_REQUIREMENTS_AUTHOR_RUNNING",
+    "state": "INTENT_PRODUCT_REQUIREMENTS_SATISFIED_DESIGN_SELECTED",
     "activation": "integration-01/s06-witness-03/ACTIVATION.json",
     "runtimeStarted": true,
     "qualified": false,
@@ -1488,15 +1507,16 @@
       "sha256": "02344fe1ee853569fa421dd4ea894dea23a4650952dff1fa2dd4e52bfb7dc3af"
     },
     "lastOperatorObservation": {
-      "at": "2026-11-16T03:49:25.427Z",
+      "at": "2026-11-16T04:18:53.714Z",
       "intentAssessmentAdmittedOrdinal": 493,
       "productAssessmentAdmittedOrdinal": 1047,
-      "intentAndProductDispositions": "satisfied",
-      "productCoverage": "non_closing; declared semantic/application/proof gaps retained",
-      "requirementsAuthorStartedUtc": "2026-11-16T03:49:25.427Z",
-      "requirementsAuthorPid": 7901,
-      "requirementsAuthorOrdinal": 1133,
-      "meaning": "Requirements author underway; D1 executable evidence and consequential D2 remain unperformed. Interim observation, not sealed S06 acceptance."
+      "requirementsAssessmentAdmittedOrdinal": 1771,
+      "admittedStageDispositions": "Intent, Product and Requirements satisfied",
+      "requirementsAssessmentClosedUtc": "2026-11-16T04:18:39.660Z",
+      "designSelectionOrdinal": 1821,
+      "designSelectedUtc": "2026-11-16T04:18:53.714Z",
+      "applicationCoverage": "non_closing; all three declared gaps remain",
+      "meaning": "Design selected; executable D1 evidence and consequential D2 remain outstanding. Interim Operator observation, not sealed S06 acceptance."
     }
   }
 }
