@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T05:47:14.740829+00:00",
+  "updatedUtc": "2026-11-16T05:50:56.422020+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1593,10 +1593,16 @@
     "reportedSdkCostUsd": "6.6622386"
   },
   "s06AdverseRevisionPreparation": {
-    "state": "SELECTED_AWAITING_PUSH",
+    "state": "ACTIVE_EXTERNAL_CONTROL_PREPARATION",
     "activation": "integration-01/S06_ADVERSE_REVISION_PREPARATION_ACTIVATION_01.json",
     "writer": "RC14-S06-ADVERSE-REVISION-PREPARATION-WRITER-039",
     "runtimeStarted": false,
-    "providerAuthorized": false
+    "providerAuthorized": false,
+    "activatedOnPushedCommit": "0aa9cf27eabbbce82bbc0b2381ea8b9e20c36a6a",
+    "actualStartedUtc": "2026-11-16T05:49:11.503463+00:00",
+    "preparationDeadlineUtc": "2026-11-16T07:19:11.503463+00:00",
+    "operator": "/root/b29_vm_triage",
+    "worktree": "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01",
+    "providerCalls": 0
   }
 }
