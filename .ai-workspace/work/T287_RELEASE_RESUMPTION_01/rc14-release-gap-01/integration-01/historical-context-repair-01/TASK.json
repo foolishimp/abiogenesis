@@ -1,0 +1,180 @@
+{
+  "id": "RC14-HISTORICAL-CONTEXT-NATIVE-001-TASK",
+  "sourceHead": null,
+  "outcome": "Repair B64 authenticated historical parent/cause context presentation across native revision and applicable semantic-stage assembly while retaining all original carriers and strict prefix/body authority.",
+  "readRoots": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/WRITER_ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/ROOT_SELECTION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/PROOF_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/EVIDENCE_INPUTS.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    "specification/requirements/product/REQ-P-SCENARIOS.md",
+    "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src",
+    "build_tenants/abiogenesis/typescript/test_env/support",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "readFirst": [
+    "AGENTS.md",
+    "stdo_abiogenesis.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/WRITER_ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/ROOT_SELECTION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/ACTIVATION.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/TASK.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/PROOF_PLAN.json",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/historical-context-repair-01/EVIDENCE_INPUTS.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    "specification/requirements/product/REQ-P-SCENARIOS.md",
+    "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md"
+  ],
+  "externalReadOnlyInputs": [
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "bytes": 13369,
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+      "sections": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Complete actual installed work skill before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "bytes": 22028,
+      "sha256": "e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "sections": [
+        [
+          16,
+          48
+        ],
+        [
+          133,
+          168
+        ]
+      ],
+      "role": "Control Intake and Receive before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "bytes": 3947,
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "uri": "stdo://releases/v3.0.4/plugins/spec/references/PRODUCT_BASIS.md",
+      "sections": [
+        [
+          1,
+          74
+        ]
+      ],
+      "role": "Complete Product Basis before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "uri": "stdo://releases/v3.0.4/standards/ACTIVATION.md",
+      "sections": [
+        [
+          199,
+          352
+        ],
+        [
+          353,
+          438
+        ],
+        [
+          693,
+          901
+        ],
+        [
+          1681,
+          1749
+        ]
+      ],
+      "role": "Construction relation, intake/admission, context acquisition and closed-result reuse: acquire the stated actual source bodies before dependent edits; hashing/paraphrase is not body acquisition."
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/frames/bootstrap.md",
+      "bytes": 94520,
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "sections": [
+        [
+          1,
+          145
+        ]
+      ],
+      "role": "Bootstrap purpose, routes and canonical source acquisition before first edit; actual content reads are auditable, byte checks alone are insufficient; external read-only, never W."
+    }
+  ],
+  "externalEvidenceReadOnlyInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-adverse-revision-01/ROOT_FAILURE_RECORD.json",
+      "bytes": 7121,
+      "sha256": "f197f413e9c9f1d95517556c360ff27c251d620454787992aa9447a31bbf82c4"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/OPERATOR_RETURN.json",
+      "bytes": 118499,
+      "sha256": "84ef00bf58a26cffaa40fb68dcd02e8547adcb1d42a4c8b270310e64d31d686d"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+      "bytes": 13730678,
+      "sha256": "207b160914a2fea0f0dac745f87bf70a12ee70eb0cf0b992d8e593a0c717bc47"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/revision-intake/calls/lifecycle-start.outcome.json",
+      "bytes": 27366,
+      "sha256": "0a386e7eae84adab91d65e00fd880ad990cd84e2e91f427580235385487a2c11"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/revision-intake/input.json",
+      "bytes": 960,
+      "sha256": "ffc1b7a6bc17aae5c1bdb4d1fd181331678414a61ce06d7d9e925d0044f0ffe8"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/revision-intake/session-close.json",
+      "bytes": 2263,
+      "sha256": "9470f5cb4c1222a34e741dda6e7914948bc30c339b7c934d646bbbc15796c5fb"
+    }
+  ],
+  "writeRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "instructions": "You are the sole actual installed RC13 native source author for B64 under the exact Root selection and future launch. Start with a compact Product Frame: unchanged fixed5.0 F17/S06 complete source/evidence, declared revision and independent assessment; this source repair is not qualification or stage completion. The live source, pinned RC13 builder and historical candidate02/evidence are distinct subjects.\n\nBefore dependent edits acquire actual content, not counts/hashes/paraphrases: the complete installed stdo-work skill and selected sections of its exact external references in externalReadOnlyInputs (including ACTIVATION construction relation199-352); all readFirst records; Product825-860 and1480-1498; requirement INSTRUCTION-ASSEMBLY022/023; project exact basis; both owning HOW passages and their necessary source/requirement links. Full readFirst control JSON must be acquired even if a tool previews a persisted result. Report actual missing material; do not pretend a digest is a content read.\n\nFirst reconcile T287_NATIVE_WORKSPACE_WORK_DESIGN299-300 and T287_D2_REQUIREMENT_LIFECYCLE_DESIGN126-145 to ROOT_SELECTION.admittedStructuralDecision. Then implement that existing-owner relation inside exact W. Native assessment producer475 legally folds admitted_member contexts into adverse semantic cause505; current intake577 has31 inline files. Current inline-only renderer and generic sourceResults cross-Run predicate cannot represent that legitimate historical use. Do not simply pass505 as a native-work source Result or substitute current worksite bytes.\n\nTrace actual Product worksite_effect1738-1750, implementation/native_workspace_work64-70, Product semantic_job folds, abg/semantic_revision340-374 authenticated subject/acquisition/parent/causes, event_prefix931-962 and1018-1071 held/member authority, instruction_assembly678/824/927-1002 selection and applicable stage views. Revision owner derives exact historical use from its authenticated subject and source prefix. Held-prefix/body owner retains holder/basis/coordinate/path/digest/length/read-scope/binding-cover checks. Historical bytes retain genuine historical scope; current physical context remains distinct and currentness checks remain. Instruction assembly creates only derived complete presentation with existing byte deduplication/opaque payloads. No carrier rewrite, fresh-W substitution, producer dedup rollback, caller allowlist, arbitrary recursive carrier search, fabricated sourceResults, generic registry or blanket foreign-Run permission.\n\nAdd meaningful regressions inside the three W tests using their existing actual owner/store/fixture seams. Mandatory first relation is real admitted native assessor -> folded adverse semantic envelope with admitted_member context -> authenticated new-Run revision intake -> successful selector assembly without a paid provider. Show held and cold-prefix equivalent complete material and unchanged admitted carrier bytes/provenance; exercise applicable semantic-stage member view. Preserve existing inline, changed-current, non-UTF8 and opaque application/C2 cases. Negatives cover missing/forward/foreign/tampered holder/member, wrong path/digest/version/binding, undeclared historical use, uncovered binding and unavailable/denied body. Existing negatives may remain only when their unchanged premises and new-path coverage are explained. No unconditional trusted predicates or fabricated admission.\n\nUse the three exact new top-level titles and candidate filenames in PROOF_PLAN. Retain complete actual candidate observations/refusals/assembly or body outputs before any test assertion or helper stripping. Capture primary child/execution or parse failure and secondary capture failure as distinct evidence; never mask the primary. JSON may summarize identity but must retain the complete material under test, not slice/truncate it. Capture directory is supplied later as ABG_REGRESSION_PROOF_ROOT. Preserve all39 existing top-level titles/assertions and meaningful nested negatives; new tests may add cases. Whole-file proof runs later, one build plus these three files. Do not execute tests yourself.\n\nAuthority: only the eight exact writeRoots may change, no deletes or generated files. ReadRoots select bounded initial context, not exclusive reasoning authority: material reads across the full tenant source/test/support and declared governing specification/design/method are permitted, including causal imports; unrelated project/history scans are not. EVIDENCE_INPUTS supplies immutable closed failure data, not permission to reopen or append its event resource, copy stages or claim old execution credit. Do not alter it.\n\nSource construction only: file tools or bounded programmatic edits are permitted within exact W. Read-only shell/Git inspection and Node --version/--check metadata/syntax are permitted; no build, test, npm/install/pack, Product imports, behavioral probes, nested provider, Git mutation or main/push. Use memory/pipes for transformation; no undeclared temporary/source files. Any required change outside W or structural decision returns an explicit gap. One45-minute/360-turn pass, five-minute inactivity, no retry.\n\nReturn truthful typed native completion report: exact changed files; HOW/owner/consumer mapping; unchanged guards/assertions; tests authored but unexecuted; candidate capture coordinates; command/read deviations and remaining uncertainty. Do not relabel method compliance or infer source acceptance from your own report. Root owns independent review, proof and later candidate/witness.\n",
+  "checks": [
+    "Both owning HOW passages reconciled before realization",
+    "Actual admitted member producer -> authenticated new-Run revision -> complete selector and applicable stage presentation",
+    "Held/cold identity, original carriers, strict historical/current and negative authority conservation",
+    "Complete candidates retained before assertions with primary and secondary error channels",
+    "Only eight W; no behavioral execution; exact method body reads and truthful audit"
+  ],
+  "maxContextFiles": 1024,
+  "maxContextBytes": 25165824,
+  "declaredAdditionalReadAuthority": "Full tenant source/test/support and governing specification/design/method material needed for this owner cone; readRoots is context selection, not a narrower reasoning boundary."
+}

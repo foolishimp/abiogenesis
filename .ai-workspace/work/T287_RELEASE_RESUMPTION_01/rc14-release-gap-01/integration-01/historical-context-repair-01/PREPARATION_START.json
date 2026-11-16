@@ -1,0 +1,11 @@
+{
+  "entryUtc": "2026-11-16T07:34:42.254257+00:00",
+  "deadlineUtc": "2026-11-16T08:19:42.254257+00:00",
+  "runtimeClockStarted": false,
+  "worktree": "/private/tmp/abg-rc14-historical-context-controls-20261116-01",
+  "branch": "codex/rc14-historical-context-controls-20261116-01",
+  "sourceBase": {
+    "commit": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
+    "tree": "8e5a5194de10f816d95f61b9fcf5e8b19a006211"
+  }
+}

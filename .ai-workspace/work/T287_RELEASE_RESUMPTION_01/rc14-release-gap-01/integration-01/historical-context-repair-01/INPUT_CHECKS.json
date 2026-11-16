@@ -1,0 +1,23 @@
+{
+  "namedPackets": [
+    [
+      "EVIDENCE_INPUTS.json",
+      6,
+      13886887
+    ],
+    [
+      "TOOL_INPUTS.json",
+      5,
+      86375166
+    ]
+  ],
+  "providerAndBuilderAndRootAuthority": true,
+  "candidate02FourReceipts": true,
+  "dependencyFilesAndLinks": 4576,
+  "dependencySha256": "dc55a042e47b4119487c1ef1b1288b0de607a9687b6a60e4efbb0443f9584aff",
+  "npmFilesAndLinks": 2326,
+  "nativeToolInputs": 196,
+  "nativePredicate": "is_file plus exact declared digest, including lawful SDK symlink; source/control regular-file predicates unchanged",
+  "writes": "None except this compact check record in authorized controls carrier",
+  "productOrRuntimeExecution": false
+}

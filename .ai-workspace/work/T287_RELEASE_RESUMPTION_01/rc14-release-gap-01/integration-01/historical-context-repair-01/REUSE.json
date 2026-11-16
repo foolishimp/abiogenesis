@@ -1,0 +1,59 @@
+{
+  "predecessor": {
+    "commit": "7ae1bdd4f048d00f642485b9cd70da9909412e14",
+    "tree": "7ad3d04d718dc46dc3560746397f7708efc59bb5",
+    "parent": "86c9caa1c8c46da38410b4b46b6a5004e351d60f",
+    "root": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-01",
+    "manifestSha256": "401cce2b6191f4d8d17c1d902fb10b55edbf99cf125c5fbd142c1b9c9e624fee",
+    "manifestMembers": 26,
+    "returnSha256": "d0fe98a207bb5ba148486574cca5b53d23e699bab295e618207e1e4dd9b4aeb3",
+    "sourceTenantTree": "43e8e4fb26a434ecc6b44436ec9c64da368e3bea"
+  },
+  "byteIdenticalHelpers": [
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 3060,
+      "sha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ],
+  "operateDelta": "Fresh source/raw coordinate strings only; exclusive launch staging, original clocks, final aggregate cap, first failure and group cleanup unchanged.",
+  "hostDelta": "Fresh source/raw/id/URI coordinates; exact external closed-evidence custody entry/exit; one shared complete protected external set appended at all three topology phases. Actual installed-Public setup/task/terminal/close/fresh-read owners retained.",
+  "proveUnchangedCallableASTs": [
+    "module",
+    "digest",
+    "bound_json",
+    "require_author_completion",
+    "source_inventory",
+    "pinned",
+    "tree",
+    "native_inputs",
+    "fixtures"
+  ],
+  "proveChangedCallableASTs": [
+    "controls",
+    "checked_population",
+    "main"
+  ],
+  "proofDelta": "B64 read-only evidence pins within existing entry/exit controls; complete source/proof coordinates; three whole-file mandatory positive/title/capture populations; exact generated capability graph build allowance with inclusive built postimage and exit conservation. No name filters or proof reuse.",
+  "notReused": "Old B56 Task/fixture assets/diagnosis/candidate coordinates or incidental editing restrictions; no prior behavioral pass is credited."
+}

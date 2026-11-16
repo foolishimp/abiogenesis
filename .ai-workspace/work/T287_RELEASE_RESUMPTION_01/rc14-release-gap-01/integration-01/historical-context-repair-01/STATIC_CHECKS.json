@@ -1,0 +1,101 @@
+{
+  "kind": "bounded_control_preparation_checks",
+  "completedUtc": "2026-11-16T07:51:28.163580+00:00",
+  "sourceBase": {
+    "commit": "15e85803fdb9683ef3afdd79b0678ec5cc37bff3",
+    "tree": "8e5a5194de10f816d95f61b9fcf5e8b19a006211"
+  },
+  "syntax": {
+    "pythonFiles": [
+      "setup-custody.py",
+      "freeze-source.py",
+      "operate.py",
+      "prove.py",
+      "process-owner.py",
+      "dependency-inputs.py",
+      "physical-topology.py"
+    ],
+    "pythonASTParse": true,
+    "nodeCheckHOSTExit": 0,
+    "productImports": false
+  },
+  "reusedOwnerBytes": [
+    {
+      "path": "dependency-inputs.py",
+      "bytes": 2786,
+      "sha256": "d9833165b07d72f5f7ce64c90ab17d3e564e1857ddc8ff9127c780f9651e69ed"
+    },
+    {
+      "path": "freeze-source.py",
+      "bytes": 3060,
+      "sha256": "3f61a32060ce7847edac2e0a32820b98bf17a9a0e8ac553f1d3baac30802f4d8"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "process-owner.py",
+      "bytes": 3099,
+      "sha256": "dc16586cc5ecc28827572ba16b281bbca5aa19e1bfb5f135c3f868976aaffe39"
+    },
+    {
+      "path": "setup-custody.py",
+      "bytes": 10410,
+      "sha256": "f33bb697fcb973bad5d7725d09a759e5160b1bdeed5df52c7196bb12820aa4f1"
+    }
+  ],
+  "predecessorManifestMembersVerified": 26,
+  "sourceInputRows": 378,
+  "nativeWriteScope": {
+    "exactPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs"
+    ],
+    "count": 8,
+    "matchesRootGrant": true
+  },
+  "initialContext": {
+    "files": 373,
+    "bytes": 9119884,
+    "maxFiles": 1024,
+    "maxBytes": 25165824,
+    "includesSixControlBodies": true,
+    "additionalMaterialReads": "Full tenant causal reads permitted; this measurement covers initial observed source/control files, not a universal actor attention/context claim."
+  },
+  "externalChecks": "INPUT_CHECKS.json",
+  "topologyShape": "LAYOUT_CHECKS.json",
+  "proofPopulation": {
+    "preservedTopLevelTitles": 39,
+    "newRequiredTitles": 3,
+    "wholeFiles": 3,
+    "fixedTotalClaim": false,
+    "negativeNameRegex": false
+  },
+  "runtimeRootsAbsent": true,
+  "canonicalHandoff": "HOST canonical constructor call unchanged: actual installed Public create/import -> populateSandbox -> observeWorksiteContext -> constructNativeWorkspaceWorkTask/constructInstalledStartCall -> invokeLifecycle -> typed terminal -> fresh result/replay. Static shape/AST/owner source inspection only; no runtime verification.",
+  "acquisitionErrors": [
+    {
+      "operation": "stdo verify stdo://releases/v3.0.4/",
+      "result": "CLI syntax rejected before verification; declared stdo status --definition ... --verify subsequently verified exact installed basis."
+    },
+    {
+      "operation": "Display of guessed plugins/spec/references/ACTIVATION.md",
+      "result": "ENOENT read-only display path; exact predecessor declared standards/ACTIVATION.md was acquired. No missing owner or control check was inferred."
+    }
+  ],
+  "controlValidationFailures": [],
+  "physicalProbes": 0,
+  "runtime": 0,
+  "provider": 0,
+  "builds": 0,
+  "tests": 0,
+  "qualification": false
+}

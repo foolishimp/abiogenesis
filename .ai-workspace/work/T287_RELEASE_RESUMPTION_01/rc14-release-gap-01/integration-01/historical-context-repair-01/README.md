@@ -1,0 +1,21 @@
+# B64 native historical-context controls
+
+Prepared from exact source15e85803fdb9683ef3afdd79b0678ec5cc37bff3 under `WRITER_ACTIVATION.json`. Only this new external carrier was authored. Source, runtime, provider and proof are disabled. Preparation uses its own45-minute bound in `PREPARATION_START.json`; it does not reopen prior clocks.
+
+Read `DESIGN.md`, `ROOT_SELECTION.json`, `ACTIVATION.json`, `TASK.json`, `PROOF_PLAN.json` and `REUSE.json`. The eight native W paths are exactly Root's3owners/2HOW/3tests. Bounded programmatic edits inside W are explicitly permitted; there is no inherited B56 incidental editing-tool ban. Actual method acquisition and commands remain audited.
+
+The declared controls root is the frozen external worktree's `historical-context-repair-01` directory. Invoke controls from that root, not from a carrier inside the future native source worksite: the controls directory is a protected external input. Future source/checkpoint binding is deliberately null. Root merges/pushes reviewed controls and selects a source Operator before anything below is permitted.
+
+Prospective native entry (after exact separate pushed grant):
+
+1. Materialize the named source worktree from Root's final pushed checkpoint, with selected tenant and all SOURCE_INPUTS identical to the preparation base. Verify branch/HEAD/index, actual source/control/provider/Node/dependency/native-input/method/evidence pins, free-space reserve and absence of fresh raw/proof roots. The native SDK declaration owns `inputFiles`196 and its is_file+digest rule for lawful SDK symlinks; do not replace that Tool rule with source-file predicates.
+2. Create only the fresh raw scratch directories and two distinct empty npm config files expected by HOST. Run existing `freeze-source.py FINAL_HEAD` once into raw/SOURCE_PREIMAGE.json. Preserve all original failed campaign/raw subjects.
+3. Root's concrete launch binds exact manifest and all rows, source HEAD/direct remote evidence, observer and acceptance. Invoke `/usr/bin/python3 CONTROLS/operate.py APPROVED_LAUNCH.json` once. It stages exclusive exact raw/LAUNCH.json and matches CONTROL_START before Public setup; no backfill.
+4. Actual installed RC13 verifies its artifact, makes fresh imported workspace authority/binding/resources/Catalog and observes all actual physical roots. Original typed terminal/close/fresh replay rules are unchanged. Credentials are inherited privately only by the single native call; no values in records or setup.
+5. After closure, preserve complete source postimage/diff, report and actual command/content-read audit. Root independently reviews and issues a separate proof grant. No automatic proof or next author.
+
+Prospective affected proof uses `/usr/bin/python3 CONTROLS/prove.py RAW/LAUNCH.json EXACT_PROOF_LAUNCH.json` only after that grant. It creates raw/proof-01 and the distinct LAYOUT proofSubject; uses one ordinary build and three serial whole files. It verifies source/setup custody, complete dependency/native tools, all control/authority/candidate/evidence pins, source and built-mirror entry/exit, actual case populations/captures and both wall/monotonic final deadline. One existing nested Data-alias absent-host skip remains a named skip; all required positive top-level titles execute. No test-name exclusion regex exists. Future new source/build outputs are not candidate02 or installedRC13 proof.
+
+`EVIDENCE_INPUTS.json` holds six exact external counterexample leaves. Do not stage their bytes, import old Run authority, reopen old stores or reproduce the paid failure. `FIXTURE_INPUTS.json` is empty because old B56 default-library witness assets are unrelated; these three files construct their own local genuine owner fixtures. Full actual dependency/material closure still follows source imports inside the admitted read authority.
+
+Checks are static/syntax/hash and exact read-only input inventories only. The actual preparation had two read-only acquisition display/CLI mistakes, disclosed in STATIC_CHECKS; neither was an owner/control/runtime mismatch. No Product import, physical probe, test, build, setup, provider, archive/install, main/push or qualification occurred. The manifest excludes itself and Return to avoid self-reference. Root reviews the frozen subject separately; this Writer does not self-approve it.
