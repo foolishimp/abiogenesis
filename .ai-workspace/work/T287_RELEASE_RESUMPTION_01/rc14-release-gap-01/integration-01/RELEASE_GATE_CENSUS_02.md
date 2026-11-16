@@ -73,3 +73,27 @@ skipped population supplies proof. Resolve source/build relations and attach
 receipts to existing coverage rows before selecting only unsupported
 predicates for further execution. Yield production and human-response/resume
 remain deferred. No duplicate broad campaign is selected.
+
+## Fixed-5.0 scope clarification — 2026-11-16
+
+Root conjoins the independent Product-scope review by
+`/root/amendment_topology_review` on pushed `a8810b29c` under records Writer038.
+This narrows the earlier remaining-evidence wording; it creates no new gate or
+execution grant and closes no missing retained evidence.
+
+- Required recursive governance means preregistered graph composition within
+  admitted Program authority, with bounds, foldback and parent obligations
+  (`PRODUCT.md:1203–1209,1221,1520–1526`). Dedicated F12/S04 oversight and
+  autonomous upstream/out-of-traversal coordination remain deferred.
+- The frame discriminator concerns frame/criterion differences and explicit
+  closed-rule versus F_P evaluation of a declared choice, retaining a gap for
+  unknown required inputs. It is not an exhaustive policy/tuner campaign.
+- “Default-library pending Testing” is a possible witness of retained
+  continuation, producer preservation, currentness and parent obligations,
+  not an additional mandatory scenario or prescribed test phase.
+- S02 retains its four-fibre matrix with the F_H response limitation, eight
+  structural forms, substitution, transparent child and refusal boundaries.
+  S03's yield wording does not restore production `yield_continuation`;
+  production and native human response/resume remain deferred. Typed handoff,
+  explicit deferred-boundary dispositions, F11/QUAL and exact-subject
+  sufficiency remain mandatory.
