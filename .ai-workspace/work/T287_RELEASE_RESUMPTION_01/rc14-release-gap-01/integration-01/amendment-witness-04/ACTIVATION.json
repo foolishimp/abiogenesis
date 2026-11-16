@@ -1,0 +1,203 @@
+{
+  "recordedUtc": "2026-11-16T02:53:03.919610+00:00",
+  "authority": "Owner finish RC14 and continue; accepted B56 source/proof and exact candidate02 build/install/Public/C1 plus unchanged accepted witness controls. Pushed grant permits actual binding preparation; runtime waits for Root acceptance of those concrete binding pins.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "candidate": {
+    "sourceCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "sourceTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+    "compileInputTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "archiveSha256": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+    "manifestSha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e",
+    "packageVersion": "5.0.0-rc.14",
+    "cutRecordPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/CUT_RECORD.json",
+    "cutRecordSha256": "f7aa025826e6732726bf8aedac3ed8305ece21ede83e5ebfc5bc8d321f9388aa",
+    "archiveMembersPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/ARCHIVE_MEMBERS.json",
+    "archiveMembersSha256": "6fbf0d20f29ae5515896455599f50e2f582a2ccbcb5eb7590c0bfb60ab5a7f60",
+    "installRecordPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/INSTALL_RECORD.json",
+    "installRecordSha256": "91e616261fd75da4848c129d8d8ab3a6cb351538bd6669e98559c08becd25021",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/install-host",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/install-host/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "sourceFinalization": {
+    "C1Commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+    "C1Tree": "22eed3693976419c6ed63117756294001096a280",
+    "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/FREEZE.json",
+      "bytes": 4619,
+      "sha256": "f65eed415da5b31978ffb6fac9f8c2264c5ac554c65c560547e49b1ad51dfc62"
+    },
+    "rootAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_C1_FREEZE_ACCEPTANCE_01.json",
+      "bytes": 3979,
+      "sha256": "b39e546d86be9b41ea96f8cf10cea63391bf4988c93f0ecc4d6cc28b672f1c31"
+    }
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/.local/share/claude/versions/2.1.322",
+    "executableSha256": "a9d237949db816a0b7afd88a9a8e1df36b3a597a30f5a41d1c0539eb180a3450",
+    "versionArgs": [
+      "--version"
+    ],
+    "model": "claude-opus-5-5",
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ],
+    "inactivityTimeoutMs": 600000,
+    "absoluteTimeoutMs": 1200000,
+    "maxTurns": 120
+  },
+  "concurrency": "At most two actual provider executions globally: one amendment lane and one S06 lane. Each lane follows its admitted sequential owner path; monitor actual actor starts/closes and do not launch another lane.",
+  "credentialRule": "Only named private credential keys may reach the native invocation interval; values remain in memory and are never written into binding, setup, command logs, Git or commentary.",
+  "limitsCommon": {
+    "processTimeoutMs": 300000,
+    "maxProcessOutputBytes": 67108864,
+    "recursionBound": 16,
+    "exitAuditReserveMs": 180000,
+    "captureBytes": 67108864,
+    "firstFailureStops": true,
+    "retries": 0
+  },
+  "exclusions": [
+    "No ABG Product/source/test/control repair, rebuild or repack; no change to source or pinned RC13 builder.",
+    "No manufactured results, forced adverse verdict, caller-owned semantic ordering, dropped assertion, weaker acceptance, automatic repair/retry or old-candidate proof transfer.",
+    "No broad duplicate suite, formal qualification/B50 campaign, AF25/tag/publication/selector/human acceptance.",
+    "No main writes/push, raw Git, deletion of retained evidence, or writes outside declared fresh witness/raw/binding/owned Tool territories."
+  ],
+  "stops": [
+    "Changed input/pin, occupied fresh roots, topology refusal, first failure/typed block/unobserved required coverage, budget/inactivity/capture limit, missing process absence or final conservation. Preserve full first-failure candidate and return to Root without retry."
+  ],
+  "return": "Preparation return first: exact actual binding and any smoke-input pins under one original clock. Runtime return only after separately pushed binding acceptance: admitted results/currentness/replay, complete required behavior, exact input/output custody, actual provider/model/cost observations and process closure. First failure preserves evidence and returns without retry.",
+  "id": "RC14-INSTALLED-AMENDMENT-OPERATOR-004",
+  "role": "Separate installed amendment Operator",
+  "productFrame": "Fixed5.0 S03/F17 amendment and selective currentness, real installed Public owner. Actual admitted Testing/correction/review/acceptance and replay are required; application success alone does not satisfy missing currentness coverage.",
+  "controls": {
+    "root": "/private/tmp/abg-rc14-amendment-successor-20261116-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-07",
+    "commit": "cd1a11eefdcf8790d93087a2015f857d3247ca12",
+    "manifestSha256": "a81fbf93e5353569b4aea36ad74b43ecc783cb301f883e93410ceabedf80ee4e",
+    "returnSha256": "54b701175c930fe2dac2ad68884bc4b6279b4640a385cae763bebf3607180b57"
+  },
+  "maintainedHelpers": {
+    "sourceRoot": "/private/tmp/abg-rc14-amendment-controls-823-20261116-01",
+    "sourceCommit": "8233791ae611f1c5f6e2ec2afd5a1738dd700bb6",
+    "manifestSha256": "d595c6bba5daec4a26267c0147fd5f28566784146217c360522e7ffb31db4d8b",
+    "alreadyProvisioned": true
+  },
+  "runId": "rc14-amendment-witness-20261116-04",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04",
+  "worksiteRoot": "/private/tmp/abg-rc14-amendment-witness-20261116-04",
+  "bindingRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04",
+  "bindingPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04/BINDING.json",
+  "smokeInputsPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04/SMOKE_INPUTS.json",
+  "smokeSourceRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source",
+  "smokeTimeoutMs": 300000,
+  "enclosingMs": 10800000,
+  "entry": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "/private/tmp/abg-rc14-amendment-successor-20261116-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-07/run.py",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04/BINDING.json"
+  ],
+  "bindingRule": "Fill accepted successor07 template with exact candidate02 C0/cut/source archive/build/archive/generated/dependency and mechanical INSTALL_RECORD values. Preserve the eleven smoke inputs and all tools, npm-tree and B52 historical OS-tool split. Bind actual record-owned installHost/installedRoot, separate from bootstrap, in both topology roles. Only new candidate/roots/grant/deadline and successor07 npm coordinates vary. PROCESS run-wide maxPromptBytes remains524288; context64files/131072bytes, oracle/reviews/prerequisites and all other bounds stay unchanged. Return actual binding and SMOKE_INPUTS pins before runner.",
+  "protectedRoots": [
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+    "/Users/jim/Library/Application Support/STDO/releases/v3.0.4",
+    "/Users/jim/src/apps/abiogenesis",
+    "/opt/homebrew/lib/node_modules/npm",
+    "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch/cut-apply-20261116T021425215Z-42861/source.tar",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/INSTALL_RECORD.json",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/install-host",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/install-host/node_modules/@abiogenesis/typescript-tenant",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/DEPENDENCY_PREIMAGE.json",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+    "/private/tmp/abg-rc14-amendment-controls-823-20261116-01",
+    "/private/tmp/abg-rc14-amendment-successor-20261116-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-07",
+    "/private/tmp/abg-rc14-proof-fixture-20261115-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/fixture-proof-repair-01/dependency-inputs.py"
+  ],
+  "protectedInputsRule": "Protect binding, SMOKE_INPUTS, all receipt/dependencyReader/npmTree paths, candidate/source/archive/donor/control/runtime/install inputs, and selected Node/npm/Python/native provider coordinates in both roles. Historical cut git/tar coordinates are custody-only unless independently selected as governed roots; keep all cut tool path/digest entry/exit checks unchanged.",
+  "effects": [
+    "Fresh external binding/raw/worksite only; one physical readiness observation, one installed-language smoke and one actual admitted amendment witness through unchanged accepted controls.",
+    "Private credential only for real native work; explicit nonsecret setup environment with distinct controlled npm files; exact source/control/dependency/tool/archive/package custody before and after.",
+    "Record admitted initial Testing, intervening construction, stale/fresh affected review, preserved unaffected review, final Testing/native acceptance and held/fresh replay/closure. Missing evidence remains unobserved."
+  ],
+  "controlAcceptance": "AMENDMENT_CONTROL_ACCEPTANCE_07.json",
+  "predecessorFailure": {
+    "returnCommit": "ff2ee54094ddb9cbeeac19957b6289896af967a3",
+    "originalDeadlineUtc": "2026-11-15T22:12:36.707704Z",
+    "closed": true,
+    "reopened": false,
+    "providerCalls": 12,
+    "cause": "declared_prompt_bound_overflow",
+    "nativeProducerCreditTransferred": false
+  },
+  "topologyAcceptanceSelection": "Use this exact pushed activation byte-copy as prospective topology recipe acceptance. It does not supply planned or paired actual role observations, which remain required during later runtime.",
+  "custodyOnlyHistoricalCutTools": {
+    "git": {
+      "name": "git",
+      "path": "/usr/bin/git",
+      "realPath": "/usr/bin/git",
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    },
+    "tar": {
+      "name": "tar",
+      "path": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    }
+  },
+  "selectedInstallationRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/INSTALL_RECORD.json",
+    "bytes": 6910,
+    "sha256": "91e616261fd75da4848c129d8d8ab3a6cb351538bd6669e98559c08becd25021"
+  },
+  "earlierFailureReturn": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
+  "recordsWriter": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "actor": "/root/rc14_release_proof",
+  "executionPhase": "PREPARE_ACTUAL_BINDING_THEN_RETURN_BEFORE_RUNNER",
+  "bindingPreparationAuthorizedAfterPush": true,
+  "runtimeExecutionAuthorized": false,
+  "runtimeCondition": "Root independently reacquires actual binding and any smoke input pins, checkpoints their acceptance, then explicitly dispatches this same original-clock attempt. Do not invoke run.py or any runtime/provider/probe while only binding preparation is active.",
+  "clockRule": "Record actual start/deadline once when binding preparation begins, using enclosingMs including exitAuditReserveMs. Binding review and later runtime consume this same interval; no reset or extension.",
+  "preparationEffects": [
+    "Read existing exact accepted controls, source/C1/cut/install records and full required input identities; use original owning field shapes, no new runner or control source.",
+    "Create only fresh binding territory and actual START/BINDING, prospective byte-copy topology acceptance, and amendment SMOKE_INPUTS where applicable. Record named credential presence only if needed; never acquire or serialize credential values for preparation. Leave fresh raw/worksite/Tool roots absent.",
+    "Return actual binding/smoke/topology pins, original start/deadline and complete candidate/control/input joins to Root. Wait for concrete binding acceptance before invoking any runner."
+  ],
+  "rootCurrentChecks": {
+    "controlsManifestMembersRehashed": 25,
+    "freshRawAndWorksiteAbsentAtSelection": true,
+    "qualificationStillFalse": true
+  },
+  "processCapacity": {
+    "maxPromptBytes": 524288,
+    "maxContextFiles": 64,
+    "maxContextBytes": 131072
+  },
+  "bindingTemplate": {
+    "path": "/private/tmp/abg-rc14-amendment-successor-20261116-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-07/BINDING.template.json",
+    "bytes": 3049,
+    "sha256": "99d2ee93136f7f46bf6803db430548764f858939a12e5ac0d5e6c451b2517fd0"
+  },
+  "smokeInputsTemplate": {
+    "path": "/private/tmp/abg-rc14-amendment-successor-20261116-07/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-successor-07/SMOKE_INPUTS.template.json",
+    "bytes": 4756,
+    "sha256": "6124a52e0e3b80ed0f3c7b6c1db8494e4698ffd64953c972d6a9c98e5c33f22b"
+  }
+}

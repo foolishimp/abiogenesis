@@ -1,0 +1,74 @@
+{
+  "id": "RC14-CANDIDATE02-C1-FREEZE-ACCEPTANCE-01",
+  "recordedUtc": "2026-11-16T02:53:03.919610+00:00",
+  "writer": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "productFrame": "STDO 3.0.4 fixed 5.0 S07 prospective exact candidate correspondence; source freeze does not establish qualification or lifecycle success.",
+  "rawReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/RETURN.json",
+    "bytes": 36234,
+    "sha256": "e1ff36237e260881b03efcee7b2fba3b0418cb5e0c7d5030a01e3b66e1f555f2"
+  },
+  "freeze": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/FREEZE.json",
+    "bytes": 4619,
+    "sha256": "f65eed415da5b31978ffb6fac9f8c2264c5ac554c65c560547e49b1ad51dfc62"
+  },
+  "C1": {
+    "commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+    "tree": "22eed3693976419c6ed63117756294001096a280",
+    "root": "/private/tmp/abg-rc14-candidate-metadata-20261116-03"
+  },
+  "C0": {
+    "commit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "tree": "766e2876fc60fa4e693e3b99846d76ff4af949df"
+  },
+  "archive": {
+    "name": "abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "bytes": 10815210,
+    "sha256": "be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz"
+  },
+  "identity": {
+    "artifactDigest": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "productContentDigest": "sha256:74058d1e18aaa98e7b5ad0c30f682fe45e82b1c49237dabc4c72e956d0eb918f",
+    "manifestDigest": "sha256:1d694d8b04776bd081a4f48bdefe5199d79b3cd6f885ed5718fe59d1e7e097fb"
+  },
+  "changedPaths": [
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/expected-output-inventory.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/verification-recipe.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/resources.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/tenant-manifest.json"
+  ],
+  "clock": {
+    "startedUtc": "2026-11-16T02:46:41.420112+00:00",
+    "originalEnclosureStartedUtc": "2026-11-16T02:39:53.470732+00:00",
+    "deadlineUtc": "2026-11-16T02:59:53.470732+00:00",
+    "executionStopUtc": "2026-11-16T02:59:23.470732+00:00",
+    "closedUtc": "2026-11-16T02:49:49.039377+00:00",
+    "elapsedMs": 187922
+  },
+  "rootVerification": {
+    "all70RecordedChecksPassed": true,
+    "all27GroupsIndependentlyAbsent": true,
+    "all54CommandStreamsMatched": true,
+    "freshAbsolutePinChecks": 353,
+    "all160OriginalEntryExitPinsAndRetainedCollectionsEqual": true,
+    "all2260SourceRowsOutsideEightChangesEqual": true,
+    "C1CommitAndCleanTreeMatched": true,
+    "commitHasOnlyEightPermittedDerivedPaths": true,
+    "allThreeCopiedOutputsEqualBuild": true,
+    "all5302ExpectedMembersMatchArchiveInventory": true,
+    "all1294QualificationInventoryMembersRehashed": true
+  },
+  "B59": "Closed on the exact corrected metadata03 caller and completed metadata/freeze. Failed02, original output and incomplete-entry limitation remain preserved.",
+  "decision": "Accept exact frozen C1 and unchanged artifact for separately bound amendment04 and S06-03 witnesses. Original archive/install/Public identities remain explicit; no earlier lifecycle or qualification credit transfers.",
+  "qualified": false,
+  "published": false,
+  "rawPublished": false,
+  "providerCalls": 0,
+  "builds": 0
+}

@@ -1,5 +1,5 @@
 {
-  "status": "RC14_CANDIDATE02_C1_INVENTORY_CORRECTION_SELECTED",
+  "status": "RC14_CANDIDATE02_FROZEN_WITNESS_BINDINGS_PENDING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -1377,7 +1377,7 @@
     "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03/public-setup/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant"
   },
   "candidate02Metadata": {
-    "state": "FAILED_INVENTORY_PREFLIGHT_CLOSED",
+    "state": "SUCCESSOR03_FROZEN_ACCEPTED",
     "activation": "integration-01/CANDIDATE02_C1_METADATA_ACTIVATION_01.json",
     "started": true,
     "sourceBaseCommit": "6d34f715cc6eb041678208363bfcf6fbe60c52bc",
@@ -1388,6 +1388,27 @@
     "failure": "Unscoped Git tree listing exceeded16MiB before source filtering",
     "successorActivation": "integration-01/CANDIDATE02_C1_METADATA_ACTIVATION_02.json",
     "successorRaw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03",
-    "originalDeadlineUtc": "2026-11-16T02:59:53.470732+00:00"
+    "originalDeadlineUtc": "2026-11-16T02:59:53.470732+00:00",
+    "failure02Preserved": true,
+    "successorStarted": true,
+    "successorClosed": true,
+    "C1Commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+    "C1Tree": "22eed3693976419c6ed63117756294001096a280",
+    "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+    "acceptance": "integration-01/CANDIDATE02_C1_FREEZE_ACCEPTANCE_01.json",
+    "freezeSha256": "f65eed415da5b31978ffb6fac9f8c2264c5ac554c65c560547e49b1ad51dfc62",
+    "changedDerivedFiles": 8
+  },
+  "amendmentWitness04": {
+    "state": "BINDING_PREPARATION_AUTHORIZED_AFTER_PUSH",
+    "activation": "integration-01/amendment-witness-04/ACTIVATION.json",
+    "runtimeStarted": false,
+    "qualified": false
+  },
+  "s06Witness03": {
+    "state": "BINDING_PREPARATION_AUTHORIZED_AFTER_PUSH",
+    "activation": "integration-01/s06-witness-03/ACTIVATION.json",
+    "runtimeStarted": false,
+    "qualified": false
   }
 }
