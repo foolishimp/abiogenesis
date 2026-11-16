@@ -1,5 +1,5 @@
 {
-  "status": "RC14_CANDIDATE02_BUILD_ACCEPTED_INSTALL_PENDING",
+  "status": "RC14_CANDIDATE02_INSTALLED_PUBLIC_SETUP_PENDING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -1354,8 +1354,20 @@
     "qualified": false
   },
   "candidate02Install": {
-    "state": "AUTHORIZED_AWAITING_PUSHED_BINDING",
+    "state": "MECHANICAL_INSTALL_ACCEPTED",
     "activation": "integration-01/CANDIDATE02_INSTALL_ACTIVATION_01.json",
-    "started": false
+    "started": true,
+    "closed": true,
+    "returnCommit": "e7ccc21e197fbdb9c14ed6568b412ca6120b357b",
+    "acceptance": "integration-01/CANDIDATE02_INSTALL_ACCEPTANCE_01.json",
+    "elapsedMs": 29955,
+    "installedFiles": 5302,
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/install-host/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "candidate02PublicSetup": {
+    "state": "AUTHORIZED_AWAITING_PUSHED_BINDING",
+    "activation": "integration-01/CANDIDATE02_PUBLIC_SETUP_ACTIVATION_01.json",
+    "started": false,
+    "qualified": false
   }
 }

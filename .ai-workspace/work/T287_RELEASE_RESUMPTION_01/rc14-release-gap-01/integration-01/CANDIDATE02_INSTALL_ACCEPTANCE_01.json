@@ -1,0 +1,70 @@
+{
+  "id": "RC14-CANDIDATE02-INSTALL-ACCEPTANCE-01",
+  "recordedUtc": "2026-11-16T02:24:04.675413+00:00",
+  "writer": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "productFrame": "STDO 3.0.4 fixed 5.0 S07; exact prospective mechanical installation, not Public admission or qualification.",
+  "returnCommit": "e7ccc21e197fbdb9c14ed6568b412ca6120b357b",
+  "compactReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/candidate-install-02/RETURN.json",
+    "bytes": 16913,
+    "sha256": "509278fc37360e058fc5240252b98fbf03dffb1350b19ec91d12b975cd79ddcc"
+  },
+  "rawReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/RETURN.json",
+    "bytes": 6807,
+    "sha256": "65eb3b1bd1bf55b55df1b89c80f02e31e8e3cbeed522f7cc4ebb4a0082cdb9fa"
+  },
+  "source": {
+    "commit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "tree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+    "tenantTree": "f4cdd7aaa099ed80de34ead41e0cb73f451f92d3",
+    "C0": "/private/tmp/abg-rc14-candidate-source-20261116-02",
+    "cleanAndUnchanged": true
+  },
+  "clock": {
+    "startedUtc": "2026-11-16T02:21:15.240263+00:00",
+    "completedUtc": "2026-11-16T02:21:45.194926+00:00",
+    "deadlineUtc": "2026-11-16T02:36:15.240263+00:00",
+    "executionStopUtc": "2026-11-16T02:35:45.240263+00:00",
+    "elapsedMs": 29955,
+    "withinOriginalDeadline": true,
+    "reset": false
+  },
+  "archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "bytes": 10815210,
+    "sha256": "be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65"
+  },
+  "installRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/INSTALL_RECORD.json",
+    "bytes": 6910,
+    "sha256": "91e616261fd75da4848c129d8d8ab3a6cb351538bd6669e98559c08becd25021"
+  },
+  "installation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/installation.json",
+    "bytes": 3947922,
+    "sha256": "6d0108a36ebb1b514979d339b6001eb229a344e14d5154b06f83126336eec758"
+  },
+  "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.14/74058d1e18aaa98e7b5ad0c30f682fe45e82b1c49237dabc4c72e956d0eb918f/06ab2de5335a17a626d7e76a210120b53c1c208b7d397f1a48febe53d81686a2",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/install-host/node_modules/@abiogenesis/typescript-tenant",
+  "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+  "bootstrapManifest": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package/product-toolchain-manifest.json",
+    "bytes": 3101102,
+    "sha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e"
+  },
+  "rootVerification": {
+    "all28CompactEvidencePinsMatched": true,
+    "all5302InstalledFilesEqualArchiveBothDirections": true,
+    "all5302BootstrapFilesEqualArchiveBothDirections": true,
+    "all83OriginalEntryExitPinsCurrentlyMatched": true,
+    "all2261SourceRowsEqual": true,
+    "all14CommandStreamsMatched": true,
+    "all13ConservationChecksPassed": true,
+    "all7RecordedGroupsIndependentlyAbsent": true
+  },
+  "decision": "Accept mechanical install and same-archive bootstrap for actual Public setup. Mechanical installation.json is not the Public identity.install carrier.",
+  "qualified": false,
+  "rawPublished": false,
+  "builderPinChanged": false
+}
