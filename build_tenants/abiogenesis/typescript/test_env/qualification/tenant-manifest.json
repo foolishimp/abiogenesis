@@ -4,11 +4,11 @@
   "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.14",
   "capabilityDefinitionGraph": {
     "ref": "capability-definition-graph://abiogenesis/abg-5",
-    "digest": "sha256:e95299db28408327b1fc715fe5de01a986a83e21226541090306a0e6fd9357b7"
+    "digest": "sha256:ff53d2645c908bce07e80f3f7838dcdca824340f03f5634edbbf7d166514ff89"
   },
   "publicContractCatalog": {
     "ref": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.14",
-    "digest": "sha256:36d6841b8b5f53f9f757bff154d09645123ef7226d470019811a808de4f89a2c"
+    "digest": "sha256:0f1b5a1c5dbd50bee1e354eabf76839be146458683d49dc7475c8ac9a727c701"
   },
   "claims": [
     {
@@ -193,6 +193,6 @@
       ]
     }
   ],
-  "manifestRef": "tenant-conformance-manifest://abiogenesis/01e9102553c6681882c1939711ad0adc964158ba474fd0f4af801d070d7a49df",
-  "manifestDigest": "sha256:01e9102553c6681882c1939711ad0adc964158ba474fd0f4af801d070d7a49df"
+  "manifestRef": "tenant-conformance-manifest://abiogenesis/c4c811d1a6376915e1132b3bba2362d56346b5a070959b98bbc2c2fdece6f12d",
+  "manifestDigest": "sha256:c4c811d1a6376915e1132b3bba2362d56346b5a070959b98bbc2c2fdece6f12d"
 }
