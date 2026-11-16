@@ -1,0 +1,72 @@
+{
+  "native04": {
+    "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+    "audit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/AUTHOR_AUDIT.json",
+      "bytes": 39361,
+      "sha256": "08afaaf3bc30693007b65b5734a606b3196400014569e35a60e4fafa552cb3e0"
+    },
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/FROZEN_SOURCE.json",
+      "bytes": 2318,
+      "sha256": "356b31e87d72d710c44d2d18ec753211507db5a653d6c2e7143eb6213b2421e8"
+    },
+    "return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/OPERATOR_RETURN.json",
+      "bytes": 19712,
+      "sha256": "631bda6310a39ea19623de070983052a3881d03ad5962f9ba00d48d1e4838754"
+    },
+    "methodCompliant": false,
+    "residuals": [
+      "M04-01",
+      "M04-02",
+      "M04-03"
+    ],
+    "exactSourceRecoveredNotCompliantAuthorship": true
+  },
+  "proof03": {
+    "status": "stopped_first_failure",
+    "returnCommit": "643e4dc0302d9104244d8c90a4359de2a6aecc72",
+    "integratedMain": "5c3266b2a90583b5d3f05c3c424a393488400fc0",
+    "return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/RETURN.json",
+      "bytes": 5600,
+      "sha256": "8c0e490844a38dc84fb83779a5b0b825cdf54b70596004b9bb216f2e89c4a5d4"
+    },
+    "operatorReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/OPERATOR_PROOF_RETURN_03.json",
+      "bytes": 28735,
+      "sha256": "2ee9225387649f6605fc44f109e2b6ee02d4d7e7f8ecaed7eed2870fc704a5b7"
+    },
+    "failureStream": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/004-native-workspace/stdout.raw",
+      "bytes": 32398,
+      "sha256": "d91d9939c421ef3e5803343e4aae9f40ca86fcd101ece71ae927862772ef7e5f"
+    },
+    "groupAbsence": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_GROUP_ABSENCE_03.json",
+      "bytes": 1198,
+      "sha256": "8ddad5ce78b58263f6fda237daee0a935e2276698fefbc9eea521a79a63762ff"
+    },
+    "buildMs": 25390,
+    "focusedPassed": 1,
+    "installedPassed": 2,
+    "nativeWorkspace": {
+      "tests": 43,
+      "topLevel": 39,
+      "nested": 4,
+      "passed": 28,
+      "failed": 15,
+      "skipped": 0,
+      "elapsedMs": 2232
+    },
+    "laterSelectionsUnrun": 3,
+    "conservationChecksPassed": 12,
+    "ownedGroupsAbsent": 7,
+    "nativeMethodCompliant": false,
+    "qualification": false,
+    "clocks": "Original proof03 start00:25:37.735747Z, close00:28:33.544868Z; original proof deadline01:15:36.678788Z and host01:47:31.946547Z are sealed historical facts, never reset."
+  },
+  "noClockReset": true,
+  "standing": "Closed evidence only. New one-file source subject/authority, not another proof03 attempt."
+}

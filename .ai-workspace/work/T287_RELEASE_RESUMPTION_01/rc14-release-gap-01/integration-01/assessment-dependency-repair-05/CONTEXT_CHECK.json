@@ -1,0 +1,54 @@
+{
+  "kind": "static_declared_context_and_author_prompt_bounds",
+  "sourceBase": "7806efb2c3fb55a2af90533e4b5ebe8e830bbe21",
+  "sourceMaterialized": false,
+  "readRootEntries": 35,
+  "sourceFiles": 389,
+  "directoryEntries": 22,
+  "completeContextEntries": 411,
+  "fileBytes": 9922403,
+  "maxFiles": 1024,
+  "maxBytes": 25165824,
+  "entryHeadroom": 613,
+  "byteHeadroom": 15243421,
+  "rowsDigest": "51cd738b5a3f8cca73d9d2d9760d373c661842ccfbd1521e865e42d50bacf2f7",
+  "allReadFirstPresent": true,
+  "rangesBoundToExistingLines": true,
+  "scopeBinding": {
+    "onlyNativeW": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "coherentCodeRNotW": true,
+    "externalEvidenceOutsideWorksiteContext": true
+  },
+  "promptProjection": {
+    "algorithm": "Static exact installed author-renderer literals and JSON-string fields, verified byte-equal retained03 actual prompt; no Product import/function executed.",
+    "renderer": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/native_workspace_work.js",
+      "bytes": 22624,
+      "sha256": "de6b56ba0bb967fd06c8ea42d7f06eacaa53c65954bc33594a553ec6520661fe"
+    },
+    "retainedActual": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-03/runtime/resources/archives/fp-5b450fe17c2a7fa9-prompt.txt",
+      "bytes": 16201,
+      "sha256": "1d8435ded059c54de8b1f1794d25feed9321fff717fad90b4358fed75e60f967"
+    },
+    "retainedActualEquality": true,
+    "prospectiveBytes": 13017,
+    "prospectiveSha256": "2f56cc53899e12ed95b129f5a6d8b448d405d2787adad115c02a90e5f775dd42",
+    "noSourceBodiesDeliveredByPathLists": true,
+    "selectedPromptBound": "Same native source-work Program; no finite declaredRunPromptBound selected. Existing context entry/byte limits remain. Actual assembly/transport unexecuted."
+  },
+  "priorStaticCheckFailure": {
+    "kind": "inline_check_literal_extraction",
+    "error": "JSONDecodeError Invalid control character at line1 column3",
+    "cause": "Check discarded the first opening quote before regex parsing; retained source and controls were not the cause.",
+    "correction": "Keep complete author return array prefix in static literal extraction; no Product execution or control executable change."
+  },
+  "notExecuted": [
+    "Product imports/functions",
+    "physical observer/setup/native/provider",
+    "build/tests/proof",
+    "source materialization"
+  ]
+}

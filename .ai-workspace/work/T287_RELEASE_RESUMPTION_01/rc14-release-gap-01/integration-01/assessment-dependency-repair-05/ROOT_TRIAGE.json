@@ -1,0 +1,55 @@
+{
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_PROOF03_CONJUNCTION_AND_FIXTURE05_SELECTION.json",
+    "bytes": 10705,
+    "sha256": "6396135e581d6080be1066fb3505f173abe8e3551a52f9392491b4dcda2b8e2d"
+  },
+  "productFrame": {
+    "outcome": "Fixed5.0 F04/F17/S06 native assessment dependency: immutable schema owner and executing Program use remain distinct.",
+    "classification": "Controlled component fixture correction under existing Product and accepted native HOW; no Product guard/meaning change.",
+    "sourceRuntimeSplit": "Fixture supplies cold controlled owner premises. Actual shared dependency/assembly owner enforces them; no fixture premise becomes ABG admission truth.",
+    "prohibitions": [
+      "No weakened declaration/dependency/lock/schema/transport/refusal guard; no synthetic producer or installed/native qualification credit."
+    ]
+  },
+  "triage": {
+    "exactFile": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 125368,
+      "sha256": "8ff9b9bd57e7b73c7c49f64c1a828a49b425130d1d10af415a6de14d92e5bec9"
+    },
+    "causalChain": [
+      "modulePublication calls canonicalization; graphFunctions are sorted by name (gtl/declarations.ts220-234,canonicalization.ts150-155/60-87).",
+      "Assessment graph /assessment@5 sorts before constructor @5. declaringAssessmentPublication824-827 selects graphFunctions[0] and declares the contract on assessment.",
+      "prepare317/330 selects constructor ids.programRef, whose sole callable member is the constructor graph.",
+      "native_workspace_assessment.ts178-183 finds zero members of that selected Program declaring the contract, returnsnull; instruction_assembly188-190 refuses; common test369 fails before each target behavior."
+    ],
+    "independentActors": [
+      "/root/amendment_topology_review",
+      "/root/b29_vm_triage"
+    ],
+    "causalStanding": "Source-proven deterministic fixture mismatch; no instrumented internal branch/candidate was retained. No Product defect established.",
+    "withdrawnHypothesis": "Protected-install placeholder cause withdrawn: assessmentFixture supplies default empty installRoots, so those rows are absent in all15failedcases.",
+    "missedByPriorReview": "Carried hashes/declarations were checked without tracing canonical ordering behind positional graph selection.",
+    "affectedCone": [
+      "prepare313-369: role-aware Program and GraphFunction identity, matching execution/authority/assembly coordinates",
+      "declaringAssessmentPublication824-827: identity-based map preserving all graph members",
+      "complete assessment fixture1088 and1192-1205: coupled declaring graph and negative mutation identities",
+      "pre-assert candidate/input observation in common prepare"
+    ],
+    "unaffected": "Production constructor indices60/73 operate on singleton intermediate publications; no Product patch supported.",
+    "populationCorrection": "26preserved native titles are a minimum obligation list, not totalpopulation. Actual39top includes3failuremodes+8assessmentnegatives+2fulfillmentvariants;4nested. Entire selected proof count must use actual observations, not claimed43top total."
+  },
+  "selectedRepair": {
+    "changeClass": "realization_refactor",
+    "reentry": "Single component fixture in native-workspace test; accepted HOW409-434 unchanged.",
+    "writeFiles": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "targetTruth": "Assessment tasks select assessment Program and exact assessment GraphFunction by identity; ordinary constructor Program/short report stay unchanged; declaration/member/use joins coherent, all negatives retain meaning; actual preparation candidate and deciding inputs retained before assertion.",
+    "proofPolicy": "After exact native result/source review, run whole repaired native-workspace population and three previously unrun selections. Preserve earlier three green titles only through explicit causal/source/payload conservation. The .mjs is outside declared Product payload: retained build may be eligible, but full exact outputs/payload/tool/source joins must be proven before selection; no automatic reuse, build or rerun authorized here.",
+    "newFeature": false,
+    "ProductFilesChanged": false
+  },
+  "standing": "Verbatim source-grounded Root conjunction; commentary carries no additional authority."
+}

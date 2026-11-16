@@ -1,0 +1,151 @@
+{
+  "id": "RC14-B56-PROOF03-CONJUNCTION-AND-FIXTURE05-SELECTION",
+  "recordedUtc": "2026-11-16T00:41:44.381007+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-B56-FIXTURE05-RECORDS-WRITER-035",
+    "role": "Separate Root records/integration Writer",
+    "authority": "Owner continue/finish RC14; closed proof03 and independent Product/Design/Identity plus Proof/Fixture triage.",
+    "effects": [
+      "Record proof03 outcome, exact causal conjunction, one-file native repair preparation, current T287/T293/STATUS; integrate compact authored Returns/controls and checkpoint/push."
+    ],
+    "exclusions": [
+      "No Product/source fixture mutation by Root, native/runtime retry, raw Git, clock reset, qualification or candidate advancement."
+    ]
+  },
+  "basis": {
+    "definition": "stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": {
+    "outcome": "Fixed5.0 F04/F17/S06 native assessment dependency: immutable schema owner and executing Program use remain distinct.",
+    "classification": "Controlled component fixture correction under existing Product and accepted native HOW; no Product guard/meaning change.",
+    "sourceRuntimeSplit": "Fixture supplies cold controlled owner premises. Actual shared dependency/assembly owner enforces them; no fixture premise becomes ABG admission truth.",
+    "prohibitions": [
+      "No weakened declaration/dependency/lock/schema/transport/refusal guard; no synthetic producer or installed/native qualification credit."
+    ]
+  },
+  "proof03": {
+    "status": "stopped_first_failure",
+    "returnCommit": "643e4dc0302d9104244d8c90a4359de2a6aecc72",
+    "integratedMain": "5c3266b2a90583b5d3f05c3c424a393488400fc0",
+    "return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/RETURN.json",
+      "bytes": 5600,
+      "sha256": "8c0e490844a38dc84fb83779a5b0b825cdf54b70596004b9bb216f2e89c4a5d4"
+    },
+    "operatorReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/OPERATOR_PROOF_RETURN_03.json",
+      "bytes": 28735,
+      "sha256": "2ee9225387649f6605fc44f109e2b6ee02d4d7e7f8ecaed7eed2870fc704a5b7"
+    },
+    "failureStream": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/004-native-workspace/stdout.raw",
+      "bytes": 32398,
+      "sha256": "d91d9939c421ef3e5803343e4aae9f40ca86fcd101ece71ae927862772ef7e5f"
+    },
+    "groupAbsence": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_GROUP_ABSENCE_03.json",
+      "bytes": 1198,
+      "sha256": "8ddad5ce78b58263f6fda237daee0a935e2276698fefbc9eea521a79a63762ff"
+    },
+    "buildMs": 25390,
+    "focusedPassed": 1,
+    "installedPassed": 2,
+    "nativeWorkspace": {
+      "tests": 43,
+      "topLevel": 39,
+      "nested": 4,
+      "passed": 28,
+      "failed": 15,
+      "skipped": 0,
+      "elapsedMs": 2232
+    },
+    "laterSelectionsUnrun": 3,
+    "conservationChecksPassed": 12,
+    "ownedGroupsAbsent": 7,
+    "nativeMethodCompliant": false,
+    "qualification": false,
+    "clocks": "Original proof03 start00:25:37.735747Z, close00:28:33.544868Z; original proof deadline01:15:36.678788Z and host01:47:31.946547Z are sealed historical facts, never reset."
+  },
+  "triage": {
+    "exactFile": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 125368,
+      "sha256": "8ff9b9bd57e7b73c7c49f64c1a828a49b425130d1d10af415a6de14d92e5bec9"
+    },
+    "causalChain": [
+      "modulePublication calls canonicalization; graphFunctions are sorted by name (gtl/declarations.ts220-234,canonicalization.ts150-155/60-87).",
+      "Assessment graph /assessment@5 sorts before constructor @5. declaringAssessmentPublication824-827 selects graphFunctions[0] and declares the contract on assessment.",
+      "prepare317/330 selects constructor ids.programRef, whose sole callable member is the constructor graph.",
+      "native_workspace_assessment.ts178-183 finds zero members of that selected Program declaring the contract, returnsnull; instruction_assembly188-190 refuses; common test369 fails before each target behavior."
+    ],
+    "independentActors": [
+      "/root/amendment_topology_review",
+      "/root/b29_vm_triage"
+    ],
+    "causalStanding": "Source-proven deterministic fixture mismatch; no instrumented internal branch/candidate was retained. No Product defect established.",
+    "withdrawnHypothesis": "Protected-install placeholder cause withdrawn: assessmentFixture supplies default empty installRoots, so those rows are absent in all15failedcases.",
+    "missedByPriorReview": "Carried hashes/declarations were checked without tracing canonical ordering behind positional graph selection.",
+    "affectedCone": [
+      "prepare313-369: role-aware Program and GraphFunction identity, matching execution/authority/assembly coordinates",
+      "declaringAssessmentPublication824-827: identity-based map preserving all graph members",
+      "complete assessment fixture1088 and1192-1205: coupled declaring graph and negative mutation identities",
+      "pre-assert candidate/input observation in common prepare"
+    ],
+    "unaffected": "Production constructor indices60/73 operate on singleton intermediate publications; no Product patch supported.",
+    "populationCorrection": "26preserved native titles are a minimum obligation list, not totalpopulation. Actual39top includes3failuremodes+8assessmentnegatives+2fulfillmentvariants;4nested. Entire selected proof count must use actual observations, not claimed43top total."
+  },
+  "selectedRepair": {
+    "changeClass": "realization_refactor",
+    "reentry": "Single component fixture in native-workspace test; accepted HOW409-434 unchanged.",
+    "writeFiles": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "targetTruth": "Assessment tasks select assessment Program and exact assessment GraphFunction by identity; ordinary constructor Program/short report stay unchanged; declaration/member/use joins coherent, all negatives retain meaning; actual preparation candidate and deciding inputs retained before assertion.",
+    "proofPolicy": "After exact native result/source review, run whole repaired native-workspace population and three previously unrun selections. Preserve earlier three green titles only through explicit causal/source/payload conservation. The .mjs is outside declared Product payload: retained build may be eligible, but full exact outputs/payload/tool/source joins must be proven before selection; no automatic reuse, build or rerun authorized here.",
+    "newFeature": false,
+    "ProductFilesChanged": false
+  },
+  "controlWriter": {
+    "id": "RC14-B56-NATIVE05-CONTROL-WRITER-036",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate external native-author control preparation Writer",
+    "worktree": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-05",
+    "branch": "codex/rc14-assessment-dependency-controls-20261116-05",
+    "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-05",
+    "baseRule": "Use this exact pushed selection checkpoint; no moving main subject.",
+    "inheritedNativeControls": {
+      "commit": "e00aa6668e37f336464aed21079c87b91bb5cf6d",
+      "root": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-04",
+      "manifestSha256": "7063325b879e1d6c12d3d7dcab2dff423a16cfe237b094722c0589a2cf15d452"
+    },
+    "prospectiveSource": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-05",
+    "prospectiveRaw": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05",
+    "effects": [
+      "Prepare one disabled RC13 native-author packet using unchanged existing host/owned-process/setup/context/transport and completion owners; no new runner or provider seam.",
+      "Bind exact new source checkpoint, sole test W, all seven other recovered B56files immutable; coherent R across deciding canonicalization/publication/assessment/assembly/authority owners, native HOW and test/support/installed contrasting fixture.",
+      "Use exact source causal trace and actual proof03 receipts; fix role-aware Program/graph identity and before-assert evidence, preserve all negative cases. Do not prescribe index substitution that duplicates or drops graph members.",
+      "Reuse canonical installed STDO reader and full actual status/section acquisition before edits. Native04 method residuals stay historical; no blanket waiver or compliance from tool activity.",
+      "One future native author: installed RC13, claude-opus-5-5, xhigh; retained maximum45min absolute/5min inactivity/360turns within finite existing3h host control design. No execution clock starts in preparation; separate actual grant required.",
+      "Native work permits only scoped text read/write and node --check of edited fixture, no build/tests/Product imports/provider nesting/Git mutation. External proof remains separately selected after frozen source review.",
+      "Static syntax/hash/prompt/context/authority closure checks only; freeze one compact authored control commit/Return and stop."
+    ],
+    "readRoutes": [
+      "Current exact selection, source/test and deciding owner cone, current native04 freeze/audit and proof03 raw results/candidates",
+      "Original native04 control/helper lineage and current RC13 builder/tool/dependency pins",
+      "Exact selected STDO method/basis/frame routes"
+    ],
+    "exclusions": [
+      "No source/test/Design/Product edits or materialization, runtime/build/test/install/native/provider execution, audit or historical evidence rewrite.",
+      "No original worktree/controls/evidence changes, main mutation/push, raw execution data in Git, or automatic proof/native retry."
+    ],
+    "returnTo": "Root exact control review and separate source/native execution decision."
+  },
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "candidateExecutionAuthorized": false,
+  "qualified": false,
+  "rawPublished": false
+}
