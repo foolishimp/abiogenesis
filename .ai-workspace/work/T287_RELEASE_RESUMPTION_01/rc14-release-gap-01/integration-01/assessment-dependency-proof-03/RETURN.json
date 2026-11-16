@@ -1,0 +1,290 @@
+{
+  "id": "RC14-B56-RECOVERED-PROOF-OPERATOR-003-RETURN",
+  "status": "stopped_first_failure",
+  "recordedUtc": "2026-11-16T00:31:20.785899+00:00",
+  "authority": {
+    "grant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_RECOVERED_PROOF_ACTIVATION_03.json",
+      "bytes": 10724,
+      "sha256": "cd403afa3cc2f03f18a0a6dce46abbce542fb52af2301190a221e9d8e6202350"
+    },
+    "pushedCheckpoint": "792106d9d7b3efeb3d2e25e359827225d836c90b",
+    "role": "Separate bounded Operator003; no source/control implementation"
+  },
+  "basis": {
+    "release": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "product": "Fixed ABIogenesis5.0; recovered component proof only, no release qualification"
+  },
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04",
+  "operatorReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/OPERATOR_PROOF_RETURN_03.json",
+    "bytes": 28735,
+    "sha256": "2ee9225387649f6605fc44f109e2b6ee02d4d7e7f8ecaed7eed2870fc704a5b7"
+  },
+  "exactSubject": {
+    "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+    "sourceRoot": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04",
+    "postimage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_POSTIMAGE.json",
+      "bytes": 392522,
+      "sha256": "d4226a0532c199bf732f3b613bec196b24fd0e427d1e0aa3a12dccdb573f1d1c"
+    },
+    "sourceDiff": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/SOURCE_DIFF.patch",
+      "bytes": 92620,
+      "sha256": "da01b388dd22d51b9069eb845d6ad2428af71bc875dbc56144622ed67f51bdf1"
+    },
+    "headAndIndexUnchanged": true,
+    "oneFrozenNativeWPlusSetupManifestOnly": true,
+    "proofControlCommit": "54be8761b9b660bf7d81b7df3234b2995c72b596",
+    "proofControlManifest": {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-03/CONTROL_MANIFEST.json",
+      "bytes": 3843,
+      "sha256": "f1c6703c9c8f64f2590b8a212ba430b9624d24a5811fb981c7291b5e77a14a80"
+    },
+    "originalNativeControlManifest": {
+      "path": "/private/tmp/abg-rc14-assessment-dependency-controls-20261116-04/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-repair-04/CONTROL_MANIFEST.json",
+      "bytes": 5598,
+      "sha256": "7063325b879e1d6c12d3d7dcab2dff423a16cfe237b094722c0589a2cf15d452"
+    }
+  },
+  "execution": {
+    "proofLaunch": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_LAUNCH_03.json",
+      "bytes": 1796,
+      "sha256": "ab2589065f9b81e028629853686c82588415d7553481362c1ff9019787411d94"
+    },
+    "preflight": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_PREFLIGHT_03.json",
+      "bytes": 1099,
+      "sha256": "6fae327ba2cd1c726b1a04467c0ba1652c59b2edf385adc4d4713ed24d466ff0"
+    },
+    "proofStartedUtc": "2026-11-16T00:25:37.735747+00:00",
+    "closedUtc": "2026-11-16T00:28:33.544868+00:00",
+    "elapsedMs": 175807,
+    "originalHostDeadlineUtc": "2026-11-16T01:47:31.946547+00:00",
+    "proofDeadlineUtc": "2026-11-16T01:15:36.678788+00:00",
+    "executionStopDeadlineUtc": "2026-11-16T01:12:36.678788+00:00",
+    "cleanupReserveMs": 180000,
+    "expired": false,
+    "clockReset": false
+  },
+  "outcome": {
+    "topology": {
+      "record": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/TOPOLOGY_BATCH_CONJUNCTION.json",
+        "bytes": 417857,
+        "sha256": "037fc47fdbf80e5afa3e91b168ca6d32dbdd3720a7d8400a0b1c901c26672a26"
+      },
+      "ok": true,
+      "batchCount": 2,
+      "protectedLeaves": 61,
+      "requiredPairs": 489,
+      "observedPairs": 489,
+      "actualElapsedMs": 217,
+      "aggregateWriteDebtTriggered": false
+    },
+    "build": {
+      "attempted": 1,
+      "exitCode": 0,
+      "elapsedMs": 25390,
+      "completeBuildConservedThroughTests": true,
+      "generatedGraphIncluded": true
+    },
+    "greenSelections": [
+      {
+        "id": "002-dependency-focused",
+        "tests": 1,
+        "passes": 1,
+        "topLevelNames": [
+          "native typed semantic assessment uses the exact installed schema owner and rejects wrong declarations"
+        ],
+        "countsRecord": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/002-dependency-focused/COUNTS.json",
+          "bytes": 1074,
+          "sha256": "328423b506347b376c3d3a8c4ba26164f7284f28bb70a19a2149922a14d2081b"
+        }
+      },
+      {
+        "id": "003-installed-dependency",
+        "tests": 2,
+        "passes": 2,
+        "topLevelNames": [
+          "RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage",
+          "S06 assessment dependency: split schema owner and admitted Program use survive assembly and cold preimage"
+        ],
+        "countsRecord": {
+          "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/003-installed-dependency/COUNTS.json",
+          "bytes": 1534,
+          "sha256": "cfd7861e3573ca1032ec8f3c3cc1c7fdc7f126e8fac81400cfd2da75bdc554de"
+        }
+      }
+    ],
+    "firstFailedSelection": {
+      "id": "004-native-workspace",
+      "tests": 43,
+      "topLevel": 39,
+      "passed": 28,
+      "failed": 15,
+      "skipped": 0,
+      "elapsedMs": 2232,
+      "sharedFirstAssertion": "prepare():369 expected nativeInstructionAssembly.kind native_instruction_assembly; actual undefined",
+      "firstCaller": "t287-native-workspace-work.test.mjs:938",
+      "stdout": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/004-native-workspace/stdout.raw",
+        "bytes": 32398,
+        "sha256": "d91d9939c421ef3e5803343e4aae9f40ca86fcd101ece71ae927862772ef7e5f"
+      },
+      "observedCases": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/004-native-workspace/OBSERVED_CASES.json",
+        "bytes": 39301,
+        "sha256": "e9a44390a98f86695f77b317bc49ee070ccce5a569be9ffd655e2e03112ba9b0"
+      },
+      "candidateRecordsEmpty": true,
+      "causeNotYetClassified": true
+    },
+    "unexecutedSelections": [
+      "005-semantic-remainder",
+      "006-native-c2-assembly",
+      "007-assembly-owner"
+    ],
+    "accountingLimit": "Native-workspace preservedTitles contains26 mandatory names; actual wholefile reports39 top-level/43 tests including dynamic cases. The first-red exit prevented its subsequent population validation. No aggregate43-obligation completion or wholefile green claim.",
+    "candidateFiles": [
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/scratch/observations/b56-dependency.candidate.json",
+        "bytes": 1686599,
+        "sha256": "c087bcf634cb2e768606eda2e8ad776c0a49cb56af46028b7fa79ca1639ea0ce"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/scratch/observations/b56-installed-coincident.candidate.json",
+        "bytes": 43763331,
+        "sha256": "0ab00db9d0281e71a3ba3652f3b855205099f9f2fa4290943b95513db5f30f56"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/scratch/observations/b56-installed-split.candidate.json",
+        "bytes": 51659440,
+        "sha256": "163cec15524c1f9b2bf36c6d64a2d2043665e331bcb1140dc8928cdc38c20503"
+      }
+    ],
+    "aggregateRawCounts": {
+      "tests": 46,
+      "passed": 31,
+      "failed": 15,
+      "skipped": 0,
+      "topLevel": 42
+    },
+    "aggregateNotPopulationAcceptance": true
+  },
+  "closure": {
+    "proofReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/RETURN.json",
+      "bytes": 5600,
+      "sha256": "8c0e490844a38dc84fb83779a5b0b825cdf54b70596004b9bb216f2e89c4a5d4"
+    },
+    "firstFailure": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/FIRST_FAILURE.json",
+      "bytes": 625,
+      "sha256": "613338494dbef5792d033ce0d53b27aa10dec8acd4f3b05b299e519a75c53f24"
+    },
+    "driverReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_DRIVER_03/RETURN.json",
+      "bytes": 461,
+      "sha256": "ef03a8b59261e1239ffb202fc9cae56a52b6d6a5583908f73b0e69e09c5ba7d7"
+    },
+    "conservationChecks": [
+      {
+        "name": "source_and_setup_custody",
+        "matched": true
+      },
+      {
+        "name": "controls",
+        "matched": true
+      },
+      {
+        "name": "launch_and_grant",
+        "matched": true
+      },
+      {
+        "name": "native_inputs",
+        "matched": true
+      },
+      {
+        "name": "original_fixture",
+        "matched": true
+      },
+      {
+        "name": "original_dependencies",
+        "matched": true
+      },
+      {
+        "name": "native_launch",
+        "matched": true
+      },
+      {
+        "name": "proof_grant",
+        "matched": true
+      },
+      {
+        "name": "copied_dependencies",
+        "matched": true
+      },
+      {
+        "name": "copied_fixture",
+        "matched": true
+      },
+      {
+        "name": "non_generated_mirror_source",
+        "matched": true
+      },
+      {
+        "name": "built_mirror_through_tests",
+        "matched": true
+      }
+    ],
+    "secondaryErrors": [],
+    "sourceEntry": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/SOURCE_ENTRY.json",
+      "bytes": 397116,
+      "sha256": "6303ce99fba4580a035fc65713274c4db7c593d290650a897dc00d31ed19b8ec"
+    },
+    "sourceExit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-03/SOURCE_EXIT.json",
+      "bytes": 397116,
+      "sha256": "6303ce99fba4580a035fc65713274c4db7c593d290650a897dc00d31ed19b8ec"
+    },
+    "sourceEntryExitByteEqual": true,
+    "groupAbsence": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/PROOF_GROUP_ABSENCE_03.json",
+      "bytes": 1198,
+      "sha256": "8ddad5ce78b58263f6fda237daee0a935e2276698fefbc9eea521a79a63762ff"
+    },
+    "recordedGroupCount": 7,
+    "allRecordedGroupsAbsent": true,
+    "groupScope": "Seven command groups only; no global descendant-absence claim.",
+    "driverNonzero": "Truthful propagation of the first-red proof return; not a second attempt."
+  },
+  "standing": {
+    "nativeMethodCompliant": false,
+    "nativeResiduals": [
+      "M04-01",
+      "M04-02",
+      "M04-03"
+    ],
+    "sourceRecoveryNotRetroactiveCompliance": true,
+    "originalProof01And02Preserved": true,
+    "sourceAndControlEdits": 0,
+    "realProviderCalls": 0,
+    "nativeAuthorCalls": 0,
+    "proofAttemptsThisGrant": 1,
+    "retry": false,
+    "qualified": false,
+    "candidateAdvanced": false,
+    "B50Unchanged": true,
+    "retainedProofCredit": false,
+    "mainWrites": false,
+    "pushed": false,
+    "next": "Root disposition required for the actual native-workspace preparation failure; no automatic repair or re-execution."
+  }
+}
