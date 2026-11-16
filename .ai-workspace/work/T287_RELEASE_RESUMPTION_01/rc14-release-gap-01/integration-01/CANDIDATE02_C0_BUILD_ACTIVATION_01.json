@@ -1,0 +1,226 @@
+{
+  "id": "RC14-CANDIDATE02-C0-BUILD-ACTIVATION-01",
+  "recordedUtc": "2026-11-16T02:03:43.854245+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+    "role": "Separate Root candidate records/integration Writer",
+    "authority": "Owner finish RC14 and continue; accepted B56 source/affected proof and exact accepted candidate02 controls.",
+    "effects": [
+      "Record candidate02 source/build and subsequent separately selected install/Public/C1/witness decisions/results in existing carrier/STATUS/T287/T293; integrate exact authored Returns and adjudicated derived metadata only; checkpoint/push."
+    ],
+    "exclusions": [
+      "No semantic source/Product/claim change, raw Git, qualification/AF25/publication/pin change or invented owner ruling."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "scope": "Fixed5.0 S07 deterministic prospective packaging after B56 component acceptance; actual Public admission, C1, qualification and publication remain separate.",
+    "authority": "CANDIDATE_SUCCESSOR_CONTROL_SELECTION_02.json and CANDIDATE_SUCCESSOR_CONTROL_ACCEPTANCE_02.json; same still-mutable prequalification/no-AF25 RC14 window. Preserve earlier artifact/install identities."
+  },
+  "prerequisites": {
+    "B56": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_FIXTURE05_PROOF_ACCEPTANCE_01.json",
+      "bytes": 3326,
+      "sha256": "6e546bd76694ba2085c866337ea4fc5f23afd7d458b6c6b29816451eebc91c93"
+    },
+    "source": {
+      "binding": "Exact pushed main containing this activation; supplied after direct remote parity. Freeze clean C0 at that exact commit/tree, never moving main.",
+      "tenantTree": "f4cdd7aaa099ed80de34ead41e0cb73f451f92d3",
+      "fixtureSha256": "5a72c8f7a9a24aa89c511cd92edd6807122dc056c5d2c87121523185b60785e3"
+    },
+    "releaseClaim": {
+      "path": "build_tenants/abiogenesis/typescript/release-claim.md",
+      "bytes": 4591,
+      "sha256": "739ba161548fde31c6f03ad99f397a24f47f2ddfb7ccd2288c1f70b37a7df1eb",
+      "decision": "Current generic prospective/local/unqualified claim remains truthful and unchanged. It binds final composed source through records and expressly withholds unperformed lifecycle/qualification claims; no extra claim edit or version bump selected."
+    }
+  },
+  "controls": {
+    "candidateCommit": "b8f77c2cf9e75ff744000fa91e7f90dd0686c1a7",
+    "candidateRoot": "/private/tmp/abg-rc14-candidate-successor-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/candidate-successor-02",
+    "candidateManifestSha256": "784761c97b16980176fc9f6a03bc27491e1d9a99e8ba6e8010c3f4d13f0369f3",
+    "cut": {
+      "commit": "28983a1e299c707d2f466a4615dc17e195b8c96f",
+      "root": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01",
+      "manifest": {
+        "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/CONTROL_MANIFEST.json",
+        "bytes": 2554,
+        "sha256": "da49f6dc6a36302b106434a7d11ba3f5aab52e94244890849a3600dd05d9380c"
+      },
+      "selectedHelpers": [
+        {
+          "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/cut-common.mjs",
+          "bytes": 10522,
+          "sha256": "42c29b20e613f7bfdc7a470b44093767b1b6eab6ea0cce03bf4c9595a866a645"
+        },
+        {
+          "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/stamp-rc14.mjs",
+          "bytes": 7916,
+          "sha256": "c010c4c2dbffdb2244da54ee46b1a4cc087e429f854593d25e123b31e2ae8c1d"
+        },
+        {
+          "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/prepare-candidate-rc14.mjs",
+          "bytes": 19895,
+          "sha256": "1c263ee32cea1cffdff476be409fe1624bb205dd68d1f0375de391ccbe3e9540"
+        },
+        {
+          "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/install-candidate-rc14.mjs",
+          "bytes": 10905,
+          "sha256": "6028e74a4b8ce895358051096cea56fddc4bd29ba4d245261345db2d0a323b6e"
+        },
+        {
+          "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/installed-owner-smoke.mjs",
+          "bytes": 7990,
+          "sha256": "62eb30327c72d6551dd0fdc875a555651d33028f3eb37a35d82a128bb15e4a5b"
+        },
+        {
+          "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/stage-qualification-metadata.mjs",
+          "bytes": 3632,
+          "sha256": "fb4aff8248a95c0566963be0b0cb611cb0ed25c9be0fe9865813d2e5529fae97"
+        },
+        {
+          "path": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/freeze-candidate-inputs.mjs",
+          "bytes": 4141,
+          "sha256": "5aa91d843924fd4eb5b412530f15881f081d4f41d54a8f4c52d41b960d5eae77"
+        }
+      ]
+    },
+    "references": "candidate-successor-02/REFERENCES.json",
+    "custody": "candidate-successor-02/CUSTODY.json",
+    "recipe": "candidate-successor-02/README.md#existing-entry-recipe",
+    "rootCurrentChecks": "Six candidate members,15cut members and13source-owner/helper pins matched; Product/QUAL/SELF-CONFORMANCE/definition/frame/native-declaration unchanged."
+  },
+  "operatorActivation": {
+    "id": "RC14-CANDIDATE02-C0-BUILD-OPERATOR-001",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate C0 materialization and one-build Operator Writer",
+    "candidateSource": "/private/tmp/abg-rc14-candidate-source-20261116-02",
+    "candidateBranch": "codex/rc14-candidate-source-20261116-02",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02",
+    "writeTerritory": [
+      "/private/tmp/abg-rc14-candidate-source-20261116-02",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02"
+    ],
+    "effects": [
+      "After pushed binding, record actual stage start/deadline once before stage effects. Materialize fresh complete C0 from exact selected source: full tracked tenant, governing root/specification and required carrier. Verify root7/index/worktree files byte-equal to HEAD, clean source, exact commit/tree/tenant/claim and B56 joins. No semantic edits or second version bump.",
+      "Use accepted stamp/prepare already-RC14 validation only. Current authority mirrors may be retained if exact source equality holds; any necessary mirror mutation or mismatch returns to Root before source work.",
+      "Verify original control/helper/tool/npm/dependency/native inputs using their existing owner shapes and predicates; native declaration owns inputFiles196 and admits declared SDK file symlinks. Reuse actual helper computations/receipts instead of inventing a parallel inventory schema or new executable.",
+      "One exact prepare-candidate-rc14.mjs --apply run through existing finite ownership/capture route, credential-free accepted childEnvironment, fresh output/scratch. Preserve tenant-only Git archive, one clean compile/native/manifest/basis/pack; no old build reuse or preliminary build.",
+      "Retain actual CUT_RECORD, source.tar, buildRoot, archive, full members, generated pins and archive-to-built payload equality; derive actual count, never fix5302. Check original source/claim/control/dependency/tool/native inputs and copied dependency rows at entry/exit under CUSTODY; require owned process closure and deadline reserve.",
+      "Return actual closed build/custody or first failure. Compact authored Return on a separate records branch only after closure; do not append records to frozen C0 or put raw archives/logs in Git."
+    ],
+    "invocation": {
+      "node": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "entry": "/private/tmp/abg-rc14-cut-preparation-20261115-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/rc14-cut-preparation-01/tools/prepare-candidate-rc14.mjs",
+      "argvBinding": [
+        "--apply",
+        "--repo",
+        "/private/tmp/abg-rc14-candidate-source-20261116-02",
+        "--commit",
+        "ACTUAL_FROZEN_C0_COMMIT",
+        "--tree",
+        "ACTUAL_FROZEN_C0_TREE",
+        "--deps",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+        "--dependency-inventory",
+        "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/DEPENDENCY_PREIMAGE.json",
+        "--output",
+        "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate",
+        "--scratch",
+        "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/scratch"
+      ],
+      "bindingRule": "Only exact C0 commit/tree from pushed source may fill placeholders; persist actual argv before execution."
+    },
+    "dependencyInput": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-regression-repair-20261115-04/DEPENDENCY_PREIMAGE.json",
+      "bytes": 987915,
+      "sha256": "d5963980b0d8ce53b85847a547f44d308757bf4766aadd0f3dda49dad401a8ef",
+      "rowCount": 4576,
+      "donor": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+      "futureReuseConditionalOnExactRowsAndLock": true
+    },
+    "nativeInputDeclaration": {
+      "commit": "732514a84759eb0c9b66e7db476b198920710f1e",
+      "path": "build_tenants/abiogenesis/typescript/scripts/native-build-inputs.json",
+      "bytes": 51233,
+      "sha256": "f0073d316c1c2ca67c7d7672830162633b3067001dbcb4df0370b6718694cad7",
+      "rows": 196,
+      "futureC0EqualityAndEveryActualHostInputRequired": true
+    },
+    "buildTools": [
+      {
+        "name": "node",
+        "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "bytes": 86104016,
+        "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+        "commandPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "currentExecutionNotPerformed": true
+      },
+      {
+        "name": "npm",
+        "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+        "bytes": 54,
+        "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+        "commandPath": "/opt/homebrew/Cellar/node/24.7.0/bin/npm",
+        "currentExecutionNotPerformed": true
+      },
+      {
+        "name": "tar",
+        "path": "/usr/bin/bsdtar",
+        "bytes": 274448,
+        "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5",
+        "commandPath": "/usr/bin/tar",
+        "currentExecutionNotPerformed": true
+      },
+      {
+        "name": "git",
+        "path": "/usr/bin/git",
+        "bytes": 118640,
+        "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a",
+        "commandPath": "/usr/bin/git",
+        "currentExecutionNotPerformed": true
+      }
+    ],
+    "bounds": {
+      "enclosingSeconds": 1800,
+      "exitReserveSeconds": 30,
+      "outerCaptureBytes": 16777216,
+      "commandLimitsSeconds": [
+        120,
+        240,
+        600
+      ],
+      "reserveBytes": 4294967296,
+      "builds": 1,
+      "providers": 0,
+      "retries": 0,
+      "clock": "One fresh actual C0/build stage clock; all prior native/proof/candidate clocks remain sealed, never reset."
+    },
+    "stops": [
+      "First identity/source/claim/control/input drift, occupied target, missing owner/tool, unsupported scope, command failure/bound or conservation/closure failure returns evidence without repair/retry.",
+      "Any intended change to claim/version/authority mirror/source requires Root re-entry."
+    ],
+    "exclusions": [
+      "No install, Public setup, C1 metadata/freeze or witness yet.",
+      "No tests/provider/broad campaign/paid qualification.",
+      "No second build/pack rerun/hidden rebuild, old output/install mutation, main write/push, source edits or raw Git."
+    ]
+  },
+  "executionAuthorizedAfterPushedBinding": true,
+  "installAuthorized": false,
+  "publicSetupAuthorized": false,
+  "metadataAuthorized": false,
+  "witnessAuthorized": false,
+  "qualificationAuthorized": false,
+  "immutableCutAuthorized": false,
+  "publicationAuthorized": false,
+  "rawPublished": false,
+  "preserved": {
+    "C0": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "C1": "228411a0e68ae12c9a87c97084efa1c62ff67c54",
+    "archiveSha256": "5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
+    "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+    "builder": "RC13 remains pinned"
+  }
+}

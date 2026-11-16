@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_FIXTURE05_SOURCE_ACCEPTED_PROOF_PENDING_PUSH",
+  "status": "RC14_B56_COMPONENT_PROOF_ACCEPTED_CANDIDATE02_BUILD_PENDING",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -719,7 +719,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T01:36:43.504690+00:00",
+  "updatedUtc": "2026-11-16T02:03:43.854245+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1310,7 +1310,7 @@
   "b56Fixture05": {
     "selection": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_PROOF03_CONJUNCTION_AND_FIXTURE05_SELECTION.json",
     "executionAuthorized": true,
-    "state": "SOURCE_ACCEPTED_PROOF_PENDING",
+    "state": "AFFECTED_PROOF_ACCEPTED",
     "activation": "integration-01/B56_NATIVE_ACTIVATION_05.json",
     "nativeStarted": true,
     "controlCommit": "6fdb582b43f93b04da4b108e0d65f19be1e4237c",
@@ -1329,7 +1329,20 @@
     "sourceAccepted": true,
     "auditSha256": "8597800eb31bb9ab3d14dcbd41ab26c128a4e0bef714c032e977ffb394924e65",
     "blanketMethodCompliance": false,
-    "proofStarted": false,
-    "sourceAndProofActivation": "integration-01/B56_FIXTURE05_SOURCE_AND_PROOF_ACTIVATION_01.json"
+    "proofStarted": true,
+    "sourceAndProofActivation": "integration-01/B56_FIXTURE05_SOURCE_AND_PROOF_ACTIVATION_01.json",
+    "proofClosed": true,
+    "proofReturnCommit": "9365c671ea6a916711de1273be898c78c63a03a2",
+    "proofAcceptance": "integration-01/B56_FIXTURE05_PROOF_ACCEPTANCE_01.json",
+    "freshPasses": 58,
+    "skips": 0,
+    "historicalPassesRetained": 3,
+    "liveS06Pending": true
+  },
+  "candidate02Build": {
+    "state": "AUTHORIZED_AWAITING_PUSHED_BINDING",
+    "activation": "integration-01/CANDIDATE02_C0_BUILD_ACTIVATION_01.json",
+    "started": false,
+    "installed": false
   }
 }

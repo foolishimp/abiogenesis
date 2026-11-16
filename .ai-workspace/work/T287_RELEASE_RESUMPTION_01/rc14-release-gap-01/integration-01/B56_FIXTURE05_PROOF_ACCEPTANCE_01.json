@@ -1,0 +1,78 @@
+{
+  "id": "RC14-B56-FIXTURE05-AFFECTED-PROOF-ACCEPTANCE-01",
+  "recordedUtc": "2026-11-16T02:03:43.854245+00:00",
+  "writer": "RC14-ROOT-B56-FIXTURE05-RECORDS-WRITER-037",
+  "authority": "Existing source/proof grant and actual closed four-selection proof, conjoined with independent Product/Design/Identity and Proof/Fixture/Method source reviews.",
+  "productFrame": "STDO3.0.4, fixed5.0 F04/F17/S06; bounded component and retained installed dependency evidence, not exact candidate qualification.",
+  "sourceAcceptance": "B56_FIXTURE05_SOURCE_AND_PROOF_ACTIVATION_01.json",
+  "sourceFixtureSha256": "5a72c8f7a9a24aa89c511cd92edd6807122dc056c5d2c87121523185b60785e3",
+  "proofReturnCommit": "9365c671ea6a916711de1273be898c78c63a03a2",
+  "integratedMain": "412fa15195b1251e133dbc507b7c292559761223",
+  "rawReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-05/proof-01/RETURN.json",
+    "bytes": 5784,
+    "sha256": "fdfdc6add1905e1448e74561bc3e2e1bac43b1f72c2c72cd004c5fc0970bd299"
+  },
+  "actual": {
+    "workspace": {
+      "passes": 43,
+      "topLevel": 39
+    },
+    "semanticRemainder": {
+      "passes": 10,
+      "topLevel": 9
+    },
+    "nativeC2Assembly": {
+      "passes": 1,
+      "topLevel": 1
+    },
+    "assemblyOwner": {
+      "passes": 4,
+      "topLevel": 4
+    },
+    "freshPasses": 58,
+    "freshTopLevel": 53,
+    "skips": 0,
+    "failures": 0,
+    "elapsedMs": 9202,
+    "historicalFocusedAndInstalledPasses": 3,
+    "retainedEvidenceScope": "Earlier focused1/installed2 retained over exact conserved Product/test/support/receipts/candidates; old workspace15failures remain historical red.",
+    "actualCaptureRecords": 150,
+    "captureBytes": 9774747,
+    "normalPrepareAttempts": 50,
+    "constructorAttempts": 35,
+    "assessorAttempts": 15,
+    "preparedNullRecords": 17,
+    "thrownRecords": 0,
+    "protectedLeaves": 108,
+    "topologyBatches": 2,
+    "topologyPairs": 865,
+    "conservationChecks": 15,
+    "commandGroupsAbsent": 6,
+    "builds": 0,
+    "providers": 0
+  },
+  "rootVerification": {
+    "compactReturnAndAll15EvidencePinsMatched": true,
+    "sixCommandStreamHashesExitAndAbsenceReceiptsMatched": true,
+    "all150CapturesFreshlyRehashedAndParsed": true,
+    "all50AssemblyKindsAndProgramMembershipJoinsMatched": true,
+    "semanticPositivePartitionDisjointAndComplete": true,
+    "sourceAndPayloadReuseConditionsClosed": true
+  },
+  "decision": "Accept B56 affected source/component proof and preserved installed dependency cases for candidate02 construction. Original live S06 failure is not relabelled; corrected installed S06 and amendment witnesses still required.",
+  "limits": [
+    "No blanket native Method-compliance claim; exact disclosed limits stay in source acceptance/audit.",
+    "Conditional thrown/double-failure capture path not exercised; no universal error-capture guarantee.",
+    "No broad-suite transfer, formal qualification, AF25, publication, pin change or human acceptance."
+  ],
+  "proofClock": {
+    "startedUtc": "2026-11-16T01:50:42.474069Z",
+    "closedUtc": "2026-11-16T01:50:51.675805Z",
+    "deadlineUtc": "2026-11-16T03:20:42.474069Z",
+    "nativeEnclosureUtc": "2026-11-16T04:09:05.055532Z",
+    "expired": false
+  },
+  "qualified": false,
+  "rawPublished": false
+}
