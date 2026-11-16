@@ -4,10 +4,10 @@
   "subject": {
     "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.14",
     "packageVersion": "5.0.0-rc.14",
-    "candidateCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "candidateCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
     "archive": {
       "name": "abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
-      "digest": "sha256:5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03"
+      "digest": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65"
     }
   },
   "prospectiveRelease": {
@@ -48,18 +48,18 @@
       "digest": "sha256:b0dace4e6db2c2691046a30f5d7ecbe803ea40a5ba87bf600420d67dc6c130df"
     },
     "tenantManifest": {
-      "ref": "tenant-conformance-manifest://abiogenesis/01e9102553c6681882c1939711ad0adc964158ba474fd0f4af801d070d7a49df",
-      "digest": "sha256:01e9102553c6681882c1939711ad0adc964158ba474fd0f4af801d070d7a49df",
+      "ref": "tenant-conformance-manifest://abiogenesis/c4c811d1a6376915e1132b3bba2362d56346b5a070959b98bbc2c2fdece6f12d",
+      "digest": "sha256:c4c811d1a6376915e1132b3bba2362d56346b5a070959b98bbc2c2fdece6f12d",
       "path": "test_env/qualification/tenant-manifest.json"
     },
     "verificationRecipe": {
       "path": "test_env/qualification/recipe/verification-recipe.json",
       "recipePath": "test_env/qualification/recipe/verification-recipe.json",
-      "digest": "sha256:1f7c5aab042a1464c43f9ffb06a618170791aa0835bdc1f1e25c5feb83ad10fe",
+      "digest": "sha256:620d95b501229d821e2a07ad0b3ea352ddab2444c00dd1776274f16ccfcc6e4e",
       "byteCount": 328456,
       "sourceInputs": 1219,
       "auxiliaryInputs": 212,
-      "commandConfigurationDigest": "sha256:d120ee1c6882fe240f8b56b6661153feb639b2faf675a2239b95ed098fba49d3",
+      "commandConfigurationDigest": "sha256:db4f05e9fb4eb888b2468492df479545c3bab41e0afbe7b23772c5b361933439",
       "predicateConfigurationDigest": "sha256:3e8d81b58b6c3c390b2b26dda953479a42d5d52e8c50b86a98fce1f72f9513cd",
       "writeTerritoriesDigest": "sha256:504fb6e9a28678c711307396ad8607e08a551c23114b48b8346444155931bf3b",
       "ambientRows": [

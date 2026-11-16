@@ -3,8 +3,8 @@
   "schemaVersion": "1",
   "source": {
     "archive": "abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
-    "archiveDigest": "sha256:5f0da1f454121ad8abd25a48655b989998f28f267380f1f5553cf21a022edb03",
-    "sourceCommit": "d0bc06027fb80a6cbf0dcec9e0707bba595bbefd",
+    "archiveDigest": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "sourceCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
     "method": "every file of the exact prepared archive package/ root, by relative path"
   },
   "generatedRoots": [
@@ -361,8 +361,8 @@
     },
     {
       "path": "build/code/src/abg/instruction_assembly.js",
-      "digest": "sha256:1586f32966f065f548d4c0d53f5be9d07517bb6450dc268b20ea6ee63022ea57",
-      "byteCount": 113438
+      "digest": "sha256:49cd0b6e4228a37cc5413a91d90677e91e26997de456a69b9569764de90a9bdf",
+      "byteCount": 113716
     },
     {
       "path": "build/code/src/abg/invocation_admission.d.ts",
@@ -1366,13 +1366,13 @@
     },
     {
       "path": "build/code/src/implementation/leaf_invocation_port.d.ts",
-      "digest": "sha256:86f91949fe160fef8cae009b8c1cf45ad791093199923e38bdbc0bcfdae77826",
-      "byteCount": 4054
+      "digest": "sha256:e80d905b969349a6bf32d06608dc4975aa836ed19f456d3a363a25909f638fc8",
+      "byteCount": 4092
     },
     {
       "path": "build/code/src/implementation/leaf_invocation_port.js",
-      "digest": "sha256:1dc8620c34a42f7c66c4177fc594ffe8d6f1a0059959fb27bdbe293d0eca714d",
-      "byteCount": 69613
+      "digest": "sha256:760fbdfae5bdeb169bc3f7044b36c5e329c8e35024f66d63c0cb23b91e68b93f",
+      "byteCount": 70269
     },
     {
       "path": "build/code/src/implementation/native_work_reacquisition.d.ts",
@@ -1826,13 +1826,13 @@
     },
     {
       "path": "build/code/src/product/native_workspace_assessment.d.ts",
-      "digest": "sha256:b4465d3e7e21dde4c236aaf7cd34039aaafff2414c48536fca3806c0e1e43937",
-      "byteCount": 3384
+      "digest": "sha256:c7113e59478ea1ee7f4e618a4d742fd65be6373afc8a1cc1269c9870eec73960",
+      "byteCount": 4548
     },
     {
       "path": "build/code/src/product/native_workspace_assessment.js",
-      "digest": "sha256:06d6cc763a49d4c70bd910e37a4f8ed21aba5ae40536a2bec0102461b92fa6d1",
-      "byteCount": 9646
+      "digest": "sha256:4c142dfcb17c57471a3be46954ca00a1afb66cfab046a4d21187ec2b357adc82",
+      "byteCount": 11292
     },
     {
       "path": "build/code/src/product/native_workspace_work.d.ts",
@@ -3946,7 +3946,7 @@
     },
     {
       "path": "contracts/capabilities/capability-definition-graph.json",
-      "digest": "sha256:81b3acbaefed2d191c53ab68c94ae64ba8f6c99ed450c4b7d33707dde8237a30",
+      "digest": "sha256:926eaeaa2fb5cf60f635d8478e0b96868b3db61346836d99b91a8391216608a2",
       "byteCount": 150703
     },
     {
@@ -26541,7 +26541,7 @@
     },
     {
       "path": "product-toolchain-manifest.json",
-      "digest": "sha256:2bfb3663bb394f1b735703670cdbbe93c608117ad0527a550ea15e8971555c0d",
+      "digest": "sha256:433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e",
       "byteCount": 3101102
     }
   ]
