@@ -1,0 +1,193 @@
+{
+  "id": "RC14-AMENDMENT04-ROOT-ACCEPTANCE-001",
+  "recordedUtc": "2026-11-16T03:50:06.449091+00:00",
+  "recordsWriter": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "productFrame": "Fixed5.0 governed amendment and currentness witness under T287/S03; one installed invocation, declared prerequisite/review frames, affected evidence invalidation, targeted correction, actual Testing/UAT, unchanged-scope preservation and fresh readback. This is one bounded witness, not all S03 cases or F11/F15 qualification.",
+  "subject": {
+    "C0Commit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "C1Commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+    "archiveSha256": "be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "controlCommit": "cd1a11eefdcf8790d93087a2015f857d3247ca12",
+    "runRef": "run://abiogenesis/7cb0ce942f866050a191c8e6cb321575a541891ca780a9a6b990041bb6160d7d"
+  },
+  "authority": {
+    "activation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-witness-04/ACTIVATION.json",
+      "bytes": 15486,
+      "sha256": "68a2265b1e695fa9c85ecc386d22d18323c70cb9d707aec9b9252ff77c5a2c05"
+    },
+    "bindingAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-witness-04/BINDING_ACCEPTANCE.json",
+      "bytes": 10196,
+      "sha256": "0302101138c49a83b06bd93472105f26a22ceec9fd619ff17df7db5286eaa6ae"
+    }
+  },
+  "return": {
+    "originalCommit": "53e41047e60878cc18f6a47df0be284bbe1d3484",
+    "integrationCommit": "2b2cc8613f1e85cd4f09111bf914f40fac8ace1c",
+    "authoredFile": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/amendment-witness-04/OPERATOR_RETURN.json",
+      "bytes": 24916,
+      "sha256": "5e141d3a9280a361734aa5cf90fb47f2fdb94b4f75ec383998bcb01135b5acfd"
+    },
+    "operatorAudit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/OPERATOR_CLOSURE_AUDIT.json",
+      "bytes": 80378,
+      "sha256": "6a07830762bfcb0745bf450a4aea2a3da2e5594eff033279618bea4351ac65ae"
+    },
+    "outerRuntimeReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04/RUNTIME_RETURN.json",
+      "bytes": 33501,
+      "sha256": "4fd51c189859683382b2efa3a33b4f36517318540cf4a2793a1f325d85a9c111"
+    },
+    "runnerReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/RETURN.json",
+      "bytes": 238,
+      "sha256": "781aab681221088c3a152dd979aa8d8da5236d663666bd63d7f876b39fceec2b"
+    },
+    "sealed": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/amendment/SEALED.json",
+      "bytes": 149,
+      "sha256": "766ccaa8cd922c4daa9d5fb021bedc15dae946d1bdcfad449fcb45b3156a0c0c"
+    },
+    "coverage": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/amendment/amendment-coverage.json",
+      "bytes": 720678,
+      "sha256": "6456a3d3b0500f7ec7606f3b2b152ce758fb897a6ced42158778c83990fd80ba"
+    },
+    "eventLog": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/amendment/resources/events/runtime.events.jsonl",
+      "bytes": 22629132,
+      "sha256": "c6855f1da0792901c7a27e8e3dfaebb50f15e2e8a2b5f3e46ddf3b703ff34d47"
+    }
+  },
+  "independentProductDesignIdentity": {
+    "reviewer": "/root/amendment_topology_review",
+    "decision": "Accept bounded amendment04 behavior; no material counterexample in selected frame.",
+    "sourceRoutes": [
+      "specification/PRODUCT.md:758",
+      "specification/PRODUCT.md:825",
+      "specification/PRODUCT.md:1418",
+      "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts:537",
+      "amendment-successor-07/amendment.mjs:158"
+    ],
+    "actualConjunction": [
+      {
+        "relation": "One installed invocation and terminal Run",
+        "ordinals": [
+          8,
+          2724
+        ],
+        "registeredChoices": 10
+      },
+      {
+        "relation": "Initial real Testing counterevidence",
+        "ordinal": 740,
+        "existingTestPasses": 7,
+        "protectedOracleExit": 1,
+        "missingCases": [
+          "7500",
+          "10000",
+          "bulk-discount"
+        ]
+      },
+      {
+        "relation": "Satisfied current impact and baseline prerequisites before Construction",
+        "reviewOrdinals": [
+          991,
+          1296
+        ],
+        "parentOrdinal": 1367,
+        "constructionSelectionOrdinal": 1442,
+        "constructionResultOrdinal": 1593
+      },
+      {
+        "relation": "Baseline becomes stale; exact impact verdict stays satisfied/current",
+        "staleParentOrdinal": 1664,
+        "impactResultRef": "result://abiogenesis/b1f2e387835efbabee913336a3ad3fea92a971b231535e98975473c82d78e2db"
+      },
+      {
+        "relation": "Fresh Testing precedes refreshed baseline",
+        "testingOrdinal": 1818,
+        "testPasses": 10,
+        "oracleCasesPassed": 4,
+        "baselineOrdinal": 2356,
+        "currentParentOrdinal": 2427
+      },
+      {
+        "relation": "Actual separate preservation and UAT assessments; terminal complete parent",
+        "preservationOrdinal": 2097,
+        "uatOrdinal": 2639,
+        "terminalParentOrdinal": 2710,
+        "requiredReviewsSatisfiedAndCurrent": 3,
+        "unresolvedSupportRefs": []
+      }
+    ],
+    "protectedOriginalSourcesIndependentlyRehashed": 13,
+    "correction": "Only src/approval.mjs and test/approval.test.mjs change during Construction; threshold10000 with strict greater-than retained. Shared src/order.mjs stays byte-identical. Intake and impact records are the only other worksite changes.",
+    "boundedResiduals": "Old-rule provenance/outside-scope questions and historical wording in the impact document do not falsify declared criteria; no generalization beyond this witness."
+  },
+  "rootProofEffectIdentity": {
+    "runtimeReturnFilePinsRehashed": 55,
+    "operatorAuditFilePinsRehashed": 99,
+    "authoredReturnFilePinsRehashed": 42,
+    "countsAreSeparateOverlappingVerificationSets": true,
+    "originalOuterEntryExitPinsEqual": 52,
+    "runnerCustodyRowsEqual": 90,
+    "operatorChecksPassed": 17,
+    "ownedCommandResultsChecked": 19,
+    "commandStreamsRehashed": 38,
+    "commandGroupsIndependentlyAbsent": 19,
+    "bridgePidsIndependentlyAbsent": 11,
+    "actualActorStartExitJoinsChecked": 20,
+    "actorPidsAndSameNumberGroupsIndependentlyAbsent": 20,
+    "actualInstalledPackageMembersRehashedAgainstArchive": 5302,
+    "actualInstalledPayloadBytes": 69288430,
+    "heldAndFreshRunResultOwnerOutputsDeepEqual": true,
+    "heldAndFreshReplayOwnerOutputsDeepEqual": true,
+    "freshReplayClosed": true,
+    "recordShapeLimits": "Readback equality is receipt.ownerOutput and its selected result metadata, not acquisition wrappers or their artifact paths. Actor joins use20 starts/exits among2662 ordinary records;62 admitted-body-reference records remain in the unchanged2724-record prefix and were independently decoded by the behavioral reviewer.",
+    "noInputChangesOrProofRerun": true
+  },
+  "timing": {
+    "originalSTART": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-binding-20261116-04/START.json",
+      "bytes": 932,
+      "sha256": "6298bb492c153715a5b21f5de240421462a0eb862caf9d6f2cddfb9014e4f752"
+    },
+    "originalStartUtc": "2026-11-16T02:57:09.962433+00:00",
+    "deadlineUtc": "2026-11-16T05:57:09.962433+00:00",
+    "executionStopUtc": "2026-11-16T05:54:09.962433+00:00",
+    "runtimeDispatchUtc": "2026-11-16T03:13:00.393184+00:00",
+    "closedUtc": "2026-11-16T03:37:38.468898+00:00",
+    "runnerWallMs": 1478023,
+    "reset": false,
+    "attempts": 1
+  },
+  "provider": {
+    "actualNativeCalls": 20,
+    "reportedModel": "claude-opus-5-5",
+    "effort": "xhigh configured; no provider-side attestation claim",
+    "reportedCostUsd": 11.4816298,
+    "billingReconciliation": false
+  },
+  "decision": "Accept this exact bounded installed amendment/currentness witness. Close B57 prompt-capacity defect for this completed successor, retaining all failed predecessor evidence and the B60 preparation failure. No additional amendment Run selected.",
+  "limits": [
+    "This is selected S03/currentness witness evidence, not formal qualification or S06 evidence.",
+    "Physical observations retain bounded namespace claims; no atomic mount lock or universal host-isolation claim.",
+    "Worksite conservation measures regular-file bytes and symlink targets; no directory metadata or ownership claim.",
+    "Reported provider cost is SDK-reported, not a billing reconciliation.",
+    "No raw logs, credentials, archives or event bodies in Git.",
+    "No Product/control/test source edits, retry, candidate rebuild, selector change, release publication or formal qualification performed.",
+    "Held-close-fresh readback is proven; no new-Run reuse or same-Run pending-continuation claim.",
+    "S06 lifecycle and B50 formal qualification remain separate obligations.",
+    "Previous failed amendment attempts and their clocks remain preserved; their producer credit is not transferred."
+  ],
+  "B57": "Closed on actual amendment04 completion with unchanged512KiB prompt cap; no universal capacity/speed claim.",
+  "S06": "Active separate witness; no closure transferred.",
+  "B50": "Prior-attribution implementation and pending eligibility-policy/scope decisions remain; qualification not performed.",
+  "qualified": false,
+  "published": false,
+  "rawPublished": false,
+  "builderPinChanged": false
+}
