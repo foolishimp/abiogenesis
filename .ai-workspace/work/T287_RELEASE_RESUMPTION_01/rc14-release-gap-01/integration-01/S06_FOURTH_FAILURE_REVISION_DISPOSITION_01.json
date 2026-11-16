@@ -1,0 +1,193 @@
+{
+  "id": "RC14-S06-FOURTH-FAILURE-ADVERSE-REVISION-DISPOSITION-01",
+  "recordedUtc": "2026-11-16T05:47:14.740829+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "productFrame": {
+    "outcome": "Unchanged fixed5.0 F17/S06 complete installed lifecycle, all selected application outcomes, actual independent semantic/executable evidence, consequential D2 and replay.",
+    "category": "An admitted adverse semantic judgment and external caller preparation; no new runtime, Product policy or release authority.",
+    "prohibitions": [
+      "No verdict overwrite, forced satisfaction, copied old completion credit, weaker persistence/oracle, invented parent/cause/selection, private event writer or host-owned semantic stage sequence."
+    ]
+  },
+  "subject": {
+    "candidate": {
+      "sourceCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+      "sourceTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+      "compileInputTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+      "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+      "archiveSha256": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+      "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+      "manifestSha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e",
+      "packageVersion": "5.0.0-rc.14",
+      "cutRecordPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/CUT_RECORD.json",
+      "cutRecordSha256": "f7aa025826e6732726bf8aedac3ed8305ece21ede83e5ebfc5bc8d321f9388aa",
+      "archiveMembersPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/ARCHIVE_MEMBERS.json",
+      "archiveMembersSha256": "6fbf0d20f29ae5515896455599f50e2f582a2ccbcb5eb7590c0bfb60ab5a7f60"
+    },
+    "C1": {
+      "C1Commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+      "C1Tree": "22eed3693976419c6ed63117756294001096a280",
+      "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+      "freeze": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/FREEZE.json",
+        "bytes": 4619,
+        "sha256": "f65eed415da5b31978ffb6fac9f8c2264c5ac554c65c560547e49b1ad51dfc62"
+      },
+      "rootAcceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_C1_FREEZE_ACCEPTANCE_01.json",
+        "bytes": 3979,
+        "sha256": "b39e546d86be9b41ea96f8cf10cea63391bf4988c93f0ecc4d6cc28b672f1c31"
+      }
+    },
+    "controls": {
+      "root": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03",
+      "commit": "6f4c3777cee044a7a9c3de23e18cb7ed3ac4f188",
+      "manifestSha256": "b753febcd89ec78742117fe3abd20da47df49363766901b908f283b59ab7de61",
+      "returnSha256": "4f02b3f63e998b8a6926b8cbd3d2d258d69355c68f285f2dcc2b70a2d24486ac"
+    },
+    "operatorReturn": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/OPERATOR_RETURN.json",
+      "bytes": 74401,
+      "sha256": "4b5f2556ab4c81fae4a70768fb4f493d24d2d7cc5f40b17753c7ade99b11c2c9"
+    },
+    "actualIntent": {
+      "path": "/private/tmp/abg-rc14-s06-witness-20261116-04/semantic-assets/stage-0.json",
+      "bytes": 76810,
+      "sha256": "a56ed37fe707e9f50d6ff7488d592ca129fccbea278bc670d33e731e407e428c"
+    },
+    "eventLog": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+      "bytes": 9395463,
+      "sha256": "1046007404641b741b4943cf58503358e19f27eeaec311301e52006a8d34d45d"
+    },
+    "assessorPrompt": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/archives/fp-02bebad1bc4d4ffd-prompt.txt",
+      "bytes": 96618,
+      "sha256": "863e84dc1af38ad122d6958e0a89117d55fb79d1659af87d3147fb878cd2a871"
+    },
+    "originalClock": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04/START.json",
+      "bytes": 823,
+      "sha256": "0a6970505ca4744ddd3dd4ce36a25ac22daa7f24819515eaa9bd296eaf420d40"
+    }
+  },
+  "actualOutcome": {
+    "runtimeStatus": "blocked",
+    "assessmentOrdinal": 505,
+    "assessmentDisposition": "falsified",
+    "criterion": "modality-and-conflicts",
+    "satisfiedCriteria": 3,
+    "falsifiedCriteria": 1,
+    "judgmentOrdinal": 509,
+    "reason": "reason://abiogenesis/semantic-stage/native-source-refused@5",
+    "stopOrdinal": 541,
+    "stopUtc": "2026-11-16T05:29:28.224Z",
+    "outerFailure": "Required replay closed assertion saw blocked; this is derivative witness non-completion, not a transport failure.",
+    "timeouts": 0,
+    "nativeActors": 2,
+    "completedSdkTurns": 36,
+    "reportedSdkCostUsd": "6.6622386",
+    "costLimit": "Reported SDK list cost, not a billing reconciliation.",
+    "ProductRequirementsDesignToolD2Reached": false,
+    "acceptedSemanticPrefix": []
+  },
+  "rootAcquisition": {
+    "uniqueReturnPinsRehashed": 111,
+    "pinErrors": [],
+    "inputEntriesByteConserved": 80,
+    "heldFreshOwnerOutputsEqual": true,
+    "runResult": "not_found refusal",
+    "runReplay": "blocked",
+    "selectedPidAndGroupAbsences": [
+      58293,
+      58372,
+      59153,
+      66393
+    ],
+    "toolRoots": "Created then cleaned; zero attempts, both absent.",
+    "toolCalls": {
+      "protocolToolUseIds": 34,
+      "filesystemAndShellCalls": 33,
+      "StructuredOutputSubmissions": 1
+    },
+    "effectReview": "Independent reviewer inspected33 filesystem/shell calls; only declared stage-0 Write, all assessor operations reads/pipes/in-memory. Root independently counted all34 unique tool-use IDs and confirmed Write destination. B62 recurrence not observed in this bounded cone; no universal no-effect claim."
+  },
+  "closedFrames": {
+    "ProductRequirementsDesign": {
+      "reviewer": "/root/amendment_topology_review",
+      "F1": "The ruling and Null/Error source quote are present; saying they were omitted is false. Explicit relation/attribution between broad Null/Option wording and the selected stricter Left(E) path can be clarified. Compatible narrowing must not be falsely labelled an inconsistent requirement.",
+      "F2": "Selected interruption outcome is already fixed and was visible in the actual assessor prompt: no torn accepted ledger, no premature COMPLETE, FAILED/FAIL and a persisted discrepancy ledger. The candidate states the general rule, but its falsifier statement reduces interruption to atomicity without explicit completion/persistence consequences or remaining realization questions.",
+      "F3": "Preserve exact modalities and conditions. SHOULD plan compatible partitions and MUST repair incompatible ones are not automatically mutually inconsistent policies.",
+      "F4": "Retain genuine questions over unselected aggregation/retention/assurance as bounded pressure. No exhaustive conflict-inventory requirement or expanded application implementation is inferred.",
+      "prior03": "Same five source members/request/selection/evaluator data but a different Intent candidate. Prior03 explicitly retained ledger-timing/atomicity pressure;04 does not. Historical green cannot accept04."
+    },
+    "RuntimeIntegrationLifecycle": {
+      "reviewer": "/root/rc14_release_proof",
+      "cause": "Actual assessor-fold success/falsified Result505 and blocked Judgment509 match nativeIntakeFacts adverse cause. Authentic successful empty parent Result30 has matching basis/job/lifecycle/source context, and parent assets equal rejected assets[:-1].",
+      "route": "Public native revision intake -> actual native selection -> declared from-intent Program -> whole semantic_revision_envelope. Not run.continue or a failed-to-pending reset.",
+      "environment": "Unbound intake/closed-prompt stages are not universally prohibited; full route reaches C2, which requires declared executor context. A bound Program needs exact graph/locus coverage for actual revision authors/assessors plus construction/command roles. No need to bind eleven unselected Programs.",
+      "binding": "A changed consumer install/workspace binding must carry existing Public witness.admit#reprice cover for exact historical bases; same workspace authority and actor remain.",
+      "consumer": "HOST and C2 evidence helpers currently assume an initial semantic_stage_envelope. Preserve/authenticate the entire revision terminal and explicitly project .current only for D1 evidence and later D2 inputs.",
+      "sourceChange": "No Product/runtime repair established; external declaration/caller increment needed. Installed composition and semantic success remain unproved."
+    }
+  },
+  "rootConjunction": {
+    "B63": "Admitted semantic refusal preserved. Select targeted Intent clarification and independent reassessment under existing WHAT, through authenticated revision. Do not blindly adopt overstated allegations or change the already selected behavior.",
+    "B61": "Larger bound allowed both actors to complete. This did not exercise Design, so Design capacity and complete S06 remain open.",
+    "B62": "Historical03 violation retained; no recurrence in04 inspected33-call effect cone.",
+    "B50": "Still independent and pending owner policy/scope response; no qualification work selected here."
+  },
+  "nativeRevisionBasis": {
+    "sourceRun": {
+      "ref": "run://abiogenesis/c89f6771d3efeed0d4c840b74acbf1a29be01e18d09c4166825f8e5f04a166bf",
+      "digest": "sha256:cfd5f732891500e138ebac6260b5a38efbebca277cc5158019c71244355ec2b0"
+    },
+    "closedPrefixBytes": 9395463,
+    "closedPrefixSha256": "1046007404641b741b4943cf58503358e19f27eeaec311301e52006a8d34d45d",
+    "coordinateDigest": "52cc3212c0c799718110b32096dc2bbb58fba183b91f5a733ec3d2170a748b86",
+    "intakeProgram": "program://odd-glc/native-semantic-revision/intake@5",
+    "intakeContract": "contract://abiogenesis/semantic-revision/native-intake@5",
+    "sourceDerivedExpectedEntry": "program://odd-glc/native-semantic-revision/from-intent@5",
+    "selectionRule": "Use actual Public intake and admitted selector output; expected entry is a source-derived expectation, not a fabricated runtime choice."
+  },
+  "selectedCorrection": {
+    "scope": "Intent meaning/traceability clarification and genuine reassessment, then complete remaining D1 and consequential D2 only after lawful success.",
+    "constraints": [
+      "Keep original wording, source modality, existing job rulings, unresolved general questions and Design obligations distinct.",
+      "Carry full selected ledger interruption consequences; diagnostics never substitute for persisted discrepancy evidence. No new permanent-storage-loss promise.",
+      "Preserve selected Left(E) parse path and exact existing one-in-three threshold; no new policy decision is required.",
+      "Do not declare compatible narrowing a logical conflict, promote every suggested tension, imply an exhaustive inventory, drop independent review or force a satisfied verdict.",
+      "Carry this closed Root review as ordinary source-linked counterevidence only through an existing declared context route if one is supported; do not invent a task field, modify the owner-derived selection or append a hidden provider prompt."
+    ]
+  },
+  "preparationSelection": {
+    "phase": "external_control_preparation_only",
+    "writer": "RC14-S06-ADVERSE-REVISION-PREPARATION-WRITER-039",
+    "runtimeAuthorized": false,
+    "providerAuthorized": false,
+    "sameCandidate": true,
+    "candidateRebuild": false,
+    "requiredWork": "Canonical Public intake/selection/revision call construction, exact role/locus environment, conditional witnessed binding cover, current physical reacquisition, retained prefix custody and explicit revision-envelope consumption with all existing application/D2 assertions preserved.",
+    "sequence": "Frozen04 prefix/cause -> exact Public reopen/setup/optional binding reprice -> admitted native intake/selection -> selected declared correction chain -> authenticated whole revision terminal -> .current D1 evidence -> genuine D2 -> close/cold readback. Actual phases remain separately authorized after reviewed controls are pushed.",
+    "clock": "Preparation is bounded; proposed future execution remains within existing13:03:00.480356Z work enclosure with13:00 execution stop unless Root explicitly reprices a fresh subject. No04 runtime reopening or old clock reset is inferred.",
+    "retainedHistory": "A later lawful append must conserve the exact9395463-byte original prefix and original close. Preserve an external byte-equal snapshot before any future owner append; a snapshot is custody only, not replacement event authority. Never modify old admissions or overwrite artifacts.",
+    "exitProof": "Exact Program/environment validation and source/input correspondence first; live currentness/binding/owner admission and all semantic/application/replay obligations remain unproved until actually exercised."
+  },
+  "ownerRoutes": [
+    "specification/PRODUCT.md:825-860,1480-1498",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts:209-280",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts:139-211",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts:230-240",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts:218-223,707-710,1043-1044",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts:56-108"
+  ],
+  "qualified": false,
+  "AF25Authorized": false,
+  "publicationAuthorized": false,
+  "rawPublished": false,
+  "automaticRetry": false
+}
