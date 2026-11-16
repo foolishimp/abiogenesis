@@ -1,0 +1,137 @@
+{
+  "id": "RC14-S06-04-CONCRETE-BINDING-ACCEPTANCE",
+  "recordedUtc": "2026-11-16T05:05:36.441585+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner finish RC14 and continue; separately pushed Operator004 grant after closed B61/B62 multi-frame triage. Root independently reacquires the actual binding before runtime.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "frame": "Operator/Integration/Identity/Proof; same fixed F17/S06 and unchanged candidate02, not qualification.",
+  "activation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-witness-04/ACTIVATION.json",
+    "bytes": 17851,
+    "sha256": "6ceba5fa0b155bd42ef733524c846bda6ee4f73d22be1f40681f587d95e024b8"
+  },
+  "preparationReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04/PREPARATION_RETURN.json",
+    "bytes": 36486,
+    "sha256": "58d66ffc33bb460acd898c54954291c4e2919f9b205e8b04e1560f47b3cbe1a5"
+  },
+  "originalBinding": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04/BINDING.json",
+    "bytes": 8933,
+    "sha256": "6bcc51a19e06c045c041a0910983391ae01964172eb6c260ec2d0fb8d9093378"
+  },
+  "start": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04/START.json",
+    "bytes": 823,
+    "sha256": "0a6970505ca4744ddd3dd4ce36a25ac22daa7f24819515eaa9bd296eaf420d40"
+  },
+  "topologyAcceptance": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04/TOPOLOGY_ACCEPTANCE.json",
+    "bytes": 17851,
+    "sha256": "6ceba5fa0b155bd42ef733524c846bda6ee4f73d22be1f40681f587d95e024b8"
+  },
+  "candidateProjection": {
+    "sourceCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "archiveSha256": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+    "manifestSha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e",
+    "packageVersion": "5.0.0-rc.14"
+  },
+  "C1": {
+    "C1Commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+    "C1Tree": "22eed3693976419c6ed63117756294001096a280",
+    "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+    "freeze": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/FREEZE.json",
+      "bytes": 4619,
+      "sha256": "f65eed415da5b31978ffb6fac9f8c2264c5ac554c65c560547e49b1ad51dfc62"
+    },
+    "rootAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_C1_FREEZE_ACCEPTANCE_01.json",
+      "bytes": 3979,
+      "sha256": "b39e546d86be9b41ea96f8cf10cea63391bf4988c93f0ecc4d6cc28b672f1c31"
+    }
+  },
+  "controls": {
+    "root": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03",
+    "commit": "6f4c3777cee044a7a9c3de23e18cb7ed3ac4f188",
+    "manifestSha256": "b753febcd89ec78742117fe3abd20da47df49363766901b908f283b59ab7de61",
+    "returnSha256": "4f02b3f63e998b8a6926b8cbd3d2d258d69355c68f285f2dcc2b70a2d24486ac"
+  },
+  "rootVerification": {
+    "uniquePreparationPinsRehashed": 103,
+    "pinErrors": [],
+    "candidateProjectionMatchesGrant": true,
+    "candidateProjectionEqualsOriginal03": true,
+    "sameApplicationToolAndOtherConfiguration": true,
+    "sameProviderExceptAbsoluteCapacity": true,
+    "sameControlSourceAndManifest": true,
+    "bootstrapMemberCheck": "Operator verified exact5302member path set and bytes. Candidate identity and archive pins independently reacquired by Root; unchanged runner re-verifies all payload bytes at entry.",
+    "ToolInputs": "Exact three frozen inventory/acquisition pins reauthenticated; unchanged runner owns full4862-leaf entry/exit verification. No duplicate tool readiness run.",
+    "topologyGrantByteEqual": true,
+    "actualTopology": "Planned and paired actual observations remain mandatory in runtime; no atomic mount lock claim.",
+    "freshRootsObservedAbsent": [
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04",
+      "/private/tmp/abg-rc14-s06-witness-20261116-04",
+      "/private/tmp/as6j2",
+      "/private/tmp/as6r2"
+    ],
+    "allPriorProtectedRootsRetained": true,
+    "additionalProtectedRoots": [
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-03",
+      "/private/tmp/abg-rc14-s06-witness-20261116-03"
+    ],
+    "clock": "One actual05:03:00.480356Z start, eight-hour wall/monotonic interval, three-minute exit reserve. No reset or extension.",
+    "inspectionDiagnostic": "Initial Root read-only whole-object candidate comparison included audit-only grant keys; corrected to the existing six-field binding projection, equal to03. No binding/control/runtime change or new execution occurred."
+  },
+  "originalClock": {
+    "startedUtc": "2026-11-16T05:03:00.480356+00:00",
+    "deadlineUtc": "2026-11-16T13:03:00.480356+00:00",
+    "executionStopUtc": "2026-11-16T13:00:00.480356+00:00",
+    "monotonicStartedNs": 3623594379871083,
+    "monotonicDeadlineNs": 3652394379871083,
+    "enclosingMs": 28800000,
+    "exitAuditReserveMs": 180000
+  },
+  "allowedTransition": {
+    "source": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04/BINDING.json",
+    "destination": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04/EXECUTION_BINDING.json",
+    "onlyChange": "executionAuthorized false -> true; retain original BINDING byte-for-byte",
+    "expectedBytes": 8932,
+    "expectedSha256": "6995ff4b809243ed19a65febb802a2222c3e4c8b949de7ec5cc12de175bf73e6"
+  },
+  "dispatch": {
+    "actor": "/root/b29_vm_triage",
+    "authorizedOnlyAfterThisAcceptanceIsPushed": true,
+    "entry": [
+      "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+      "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/run.py",
+      "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04/EXECUTION_BINDING.json"
+    ],
+    "runtimeInvocations": 1,
+    "automaticRetries": 0,
+    "globalMaxNativeConcurrency": 2,
+    "selectedLanes": 1,
+    "credentialRule": "Only named private credential keys may reach the native invocation interval; values remain in memory and are never written into binding, setup, command logs, Git or commentary.",
+    "closure": "At first failure retain streams, actual Result/receipt/currentness, event resource close, held and fresh readbacks, exit input conservation, owned process absence and Tool cleanup. Return once sealed; do not repair/retry.",
+    "records": "Only external binding/raw/worksite and already declared Tool territories. Root Writer038 owns main integration. No new records worktree."
+  },
+  "preserved": {
+    "attempt03": "Closed failed, including effect deviation and original clock; no stage credit transferred.",
+    "prompt": "Unchanged existing memory/pipes/no undeclared scratch restriction; observed contrary acts remain material to acceptance.",
+    "capacity": "Shared actor/native-lifecycle3600000; inactivity600000/turns120 and all fixed Tool/application/output limits unchanged.",
+    "B50": "Pending policy/scope decision; no implementation or qualification campaign.",
+    "builder": "RC13 stays pinned."
+  },
+  "runtimeStarted": false,
+  "qualified": false,
+  "AF25Authorized": false,
+  "publicationAuthorized": false,
+  "pinChangeAuthorized": false,
+  "rawPublished": false
+}

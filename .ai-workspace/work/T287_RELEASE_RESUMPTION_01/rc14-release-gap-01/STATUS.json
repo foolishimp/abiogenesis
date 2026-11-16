@@ -757,7 +757,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T04:57:37.856072+00:00",
+  "updatedUtc": "2026-11-16T05:05:36.441585+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1534,7 +1534,7 @@
     "B62": "Confirmed temporary-file effect violation retained"
   },
   "s06Witness04": {
-    "state": "BINDING_PREPARATION_SELECTED",
+    "state": "CONCRETE_BINDING_ACCEPTED_AWAITING_PUSH_AND_DISPATCH",
     "selection": "integration-01/S06_THIRD_FAILURE_DISPOSITION_01.json",
     "runtimeAuthorized": false,
     "runtimeStarted": false,
@@ -1543,6 +1543,11 @@
     "enclosingMs": 28800000,
     "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04",
     "bindingRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04",
-    "operator": "/root/b29_vm_triage"
+    "operator": "/root/b29_vm_triage",
+    "bindingAcceptance": "integration-01/s06-witness-04/BINDING_ACCEPTANCE.json",
+    "originalStartedUtc": "2026-11-16T05:03:00.480356+00:00",
+    "originalDeadlineUtc": "2026-11-16T13:03:00.480356+00:00",
+    "runtimeAuthorizedAfterAcceptancePush": true,
+    "executionBindingExpectedSha256": "6995ff4b809243ed19a65febb802a2222c3e4c8b949de7ec5cc12de175bf73e6"
   }
 }
