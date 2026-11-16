@@ -1,0 +1,122 @@
+{
+  "kind": "bounded_external_controls_preparation_return",
+  "writerActivation": "RC14-S01-EXTERNAL-CONTROLS-WRITER-051",
+  "result": "prepared_frozen_pending_independent_review",
+  "sourceBase": "b0e329ca127e3887c400309c9c16692b08afdb72",
+  "acceptedPredecessorControls": "ea06c74e6de4fa458e247fe921b30d3b140fcb91",
+  "worktree": "/private/tmp/abg-rc14-s01-proof-controls-20261117-03",
+  "branch": "codex/rc14-s01-proof-controls-20261117-03",
+  "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03",
+  "executionControlRoot": "/private/tmp/abg-rc14-s01-proof-controls-20261117-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03",
+  "productFrame": "Unchanged fixed5.0 S01 orderedR1-R10; controls are external derived execution/evidence only. Source outcome and genuine selected-definition/request/ABG authority unchanged.",
+  "clock": {
+    "activation": "RC14-S01-EXTERNAL-CONTROLS-WRITER-051",
+    "startedUtc": "2026-11-16T16:26:23.669563+00:00",
+    "deadlineUtc": "2026-11-16T16:46:23.669563+00:00",
+    "sourceBase": "b0e329ca127e3887c400309c9c16692b08afdb72",
+    "acceptedPredecessorControls": "ea06c74e6de4fa458e247fe921b30d3b140fcb91",
+    "grant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_OPERATOR02_DISPOSITION_AND_CONTROL_REENTRY_03.json",
+      "bytes": 9942,
+      "sha256": "58743886910fb51dc03d7c4d22d5975edfc8cfaba7ce33ce135353f6a50f1cf5"
+    },
+    "oldAttemptsAndClocksClosed": true,
+    "runtimeClockStarted": false
+  },
+  "finishedPreparationUtc": "2026-11-16T16:34:23.080912+00:00",
+  "controlManifest": {
+    "path": "CONTROL_MANIFEST.json",
+    "bytes": 6650,
+    "sha256": "f3242d74f27949a91eef828643b01c7604372756968c8cce9aa35f50913adf33"
+  },
+  "controlFiles": 42,
+  "mechanics": {
+    "changed": [
+      "operate.py external-coordinate/launch-byte guard before clock/raw/host",
+      "HOST observer wrapper retains actual boundary input/raw streams/status/signal/errors and preserves primary/secondary failure precedence"
+    ],
+    "unchangedPythonOwners": [
+      "dependency-inputs.py",
+      "freeze-source.py",
+      "physical-topology.py",
+      "process-owner.py",
+      "prove.py",
+      "setup-custody.py"
+    ],
+    "existingTopologyGates": 3,
+    "sameObjectCanonicalTaskCapturePreserved": true,
+    "nativeTaskOnlyCoordinateDelta": true,
+    "writePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+    ],
+    "physicalCoordinateGuardIsNotSeparationProof": true
+  },
+  "checks": {
+    "entryCases": 4,
+    "topologyMockCases": 11,
+    "nodeCheckHOST": 0,
+    "allPythonAST": "pass",
+    "allJSON": "pass",
+    "sourceRows": 380,
+    "tenantTree": "75ffdc4394da72c2962a12baf63f73a9cae04f04",
+    "context": {
+      "files": 389,
+      "bytes": 9006476,
+      "maxFiles": 1024,
+      "maxBytes": 25165824
+    },
+    "closedEvidenceRows": 40,
+    "originalOperator02CustodyRows": 28,
+    "layoutBoundCounts": [
+      44,
+      45
+    ],
+    "actualMethodVerified": true,
+    "fullStatusJSONParsedBeforeSelection": true
+  },
+  "limits": {
+    "controlEntryChecks": "Actual wrong-copy script rejects before launch read/clock/raw/host; correct binding executes only the exact pre-clock AST prefix. A changed launch is rejected before staging writes.",
+    "topologyChecks": "Exact shared wrapper body with in-memory standard-library mocks; actual child error identity and raw data are mock-controlled. No real physical command or physical separation result.",
+    "outputUnavailableCase": "If both capture record and host-stderr channels fail, no durable secondary observation can be guaranteed; original primary Error still takes precedence.",
+    "dependencyAndNativeStanding": "Inherited closed ledger/declaration only; no live dependency-tree or196-native-input scan."
+  },
+  "preservedOperator02": {
+    "return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/OPERATOR_RETURN.json",
+      "bytes": 3922,
+      "sha256": "48b232485b15518f1e2e6a94c649942d07187ef713deafac6bf21b7bc5a6efa4"
+    },
+    "sourceRowsUnchanged": 1439,
+    "nativeCalls": 0,
+    "originalClockClosed": true,
+    "originalObserverOutputStatusUnavailable": true,
+    "noRetrospectiveFailureOrMethodCredit": true
+  },
+  "remainingPrerequisites": [
+    "Independent review of exact frozen affected controls and Root acceptance",
+    "Root supplies exact pushed source and actual launch grant including executionControlRoot",
+    "Operator uses only external control root, fresh source/raw/preimage/original clock and actual physical observations",
+    "Actual native author return and source review; separately selected eventual installed S01 proof"
+  ],
+  "preparationObservations": [
+    "One documentation apply_patch replacement was rejected before mutation; corrected inside the same grant.",
+    "Added equality between pre-clock launch bytes and staging to preserve the checked launch identity; added guarded host-stderr fallback so a secondary channel failure cannot replace primary Error."
+  ],
+  "executionAuthorized": false,
+  "proofAuthorized": false,
+  "sourceAuthorActivated": false,
+  "runtimeClockStarted": false,
+  "realOperateInvocations": 0,
+  "providerCalls": 0,
+  "buildsRun": 0,
+  "behavioralTestsRun": 0,
+  "ProductImports": false,
+  "physicalProbe": false,
+  "sourceRuntimeMaterialized": false,
+  "activeB64Read": false,
+  "mainMutated": false,
+  "pushed": false,
+  "qualified": false
+}

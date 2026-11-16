@@ -1,0 +1,131 @@
+--- accepted02/HOST.mjs
++++ successor03/HOST.mjs
+@@ -1,6 +1,6 @@
+ import assert from 'node:assert/strict';
+ import {createHash} from 'node:crypto';
+-import {execFileSync} from 'node:child_process';
++import {execFile,execFileSync} from 'node:child_process';
+ import {readFile,mkdir,statfs} from 'node:fs/promises';
+ import {dirname,join,resolve} from 'node:path';
+ import {fileURLToPath,pathToFileURL} from 'node:url';
+@@ -36,7 +36,51 @@
+ assert.deepEqual(launch.controls,JSON.parse(controlManifestBytes.toString('utf8')).files,'complete accepted controls');
+ for(const control of launch.controls){assert(!control.path.includes('..')&&!control.path.startsWith('/'));assert.equal(sha(await readFile(join(dir,control.path))),control.sha256,control.path);}
+ for(const name of ['HOST.mjs','TASK.json','ACTIVATION.json','physical-topology.py','operate.py','prove.py','setup-custody.py','SOURCE_INPUTS.json','FIXTURE_INPUTS.json','NATIVE_INPUTS.json','DEPENDENCY_INPUTS.json','PROOF_PLAN.json','EVIDENCE_INPUTS.json'])assert(launch.controls.some(r=>r.path===name),'missing control pin '+name);
+-async function observeTopology(layout){const bytes=execFileSync('/usr/bin/python3',[join(dir,'physical-topology.py'),'-'],{input:JSON.stringify(layout),timeout:60000,maxBuffer:4*1024*1024});const result=JSON.parse(bytes.toString('utf8'));assert.equal(result.ok,true,result.reason);assert.equal(result.disposition,'separated',result.reason);return result;}
++async function observeTopology(boundary,layout){
++  const input=Buffer.from(JSON.stringify(layout));
++  const command='/usr/bin/python3',args=[join(dir,'physical-topology.py'),'-'];
++  const execution=await new Promise(resolve=>{
++    let inputError=null;
++    const child=execFile(command,args,{timeout:60000,maxBuffer:4*1024*1024,encoding:'buffer'},
++      (error,stdout,stderr)=>resolve({error,inputError,stdout,stderr,status:child.exitCode,signal:child.signalCode}));
++    child.stdin.on('error',error=>{inputError=error;});
++    child.stdin.end(input);
++  });
++  const errorFacts=error=>error===null?null:{name:error.name,message:error.message,stack:error.stack,
++    code:error.code??null,errno:error.errno??null,signal:error.signal??null,killed:error.killed??null};
++  const captures=[
++    ['input.raw',input,true],
++    ['stdout.raw',execution.stdout,true],
++    ['stderr.raw',execution.stderr,true],
++    ['execution.json',{command,args,status:execution.status,signal:execution.signal,
++      error:errorFacts(execution.error),inputError:errorFacts(execution.inputError)},false]
++  ];
++  const captureFailures=[];
++  for(const [name,value,rawBytes] of captures){
++    try{await record(`topology-observations/${boundary}/${name}`,value,rawBytes);}
++    catch(error){captureFailures.push({name,error});}
++  }
++  let primary=execution.error??execution.inputError,result;
++  if(primary===null){
++    try{
++      result=JSON.parse(execution.stdout.toString('utf8'));
++      assert.equal(result.ok,true,result.reason);
++      assert.equal(result.disposition,'separated',result.reason);
++    }catch(error){primary=error;}
++  }
++  if(captureFailures.length){
++    const failures=captureFailures.map(({name,error})=>({name,error:errorFacts(error)}));
++    // The host's original stderr is independently retained by operate.py. A
++    // failed evidence write must not erase a child/parse/assertion Error.
++    try{process.stderr.write(JSON.stringify({kind:'topology_capture_failures',boundary,failures})+'\n');}
++    catch(error){failures.push({name:'host-stderr',error:errorFacts(error)});}
++    try{await record(`topology-observations/${boundary}/capture-failures.json`,{failures});}
++    catch(error){try{process.stderr.write(JSON.stringify({kind:'topology_capture_failure_record_error',boundary,error:errorFacts(error)})+'\n');}catch{}}
++  }
++  if(primary!==null)throw primary;
++  if(captureFailures.length)throw captureFailures[0].error;
++  return result;
++}
+ const installed=pin.installedRoot, p=activation.provider, limits=activation.limits;
+ const evidence=await json(join(dir,'EVIDENCE_INPUTS.json'));
+ const candidate=await json(join(dir,'ORIGINAL_CANDIDATE.json'));
+@@ -96,7 +140,7 @@
+   for(const suffix of ['resources/events','resources/runtime','resources/projections','resources/archives','sandbox/installed'])await mkdir(join(runtimeRoot,suffix),{recursive:true});
+   const plannedProtected=[join(runtimeRoot,'sandbox/installed/abg'),join(runtimeRoot,'sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant'),join(runtimeRoot,'sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat'),
+     ...['events','runtime','projections','archives'].map(n=>join(runtimeRoot,'resources',n)),installed,pin.releaseRoot,...externalProtected];
+-  await record('topology-before-setup.json',await observeTopology({worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots:plannedProtected,archiveRoot:join(runtimeRoot,'resources/archives')}));
++  await record('topology-before-setup.json',await observeTopology('before-setup',{worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots:plannedProtected,archiveRoot:join(runtimeRoot,'resources/archives')}));
+   await mark('identity-and-topology-bound');
+   const runtime=await setupOwner.installedModules(installed), {product,abg,api}=runtime;
+   const native=await setupOwner.verifyArtifact(runtime,{artifactPath:pin.archive.path,manifest:await json(join(installed,'product-toolchain-manifest.json')),expectedArtifactDigest:'sha256:'+pin.archive.sha256},record,'abg');
+@@ -123,7 +167,7 @@
+   const env=caller.refresh(), ids=product.NATIVE_WORKSPACE_WORK_IDS;
+   assert.equal(env.workspaceBinding.roots.productRoot,caller.installedRoot);
+   const protectedRoots=[...Object.values(env.workspaceBinding.roots),...env.productInstalls.map(x=>x.installedRoot),installed,pin.releaseRoot,...externalProtected];
+-  await record('topology-before-dispatch.json',await observeTopology({worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots,archiveRoot:env.workspaceBinding.roots.archiveRoot}));
++  await record('topology-before-dispatch.json',await observeTopology('before-dispatch',{worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots,archiveRoot:env.workspaceBinding.roots.archiveRoot}));
+   const operations=await import(pathToFileURL(join(installed,'build/code/src/product/worksite_operations.js')));
+   const writeRefusal=await operations.checkWorksiteWriteRoots({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,protectedInstallRoots:env.productInstalls.map(x=>x.installedRoot),writeRoots:task.writeRoots});
+   await record('file-write-scope-preflight.json',{writeRoots:task.writeRoots,result:writeRefusal});assert.equal(writeRefusal,null,'exact file-level W must be accepted unchanged');
+@@ -144,7 +188,7 @@
+   await sourceExact(); await reserve();
+   const finalEnv=caller.refresh();
+   const finalProtected=[...Object.values(finalEnv.workspaceBinding.roots),...finalEnv.productInstalls.map(x=>x.installedRoot),installed,pin.releaseRoot,...externalProtected];
+-  await record('topology-immediately-before-dispatch.json',await observeTopology({worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots:finalProtected,archiveRoot:finalEnv.workspaceBinding.roots.archiveRoot}));
++  await record('topology-immediately-before-dispatch.json',await observeTopology('immediately-before-dispatch',{worksite:source,writePaths:task.writeRoots.map(x=>join(source,x)),protectedRoots:finalProtected,archiveRoot:finalEnv.workspaceBinding.roots.archiveRoot}));
+   await record('setup-owned-custody-at-dispatch.json',custody('preflight'));
+   abg.assertAcquiredAbgEventResourceSelectionCurrent(entry);
+   assert(Date.parse(controlClock.deadlineUtc)-Date.now()>limits.nativeAbsoluteMs+15000,'remaining original deadline cannot contain native ceiling and cleanup');
+--- accepted02/operate.py
++++ successor03/operate.py
+@@ -20,9 +20,10 @@
+     assert (before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns) == (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns), 'launch changed while read'
+     return data
+ 
+-def stage_launch(input_path, raw, activation_id):
++def stage_launch(input_path, raw, activation_id, entry_bytes):
+     input_path = pathlib.Path(input_path)
+     data = launch_bytes(input_path)
++    assert data == entry_bytes, 'launch changed after execution-coordinate check'
+     launch = json.loads(data)
+     assert launch['activationId'] == activation_id and launch['dispatchAuthorized'] is True
+     staged = pathlib.Path(raw) / 'LAUNCH.json'
+@@ -53,6 +54,15 @@
+         while group_exists(pid) and time.monotonic()<until: time.sleep(.05)
+     return {'signals':signals,'hostProcessGroupAbsent':not group_exists(pid)}
+ 
++# Authenticate the accepted execution coordinate before starting an attempt or
++# touching raw/host state. This identity check is not physical separation proof.
++assert str(CONTROL) == ACT['executionControlRoot'], 'operate.py must run from the accepted external executionControlRoot'
++assert len(sys.argv)==2, 'one explicit Root launch-packet path required'
++input_launch_path=pathlib.Path(sys.argv[1]).absolute()
++entry_launch_bytes=launch_bytes(input_launch_path)
++entry_launch=json.loads(entry_launch_bytes)
++assert entry_launch['executionControlRoot'] == ACT['executionControlRoot'], 'launch executionControlRoot differs from accepted activation'
++
+ started=time.monotonic(); start_utc=datetime.datetime.now(datetime.timezone.utc)
+ LIMIT=ACT['limits']['hostControlDeadlineMs']/1000
+ original_deadline=start_utc+datetime.timedelta(seconds=LIMIT)
+@@ -61,9 +71,7 @@
+ env={k:v for k,v in os.environ.items() if k in ['HOME','PATH','LANG','LC_ALL','CLAUDE_CODE_OAUTH_TOKEN']}
+ env.update({'HOME':'/Users/jim','PATH':'/Users/jim/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin',
+             'TMPDIR':str(RAW/'host-scratch/tmp'),'NODE_OPTIONS':'--max-old-space-size=8192','GIT_OPTIONAL_LOCKS':'0'})
+-assert len(sys.argv)==2, 'one explicit Root launch-packet path required'
+-input_launch_path=pathlib.Path(sys.argv[1]).absolute()
+-launch_path,launch,staging=stage_launch(input_launch_path,RAW,ACT['id'])
++launch_path,launch,staging=stage_launch(input_launch_path,RAW,ACT['id'],entry_launch_bytes)
+ write('LAUNCH_STAGING.json',staging)
+ command=['/opt/homebrew/bin/node',str(CONTROL/'HOST.mjs'),str(launch_path)]
+ write('CONTROL_START.json',{'command':command,'source':str(SOURCE),'sourceHead':launch['sourceHead'],'launchSha256':staging['sha256'],'launchInputPath':staging['inputPath'],'stagedLaunchPath':str(launch_path),'startedUtc':start_utc.isoformat(),

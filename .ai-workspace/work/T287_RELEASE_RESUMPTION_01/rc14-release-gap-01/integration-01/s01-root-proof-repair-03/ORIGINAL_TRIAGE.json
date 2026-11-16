@@ -1,0 +1,143 @@
+{
+  "id": "RC14-S01-ROOT-PROOF-GAP-TRIAGE-001",
+  "recordedUtc": "2026-11-16T09:39:47.461720+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "exactSource": "999301134aace961800fecd2ed7930e85e623936",
+  "productFrame": {
+    "outcome": "Unchanged fixed5.0 S01/ABI5-ROOT-001: orderedR1-R10 on one exact candidate, test case and causal episode through installed Public invocation.",
+    "authority": "PRODUCT1554-1605 and REQ-P-SCENARIOS008/74-100; test owns independent declarations/input/oracle, ABG owns actual admission/replay.",
+    "classification": "Test-owned caller/assertion/evidence repair; no new Product authority or demonstrated runtime defect.",
+    "prohibitions": "No private/source ABG imports on root witness, fabricated events, cross-episode result borrowing or retroactive proof reconstruction."
+  },
+  "candidate": {
+    "C0Commit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+    "C1Commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+    "archiveSha256": "be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+    "controlCommit": "cd1a11eefdcf8790d93087a2015f857d3247ca12",
+    "runRef": "run://abiogenesis/7cb0ce942f866050a191c8e6cb321575a541891ca780a9a6b990041bb6160d7d"
+  },
+  "evidence": {
+    "result": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/004-installed-language/result.json",
+      "bytes": 630,
+      "sha256": "b53f8a97905f4cdaff626c8c78fbdebad83559ff96dbdc9d4606048d1ec6b262"
+    },
+    "inputEntry": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/INPUTS_ENTRY.json",
+      "bytes": 712209,
+      "sha256": "533521a4d7a8b60b4b0d94dd34623ab34a73b2c6a146d3ca6a0ff8e9831eae12"
+    },
+    "inputExit": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-amendment-witness-20261116-04/INPUTS_EXIT.json",
+      "bytes": 712209,
+      "sha256": "c37e64fbe82b5180c67a5b315b7929168b2df0e6bf99a483172d5953185eab19"
+    },
+    "reviewObserved": "1/1 pass, exit0,34163ms; TAP SHA48ecb874d4c9a4963e843b7157da7d8f29a7d4b8917164dde35322d48a7a53cb; all11 smoke-input bytes conserved at exactSource."
+  },
+  "closedFrames": [
+    {
+      "actor": "/root/rc14_release_proof",
+      "frame": "Independent Product/Proof",
+      "finding": "Existing smoke establishes its bounded assertions; complete S01 remains open because two fresh reads do not assert typed-terminal/closed-state agreement, private implementation/projection-contract paths are imported, and exact episode scratch/call/event details are deleted."
+    },
+    {
+      "actor": "/root",
+      "frame": "Design/Runtime/Integration/Identity/Effect conjunction",
+      "finding": "Reacquired Product/requirement and exact helper/test/package-export source. implementation/leaf_invocation_port and implementation/index are not package exports and are loaded unconditionally. product/abg/gtl/hog/validator/public index targets are exported and are not classified private merely because file URLs address them. project_read_operation_contracts import is private and its projectReadContracts argument is ignored by constructInstalledRunReadCall382-414; the contract is also exported from public abg barrel. No Product code change is established as necessary.",
+      "noExecution": true
+    }
+  ],
+  "orderedMapping": [
+    {
+      "id": "R1",
+      "support": "Exact archive custody and actual product/fixture verification.",
+      "limit": "Candidate02 only."
+    },
+    {
+      "id": "R2",
+      "support": "Fresh temporary consumer install and content checks.",
+      "limit": "No-private-import condition not met."
+    },
+    {
+      "id": "R3",
+      "support": "Exact installed set/lock/workspace and binding admission in passing helper.",
+      "limit": "Individual admission receipt not retained."
+    },
+    {
+      "id": "R4",
+      "support": "Test-owned publication; catalog and view construction.",
+      "limit": "No separate mechanism gap established."
+    },
+    {
+      "id": "R5",
+      "support": "Program validation/start construction and fixture-owner assertion.",
+      "limit": "Detailed selected episode resolution discarded."
+    },
+    {
+      "id": "R6",
+      "support": "Test-owned contracts/ordinaryF_D leaf and owning-product assertions.",
+      "limit": "No separate mechanism gap established."
+    },
+    {
+      "id": "R7",
+      "support": "Successful canonical start/execution is indirect evidence.",
+      "limit": "No explicit retained materialized-graph validation join."
+    },
+    {
+      "id": "R8",
+      "support": "Installed CLI, one output, exit0 and result.",
+      "limit": "Bounded claim supported."
+    },
+    {
+      "id": "R9",
+      "support": "Leaf result/contract/value, one C-call opening and one Run closure asserted.",
+      "limit": "Complete causal invocation/evidence/judgment/closure relation neither explicitly joined nor retained; this does not mean events were absent."
+    },
+    {
+      "id": "R10",
+      "support": "Two fresh reads return result and preserve exact prefix.",
+      "limit": "No typed terminal equality/closed-state assertion; other amendment Run cannot supply it."
+    }
+  ],
+  "jointCause": "Shared component helper unconditionally loads private test capabilities; smoke asserts selected checkpoints rather than full root relation, and cleanup removes the detail required for later assessment. Prior greenTAP proves only those selected assertions.",
+  "decision": "Select a narrow separate RC13-native test-owned caller/assertion/evidence repair, after exact controls and independent review; retain the existing minimal program/oracle and all prior bounded results. This does not enlarge B64 eight-path scope.",
+  "prospectiveSourceTerritory": [
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "sourcePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 50216,
+      "sha256": "3274c5ef23c5fd5b362b42a899bc0d7c9d588f363848e1b033150b968f8a7008"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "bytes": 4878,
+      "sha256": "9099c80e78261f507288c8597bad0495d70628a9b21990f1e3283c536df70c65"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+      "bytes": 1831,
+      "sha256": "ecda0215f8dfb85b22332f199482edbfd1ccf164415caaeb776892581e923e77"
+    }
+  ],
+  "completionObligations": [
+    "Use only already-exported installed Product surfaces on this root witness; keep component-test support working without requiring private imports on the root path. Remove the unused private projection-contract dependency.",
+    "Retain full actual same-episode setup/start/causal-event/materialized-graph/readback evidence before assertions/cleanup. Preserve primary failures and report capture failures separately.",
+    "Assert exact run/producer/result/contract/value identity and closed replay for both fresh reads and initial CLI result, plus the required R7/R9 causal joins. Existing input/output/declaration identities remain fixed.",
+    "Run the one whole installed-language test on the eventual exact successor archive, with fresh source-blind install and complete retained evidence; independently assess allR1-R10. No new broad campaign."
+  ],
+  "executionAuthorized": false,
+  "sourceRepairActivated": false,
+  "qualified": false,
+  "rawPublished": false,
+  "B64": "Existing B64 controls/source sequence stays selected and independent. S01 source/proof requires its own explicit bounded activation."
+}

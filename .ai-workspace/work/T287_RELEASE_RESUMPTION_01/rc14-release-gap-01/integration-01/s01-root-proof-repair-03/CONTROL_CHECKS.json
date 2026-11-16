@@ -1,0 +1,39 @@
+{
+  "recordedUtc": "2026-11-16T16:33:19.912314+00:00",
+  "results": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/control-entry-check.py"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"cases\": [{\"name\": \"actual_wrong_copy_rejected_before_launch_read_clock_raw_host\", \"passed\": true}, {\"name\": \"correct_external_coordinate_reaches_ordinary_checks_boundary\", \"passed\": true}, {\"name\": \"launch_changed_after_guard_rejected_before_staging_write\", \"passed\": true}, {\"name\": \"launch_coordinate_mismatch_rejected_before_clock_raw_host\", \"passed\": true}], \"limits\": \"Correct-coordinate path executes only the exact AST prefix before the clock. No physical observer, Product import, host, native call or real source/raw attempt is executed.\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/control-topology-check.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"cases\":[{\"name\":\"successful_observation_retains_all_actual_streams_before_parse_assert\",\"passed\":true,\"recordsRetained\":4,\"secondaryStderrRecords\":0},{\"name\":\"nonzero_child_preserves_original_error_and_all_output\",\"passed\":true,\"recordsRetained\":4,\"secondaryStderrRecords\":0},{\"name\":\"signal_child_retains_actual_status_signal\",\"passed\":true,\"recordsRetained\":4,\"secondaryStderrRecords\":0},{\"name\":\"parse_error_retains_actual_raw_output\",\"passed\":true,\"recordsRetained\":4,\"secondaryStderrRecords\":0},{\"name\":\"child_primary_survives_secondary_capture_error\",\"passed\":true,\"recordsRetained\":4,\"secondaryStderrRecords\":1},{\"name\":\"parse_primary_survives_secondary_capture_error\",\"passed\":true,\"recordsRetained\":4,\"secondaryStderrRecords\":1},{\"name\":\"capture_only_error_fails\",\"passed\":true,\"recordsRetained\":4,\"secondaryStderrRecords\":1},{\"name\":\"separation_assertion_survives_secondary_capture_error\",\"passed\":true,\"recordsRetained\":4,\"secondaryStderrRecords\":1},{\"name\":\"all_capture_failures_keep_original_child_and_separate_stderr\",\"passed\":true,\"recordsRetained\":0,\"secondaryStderrRecords\":2},{\"name\":\"host_stderr_failure_cannot_replace_original_child\",\"passed\":true,\"recordsRetained\":4,\"secondaryStderrRecords\":0},{\"name\":\"input_stream_error_is_original_primary\",\"passed\":true,\"recordsRetained\":4,\"secondaryStderrRecords\":0}],\"limits\":\"Only the exact HOST observer-wrapper body with standard-library in-memory mocks. No physical observer, Product import, setup, provider, native call, real filesystem capture or physical separation claim.\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--check",
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/HOST.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "pythonAst": "all seven owners plus isolated entry-check parse",
+  "runtimeExecuted": false,
+  "physicalObserverExecuted": false,
+  "ProductImported": false,
+  "providerInvoked": false,
+  "proofClaim": false
+}

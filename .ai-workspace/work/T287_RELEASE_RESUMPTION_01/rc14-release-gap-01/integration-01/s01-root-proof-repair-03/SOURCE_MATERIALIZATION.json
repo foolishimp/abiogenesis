@@ -1,0 +1,48 @@
+{
+  "status": "Disabled prospective Operator recipe; no source checkout created",
+  "source": "/private/tmp/abg-rc14-s01-proof-source-20261117-03",
+  "branch": "codex/rc14-s01-proof-source-20261117-03",
+  "pushedHead": null,
+  "rootFiles": [
+    ".gitattributes",
+    ".gitignore",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "README.md",
+    "pyproject.toml",
+    "stdo_abiogenesis.json"
+  ],
+  "sparseSelectors": [
+    "/.gitattributes",
+    "/.gitignore",
+    "/AGENTS.md",
+    "/CLAUDE.md",
+    "/README.md",
+    "/pyproject.toml",
+    "/stdo_abiogenesis.json",
+    "/specification/",
+    "/build_tenants/abiogenesis/typescript/",
+    "/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/"
+  ],
+  "order": [
+    "Verify separately accepted exact final pushed checkpoint and absence of new source/raw roots",
+    "git worktree add --no-checkout -b <exact source branch> <exact source root> <accepted pushed HEAD>, with GIT_LFS_SKIP_SMUDGE=1",
+    "git -C <source> sparse-checkout set --no-cone --stdin using declared slash-prefixed selectors",
+    "git -C <source> read-tree -mu HEAD only after sparse selection",
+    "Verify named branch/HEAD/index and clean status; all seven roots physically regular non-symlink and byte-equal to git show HEAD:<path>; conserve tenantTree and SOURCE_INPUTS",
+    "Create separately granted fresh raw/scratch; run exact external freezeCommand once; bind executionControlRoot and exact complete launch, then invoke only the exact external operateCommand. No source-local/main copy may execute."
+  ],
+  "noReadTreeBeforeSparse": true,
+  "noCleanupOrRepairOnMismatch": true,
+  "executionControlRoot": "/private/tmp/abg-rc14-s01-proof-controls-20261117-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03",
+  "operateCommand": [
+    "/usr/bin/python3",
+    "/private/tmp/abg-rc14-s01-proof-controls-20261117-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/operate.py",
+    "<Root launch input path>"
+  ],
+  "freezeCommand": [
+    "/usr/bin/python3",
+    "/private/tmp/abg-rc14-s01-proof-controls-20261117-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03/freeze-source.py",
+    "<exact pushed source HEAD>"
+  ]
+}

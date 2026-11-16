@@ -1,0 +1,84 @@
+{
+  "kind": "closed_predecessor_failure_inputs",
+  "files": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/OPERATOR_RETURN.json",
+      "bytes": 3922,
+      "sha256": "48b232485b15518f1e2e6a94c649942d07187ef713deafac6bf21b7bc5a6efa4"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/CUSTODY_MANIFEST.json",
+      "bytes": 6258,
+      "sha256": "ce4169d5c656d073dbd1154f69317f86aad5c4f6845bea62fdbc8c06e0cd8194"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/CUSTODY_SEAL.json",
+      "bytes": 710,
+      "sha256": "77f84e165392d4736663c4848a20b78ddfa6ee356c8883698292fbaea772a330"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/runtime/FIRST_FAILURE.json",
+      "bytes": 1171,
+      "sha256": "bde9e474aabd2b105795ec2f2d8ecef86edfb4fdb369af89c9ca4ee110ebaba3"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/HOST_RETURN.json",
+      "bytes": 622,
+      "sha256": "da485340f448efea90187267d526478baf4a9ada8054f0c0272822d107423545"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/CONTROL_START.json",
+      "bytes": 1170,
+      "sha256": "be3b0a85263a52d63ef81c1bec8f0ff5e1153f97cda96b83e2c220df12526c37"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/SOURCE_PREIMAGE.json",
+      "bytes": 442947,
+      "sha256": "24b8eb52dcbdf7bd6d2c730a0ca83cf3483f9049c7695adbc3ff078d6bb34f30"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/SOURCE_POSTIMAGE.json",
+      "bytes": 355284,
+      "sha256": "00198cdcf5131243a5a8990313bc94c3e3b4eea83506c75eae120090039e7dc7"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/SOURCE_DIFF.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/SOURCE_RETURN.json",
+      "bytes": 2916,
+      "sha256": "1c32c9da64ae580bcce1e77aef4dae69d4fff8fcee9433bb2846d3a5964783ec"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/OPERATOR_AUDIT.json",
+      "bytes": 2535,
+      "sha256": "7cc4c50e47b5b9e98b67da2443c2483d6a6c858b361629099a9d84c6c50695b7"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/TOPOLOGY_INPUT_RECONSTRUCTION.json",
+      "bytes": 5753,
+      "sha256": "b670bb74c13b59080ce9398c257a1a165070ff01c095630e17051fd0354fc272"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/host.stdout.raw",
+      "bytes": 613,
+      "sha256": "5d5ed975ca37fbeb94a1364e9eb689e4dda5d8ae767f94aba57f8ea6b4a0eb9a"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02/host.stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "disposition": {
+    "path": "CONTROL_REENTRY.json",
+    "bytes": 9942,
+    "sha256": "58743886910fb51dc03d7c4d22d5975edfc8cfaba7ce33ce135353f6a50f1cf5"
+  },
+  "nativeCalls": 0,
+  "sourceEdits": 0,
+  "originalClockClosed": true,
+  "lostObserverOutputNotRecovered": true
+}

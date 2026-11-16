@@ -1,0 +1,92 @@
+{
+  "id": "RC14-S01-ROOT-PROOF-CONTROLS-WRITER-045",
+  "recordedUtc": "2026-11-16T09:55:51.934212+00:00",
+  "recordWriter": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "actor": "/root/b29_vm_triage",
+  "role": "Separate source-only controls preparation Writer, not semantic source author or reviewer",
+  "authority": "Owner finish/continue RC14; closed S01 Product/Proof and Root Design/Integration conjunction selects the existing test-owned proof-caller repair. This is independent of B64 and does not expand its eight W.",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": {
+    "outcome": "Unchanged fixed5.0 S01/ABI5-ROOT-001: orderedR1-R10 on one exact candidate, test case and causal episode through installed Public invocation.",
+    "authority": "PRODUCT1554-1605 and REQ-P-SCENARIOS008/74-100; test owns independent declarations/input/oracle, ABG owns actual admission/replay.",
+    "classification": "Test-owned caller/assertion/evidence repair; no new Product authority or demonstrated runtime defect.",
+    "prohibitions": "No private/source ABG imports on root witness, fabricated events, cross-episode result borrowing or retroactive proof reconstruction."
+  },
+  "triage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_ROOT_PROOF_GAP_TRIAGE_01.json",
+    "bytes": 8362,
+    "sha256": "6c649d7ad178ccf0cac9f94e352b963058404466185f97069a8057a8680d32fd"
+  },
+  "currentSource": {
+    "base": "f54d467cb6aec6df8bb5555c27a2299aba5dd806",
+    "standing": "Current main includes preserved/unaccepted B64 partial; source-only S01 work is disjoint. B64 Native003 is separately running from60b6d9e2; never touch its source/raw or consume moving output.",
+    "tenantTree": "a7c47c1ac107fa2cca311f63251d7a926572a42c"
+  },
+  "worktree": "/private/tmp/abg-rc14-s01-proof-controls-20261116-01",
+  "branch": "codex/rc14-s01-proof-controls-20261116-01",
+  "writeTerritory": [
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-01"
+  ],
+  "futureSourceWorktree": "/private/tmp/abg-rc14-s01-proof-source-20261116-01",
+  "futureSourceBranch": "codex/rc14-s01-proof-source-20261116-01",
+  "futureRawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01",
+  "prospectiveNativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "completionObligations": [
+    "Use only already-exported installed Product surfaces on this root witness; keep component-test support working without requiring private imports on the root path. Remove the unused private projection-contract dependency.",
+    "Retain full actual same-episode setup/start/causal-event/materialized-graph/readback evidence before assertions/cleanup. Preserve primary failures and report capture failures separately.",
+    "Assert exact run/producer/result/contract/value identity and closed replay for both fresh reads and initial CLI result, plus the required R7/R9 causal joins. Existing input/output/declaration identities remain fixed.",
+    "Run the one whole installed-language test on the eventual exact successor archive, with fresh source-blind install and complete retained evidence; independently assess allR1-R10. No new broad campaign."
+  ],
+  "prospectiveNative": {
+    "builderPin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc13-operational-pin-01/BUILDER_PIN.json",
+      "bytes": 5769,
+      "sha256": "52634cafc6bcd9d619997100abfd44a1cad9f52d057de9fd886d1c99ed5b0a26"
+    },
+    "builder": "Exact existing RC13 pin; real native Claude Opus5.5 xhigh only",
+    "callsAtMost": 1,
+    "nativeAbsoluteMs": 2700000,
+    "nativeInactivityMs": 300000,
+    "nativeMaxTurns": 360,
+    "enclosingMs": 10800000,
+    "exitReserveMs": 180000,
+    "globalProviderConcurrency": 2,
+    "sourceOnly": true,
+    "noBuildOrTestOrProviderFromAuthor": true
+  },
+  "permittedEffects": [
+    "Create one isolated sparse controls checkout at exact pushed checkpoint containing this grant. Materialize required root files explicitly and verify against frozen Git; reuse the successful checkout relation, not failed read-tree-before-sparse caller. No main or Product source write.",
+    "Construct only the named source-control carrier from existing reviewed native owner controls/helpers. Reuse canonical installed task constructor/transport/capture/physical/custody owners, exact RC13/tool/dependency inputs and successful actual carrier shape. No generic framework, private actor protocol or competing helper runtime.",
+    "Existing mechanical HOST/operate/setup-custody/process/topology/freezing/dependency code may be copied byte-equal, or minimally specialize descriptive operation labels/declared coordinates if necessary. Native Task, ACT, source/fixture/input manifests, read plan, layout, disabled launch, tiny design and Return are authored for S01 three-path source construction. Do not import historical B64 task grants as live S01 authority.",
+    "Pin relevant closed candidate02 S01 evidence and exact eleven test/fixture/support inputs from its custody; include complete method/status/frame/actual grant+clock intake. Source read scope may include causal imports and shared consumers; write scope stays three test-owned paths.",
+    "Protect main, pinned builder, candidate02/historical resources and both B64 source/raw01/02 and active03. Active03 is a protected external territory, not a stationary evidence inventory to hash as if closed. S01 owns separate fresh roots. Project all physical phases within unchanged anchor limit, preserving actual later preflight.",
+    "Only syntax/JSON/pure identity/layout/Task plain-field checks; no Product import, setup, build, behavioral test, native/provider or proof. Freeze/commit controls branch and return exact manifest, source/evidence pins, changed executable rationale if any and claim limits; no main or push."
+  ],
+  "proofBoundary": {
+    "selectedOutcome": "One complete R1-R10 S01 episode on the eventual exact successor archive, fresh source-blind install, complete retained candidates and two equal typed terminal/closed reads. The minimal test program/declarations/input/output stay fixed.",
+    "execution": "Not authorized here. Existing final candidate/installed-language owner route will be separately selected after exact accepted source/candidate. No current candidate is fabricated or relabelled.",
+    "nativeControls": "This packet authorizes no standalone prove.py campaign. If reused source controls carry a proof-plan input, mark it explicitly deferred to the later installed-candidate S01 grant; do not silently reuse B64 three-file proof assumptions as S01 proof. Unused proof runtime need not be copied unless a canonical existing source host dependency requires it. Return any required helper/interface mismatch before changing ownership logic."
+  },
+  "method": "Full current Task/grant/read plan, exact status --verify, project frame basis and selected actual STDO work bodies before dependent edits. Bind relevant Product root/S01 and requirement bodies. Actual native role and observed clock distinguish source pass from preparation. No imagined expiry or body-read credit from hashes.",
+  "bound": {
+    "minutes": 20,
+    "start": "Actual Writer acquisition, once",
+    "retry": false,
+    "stop": "First integration/static-owner mismatch returns preserved exact evidence; no scope/clock expansion. Routine reversible wording/implementation choices within this grant remain Writer-owned.",
+    "return": "Exact frozen controls or bounded first failure; no autonomous reviewer activation."
+  },
+  "executionAuthorized": false,
+  "sourceAuthorActivated": false,
+  "proofAuthorized": false,
+  "qualified": false,
+  "rawPublished": false
+}

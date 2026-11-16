@@ -1,0 +1,13 @@
+{
+  "activationId": "RC14-S01-ROOT-PROOF-NATIVE-003",
+  "dispatchAuthorized": false,
+  "sourceHead": null,
+  "pushedCheckpoint": null,
+  "rootAcceptance": null,
+  "controlManifestSha256": null,
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "controls": null,
+  "clockStarted": false,
+  "instruction": "Disabled. Root must bind accepted external executionControlRoot, exact controls, pushed source, actual grant and global slot. Only that external operate.py may start the source clock. No proof dispatch.",
+  "executionControlRoot": "/private/tmp/abg-rc14-s01-proof-controls-20261117-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03"
+}

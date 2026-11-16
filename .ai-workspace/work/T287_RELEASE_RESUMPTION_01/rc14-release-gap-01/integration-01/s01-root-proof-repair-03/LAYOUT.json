@@ -1,0 +1,18 @@
+{
+  "source": "/private/tmp/abg-rc14-s01-proof-source-20261117-03",
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-03",
+  "proofSubject": null,
+  "writePaths": [
+    "/private/tmp/abg-rc14-s01-proof-source-20261117-03/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "/private/tmp/abg-rc14-s01-proof-source-20261117-03/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "/private/tmp/abg-rc14-s01-proof-source-20261117-03/build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "observerSha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31",
+  "status": "Prospective native shape only; actual complete planned/post-setup/immediately-before-dispatch roots remain required under unchanged observer. No proof layout selected.",
+  "setupCustody": "Exact imported setup-owned manifest only; all other deltas subject to W",
+  "activeProtectedTerritories": [
+    "/private/tmp/abg-rc14-b64-composition-source-20261116-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-b64-composition-source-20261116-01"
+  ],
+  "executionControlRoot": "/private/tmp/abg-rc14-s01-proof-controls-20261117-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-03"
+}

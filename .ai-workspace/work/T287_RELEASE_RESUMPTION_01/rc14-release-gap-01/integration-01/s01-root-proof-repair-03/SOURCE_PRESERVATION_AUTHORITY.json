@@ -1,0 +1,59 @@
+{
+  "id": "RC14-S01-SOURCE01-PRESERVATION-WRITER-049",
+  "recordedUtc": "2026-11-16T15:35:45.126491+00:00",
+  "actor": "/root",
+  "role": "Separate exact-copy source preservation Writer; not Executive while applying these effects.",
+  "authority": "Owner checkpoint authored work on main/push and continue RC14; closed Root source disposition preserves incomplete source for a bounded successor.",
+  "disposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_SOURCE01_DISPOSITION_01.json",
+    "bytes": 7658,
+    "sha256": "f6127933ea5a6bf025b2af9fd75be7a0d7aa97e76cd78680c1d8349e239bdeb8"
+  },
+  "mainPreimage": "e0ef262bb51d6f7aa36b4a3adeffe40ae1f255b5",
+  "sourceBase": "5989ec3d458b895609d0446a06b40b4aafe6a0a2",
+  "sourceFreeze": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/FROZEN_SOURCE.json",
+    "bytes": 4334,
+    "sha256": "e0f4fb44c2b43f105e6da7299a77afb2ba10299f64eeee5b8e53dbca9012ec21"
+  },
+  "writeTerritory": [
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "files": [
+    {
+      "source": "/private/tmp/abg-rc14-s01-proof-source-20261116-01/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 54284,
+      "sha256": "d7d46d75e87502d287a4b8f2d2a0176e0b14d271cab30c162590c1b63fced614"
+    },
+    {
+      "source": "/private/tmp/abg-rc14-s01-proof-source-20261116-01/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "bytes": 15940,
+      "sha256": "765946d26b25bca48ed9de1f38914f7d72a968083eb278e9745592d97ecf4300"
+    },
+    {
+      "source": "/private/tmp/abg-rc14-s01-proof-source-20261116-01/build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+      "relativePath": "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261116-01/source-subject/build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+      "bytes": 22209,
+      "sha256": "91211cd69f62a469d7bec380115a076efe83be511fa5595000ab5ab99d83b73a"
+    }
+  ],
+  "precondition": "B64 Operator has fixed/materialized its separate exact e0ef262bb51d6f7aa36b4a3adeffe40ae1f255b5 source and preimage; never change that source or its controls.",
+  "operationGrant": [
+    "Reverify every main source preimage against sourceBase and all three frozen postimage pins; copy only those three exact authored files byte-for-byte, no hand edits.",
+    "Checkpoint and push exact source plus this activation and separately authorized compact status/decision records, after exact staged-path/source-byte checks.",
+    "Preserve source01 HEAD/index/frozen copies/raw receipts and all old candidates/installs; no changes to B64 source/controls or unrelated work."
+  ],
+  "acceptance": false,
+  "methodCompliance": false,
+  "proofClaim": false,
+  "exclusions": [
+    "No semantic edits beyond returned bytes, cleanup, raw Git, qualification, tag, install or pin change."
+  ]
+}
