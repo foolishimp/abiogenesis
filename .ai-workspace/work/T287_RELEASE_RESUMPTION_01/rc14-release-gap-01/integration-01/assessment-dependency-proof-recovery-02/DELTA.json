@@ -1,0 +1,38 @@
+{
+  "predecessorCommit": "39117a22f127dff3515f2bba6e57507e1fa3135b",
+  "preparationBase": "9f2d9c8ce0d1e86f303485baf180796a100fca43",
+  "changedExecutable": "prove.py",
+  "changedFunctions": [
+    "recovery_inputs",
+    "require_recovery",
+    "main"
+  ],
+  "changes": [
+    "One exact generated graph path before build; full built custody remains inclusive.",
+    "Fresh proof02 output and proof05 mirror.",
+    "Exact selection/prior failed receipts join through existing recovery gate; actual prior deadline caps end."
+  ],
+  "unchangedFiles": [
+    "ACTIVATION.json",
+    "DEPENDENCY_INPUTS.json",
+    "FIXTURE_INPUTS.json",
+    "IMMUTABLE_RECOVERY.json",
+    "NATIVE_INPUTS.json",
+    "ORIGINAL_CANDIDATE.json",
+    "PROOF_PLAN.json",
+    "ROOT_RECOVERY.json",
+    "SEMANTIC_JOB_POPULATION.json",
+    "TOOL_INPUTS.json",
+    "dependency-inputs.py",
+    "physical-topology.py",
+    "process-owner.py",
+    "setup-custody.py"
+  ],
+  "noPriorBuildReuse": true,
+  "nativeMethodResiduals": [
+    "M04-01",
+    "M04-02",
+    "M04-03"
+  ],
+  "executionAuthorized": false
+}

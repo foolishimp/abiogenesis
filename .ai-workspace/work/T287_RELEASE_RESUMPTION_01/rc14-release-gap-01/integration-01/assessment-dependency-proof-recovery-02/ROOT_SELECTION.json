@@ -1,0 +1,115 @@
+{
+  "id": "RC14-B56-PROOF01-DISPOSITION-AND-CONTROL02-SELECTION",
+  "recordedUtc": "2026-11-15T23:55:15.216221+00:00",
+  "recordWriter": "RC14-ROOT-B56-PROOF-RECORDS-WRITER-030",
+  "authority": "Owner continue/finish RC14; B56_RECOVERED_PROOF_ACTIVATION_01.json first-failure triage and exact control succession under unchanged Product outcome.",
+  "basis": {
+    "definition": "stdo_abiogenesis.json",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "productFrame": {
+    "outcome": "Fixed 5.0 F04/F17/S06 affected dependency/assembly proof.",
+    "classification": "External proof-control generated-output classification; unchanged Product, source, test population and native method disposition.",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "firstAttempt": {
+    "status": "stopped_first_failure",
+    "compactReturnCommit": "5633fe0b94367510c9c93051beceb39f0896c98a",
+    "integratedMain": "b0705e082",
+    "return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/RETURN.json",
+      "bytes": 2950,
+      "sha256": "4118a6aaa8223938da199d6c196ea394da8b82f26dd26e130ab5361c065e5d9f"
+    },
+    "difference": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/BUILD_MIRROR_DIFFERENCES.json",
+      "bytes": 3854,
+      "sha256": "546f2ffa4e281e577c1286b38be8ab10cc7ce5754b49f2aecbef9a584230a1e2"
+    },
+    "start": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-01/START.json",
+      "bytes": 522,
+      "sha256": "57f067f37bc40d5f7b36df67b788ad215bc93e4bf0dac697792e71764df5f507"
+    },
+    "buildElapsedMs": 25188,
+    "testSelectionsRun": 0,
+    "conservation": "10 of 11 checks passed; sole failed check non_generated_mirror_source; driver/topology/build groups absent. No successful proof claim."
+  },
+  "triage": {
+    "originatingRelation": "prove.py generated list omits contracts/capabilities/capability-definition-graph.json, which generate-product-manifest.mjs regenerates and product-payload.mjs identifies as a generated member.",
+    "owningRoutes": [
+      "scripts/generate-product-manifest.mjs:180,346,910-935",
+      "scripts/product-payload.mjs:133-142",
+      "specification/requirements/REQ-P-PUBLIC-CONTRACTS.md:287-295",
+      "design/ABI5_REALIZATION_CONSTITUTION.md:1074-1099"
+    ],
+    "delta": "One 150703-byte graph; 427 scalar changes only: 182 Product-content digests, 182 catalog digests, 31 capability digest/ref pairs and one graph digest. All 15 capabilities and other fields unchanged.",
+    "missedByPriorChecks": "Recovery admission/control delta reviews reused unchanged build mechanics; no prior claim established complete generated-output boundary.",
+    "independentResults": [
+      {
+        "actor": "/root/b29_vm_triage",
+        "frame": "Proof/fixture/effect",
+        "result": "Exact generated graph classification defect; no Product mutation defect established. Fresh source/control/dependency/native conservation and absent groups verified.",
+        "reuseLimit": "Build output inventory was never captured because failure precedes BUILD_POSTIMAGE; late inventory would require explicit separate binding."
+      },
+      {
+        "actor": "/root/amendment_topology_review",
+        "frame": "Product/Design/Identity",
+        "result": "Independent data-only hashing verifies every graph row/ref, dependency coordinate, graph digest, asset locator and all 182 catalog coordinates; classification repair is lawful.",
+        "recommendation": "One exact path allowance, full post-build custody; fresh proof coordinates and fresh build under original deadline."
+      }
+    ]
+  },
+  "disposition": {
+    "changeClass": "realization_refactor",
+    "reentry": "External proof control only",
+    "selected": "Prepare exact one-path generated-output correction and fresh proof coordinates; use a fresh build.",
+    "whyFreshBuild": "Successful build took 25.188 seconds. A fresh build supplies ordinary immediate complete postimage custody and avoids a new late-inventory reuse mechanism.",
+    "retained": "First failure, all raw evidence, clocks, exact recovered source, unchanged sealed audit M04-01/02/03 and original native completion.",
+    "sourceRepairSelected": false,
+    "newNativeSelected": false,
+    "formalQualification": false
+  },
+  "workerActivation": {
+    "id": "RC14-B56-PROOF-CONTROL-WRITER-031",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate external proof-control Writer; not Executive or semantic author",
+    "sourceCheckpoint": "b0705e082",
+    "worktree": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-02",
+    "branch": "codex/rc14-assessment-dependency-proof-controls-20261116-02",
+    "carrier": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-02",
+    "inheritedControls": {
+      "commit": "39117a22f127dff3515f2bba6e57507e1fa3135b",
+      "root": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-01",
+      "manifestSha256": "51236392bdaeb0f064cb11db8f19c9b227b2fb079358bf2adb47d5bca498ed7c"
+    },
+    "permittedEffects": [
+      "Create separate sparse controls worktree/branch from pushed selection checkpoint; copy inherited proof controls to successor carrier.",
+      "Permit only the exact graph path in build generated list; leave full built mirror postimage and through-tests comparison inclusive of graph.",
+      "Bind fresh proof-02 directory and fresh proof mirror; cap all proof execution/finalization to original proof deadline, reserve and enclosing deadline.",
+      "Update only necessary control coordinates, launch template, authored preparation/Return and manifest; static syntax and data-only mismatch checks only.",
+      "Freeze and commit compact controls/Return; return exact commit/tree/manifest/diff, unchanged-owner checks, residuals to Root."
+    ],
+    "readRoutes": [
+      "Exact inherited controls, original native04 source/control/audit/freeze pins",
+      "Current selection, closed proof-01 receipts and owning generator/payload/requirements/design sections",
+      "Selected STDO work skill and exact Product basis/frame/control routes"
+    ],
+    "exclusions": [
+      "No Product, generator, source test or population edits.",
+      "No build/test/pack/install/provider execution, raw data in Git, original controls/audit/evidence edits, review activation, main mutation or push.",
+      "No budget reset, broad output exemption, weakened guards or automatic retry."
+    ],
+    "proofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-02",
+    "proofSubject": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-05",
+    "originalProofDeadlineUtc": "2026-11-16T01:15:36.678788Z",
+    "executionStopUtc": "2026-11-16T01:12:36.678788Z",
+    "originalEnclosingDeadlineUtc": "2026-11-16T01:47:31.946547Z",
+    "cleanupReserveMs": 180000,
+    "hostBinding": "Existing actor context retained; trusted shared desktop, no clean-room exclusion claimed. Source/test semantic construction remains excluded.",
+    "returnTo": "Root for exact delta reviews and separate execution selection."
+  },
+  "executionAuthorized": false,
+  "candidateExecutionAuthorized": false
+}

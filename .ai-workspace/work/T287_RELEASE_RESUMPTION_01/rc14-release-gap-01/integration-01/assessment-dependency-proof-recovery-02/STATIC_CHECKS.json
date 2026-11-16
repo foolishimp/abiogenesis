@@ -1,0 +1,55 @@
+{
+  "kind": "proof02_delta_static_checks",
+  "atUtc": "2026-11-16T00:02:41.296164+00:00",
+  "syntax": "Python AST and JSON parsed",
+  "changedFunctions": [
+    "recovery_inputs",
+    "require_recovery",
+    "main"
+  ],
+  "byteEqualInheritedFiles": [
+    "ACTIVATION.json",
+    "DEPENDENCY_INPUTS.json",
+    "FIXTURE_INPUTS.json",
+    "IMMUTABLE_RECOVERY.json",
+    "NATIVE_INPUTS.json",
+    "ORIGINAL_CANDIDATE.json",
+    "PROOF_PLAN.json",
+    "ROOT_RECOVERY.json",
+    "SEMANTIC_JOB_POPULATION.json",
+    "TOOL_INPUTS.json",
+    "dependency-inputs.py",
+    "physical-topology.py",
+    "process-owner.py",
+    "setup-custody.py"
+  ],
+  "exactGeneratedPathAddition": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+  "fullPostBuildAndThroughTestsIncludeGraph": true,
+  "siblingAndSourceNotExempted": true,
+  "entireFinallyOwnedRunTestLoopMirrorExitUnchanged": true,
+  "actualPriorDifferenceClassifies": true,
+  "exactRecoverySelectionDataGatePassed": true,
+  "rejectedMismatchCases": [
+    "selection digest mismatch",
+    "prior actual deadline changed",
+    "reserve stop changed",
+    "old output reused",
+    "old mirror reused"
+  ],
+  "actualDeadlineExpressionCasesPassed": 3,
+  "originalProofDeadlineUtc": "2026-11-16T01:15:36.678788Z",
+  "originalExecutionStopUtc": "2026-11-16T01:12:36.678788Z",
+  "freshDestinationsAbsent": true,
+  "executionFieldsDisabled": true,
+  "retainedStaticAttemptErrors": [
+    {
+      "error": "NameError: REL is not defined",
+      "cause": "Inline eval supplied REL as locals; comprehension requires globals. Check harness corrected, no control change."
+    },
+    {
+      "error": "AttributeError: Constant object has no attribute args",
+      "cause": "Inline AST selector chose initial built=None, not actual built=tree assignment. Check selector corrected, no control change."
+    }
+  ],
+  "scope": "Syntax, exact AST delta, readonly pins, retained row classification and in-memory admission/deadline comparisons. No Product imports, build/test/provider/proof execution; earlier population/source reviews reused."
+}
