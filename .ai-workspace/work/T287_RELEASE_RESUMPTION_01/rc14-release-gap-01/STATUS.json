@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B64_COMPOSITION_ACTOR_RUNNING_S01_COMPLETION_PREPARING",
+  "status": "RC14_B64_COMPOSITION_RUNNING_S01_COMPLETION_AUTHORIZED",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -64,7 +64,7 @@
     "deviation": "F04 discriminator ran twice; retained, no rerun"
   },
   "recordedUtc": "2026-11-15T23:46:44.978702+00:00",
-  "nativeAuthorState": "One B64 genuine-composition test author is actually active through pinned RC13. S01 exact partial is preserved on main; targeted three-file completion controls selected.",
+  "nativeAuthorState": "B64 genuine-composition native author remains active; S01 completion controls accepted and native launch authorized after this exact checkpoint push.",
   "b21Preparation": {
     "state": "FROZEN_PROOF_PASSED_SOURCE_QA_TWO_OWNER_FAILURES",
     "record": "b21-foundation-01/README.md",
@@ -1778,7 +1778,7 @@
     "qualificationPerformed": false
   },
   "s01RootProofGap": {
-    "state": "SOURCE01_PRESERVED_UNACCEPTED_COMPLETION_CONTROLS_PREPARING",
+    "state": "COMPLETION_CONTROLS_ACCEPTED_NATIVE_AUTHORIZED_AFTER_PUSH",
     "record": "integration-01/S01_ROOT_PROOF_GAP_TRIAGE_01.json",
     "candidate02SmokePreserved": true,
     "completeS01": false,
@@ -1812,15 +1812,19 @@
     "methodCompliant": false,
     "nativeReturnedUtc": "2026-11-16T11:00:30.295Z",
     "actorAbsent": true,
-    "next": "Prepare/review narrow source-only successor controls, then real RC13 three-file setup-provenance/capture completion. Later exact installed episode remains separate.",
+    "next": "Separate Operator fixes exact pushed source and launches one RC13 source-only completion; frozen source review and later installed episode remain required.",
     "sourceDisposition": "integration-01/S01_SOURCE01_DISPOSITION_01.json",
     "source01PreservedOnMain": true,
     "preservation": "integration-01/S01_SOURCE01_PRESERVATION_ACTIVATION_01.json",
-    "completionPreparation": "integration-01/S01_COMPLETION_CONTROL_PREPARATION_01.json"
+    "completionPreparation": "integration-01/S01_COMPLETION_CONTROL_PREPARATION_01.json",
+    "completionControlsCommit": "ea06c74e6de4fa458e247fe921b30d3b140fcb91",
+    "completionActivation": "integration-01/S01_COMPLETION_NATIVE_ACTIVATION_02.json",
+    "completionProviderStarted": false
   },
   "s06SuccessorHistoryPreflight": {
     "state": "EXISTING_ROUTE_SUPPORTED_CONDITIONALLY",
     "record": "integration-01/S06_SUCCESSOR_HISTORY_PREFLIGHT_01.json",
     "executionAuthorized": false
-  }
+  },
+  "lastUpdatedUtc": "2026-11-16T16:13:18.190610+00:00"
 }

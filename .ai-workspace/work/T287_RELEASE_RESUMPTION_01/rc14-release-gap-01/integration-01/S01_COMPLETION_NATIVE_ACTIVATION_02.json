@@ -1,0 +1,141 @@
+{
+  "id": "RC14-S01-COMPLETION-NATIVE-ACTIVATION-002",
+  "recordedUtc": "2026-11-16T16:13:18.190610+00:00",
+  "writerActivation": "RC14-ROOT-CANDIDATE02-RECORDS-WRITER-038",
+  "authority": "Owner continue/finish RC14; Root conjoins the two closed frozen-controls frames and selects the four existing S01 test-owned completion findings after checkpoint/push.",
+  "basis": {
+    "definition": "repo://abiogenesis/stdo_abiogenesis.json",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+  },
+  "productFrame": {
+    "outcome": "Fixed5.0 S01/ABI5-ROOT-001 ordered R1-R10 on one exact installed candidate/test/causal episode, independent declarations/input/oracle, genuine selected-definition/request setup authority and ABG admission/replay.",
+    "classification": "Test-owned source completion and derived execution/evidence controls; no Product/runtime/HOW/declaration/export/policy change.",
+    "prohibitions": "No fabricated setup provenance, private implementation import on the root episode path, generic event writer or rival authority, copied stage credit, raw Git, qualification or publication."
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_SOURCE01_DISPOSITION_01.json",
+    "bytes": 7658,
+    "sha256": "f6127933ea5a6bf025b2af9fd75be7a0d7aa97e76cd78680c1d8349e239bdeb8"
+  },
+  "preparationGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S01_COMPLETION_CONTROL_PREPARATION_01.json",
+    "bytes": 7235,
+    "sha256": "f3a3e785fd93eaeb6d09af47f1dbc18ccf5081d6f37f34f89817d3fbc3b27c0a"
+  },
+  "controls": {
+    "commit": "ea06c74e6de4fa458e247fe921b30d3b140fcb91",
+    "tree": "578932306805ea79709bb71df3242260ad315b89",
+    "parent": "d000272aa7dce9df46e3ed8bc3d232dac63cb2f1",
+    "mergeCommit": "a167c9d4ad66d4984d503409c2cfce040e645e11",
+    "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-02",
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-02/CONTROL_MANIFEST.json",
+      "bytes": 5709,
+      "sha256": "8e5f8ba490008dda44cd85d0c1a795ccfa3019e747e44273419c584aabfc4c73"
+    },
+    "manifestMembers": 36,
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s01-root-proof-repair-02/PREPARATION_RETURN.json",
+      "bytes": 6041,
+      "sha256": "0a6390a9567e91893f03ed9b6c4193d4ac3475745e55ab332a9e089e45de2c13"
+    }
+  },
+  "closedReviews": [
+    {
+      "actor": "/root/amendment_topology_review",
+      "frame": "Product/Design/Proof",
+      "verdict": "controls_ready",
+      "finding": "All four findings carried faithfully within three W; independent declarations/input/oracle and supported R7-R10 preserved. Canonical public-setup examples do not license its private module loader. No material blocker."
+    },
+    {
+      "actor": "/root/s01_completion_controls_review",
+      "frame": "Runtime/Integration/Identity/Effect/Proof",
+      "verdict": "controls_ready",
+      "finding": "Actual canonical candidate captured before same-object construction; complete source/context/control/evidence inventories and seven-root recipe; unchanged HOST/seven mechanics; physical observations and runtime/source outcomes unperformed. No material blocker."
+    }
+  ],
+  "rootAcquisition": {
+    "controlRows": 36,
+    "sourceRowsFromMain": 380,
+    "evidenceRows": 26,
+    "historicalFixtureRows": 11,
+    "mismatches": 0,
+    "sourceInputBase": "d000272aa7dce9df46e3ed8bc3d232dac63cb2f1",
+    "tenantTree": "75ffdc4394da72c2962a12baf63f73a9cae04f04",
+    "source01PreservationCommit": "26a7a643de3ab5a56e6a12bc337eb8e8a3528b6a",
+    "sourceAndRawAbsent": true,
+    "reuse": "Closed two-frame verification of unchanged mechanics, method/tool/candidate pins and source bodies; actual current dependencies/native/install/topology remain Operator entry premises."
+  },
+  "operatorActivation": {
+    "id": "RC14-S01-COMPLETION-OPERATOR-002",
+    "actor": "/root/s01_completion_operator",
+    "role": "Separate execution/evidence Operator Writer; actual installed RC13 native Worker alone edits test source.",
+    "sourceWorktree": "/private/tmp/abg-rc14-s01-proof-source-20261117-02",
+    "sourceBranch": "codex/rc14-s01-proof-source-20261117-02",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s01-proof-source-20261117-02",
+    "sourceBinding": "Exact pushed main containing this grant and accepted controls, supplied after direct origin parity. Conserve380rows and reviewed tenant; freeze that commit when later main advances.",
+    "effects": [
+      "Materialize only selected isolated source/branch from supplied pushed commit using SOURCE_MATERIALIZATION.json in sparse-before-read-tree order. Verify all seven root files, exact HEAD/index/tenant/source rows and clean preimage; no source repair on mismatch.",
+      "Create fresh raw/host scratch and empty distinct npm configs. Bind actual exact launch/root grant/manifest/source/push coordinates; exclusive full SOURCE_PREIMAGE via unchanged freeze-source.py; run operate.py exactly once.",
+      "Installed RC13 Public owners alone perform setup/physical observations/canonical actual Task construction and one real native call. Retain actual constructor candidate before passing the same object to its canonical owner.",
+      "Native author may edit only three declared test-owned paths. No author build, behavioral test, Product import/execution, install/pack/dependency change, nested provider or Git mutation; syntax-only checks and complete read-only method/grant/clock/source/evidence acquisition permitted.",
+      "On return verify actual task-matching typed terminal, resource close, same-Run fresh result/closed replay, process absence and custody. Freeze full source postimage/diff/report immediately and notify Root for independent review while completing actual command/content/effect audit.",
+      "Preserve source HEAD/index, all failed attempts, active B64 source/raw/candidate paths and immutable inputs. No proof/repair/retry/main/push/raw Git. Read actual request locations from owner records; no assumed calls/commands directory."
+    ],
+    "bounds": {
+      "providerCallsAtMost": 1,
+      "providerConcurrencyGlobal": 2,
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "nativeAbsoluteMs": 2700000,
+      "nativeInactivityMs": 300000,
+      "maxTurns": 360,
+      "enclosingMs": 10800000,
+      "exitReserveMs": 180000,
+      "retry": false
+    },
+    "entry": "One new source-attempt clock at actual operate.py entry; all old source/control clocks remain closed and unchanged.",
+    "stops": [
+      "First integration/identity/topology/terminal/closure/custody failure retained and returned; no autonomous retry or scope expansion.",
+      "Incomplete source or method deviation returns honestly and never activates proof. Routine read-display or literal editor-selector corrections inside exact granted bytes may proceed with retained observation."
+    ],
+    "returnTo": "Root with exact frozen source and sealed custody/audit; no automatic proof."
+  },
+  "nativeSourceActivation": {
+    "id": "RC14-S01-ROOT-PROOF-NATIVE-002",
+    "role": "Actual installed RC13 native source Worker",
+    "writePaths": [
+      "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+    ],
+    "outcome": "Complete genuine selected-definition/request/call/receipt setup joins and three failure-custody relations in existing preserved S01 source.",
+    "obligations": [
+      "Implement four exact S01_SOURCE01_DISPOSITION findings using existing exported canonical definition/request/call/binding owners. Preserve bounded legacy component fixtures; changing only synthetic hash formulas is insufficient.",
+      "Observe actual raw/publication/Program validation candidates before assertions; preserve available event bytes/read observations before cleanup without claiming partial raw history as admitted closure.",
+      "Preserve unexpected child/parse errors as primary, supported expected-nonzero component behavior, separately retained secondary capture failures surviving the actual reporter and capture-only failure.",
+      "Preserve independent declarations/input/oracle and supported R7-R10; assert genuine setup coordinates at R3. Existing public-setup loader private imports are not permitted on selected root path.",
+      "Acquire complete actual status subprocess exit and parse full JSON before selected-field display; read actual current Root grant/clock, material method and owning source/evidence bodies. Historical truncated status remains noncompliant, not retroactively cured."
+    ],
+    "readAuthority": "Exact TASK/READ_PLAN/ROOT_SELECTION plus canonical causal owner cone and selected immutable method/evidence. Initial context does not narrow necessary read reasoning."
+  },
+  "nativeWritePaths": [
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "dispatchAuthorizedAfterPushedBinding": true,
+  "proofAuthorized": false,
+  "candidateBuildAuthorized": false,
+  "proofBoundary": "Unchanged prove.py is authenticated HOST input only and must not execute. Later separate grant selects eventual exact accepted successor archive/fresh source-blind install, one whole installed-language episode with fresh absolute ABI5_S01_EPISODE_CAPTURE_ROOT and complete manifest plus bounded failure-custody discriminators.",
+  "preservation": [
+    "RC13 remains pinned unqualified builder.",
+    "All prior source/native attempts, clocks, original failures and method deviations retain exact historical standing.",
+    "B64 active fixed checkout/raw protected; no stationary reads or adoption.",
+    "No B50 policy, qualification, AF25, publication, global pin or raw Git change."
+  ],
+  "qualified": false,
+  "rawPublished": false
+}
