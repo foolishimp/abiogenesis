@@ -1,0 +1,18 @@
+{
+  "kind": "pure_caller_contract_preparation",
+  "sourcePrefix": true,
+  "publicRun": true,
+  "unchangedWorkspaceAuthority": true,
+  "historicalBasisReferences": 3,
+  "publicExports": true,
+  "witnessRepriceContract": true,
+  "sourceJobCanonical": true,
+  "standardMembers": 2,
+  "rootReviewBytes": 14328,
+  "resourceOpened": false,
+  "publicOperation": false,
+  "provider": false,
+  "tool": false,
+  "actualFutureCallConstruction": "Deferred to genuine new binding/admission; no mock environment constructed",
+  "qualified": false
+}

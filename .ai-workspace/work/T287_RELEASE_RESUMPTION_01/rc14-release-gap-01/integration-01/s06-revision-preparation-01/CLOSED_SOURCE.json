@@ -1,0 +1,73 @@
+{
+  "kind": "closed_s06_adverse_source",
+  "sourceRun": {
+    "ref": "run://abiogenesis/c89f6771d3efeed0d4c840b74acbf1a29be01e18d09c4166825f8e5f04a166bf",
+    "digest": "sha256:cfd5f732891500e138ebac6260b5a38efbebca277cc5158019c71244355ec2b0"
+  },
+  "sourcePrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/Library/Application%20Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+    "prefixLength": 9395463,
+    "prefixDigest": "sha256:1046007404641b741b4943cf58503358e19f27eeaec311301e52006a8d34d45d",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 893980299,
+      "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+    },
+    "coordinateDigest": "sha256:52cc3212c0c799718110b32096dc2bbb58fba183b91f5a733ec3d2170a748b86"
+  },
+  "workspaceRoot": "/private/tmp/abg-rc14-s06-witness-20261116-04",
+  "actorRef": "actor://abi5-tests/sandbox-uat/rc14-s06-witness-20261116-04",
+  "historicalBasisRefs": [
+    "execution-basis://abiogenesis/38cf2469ada4bf75a8c596a3e1e12cd7ced546f004f37ee60d012e7972599706",
+    "execution-basis://abiogenesis/407756c5971e874a74f003da8fbbdc00d59a71241338eea81fa0f3a365cce7ce",
+    "execution-basis://abiogenesis/5f4ef1c511ebc3faf309f14cb24e2a53086adedd3e2b44f28b3facfcd8a24bf6"
+  ],
+  "parent": {
+    "admissionOrdinal": 30,
+    "aggregateId": "c-call:sha256:48c95a385c34de9e52940850593bb1be85eb5713cf732ad57871a3ecaaafe528",
+    "basisId": "execution-basis://abiogenesis/407756c5971e874a74f003da8fbbdc00d59a71241338eea81fa0f3a365cce7ce",
+    "eventId": "event://abiogenesis/e66e8947e54a12b0ee395b3aa65b49bdc45a8bdc85821767de7efb64c5cc0596"
+  },
+  "cause": {
+    "admissionOrdinal": 505,
+    "aggregateId": "c-call:sha256:bb15f3124ded3716a8a81ee5fb79c34cd968e1103fc52ba91a0cc7fb14b4e421",
+    "basisId": "execution-basis://abiogenesis/38cf2469ada4bf75a8c596a3e1e12cd7ced546f004f37ee60d012e7972599706",
+    "eventId": "event://abiogenesis/a4f158f819b9bcf1e357e93aa128a7ecdc73c848e2670a82a09c155f5c23379a"
+  },
+  "eventLog": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events/runtime.events.jsonl",
+    "bytes": 9395463,
+    "sha256": "1046007404641b741b4943cf58503358e19f27eeaec311301e52006a8d34d45d"
+  },
+  "closeReceipt": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/d1/session-close.json",
+    "bytes": 2252,
+    "sha256": "340a5696c8b0c511affa9b7c951af0acd7123b0edf6e1d394c194c7af1136324"
+  },
+  "identity": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/setup/setup-identity.json",
+    "bytes": 9660711,
+    "sha256": "2edaf4ceecc5dd0694adf830cecd29b176a05902ba8d8ba44f9923d99c345523"
+  },
+  "workspaceManifest": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/setup/workspace-manifest.json",
+    "bytes": 1529,
+    "sha256": "a8dca8d92d22559d87fa474b7745cd82678f8b5f7a87130462b495ae4dee6a86"
+  },
+  "originalInput": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/d1/input.json",
+    "bytes": 209179,
+    "sha256": "339a7a8dd22394f00acedb7a92e97a1c4b5600ff16efbfe2036dbf0c6eb9764e"
+  },
+  "oldReturn": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/OPERATOR_RETURN.json",
+    "bytes": 74401,
+    "sha256": "4b5f2556ab4c81fae4a70768fb4f493d24d2d7cc5f40b17753c7ade99b11c2c9"
+  },
+  "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04",
+  "bindingRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04",
+  "acceptedStages": 0,
+  "runtimeAuthorized": false
+}

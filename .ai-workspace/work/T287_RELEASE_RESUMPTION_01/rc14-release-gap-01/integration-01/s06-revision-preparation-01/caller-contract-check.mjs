@@ -1,0 +1,21 @@
+// Pure installed-contract/source-coordinate inspection. Never opens a resource.
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {join,relative,isAbsolute} from 'node:path';
+import {pathToFileURL,fileURLToPath} from 'node:url';
+import {closedSource,sourcePins,pinnedJson,contextInputs} from './revision-source.mjs';
+const root=sourcePins.candidatePackageRoot,pkgPath=join(root,'package.json'),pkg=JSON.parse(await readFile(pkgPath,'utf8'));
+const load=async key=>{const target=pkg.exports['./'+key].import;assert(target.startsWith('./'));const url=new URL(target,pathToFileURL(pkgPath));const rel=relative(root,fileURLToPath(url));assert(rel&&!isAbsolute(rel)&&rel!=='..'&&!rel.startsWith('../'));return import(url.href);};
+const [product,abg,api]=await Promise.all(['product','abg','public'].map(load));
+for(const key of ['readRuntimeEventsAtDurablePrefix','selectValidatedRuntimeEventPrefix','rehydrateExecutionBasisAtPrefix','acquireAbgEventResource','closeAbgEventResource'])assert.equal(typeof abg[key],'function',key);
+for(const key of ['isSemanticRevisionRequest','isSemanticJobRevisionEnvelope','isSemanticJobEnvelope','isSemanticJobInput','constructRunEnvironmentResources'])assert.equal(typeof product[key],'function',key);
+assert.equal(typeof api.constructInstalledStartCall,'function');
+assert(abg.WITNESS_OPERATION_CONTRACTS.admit.reprice&&abg.WITNESS_CONTENT_CONTRACTS.reprice);
+assert.equal(abg.validateDurablePrefixCoordinate(closedSource.sourcePrefix),true);
+const input=await pinnedJson(closedSource.originalInput);assert.equal(product.isSemanticJobInput(input),true);
+const close=await pinnedJson(closedSource.closeReceipt),identity=await pinnedJson(closedSource.identity),prior=await pinnedJson(closedSource.oldReturn);
+assert.deepEqual(close.closeHandoff.prefix,closedSource.sourcePrefix);assert.deepEqual(prior.runtime.run,closedSource.sourceRun);
+assert.equal(identity.workspaceAuthority.authorizedActorRef,closedSource.actorRef);assert.equal(identity.workspaceAuthority.canonicalRoot,closedSource.workspaceRoot);
+assert.equal(closedSource.historicalBasisRefs.length,3);assert.equal(new Set(closedSource.historicalBasisRefs).size,3);
+const context=await contextInputs();assert.equal(context.standards.length,2);assert(context.review.bytes.length>0);
+console.log(JSON.stringify({kind:'pure_caller_contract_preparation',sourcePrefix:true,publicRun:true,unchangedWorkspaceAuthority:true,historicalBasisReferences:closedSource.historicalBasisRefs.length,publicExports:true,witnessRepriceContract:true,sourceJobCanonical:true,standardMembers:2,rootReviewBytes:context.review.bytes.length,resourceOpened:false,publicOperation:false,provider:false,tool:false,actualFutureCallConstruction:'Deferred to genuine new binding/admission; no mock environment constructed',qualified:false}));

@@ -1,0 +1,95 @@
+{
+  "kind": "prospective_layout_shape_only",
+  "actualProducerEvaluated": true,
+  "runtimeEnvironment": false,
+  "physicalObservation": false,
+  "scope": "Paths derived from the selected setup producer and exact package names; future actual owner roots replace this static model",
+  "counts": [
+    {
+      "role": "planned-operator",
+      "writePaths": 6,
+      "protectedRoots": 32,
+      "counted": 40,
+      "bound": 64
+    },
+    {
+      "role": "planned-tool",
+      "writePaths": 1,
+      "protectedRoots": 31,
+      "counted": 34,
+      "bound": 64
+    },
+    {
+      "role": "operator-custody",
+      "writePaths": 6,
+      "protectedRoots": 32,
+      "counted": 40,
+      "bound": 64
+    },
+    {
+      "role": "runtime-owner",
+      "writePaths": 6,
+      "protectedRoots": 38,
+      "counted": 46,
+      "bound": 64
+    },
+    {
+      "role": "consumer-tool-state",
+      "writePaths": 1,
+      "protectedRoots": 38,
+      "counted": 41,
+      "bound": 64
+    }
+  ],
+  "completeWritePaths": [
+    "/private/tmp/abg-rc14-s06-witness-20261116-04/application",
+    "/private/tmp/abg-rc14-s06-witness-20261116-04/semantic-assets",
+    "/private/tmp/abg-rc14-s06-witness-20261116-04/evidence",
+    "/private/tmp/abg-rc14-s06-witness-20261116-04/source/d2-input.json",
+    "/private/tmp/abg-rc14-s06-witness-20261116-04/source/d2-rubric.md",
+    "/private/tmp/abg-rc14-s06-witness-20261116-04/source/d1-admitted-source.json"
+  ],
+  "completeProtectedUnion": [
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-public-setup-20261116-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/resources/archives",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/resources/projections",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/resources/runtime",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/sandbox/installed/abg",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-adverse-revision-20261116-01/witness/sandbox/installed/test-consumer/node_modules/@abiogenesis-fixtures/registered-selection",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-binding-20261116-04",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/FREEZE_RETURN.json",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-01/frozen",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/preflight-01/RETURN.json",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-toolchain-20261115-03/preflight-01/SELECTED_CLOSURE.json",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-03",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04",
+    "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/witness/resources/events",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.13",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.14",
+    "/Users/jim/Library/Application Support/STDO/releases/v3.0.4",
+    "/Users/jim/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.12/scala-library-2.13.12.jar",
+    "/Users/jim/src/apps/abiogenesis",
+    "/Users/jim/src/apps/odd_glc",
+    "/Users/jim/src/apps/odd_sdlc",
+    "/opt/homebrew/Cellar/openjdk@11/11.0.28/libexec/openjdk.jdk/Contents/Home",
+    "/opt/homebrew/Cellar/sbt/1.11.7",
+    "/opt/homebrew/lib/node_modules/npm",
+    "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+    "/private/tmp/abg-rc14-s06-preparation-20261116-03",
+    "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03",
+    "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01",
+    "/private/tmp/abg-rc14-s06-witness-20261116-03",
+    "/private/tmp/as6j2",
+    "/private/tmp/as6r2"
+  ],
+  "observerUnchanged": true,
+  "qualified": false
+}

@@ -1,0 +1,11 @@
+{
+  "kind": "external_control_preparation",
+  "activation": "RC14-S06-ADVERSE-REVISION-PREPARATION-WRITER-039",
+  "startedUtc": "2026-11-16T05:49:11.503463Z",
+  "deadlineUtc": "2026-11-16T07:19:11.503463Z",
+  "base": "5eb09d25245eb5954a2b1274fe87450d8853b62f",
+  "tree": "6a3679e889cabb410f5a19a669f77c4cb7530e3a",
+  "runtimeAuthorized": false,
+  "providerAuthorized": false,
+  "qualification": false
+}

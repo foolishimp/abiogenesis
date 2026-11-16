@@ -1,0 +1,100 @@
+{
+  "id": "RC14-S06-ADVERSE-REVISION-PREPARATION-WRITER-039",
+  "recordedUtc": "2026-11-16T05:47:14.740829+00:00",
+  "role": "Separate external S06 control Writer; no runtime/Provider effects",
+  "actor": "/root/b29_vm_triage",
+  "authority": "Owner continue/finish RC14; Root conjoined closed Product/Design and Runtime/Integration reviews in S06_FOURTH_FAILURE_REVISION_DISPOSITION_01.json. This activation is effective after checkpoint/push.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "frameURI": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "purpose": "Prepare the smallest caller/declaration adaptation for actual adverse Intent revision, preserving all S06 proof and candidate bytes.",
+  "subject": {
+    "mainBase": "5eb09d25245eb5954a2b1274fe87450d8853b62f",
+    "candidate": {
+      "sourceCommit": "0ecd287bcf50c5f967b1a34a9a5fdbe06d16cd6a",
+      "sourceTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+      "compileInputTree": "766e2876fc60fa4e693e3b99846d76ff4af949df",
+      "archivePath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/abiogenesis-typescript-tenant-5.0.0-rc.14.tgz",
+      "archiveSha256": "sha256:be6f0ccd7111fffb41675e0a1440abe4094aca32f12552457680d78e8b97cb65",
+      "bootstrapPackageRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-install-20261116-02/records/bootstrap/package",
+      "manifestSha256": "433cdf46f2c2ea0731e49499f731045bc81eb8eed8237ef4ce11010d764cce4e",
+      "packageVersion": "5.0.0-rc.14",
+      "cutRecordPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/CUT_RECORD.json",
+      "cutRecordSha256": "f7aa025826e6732726bf8aedac3ed8305ece21ede83e5ebfc5bc8d321f9388aa",
+      "archiveMembersPath": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-build-20261116-02/candidate/ARCHIVE_MEMBERS.json",
+      "archiveMembersSha256": "6fbf0d20f29ae5515896455599f50e2f582a2ccbcb5eb7590c0bfb60ab5a7f60"
+    },
+    "C1": {
+      "C1Commit": "b2efe27ec9b7e5e2da3b13a926a646528f1cf09c",
+      "C1Tree": "22eed3693976419c6ed63117756294001096a280",
+      "sourceRoot": "/private/tmp/abg-rc14-candidate-metadata-20261116-03",
+      "freeze": {
+        "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-candidate-metadata-20261116-03/FREEZE.json",
+        "bytes": 4619,
+        "sha256": "f65eed415da5b31978ffb6fac9f8c2264c5ac554c65c560547e49b1ad51dfc62"
+      },
+      "rootAcceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/CANDIDATE02_C1_FREEZE_ACCEPTANCE_01.json",
+        "bytes": 3979,
+        "sha256": "b39e546d86be9b41ea96f8cf10cea63391bf4988c93f0ecc4d6cc28b672f1c31"
+      }
+    },
+    "acceptedControlSource": {
+      "root": "/private/tmp/abg-rc14-s06-preparation-20261116-03/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03",
+      "commit": "6f4c3777cee044a7a9c3de23e18cb7ed3ac4f188",
+      "manifestSha256": "b753febcd89ec78742117fe3abd20da47df49363766901b908f283b59ab7de61",
+      "returnSha256": "4f02b3f63e998b8a6926b8cbd3d2d258d69355c68f285f2dcc2b70a2d24486ac"
+    },
+    "closed04Return": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-s06-witness-20261116-04/OPERATOR_RETURN.json",
+      "bytes": 74401,
+      "sha256": "4b5f2556ab4c81fae4a70768fb4f493d24d2d7cc5f40b17753c7ade99b11c2c9"
+    },
+    "rootDisposition": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/S06_FOURTH_FAILURE_REVISION_DISPOSITION_01.json",
+    "mainTree": "6a3679e889cabb410f5a19a669f77c4cb7530e3a"
+  },
+  "worktree": "/private/tmp/abg-rc14-s06-revision-preparation-20261116-01",
+  "outputRoot": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-revision-preparation-01",
+  "sourceRoutes": [
+    "specification/PRODUCT.md:825-860,1480-1498",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts:209-280",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts:139-211",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts:230-240",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts:218-223,707-710,1043-1044",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts:56-108",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/HOST.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/declarations.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/s06-preparation-03/c2-evidence.mjs"
+  ],
+  "permittedEffects": [
+    "Create one isolated preparation worktree/branch from the exact checkpoint and only the named new control carrier; preserve all existing worktrees and unrelated files.",
+    "Reuse accepted controls and canonical installed contracts. Change only external declaration/caller/binding/preflight/evidence consumers needed for the authenticated adverse revision route and its exact custody. Source/code inspection is read-only; no ABG tenant source/test/design changes.",
+    "Create compact authored control/design/manifest/Return records, run bounded non-runtime syntax/type/Program/environment validations using existing canonical libraries, and commit only named preparation source/records on its branch. Root handles main integration/push. No model call is selected."
+  ],
+  "exclusions": [
+    "No Runtime Public operation, setup/install/materialization, event-resource reopen/append, actor/provider/Tool invocation, semantic asset repair, candidate rebuild or qualification.",
+    "No writes to failed04/03 worksite/raw/binding/resource/install roots; planned future effects must be explicitly described for Root review.",
+    "No manufactured evidence/verdict/cause/selection, weakened oracle, copied contract shapes, hidden prompt override, native source credit transplant, duplicate broad campaign or raw Git.",
+    "No deletion/cleanup of old worktrees or retained evidence."
+  ],
+  "requirements": {
+    "deriveFrom": "Root disposition and exact closed04 coordinates, never run-segment digest as Public Run digest.",
+    "roleCoverage": "Canonical exact actual selected Program graph/locus coverage; bind only required Programs/roles and complete C2 route.",
+    "proofCapacity": "Inspect actual closed_prompt_proof owners and declared prompt/output/actor limits. Do not assume initial native-work limits or the amendment prompt cap apply. Report sufficiency and unsupported unknowns; do not weaken safeguards.",
+    "bindingCover": "If new consumer binding is needed, prepare existing Public witness.admit#reprice for exact old/new bindings and all required historical bases. Preserve same workspace authority, actor and effect meaning.",
+    "resourceCustody": "Prepare exact old close-handoff reopen; prefix conservation plus external exact closed-prefix snapshot and named new append-only owner territories. No copying history to forge new authority.",
+    "terminal": "Authenticate complete semantic_revision_envelope and preserve cause/history. Use existing owner-defined .current projection for D1/C2 and subsequent D2 consumers, keeping original requirements/assertions.",
+    "reviewContext": "Use an existing declared, source-linked context route for Root semantic review only if supported. Otherwise report limitation. No invented fields or caller-selected semantic verdict.",
+    "stops": "First construction/type/validation mismatch, missing lawful relation, scope or custody conflict returns to Root with evidence; no alternate unreviewed route."
+  },
+  "designRecord": "Reuse original sequence diagram with a compact revision delta and typed handoffs; name exact future effects and preflight/end-to-end exits. No new schema or mechanism.",
+  "preparationBoundMs": 5400000,
+  "clock": "Begin one actual90-minute preparation clock when this pushed grant is acquired; include validation and Return. No clock for a future runtime is started by this preparation. Existing04 remains closed; any proposed execution uses original13:03Z work enclosure unless separately repriced.",
+  "return": "Frozen control commit/tree/manifest, changed-file inventory, canonical Program/environment/call construction evidence, exact proposed effects/topology and binding-cover/acquisition phases, capacity and role context findings, original preparation clock, retained unknowns. Do not launch a Reviewer or runtime.",
+  "sourceImplementationProtocol": "Only external controls/configuration are selected. Any discovered ABG source repair returns for separate owning HOW and installed-RC13-native authorization.",
+  "runtimeAuthorized": false,
+  "providerAuthorized": false,
+  "qualified": false
+}

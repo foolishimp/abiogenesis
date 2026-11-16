@@ -1,0 +1,228 @@
+{
+  "kind": "s06_adverse_revision_external_preparation",
+  "baseCommit": "5eb09d25245eb5954a2b1274fe87450d8853b62f",
+  "predecessor": {
+    "commit": "6f4c3777cee044a7a9c3de23e18cb7ed3ac4f188",
+    "manifestSha256": "b753febcd89ec78742117fe3abd20da47df49363766901b908f283b59ab7de61"
+  },
+  "controls": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 9302,
+      "sha256": "53c8f8f343f60d525ebcd2db5be8d198c5c8873d50656241c0b8b86dc9ffcc2d"
+    },
+    {
+      "path": "BINDING.template.json",
+      "bytes": 8592,
+      "sha256": "33fb20efe6e5713d394341661d5c37300d3abfb6c6d2a0299a15ba75033904ce"
+    },
+    {
+      "path": "CALLER_CONTRACT_VALIDATION.json",
+      "bytes": 535,
+      "sha256": "0bbdd21b3a18318c0e42ce9650fcf0b25a1a856a64f271fc5e828e63d413d762"
+    },
+    {
+      "path": "CANONICAL_VALIDATION.json",
+      "bytes": 9861,
+      "sha256": "cfd2ee14ef2417ff9a8b3c5ef900c650d8ecaaa2312b78f748069d4ac6187f9d"
+    },
+    {
+      "path": "CLOSED_SOURCE.json",
+      "bytes": 4034,
+      "sha256": "e77f494e295966f57d1edf43e73e7803d687bff92190171fd3fb94ab24b598e8"
+    },
+    {
+      "path": "CONSERVATION_VALIDATION.json",
+      "bytes": 2930,
+      "sha256": "78cc71c58d70f790ac2c2d84158e84828f2e3a690d4902e7b83cb901bfcbbc64"
+    },
+    {
+      "path": "CONTROL_DELTA.json",
+      "bytes": 3882,
+      "sha256": "cf29e0bf00017369813958779943bf8ff1f16cbad82b934bc085b04f7fd00f2b"
+    },
+    {
+      "path": "D2_RUBRIC.md",
+      "bytes": 1095,
+      "sha256": "58c6a122daeb6c14e74b5ef49f7deb7f368b2b56c07c7b4e54153930b240643e"
+    },
+    {
+      "path": "DESIGN.md",
+      "bytes": 8622,
+      "sha256": "13a15ed6b92689c9a51542b582713705e5f4acc6d5e47460804ea1b769fa3716"
+    },
+    {
+      "path": "HOST.mjs",
+      "bytes": 28324,
+      "sha256": "3d53af45ce4686da76644b212c6c2a95c37e7d369211c5c754d142b058cf3dbd"
+    },
+    {
+      "path": "INPUTS.json",
+      "bytes": 17655,
+      "sha256": "9a9744c9cc6522ad95b298b5fa76b686a2f75f6cca3f12ec7ac0ca2284ab3673"
+    },
+    {
+      "path": "INPUT_PINS.json",
+      "bytes": 2726,
+      "sha256": "e63e2622cb0327bdd31f8d85bee5538fbbaaf1dfa18e9bfaa058f6be91ede7f2"
+    },
+    {
+      "path": "LAYOUT_SHAPE_VALIDATION.json",
+      "bytes": 5574,
+      "sha256": "4241f230cecc95ac2d2f203e34c3e281cb1a41ab3e9a5c59a053e556da303344"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1788,
+      "sha256": "f4955741da9b3d8c7af417095e26e23d4e6b90b36f09f48b5f2d85862a239df8"
+    },
+    {
+      "path": "START.json",
+      "bytes": 403,
+      "sha256": "d999ac79f9f5161e404bbc4d56871a876f79d1a73c1d8ecd76c7f502dc739d22"
+    },
+    {
+      "path": "TOOLCHAIN.json",
+      "bytes": 4844,
+      "sha256": "7fb0213fb32ea8170f0c89fbaabd691400b8c9f613cf7b457bf59d77ff805db3"
+    },
+    {
+      "path": "WORKSITE_CLOSED.json",
+      "bytes": 6724,
+      "sha256": "4ff8d36240857f184630c40a7cbc146a5085e19abbdf3c8da512eb546b87aeb5"
+    },
+    {
+      "path": "bounded.py",
+      "bytes": 4206,
+      "sha256": "5800a19cfacef6c87ee28b78871f6bd7427327d7fa60b6bfd6ee140b194121a2"
+    },
+    {
+      "path": "c2-evidence.mjs",
+      "bytes": 8532,
+      "sha256": "97b4550e453b632ded002177c414548fde3fbddfa1c8e16b6e5940982f0bfb44"
+    },
+    {
+      "path": "caller-contract-check.mjs",
+      "bytes": 2844,
+      "sha256": "78d4d32196d01acedaef69bcd8c43d614a090d9b9a7a4fad0801bc176146d863"
+    },
+    {
+      "path": "canonical-check.mjs",
+      "bytes": 6454,
+      "sha256": "5ab716daa2691fc7a7550e0232588f26506dcc3cff057f09fdfa6914063c6f0e"
+    },
+    {
+      "path": "command-owner.py",
+      "bytes": 664,
+      "sha256": "ad26e04344dd738384a24d753ed67f67eb572dfda5f5187f5123774ecb0d496a"
+    },
+    {
+      "path": "consumer.mjs",
+      "bytes": 7200,
+      "sha256": "c0ad0a62949a54cf770b9e29884d559214f2aebbd7f27a1801fb62ab4a91f2cc"
+    },
+    {
+      "path": "declarations.mjs",
+      "bytes": 7122,
+      "sha256": "86ed31d5187f46f4fed9b52288a4acee1c09f03223bd5b8375fc50047f8f8834"
+    },
+    {
+      "path": "inputs.mjs",
+      "bytes": 13095,
+      "sha256": "5a82c88ffc946d9593ddef71e686e48b5af0e986371f350b17cca26c6134e87c"
+    },
+    {
+      "path": "layout-shape-check.mjs",
+      "bytes": 3549,
+      "sha256": "7f334993179e10b16c85dd14e4817cf81fa74aaf79040dc835ffa16e7bdd71f5"
+    },
+    {
+      "path": "npm-global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "npm-user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "observe.py",
+      "bytes": 6318,
+      "sha256": "af9527ab1e00c173aceb009ab4e09eae2e2fdf6181d18b406746ea9535f17f58"
+    },
+    {
+      "path": "physical-topology.py",
+      "bytes": 14764,
+      "sha256": "eb5d0028cf7cb27d233c4512a57882785698c301ba83575396c3fc9eb045fc31"
+    },
+    {
+      "path": "revision-custody.py",
+      "bytes": 3779,
+      "sha256": "64c125116f7c200347b60059c0ad6f7158cc8e493a03b4c3d3412103ea9f438b"
+    },
+    {
+      "path": "revision-source.mjs",
+      "bytes": 5876,
+      "sha256": "a3974591b0276e507a2e2a665b5e213469f93a6a0908682d44d9d75ebb6685e9"
+    },
+    {
+      "path": "run.py",
+      "bytes": 11659,
+      "sha256": "10dda58189a897ae7c60fa8e7a2ae5f5367fc56e83d22556b2ee79f4a57242a4"
+    },
+    {
+      "path": "setup.mjs",
+      "bytes": 20793,
+      "sha256": "795ca36c6bd9121afdc1302b01f55fe7901c05058588118b043cf44a31daf9ac"
+    },
+    {
+      "path": "tool-launcher.py",
+      "bytes": 15213,
+      "sha256": "16c83f445c4378f2e465e93662dff5147350d196732eb93b3b87c796714faf05"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 42204,
+      "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 39738,
+      "sha256": "9bb83493f9bd34691dda02bb48f864d04b57f302edbdd39f2964f3857e59ab71"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "bytes": 7508,
+      "sha256": "0e046834271851dcb50ce16d7272290b47294a73dc18cd4b394fe5995102a47e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/amendment-witness.mjs",
+      "bytes": 17077,
+      "sha256": "2c3de69d59284b474aa613d941627922b05786aa77f15271653c7c4d1951c99b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product/index.mjs",
+      "bytes": 730,
+      "sha256": "e8cde80b6ca3093f65857eac23fa6969260567f1220f705f9ac5ca316e089c41"
+    }
+  ],
+  "derivedReturnsExcludedFromControlSet": [
+    "PREPARATION_RETURN.json",
+    "STATIC_CHECKS.json"
+  ],
+  "tenantChanges": false,
+  "runtimeAuthorized": false
+}
