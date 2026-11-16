@@ -1,5 +1,5 @@
 {
-  "status": "RC14_B56_PROOF03_ACTIVE",
+  "status": "RC14_B56_FIXTURE05_PREPARING_AFTER_PROOF03",
   "amendmentWitness01": {
     "state": "CLOSED_BEFORE_SMOKE_EXTERNAL_TOPOLOGY_FAILURE",
     "returnCommit": "64d1ab6d36821fd4e09db9c631b83999f52ddc16",
@@ -719,7 +719,7 @@
     "readOnlyOriginatingCauseTriage": "closed",
     "oldSecondFailure": "Preserved Darwin Unix pathname overflow; short-path successor closed green"
   },
-  "updatedUtc": "2026-11-16T00:26:36.861031+00:00",
+  "updatedUtc": "2026-11-16T00:41:44.381007+00:00",
   "peerDiagnostic03": {
     "acceptance": "integration-01/PEER_DIAGNOSTIC03_ACCEPTANCE.json",
     "closure": "integration-01/PEER_DIAGNOSTIC03_CLOSURE.json",
@@ -1259,9 +1259,9 @@
     "reportedListCostUsd": 6.576858
   },
   "b56ProofRecovery": {
-    "state": "PROOF03_ACTIVE",
+    "state": "PROOF03_CLOSED_FIXTURE05_PREPARING",
     "selection": "integration-01/B56_NATIVE04_SOURCE_RECOVERY_AND_PROOF_REENTRY_01.json",
-    "proofAuthorized": true,
+    "proofAuthorized": false,
     "newNativeAuthorized": false,
     "originalDeadlineUtc": "2026-11-16T01:47:31.946547Z",
     "controlCommit": "54be8761b9b660bf7d81b7df3234b2995c72b596",
@@ -1276,7 +1276,7 @@
     "driverPid": 46403,
     "providerCalls": 0,
     "proof01Disposition": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_PROOF01_DISPOSITION_AND_CONTROL02_SELECTION.json",
-    "current": "Actual bounded topology passed61leaves/489pairs; fresh build passed25390ms; focused dependency selection exited0. Remaining selected proof runs; no proof/qualification closure yet.",
+    "current": "Installed coincident/split dependency proof passes. Native-workspace15cases share source-proven fixture Program/positional graph mismatch. One-file native repair preparation selected; no Product source change or new execution yet.",
     "proof01HistoricalAuthorized": true,
     "proof01DriverGroupAbsent": true,
     "proof01TestSelectionsRun": 0,
@@ -1294,6 +1294,22 @@
     "deferredDiagnosticDebt": "RC14-B56-PROOF-SECONDARY-CAPTURE-001",
     "proof03ActualStartedUtc": "2026-11-16T00:25:37.735747+00:00",
     "proof03DriverPid": 71361,
-    "proof03Launch": "integration-01/B56_RECOVERED_PROOF_LAUNCH_03.json"
+    "proof03Launch": "integration-01/B56_RECOVERED_PROOF_LAUNCH_03.json",
+    "proof03ClosedUtc": "2026-11-16T00:28:33.544868Z",
+    "proof03ReturnCommit": "643e4dc0302d9104244d8c90a4359de2a6aecc72",
+    "proof03Outcome": {
+      "focusedPasses": 1,
+      "installedPasses": 2,
+      "nativePasses": 28,
+      "nativeFailures": 15,
+      "remainingSelectionsUnrun": 3,
+      "conservation": 12,
+      "groupsAbsent": 7
+    }
+  },
+  "b56Fixture05": {
+    "selection": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/B56_PROOF03_CONJUNCTION_AND_FIXTURE05_SELECTION.json",
+    "executionAuthorized": false,
+    "state": "CONTROL_PREPARATION"
   }
 }
