@@ -1,0 +1,129 @@
+{
+  "id": "RC14-B56-RECOVERED-PROOF-ACTIVATION-02",
+  "recordedUtc": "2026-11-16T00:06:13.622337+00:00",
+  "writerActivation": {
+    "id": "RC14-ROOT-B56-PROOF-RECORDS-WRITER-032",
+    "role": "Separate Root records/integration Writer",
+    "authority": "Owner continue/finish RC14; exact B56_PROOF01_DISPOSITION_AND_CONTROL02_SELECTION and both closed independent control02 reviews.",
+    "effects": [
+      "Record this exact accepted successor, finite Operator grant, actual start/return/triage and current T287/T293/STATUS.",
+      "Integrate frozen external controls13ca1cf72 and compact authored Returns; checkpoint and push exact authored records/controls."
+    ],
+    "exclusions": [
+      "No semantic source edit, audit rewrite, raw data in Git, unselected native/candidate execution, automatic retry, clock extension or qualification claim."
+    ]
+  },
+  "productFrame": {
+    "basis": "stdo://releases/v3.0.4/",
+    "outcome": "Fixed5.0 F04/F17/S06 affected mechanical source/installed dependency proof under unchanged runtime authority.",
+    "classification": "External proof execution over independently recovered exact source; not compliant-native-authorship or qualification.",
+    "selection": "integration-01/B56_PROOF01_DISPOSITION_AND_CONTROL02_SELECTION.json"
+  },
+  "acceptedControls": {
+    "commit": "13ca1cf72fced938dde89e83aa76f0de10f336af",
+    "tree": "86414fe0076a5e5d2bc2a82c40d03ddc8b550080",
+    "root": "/private/tmp/abg-rc14-assessment-dependency-proof-controls-20261116-02/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc14-release-gap-01/integration-01/assessment-dependency-proof-recovery-02",
+    "manifestMembers": 22,
+    "manifestSha256": "64751b8f6649365716441e43f198bd981faf45eec1a78ac5d26eebd413d778de",
+    "returnPath": "PREPARATION_RETURN.json",
+    "returnSha256": "69c002d9a8dff7e30d57dcc6e28dde5ffd4129444e1ee495a9c706a6e1ead99e"
+  },
+  "nativeControls": {
+    "commit": "e00aa6668e37f336464aed21079c87b91bb5cf6d",
+    "members": 35,
+    "manifestSha256": "7063325b879e1d6c12d3d7dcab2dff423a16cfe237b094722c0589a2cf15d452",
+    "identity": "Original native manifest/launch unchanged; never relabeled as successor proof controls."
+  },
+  "independentReviews": {
+    "ProductIdentityMethod": {
+      "actor": "/root/amendment_topology_review",
+      "disposition": "Satisfied exact control successor; no material counterexample.",
+      "verified": [
+        "Exact commit/tree,22members,15recovery/prior-attempt pins and14byte-equal inherited files.",
+        "Only exact generated graph allowed during build; complete post-build and through-tests custody includes graph.",
+        "Native04 residuals/source identity and first failed proof retained; prior START enforces original deadline and reserve.",
+        "Entire finalizer AST unchanged, no source/population/owner semantic change; recorded static cases inspected without duplicate execution."
+      ]
+    },
+    "ProofEffect": {
+      "actor": "/root/b29_vm_triage",
+      "disposition": "Accept bounded control delta; no actionable counterexample.",
+      "verified": [
+        "Manifest22 and Return exact; full build/post-test inventories include graph.",
+        "Fresh proof02/mirror05 absent; proof01 START/Return/difference authentic and protected, no retained build credit.",
+        "min(enclosing,requested,prior_end) caps execution01:12:36.678788Z/finalization01:15:36.678788Z.",
+        "Source/recovery/completion/population predicates, process runner, test loop and entire finalizer unchanged by AST;14inheritedfiles byte-equal."
+      ]
+    }
+  },
+  "rootChecks": {
+    "successorManifestMembers": 22,
+    "manifestMismatches": 0,
+    "cleanFrozenControlWorktree": true,
+    "reviewedDelta": "Exact generated graph build allowance, prior-proof pins/deadline cap and fresh coordinates only.",
+    "futureProofRootAndSubjectAbsent": true,
+    "diffWhitespaceCheckPassed": true
+  },
+  "operatorActivation": {
+    "id": "RC14-B56-RECOVERED-PROOF-OPERATOR-002",
+    "actor": "/root/rc14_release_proof",
+    "role": "Separate bounded proof execution/evidence Writer",
+    "sourceHead": "06f1ea2c66f36a1785ff5ffe279bf4a3a29dff7a",
+    "sourceWorktree": "/private/tmp/abg-rc14-assessment-dependency-source-20261116-04",
+    "rawRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04",
+    "proofRoot": "/Users/jim/Library/Application Support/ABIogenesis/development-runs/rc14-assessment-dependency-20261116-04/proof-02",
+    "proofSubject": "/private/tmp/abg-rc14-assessment-dependency-proof-20261116-05",
+    "sourceStanding": "Original04frozen postimage, exact reviewed test9fef11e5ac9201f154922d03346e33d06ed8c79531d0ebea3b389afbc738f185; all7earlier source inputs conserved. Main recovery checkpoint separate from unchanged native HEAD/index.",
+    "effects": [
+      "After direct remote parity for checkpoint containing this grant and frozen controls, verify22proof members,35native members and all consumed tools/recovery/source/fixture/dependency/native/prior-proof pins before executing helpers. Native196 inputs use exact existing native_inputs is_file+digest semantics; strict non-symlink source/control pins remain.",
+      "Fill existing PROOF_LAUNCH.template.json at fresh rawRoot/PROOF_LAUNCH_02.json with exact Root acceptance pin, pushed checkpoint, proofSelectionSha256 and all unchanged native/recovery joins. Preserve every01/native04 evidence file; fresh preflight/driver/Operator Return coordinates use02.",
+      "Invoke exact frozen prove.py once through pinned Python3.11 -B, original native LAUNCH and separate proof02 grant. One fresh normal build and six declared test selections only; zero providers. No old build credit.",
+      "Use unchanged owned-command/process-group/capture/topology/custody mechanisms. Retain actual start/deadline and each result. First failure stops advancement; no in-run repair/retry.",
+      "Preserve complete source/control/input/built-output conservation and actual physical absence. Raw captures remain external. Return bounded outcome, never qualification.",
+      "After execution closes, freeze compact authored Return in separate fresh records worktree/branch and return to Root before any candidate/witness work; no source/main edits or push."
+    ],
+    "limits": {
+      "proofMaximumMs": 5400000,
+      "perBuildMs": 600000,
+      "originalEnclosingDeadlineUtc": "2026-11-16T01:47:31.946547Z",
+      "originalExecutionStopUtc": "2026-11-16T01:44:31.946547Z",
+      "cleanupReserveMs": 180000,
+      "proofEnd": "Minimum of original proof01 deadline, original enclosing deadline and current requested90minutes. Reserve remains180000ms; no clock reset.",
+      "providerCalls": 0,
+      "builds": 1,
+      "testCommands": 6,
+      "testFiles": 5,
+      "topLevelObligations": 43,
+      "semanticPartition": "Exact positive1+9 disjoint union10",
+      "automaticRetries": 0,
+      "originalProofDeadlineUtc": "2026-11-16T01:15:36.678788Z",
+      "proofExecutionStopUtc": "2026-11-16T01:12:36.678788Z"
+    },
+    "stops": [
+      "First unsupported scope/dependency, identity/custody/topology mismatch, failed build/test/capture or actual bound stops advancement and returns exact original evidence.",
+      "No test/source/runner repair, timeout extension, failure reclassification or unselected population inside this execution grant.",
+      "Successful proof returns to Root before candidate rebuild/installed witnesses; no qualification claim."
+    ],
+    "returnTo": "Root actual proof conjunction or first-failure multi-frame triage."
+  },
+  "proofAuthorized": true,
+  "newNativeAuthorized": false,
+  "candidateBuildAuthorized": false,
+  "nativeAuthorshipCompliant": false,
+  "preservedResiduals": [
+    "M04-01",
+    "M04-02",
+    "M04-03"
+  ],
+  "qualification": false,
+  "rawPublished": false,
+  "executionStarted": false,
+  "previousAttempt": {
+    "disposition": "stopped_first_failure",
+    "returnCommit": "5633fe0b94367510c9c93051beceb39f0896c98a",
+    "buildPassedMs": 25188,
+    "testSelections": 0,
+    "retainedBuildCredit": false,
+    "record": "integration-01/B56_PROOF01_DISPOSITION_AND_CONTROL02_SELECTION.json"
+  }
+}
